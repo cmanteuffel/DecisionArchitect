@@ -62,6 +62,28 @@ namespace DecisionViewpoints
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="repository"></param>
+        /// <param name="guid"></param>
+        /// <param name="ot"></param>
+        public void EA_OnNotifyContextItemModified(Repository repository, string guid, ObjectType ot)
+        {
+            _eventHandler.OnNotifyContextItemModified(repository, guid, ot);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="repository"></param>
+        /// <param name="guid"></param>
+        /// <param name="ot"></param>
+        public void EA_OnContextItemChanged(Repository repository, string guid, ObjectType ot)
+        {
+            _eventHandler.OnContextItemChanged(repository, guid, ot);
+        }
+
+        /// <summary>
         /// Handled by the EventHandler.
         /// </summary>
         public void EA_Disconnect() 
