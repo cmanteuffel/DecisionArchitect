@@ -1,7 +1,7 @@
 ﻿using System;
 using EA;
 
-namespace TSDAD
+namespace DecisionViewpoints
 {
     /// <summary>
     /// This is the main entry point of the add-in.

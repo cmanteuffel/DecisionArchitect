@@ -2,7 +2,7 @@
 using EA;
 using System.Windows.Forms;
 
-namespace TSDAD
+namespace DecisionViewpoints
 {
     /// <summary>
     /// This class is responsible for handling all the EA events delegated
