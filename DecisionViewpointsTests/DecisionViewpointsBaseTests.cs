@@ -9,18 +9,37 @@ namespace DecisionViewpointsTests
     public class DecisionViewpointsBaseTests
     {
         //all .eap files should be one location - path to be added later
-        private const string EapTestProjectName = "\\EATestFiles\\DecisionViewUnitTestsProject.eap";
+        private const string UnitTestEmty = "\\EATestFiles\\UntiTestEmpty.eap";
+        private const string UnitTestBasicStructure = "\\EATestFiles\\UntiTestBasicStructure.eap";
+        private const string UnitTestRelationships = "\\EATestFiles\\UntiTestRelationships.eap";
 
         public MainApplication MainApp { get; private set; }
 
         public Repository Repo { get; private set; }
 
-        public void OpenRepositoryFile()
+        public enum RepositoryType
+        {
+            Empty, BasicStructure, Relationships
+        }
+
+        public void OpenRepositoryFile(RepositoryType rt)
         {
             var directoryInfo = Directory.GetParent(Directory.GetCurrentDirectory()).Parent;
             if (directoryInfo == null) return;
             var projectDirectory = directoryInfo.FullName;
-            var filename = projectDirectory + EapTestProjectName;
+            var filename = "";
+            switch (rt)
+            {
+                case RepositoryType.Empty:
+                    filename = projectDirectory + UnitTestEmty;
+                    break;
+                case RepositoryType.BasicStructure:
+                    filename = projectDirectory + UnitTestBasicStructure;
+                    break;
+                case RepositoryType.Relationships:
+                    filename = projectDirectory + UnitTestRelationships;
+                    break;
+            } 
             Repo.OpenFile(filename);
         }
 
@@ -29,12 +48,21 @@ namespace DecisionViewpointsTests
             Repo.CloseFile();
         }
 
-        public void ClearRepository()
+        public void ResetRepository(RepositoryType rt)
         {
-            Package root = Repo.Models.GetAt(0);
-            for (short packageIndex = (short) (root.Packages.Count - 1); packageIndex != -1; packageIndex--)
+            switch (rt)
             {
-                root.Packages.Delete(packageIndex);
+                case RepositoryType.Empty:
+                    Package root = Repo.Models.GetAt(0);
+                    for (short packageIndex = (short) (root.Packages.Count - 1); packageIndex != -1; packageIndex--)
+                    {
+                        root.Packages.Delete(packageIndex);
+                    }
+                    break;
+                case RepositoryType.BasicStructure:
+                    break;
+                case RepositoryType.Relationships:
+                    break;
             }
         }
 

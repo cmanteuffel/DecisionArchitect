@@ -33,7 +33,7 @@ namespace DecisionViewpointsTests
         [TestMethod]
         public void GetMenuState_FileOpen_ReturnTrue()
         {
-            OpenRepositoryFile();
+            OpenRepositoryFile(RepositoryType.Empty);
             var isEnabled = false;
             var isChecked = false;
             MainApp.EA_GetMenuState(Repo, "TreeView", "-&Decision Viewpoints", "&Create Project Structure",
@@ -45,13 +45,13 @@ namespace DecisionViewpointsTests
         [TestMethod]
         public void MenuClick_CreateProjectStructure_ExpectedStructureCreated()
         {
-            OpenRepositoryFile();
-            ClearRepository();
+            OpenRepositoryFile(RepositoryType.Empty);
+            ResetRepository(RepositoryType.Empty);
             MainApp.EA_MenuClick(Repo, "TreeView", "-&Decision Viewpoints", "&Create Project Structure");
             Package root = Repo.Models.GetAt(0);
             Package view = root.Packages.GetAt(0);
             Diagram diagram = view.Diagrams.GetAt(0);
-            ClearRepository();
+            ResetRepository(RepositoryType.Empty);
             CloseRepositoryFile();
             Assert.AreEqual("Decision Relationship View", view.Name);
             Assert.AreEqual("Diagram1", diagram.Name);
