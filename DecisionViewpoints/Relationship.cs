@@ -54,6 +54,13 @@ namespace DecisionViewpoints
             return !clientState.Value.Equals("idea") && !supplierState.Value.Equals("idea");
         }
 
-        private string s = Enum.GetName(typeof (Property), Property.ClientId);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public bool CheckIfDifferentDecisions()
+        {            
+            return _clientid.Equals(_supplierid);
+        }
     }
 }
