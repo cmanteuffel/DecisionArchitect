@@ -205,5 +205,10 @@ namespace DecisionViewpoints.Model
         {
             return EAElement.Wrap(_native.Elements.AddNew(name, type));
         }
+
+        public IEnumerable<EAElement> GetAllDecisions()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
