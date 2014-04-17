@@ -173,6 +173,33 @@ namespace DecisionViewpointsTests
             CloseRepositoryFile();
         }
 
+        [TestMethod]
+        public void OnPreNewConnector_AlternativeFor_RelationshipIsNotCreated()
+        {
+            OpenRepositoryFile(RepositoryType.Relationships);
+            ResetRepository(RepositoryType.Relationships);
+            // Any Decision to decision with state Idea
+            foreach (var s in Stereotypes.States)
+            {
+                Assert.IsFalse(ValidateConnector(s, Stereotypes.StateIdea, Stereotypes.RelationAlternativeFor),
+                    AssertionFailedMessage(s, States.Idea, Stereotypes.RelationAlternativeFor));
+            }
+            // Decision with state Idea to Any Decision
+            foreach (var s in Stereotypes.States)
+            {
+                Assert.IsFalse(ValidateConnector(States.Idea, s, Stereotypes.RelationAlternativeFor),
+                    AssertionFailedMessage(States.Idea, s, Stereotypes.RelationAlternativeFor));
+            }
+            // Any decision to decision with state Discarded
+            foreach (var s in Stereotypes.States.Where(s => s != Stereotypes.StateIdea && s != Stereotypes.StateDiscarded))
+            {
+                Assert.IsFalse(ValidateConnector(s, Stereotypes.StateDiscarded, Stereotypes.RelationAlternativeFor),
+                              AssertionFailedMessage(s, Stereotypes.StateDiscarded, Stereotypes.RelationAlternativeFor));
+            }
+            ResetRepository(RepositoryType.Relationships);
+            CloseRepositoryFile();
+        }
+
         private bool ValidateConnector(string supplierState, string clientState, string relationshipStereotype)
         {
             Package root = Repo.Models.GetAt(0);
