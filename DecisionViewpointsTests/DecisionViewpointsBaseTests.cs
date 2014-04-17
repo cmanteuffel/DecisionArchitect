@@ -56,25 +56,35 @@ namespace DecisionViewpointsTests
             {
                 case RepositoryType.Empty:
                     root = Repo.Models.GetAt(0);
-                    for (var packageIndex = (short) (root.Packages.Count - 1); packageIndex != -1; packageIndex--)
-                    {
-                        root.Packages.Delete(packageIndex);
-                    }
+                    ResetEmptyRepository(root);
                     break;
                 case RepositoryType.BasicStructure:
                     break;
                 case RepositoryType.Relationships:
                     root = Repo.Models.GetAt(0);
-                    Package view = root.Packages.GetAt(0);
-                    for (var elemIndex = (short)(view.Elements.Count - 1); elemIndex != -1; elemIndex--)
-                    {
-                        Element e = view.Elements.GetAt(elemIndex);
-                        for (var conIndex = (short) (e.Connectors.Count - 1); conIndex != -1; conIndex --)
-                        {
-                            e.Connectors.Delete(conIndex);
-                        }
-                    }
+                    ResetRelationshipRepository(root);
                     break;
+            }
+        }
+
+        private static void ResetEmptyRepository(IDualPackage root)
+        {
+            for (var packageIndex = (short)(root.Packages.Count - 1); packageIndex != -1; packageIndex--)
+            {
+                root.Packages.Delete(packageIndex);
+            }
+        }
+
+        private static void ResetRelationshipRepository(IDualPackage root)
+        {
+            Package view = root.Packages.GetAt(0);
+            for (var elemIndex = (short)(view.Elements.Count - 1); elemIndex != -1; elemIndex--)
+            {
+                Element e = view.Elements.GetAt(elemIndex);
+                for (var conIndex = (short)(e.Connectors.Count - 1); conIndex != -1; conIndex--)
+                {
+                    e.Connectors.Delete(conIndex);
+                }
             }
         }
 
