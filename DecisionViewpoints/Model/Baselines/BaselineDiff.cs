@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Xml;
 using EA;
@@ -73,7 +74,7 @@ namespace DecisionViewpoints.Model.Baselines
                         if (compareItem.Attributes == null) continue;
                         var diffItem = GetDiffItem(compareItem);
 
-                        GetProperties(compareItem.SelectSingleNode("./Properties"), diffItem);
+                        diffItem.Properties = GetProperties(compareItem.SelectSingleNode("./Properties"));
 
                         foreach (
                             var childCompareItem in
@@ -83,7 +84,7 @@ namespace DecisionViewpoints.Model.Baselines
                             if (childCompareItem.Attributes == null) continue;
                             var childDiffItem = GetDiffItem(childCompareItem);
 
-                            GetProperties(childCompareItem.SelectSingleNode("./Properties"), childDiffItem);
+                            childDiffItem.Properties = GetProperties(childCompareItem.SelectSingleNode("./Properties"));
 
                             diffItem.DiffItems.Add(childDiffItem);
                         }
@@ -96,11 +97,13 @@ namespace DecisionViewpoints.Model.Baselines
             return baselineDiff;
         }
 
-        private static void GetProperties(XmlNode properties, DiffItem diffItem)
+        private static ICollection<DiffProperty> GetProperties(XmlNode propertiesNode)
         {
-            if (properties != null)
-                foreach (XmlNode diffItemProperty in properties.ChildNodes)
-                    diffItem.Properties.Add(GetDiffProperty(diffItemProperty));
+            var properties = new Collection<DiffProperty>();
+            if (propertiesNode != null)
+                foreach (XmlNode diffItemProperty in propertiesNode.ChildNodes)
+                    properties.Add(GetDiffProperty(diffItemProperty));
+            return properties;
         }
 
         private static DiffItem GetDiffItem(XmlNode compareItem)
