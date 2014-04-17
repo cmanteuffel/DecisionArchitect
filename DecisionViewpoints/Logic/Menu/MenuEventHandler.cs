@@ -1,5 +1,6 @@
 ﻿using System.Windows.Forms;
 using DecisionViewpoints.Model;
+using DecisionViewpoints.Model.Baselines;
 using DecisionViewpoints.Properties;
 
 namespace DecisionViewpoints.Logic.Menu
@@ -49,7 +50,7 @@ namespace DecisionViewpoints.Logic.Menu
                 {
                     ClickDelegate = () =>
                         {
-                            Settings.Default.BaselineOptionOnModification=
+                            Settings.Default.BaselineOptionOnModification =
                                 ! Settings.Default.BaselineOptionOnModification;
                             Settings.Default.Save();
                         },
@@ -67,7 +68,8 @@ namespace DecisionViewpoints.Logic.Menu
             RootMenu.Add(MenuItem.Separator);
             RootMenu.Add(createTraces);
             createTraces.Add(createAndTraceDecision);
-            createTraces.Add(new MenuItem(Messages.MenuTraceToExistingElement, (delegate { MessageBox.Show("To be implemented"); })));
+            createTraces.Add(new MenuItem(Messages.MenuTraceToExistingElement,
+                                          (delegate { MessageBox.Show("To be implemented"); })));
             RootMenu.Add(new FollowTraceMenu());
             RootMenu.Add(MenuItem.Separator);
             RootMenu.Add(baselinesOptions);
@@ -120,7 +122,8 @@ namespace DecisionViewpoints.Logic.Menu
             EAPackage decisionViewpoints = rep.CreateView("Decision Views", 0);
             rep.CreateDiagram(decisionViewpoints, "Relationship", Settings.Default.RelationshipDiagramMetaType);
             rep.CreateDiagram(decisionViewpoints, "Chronological", Settings.Default.ChronologicalDiagramMetaType);
-            rep.CreateDiagram(decisionViewpoints, "Stakeholder Involvement", Settings.Default.StakeholderInvolvementDiagramMetaType);
+            rep.CreateDiagram(decisionViewpoints, "Stakeholder Involvement",
+                              Settings.Default.StakeholderInvolvementDiagramMetaType);
         }
 
 
@@ -149,18 +152,16 @@ namespace DecisionViewpoints.Logic.Menu
                         repository.RefreshModelView(dvPackage.ID);
                         decision.ShowInProjectView();
                     }
-                    }
                 }
+            }
         }
 
         private static void CreateBaseline()
         {
-
         }
 
         private static void Generate()
         {
-            
         }
     }
 }

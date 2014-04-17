@@ -44,6 +44,9 @@ namespace DecisionViewpoints.Model.Baselines
         ///     </ComparePackage>
         /// </EA.CompareLog>
         /// 
+        /// We stop adding CompareItems and navigating further bottom to the tree,
+        /// when we encounter those of type=Link.
+        /// 
         /// </summary>
         /// <param name="package">The package that its baselines are used in comparison.</param>
         /// <param name="baseline">The baseline that is compared with hte current model of the package.</param>
@@ -55,7 +58,6 @@ namespace DecisionViewpoints.Model.Baselines
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(xml);
 
-            // We stop adding CompareItems in Links
             var compareResults = xmlDocument.SelectSingleNode("//CompareResults");
             var diffItems = new List<DiffItem>();
             if (compareResults != null)
