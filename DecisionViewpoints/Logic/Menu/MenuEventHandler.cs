@@ -120,11 +120,11 @@ namespace DecisionViewpoints.Logic.Menu
         private static void CreateProjectStructure()
         {
             var rep = EARepository.Instance;
-            EAPackage decisionViewpoints = rep.CreateView("Decision Views", 0);
-            rep.CreateDiagram(decisionViewpoints, "Relationship", Settings.Default.RelationshipDiagramMetaType);
-            rep.CreateDiagram(decisionViewpoints, "Chronological", Settings.Default.ChronologicalDiagramMetaType);
-            rep.CreateDiagram(decisionViewpoints, "Stakeholder Involvement",
-                              Settings.Default.StakeholderInvolvementDiagramMetaType);
+            var decisionViewpoints = rep.CreateView("Decision Views", 0);
+            decisionViewpoints.CreateDiagram("Relationship", Settings.Default.RelationshipDiagramMetaType);
+            decisionViewpoints.CreateDiagram("Chronological", Settings.Default.ChronologicalDiagramMetaType);
+            decisionViewpoints.CreateDiagram("Stakeholder Involvement",
+                                             Settings.Default.StakeholderInvolvementDiagramMetaType);
         }
 
 
@@ -153,8 +153,8 @@ namespace DecisionViewpoints.Logic.Menu
                         repository.RefreshModelView(dvPackage.ID);
                         decision.ShowInProjectView();
                     }
-                    }
                 }
+            }
         }
 
         private static void CreateBaseline()
@@ -173,9 +173,9 @@ namespace DecisionViewpoints.Logic.Menu
                 historyPackage = viewPackage.CreatePackage("Data", "generated");
             }
 
-            ChronologicalViewpointGenerator generator = new ChronologicalViewpointGenerator(viewPackage, historyPackage,chronologicalView);
+            ChronologicalViewpointGenerator generator = new ChronologicalViewpointGenerator(viewPackage, historyPackage,
+                                                                                            chronologicalView);
             generator.GenerateViewpoint();
-
         }
     }
 }

@@ -143,12 +143,13 @@ namespace DecisionViewpoints.Model
         }
 
         [Obsolete]
-        public Diagram CreateDiagram(IDualRepository repository, string name, string type)
+        public Diagram CreateDiagram(string name, string type)
         {
+            var repository = EARepository.Instance;
             Diagram d = _native.Diagrams.AddNew(name, type);
             d.Update();
             _native.Diagrams.Refresh();
-            repository.RefreshModelView(_native.PackageID);
+            repository.Native.RefreshModelView(_native.PackageID);
             return d;
         }
 
