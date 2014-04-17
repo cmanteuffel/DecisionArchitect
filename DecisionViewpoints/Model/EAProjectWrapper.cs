@@ -35,8 +35,7 @@ namespace DecisionViewpoints.Model
             return _comparisonResults;
         }
 
-        //TODO: FIX NAN ISSUE
-        public string GetBaselineLatestVesrion(IDualRepository repository, EAPackage package)
+        public string GetBaselineLatestVesrion(EAPackage package)
         {
             var xmlBaselines = _project.GetBaselines(GetPackageXml(package), "");
             var xml = new XmlDocument();
@@ -46,8 +45,9 @@ namespace DecisionViewpoints.Model
             if (xmlNodeList != null)
                 foreach (XmlNode version in xmlNodeList)
                 {
-                    var v = Convert.ToDouble(version.Value);
-                    if (v > lv) lv = v;
+                    Double v;
+                    if (Double.TryParse(version.Value, out v))
+                        if (v > lv) lv = v;
                 }
             return (lv+0.1).ToString(CultureInfo.InvariantCulture);
         }

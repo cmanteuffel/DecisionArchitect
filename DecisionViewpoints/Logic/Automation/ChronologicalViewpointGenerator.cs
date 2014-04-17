@@ -4,13 +4,14 @@ using System.Linq;
 using System.Windows.Forms;
 using DecisionViewpoints.Model;
 using DecisionViewpoints.Model.Baselines;
+using DecisionViewpoints.Properties;
 using EA;
 
 namespace DecisionViewpoints.Logic.Automation
 {
     internal class ChronologicalViewpointGenerator
     {
-        private const string BaselineIdentifier = "Decision History";
+        //private const string BaselineIdentifier = "Decision History";
 
         private readonly EADiagram _chronologicalViewpoint;
         private readonly EAPackage _viewPackage;
@@ -47,7 +48,7 @@ namespace DecisionViewpoints.Logic.Automation
         private IEnumerable<DecisionDiffItem> GetHistory()
         {
             IEnumerable<Baseline> baselines =
-                _viewPackage.GetBaselines().Where(baseline => baseline.Notes.Equals(BaselineIdentifier));
+                _viewPackage.GetBaselines().Where(baseline => baseline.Notes.Equals(Settings.Default.BaselineIdentifier));
             
             //TODO: Identify our decisions by tagged values and not metatype and it needs to be recursive (depth search for decisions in groups etc)
             IDictionary<string, DecisionDiffItem> nomodificationFilter = new Dictionary<string, DecisionDiffItem>();           

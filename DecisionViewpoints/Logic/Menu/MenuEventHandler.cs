@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using DecisionViewpoints.Logic.Automation;
 using DecisionViewpoints.Model;
 using DecisionViewpoints.Model.Baselines;
@@ -159,6 +160,12 @@ namespace DecisionViewpoints.Logic.Menu
 
         private static void CreateBaseline()
         {
+            var project = EARepository.Instance.GetProject();
+            var rep = EARepository.Instance;
+            var notes = String.Format("Decision History");
+            var dvp = rep.GetPackageFromRootByName("Decision Views");
+            var bv = project.GetBaselineLatestVesrion(dvp);
+            project.CreateBaseline(dvp.GUID, bv, notes);
         }
 
         private static void Generate()

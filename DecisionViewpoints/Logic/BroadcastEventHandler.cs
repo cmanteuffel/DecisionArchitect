@@ -116,9 +116,9 @@ namespace DecisionViewpoints.Logic
                         {
                             var project = EARepository.Instance.GetProject();
                             var rep =  EARepository.Instance;
-                            var notes = String.Format("Baseline Time: {0}", DateTime.Now);
+                            var notes = String.Format(Settings.Default.BaselineIdentifier);
                             var dvp = rep.GetPackageFromRootByName("Decision Views");
-                            var bv = project.GetBaselineLatestVesrion(repository, dvp);
+                            var bv = project.GetBaselineLatestVesrion(dvp);
                             project.CreateBaseline(dvp.GUID, bv, notes);
                         }
                     break;
@@ -156,9 +156,9 @@ namespace DecisionViewpoints.Logic
             if (!_modified) return;
             var project = EARepository.Instance.GetProject();
             var rep =  EARepository.Instance;
-            var notes = String.Format("Baseline Time: {0}", DateTime.Now);
+            var notes = String.Format(Settings.Default.BaselineIdentifier);
             var dvp = rep.GetPackageFromRootByName("Decision Views");
-            var bv = project.GetBaselineLatestVesrion(repository, dvp);
+            var bv = project.GetBaselineLatestVesrion(dvp);
             project.CreateBaseline(dvp.GUID, bv, notes);
         }
     }

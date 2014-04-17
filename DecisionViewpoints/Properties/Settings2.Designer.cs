@@ -94,5 +94,17 @@ namespace DecisionViewpoints.Properties {
                 this["BaselineOptionManually"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Decision History")]
+        public string BaselineIdentifier {
+            get {
+                return ((string)(this["BaselineIdentifier"]));
+            }
+            set {
+                this["BaselineIdentifier"] = value;
+            }
+        }
     }
 }
