@@ -13,7 +13,7 @@ namespace DecisionViewpoints
         // define menu constants
         private const string MenuHeader = "-&DecisionVS";
         private const string MenuCreateProjectStructure = "Create Decision &Views";
-        private const string MenuCreateDecisionGroup = "Create Decision &Group";
+        // private const string MenuCreateDecisionGroup = "Create Decision &Group";
         private const string Con = "connected";
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace DecisionViewpoints
                 case "":
                     return MenuHeader;
                 case MenuHeader:
-                    string[] subMenus = {MenuCreateProjectStructure, MenuCreateDecisionGroup};
+                    string[] subMenus = {MenuCreateProjectStructure};
                     return subMenus;
             }
             return "";
@@ -65,9 +65,9 @@ namespace DecisionViewpoints
                     case MenuCreateProjectStructure:
                         isEnabled = true;
                         break;
-                    case MenuCreateDecisionGroup:
+                    /*case MenuCreateDecisionGroup:
                         isEnabled = true;
-                        break;
+                        break;*/
                     default:
                         isEnabled = false;
                         break;
@@ -94,9 +94,9 @@ namespace DecisionViewpoints
                 case MenuCreateProjectStructure:
                     CreateDecisionViews(repository);
                     break;
-                case MenuCreateDecisionGroup:
+                /*case MenuCreateDecisionGroup:
                     CreateDecisionGroup(repository);
-                    break;
+                    break;*/
             }
         }
 
@@ -118,6 +118,10 @@ namespace DecisionViewpoints
             }
         }
 
+        /// <summary>
+        /// Creates the project structure with the five views and one initial diagram foreach view.
+        /// </summary>
+        /// <param name="repository">The EA repository.</param>
         private static void CreateDecisionViews(IDualRepository repository)
         {
             // Create new Decision Relationship View
@@ -131,9 +135,10 @@ namespace DecisionViewpoints
             diagram.Update();
             view.Diagrams.Refresh();
             repository.RefreshModelView(view.PackageID);
+            // TODO: Still to implement the creation of the other four views and the related diagrams.
         }
 
-        private static void CreateDecisionGroup(IDualRepository repository)
+        /*private static void CreateDecisionGroup(IDualRepository repository)
         {
             // Create a new Decision Group
             Package root = repository.Models.GetAt(0);
@@ -146,7 +151,7 @@ namespace DecisionViewpoints
             diagram.Update();
             group.Packages.Refresh();
             repository.RefreshModelView(group.PackageID);
-        }
+        }*/
 
         /// <summary>
         /// EA calls this operation when it exists. It is used to

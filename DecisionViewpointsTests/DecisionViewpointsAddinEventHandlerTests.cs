@@ -21,10 +21,9 @@ namespace DecisionViewpointsTests
         {
             var mainApp = new MainApplication();
             var repository = new Repository();
-            string[] subMenus = {"Create Decision &Views", "Create Decision &Group"};
+            string[] subMenus = {"Create Decision &Views"};
             var retrievedSubMenus = (string[])mainApp.EA_GetMenuItems(repository, "TreeView", "-&DecisionVS");
             Assert.AreEqual(subMenus[0], retrievedSubMenus[0]);
-            Assert.AreEqual(subMenus[1], retrievedSubMenus[1]);
         }
 
         [TestMethod]
@@ -32,7 +31,7 @@ namespace DecisionViewpointsTests
         {
             var mainApp = new MainApplication();
             var repository = new Repository();
-            var filename =
+            const string filename =
                 "F:\\DecisionViewpoints\\ViewpointsAddIn\\src\\DecisionViewpointsTests\\DecisionViewUnitTestsProject.eap";
             Assert.IsTrue(repository.OpenFile(filename));
             mainApp.EA_MenuClick(repository, "TreeView", "-&DecisionVS", "Create Decision &Views");
@@ -42,9 +41,9 @@ namespace DecisionViewpointsTests
             Diagram diagram = view.Diagrams.GetAt(0);
             Assert.AreEqual("Decision Relationship View", diagram.Name);
             // Delete whatever we added so the file is clean and close the file.
-            foreach (Package p in root.Packages)
+            for (var packageIndex = (short)(root.Packages.Count - 1); packageIndex != -1; packageIndex--)
             {
-                root.Packages.DeleteAt(0, true);   
+                root.Packages.Delete(packageIndex);
             }
             repository.CloseFile();
         }
