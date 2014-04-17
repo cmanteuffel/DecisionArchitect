@@ -9,9 +9,9 @@ namespace DecisionViewpoints
     {
         // These values need to be consistent with the ones defined in the DecisionVS MDG file.
         private const string RelStereotype = "Relationship";
-        private const string DecisionStereotype = "ArchitectureDecision";
-        private const string DiagramMetaType = "DecisionVS::RelationshipView";
-        private const string ToolboxName = "DecisionVS";
+        private static readonly string DecisionStereotype = Properties.Settings.Default["DecisionStereotype"].ToString();
+        private static readonly string DiagramMetaType = Properties.Settings.Default["DiagramMetaType"].ToString();
+        private static readonly string ToolboxName = Properties.Settings.Default["ToolboxName"].ToString();
 
         // TODO: it is recommended not to hold state information, to be discussed (name uniqueness)
         private static string _preModifyDecisionName;
@@ -64,7 +64,7 @@ namespace DecisionViewpoints
         {
             // Activate the Decision toolbox when user opens for the first time a Relationship View diagram.
             var diagram = repository.GetDiagramByID(diagramId);
-            return diagram.MetaType.Equals(DiagramMetaType) && repository.ActivateToolbox(ToolboxName, 0);
+            return repository.ActivateToolbox(ToolboxName, 0) && diagram.MetaType.Equals(DiagramMetaType);
         }
 
         /// <summary>
@@ -75,21 +75,19 @@ namespace DecisionViewpoints
         /// <param name="ot">The object type of the element whose context modified.</param>
         public static void OnNotifyContextItemModified(Repository repository, string guid, ObjectType ot)
         {
-            switch (ot.ToString())
+            switch (ot)
             {
-                case "otElement":
+                case ObjectType.otElement:
                     var element = repository.GetElementByGuid(guid);
-                    switch (element.Stereotype)
+                    if (element.Stereotype.Equals(DecisionStereotype))
                     {
-                        case DecisionStereotype:
-                            // TODO: it is recommended not to hold state information, to be discussed (name uniqueness)
-                            // Check if the Decision name already exists. If it exists print message and change
-                            // the name to the pre modify one.
-                            // DecisionContextChanged(repository, element);
-                            break;
+                        // TODO: it is recommended not to hold state information, to be discussed (name uniqueness)
+                        // Check if the Decision name already exists. If it exists print message and change
+                        // the name to the pre modify one.
+                        // DecisionContextChanged(repository, element);
                     }
                     break;
-                case "otConnector":
+                case ObjectType.otConnector:
                     var connector = repository.GetConnectorByGuid(guid);
                     switch (connector.Stereotype)
                     {
@@ -113,10 +111,14 @@ namespace DecisionViewpoints
             // Save the name of the selected element, which is going to be used in OnNotifyContextItemModified.
             // If the user changes the name of the selected element and the decision name already
             // exists, we will replace it with this pre modify name.
-            if (!ot.ToString().Equals("otElement")) return;
-            var element = repository.GetElementByGuid(guid);
-            if (!element.Stereotype.Equals(DecisionStereotype)) return;
-            _preModifyDecisionName = element.Name;
+            switch (ot)
+            {
+                case ObjectType.otElement:
+                    var element = repository.GetElementByGuid(guid);
+                    if (!element.Stereotype.Equals(DecisionStereotype)) return;
+                    _preModifyDecisionName = element.Name;
+                    break;
+            }
         }
 
         private static void DecisionContextChanged(IDualRepository repository, IDualElement element)
@@ -144,6 +146,8 @@ namespace DecisionViewpoints
 
         public static bool OnPostNewPackage(Repository repository, EventProperties info)
         {
+            // Here we can create a Decision Group directly into the diagram of the newly created
+            // Decision Group Package. It is an action that the users will most often repeat.
             return false;
         }
     }

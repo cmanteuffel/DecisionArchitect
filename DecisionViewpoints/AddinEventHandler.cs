@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Forms;
 using EA;
 
 namespace DecisionViewpoints
@@ -11,8 +10,8 @@ namespace DecisionViewpoints
     public static class AddinEventHandler
     {
         // define menu constants
-        private const string MenuHeader = "-&DecisionVS";
-        private const string MenuCreateProjectStructure = "Create Decision &Views";
+        private const string MenuHeader = "-&Decision Viewpoints";
+        private const string MenuCreateProjectStructure = "&Create Project Structure";
         // private const string MenuCreateDecisionGroup = "Create Decision &Group";
         private const string Con = "connected";
 

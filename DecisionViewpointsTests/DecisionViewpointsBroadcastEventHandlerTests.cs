@@ -11,7 +11,7 @@ namespace DecisionViewpointsTests
         {
             OpenRepositoryFile();
             ClearRepository();
-            MainApp.EA_MenuClick(Repo, "TreeView", "-&DecisionVS", "Create Decision &Views");
+            MainApp.EA_MenuClick(Repo, "TreeView", "-&Decision Viewpoints", "&Create Project Structure");
             Package root = Repo.Models.GetAt(0);
             Package view = root.Packages.GetAt(0);
             Diagram diagram = view.Diagrams.GetAt(0);
