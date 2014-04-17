@@ -44,8 +44,6 @@ namespace DecisionViewpoints.Model
             get { return _clientId; }
         }
 
-
-
         public int SupplierId
         {
             get { return _supplierId; }
@@ -85,7 +83,6 @@ namespace DecisionViewpoints.Model
                                           connector.Type, connector.Subtype, connector);
         }
 
-
         public Element GetSupplier()
         {
             return _repository.GetElementByID(_supplierId);
@@ -101,5 +98,7 @@ namespace DecisionViewpoints.Model
             return GetClient().GetStereotypeList() + " " + _stereotype + " " + GetSupplier().GetStereotypeList() + " - " +
                    "\n";
         }
+
+
     }
 }

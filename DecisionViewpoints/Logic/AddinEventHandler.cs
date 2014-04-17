@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml;
 using DecisionViewpoints.Logic.AutoGeneration;
@@ -17,9 +18,10 @@ namespace DecisionViewpoints.Logic
         public const string MenuCreateProjectStructure = "&Create Project Structure";
         public const string MenuTestBaselines = "Test &Baselines";
         public const string MenuGenerateChronological = "Generate CVP";
-        public const string MenuTracing = "&Tracing";
+        public const string Separator = "-";
+        public const string MenuTracingFollowTraces = "-&Follow trace(s) to ...";
 
-        private static double _baselineVersion = 0.0;
+        private static double _baselineVersion;
 
         private static readonly string RelationshipDiagramMetaType =
             Settings.Default["RelationshipDiagramMetaType"].ToString();
@@ -30,6 +32,12 @@ namespace DecisionViewpoints.Logic
         private static readonly string StakeholderInvolvementDiagramMetaType =
             Settings.Default["StakeholderInvolvementDiagramMetaType"].ToString();
 
+
+        private static readonly Regex traceMenuRegex = new Regex(@"[1-9][0-9]*:");
+
+        private static readonly Dictionary<string, EAElementWrapper> _traceMenuContext =
+            new Dictionary<string, EAElementWrapper>();
+
         public static object GetMenuItems(Repository repository, string location, string menuName)
         {
             switch (menuName)
@@ -37,10 +45,40 @@ namespace DecisionViewpoints.Logic
                 case "":
                     return MenuHeader;
                 case MenuHeader:
-                    string[] subMenus = {MenuCreateProjectStructure, MenuTestBaselines, MenuGenerateChronological};
-                    return subMenus;
+                    return new[]
+                        {
+                            MenuCreateProjectStructure, MenuTestBaselines, MenuGenerateChronological, Separator,
+                            MenuTracingFollowTraces
+                        };
+                case MenuTracingFollowTraces:
+                    return CreateTraceSubmenu(repository);
             }
             return "";
+        }
+
+        public static void GetMenuState(Repository repository, string location, string menuName, string itemName,
+                                        ref bool isEnabled,
+                                        ref bool isChecked)
+        {
+            if (IsProjectOpen(repository))
+            {
+                switch (itemName)
+                {
+                    case MenuCreateProjectStructure:
+                    case MenuTestBaselines:
+                    case MenuGenerateChronological:
+                        isEnabled = true;
+                        break;
+                    default:
+                        isEnabled = (traceMenuRegex.IsMatch(itemName));
+                        break;
+                }
+            }
+            else
+            {
+                // If no open project, disable all menu options
+                isEnabled = false;
+            }
         }
 
         public static void MenuClick(Repository repository, string location, string menuName, string itemName)
@@ -51,28 +89,93 @@ namespace DecisionViewpoints.Logic
                     CreateProjectStructure(repository);
                     break;
                 case MenuTestBaselines:
-                    //TestBaselines(repository);
                     CreateBaselines(repository);
                     break;
                 case MenuGenerateChronological:
                     GenerateView(repository);
                     break;
-                    /*case MenuCreateDecisionGroup:
-                CreateDecisionGroup(repository);
-                break;*/
+                default:
+                    if (menuName.Equals(MenuTracingFollowTraces) && traceMenuRegex.IsMatch(itemName))
+                    {
+                        EAElementWrapper element = _traceMenuContext[itemName];
+                        Diagram[] diagrams = element.GetDiagrams();
+                        if (diagrams.Count() == 1)
+                        {
+                            Diagram d = diagrams[0];
+                            var diagram = new EADiagramWrapper(d);
+                            diagram.OpenAndSelectElement(repository, element.Element);
+                            
+                        }
+                        else if (diagrams.Count() >= 2)
+                        {
+                            var selectForm = new SelectDiagram(diagrams);
+                            if (selectForm.ShowDialog() == DialogResult.OK)
+                            {
+                                Diagram d = selectForm.GetSelectedDiagram();
+                                var diagram = new EADiagramWrapper(d);
+                                diagram.OpenAndSelectElement(repository,element.Element);
+                            }
+                        }
+                        repository.ShowInProjectView(element.Element);
+                        
+                    }
+                    break;
             }
         }
+
+
+        private static string[] CreateTraceSubmenu(Repository repository)
+        {
+            _traceMenuContext.Clear();
+            if (ObjectType.otElement == repository.GetContextItemType())
+            {
+                dynamic obj = repository.GetContextObject();
+                var eaelement = obj as Element;
+                if (eaelement != null)
+                {
+                    EAElementWrapper element = EAElementWrapper.Wrap(repository, eaelement);
+
+                    int i = 0;
+                    foreach (EAElementWrapper tracedElement in element.GetTracedElements())
+                    {
+                        string menuItem = ++i + ": " + tracedElement.Element.Name;
+                        _traceMenuContext[menuItem] = tracedElement;
+                    }
+                    return _traceMenuContext.Keys.ToArray();
+                }
+            }
+            return new string[0];
+        }
+
 
         private static void GenerateView(Repository repository)
         {
             var project = new EAProjectWrapper(repository);
             Package root = repository.Models.GetAt(0);
-            var dv = new EAPackageWrapper(root.Packages.GetByName("Decision Views")); // Decision Views package
-            var hp = new EAPackageWrapper(dv.CreatePackage(repository, "Generated Data")); // history package
-            var cd = new EADiagramWrapper(dv.GetDiagram("Chronological")); // chronological diagram
-            var baselines = project.ReadPackageBaselines(repository, dv);
-            project.ComparePackageBaselines(repository, dv, baselines);
-            var chronologicalViewGenarator = new ChronologicalGenerator(repository, project, dv, hp, cd);
+            var rvp = new EAPackageWrapper(root.Packages.GetByName("Relationship")); // relationship package
+            var cvp = new EAPackageWrapper(root.Packages.GetByName("Chronological")); // chronological package
+            try
+            {
+                cvp.DeletePackage(0, false);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No previous history.");
+            }
+            try
+            {
+                cvp.DeleteDiagram(0, false);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No previous diagram.");
+                throw;
+            }
+            var hp = new EAPackageWrapper(cvp.CreatePackage(repository, "history")); // history package
+            var cd = new EADiagramWrapper(cvp.CreateDiagram(repository, "Diagram1", "Custom")); // chronological diagram
+            var baselines = project.ReadPackageBaselines(repository, rvp);
+            project.ComparePackageBaselines(repository, rvp, baselines);
+            var chronologicalViewGenarator = new ChronologicalGenerator(repository, project, rvp, hp, cd);
             chronologicalViewGenarator.Generate();
             //project.Get().LayoutDiagramEx(cd.Get().DiagramGUID, ConstLayoutStyles.lsLayoutDirectionRight, 4, 20, 20, true);
         }
@@ -93,84 +196,6 @@ namespace DecisionViewpoints.Logic
             }
             project.CreateBaseline(rep.GetPackageFromRootByName("Relationship").PackageGUID,
                                    _baselineVersion.ToString(CultureInfo.InvariantCulture), "");
-        }
-
-        private static void TestBaselines(Repository repository)
-        {
-            Project project = repository.GetProjectInterface();
-            foreach (Package m in repository.Models)
-            {
-                string xmlGuid = project.GUIDtoXML(m.PackageGUID);
-                string xmlBaselines = project.GetBaselines(xmlGuid, "");
-                var xml = new XmlDocument();
-                xml.LoadXml(xmlBaselines);
-
-                XmlNodeList baselines = xml.SelectNodes("//@guid");
-                foreach (XmlNode baseline in baselines)
-                {
-                    string xmlCompare = project.DoBaselineCompare(xmlGuid, baseline.Value, "");
-
-
-                    var compare = new XmlDocument();
-                    compare.LoadXml(xmlCompare);
-                    MessageBox.Show(xmlCompare);
-
-                    foreach (XmlNode compareItem in compare.SelectNodes("//CompareItem[@status='Changed']"))
-                    {
-                        var builder = new StringBuilder(compareItem.Attributes["name"].Value);
-                        builder.Append(Environment.NewLine);
-                        builder.Append(compareItem.Attributes["guid"].Value);
-                        builder.Append(Environment.NewLine);
-                        builder.Append(compareItem.ChildNodes.Count);
-                        builder.Append(Environment.NewLine);
-
-                        foreach (XmlNode property in compareItem.FirstChild.ChildNodes)
-                        {
-                            if (property.Attributes["status"].Value == "Changed")
-                            {
-                                foreach (XmlAttribute attribute in property.Attributes)
-                                {
-                                    builder.Append(attribute.Name);
-                                    builder.Append(" ");
-                                    builder.Append(attribute.Value);
-                                    builder.Append(Environment.NewLine);
-                                }
-                                builder.Append(Environment.NewLine);
-                            }
-                        }
-
-                        MessageBox.Show(builder.ToString());
-                    }
-                }
-            }
-        }
-
-        public static void GetMenuState(Repository repository, string location, string menuName, string itemName,
-                                        ref bool isEnabled,
-                                        ref bool isChecked)
-        {
-            if (IsProjectOpen(repository))
-            {
-                switch (itemName)
-                {
-                    case MenuCreateProjectStructure:
-                    case MenuTestBaselines:
-                    case MenuGenerateChronological:
-                        isEnabled = true;
-                        break;
-                        /*case MenuCreateDecisionGroup:
-                    isEnabled = true;
-                    break;*/
-                    default:
-                        isEnabled = false;
-                        break;
-                }
-            }
-            else
-            {
-                // If no open project, disable all menu options
-                isEnabled = false;
-            }
         }
 
 
@@ -206,7 +231,7 @@ namespace DecisionViewpoints.Logic
         private static void CreateProjectStructure(Repository repository)
         {
             var rep = new EARepositoryWrapper(repository);
-            var decisionViewpoints = rep.CreateView("Decision Views", 0);
+            Package decisionViewpoints = rep.CreateView("Decision Views", 0);
             rep.CreateDiagram(decisionViewpoints, "Relationship", RelationshipDiagramMetaType);
             rep.CreateDiagram(decisionViewpoints, "Chronological", ChronologicalDiagramMetaType);
             rep.CreateDiagram(decisionViewpoints, "Stakeholder Involvement", StakeholderInvolvementDiagramMetaType);

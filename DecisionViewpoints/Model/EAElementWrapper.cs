@@ -1,14 +1,27 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Xml;
 using EA;
 
 namespace DecisionViewpoints.Model
 {
     public class EAElementWrapper : IEAWrapper
     {
-        private readonly Repository _repository;
-        private readonly string _type;
-        private readonly int _parentID;
-        private readonly string _stereotype;
         private readonly Element _element;
+        private readonly int _parentID;
+        private readonly Repository _repository;
+        private readonly string _stereotype;
+        private readonly string _type;
+
+        private EAElementWrapper(Repository repository, int parentId, string stereotype, string type,
+                                 Element element = null)
+        {
+            _repository = repository;
+            _parentID = parentId;
+            _stereotype = stereotype;
+            _type = type;
+            _element = element;
+        }
 
         public Repository Repository
         {
@@ -33,15 +46,6 @@ namespace DecisionViewpoints.Model
         public Element Element
         {
             get { return _element; }
-        }
-
-        private EAElementWrapper(Repository repository, int parentId, string stereotype, string type, Element element = null)
-        {
-            _repository = repository;
-            _parentID = parentId;
-            _stereotype = stereotype;
-            _type = type;
-            _element = element;
         }
 
         public static EAElementWrapper Wrap(Repository repository, EventProperties properties)
@@ -69,10 +73,54 @@ namespace DecisionViewpoints.Model
             return Wrap(repository, element);
         }
 
-         public Element GetParent()
+        public Element GetParent()
         {
             return _repository.GetElementByID(_parentID);
         }
-   
+
+        public EAElementWrapper[] GetTracedElements()
+        {
+            if (_element == null)
+            {
+                return new EAElementWrapper[0];
+            }
+
+            IList<EAConnectorWrapper> connectors = new List<EAConnectorWrapper>();
+            foreach (Connector c in _element.Connectors)
+            {
+                connectors.Add(EAConnectorWrapper.Wrap(_repository, c.ConnectorGUID));
+            }
+
+            IEnumerable<EAElementWrapper> traces = from EAConnectorWrapper trace in connectors
+                                                   where trace.Stereotype.Equals("trace")
+                                                   select (trace.SupplierId == _element.ElementID
+                                                               ? Wrap(_repository, trace.GetClient())
+                                                               : Wrap(_repository, trace.GetSupplier())
+                                                          );
+            return traces.ToArray();
+        }
+
+        public Diagram[] GetDiagrams()
+        {
+            string sql =
+                "Select t_diagramobjects.Diagram_ID FROM t_diagramobjects WHERE t_diagramobjects.Object_ID = " +
+                Element.ElementID + ";";
+
+            var document = new XmlDocument();
+            document.LoadXml(_repository.SQLQuery(sql));
+            XmlNodeList diagramIDs = document.GetElementsByTagName(@"Diagram_ID");
+
+            var diagrams = new List<Diagram>();
+            foreach (XmlNode diagramID in diagramIDs)
+            {
+                int id = Utilities.ParseToInt32(diagramID.InnerText, -1);
+                if (id != -1)
+                {
+                    diagrams.Add(_repository.GetDiagramByID(id));
+                }
+            }
+
+            return diagrams.ToArray();
+        }
     }
 }

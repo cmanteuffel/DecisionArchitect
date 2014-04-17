@@ -34,5 +34,17 @@ namespace DecisionViewpoints.Model
             repository.ReloadDiagram(_diagram.PackageID);
             repository.SaveDiagram(_diagram.DiagramID);
         }
+
+        public void OpenAndSelectElement(Repository repository, IDualElement element)
+        {
+            repository.OpenDiagram(_diagram.DiagramID);
+
+            for (short i = 0; i < _diagram.SelectedObjects.Count; i++)
+            {
+                _diagram.SelectedObjects.Delete(i);
+            }
+            _diagram.SelectedObjects.AddNew(element.ElementID.ToString(), element.Type);
+            repository.ActivateDiagram(_diagram.DiagramID);
+        }
     }
 }
