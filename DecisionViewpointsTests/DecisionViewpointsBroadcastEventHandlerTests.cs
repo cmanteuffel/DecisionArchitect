@@ -22,7 +22,7 @@ namespace DecisionViewpointsTests
         }
 
         [TestMethod]
-        public void OnPreNewConnector_ValidateInvalidRelationship_RelationshipIsNotCreated()
+        public void OnPreNewConnector_DecisionToIdea_RelationshipIsNotCreated()
         {
             OpenRepositoryFile(RepositoryType.Relationships);
             ResetRepository(RepositoryType.Relationships);
