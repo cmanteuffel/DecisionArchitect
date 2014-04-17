@@ -92,7 +92,7 @@ namespace DecisionViewpoints
             switch (itemName)
             {
                 case MenuCreateProjectStructure:
-                    CreateDecisionViews(repository);
+                    CreateProjectStructure(repository);
                     break;
                 /*case MenuCreateDecisionGroup:
                     CreateDecisionGroup(repository);
@@ -119,10 +119,10 @@ namespace DecisionViewpoints
         }
 
         /// <summary>
-        /// Creates the project structure with the five views and one initial diagram foreach view.
+        /// Creates the project structure with the five views and one initial diagram for each view.
         /// </summary>
         /// <param name="repository">The EA repository.</param>
-        private static void CreateDecisionViews(IDualRepository repository)
+        private static void CreateProjectStructure(IDualRepository repository)
         {
             // Create new Decision Relationship View
             Package root = repository.Models.GetAt(0);
