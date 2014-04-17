@@ -22,7 +22,7 @@ namespace DecisionViewpoints
         /// <returns>Returns a constant string 'connected'</returns>
         public static string Connect()
         {
-            return Connected; // return connected
+            return Connected;
         }
 
         /// <summary>
