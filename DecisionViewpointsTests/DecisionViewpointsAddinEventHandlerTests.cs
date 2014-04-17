@@ -53,7 +53,7 @@ namespace DecisionViewpointsTests
             Diagram diagram = view.Diagrams.GetAt(0);
             ClearRepository();
             CloseRepositoryFile();
-            Assert.AreEqual("Decision Relationship Viewpoint", view.Name);
+            Assert.AreEqual("Decision Relationship View", view.Name);
             Assert.AreEqual("Diagram1", diagram.Name);
         }
     }
