@@ -15,8 +15,9 @@ namespace DecisionViewpoints.Logic
     {
         public const string MenuHeader = "-&Decision Viewpoints";
         public const string MenuCreateProjectStructure = "&Create Project Structure";
-        public const string MenuTestBaselines = "&Test Baselines";
+        public const string MenuTestBaselines = "Test &Baselines";
         public const string MenuGenerateChronological = "Generate CVP";
+        public const string MenuTracing = "&Tracing";
 
         private static double _baselineVersion = 0.0;
 
