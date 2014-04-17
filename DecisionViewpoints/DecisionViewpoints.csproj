@@ -49,23 +49,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddinEventHandler.cs" />
-    <Compile Include="BroadcastEventHandler.cs" />
+    <Compile Include="Logic\AddinEventHandler.cs" />
+    <Compile Include="Logic\BroadcastEventHandler.cs" />
+    <Compile Include="Logic\Rules\CompositeRule.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Messages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
-    <Compile Include="Model\Rules\CompositeRule.cs" />
+    <Compile Include="Model\Events\EAEventAdapter.cs" />
+    <Compile Include="Model\Events\IEAAddInEvents.cs" />
+    <Compile Include="Model\Events\IEABroadcastEvents.cs" />
     <Compile Include="Model\EAEventPropertyKeys.cs" />
-    <Compile Include="Model\Rules\ExclusionRule.cs" />
-    <Compile Include="Model\Rules\ICompositeRule.cs" />
+    <Compile Include="Logic\Rules\ExclusionRule.cs" />
+    <Compile Include="Logic\Rules\ICompositeRule.cs" />
     <Compile Include="Model\EAConnectorWrapper.cs" />
-    <Compile Include="Model\Rules\ConnectorRule.cs" />
-    <Compile Include="Model\Rules\IConnectorRule.cs" />
-    <Compile Include="Model\Rules\NoLoopRule.cs" />
-    <Compile Include="Model\Rules\Validator.cs" />
+    <Compile Include="Logic\Rules\ConnectorRule.cs" />
+    <Compile Include="Logic\Rules\IConnectorRule.cs" />
+    <Compile Include="Logic\Rules\NoLoopRule.cs" />
+    <Compile Include="Logic\Rules\Validator.cs" />
     <Compile Include="Model\DVStereotypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -73,7 +76,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Relationship.cs" />
     <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -88,6 +90,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\Rules\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

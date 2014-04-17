@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DecisionViewpoints.Model;
+using DecisionViewpoints.Model.Rules;
 
-namespace DecisionViewpoints.Model.Rules
+namespace DecisionViewpoints.Logic.Rules
 {
     public sealed class Validator : IConnectorRule
     {
-        private static readonly Validator instance = new Validator();
+        private static readonly Validator Singleton = new Validator();
         private readonly ICompositeRule _connectorRules = new CompositeRule();
 
         private Validator()
@@ -19,13 +16,14 @@ namespace DecisionViewpoints.Model.Rules
 
         public static Validator Instance
         {
-            get { return instance; }
+            get { return Singleton; }
         }
 
         public bool ValidateConnector(EAConnectorWrapper connectorWrapper, out string message)
         {
             message = "";
-            return !DVStereotypes.Relationships.Contains(connectorWrapper.Stereotype) || _connectorRules.ValidateConnector(connectorWrapper, out message);
+            return !DVStereotypes.Relationships.Contains(connectorWrapper.Stereotype) ||
+                   _connectorRules.ValidateConnector(connectorWrapper, out message);
         }
 
         private void CreateConnectorRules()
@@ -44,13 +42,15 @@ namespace DecisionViewpoints.Model.Rules
                                                        Messages.CausedByNotPointTo);
             var dependsOnOnlyPointTo = new ExclusionRule(ConnectorRule.Any,
                                                          new[] {DVStereotypes.RelationDependsOn},
-                                                         new[] {DVStereotypes.StateDiscarded, DVStereotypes.StateRejected},
+                                                         new[]
+                                                             {DVStereotypes.StateDiscarded, DVStereotypes.StateRejected},
                                                          Messages.DependsOnOnlyPointTo);
             var excludedByNotPointTo = new ExclusionRule(ConnectorRule.Any,
                                                          new[] {DVStereotypes.RelationExcludedBy},
                                                          new[]
                                                              {
-                                                                 DVStereotypes.StateTentative, DVStereotypes.StateDiscarded,
+                                                                 DVStereotypes.StateTentative,
+                                                                 DVStereotypes.StateDiscarded,
                                                                  DVStereotypes.StateRejected
                                                              },
                                                          Messages.ExcludedByNotPointTo);
@@ -63,8 +63,10 @@ namespace DecisionViewpoints.Model.Rules
                                                         new[] {DVStereotypes.RelationReplaces},
                                                         new[]
                                                             {
-                                                                DVStereotypes.StateApproved, DVStereotypes.StateChallenged,
-                                                                DVStereotypes.StateDecided, DVStereotypes.StateDiscarded,
+                                                                DVStereotypes.StateApproved,
+                                                                DVStereotypes.StateChallenged,
+                                                                DVStereotypes.StateDecided, DVStereotypes.StateDiscarded
+                                                                ,
                                                                 DVStereotypes.StateTentative
                                                             },
                                                         Messages.ReplacesOnlyPointTo);

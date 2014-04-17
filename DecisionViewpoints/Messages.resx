@@ -118,33 +118,39 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="NotOriginateFromIdea" xml:space="preserve">
-    <value>No origin from state idea</value>
+    <value>Relationships cannot originate from idea decisions.</value>
   </data>
   <data name="NotPointToIdea" xml:space="preserve">
-    <value>No point to state idea</value>
+    <value>Relationships cannot point to idea decisions.</value>
   </data>
   <data name="CausedByNotPointTo" xml:space="preserve">
-    <value>Caused by not point to discarded</value>
+    <value>Caused by-relationships cannot point to discarded decisions.</value>
   </data>
   <data name="DependsOnOnlyPointTo" xml:space="preserve">
-    <value>Depends on only point to tentative, discarded, approved, challenged</value>
+    <value>Depends on-relationships can only point to tentative, decided, approved or challenged decisions.</value>
   </data>
   <data name="ExcludedByNotPointTo" xml:space="preserve">
-    <value>Excluded by not point to tentative, discarded, rejected</value>
+    <value>Excluded by-relationships cannot point to idea, tentative, discarded or rejected decisions.</value>
   </data>
   <data name="ExcludedOnlyOriginateFrom" xml:space="preserve">
-    <value>Excluded only originate from tentative, discarded, rejected</value>
+    <value>Excluded by-relationships can only originate from idea, tentative, discarded or rejected decisions.</value>
   </data>
   <data name="ReplacesOnlyPointTo" xml:space="preserve">
-    <value>Replaces only point to rejected</value>
+    <value>Replaces-relationships can only point to rejected decisions.</value>
   </data>
   <data name="AlternativeForNotPointTo" xml:space="preserve">
-    <value>Alternative for not point to discarded</value>
+    <value>Alternative for-relationships cannot point to discarded decisions.</value>
   </data>
   <data name="AlternativeForOnlyOriginateFrom" xml:space="preserve">
-    <value>Alternative for only originate from tentative, discarded</value>
+    <value>Alternative for-relationships can only originate from tentative or discarded decisions.</value>
   </data>
   <data name="NoLoops" xml:space="preserve">
     <value>A decision is not allowed to have a relation with itself</value>
+  </data>
+  <data name="ConfirmCreateRelation" xml:space="preserve">
+    <value>Do you still want to create this relationship?</value>
+  </data>
+  <data name="WarningCreateRelation" xml:space="preserve">
+    <value>Warning</value>
   </data>
 </root>

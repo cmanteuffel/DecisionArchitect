@@ -1,26 +1,28 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
+using DecisionViewpoints.Logic.Rules;
 using DecisionViewpoints.Model;
-using DecisionViewpoints.Model.Rules;
+using DecisionViewpoints.Properties;
 using EA;
 
-namespace DecisionViewpoints
+namespace DecisionViewpoints.Logic
 {
     public static class BroadcastEventHandler
     {
         // These values need to be consistent with the ones defined in the DecisionVS MDG file.
         private const string RelStereotype = "Relationship";
-        private static readonly string DecisionStereotype = Properties.Settings.Default["DecisionStereotype"].ToString();
-        private static readonly string DiagramMetaType = Properties.Settings.Default["DiagramMetaType"].ToString();
-        private static readonly string ToolboxName = Properties.Settings.Default["ToolboxName"].ToString();
+        private static readonly string DecisionStereotype = Settings.Default["DecisionStereotype"].ToString();
+        private static readonly string DiagramMetaType = Settings.Default["DiagramMetaType"].ToString();
+        private static readonly string ToolboxName = Settings.Default["ToolboxName"].ToString();
 
         // TODO: it is recommended not to hold state information, to be discussed (name uniqueness)
         private static string _preModifyDecisionName;
+        private static string _preModifyRelationshipStereotype;
 
         /// <summary>
-        /// Called before a new element is created. It can be used to deny the creation
-        /// of the new element.
+        ///     Called before a new element is created. It can be used to deny the creation
+        ///     of the new element.
         /// </summary>
         /// <param name="repository">The EA repository.</param>
         /// <param name="info">Contains properties of the element to be created.</param>
@@ -31,8 +33,8 @@ namespace DecisionViewpoints
         }
 
         /// <summary>
-        /// Called before a new connector is created. It can be used to deny the creation
-        /// of the new connector.
+        ///     Called before a new connector is created. It can be used to deny the creation
+        ///     of the new connector.
         /// </summary>
         /// <param name="repository">The EA repository.</param>
         /// <param name="info">Contains properties of the connector to be created.</param>
@@ -43,14 +45,24 @@ namespace DecisionViewpoints
             string message;
             if (!Validator.Instance.ValidateConnector(connectorWrapper, out message))
             {
-                MessageBox.Show(message);
-                return false;
+                DialogResult answer =
+                    MessageBox.Show(
+                        message + Environment.NewLine + Environment.NewLine + Messages.ConfirmCreateRelation,
+                        Messages.WarningCreateRelation,
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Exclamation,
+                        MessageBoxDefaultButton.Button1);
+
+                if (answer == DialogResult.No)
+                {
+                    return false;
+                }
             }
             return true;
         }
 
         /// <summary>
-        /// Called after a diagram has been opended for the first time.
+        ///     Called after a diagram has been opended for the first time.
         /// </summary>
         /// <param name="repository">The EA repository.</param>
         /// <param name="diagramId">The ID of the diagram that has been opened.</param>
@@ -58,13 +70,13 @@ namespace DecisionViewpoints
         public static string OnPostOpenDiagram(Repository repository, int diagramId)
         {
             // Activate the Decision toolbox when user opens for the first time a Relationship View diagram.
-            var diagram = repository.GetDiagramByID(diagramId);
+            Diagram diagram = repository.GetDiagramByID(diagramId);
             if (!diagram.MetaType.Equals(DiagramMetaType)) return "";
             return repository.ActivateToolbox(ToolboxName, 0) ? ToolboxName : "";
         }
 
         /// <summary>
-        /// Called when the user modifies the context of any element in the EA user interface.
+        ///     Called when the user modifies the context of any element in the EA user interface.
         /// </summary>
         /// <param name="repository">The EA repository.</param>
         /// <param name="guid">The guid of the element whose context modified.</param>
@@ -74,7 +86,7 @@ namespace DecisionViewpoints
             switch (ot)
             {
                 case ObjectType.otElement:
-                    var element = repository.GetElementByGuid(guid);
+                    Element element = repository.GetElementByGuid(guid);
                     if (element.Stereotype.Equals(DecisionStereotype))
                     {
                         // TODO: it is recommended not to hold state information, to be discussed (name uniqueness)
@@ -84,14 +96,41 @@ namespace DecisionViewpoints
                     }
                     break;
                 case ObjectType.otConnector:
-                    var connector = repository.GetConnectorByGuid(guid);
                     EAConnectorWrapper connectorWrapper = EAConnectorWrapper.Wrap(repository, guid);
+                    string message;
+                    if (!Validator.Instance.ValidateConnector(connectorWrapper, out message))
+                    {
+                        DialogResult answer =
+                            MessageBox.Show(
+                                message + Environment.NewLine + Environment.NewLine + Messages.ConfirmCreateRelation,
+                                Messages.WarningCreateRelation,
+                                MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Exclamation,
+                                MessageBoxDefaultButton.Button1);
+
+                        if (answer == DialogResult.No)
+                        {
+                            connectorWrapper.Connector.Stereotype = _preModifyRelationshipStereotype;
+                        }
+                        else
+                        {
+                            _preModifyRelationshipStereotype = connectorWrapper.Connector.Stereotype;
+                        }
+                    }
                     break;
             }
         }
 
+
+        public static bool OnPostNewPackage(Repository repository, EventProperties info)
+        {
+            // Here we can create a Decision Group directly into the diagram of the newly created
+            // Decision Group Package. It is an action that the users will most often repeat.
+            return false;
+        }
+
         /// <summary>
-        /// Called when user selects a new element anywhere in the EA user interface.
+        ///     Called when user selects a new element anywhere in the EA user interface.
         /// </summary>
         /// <param name="repository">The EA repostiory.</param>
         /// <param name="guid">The guid of the selected element.</param>
@@ -105,20 +144,25 @@ namespace DecisionViewpoints
             switch (ot)
             {
                 case ObjectType.otElement:
-                    var element = repository.GetElementByGuid(guid);
+                    Element element = repository.GetElementByGuid(guid);
                     if (!element.Stereotype.Equals(DecisionStereotype)) return;
                     _preModifyDecisionName = element.Name;
+                    break;
+                case ObjectType.otConnector:
+                    EAConnectorWrapper connector = EAConnectorWrapper.Wrap(repository, guid);
+                    _preModifyRelationshipStereotype = connector.Connector.Stereotype;
                     break;
             }
         }
 
+
         private static void DecisionContextChanged(IDualRepository repository, IDualElement element)
         {
-            foreach (var e in from Element e in repository.GetElementSet(null, 0)
-                              where e.Stereotype.Equals(DecisionStereotype)
-                              where !e.ElementGUID.Equals(element.ElementGUID)
-                              where element.Name.Equals(e.Name)
-                              select e)
+            foreach (Element e in from Element e in repository.GetElementSet(null, 0)
+                                  where e.Stereotype.Equals(DecisionStereotype)
+                                  where !e.ElementGUID.Equals(element.ElementGUID)
+                                  where element.Name.Equals(e.Name)
+                                  select e)
             {
                 MessageBox.Show(String.Format("The name {0} already exists. Please pick a different name.", e.Name),
                                 "Invalid decision name");
@@ -133,13 +177,6 @@ namespace DecisionViewpoints
             // var rel = new Relationship(connector);
             // TaggedValue taggedValue = connector.TaggedValues.GetByName("type");
             // MessageBox.Show(taggedValue.Name);
-        }
-
-        public static bool OnPostNewPackage(Repository repository, EventProperties info)
-        {
-            // Here we can create a Decision Group directly into the diagram of the newly created
-            // Decision Group Package. It is an action that the users will most often repeat.
-            return false;
         }
     }
 }

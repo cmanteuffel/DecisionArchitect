@@ -1,6 +1,6 @@
-using DecisionViewpoints.Model.Rules;
+using DecisionViewpoints.Model;
 
-namespace DecisionViewpoints.Model.Rules
+namespace DecisionViewpoints.Logic.Rules
 {
     internal class NoLoopRule : ConnectorRule
     {

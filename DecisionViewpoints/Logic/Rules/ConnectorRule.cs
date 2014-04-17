@@ -1,4 +1,6 @@
-namespace DecisionViewpoints.Model.Rules
+using DecisionViewpoints.Model;
+
+namespace DecisionViewpoints.Logic.Rules
 {
     internal abstract class ConnectorRule : IConnectorRule
     {

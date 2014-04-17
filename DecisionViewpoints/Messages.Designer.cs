@@ -61,7 +61,7 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alternative for not point to discarded.
+        ///   Looks up a localized string similar to Alternative for-relationships cannot point to discarded decisions..
         /// </summary>
         internal static string AlternativeForNotPointTo {
             get {
@@ -70,7 +70,7 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alternative for only originate from tentative, discarded.
+        ///   Looks up a localized string similar to Alternative for-relationships can only originate from tentative or discarded decisions..
         /// </summary>
         internal static string AlternativeForOnlyOriginateFrom {
             get {
@@ -79,7 +79,7 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Caused by not point to discarded.
+        ///   Looks up a localized string similar to Caused by-relationships cannot point to discarded decisions..
         /// </summary>
         internal static string CausedByNotPointTo {
             get {
@@ -88,7 +88,16 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Depends on only point to tentative, discarded, approved, challenged.
+        ///   Looks up a localized string similar to Do you still want to create this relationship?.
+        /// </summary>
+        internal static string ConfirmCreateRelation {
+            get {
+                return ResourceManager.GetString("ConfirmCreateRelation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Depends on-relationships can only point to tentative, decided, approved or challenged decisions..
         /// </summary>
         internal static string DependsOnOnlyPointTo {
             get {
@@ -97,7 +106,7 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Excluded by not point to tentative, discarded, rejected.
+        ///   Looks up a localized string similar to Excluded by-relationships cannot point to idea, tentative, discarded or rejected decisions..
         /// </summary>
         internal static string ExcludedByNotPointTo {
             get {
@@ -106,7 +115,7 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Excluded only originate from tentative, discarded, rejected.
+        ///   Looks up a localized string similar to Excluded by-relationships can only originate from idea, tentative, discarded or rejected decisions..
         /// </summary>
         internal static string ExcludedOnlyOriginateFrom {
             get {
@@ -124,7 +133,7 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No origin from state idea.
+        ///   Looks up a localized string similar to Relationships cannot originate from idea decisions..
         /// </summary>
         internal static string NotOriginateFromIdea {
             get {
@@ -133,7 +142,7 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No point to state idea.
+        ///   Looks up a localized string similar to Relationships cannot point to idea decisions..
         /// </summary>
         internal static string NotPointToIdea {
             get {
@@ -142,11 +151,20 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Replaces only point to rejected.
+        ///   Looks up a localized string similar to Replaces-relationships can only point to rejected decisions..
         /// </summary>
         internal static string ReplacesOnlyPointTo {
             get {
                 return ResourceManager.GetString("ReplacesOnlyPointTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        internal static string WarningCreateRelation {
+            get {
+                return ResourceManager.GetString("WarningCreateRelation", resourceCulture);
             }
         }
     }

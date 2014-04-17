@@ -1,6 +1,4 @@
-using DecisionViewpoints.Model.Rules;
-
-namespace DecisionViewpoints.Model.Rules
+namespace DecisionViewpoints.Logic.Rules
 {
     internal interface ICompositeRule : IConnectorRule
     {

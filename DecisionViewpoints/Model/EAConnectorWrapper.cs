@@ -1,12 +1,11 @@
-using System.Globalization;
-using System.Windows.Forms;
 using EA;
 
 namespace DecisionViewpoints.Model
 {
-    public  class EAConnectorWrapper
+    public class EAConnectorWrapper
     {
         private readonly int _clientId;
+        private readonly Connector _connector;
         private readonly int _diagramId;
         private readonly Repository _repository;
         private readonly string _stereotype;
@@ -14,16 +13,18 @@ namespace DecisionViewpoints.Model
         private readonly int _supplierId;
         private readonly string _type;
 
-        private EAConnectorWrapper(Repository repository, EventProperties properties)
+        private EAConnectorWrapper(Repository repository, int clientId, int supplierId, string stereotype, string type,
+                                   string subtype,
+                                   int diagramId, Connector connector = null)
         {
             _repository = repository;
-            _type = properties.Get(EAEventPropertyKeys.Type).Value;
-            _subtype = properties.Get(EAEventPropertyKeys.Subtype).Value;
-            _stereotype = properties.Get(EAEventPropertyKeys.Stereotype).Value;
-
-            _supplierId = Utilities.ParseToInt32(properties.Get(EAEventPropertyKeys.SupplierId).Value, -1);
-            _clientId = Utilities.ParseToInt32(properties.Get(EAEventPropertyKeys.ClientId).Value, -1);
-            _diagramId = Utilities.ParseToInt32(properties.Get(EAEventPropertyKeys.DiagramId).Value, -1);
+            _clientId = clientId;
+            _diagramId = diagramId;
+            _stereotype = stereotype;
+            _subtype = subtype;
+            _supplierId = supplierId;
+            _type = type;
+            _connector = connector;
         }
 
         public string Subtype
@@ -56,20 +57,27 @@ namespace DecisionViewpoints.Model
             get { return _supplierId; }
         }
 
+        public Connector Connector
+        {
+            get { return _connector; }
+        }
+
         public static EAConnectorWrapper Wrap(Repository repository, EventProperties properties)
         {
-            return new EAConnectorWrapper(repository, properties);
+            dynamic type = properties.Get(EAEventPropertyKeys.Type).Value;
+            dynamic subtype = properties.Get(EAEventPropertyKeys.Subtype).Value;
+            dynamic stereotype = properties.Get(EAEventPropertyKeys.Stereotype).Value;
+            dynamic supplierId = Utilities.ParseToInt32(properties.Get(EAEventPropertyKeys.SupplierId).Value, -1);
+            dynamic clientId = Utilities.ParseToInt32(properties.Get(EAEventPropertyKeys.ClientId).Value, -1);
+            dynamic diagramId = Utilities.ParseToInt32(properties.Get(EAEventPropertyKeys.DiagramId).Value, -1);
+            return new EAConnectorWrapper(repository, clientId, supplierId, stereotype, type, subtype, diagramId);
         }
 
         public static EAConnectorWrapper Wrap(Repository repository, string guid)
         {
-            Element element = repository.GetElementByGuid(guid);
-            if (element is Connector)
-            {
-                var eaConnector = (Connector) element;
-                MessageBox.Show("Converted element to connector");
-            }
-            return null;
+            Connector connector = repository.GetConnectorByGuid(guid);
+            return new EAConnectorWrapper(repository, connector.ClientID, connector.SupplierID, connector.Stereotype,
+                                          connector.Type, connector.Subtype, connector.DiagramID, connector);
         }
 
         public Diagram GetDiagram()
@@ -89,7 +97,8 @@ namespace DecisionViewpoints.Model
 
         public override string ToString()
         {
-            return  GetClient().GetStereotypeList() + " " + _stereotype + " " + GetSupplier().GetStereotypeList() + " - " + "\n";
+            return GetClient().GetStereotypeList() + " " + _stereotype + " " + GetSupplier().GetStereotypeList() + " - " +
+                   "\n";
         }
     }
 }
