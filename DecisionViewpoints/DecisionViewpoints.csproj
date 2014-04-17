@@ -59,6 +59,8 @@
     <Compile Include="Logic\Rules\RuleType.cs" />
     <Compile Include="Logic\AutoGeneration\ChronologicalGenerator.cs" />
     <Compile Include="Logic\AutoGeneration\IAutoGenerator.cs" />
+    <Compile Include="Model\EABaselineWrapper.cs" />
+    <Compile Include="Model\EADiagramWrapper.cs" />
     <Compile Include="Model\EAElementWrapper.cs" />
     <Compile Include="Logic\Rules\AbstractRule.cs" />
     <Compile Include="MainApplication.cs" />
@@ -67,6 +69,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Model\EAPackageWrapper.cs" />
+    <Compile Include="Model\EAProjectWrapper.cs" />
     <Compile Include="Model\IEAWrapper.cs" />
     <Compile Include="Model\Events\EAEventAdapter.cs" />
     <Compile Include="Model\Events\IEAAddInEvents.cs" />

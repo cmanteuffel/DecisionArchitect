@@ -15,7 +15,9 @@ namespace DecisionViewpoints.Logic
         // These values need to be consistent with the ones defined in the DecisionVS MDG file.
         private const string RelStereotype = "Relationship";
         private static readonly string DecisionMetaType = Settings.Default["DecisionMetaType"].ToString();
-        private static readonly string DiagramMetaType = Settings.Default["DiagramMetaType"].ToString();
+        private static readonly string RelationshipDiagramMetaType = Settings.Default["RelationshipDiagramMetaType"].ToString();
+        private static readonly string ChronologicalDiagramMetaType = Settings.Default["ChronologicalDiagramMetaType"].ToString();
+        private static readonly string StakeholderInvolvementDiagramMetaType = Settings.Default["StakeholderInvolvementDiagramMetaType"].ToString();
         private static readonly string ToolboxName = Settings.Default["ToolboxName"].ToString();
         private static string lastGUID = string.Empty;
         private static DateTime lastChange = DateTime.MinValue;
@@ -64,7 +66,7 @@ namespace DecisionViewpoints.Logic
                 }
                 _preventConnectorModifiedEvent = true;
             }
-            
+
             return true;
         }
 
@@ -72,7 +74,9 @@ namespace DecisionViewpoints.Logic
         public static string OnPostOpenDiagram(Repository repository, int diagramId)
         {
             var diagram = repository.GetDiagramByID(diagramId);
-            if (!diagram.MetaType.Equals(DiagramMetaType)) return "";
+            if (!diagram.MetaType.Equals(RelationshipDiagramMetaType) &&
+                !diagram.MetaType.Equals(ChronologicalDiagramMetaType) && 
+                !diagram.MetaType.Equals(StakeholderInvolvementDiagramMetaType)) return "";
             return repository.ActivateToolbox(ToolboxName, 0) ? ToolboxName : "";
         }
 
@@ -106,11 +110,15 @@ namespace DecisionViewpoints.Logic
                     lastChange = element.Element.Modified;
 
                     // Update the ChronologicalGenerator View to reflect changes
-                    if (element.Element.MetaType.Equals(DecisionMetaType))
+                    /*if (element.Element.MetaType.Equals(DecisionMetaType))
                     {
-                        var chronologicalGenerator = new ChronologicalGenerator(repository);
+                        var package = repository.Models.GetAt(0).Packages.GetByName("Decision Chronological View");
+                        var packageWrapper = new EAPackageWrapper(package);
+                        var diagramWrapper = new EADiagramWrapper(package.Diagrams.GetAt(0));
+                        var chronologicalGenerator = new ChronologicalGenerator(repository, packageWrapper,
+                                                                                diagramWrapper);
                         chronologicalGenerator.Update(element);
-                    }
+                    }*/
                     break;
                 case ObjectType.otConnector:
                     var connectorWrapper = EAConnectorWrapper.Wrap(repository, guid);
