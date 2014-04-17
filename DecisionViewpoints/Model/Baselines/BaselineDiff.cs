@@ -59,7 +59,7 @@ namespace DecisionViewpoints.Model.Baselines
             xmlDocument.LoadXml(xml);
 
             var compareResults = xmlDocument.SelectSingleNode("//CompareResults");
-            var diffItems = new List<DiffItem>();
+            var baselineDiffItems = new List<DiffItem>();
             if (compareResults != null)
             {
                 if (compareResults.Attributes != null)
@@ -87,10 +87,10 @@ namespace DecisionViewpoints.Model.Baselines
                             diffItem.DiffItems.Add(childDiffItem);
                         }
 
-                        diffItems.Add(diffItem);
+                        baselineDiffItems.Add(diffItem);
                     }
             }
-            baselineDiff.DiffItems = diffItems;
+            baselineDiff.DiffItems = baselineDiffItems;
 
             return baselineDiff;
         }
