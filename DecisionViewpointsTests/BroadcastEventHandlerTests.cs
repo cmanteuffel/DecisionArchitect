@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Linq;
 using DecisionViewpoints.Logic.Rules;
 using DecisionViewpoints.Model;
+using DecisionViewpointsTests.Model;
 using EA;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -341,7 +342,7 @@ namespace DecisionViewpointsTests
             supplier.Connectors.Refresh();
             client.Connectors.Refresh();
             // Test if the relationship can be created
-            var info = new EventPropertiesHelper();
+            var info = new EAEventPropertiesHelper();
             info.Set(EAEventPropertyKeys.Type, type);
             info.Set(EAEventPropertyKeys.Subtype, "");
             info.Set(EAEventPropertyKeys.Stereotype, relationshipStereotype);

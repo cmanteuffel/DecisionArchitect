@@ -1,8 +1,8 @@
 ﻿using EA;
 
-namespace DecisionViewpointsTests
+namespace DecisionViewpointsTests.Model
 {
-    public class EventPropertyHelper : EventProperty
+    public class EAEventPropertyHelper : EventProperty
     {
         public object Value { get; set; }
         public string Name { get; set; }

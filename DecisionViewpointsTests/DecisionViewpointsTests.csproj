@@ -62,8 +62,8 @@
     <Compile Include="AddinEventHandlerTests.cs" />
     <Compile Include="BaseTests.cs" />
     <Compile Include="BroadcastEventHandlerTests.cs" />
-    <Compile Include="EventPropertiesHelper.cs" />
-    <Compile Include="EventPropertyHelper.cs" />
+    <Compile Include="Model\EAEventPropertiesHelper.cs" />
+    <Compile Include="Model\EAEventPropertyHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

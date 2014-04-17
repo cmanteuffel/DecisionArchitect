@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using EA;
 using DecisionViewpoints.Model;
 
-namespace DecisionViewpointsTests
+namespace DecisionViewpointsTests.Model
 {
-    public class EventPropertiesHelper : EventProperties
+    public class EAEventPropertiesHelper : EventProperties
     {
         private readonly IDictionary<string, EventProperty> _properties;
 
-        public EventPropertiesHelper()
+        public EAEventPropertiesHelper()
         {
             _properties = new Dictionary<string, EventProperty>
                     {
@@ -39,7 +39,7 @@ namespace DecisionViewpointsTests
 
         public void Set(string key, object value)
         {
-            var eventProperty = new EventPropertyHelper
+            var eventProperty = new EAEventPropertyHelper
             {
                 Name = key,
                 Value = value,
