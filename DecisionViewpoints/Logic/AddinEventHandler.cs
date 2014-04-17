@@ -24,7 +24,7 @@ namespace DecisionViewpoints.Logic
 
         public const string MenuBaselineOptions = "-Baseline Options";
         public const string MenuOnFileClose = "File Close";
-        public const string MenuManually = "Manually";
+        public const string MenuManually = "CreateBaselineManually";
         public const string MenuOnModification = "On Modification";
 
         private static readonly string RelationshipDiagramMetaType =
