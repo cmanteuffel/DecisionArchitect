@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Forms;
 using System.Xml;
@@ -24,6 +25,22 @@ namespace DecisionViewpoints.Model
         public Dictionary<string, XmlNodeList> GetComparisonResults()
         {
             return _comparisonResults;
+        }
+
+        public string GetBaselineLatestVesrion(IDualRepository repository, EAPackageWrapper package)
+        {
+            var xmlBaselines = _project.GetBaselines(GetPackageXml(package), "");
+            var xml = new XmlDocument();
+            xml.LoadXml(xmlBaselines);
+            var xmlNodeList = xml.SelectNodes("//@version");
+            var lv = 0.0;
+            if (xmlNodeList != null)
+                foreach (XmlNode version in xmlNodeList)
+                {
+                    var v = Convert.ToDouble(version.Value);
+                    if (v > lv) lv = v;
+                }
+            return (lv+0.1).ToString(CultureInfo.InvariantCulture);
         }
 
         public bool CreateBaseline(string packageGUID, string version, string notes)

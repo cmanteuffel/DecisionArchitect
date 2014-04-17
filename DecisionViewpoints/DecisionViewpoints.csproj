@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaselineOptions.cs" />
     <Compile Include="Logic\AddinEventHandler.cs" />
     <Compile Include="Logic\BroadcastEventHandler.cs" />
     <Compile Include="Logic\IAddInEventHandler.cs" />

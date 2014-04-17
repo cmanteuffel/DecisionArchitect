@@ -16,12 +16,14 @@ namespace DecisionViewpoints.Logic
     {
         public const string MenuHeader = "-&Decision Viewpoints";
         public const string MenuCreateProjectStructure = "&Create Project Structure";
-        public const string MenuTestBaselines = "Test &Baselines";
+        public const string MenuCreateBaseline = "Create &Baseline";
         public const string MenuGenerateChronological = "Generate CVP";
         public const string Separator = "-";
         public const string MenuTracingFollowTraces = "-&Follow trace(s) to ...";
-
-        private static double _baselineVersion;
+        public const string MenuBaselineOptions = "-Baseline Options";
+        public const string MenuOnFileClose = "File Close";
+        public const string MenuManually = "Manually";
+        public const string MenuOnModification = "On Modification";
 
         private static readonly string RelationshipDiagramMetaType =
             Settings.Default["RelationshipDiagramMetaType"].ToString();
@@ -47,27 +49,43 @@ namespace DecisionViewpoints.Logic
                 case MenuHeader:
                     return new[]
                         {
-                            MenuCreateProjectStructure, MenuTestBaselines, MenuGenerateChronological, Separator,
-                            MenuTracingFollowTraces
+                            MenuCreateProjectStructure, MenuGenerateChronological, Separator,
+                            MenuTracingFollowTraces, Separator, MenuBaselineOptions, MenuCreateBaseline
                         };
                 case MenuTracingFollowTraces:
                     return CreateTraceSubmenu(repository);
+                case MenuBaselineOptions:
+                    return new[]
+                        {
+                            MenuOnFileClose, MenuOnModification, MenuManually
+                        };
             }
             return "";
         }
 
         public static void GetMenuState(Repository repository, string location, string menuName, string itemName,
                                         ref bool isEnabled,
-                                        ref bool isChecked)
+                                        ref bool isChecked, BaselineOptions bo)
         {
             if (IsProjectOpen(repository))
             {
                 switch (itemName)
                 {
                     case MenuCreateProjectStructure:
-                    case MenuTestBaselines:
                     case MenuGenerateChronological:
                         isEnabled = true;
+                        break;
+                    case MenuCreateBaseline:
+                        isEnabled = bo.GetOption(BaselineOptions.BaselineOption.Manually);
+                        break;
+                    case MenuOnFileClose:
+                        isEnabled = !bo.GetOption(BaselineOptions.BaselineOption.OnFileClose);
+                        break;
+                    case MenuOnModification:
+                        isEnabled = !bo.GetOption(BaselineOptions.BaselineOption.OnModification);
+                        break;
+                    case MenuManually:
+                        isEnabled = !bo.GetOption(BaselineOptions.BaselineOption.Manually);
                         break;
                     default:
                         isEnabled = (traceMenuRegex.IsMatch(itemName));
@@ -81,18 +99,34 @@ namespace DecisionViewpoints.Logic
             }
         }
 
-        public static void MenuClick(Repository repository, string location, string menuName, string itemName)
+        public static void MenuClick(Repository repository, string location, string menuName, string itemName,
+                                     BaselineOptions bo)
         {
             switch (itemName)
             {
                 case MenuCreateProjectStructure:
                     CreateProjectStructure(repository);
                     break;
-                case MenuTestBaselines:
+                case MenuCreateBaseline:
                     CreateBaselines(repository);
                     break;
                 case MenuGenerateChronological:
                     GenerateView(repository);
+                    break;
+                case MenuOnFileClose:
+                    bo.SetOption(BaselineOptions.BaselineOption.OnFileClose, true);
+                    bo.SetOption(BaselineOptions.BaselineOption.OnModification, false);
+                    bo.SetOption(BaselineOptions.BaselineOption.Manually, false);
+                    break;
+                case MenuOnModification:
+                    bo.SetOption(BaselineOptions.BaselineOption.OnFileClose, false);
+                    bo.SetOption(BaselineOptions.BaselineOption.OnModification, true);
+                    bo.SetOption(BaselineOptions.BaselineOption.Manually, false);
+                    break;
+                case MenuManually:
+                    bo.SetOption(BaselineOptions.BaselineOption.OnFileClose, false);
+                    bo.SetOption(BaselineOptions.BaselineOption.OnModification, false);
+                    bo.SetOption(BaselineOptions.BaselineOption.Manually, true);
                     break;
                 default:
                     if (menuName.Equals(MenuTracingFollowTraces) && traceMenuRegex.IsMatch(itemName))
@@ -104,7 +138,6 @@ namespace DecisionViewpoints.Logic
                             Diagram d = diagrams[0];
                             var diagram = new EADiagramWrapper(d);
                             diagram.OpenAndSelectElement(repository, element.Element);
-                            
                         }
                         else if (diagrams.Count() >= 2)
                         {
@@ -113,11 +146,10 @@ namespace DecisionViewpoints.Logic
                             {
                                 Diagram d = selectForm.GetSelectedDiagram();
                                 var diagram = new EADiagramWrapper(d);
-                                diagram.OpenAndSelectElement(repository,element.Element);
+                                diagram.OpenAndSelectElement(repository, element.Element);
                             }
                         }
                         repository.ShowInProjectView(element.Element);
-                        
                     }
                     break;
             }
@@ -154,7 +186,6 @@ namespace DecisionViewpoints.Logic
             Package root = repository.Models.GetAt(0);
             var dv = new EAPackageWrapper(root.Packages.GetByName("Decision Views"));
             var pack = dv.CreatePackage(repository, "Data", "generated");
-            //MessageBox.Show(pack.Element.Stereotype);
             var hp = new EAPackageWrapper(pack);
             var cd = new EADiagramWrapper(dv.GetDiagram("Chronological"));
             var baselines = project.ReadPackageBaselines(repository, dv);
@@ -170,18 +201,10 @@ namespace DecisionViewpoints.Logic
         {
             var project = new EAProjectWrapper(repository);
             var rep = new EARepositoryWrapper(repository);
-            _baselineVersion += 0.1;
-            dynamic item;
-            var ot = repository.GetContextItem(out item);
-            switch (ot)
-            {
-                case ObjectType.otDiagram:
-                    var diagram = item as Diagram;
-                    if (diagram != null) MessageBox.Show(diagram.MetaType);
-                    break;
-            }
-            project.CreateBaseline(rep.GetPackageFromRootByName("Relationship").PackageGUID,
-                                   _baselineVersion.ToString(CultureInfo.InvariantCulture), "");
+            var notes = String.Format("Baseline Time: {0}", DateTime.Now);
+            var dvp = new EAPackageWrapper(rep.GetPackageFromRootByName("Decision Views"));
+            var bv = project.GetBaselineLatestVesrion(repository, dvp);
+            project.CreateBaseline(dvp.Get().PackageGUID, bv, notes);
         }
 
 

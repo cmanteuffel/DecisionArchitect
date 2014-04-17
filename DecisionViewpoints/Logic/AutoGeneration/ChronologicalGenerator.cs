@@ -58,10 +58,11 @@ namespace DecisionViewpoints.Logic.AutoGeneration
 
         private static void GenerateElements(IDualCollection elements)
         {
+            if (elements.Count <= 0) return;
             // Add the new element in the ChronologicalGenerator View diagram
             _cvpd.AddToDiagram(_repository, elements.GetAt(0));
             // Create a connector between the last modified and the new element
-            _cvpd.CreateConnector(_lastCreated, elements.GetAt(0));
+            if (_lastCreated != null) _cvpd.CreateConnector(_lastCreated, elements.GetAt(0));
             for (short i = 1; i < elements.Count; i++)
             {
                 var element = elements.GetAt(i) as Element;
@@ -74,6 +75,7 @@ namespace DecisionViewpoints.Logic.AutoGeneration
 
         private static void GenerateElements(IReadOnlyList<Element> elements)
         {
+            if (elements.Count <= 0) return;
             _cvpd.AddToDiagram(_repository, elements[0]);
             for (short i = 1; i < elements.Count; i++)
             {

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 using DecisionViewpoints.Logic;
@@ -12,6 +13,7 @@ namespace DecisionViewpoints
     public class MainApplication : EAEventAdapter
     {
         private ModelValidator _modelValidator;
+        private BaselineOptions _baselineOptions = new BaselineOptions();
 
         public override object EA_OnInitializeTechnologies(Repository repository)
         {
@@ -28,7 +30,6 @@ namespace DecisionViewpoints
             return technology;
         }
 
-
         public override object EA_GetMenuItems(Repository repository, string location, string menuName)
         {
             return AddinEventHandler.GetMenuItems(repository, location, menuName);
@@ -37,12 +38,12 @@ namespace DecisionViewpoints
         public override void EA_GetMenuState(Repository repository, string location, string menuName,
                                              string itemName, ref bool isEnabled, ref bool isChecked)
         {
-            AddinEventHandler.GetMenuState(repository, location, menuName, itemName, ref isEnabled, ref isChecked);
+            AddinEventHandler.GetMenuState(repository, location, menuName, itemName, ref isEnabled, ref isChecked, _baselineOptions);
         }
 
         public override void EA_MenuClick(Repository repository, string location, string menuName, string itemName)
         {
-            AddinEventHandler.MenuClick(repository, location, menuName, itemName);
+            AddinEventHandler.MenuClick(repository, location, menuName, itemName, _baselineOptions);
         }
 
         public override bool EA_OnPreNewElement(Repository repository, EventProperties info)
@@ -67,7 +68,7 @@ namespace DecisionViewpoints
 
         public override void EA_OnNotifyContextItemModified(Repository repository, string guid, ObjectType ot)
         {
-            BroadcastEventHandler.OnNotifyContextItemModified(repository, guid, ot);
+            BroadcastEventHandler.OnNotifyContextItemModified(repository, guid, ot, _baselineOptions);
         }
 
         public override void EA_OnInitializeUserRules(Repository repository)
@@ -90,6 +91,11 @@ namespace DecisionViewpoints
         {
             var wrappedElement = EAElementWrapper.Wrap(repository, element);
            _modelValidator.ValidateElementUsingRuleID(repository, ruleId, wrappedElement);
+        }
+
+        public override void EA_FileClose(Repository repository)
+        {
+            BroadcastEventHandler.FileClose(repository, _baselineOptions);
         }
     }
 }

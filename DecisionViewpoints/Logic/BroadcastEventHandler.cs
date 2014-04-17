@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using DecisionViewpoints.Logic.AutoGeneration;
@@ -12,12 +13,12 @@ namespace DecisionViewpoints.Logic
 {
     public static class BroadcastEventHandler
     {
-        // These values need to be consistent with the ones defined in the DecisionVS MDG file.
+        // These values need to be consistent with the ones defined in the DecisionVP MDG file.
         private const string RelStereotype = "Relationship";
         private static string lastGUID = string.Empty;
         private static DateTime lastChange = DateTime.MinValue;
-        private static bool _preventConnectorModifiedEvent = false;
-
+        private static bool _preventConnectorModifiedEvent;
+        private static bool _modified;
 
         public static bool OnPreNewElement(Repository repository, EventProperties info)
         {
@@ -73,7 +74,7 @@ namespace DecisionViewpoints.Logic
             return "";
         }
 
-        public static void OnNotifyContextItemModified(Repository repository, string guid, ObjectType ot)
+        public static void OnNotifyContextItemModified(Repository repository, string guid, ObjectType ot, BaselineOptions bo)
         {
             string message;
             switch (ot)
@@ -102,16 +103,24 @@ namespace DecisionViewpoints.Logic
                     lastGUID = guid;
                     lastChange = element.Element.Modified;
 
-                    // Update the ChronologicalGenerator View to reflect changes
-                    /*if (element.Element.MetaType.Equals(DecisionMetaType))
-                    {
-                        var package = repository.Models.GetAt(0).Packages.GetByName("Decision Chronological View");
-                        var packageWrapper = new EAPackageWrapper(package);
-                        var diagramWrapper = new EADiagramWrapper(package.Diagrams.GetAt(0));
-                        var chronologicalGenerator = new ChronologicalGenerator(repository, packageWrapper,
-                                                                                diagramWrapper);
-                        chronologicalGenerator.Update(element);
-                    }*/
+                    // An element hass been modified
+                    if (bo.GetOption(BaselineOptions.BaselineOption.OnFileClose))
+                        if (element.Element.MetaType.Equals("Decision"))
+                        {
+                            _modified = true;
+                        }
+
+                    // Create a baseline upon a modification of a decision
+                    if (bo.GetOption(BaselineOptions.BaselineOption.OnModification))
+                        if (element.Element.MetaType.Equals("Decision"))
+                        {
+                            var project = new EAProjectWrapper(repository);
+                            var rep = new EARepositoryWrapper(repository);
+                            var notes = String.Format("Baseline Time: {0}", DateTime.Now);
+                            var dvp = new EAPackageWrapper(rep.GetPackageFromRootByName("Decision Views"));
+                            var bv = project.GetBaselineLatestVesrion(repository, dvp);
+                            project.CreateBaseline(dvp.Get().PackageGUID, bv, notes);
+                        }
                     break;
                 case ObjectType.otConnector:
                     var connectorWrapper = EAConnectorWrapper.Wrap(repository, guid);
@@ -139,6 +148,18 @@ namespace DecisionViewpoints.Logic
 
         public static void OnContextItemChanged(Repository repository, string guid, ObjectType type)
         {
+        }
+
+        public static void FileClose(Repository repository, BaselineOptions bo)
+        {
+            if (!bo.GetOption(BaselineOptions.BaselineOption.OnFileClose)) return;
+            if (!_modified) return;
+            var project = new EAProjectWrapper(repository);
+            var rep = new EARepositoryWrapper(repository);
+            var notes = String.Format("Baseline Time: {0}", DateTime.Now);
+            var dvp = new EAPackageWrapper(rep.GetPackageFromRootByName("Decision Views"));
+            var bv = project.GetBaselineLatestVesrion(repository, dvp);
+            project.CreateBaseline(dvp.Get().PackageGUID, bv, notes);
         }
     }
 }
