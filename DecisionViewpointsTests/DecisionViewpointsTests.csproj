@@ -62,16 +62,32 @@
     <Compile Include="AddinEventHandlerTests.cs" />
     <Compile Include="BaseTests.cs" />
     <Compile Include="BroadcastEventHandlerTests.cs" />
-    <Compile Include="Model\EAEventPropertiesHelper.cs" />
-    <Compile Include="Model\EAEventPropertyHelper.cs" />
+    <Compile Include="Logic\BasicStructureRepositoryFile.cs" />
+    <Compile Include="Logic\RelationshipsRepositoryFile.cs" />
+    <Compile Include="Model\EventProperties\EAEventPropertiesHelper.cs" />
+    <Compile Include="Model\EventProperties\EAEventPropertyHelper.cs" />
+    <Compile Include="Logic\EmptyRepositoryFile.cs" />
+    <Compile Include="Model\RepositoryFile\IRepositoryFile.cs" />
+    <Compile Include="Model\RepositoryFile\RepositoryFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelationshipTests.cs" />
+    <Compile Include="RepositoryFiles.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RepositoryFiles.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DecisionViewpoints\DecisionViewpoints.csproj">
       <Project>{778a9a09-5030-4cc1-85a3-c7dbb053cea2}</Project>
       <Name>DecisionViewpoints</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="RepositoryFiles.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>RepositoryFiles.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

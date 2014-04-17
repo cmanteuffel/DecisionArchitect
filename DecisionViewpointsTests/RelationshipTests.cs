@@ -3,7 +3,8 @@ using System.Globalization;
 using System.Linq;
 using DecisionViewpoints.Logic.Rules;
 using DecisionViewpoints.Model;
-using DecisionViewpointsTests.Model;
+using DecisionViewpointsTests.Logic;
+using DecisionViewpointsTests.Model.EventProperties;
 using EA;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -17,8 +18,9 @@ namespace DecisionViewpointsTests
         [TestMethod]
         public void CausedBy_InvalidRelationships()
         {
-            OpenRepositoryFile(RepositoryType.Relationships);
-            ResetRepository(RepositoryType.Relationships);
+            var f = new RelationshipsRepositoryFile(Repo);
+            f.Open();
+            f.Reset();
             // Any State _ CausedBy _ {idea}
             foreach (var state in DVStereotypes.States)
             {
@@ -37,15 +39,16 @@ namespace DecisionViewpointsTests
                 Assert.IsFalse(ValidateConnector(state, DVStereotypes.StateDiscarded, DVStereotypes.RelationCausedBy),
                                AssertionFailedMessage(state, DVStereotypes.StateDiscarded, DVStereotypes.RelationCausedBy));
             }
-            ResetRepository(RepositoryType.Relationships);
-            CloseRepositoryFile();
+            f.Reset();
+            f.Close();
         }
 
         [TestMethod]
         public void CausedBy_ValidRelationships()
         {
-            OpenRepositoryFile(RepositoryType.Relationships);
-            ResetRepository(RepositoryType.Relationships);
+            var f = new RelationshipsRepositoryFile(Repo);
+            f.Open();
+            f.Reset();
             // Any State _ CausedBy _ {tentative, decided, approved, challenged, rejected}
             var validTargetStates = new[]
                 {
@@ -64,8 +67,8 @@ namespace DecisionViewpointsTests
                                   AssertionFailedMessage(state, targetState, DVStereotypes.RelationCausedBy));
                 }
             }
-            ResetRepository(RepositoryType.Relationships);
-            CloseRepositoryFile();
+            f.Reset();
+            f.Close();
         }
 
         #endregion
@@ -75,8 +78,9 @@ namespace DecisionViewpointsTests
         [TestMethod]
         public void DependsOn_InvalidRelationships()
         {
-            OpenRepositoryFile(RepositoryType.Relationships);
-            ResetRepository(RepositoryType.Relationships);
+            var f = new RelationshipsRepositoryFile(Repo);
+            f.Open();
+            f.Reset();
             // Any State _ DependsOn _ {idea}
             foreach (var state in DVStereotypes.States)
             {
@@ -102,15 +106,16 @@ namespace DecisionViewpointsTests
                                    AssertionFailedMessage(state, targetState, DVStereotypes.RelationDependsOn));
                 }
             }
-            ResetRepository(RepositoryType.Relationships);
-            CloseRepositoryFile();
+            f.Reset();
+            f.Close();
         }
 
         [TestMethod]
         public void DependsOn_ValidRelationships()
         {
-            OpenRepositoryFile(RepositoryType.Relationships);
-            ResetRepository(RepositoryType.Relationships);
+            var f = new RelationshipsRepositoryFile(Repo);
+            f.Open();
+            f.Reset();
             // Any State _ DependsOn _ {tentative, decided, approved, challenged}
             var validTargetStates = new[]
                 {
@@ -127,8 +132,8 @@ namespace DecisionViewpointsTests
                                   AssertionFailedMessage(state, targetState, DVStereotypes.RelationDependsOn));
                 }
             }
-            ResetRepository(RepositoryType.Relationships);
-            CloseRepositoryFile();
+            f.Reset();
+            f.Close();
         }
 
         #endregion
@@ -138,8 +143,9 @@ namespace DecisionViewpointsTests
         [TestMethod]
         public void ExcludedBy_InvalidRelationships()
         {
-            OpenRepositoryFile(RepositoryType.Relationships);
-            ResetRepository(RepositoryType.Relationships);
+            var f = new RelationshipsRepositoryFile(Repo);
+            f.Open();
+            f.Reset();
             //Debug.Write(String.Format("{0} {1} {2}\n", state, DVStereotypes.RelationCausedBy, targetState));
             // Any State _ExcludedBy _ {idea}
             foreach (var state in DVStereotypes.States)
@@ -169,15 +175,16 @@ namespace DecisionViewpointsTests
                                    AssertionFailedMessage(state, targetState, DVStereotypes.RelationExcludedBy));
                 }
             }
-            ResetRepository(RepositoryType.Relationships);
-            CloseRepositoryFile();
+            f.Reset();
+            f.Close();
         }
 
         [TestMethod]
         public void ExcludedBy_ValidRelationships()
         {
-            OpenRepositoryFile(RepositoryType.Relationships);
-            ResetRepository(RepositoryType.Relationships);
+            var f = new RelationshipsRepositoryFile(Repo);
+            f.Open();
+            f.Reset();
             // {tentative, discarded, rejected} _ ExcludedBy _ Any State
             var validSourceStates = new[]
                 {
@@ -193,8 +200,8 @@ namespace DecisionViewpointsTests
                     Assert.IsTrue(ValidateConnector(sourceState, state, DVStereotypes.RelationExcludedBy),
                                   AssertionFailedMessage(sourceState, state, DVStereotypes.RelationExcludedBy));
             }
-            ResetRepository(RepositoryType.Relationships);
-            CloseRepositoryFile();
+            f.Reset();
+            f.Close();
         }
 
         #endregion
@@ -204,8 +211,9 @@ namespace DecisionViewpointsTests
         [TestMethod]
         public void Replaces_InvalidRelationships()
         {
-            OpenRepositoryFile(RepositoryType.Relationships);
-            ResetRepository(RepositoryType.Relationships);
+            var f = new RelationshipsRepositoryFile(Repo);
+            f.Open();
+            f.Reset();
             // Any State Replaces _ {idea}
             foreach (var state in DVStereotypes.States)
             {
@@ -232,23 +240,24 @@ namespace DecisionViewpointsTests
                                    AssertionFailedMessage(state, targetState, DVStereotypes.RelationReplaces));
                 }
             }
-            ResetRepository(RepositoryType.Relationships);
-            CloseRepositoryFile();
+            f.Reset();
+            f.Close();
         }
 
         [TestMethod]
         public void Replaces_ValidRelationships()
         {
-            OpenRepositoryFile(RepositoryType.Relationships);
-            ResetRepository(RepositoryType.Relationships);
+            var f = new RelationshipsRepositoryFile(Repo);
+            f.Open();
+            f.Reset();
             // Any State _ Replaces _ {rejected}
             foreach (var state in DVStereotypes.States.Where(state => state != DVStereotypes.StateIdea))
             {
                 Assert.IsTrue(ValidateConnector(state, DVStereotypes.StateRejected, DVStereotypes.RelationReplaces),
                               AssertionFailedMessage(state, DVStereotypes.StateRejected, DVStereotypes.RelationReplaces));
             }
-            ResetRepository(RepositoryType.Relationships);
-            CloseRepositoryFile();
+            f.Reset();
+            f.Close();
         }
 
         #endregion
@@ -258,8 +267,9 @@ namespace DecisionViewpointsTests
         [TestMethod]
         public void AlternativeFor_InvalidRelationships()
         {
-            OpenRepositoryFile(RepositoryType.Relationships);
-            ResetRepository(RepositoryType.Relationships);
+            var f = new RelationshipsRepositoryFile(Repo);
+            f.Open();
+            f.Reset();
             // Any State _ AlternativeFor _ {idea}
             foreach (var state in DVStereotypes.States)
             {
@@ -281,15 +291,16 @@ namespace DecisionViewpointsTests
                     ValidateConnector(state, DVStereotypes.StateDiscarded, DVStereotypes.RelationAlternativeFor),
                     AssertionFailedMessage(state, DVStereotypes.StateDiscarded, DVStereotypes.RelationAlternativeFor));
             }
-            ResetRepository(RepositoryType.Relationships);
-            CloseRepositoryFile();
+            f.Reset();
+            f.Close();
         }
 
         [TestMethod]
         public void AlternativeFor_ValidRelationships()
         {
-            OpenRepositoryFile(RepositoryType.Relationships);
-            ResetRepository(RepositoryType.Relationships);
+            var f = new RelationshipsRepositoryFile(Repo);
+            f.Open();
+            f.Reset();
             // {tentative, discarded} _ AlternativeFor _ {tentative, decided, approved, challenged, rejected}
             var validSourceStates = new[]
                 {
@@ -303,8 +314,8 @@ namespace DecisionViewpointsTests
                               AssertionFailedMessage(sourceState, state, DVStereotypes.RelationAlternativeFor));
                 }
             }
-            ResetRepository(RepositoryType.Relationships);
-            CloseRepositoryFile();
+            f.Reset();
+            f.Close();
         }
 
         #endregion

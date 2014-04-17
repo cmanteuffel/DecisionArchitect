@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using EA;
 using DecisionViewpoints.Model;
 
-namespace DecisionViewpointsTests.Model
+namespace DecisionViewpointsTests.Model.EventProperties
 {
-    public class EAEventPropertiesHelper : EventProperties
+    public class EAEventPropertiesHelper : EA.EventProperties
     {
         private readonly IDictionary<string, EventProperty> _properties;
 

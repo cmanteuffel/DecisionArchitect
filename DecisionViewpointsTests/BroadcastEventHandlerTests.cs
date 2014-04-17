@@ -1,4 +1,5 @@
-﻿using EA;
+﻿using DecisionViewpointsTests.Logic;
+using EA;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DecisionViewpointsTests
@@ -9,15 +10,16 @@ namespace DecisionViewpointsTests
         [TestMethod]
         public void OnPostOpenDiagram_OpenDecisionViewpointDiagram_ToolboxActivated()
         {
-            OpenRepositoryFile(RepositoryType.BasicStructure);
-            ResetRepository(RepositoryType.BasicStructure);
+            var f = new BasicStructureRepositoryFile(Repo);
+            f.Open();
+            f.Reset();
             Package root = Repo.Models.GetAt(0);
             Package view = root.Packages.GetAt(0);
             Diagram diagram = view.Diagrams.GetAt(0);
             Repo.OpenDiagram(diagram.DiagramID);
             var toolboxName = MainApp.EA_OnPostOpenDiagram(Repo, diagram.DiagramID);
-            ResetRepository(RepositoryType.BasicStructure);
-            CloseRepositoryFile();
+            f.Reset();
+            f.Close();
             Assert.AreEqual("DecisionVS", toolboxName);
         }
     }
