@@ -214,11 +214,10 @@ namespace DecisionViewpoints.Logic
         private static void CreateProjectStructure(Repository repository)
         {
             var rep = new EARepositoryWrapper(repository);
-            var decisionViewpoints = rep.CreateView("Decision Viewpoints", 0);
+            var decisionViewpoints = rep.CreateView("Decision Views", 0);
             rep.CreateDiagram(decisionViewpoints, "Relationship", RelationshipDiagramMetaType);
             rep.CreateDiagram(decisionViewpoints, "Chronological", ChronologicalDiagramMetaType);
             rep.CreateDiagram(decisionViewpoints, "Stakeholder Involvement", StakeholderInvolvementDiagramMetaType);
-            rep.CreatePackage(decisionViewpoints, "history");
         }
     }
 }
