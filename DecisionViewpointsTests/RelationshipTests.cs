@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
 using DecisionViewpoints.Logic.Rules;
 using DecisionViewpoints.Model;
@@ -66,7 +65,6 @@ namespace DecisionViewpointsTests
             {
                 foreach (var targetState in validTargetStates)
                 {
-                    //Debug.Write(String.Format("{0} {1} {2}\n", state, DVStereotypes.RelationCausedBy, targetState));
                     Assert.IsTrue(ValidateConnector(state, targetState, DVStereotypes.RelationCausedBy),
                                   AssertionFailedMessage(state, targetState, DVStereotypes.RelationCausedBy));
                 }
