@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
 using DecisionViewpoints;
 using EA;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -50,11 +51,12 @@ namespace DecisionViewpointsTests
 
         public void ResetRepository(RepositoryType rt)
         {
+            Package root;
             switch (rt)
             {
                 case RepositoryType.Empty:
-                    Package root = Repo.Models.GetAt(0);
-                    for (short packageIndex = (short) (root.Packages.Count - 1); packageIndex != -1; packageIndex--)
+                    root = Repo.Models.GetAt(0);
+                    for (var packageIndex = (short) (root.Packages.Count - 1); packageIndex != -1; packageIndex--)
                     {
                         root.Packages.Delete(packageIndex);
                     }
@@ -62,6 +64,12 @@ namespace DecisionViewpointsTests
                 case RepositoryType.BasicStructure:
                     break;
                 case RepositoryType.Relationships:
+                    root = Repo.Models.GetAt(0);
+                    for (var index = (short)(root.Elements.Count - 1); index != -1; index--)
+                    {
+                        Element e = root.Elements.GetAt(index);
+                        
+                    }
                     break;
             }
         }
