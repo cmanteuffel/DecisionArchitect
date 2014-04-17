@@ -50,6 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CreateDecision.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateDecision.Designer.cs">
+      <DependentUpon>CreateDecision.cs</DependentUpon>
+    </Compile>
     <Compile Include="Logic\AddinEventHandler.cs" />
     <Compile Include="Logic\BroadcastEventHandler.cs" />
     <Compile Include="Logic\IAddInEventHandler.cs" />
@@ -106,6 +112,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="CreateDecision.resx">
+      <DependentUpon>CreateDecision.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>

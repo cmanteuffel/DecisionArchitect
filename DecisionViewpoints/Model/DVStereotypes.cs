@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using EA;
 
 namespace DecisionViewpoints.Model
 {
@@ -37,5 +38,10 @@ namespace DecisionViewpoints.Model
                 StateRejected,
                 StateTentative
             };
+
+        public static bool IsDecision(Element e)
+        {
+            return (e != null && States.Contains(e.Stereotype) && e.Type.Equals("Action"));
+        }
     }
 }

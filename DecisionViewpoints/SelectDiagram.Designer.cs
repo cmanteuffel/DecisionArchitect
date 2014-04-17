@@ -44,7 +44,7 @@
             // openButton
             // 
             this.openButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.openButton.Location = new System.Drawing.Point(176, 117);
+            this.openButton.Location = new System.Drawing.Point(95, 117);
             this.openButton.Name = "openButton";
             this.openButton.Size = new System.Drawing.Size(105, 23);
             this.openButton.TabIndex = 1;
@@ -54,7 +54,7 @@
             // cancelButton
             // 
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(95, 117);
+            this.cancelButton.Location = new System.Drawing.Point(206, 117);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 2;
@@ -70,7 +70,7 @@
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.openButton);
             this.Controls.Add(this.listDiagrams);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "SelectDiagram";
             this.Text = "Select Diagram";
             this.ResumeLayout(false);

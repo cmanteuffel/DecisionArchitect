@@ -56,11 +56,16 @@ namespace DecisionViewpoints.Logic
                 case MenuTracingCreateTraces:
                     if (ObjectType.otElement == repository.GetContextItemType())
                     {
-                    return new[] {MenuTracingNewDecision, MenuTracingExistingDecision};
+                        dynamic obj = repository.GetContextObject();
+                        var eaelement = obj as Element;
+                        if (eaelement != null && !DVStereotypes.IsDecision(eaelement))
+                        {
+                            return new[] {MenuTracingNewDecision, MenuTracingExistingDecision};
+                        }
                     }
-                    break;
+                    return new string[0];
                 case MenuTracingFollowTraces:
-                        return CreateTraceSubmenu(repository);
+                    return CreateTraceSubmenu(repository);
                 case MenuBaselineOptions:
                     return new[]
                         {
@@ -165,9 +170,33 @@ namespace DecisionViewpoints.Logic
             }
         }
 
-        private static void CreateAndTraceDecision(Repository r)
+        private static void CreateAndTraceDecision(Repository repository)
         {
-            
+            if (ObjectType.otElement == repository.GetContextItemType())
+            {
+                dynamic obj = repository.GetContextObject();
+                var eaelement = obj as Element;
+                if (eaelement != null && !DVStereotypes.IsDecision(eaelement))
+                {
+                    var createDecisionView = new CreateDecision(eaelement.Name + " Decision");
+                    if (createDecisionView.ShowDialog() == DialogResult.OK)
+                    {
+                        Package root = repository.Models.GetAt(0);
+                        Package package = root.Packages.GetByName("Decision Views");
+                        Element decision = package.Elements.AddNew(createDecisionView.GetName(), "Action");
+                        decision.Stereotype = createDecisionView.GetState();
+                        Connector trace = eaelement.Connectors.AddNew("", "Abstraction");
+                        trace.Stereotype = "trace";
+                        trace.SupplierID = decision.ElementID;
+                        trace.Update();
+                        eaelement.Connectors.Refresh();
+                        decision.Connectors.Refresh();
+                        decision.Update();
+                        package.Elements.Refresh();
+                        repository.RefreshModelView(package.PackageID);
+                    }
+                }
+            }
         }
 
 
