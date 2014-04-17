@@ -9,7 +9,7 @@ namespace DecisionViewpointsTests
         [TestMethod]
         public void EaConnect_ReturnConnected()
         {
-            Assert.AreEqual("connected", MainApp.EA_Connect(Repo));
+            Assert.AreEqual("", MainApp.EA_Connect(Repo));
         }
 
         [TestMethod]

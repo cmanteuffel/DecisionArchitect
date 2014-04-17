@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+using DecisionViewpoints.Logic.Rules;
+using DecisionViewpoints.Model;
 using EA;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DecisionViewpoints.Model;
 
 namespace DecisionViewpointsTests
 {
@@ -25,28 +26,30 @@ namespace DecisionViewpointsTests
             Assert.AreEqual("DecisionVS", toolboxName);
         }
 
+        #region CausedBy
+
         [TestMethod]
         public void OnPreNewConnector_CausedBy_InvalidRelationships()
         {
             OpenRepositoryFile(RepositoryType.Relationships);
             ResetRepository(RepositoryType.Relationships);
-            // Any Decision to decision with state Idea
-            foreach (var s in Stereotypes.States)
+            // Any State _ CausedBy _ {idea}
+            foreach (var state in DVStereotypes.States)
             {
-                Assert.IsFalse(ValidateConnector(s, Stereotypes.StateIdea, Stereotypes.RelationCausedBy),
-                    AssertionFailedMessage(s, States.Idea, Stereotypes.RelationCausedBy));
+                Assert.IsFalse(ValidateConnector(state, DVStereotypes.StateIdea, DVStereotypes.RelationCausedBy),
+                               AssertionFailedMessage(state, DVStereotypes.StateIdea, DVStereotypes.RelationCausedBy));
             }
-            // Decision with state Idea to Any Decision
-            foreach (var s in Stereotypes.States)
+            // {idea} _ CausedBy _ Any State
+            foreach (var state in DVStereotypes.States)
             {
-                Assert.IsFalse(ValidateConnector(States.Idea, s, Stereotypes.RelationCausedBy),
-                    AssertionFailedMessage(States.Idea, s, Stereotypes.RelationCausedBy));
+                Assert.IsFalse(ValidateConnector(DVStereotypes.StateIdea, state, DVStereotypes.RelationCausedBy),
+                               AssertionFailedMessage(DVStereotypes.StateIdea, state, DVStereotypes.RelationCausedBy));
             }
-            // Any decision to decision with state Discarded
-            foreach (var s in Stereotypes.States.Where(s => s != Stereotypes.StateIdea))
+            // Any State _ CausedBy _ {discarded}
+            foreach (var state in DVStereotypes.States.Where(state => state != DVStereotypes.StateIdea))
             {
-                Assert.IsFalse(ValidateConnector(s, Stereotypes.StateDiscarded, Stereotypes.RelationCausedBy),
-                    AssertionFailedMessage(s, States.Discarded, Stereotypes.RelationCausedBy));
+                Assert.IsFalse(ValidateConnector(state, DVStereotypes.StateDiscarded, DVStereotypes.RelationCausedBy),
+                               AssertionFailedMessage(state, DVStereotypes.StateDiscarded, DVStereotypes.RelationCausedBy));
             }
             ResetRepository(RepositoryType.Relationships);
             CloseRepositoryFile();
@@ -57,41 +60,61 @@ namespace DecisionViewpointsTests
         {
             OpenRepositoryFile(RepositoryType.Relationships);
             ResetRepository(RepositoryType.Relationships);
-            // Any decision to decision with state {tentative, decided, approved, challenged, rejected}
-            foreach (var s in Stereotypes.States.Where(s => s != Stereotypes.StateIdea && s != Stereotypes.StateTentative &&
-                s != Stereotypes.StateDecided && s != Stereotypes.StateApproved && s != Stereotypes.StateChallenged && s != Stereotypes.StateRejected))
+            // Any State _ CausedBy _ {tentative, decided, approved, challenged, rejected}
+            var validTargetStates = new[]
+                {
+                    DVStereotypes.StateTentative, DVStereotypes.StateDecided,
+                    DVStereotypes.StateApproved, DVStereotypes.StateChallenged, DVStereotypes.StateRejected
+                };
+            foreach (
+                var state in
+                    DVStereotypes.States.Where(state => state != DVStereotypes.StateIdea)
+                )
             {
-                Assert.IsTrue(ValidateConnector(s, Stereotypes.StateTentative, Stereotypes.RelationCausedBy),
-                              AssertionFailedMessage(s, Stereotypes.StateTentative, Stereotypes.RelationCausedBy));
-                Assert.IsTrue(ValidateConnector(s, Stereotypes.StateDecided, Stereotypes.RelationCausedBy),
-                              AssertionFailedMessage(s, Stereotypes.StateDecided, Stereotypes.RelationCausedBy));
-                Assert.IsTrue(ValidateConnector(s, Stereotypes.StateApproved, Stereotypes.RelationCausedBy),
-                              AssertionFailedMessage(s, Stereotypes.StateApproved, Stereotypes.RelationCausedBy));
-                Assert.IsTrue(ValidateConnector(s, Stereotypes.StateChallenged, Stereotypes.RelationCausedBy),
-                              AssertionFailedMessage(s, Stereotypes.StateChallenged, Stereotypes.RelationCausedBy));
-                Assert.IsTrue(ValidateConnector(s, Stereotypes.StateRejected, Stereotypes.RelationCausedBy),
-                              AssertionFailedMessage(s, Stereotypes.StateRejected, Stereotypes.RelationCausedBy));
+                foreach (var targetState in validTargetStates)
+                {
+                    //Debug.Write(String.Format("{0} {1} {2}\n", state, DVStereotypes.RelationCausedBy, targetState));
+                    Assert.IsTrue(ValidateConnector(state, targetState, DVStereotypes.RelationCausedBy),
+                                  AssertionFailedMessage(state, targetState, DVStereotypes.RelationCausedBy));
+                }
             }
             ResetRepository(RepositoryType.Relationships);
-            CloseRepositoryFile(); 
+            CloseRepositoryFile();
         }
+
+        #endregion
+
+        #region DependsOn
 
         [TestMethod]
         public void OnPreNewConnector_DependsOn_InvalidRelationships()
         {
             OpenRepositoryFile(RepositoryType.Relationships);
             ResetRepository(RepositoryType.Relationships);
-            // Any Decision to decision with state Idea
-            foreach (var s in Stereotypes.States)
+            // Any State _ DependsOn _ {idea}
+            foreach (var state in DVStereotypes.States)
             {
-                Assert.IsFalse(ValidateConnector(s, Stereotypes.StateIdea, Stereotypes.RelationDependsOn),
-                    AssertionFailedMessage(s, States.Idea, Stereotypes.RelationDependsOn));
+                Assert.IsFalse(ValidateConnector(state, DVStereotypes.StateIdea, DVStereotypes.RelationDependsOn),
+                               AssertionFailedMessage(state, DVStereotypes.StateIdea, DVStereotypes.RelationDependsOn));
             }
-            // Decision with state Idea to Any Decision
-            foreach (var s in Stereotypes.States)
+            // {idea} _ DependsOn _ Any State
+            foreach (var state in DVStereotypes.States)
             {
-                Assert.IsFalse(ValidateConnector(States.Idea, s, Stereotypes.RelationDependsOn),
-                    AssertionFailedMessage(States.Idea, s, Stereotypes.RelationDependsOn));
+                Assert.IsFalse(ValidateConnector(DVStereotypes.StateIdea, state, DVStereotypes.RelationDependsOn),
+                               AssertionFailedMessage(DVStereotypes.StateIdea, state, DVStereotypes.RelationDependsOn));
+            }
+            // Any State _ DependsOn _ {discarded, rejected}
+            var invalidTargetStates = new[]
+                {
+                    DVStereotypes.StateDiscarded, DVStereotypes.StateRejected
+                };
+            foreach (var state in DVStereotypes.States.Where(state => state != DVStereotypes.StateIdea))
+            {
+                foreach (var targetState in invalidTargetStates)
+                {
+                    Assert.IsFalse(ValidateConnector(state, targetState, DVStereotypes.RelationDependsOn),
+                                   AssertionFailedMessage(state, targetState, DVStereotypes.RelationDependsOn));
+                }
             }
             ResetRepository(RepositoryType.Relationships);
             CloseRepositoryFile();
@@ -102,50 +125,63 @@ namespace DecisionViewpointsTests
         {
             OpenRepositoryFile(RepositoryType.Relationships);
             ResetRepository(RepositoryType.Relationships);
-            // Any Decision to decision with states {tentative, decided, approved, challenged}
-            foreach (var s in Stereotypes.States.Where(s => s != Stereotypes.StateIdea && s != Stereotypes.StateTentative && 
-                s != Stereotypes.StateDecided && s != Stereotypes.StateApproved && s != Stereotypes.StateChallenged))
+            // Any State _ DependsOn _ {tentative, decided, approved, challenged}
+            var validTargetStates = new[]
+                {
+                    DVStereotypes.StateTentative, DVStereotypes.StateDecided, DVStereotypes.StateApproved,
+                    DVStereotypes.StateChallenged
+                };
+            foreach (
+                var state in
+                    DVStereotypes.States.Where(s => s != DVStereotypes.StateIdea))
             {
-                Assert.IsTrue(ValidateConnector(s, Stereotypes.StateTentative, Stereotypes.RelationDependsOn),
-                              AssertionFailedMessage(s, Stereotypes.StateTentative, Stereotypes.RelationDependsOn));
-                Assert.IsTrue(ValidateConnector(s, Stereotypes.StateDecided, Stereotypes.RelationDependsOn),
-                              AssertionFailedMessage(s, Stereotypes.StateDecided, Stereotypes.RelationDependsOn));
-                Assert.IsTrue(ValidateConnector(s, Stereotypes.StateApproved, Stereotypes.RelationDependsOn),
-                              AssertionFailedMessage(s, Stereotypes.StateApproved, Stereotypes.RelationDependsOn));
-                Assert.IsTrue(ValidateConnector(s, Stereotypes.StateChallenged, Stereotypes.RelationDependsOn),
-                              AssertionFailedMessage(s, Stereotypes.StateChallenged, Stereotypes.RelationDependsOn));
+                foreach (var targetState in validTargetStates)
+                {
+                    Assert.IsTrue(ValidateConnector(state, targetState, DVStereotypes.RelationDependsOn),
+                                  AssertionFailedMessage(state, targetState, DVStereotypes.RelationDependsOn));
+                }
             }
             ResetRepository(RepositoryType.Relationships);
             CloseRepositoryFile();
         }
+
+        #endregion
+
+        #region ExcludedBy
 
         [TestMethod]
         public void OnPreNewConnector_ExcludedBy_InvalidRelationships()
         {
             OpenRepositoryFile(RepositoryType.Relationships);
             ResetRepository(RepositoryType.Relationships);
-            // Any Decision to decision with state Idea
-            foreach (var s in Stereotypes.States)
+            //Debug.Write(String.Format("{0} {1} {2}\n", state, DVStereotypes.RelationCausedBy, targetState));
+            // Any State _ExcludedBy _ {idea}
+            foreach (var state in DVStereotypes.States)
             {
-                Assert.IsFalse(ValidateConnector(s, Stereotypes.StateIdea, Stereotypes.RelationExcludedBy),
-                    AssertionFailedMessage(s, States.Idea, Stereotypes.RelationExcludedBy));
+                Assert.IsFalse(ValidateConnector(state, DVStereotypes.StateIdea, DVStereotypes.RelationExcludedBy),
+                               AssertionFailedMessage(state, DVStereotypes.StateIdea, DVStereotypes.RelationExcludedBy));
             }
-            // Decision with state Idea to Any Decision
-            foreach (var s in Stereotypes.States)
+            // {idea} _ ExcludedBy _ Any State
+            foreach (var state in DVStereotypes.States)
             {
-                Assert.IsFalse(ValidateConnector(States.Idea, s, Stereotypes.RelationExcludedBy),
-                    AssertionFailedMessage(States.Idea, s, Stereotypes.RelationExcludedBy));
+                Assert.IsFalse(ValidateConnector(DVStereotypes.StateIdea, state, DVStereotypes.RelationExcludedBy),
+                               AssertionFailedMessage(DVStereotypes.StateIdea, state, DVStereotypes.RelationExcludedBy));
             }
-            // Any Decision to decision with state {tentative, discarded, rejected}
-            foreach (var s in Stereotypes.States.Where(s => s != Stereotypes.StateIdea && s != Stereotypes.StateTentative &&
-                s != Stereotypes.StateDiscarded && s != Stereotypes.StateRejected))
+            // Any State _ ExcludedBy _ {tentative, discarded, rejected}
+            var invalidTargetStates = new[]
+                {
+                    DVStereotypes.StateTentative, DVStereotypes.StateDiscarded, DVStereotypes.StateRejected
+                };
+            foreach (
+                var state in
+                    DVStereotypes.States.Where(state => state != DVStereotypes.StateIdea)
+                )
             {
-                Assert.IsFalse(ValidateConnector(s, Stereotypes.StateTentative, Stereotypes.RelationExcludedBy),
-                              AssertionFailedMessage(s, Stereotypes.StateTentative, Stereotypes.RelationExcludedBy));
-                Assert.IsFalse(ValidateConnector(s, Stereotypes.StateDiscarded, Stereotypes.RelationExcludedBy),
-                              AssertionFailedMessage(s, Stereotypes.StateDiscarded, Stereotypes.RelationExcludedBy));
-                Assert.IsFalse(ValidateConnector(s, Stereotypes.StateRejected, Stereotypes.RelationExcludedBy),
-                              AssertionFailedMessage(s, Stereotypes.StateRejected, Stereotypes.RelationExcludedBy));
+                foreach (var targetState in invalidTargetStates)
+                {
+                    Assert.IsFalse(ValidateConnector(state, targetState, DVStereotypes.RelationExcludedBy),
+                                   AssertionFailedMessage(state, targetState, DVStereotypes.RelationExcludedBy));
+                }
             }
             ResetRepository(RepositoryType.Relationships);
             CloseRepositoryFile();
@@ -156,27 +192,60 @@ namespace DecisionViewpointsTests
         {
             OpenRepositoryFile(RepositoryType.Relationships);
             ResetRepository(RepositoryType.Relationships);
-            // Decision with state {tentative, discarded, rejected} to any decision
-            foreach (var s in Stereotypes.States.Where(s => s != Stereotypes.StateIdea && s != Stereotypes.StateTentative &&
-                s != Stereotypes.StateDiscarded && s != Stereotypes.StateRejected))
+            // {tentative, discarded, rejected} _ ExcludedBy _ Any State
+            var validSourceStates = new[]
+                {
+                    DVStereotypes.StateTentative, DVStereotypes.StateDiscarded, DVStereotypes.StateRejected
+                };
+            foreach (
+                var state in
+                    DVStereotypes.States.Where(
+                        state => state != DVStereotypes.StateIdea && !(validSourceStates.Contains(state)))
+                )
             {
-                Assert.IsTrue(ValidateConnector(Stereotypes.StateTentative, s, Stereotypes.RelationExcludedBy),
-                              AssertionFailedMessage(Stereotypes.StateTentative, s, Stereotypes.RelationExcludedBy));
-                Assert.IsTrue(ValidateConnector(Stereotypes.StateDiscarded, s, Stereotypes.RelationExcludedBy),
-                              AssertionFailedMessage(Stereotypes.StateDiscarded, s, Stereotypes.RelationExcludedBy));
-                Assert.IsTrue(ValidateConnector(Stereotypes.StateRejected, s, Stereotypes.RelationExcludedBy),
-                              AssertionFailedMessage(Stereotypes.StateRejected, s, Stereotypes.RelationExcludedBy));
+                foreach (var sourceState in validSourceStates)
+                    Assert.IsTrue(ValidateConnector(sourceState, state, DVStereotypes.RelationExcludedBy),
+                                  AssertionFailedMessage(sourceState, state, DVStereotypes.RelationExcludedBy));
             }
             ResetRepository(RepositoryType.Relationships);
             CloseRepositoryFile();
         }
+
+        #endregion
+
+        #region Replaces
 
         [TestMethod]
         public void OnPreNewConnector_Replaces_InvalidRelationships()
         {
             OpenRepositoryFile(RepositoryType.Relationships);
             ResetRepository(RepositoryType.Relationships);
-            //
+            // Any State Replaces _ {idea}
+            foreach (var state in DVStereotypes.States)
+            {
+                Assert.IsFalse(ValidateConnector(state, DVStereotypes.StateIdea, DVStereotypes.RelationReplaces),
+                               AssertionFailedMessage(state, DVStereotypes.StateIdea, DVStereotypes.RelationReplaces));
+            }
+            // {idea} _ Replaces _ Any State
+            foreach (var state in DVStereotypes.States)
+            {
+                Assert.IsFalse(ValidateConnector(DVStereotypes.StateIdea, state, DVStereotypes.RelationReplaces),
+                               AssertionFailedMessage(DVStereotypes.StateIdea, state, DVStereotypes.RelationReplaces));
+            }
+            // Any State _ Replaces _ {tentative, discarded, decided, challenged, approved}
+            var invalidTargetStates = new[]
+                {
+                    DVStereotypes.StateTentative, DVStereotypes.StateDiscarded, DVStereotypes.StateDecided,
+                    DVStereotypes.StateChallenged, DVStereotypes.StateApproved
+                };
+            foreach (var state in DVStereotypes.States.Where(state => state != DVStereotypes.StateIdea))
+            {
+                foreach (var targetState in invalidTargetStates)
+                {
+                    Assert.IsFalse(ValidateConnector(state, targetState, DVStereotypes.RelationReplaces),
+                                   AssertionFailedMessage(state, targetState, DVStereotypes.RelationReplaces));
+                }
+            }
             ResetRepository(RepositoryType.Relationships);
             CloseRepositoryFile();
         }
@@ -186,38 +255,45 @@ namespace DecisionViewpointsTests
         {
             OpenRepositoryFile(RepositoryType.Relationships);
             ResetRepository(RepositoryType.Relationships);
-            // Any decision to decision with state Rejected
-            foreach (var s in Stereotypes.States.Where(s => s != Stereotypes.StateIdea && s != Stereotypes.StateRejected))
+            // Any State _ Replaces _ {rejected}
+            foreach (var state in DVStereotypes.States.Where(state => state != DVStereotypes.StateIdea))
             {
-                Assert.IsTrue(ValidateConnector(s, Stereotypes.StateRejected, Stereotypes.RelationReplaces),
-                              AssertionFailedMessage(s, Stereotypes.StateRejected, Stereotypes.RelationReplaces));
+                Assert.IsTrue(ValidateConnector(state, DVStereotypes.StateRejected, DVStereotypes.RelationReplaces),
+                              AssertionFailedMessage(state, DVStereotypes.StateRejected, DVStereotypes.RelationReplaces));
             }
             ResetRepository(RepositoryType.Relationships);
             CloseRepositoryFile();
         }
+
+        #endregion
+
+        #region AlternativeFor
 
         [TestMethod]
         public void OnPreNewConnector_AlternativeFor_InvalidRelationships()
         {
             OpenRepositoryFile(RepositoryType.Relationships);
             ResetRepository(RepositoryType.Relationships);
-            // Any Decision to decision with state Idea
-            foreach (var s in Stereotypes.States)
+            // Any State _ AlternativeFor _ {idea}
+            foreach (var state in DVStereotypes.States)
             {
-                Assert.IsFalse(ValidateConnector(s, Stereotypes.StateIdea, Stereotypes.RelationAlternativeFor),
-                    AssertionFailedMessage(s, States.Idea, Stereotypes.RelationAlternativeFor));
+                Assert.IsFalse(ValidateConnector(state, DVStereotypes.StateIdea, DVStereotypes.RelationAlternativeFor),
+                               AssertionFailedMessage(state, DVStereotypes.StateIdea,
+                                                      DVStereotypes.RelationAlternativeFor));
             }
-            // Decision with state Idea to Any Decision
-            foreach (var s in Stereotypes.States)
+            // {idea} _ AlternativeFor _ Any State
+            foreach (var state in DVStereotypes.States)
             {
-                Assert.IsFalse(ValidateConnector(States.Idea, s, Stereotypes.RelationAlternativeFor),
-                    AssertionFailedMessage(States.Idea, s, Stereotypes.RelationAlternativeFor));
+                Assert.IsFalse(ValidateConnector(DVStereotypes.StateIdea, state, DVStereotypes.RelationAlternativeFor),
+                               AssertionFailedMessage(DVStereotypes.StateIdea, state,
+                                                      DVStereotypes.RelationAlternativeFor));
             }
-            // Any decision to decision with state Discarded
-            foreach (var s in Stereotypes.States.Where(s => s != Stereotypes.StateIdea && s != Stereotypes.StateDiscarded))
+            // Any State _ AlternativeFor _ {discarded}
+            foreach (var state in DVStereotypes.States.Where(s => s != DVStereotypes.StateIdea))
             {
-                Assert.IsFalse(ValidateConnector(s, Stereotypes.StateDiscarded, Stereotypes.RelationAlternativeFor),
-                              AssertionFailedMessage(s, Stereotypes.StateDiscarded, Stereotypes.RelationAlternativeFor));
+                Assert.IsFalse(
+                    ValidateConnector(state, DVStereotypes.StateDiscarded, DVStereotypes.RelationAlternativeFor),
+                    AssertionFailedMessage(state, DVStereotypes.StateDiscarded, DVStereotypes.RelationAlternativeFor));
             }
             ResetRepository(RepositoryType.Relationships);
             CloseRepositoryFile();
@@ -228,28 +304,34 @@ namespace DecisionViewpointsTests
         {
             OpenRepositoryFile(RepositoryType.Relationships);
             ResetRepository(RepositoryType.Relationships);
-            // Decision with state {tentative, discarded} to any decision
-            foreach (var s in Stereotypes.States.Where(s => s != Stereotypes.StateIdea && s != Stereotypes.StateTentative
-                && s != Stereotypes.StateDiscarded))
+            // {tentative, discarded} _ AlternativeFor _ {tentative, decided, approved, challenged, rejected}
+            var validSourceStates = new[]
+                {
+                    DVStereotypes.StateTentative, DVStereotypes.StateDiscarded
+                };
+            foreach (var state in DVStereotypes.States.Where(state => state != DVStereotypes.StateIdea && state != DVStereotypes.StateDiscarded))
             {
-                Assert.IsTrue(ValidateConnector(Stereotypes.StateTentative, s, Stereotypes.RelationAlternativeFor),
-                              AssertionFailedMessage(Stereotypes.StateTentative, s, Stereotypes.RelationAlternativeFor));
-                Assert.IsTrue(ValidateConnector(Stereotypes.StateDiscarded, s, Stereotypes.RelationAlternativeFor),
-                              AssertionFailedMessage(Stereotypes.StateDiscarded, s, Stereotypes.RelationAlternativeFor));
+                foreach (var sourceState in validSourceStates)
+                {
+                    Assert.IsTrue(ValidateConnector(sourceState, state, DVStereotypes.RelationAlternativeFor),
+                              AssertionFailedMessage(sourceState, state, DVStereotypes.RelationAlternativeFor));
+                }
             }
             ResetRepository(RepositoryType.Relationships);
             CloseRepositoryFile();
         }
 
-        private bool ValidateConnector(string supplierState, string clientState, string relationshipStereotype)
+        #endregion
+
+        private bool ValidateConnector(string clientState, string supplierState, string relationshipStereotype)
         {
             Package root = Repo.Models.GetAt(0);
             Package view = root.Packages.GetAt(0);
             Diagram diagram = view.Diagrams.GetAt(0);
             // Get the supplier Decision element from the Repository
-            Element supplier = view.Elements.GetByName(clientState);
+            Element supplier = view.Elements.GetByName(String.Format("{0}_supplier", supplierState));
             // Get the client Decision element from the Repository
-            Element client = view.Elements.GetByName(supplierState);
+            Element client = view.Elements.GetByName(String.Format("{0}_client", clientState));
             // Create a Relationship between them
             const string type = "ControlFlow";
             Connector c = client.Connectors.AddNew("", type);
@@ -260,19 +342,22 @@ namespace DecisionViewpointsTests
             client.Connectors.Refresh();
             // Test if the relationship can be created
             var info = new EventPropertiesHelper();
-            info.Set(EventPropertyKeys.Type, type);
-            info.Set(EventPropertyKeys.Subtype, "");
-            info.Set(EventPropertyKeys.Stereotype, relationshipStereotype);
-            info.Set(EventPropertyKeys.ClientId, client.ElementID.ToString(CultureInfo.InvariantCulture));
-            info.Set(EventPropertyKeys.SupplierId, supplier.ElementID.ToString(CultureInfo.InvariantCulture));
-            info.Set(EventPropertyKeys.DiagramId, diagram.DiagramID.ToString(CultureInfo.InvariantCulture));
-            return MainApp.EA_OnPreNewConnector(Repo, info);
+            info.Set(EAEventPropertyKeys.Type, type);
+            info.Set(EAEventPropertyKeys.Subtype, "");
+            info.Set(EAEventPropertyKeys.Stereotype, relationshipStereotype);
+            info.Set(EAEventPropertyKeys.ClientId, client.ElementID.ToString(CultureInfo.InvariantCulture));
+            info.Set(EAEventPropertyKeys.SupplierId, supplier.ElementID.ToString(CultureInfo.InvariantCulture));
+            info.Set(EAEventPropertyKeys.DiagramId, diagram.DiagramID.ToString(CultureInfo.InvariantCulture));
+            var connector = EAConnectorWrapper.Wrap(Repo, info);
+            string message;
+            return Validator.Instance.ValidateConnector(connector, out message);
         }
 
         private static string AssertionFailedMessage(string clientState, string supplierState, string relationshipType)
         {
-            return String.Format("Assertion Failed with client state {0}, supplier state: {1}, and relationship type: {2}", 
-                    clientState, supplierState, relationshipType);
+            return
+                String.Format("Assertion Failed with:\nClient State: {0}\nRelationship Type: {1}\nSupplier State: {2}",
+                              clientState, relationshipType, supplierState);
         }
     }
 }

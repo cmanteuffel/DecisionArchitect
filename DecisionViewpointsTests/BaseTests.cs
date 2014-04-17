@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.IO;
 using DecisionViewpoints;
+using DecisionViewpoints.Model.Rules;
 using EA;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -15,12 +16,13 @@ namespace DecisionViewpointsTests
         private const string UnitTestRelationships = "\\EATestFiles\\UntiTestRelationships.eap";
 
         public MainApplication MainApp { get; private set; }
-
         public Repository Repo { get; private set; }
 
         public enum RepositoryType
         {
-            Empty, BasicStructure, Relationships
+            Empty,
+            BasicStructure,
+            Relationships
         }
 
         public void OpenRepositoryFile(RepositoryType rt)
@@ -40,7 +42,7 @@ namespace DecisionViewpointsTests
                 case RepositoryType.Relationships:
                     filename = projectDirectory + UnitTestRelationships;
                     break;
-            } 
+            }
             Repo.OpenFile(filename);
         }
 
@@ -69,7 +71,7 @@ namespace DecisionViewpointsTests
 
         private static void ResetEmptyRepository(IDualPackage root)
         {
-            for (var packageIndex = (short)(root.Packages.Count - 1); packageIndex != -1; packageIndex--)
+            for (var packageIndex = (short) (root.Packages.Count - 1); packageIndex != -1; packageIndex--)
             {
                 root.Packages.Delete(packageIndex);
             }
@@ -78,10 +80,10 @@ namespace DecisionViewpointsTests
         private static void ResetRelationshipRepository(IDualPackage root)
         {
             Package view = root.Packages.GetAt(0);
-            for (var elemIndex = (short)(view.Elements.Count - 1); elemIndex != -1; elemIndex--)
+            for (var elemIndex = (short) (view.Elements.Count - 1); elemIndex != -1; elemIndex--)
             {
                 Element e = view.Elements.GetAt(elemIndex);
-                for (var conIndex = (short)(e.Connectors.Count - 1); conIndex != -1; conIndex--)
+                for (var conIndex = (short) (e.Connectors.Count - 1); conIndex != -1; conIndex--)
                 {
                     e.Connectors.Delete(conIndex);
                 }
