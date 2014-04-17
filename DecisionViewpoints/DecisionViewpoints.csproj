@@ -58,6 +58,23 @@
     </Compile>
     <Compile Include="Logic\AddinEventHandler.cs" />
     <Compile Include="Logic\BroadcastEventHandler.cs" />
+    <Compile Include="Logic\Menu\Baselines\BaselineOptions.cs" />
+    <Compile Include="Logic\Menu\Baselines\CreateBaseline.cs" />
+    <Compile Include="Logic\Menu\Baselines\CreateBaselineManually.cs" />
+    <Compile Include="Logic\Menu\Baselines\CreateBaselineOnFileClose.cs" />
+    <Compile Include="Logic\Menu\Baselines\CreateBaselineOnModification.cs" />
+    <Compile Include="Logic\Menu\CompositeMenuItem.cs" />
+    <Compile Include="Logic\Menu\General\CreateProjectStructure.cs" />
+    <Compile Include="Logic\Menu\Generate\GenerateChronological.cs" />
+    <Compile Include="Logic\Menu\Header.cs" />
+    <Compile Include="Logic\Menu\IMenuItem.cs" />
+    <Compile Include="Logic\Menu\LeafMenuItem.cs" />
+    <Compile Include="Logic\Menu\MenuEventHandler.cs" />
+    <Compile Include="Logic\Menu\Separator.cs" />
+    <Compile Include="Logic\Menu\Tracing\CreateTraces.cs" />
+    <Compile Include="Logic\Menu\Tracing\FollowTraces.cs" />
+    <Compile Include="Logic\Menu\Tracing\TracingExistingDecision.cs" />
+    <Compile Include="Logic\Menu\Tracing\TracingNewDecision.cs" />
     <Compile Include="Logic\Rules\ElementRule.cs" />
     <Compile Include="Logic\Rules\VolatileElementRule.cs" />
     <Compile Include="Logic\Rules\ModelValidator.cs" />
