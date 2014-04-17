@@ -73,12 +73,20 @@ namespace DecisionViewpoints.Model
             return new EAConnectorWrapper(repository, clientId, supplierId, stereotype, type, subtype, diagramId);
         }
 
+        public static EAConnectorWrapper Wrap(Repository repository, int id)
+        {
+            Connector connector = repository.GetConnectorByID(id);
+            return Wrap(repository, connector.ConnectorGUID);
+        }
+
         public static EAConnectorWrapper Wrap(Repository repository, string guid)
         {
             Connector connector = repository.GetConnectorByGuid(guid);
             return new EAConnectorWrapper(repository, connector.ClientID, connector.SupplierID, connector.Stereotype,
                                           connector.Type, connector.Subtype, connector.DiagramID, connector);
         }
+
+
 
         public Diagram GetDiagram()
         {

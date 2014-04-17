@@ -4,11 +4,8 @@ namespace DecisionViewpoints.Logic.Rules
 {
     internal class NoLoopRule : ConnectorRule
     {
-        private readonly string _errorMessage;
-
-        public NoLoopRule(string errorMessage)
+        public NoLoopRule(string errorMessage) : base(errorMessage)
         {
-            _errorMessage = errorMessage;
         }
 
         public override bool ValidateConnector(EAConnectorWrapper connectorWrapper, out string message)
@@ -16,10 +13,11 @@ namespace DecisionViewpoints.Logic.Rules
             message = "";
             if (connectorWrapper.SupplierId == connectorWrapper.ClientId)
             {
-                message = _errorMessage;
+                message = getErrorMessage();
                 return false;
             }
             return true;
         }
+
     }
 }

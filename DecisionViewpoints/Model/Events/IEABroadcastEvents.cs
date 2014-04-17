@@ -81,7 +81,7 @@ namespace DecisionViewpoints.Model.Events
         void EA_OnRunElementRule(Repository repository, string ruleId, Element element);
         void EA_OnRunPackageRule(Repository repository, string ruleId, long packageId);
         void EA_OnRunDiagramRule(Repository repository, string ruleId, long diagramId);
-        void EA_OnRunConnectorRule(Repository repository, string ruleId, long connectorId);
+        void EA_OnRunConnectorRule(Repository repository, string ruleId, int connectorId);
         void EA_OnRunAttributeRule(Repository repository, string ruleId, string attributeGUID, long objectId);
         void EA_OnRunMethodRule(Repository repository, string ruleId, string methodGUID, long objectId);
 

@@ -124,6 +124,24 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Decision Viewpoints.
+        /// </summary>
+        internal static string ModelValidationCategory {
+            get {
+                return ResourceManager.GetString("ModelValidationCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {3} ({0} {1} {2}).
+        /// </summary>
+        internal static string ModelValidationMessage {
+            get {
+                return ResourceManager.GetString("ModelValidationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A decision is not allowed to have a relation with itself.
         /// </summary>
         internal static string NoLoops {

@@ -153,4 +153,10 @@
   <data name="WarningCreateRelation" xml:space="preserve">
     <value>Warning</value>
   </data>
+  <data name="ModelValidationCategory" xml:space="preserve">
+    <value>Decision Viewpoints</value>
+  </data>
+  <data name="ModelValidationMessage" xml:space="preserve">
+    <value>{3} ({0} {1} {2})</value>
+  </data>
 </root>

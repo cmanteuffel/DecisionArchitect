@@ -235,7 +235,7 @@ namespace DecisionViewpoints.Model.Events
         {
         }
 
-        public virtual void EA_OnRunConnectorRule(Repository repository, string ruleId, long connectorId)
+        public virtual void EA_OnRunConnectorRule(Repository repository, string ruleId, int connectorId)
         {
         }
 

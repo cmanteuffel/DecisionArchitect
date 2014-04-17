@@ -6,7 +6,7 @@ using DecisionViewpoints.Model;
 
 namespace DecisionViewpointsTests.Model.EventProperties
 {
-    public class EAEventPropertiesHelper : EA.EventProperties
+    public sealed class EAEventPropertiesHelper : EA.EventProperties
     {
         private readonly IDictionary<string, EventProperty> _properties;
 

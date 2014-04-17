@@ -51,7 +51,6 @@
   <ItemGroup>
     <Compile Include="Logic\AddinEventHandler.cs" />
     <Compile Include="Logic\BroadcastEventHandler.cs" />
-    <Compile Include="Logic\Rules\CompositeRule.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Messages.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -63,7 +62,6 @@
     <Compile Include="Model\Events\IEABroadcastEvents.cs" />
     <Compile Include="Model\EAEventPropertyKeys.cs" />
     <Compile Include="Logic\Rules\ExclusionRule.cs" />
-    <Compile Include="Logic\Rules\ICompositeRule.cs" />
     <Compile Include="Model\EAConnectorWrapper.cs" />
     <Compile Include="Logic\Rules\ConnectorRule.cs" />
     <Compile Include="Logic\Rules\IConnectorRule.cs" />

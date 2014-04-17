@@ -6,14 +6,12 @@ namespace DecisionViewpoints.Logic.Rules
     internal class ExclusionRule : ConnectorRule
     {
         private readonly HashSet<string> _clientState = new HashSet<string>();
-        private readonly string _errorMessage;
         private readonly HashSet<string> _relationType = new HashSet<string>();
         private readonly HashSet<string> _supplierState = new HashSet<string>();
 
-        public ExclusionRule(IEnumerable<string> clientStates, IEnumerable<string> relationTypes,
-                             IEnumerable<string> supplierStates, string errorMessage)
+        public ExclusionRule(string errorMessage, IEnumerable<string> clientStates, IEnumerable<string> relationTypes,
+                             IEnumerable<string> supplierStates) : base(errorMessage)
         {
-            _errorMessage = errorMessage;
             _clientState.UnionWith(clientStates);
             _relationType.UnionWith(relationTypes);
             _supplierState.UnionWith(supplierStates);
@@ -29,7 +27,7 @@ namespace DecisionViewpoints.Logic.Rules
                     if (_supplierState.Count == 0 ||
                         _supplierState.Contains(connectorWrapper.GetSupplier().GetStereotypeList()))
                     {
-                        message = _errorMessage;
+                        message = getErrorMessage();
                         return false;
                     }
                 }

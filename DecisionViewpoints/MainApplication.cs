@@ -1,4 +1,6 @@
-﻿using DecisionViewpoints.Logic;
+﻿using System.Windows.Forms;
+using DecisionViewpoints.Logic;
+using DecisionViewpoints.Logic.Rules;
 using DecisionViewpoints.Model.Events;
 using EA;
 
@@ -109,5 +111,20 @@ namespace DecisionViewpoints
         {
             return BroadcastEventHandler.OnPostNewPackage(repository, info);
         }
+
+        public override void EA_OnInitializeUserRules(Repository repository)
+        {
+            Validator.Instance.SetupModelValidator(repository);
+        }
+
+        public override void EA_OnStartValidation(Repository repository, params object[] args)
+        {
+        }
+
+        public override void EA_OnRunConnectorRule(Repository repository, string ruleId, int connectorId)
+        {
+            Validator.Instance.RunConnectorRule(repository,ruleId,connectorId);
+        }
+        
     }
 }
