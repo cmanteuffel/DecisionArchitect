@@ -61,7 +61,7 @@ namespace DecisionViewpointsTests {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \\EATestFiles\\UntiTestBasicStructure.eap.
+        ///   Looks up a localized string similar to \EATestFiles\UnitTestBasicStructure.eap.
         /// </summary>
         internal static string BasicStructure {
             get {
@@ -70,7 +70,7 @@ namespace DecisionViewpointsTests {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \\EATestFiles\\UntiTestEmpty.eap.
+        ///   Looks up a localized string similar to \EATestFiles\UnitTestEmpty.eap.
         /// </summary>
         internal static string Empty {
             get {
@@ -79,7 +79,7 @@ namespace DecisionViewpointsTests {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \\EATestFiles\\UntiTestRelationships.eap.
+        ///   Looks up a localized string similar to \EATestFiles\UnitTestRelationships.eap.
         /// </summary>
         internal static string Relationships {
             get {

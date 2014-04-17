@@ -1,4 +1,5 @@
-﻿using DecisionViewpointsTests.Model.RepositoryFile;
+﻿using System.Diagnostics;
+using DecisionViewpointsTests.Model.RepositoryFile;
 using EA;
 
 namespace DecisionViewpointsTests.Logic

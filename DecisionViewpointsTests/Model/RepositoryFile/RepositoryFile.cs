@@ -32,8 +32,7 @@ namespace DecisionViewpointsTests.Model.RepositoryFile
 
         protected string GetDirectory()
         {
-            var directoryInfo = Directory.GetParent(Directory.GetCurrentDirectory()).Parent;
-            return directoryInfo == null ? "" : directoryInfo.FullName;
+            return Directory.GetCurrentDirectory();
         }
     }
 }
