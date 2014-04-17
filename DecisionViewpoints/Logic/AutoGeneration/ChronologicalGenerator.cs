@@ -64,6 +64,9 @@ namespace DecisionViewpoints.Logic.AutoGeneration
             _cvpd.CreateConnector(_lastCreated, elements.GetAt(0));
             for (short i = 1; i < elements.Count; i++)
             {
+                var element = elements.GetAt(i) as Element;
+                if (element == null) continue;
+                if (!element.MetaType.Equals("Decision")) continue;
                 _cvpd.AddToDiagram(_repository, elements.GetAt(i));
                 _cvpd.CreateConnector(elements.GetAt((short) (i - 1)), elements.GetAt(i));
             }

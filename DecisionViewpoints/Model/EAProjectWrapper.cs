@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Windows.Forms;
 using System.Xml;
 using EA;
@@ -35,6 +36,7 @@ namespace DecisionViewpoints.Model
             var xmlBaselines = _project.GetBaselines(GetPackageXml(package), "");
             var xml = new XmlDocument();
             xml.LoadXml(xmlBaselines);
+            //MessageBox.Show(System.Text.Encoding.UTF8.GetByteCount(xml.ToString()).ToString(CultureInfo.InvariantCulture));
             return xml.SelectNodes("//@guid");
         }
 

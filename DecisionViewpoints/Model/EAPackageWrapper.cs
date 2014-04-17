@@ -24,10 +24,15 @@ namespace DecisionViewpoints.Model
             return _package;
         }
 
-        public Package CreatePackage(IDualRepository repository, string name)
+        public Package CreatePackage(IDualRepository repository, string name, string stereotype="")
         {
             Package newPackage = _package.Packages.AddNew(name, "");
             newPackage.Update();
+            if (!stereotype.Equals(""))
+            {
+                newPackage.Element.Stereotype = stereotype;
+                newPackage.Update();
+            }
             newPackage.Packages.Refresh();
             repository.RefreshModelView(_package.PackageID);
             return newPackage;
