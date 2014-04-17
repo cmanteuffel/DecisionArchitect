@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using DecisionViewpoints.Logic.Automation;
 using DecisionViewpoints.Model;
 using DecisionViewpoints.Model.Baselines;
 using DecisionViewpoints.Properties;
@@ -152,8 +153,8 @@ namespace DecisionViewpoints.Logic.Menu
                         repository.RefreshModelView(dvPackage.ID);
                         decision.ShowInProjectView();
                     }
+                    }
                 }
-            }
         }
 
         private static void CreateBaseline()
@@ -162,6 +163,13 @@ namespace DecisionViewpoints.Logic.Menu
 
         private static void Generate()
         {
+            EARepository repository = EARepository.Instance;
+            EAPackage viewPackage = repository.GetPackageFromRootByName("Decision Views");
+            EADiagram chronologicalView = viewPackage.GetDiagram("Chronological");
+
+            ChronologicalViewpointGenerator generator = new ChronologicalViewpointGenerator(viewPackage, chronologicalView);
+            generator.GenerateViewpoint();
+
         }
     }
 }

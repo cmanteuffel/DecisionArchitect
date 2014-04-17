@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
+using EA;
 
 namespace DecisionViewpoints.Model.Baselines
 {
@@ -107,6 +108,7 @@ namespace DecisionViewpoints.Model.Baselines
             var diffItem = new DiffItem();
             if (compareItem.Attributes != null)
             {
+                Project p = EARepository.Instance.Native.GetProjectInterface();
                 diffItem.Guid = compareItem.Attributes["guid"].Value;
                 diffItem.Name = compareItem.Attributes["name"].Value;
                 diffItem.Status = GetStatus(compareItem.Attributes["status"].Value);

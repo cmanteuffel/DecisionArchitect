@@ -211,7 +211,10 @@ namespace DecisionViewpoints.Model
 
         public IEnumerable<EAElement> GetAllDecisions()
         {
-            throw new NotImplementedException();
+            return 
+            _native.Elements.Cast<Element>()
+                   .Where(e => e.MetaType.Equals(DVStereotypes.DecisionMetaType))
+                   .Select(e => EAElement.Wrap(e));
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using DecisionViewpoints.Model;
 using DecisionViewpoints.Model.Baselines;
 
@@ -24,10 +25,20 @@ namespace DecisionViewpoints.Logic.Automation
         {
             //make sure diagram and data package exists, if not create those
             IEnumerable<DecisionDiffItem> items = GetHistory(_viewPackage);
-            IEnumerable<EAElement> decisions = CreateDecisions(items);
-            IList<EAElement> connectedDecisions = ConnectDecisions(decisions);
 
-            GenerateDiagram(_chronologicalViewpoint, connectedDecisions);
+            string itemString = "";
+            var tmp = items.ToList();
+            tmp.Sort(DecisionDiffItem.CompareByDateModified);
+            foreach (var item in tmp)
+            {
+                itemString += item.Current.Name + " <" + item.Stereotype +"> @" + item.Modified + "\n";
+            }
+            MessageBox.Show(itemString);
+
+            //IEnumerable<EAElement> decisions = CreateDecisions(items);
+            //IList<EAElement> connectedDecisions = ConnectDecisions(decisions);
+
+            //GenerateDiagram(_chronologicalViewpoint, connectedDecisions);
 
             return true;
         }
@@ -36,7 +47,8 @@ namespace DecisionViewpoints.Logic.Automation
         {
             IEnumerable<Baseline> baselines =
                 viewPackage.GetBaselines().Where(baseline => baseline.Notes.Equals(BaselineIdentifier));
-            IEnumerable<DecisionDiffItem> decisionsItems = new List<DecisionDiffItem>();
+            
+            IDictionary<string, DecisionDiffItem> nomodificationFilter = new Dictionary<string, DecisionDiffItem>();
             Dictionary<string, EAElement> decisions = viewPackage.GetAllDecisions().ToDictionary(e => e.GUID, e => e);
 
             foreach (Baseline baseline in baselines)
@@ -44,12 +56,26 @@ namespace DecisionViewpoints.Logic.Automation
                 BaselineDiff baselineDiff = viewPackage.CompareWithBaseline(baseline);
                 DiffItem packageItem = baselineDiff.DiffItems.First(item => item.Guid.Equals(viewPackage.GUID));
 
-                decisionsItems = FilterChangedDecisionsOnly(packageItem, decisions);
-                decisionsItems = FilterNoModificationsInBetweenBaselines(decisionsItems);
+                var changedDecisions = FilterChangedDecisionsOnly(packageItem, decisions);
+                foreach (DecisionDiffItem decisionItem in changedDecisions)
+                {
+                    string key = decisionItem.Guid + ">>" + decisionItem.Modified;
+                    if (!nomodificationFilter.ContainsKey(key))
+                    {
+                        nomodificationFilter[key] = decisionItem;
+                    }
+                }
             }
+            var tmp = nomodificationFilter.Values.ToList();
+            string itemString = "";
+            tmp.Sort(DecisionDiffItem.CompareByDateModified);
+            foreach (var item in tmp)
+            {
+                itemString += item.Current.Name + " <" + item.Stereotype + "> @" + item.Modified + "\n";
+            }
+            MessageBox.Show(itemString);
 
-            decisionsItems = FilterConsecutiveStereotypeChanges(decisions, decisionsItems);
-            return decisionsItems;
+            return  FilterConsecutiveStereotypeChanges(decisions, nomodificationFilter.Values.ToList());
         }
 
         private IEnumerable<EAElement> CreateDecisions(IEnumerable<DecisionDiffItem> items)
@@ -79,36 +105,32 @@ namespace DecisionViewpoints.Logic.Automation
                                                              .Where(item => item.Status == DiffStatus.Changed)
                                                              .Select(
                                                                  item =>
-                                                                 new DecisionDiffItem(item, decisions[item.Guid]));
+                                                                 new DecisionDiffItem(item, decisions[item.Guid])).ToList();
             return items;
         }
 
-        private IEnumerable<DecisionDiffItem> FilterNoModificationsInBetweenBaselines(
-            IEnumerable<DecisionDiffItem> decisionsItems)
-        {
-            //filter decisions that are unchanged inbetween baselines
-            IDictionary<string, DecisionDiffItem> nomodificationFilter = new Dictionary<string, DecisionDiffItem>();
-            foreach (DecisionDiffItem decisionItem in decisionsItems)
-            {
-                string key = decisionItem.Guid + ">>" + decisionItem.Modified;
-                if (!nomodificationFilter.ContainsKey(key))
-                {
-                    nomodificationFilter[key] = decisionItem;
-                }
-            }
-
-            return nomodificationFilter.Values;
-        }
+  
 
         private IEnumerable<DecisionDiffItem> FilterConsecutiveStereotypeChanges(
-            IDictionary<string, EAElement> decisions, IEnumerable<DecisionDiffItem> decisionsItems)
+            IDictionary<string, EAElement> decisions, IEnumerable<DecisionDiffItem> decisionHistory)
         {
+           
+
             IEnumerable<DecisionDiffItem> filteredDecisions = new List<DecisionDiffItem>();
             foreach (string guid in decisions.Keys)
             {
-                List<DecisionDiffItem> items = decisionsItems.Where(d => d.Guid.Equals(guid)).ToList();
+                List<DecisionDiffItem> items = decisionHistory.Where(d => d.Guid.Equals(guid)).ToList();
+
+                if (!items.Any()) continue;
+
                 items.Sort(DecisionDiffItem.CompareByDateModified);
 
+                string itemString = "";
+                foreach (var item in items)
+                {
+                    itemString += item.Current.Name + " <" + item.Stereotype + "> @" + item.Modified + "\n";
+                }
+                
                 var consecutiveChanges = new List<DecisionDiffItem>();
                 foreach (DecisionDiffItem item in items)
                 {
