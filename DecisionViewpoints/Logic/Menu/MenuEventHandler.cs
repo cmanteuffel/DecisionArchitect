@@ -11,15 +11,16 @@ namespace DecisionViewpoints.Logic.Menu
         static MenuEventHandler()
         {
             var createTraces = new Menu(Messages.MenuCreateTraces);
-            createTraces.UpdateDelegate = menuItem =>
+            var createAndTraceDecision = new MenuItem(Messages.MenuTraceToNewDecision, CreateAndTraceDecision);
+            createAndTraceDecision.UpdateDelegate = menuItem =>
                 {
                     if (NativeType.Element == EARepository.Instance.GetContextItemType())
                     {
                         var eaelement = EARepository.Instance.GetContextObject<EAElement>();
-                        menuItem.IsVisible = (eaelement != null && !eaelement.IsDecision());
+                        menuItem.IsEnabled = (eaelement != null && !eaelement.IsDecision());
                         return;
                     }
-                    menuItem.IsVisible = false;
+                    menuItem.IsEnabled = false;
                 };
 
 
@@ -65,7 +66,7 @@ namespace DecisionViewpoints.Logic.Menu
             RootMenu.Add(new MenuItem(Messages.MenuCreateProjectStructure, CreateProjectStructure));
             RootMenu.Add(MenuItem.Separator);
             RootMenu.Add(createTraces);
-            createTraces.Add(new MenuItem(Messages.MenuTraceToNewDecision, CreateAndTraceDecision));
+            createTraces.Add(createAndTraceDecision);
             createTraces.Add(new MenuItem(Messages.MenuTraceToExistingElement, (delegate { MessageBox.Show("To be implemented"); })));
             RootMenu.Add(new FollowTraceMenu());
             RootMenu.Add(MenuItem.Separator);
