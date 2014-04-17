@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -15,11 +16,11 @@ namespace DecisionViewpoints.Logic
         public const string MenuHeader = "-&Decision Viewpoints";
         public const string MenuCreateProjectStructure = "&Create Project Structure";
         public const string MenuTestBaselines = "&Test Baselines";
-        public const string MenuGenerateChronological = "GenerateHistory CVP";
+        public const string MenuGenerateChronological = "Generate CVP";
 
-        private static readonly string RelationshipDiagramMetaType = Settings.Default["RelationshipDiagramMetaType"].ToString();
-        private static readonly string ChronologicalDiagramMetaType = Settings.Default["ChronologicalDiagramMetaType"].ToString();
-        private static readonly string StakeholderInvolvementDiagramMetaType = Settings.Default["StakeholderInvolvementDiagramMetaType"].ToString();
+        private static double _baselineVersion = 0.0;
+
+        private static readonly string DiagramMetaType = Settings.Default["DiagramMetaType"].ToString();
 
         public static object GetMenuItems(Repository repository, string location, string menuName)
         {
@@ -42,10 +43,10 @@ namespace DecisionViewpoints.Logic
                     CreateProjectStructure(repository);
                     break;
                 case MenuTestBaselines:
-                    TestBaselines(repository);
+                    //TestBaselines(repository);
+                    CreateBaselines(repository);
                     break;
                 case MenuGenerateChronological:
-                    //CreateBaselines(repository);
                     GenerateView(repository);
                     break;
                     /*case MenuCreateDecisionGroup:
@@ -58,24 +59,41 @@ namespace DecisionViewpoints.Logic
         {
             var project = new EAProjectWrapper(repository);
             Package root = repository.Models.GetAt(0);
-            var rvp = new EAPackageWrapper(root.Packages.GetByName("Decision Relationship View"));
-            var cvp = new EAPackageWrapper(root.Packages.GetByName("Decision Chronological View"));
-            cvp.DeletePackage(0, false);
-            cvp.DeleteDiagram(0, false);
-            var hp = new EAPackageWrapper(cvp.CreatePackage(repository, "history"));
-            var chronologicalDiagram = new EADiagramWrapper(cvp.CreateDiagram(repository, "System Part X", "Custom"));
+            var rvp = new EAPackageWrapper(root.Packages.GetByName("Relationship")); // relationship package
+            var cvp = new EAPackageWrapper(root.Packages.GetByName("Chronological")); // chronological package
+            try
+            {
+                cvp.DeletePackage(0, false);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No previous history.");
+            }
+            try
+            {
+                cvp.DeleteDiagram(0, false);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No previous diagram.");
+                throw;
+            }
+            var hp = new EAPackageWrapper(cvp.CreatePackage(repository, "history")); // history package
+            var cd = new EADiagramWrapper(cvp.CreateDiagram(repository, "Diagram1", "Custom")); // chronological diagram
             var baselines = project.ReadPackageBaselines(repository, rvp);
-            var comparisonResults = project.ComparePackageBaselines(repository, rvp, baselines);
-            var chronologicalViewGenarator = new ChronologicalGenerator(repository, hp, chronologicalDiagram);
-            chronologicalViewGenarator.GenerateHistory(repository, comparisonResults);
-            chronologicalViewGenarator.AddCurrent(rvp);
-            //project.Get().LayoutDiagramEx(chronologicalDiagram.Get().DiagramGUID, ConstLayoutStyles.lsLayoutDirectionRight);
+            project.ComparePackageBaselines(repository, rvp, baselines);
+            var chronologicalViewGenarator = new ChronologicalGenerator(repository, project, rvp, hp, cd);
+            chronologicalViewGenarator.Generate();
+            //project.Get().LayoutDiagramEx(cd.Get().DiagramGUID, ConstLayoutStyles.lsLayoutDirectionRight, 3, ConstLayoutStyles.lsLayeringOptimalLinkLength, 40, true);
         }
 
         private static void CreateBaselines(IDualRepository repository)
         {
-            //project.CreateBaseline(rv.PackageGUID, "0.1", "");   
-            
+            var project = new EAProjectWrapper(repository);
+            Package root = repository.Models.GetAt(0);
+            var rvp = new EAPackageWrapper(root.Packages.GetByName("Relationship")); // relationship package
+            _baselineVersion += 0.1;
+            project.Get().CreateBaseline(rvp.Get().PackageGUID, _baselineVersion.ToString(CultureInfo.InvariantCulture), "");
         }
 
         private static void TestBaselines(Repository repository)
@@ -188,12 +206,12 @@ namespace DecisionViewpoints.Logic
         /// <param name="repository">The EA repository.</param>
         private static void CreateProjectStructure(IDualRepository repository)
         {
-            CreateNewView(repository, "Relationship", RelationshipDiagramMetaType,0);
-            CreateNewView(repository, "Chronological", ChronologicalDiagramMetaType,1);
-            CreateNewView(repository, "Stakeholder Involvement", StakeholderInvolvementDiagramMetaType,2);
+            CreateNewView(repository, "Relationship", 0);
+            CreateNewView(repository, "Chronological", 1);
+            CreateNewView(repository, "Stakeholder Involvement", 2);
         }
 
-        private static void CreateNewView(IDualRepository repository, string name, string metatype, int pos)
+        private static void CreateNewView(IDualRepository repository, string name, int pos)
         {
             Package root = repository.Models.GetAt(0);
             Package vp = root.Packages.AddNew(name, "");
@@ -203,7 +221,7 @@ namespace DecisionViewpoints.Logic
             vp.Update();
             root.Packages.Refresh();
             // Create new Decision Relationship model diagram
-            Diagram diagram = vp.Diagrams.AddNew("Diagram1", metatype);
+            Diagram diagram = vp.Diagrams.AddNew("Diagram1", DiagramMetaType);
             diagram.Update();
             vp.Diagrams.Refresh();
             repository.RefreshModelView(vp.PackageID);

@@ -68,11 +68,19 @@ namespace DecisionViewpointsTests
             _f.Reset();
             MainApp.EA_MenuClick(Repo, "TreeView", AddinEventHandler.MenuHeader, AddinEventHandler.MenuCreateProjectStructure);
             Package root = Repo.Models.GetAt(0);
-            Package view = root.Packages.GetAt(0);
-            Diagram diagram = view.Diagrams.GetAt(0);
+            Package rv = root.Packages.GetAt(0);
+            Diagram rd = rv.Diagrams.GetAt(0);
+            Package cv = root.Packages.GetAt(1);
+            Diagram cd = cv.Diagrams.GetAt(0);
+            Package siv = root.Packages.GetAt(2);
+            Diagram sid = siv.Diagrams.GetAt(0);
             _f.Reset();
-            Assert.AreEqual("Decision Relationship View", view.Name);
-            Assert.AreEqual("Diagram1", diagram.Name);
+            Assert.AreEqual("Relationship", rv.Name);
+            Assert.AreEqual("Diagram1", rd.Name);
+            Assert.AreEqual("Chronological", cv.Name);
+            Assert.AreEqual("Diagram1", cd.Name);
+            Assert.AreEqual("Stakeholder Involvement", siv.Name);
+            Assert.AreEqual("Diagram1", sid.Name);
         }
     }
 }

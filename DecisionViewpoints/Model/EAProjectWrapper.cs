@@ -8,6 +8,7 @@ namespace DecisionViewpoints.Model
     public class EAProjectWrapper
     {
         private readonly Project _project;
+        private Dictionary<string, XmlNodeList> _comparisonResults = new Dictionary<string, XmlNodeList>();
 
         public EAProjectWrapper(IDualRepository repository)
         {
@@ -24,6 +25,11 @@ namespace DecisionViewpoints.Model
             return _project.GUIDtoXML(package.GUID());
         }
 
+        public Dictionary<string, XmlNodeList> GetComparisonResults()
+        {
+            return _comparisonResults;
+        }
+
         public XmlNodeList ReadPackageBaselines(IDualRepository repository, EAPackageWrapper package)
         {
             var xmlBaselines = _project.GetBaselines(GetPackageXml(package), "");
@@ -32,18 +38,18 @@ namespace DecisionViewpoints.Model
             return xml.SelectNodes("//@guid");
         }
 
-        public Dictionary<string, XmlNodeList> ComparePackageBaselines(IDualRepository repository, EAPackageWrapper package, XmlNodeList baselines)
+        public void ComparePackageBaselines(IDualRepository repository, EAPackageWrapper package, XmlNodeList baselines)
         {
-            var results = new Dictionary<string, XmlNodeList>();
+            //var results = new Dictionary<string, XmlNodeList>();
             foreach (XmlNode baseline in baselines)
             {
                 // here baseline is the guid (node element) of each baseline
                 var xmlCompare = _project.DoBaselineCompare(GetPackageXml(package), baseline.Value, "");
                 var compare = new XmlDocument();
                 compare.LoadXml(xmlCompare);
-                results.Add(baseline.Value, compare.SelectNodes("//CompareItem[@status='Changed' and @type='Action']"));
+                _comparisonResults.Add(baseline.Value, compare.SelectNodes("//CompareItem[@status='Changed' and @type='Action']"));
             }
-            return results;
+            //return results;
         }
     }
 }

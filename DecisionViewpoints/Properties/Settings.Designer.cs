@@ -37,13 +37,13 @@ namespace DecisionViewpoints.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("DecisionVS::Relationship")]
-        public string RelationshipDiagramMetaType {
+        [global::System.Configuration.DefaultSettingValueAttribute("DecisionVS::DecisionViewpoints")]
+        public string DiagramMetaType {
             get {
-                return ((string)(this["RelationshipDiagramMetaType"]));
+                return ((string)(this["DiagramMetaType"]));
             }
             set {
-                this["RelationshipDiagramMetaType"] = value;
+                this["DiagramMetaType"] = value;
             }
         }
         
@@ -56,30 +56,6 @@ namespace DecisionViewpoints.Properties {
             }
             set {
                 this["ToolboxName"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("DecisionVS::Chronological")]
-        public string ChronologicalDiagramMetaType {
-            get {
-                return ((string)(this["ChronologicalDiagramMetaType"]));
-            }
-            set {
-                this["ChronologicalDiagramMetaType"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("DecisionVS::StakeholderInvolvement")]
-        public string StakeholderInvolvementDiagramMetaType {
-            get {
-                return ((string)(this["StakeholderInvolvementDiagramMetaType"]));
-            }
-            set {
-                this["StakeholderInvolvementDiagramMetaType"] = value;
             }
         }
     }

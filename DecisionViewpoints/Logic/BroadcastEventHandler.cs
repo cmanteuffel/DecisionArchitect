@@ -15,9 +15,7 @@ namespace DecisionViewpoints.Logic
         // These values need to be consistent with the ones defined in the DecisionVS MDG file.
         private const string RelStereotype = "Relationship";
         private static readonly string DecisionMetaType = Settings.Default["DecisionMetaType"].ToString();
-        private static readonly string RelationshipDiagramMetaType = Settings.Default["RelationshipDiagramMetaType"].ToString();
-        private static readonly string ChronologicalDiagramMetaType = Settings.Default["ChronologicalDiagramMetaType"].ToString();
-        private static readonly string StakeholderInvolvementDiagramMetaType = Settings.Default["StakeholderInvolvementDiagramMetaType"].ToString();
+        private static readonly string DiagramMetaType = Settings.Default["DiagramMetaType"].ToString();
         private static readonly string ToolboxName = Settings.Default["ToolboxName"].ToString();
         private static string lastGUID = string.Empty;
         private static DateTime lastChange = DateTime.MinValue;
@@ -70,13 +68,10 @@ namespace DecisionViewpoints.Logic
             return true;
         }
 
-
         public static string OnPostOpenDiagram(Repository repository, int diagramId)
         {
             var diagram = repository.GetDiagramByID(diagramId);
-            if (!diagram.MetaType.Equals(RelationshipDiagramMetaType) &&
-                !diagram.MetaType.Equals(ChronologicalDiagramMetaType) && 
-                !diagram.MetaType.Equals(StakeholderInvolvementDiagramMetaType)) return "";
+            if (!diagram.MetaType.Equals(DiagramMetaType)) return "";
             return repository.ActivateToolbox(ToolboxName, 0) ? ToolboxName : "";
         }
 

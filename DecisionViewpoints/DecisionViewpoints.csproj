@@ -58,7 +58,7 @@
     <Compile Include="Logic\Rules\NameUniquenessRule.cs" />
     <Compile Include="Logic\Rules\RuleType.cs" />
     <Compile Include="Logic\AutoGeneration\ChronologicalGenerator.cs" />
-    <Compile Include="Logic\AutoGeneration\IAutoGenerator.cs" />
+    <Compile Include="Logic\AutoGeneration\IGenerator.cs" />
     <Compile Include="Model\EABaselineWrapper.cs" />
     <Compile Include="Model\EADiagramWrapper.cs" />
     <Compile Include="Model\EAElementWrapper.cs" />
