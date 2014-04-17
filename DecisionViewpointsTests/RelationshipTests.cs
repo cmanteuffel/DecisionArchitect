@@ -13,14 +13,27 @@ namespace DecisionViewpointsTests
     [TestClass]
     public class RelationshipTests : BaseTests
     {
+        private RelationshipsRepositoryFile _f;
+
+        [TestInitialize]
+        public void InitRelationshipTests()
+        {
+            _f = new RelationshipsRepositoryFile(Repo);
+            _f.Open();
+        }
+
+        [TestCleanup]
+        public void CleanUpRelationshipsTests()
+        {
+            _f.Close();
+        }
+
         #region CausedBy
 
         [TestMethod]
         public void CausedBy_InvalidRelationships()
         {
-            var f = new RelationshipsRepositoryFile(Repo);
-            f.Open();
-            f.Reset();
+            _f.Reset();
             // Any State _ CausedBy _ {idea}
             foreach (var state in DVStereotypes.States)
             {
@@ -39,16 +52,13 @@ namespace DecisionViewpointsTests
                 Assert.IsFalse(ValidateConnector(state, DVStereotypes.StateDiscarded, DVStereotypes.RelationCausedBy),
                                AssertionFailedMessage(state, DVStereotypes.StateDiscarded, DVStereotypes.RelationCausedBy));
             }
-            f.Reset();
-            f.Close();
+            _f.Reset();
         }
 
         [TestMethod]
         public void CausedBy_ValidRelationships()
         {
-            var f = new RelationshipsRepositoryFile(Repo);
-            f.Open();
-            f.Reset();
+            _f.Reset();
             // Any State _ CausedBy _ {tentative, decided, approved, challenged, rejected}
             var validTargetStates = new[]
                 {
@@ -67,8 +77,7 @@ namespace DecisionViewpointsTests
                                   AssertionFailedMessage(state, targetState, DVStereotypes.RelationCausedBy));
                 }
             }
-            f.Reset();
-            f.Close();
+            _f.Reset();
         }
 
         #endregion
@@ -78,9 +87,7 @@ namespace DecisionViewpointsTests
         [TestMethod]
         public void DependsOn_InvalidRelationships()
         {
-            var f = new RelationshipsRepositoryFile(Repo);
-            f.Open();
-            f.Reset();
+            _f.Reset();
             // Any State _ DependsOn _ {idea}
             foreach (var state in DVStereotypes.States)
             {
@@ -106,16 +113,13 @@ namespace DecisionViewpointsTests
                                    AssertionFailedMessage(state, targetState, DVStereotypes.RelationDependsOn));
                 }
             }
-            f.Reset();
-            f.Close();
+            _f.Reset();
         }
 
         [TestMethod]
         public void DependsOn_ValidRelationships()
         {
-            var f = new RelationshipsRepositoryFile(Repo);
-            f.Open();
-            f.Reset();
+            _f.Reset();
             // Any State _ DependsOn _ {tentative, decided, approved, challenged}
             var validTargetStates = new[]
                 {
@@ -132,8 +136,7 @@ namespace DecisionViewpointsTests
                                   AssertionFailedMessage(state, targetState, DVStereotypes.RelationDependsOn));
                 }
             }
-            f.Reset();
-            f.Close();
+            _f.Reset();
         }
 
         #endregion
@@ -143,9 +146,7 @@ namespace DecisionViewpointsTests
         [TestMethod]
         public void ExcludedBy_InvalidRelationships()
         {
-            var f = new RelationshipsRepositoryFile(Repo);
-            f.Open();
-            f.Reset();
+            _f.Reset();
             //Debug.Write(String.Format("{0} {1} {2}\n", state, DVStereotypes.RelationCausedBy, targetState));
             // Any State _ExcludedBy _ {idea}
             foreach (var state in DVStereotypes.States)
@@ -175,16 +176,13 @@ namespace DecisionViewpointsTests
                                    AssertionFailedMessage(state, targetState, DVStereotypes.RelationExcludedBy));
                 }
             }
-            f.Reset();
-            f.Close();
+            _f.Reset();
         }
 
         [TestMethod]
         public void ExcludedBy_ValidRelationships()
         {
-            var f = new RelationshipsRepositoryFile(Repo);
-            f.Open();
-            f.Reset();
+            _f.Reset();
             // {tentative, discarded, rejected} _ ExcludedBy _ Any State
             var validSourceStates = new[]
                 {
@@ -200,8 +198,7 @@ namespace DecisionViewpointsTests
                     Assert.IsTrue(ValidateConnector(sourceState, state, DVStereotypes.RelationExcludedBy),
                                   AssertionFailedMessage(sourceState, state, DVStereotypes.RelationExcludedBy));
             }
-            f.Reset();
-            f.Close();
+            _f.Reset();
         }
 
         #endregion
@@ -211,9 +208,7 @@ namespace DecisionViewpointsTests
         [TestMethod]
         public void Replaces_InvalidRelationships()
         {
-            var f = new RelationshipsRepositoryFile(Repo);
-            f.Open();
-            f.Reset();
+            _f.Reset();
             // Any State Replaces _ {idea}
             foreach (var state in DVStereotypes.States)
             {
@@ -240,24 +235,20 @@ namespace DecisionViewpointsTests
                                    AssertionFailedMessage(state, targetState, DVStereotypes.RelationReplaces));
                 }
             }
-            f.Reset();
-            f.Close();
+            _f.Reset();
         }
 
         [TestMethod]
         public void Replaces_ValidRelationships()
         {
-            var f = new RelationshipsRepositoryFile(Repo);
-            f.Open();
-            f.Reset();
+            _f.Reset();
             // Any State _ Replaces _ {rejected}
             foreach (var state in DVStereotypes.States.Where(state => state != DVStereotypes.StateIdea))
             {
                 Assert.IsTrue(ValidateConnector(state, DVStereotypes.StateRejected, DVStereotypes.RelationReplaces),
                               AssertionFailedMessage(state, DVStereotypes.StateRejected, DVStereotypes.RelationReplaces));
             }
-            f.Reset();
-            f.Close();
+            _f.Reset();
         }
 
         #endregion
@@ -267,9 +258,7 @@ namespace DecisionViewpointsTests
         [TestMethod]
         public void AlternativeFor_InvalidRelationships()
         {
-            var f = new RelationshipsRepositoryFile(Repo);
-            f.Open();
-            f.Reset();
+            _f.Reset();
             // Any State _ AlternativeFor _ {idea}
             foreach (var state in DVStereotypes.States)
             {
@@ -291,16 +280,13 @@ namespace DecisionViewpointsTests
                     ValidateConnector(state, DVStereotypes.StateDiscarded, DVStereotypes.RelationAlternativeFor),
                     AssertionFailedMessage(state, DVStereotypes.StateDiscarded, DVStereotypes.RelationAlternativeFor));
             }
-            f.Reset();
-            f.Close();
+            _f.Reset();
         }
 
         [TestMethod]
         public void AlternativeFor_ValidRelationships()
         {
-            var f = new RelationshipsRepositoryFile(Repo);
-            f.Open();
-            f.Reset();
+            _f.Reset();
             // {tentative, discarded} _ AlternativeFor _ {tentative, decided, approved, challenged, rejected}
             var validSourceStates = new[]
                 {
@@ -314,8 +300,7 @@ namespace DecisionViewpointsTests
                               AssertionFailedMessage(sourceState, state, DVStereotypes.RelationAlternativeFor));
                 }
             }
-            f.Reset();
-            f.Close();
+            _f.Reset();
         }
 
         #endregion
@@ -338,16 +323,24 @@ namespace DecisionViewpointsTests
             supplier.Connectors.Refresh();
             client.Connectors.Refresh();
             // Test if the relationship can be created
-            var info = new EAEventPropertiesHelper();
-            info.Set(EAEventPropertyKeys.Type, type);
-            info.Set(EAEventPropertyKeys.Subtype, "");
-            info.Set(EAEventPropertyKeys.Stereotype, relationshipStereotype);
-            info.Set(EAEventPropertyKeys.ClientId, client.ElementID.ToString(CultureInfo.InvariantCulture));
-            info.Set(EAEventPropertyKeys.SupplierId, supplier.ElementID.ToString(CultureInfo.InvariantCulture));
-            info.Set(EAEventPropertyKeys.DiagramId, diagram.DiagramID.ToString(CultureInfo.InvariantCulture));
+            var info = CreatePropertiesHelper(type, "", relationshipStereotype, client.ElementID,
+                                              supplier.ElementID, diagram.DiagramID);
             var connector = EAConnectorWrapper.Wrap(Repo, info);
             string message;
             return Validator.Instance.ValidateConnector(connector, out message);
+        }
+
+        private static EAEventPropertiesHelper CreatePropertiesHelper(string type, string subtype, string stereotype,
+            int clientid, int supplierid, int diagramid)
+        {
+            var info = new EAEventPropertiesHelper();
+            info.Set(EAEventPropertyKeys.Type, type);
+            info.Set(EAEventPropertyKeys.Subtype, subtype);
+            info.Set(EAEventPropertyKeys.Stereotype, stereotype);
+            info.Set(EAEventPropertyKeys.ClientId, clientid.ToString(CultureInfo.InvariantCulture));
+            info.Set(EAEventPropertyKeys.SupplierId, supplierid.ToString(CultureInfo.InvariantCulture));
+            info.Set(EAEventPropertyKeys.DiagramId, diagramid.ToString(CultureInfo.InvariantCulture));
+            return info;
         }
 
         private static string AssertionFailedMessage(string clientState, string supplierState, string relationshipType)

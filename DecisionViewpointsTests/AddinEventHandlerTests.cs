@@ -8,6 +8,21 @@ namespace DecisionViewpointsTests
     [TestClass]
     public class AddinEventHandlerTests : BaseTests
     {
+        private EmptyRepositoryFile _f;
+
+        [TestInitialize]
+        public void InitAddinEventHandlerTest()
+        {
+            _f = new EmptyRepositoryFile(Repo);
+            _f.Open();
+        }
+
+        [TestCleanup]
+        public void CleanUpAddinEventHandlerTests()
+        {
+            _f.Close();
+        }
+
         [TestMethod]
         public void EaConnect_ReturnConnected()
         {
@@ -25,39 +40,36 @@ namespace DecisionViewpointsTests
         [TestMethod]
         public void GetMenuState_FileClosed_ReturnFalse()
         {
+            // Here we need to close the file first in order for the test to pass and then open it again
+            _f.Close();
             var isEnabled = false;
             var isChecked = false;
             MainApp.EA_GetMenuState(Repo, "TreeView", AddinEventHandler.MenuHeader,
                                     AddinEventHandler.MenuCreateProjectStructure,
                                     ref isEnabled, ref isChecked);
+            _f.Open();
             Assert.IsFalse(isEnabled);
         }
 
         [TestMethod]
         public void GetMenuState_FileOpen_ReturnTrue()
         {
-            var f = new EmptyRepositoryFile(Repo);
-            f.Open();
             var isEnabled = false;
             var isChecked = false;
             MainApp.EA_GetMenuState(Repo, "TreeView", AddinEventHandler.MenuHeader, AddinEventHandler.MenuCreateProjectStructure,
                                     ref isEnabled, ref isChecked);
-            f.Close();
             Assert.IsTrue(isEnabled);
         }
 
         [TestMethod]
         public void MenuClick_CreateProjectStructure_ExpectedStructureCreated()
         {
-            var f = new EmptyRepositoryFile(Repo);
-            f.Open();
-            f.Reset();
+            _f.Reset();
             MainApp.EA_MenuClick(Repo, "TreeView", AddinEventHandler.MenuHeader, AddinEventHandler.MenuCreateProjectStructure);
             Package root = Repo.Models.GetAt(0);
             Package view = root.Packages.GetAt(0);
             Diagram diagram = view.Diagrams.GetAt(0);
-            f.Reset();
-            f.Close();
+            _f.Reset();
             Assert.AreEqual("Decision Relationship View", view.Name);
             Assert.AreEqual("Diagram1", diagram.Name);
         }

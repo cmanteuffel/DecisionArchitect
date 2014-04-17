@@ -12,7 +12,7 @@ namespace DecisionViewpointsTests
         public Repository Repo { get; private set; }
 
         [TestInitialize]
-        public void RunBeforeEachTest()
+        public void InitBaseTests()
         {
             CreateMainApplication();
             CreateRepository();
@@ -29,7 +29,7 @@ namespace DecisionViewpointsTests
         }
 
         [TestCleanup]
-        public void RunAfterEachTest()
+        public void CleanUpBaseTests()
         {
             MainApp.EA_Disconnect();
         }
