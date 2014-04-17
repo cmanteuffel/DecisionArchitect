@@ -46,14 +46,14 @@ namespace DecisionViewpoints.Logic.Menu
         public virtual IMenuItem GetMenuItem(string name)
         {
             var menuItem = _menuItems.Find(x => x.Name == name);
-            
-            if (menuItem == null)
+
+            /*if (menuItem == null)
             {
                 foreach (var item in _menuItems)
                 {
                     menuItem = item.GetMenuItem(name);
                 }
-            }
+            }*/
             return menuItem;
         }
 

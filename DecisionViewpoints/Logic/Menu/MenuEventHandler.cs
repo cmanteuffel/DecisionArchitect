@@ -1,9 +1,7 @@
-﻿using System.Windows.Forms;
-using DecisionViewpoints.Logic.Menu.Baselines;
+﻿using DecisionViewpoints.Logic.Menu.Baselines;
 using DecisionViewpoints.Logic.Menu.General;
 using DecisionViewpoints.Logic.Menu.Generate;
 using DecisionViewpoints.Logic.Menu.Tracing;
-using EA;
 
 namespace DecisionViewpoints.Logic.Menu
 {
