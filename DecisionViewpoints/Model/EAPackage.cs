@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using System.Xml;
 using DecisionViewpoints.Model.Baselines;
 using EA;
@@ -145,7 +146,7 @@ namespace DecisionViewpoints.Model
         [Obsolete]
         public Diagram CreateDiagram(string name, string type)
         {
-            var repository = EARepository.Instance;
+            EARepository repository = EARepository.Instance;
             Diagram d = _native.Diagrams.AddNew(name, type);
             d.Update();
             _native.Diagrams.Refresh();
@@ -230,6 +231,13 @@ namespace DecisionViewpoints.Model
                 }
             }
             return null;
+        }
+
+        public bool IsDecisionViewPackge()
+        {
+            EAElement underlyingElement = EAElement.Wrap(_native.Element);
+            string value = underlyingElement.GetTaggedValue(DVTaggedValueKeys.DecisionViewPackage);
+            return (value!=null && value.Equals("true"));
         }
     }
 }

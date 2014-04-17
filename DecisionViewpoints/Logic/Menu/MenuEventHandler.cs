@@ -62,12 +62,18 @@ namespace DecisionViewpoints.Logic.Menu
 
             var createBaseline = new MenuItem(Messages.MenuCreateBaseline, CreateBaseline)
                 {
-                    UpdateDelegate = self => { self.IsEnabled = Settings.Default.BaselineOptionManually; }
+                    UpdateDelegate = self =>
+                        {
+                            if (NativeType.Package == EARepository.Instance.GetContextItemType() && Settings.Default.BaselineOptionManually)
+                            {
+                                var eapackage = EARepository.Instance.GetContextObject<EAPackage>();
+                                self.IsEnabled = (eapackage != null && eapackage.IsDecisionViewPackge());
+                                return;
+                            }
+                            self.IsEnabled = false;
+                        }
                 };
 
-
-            RootMenu.Add(new MenuItem(Messages.MenuCreateProjectStructure, CreateProjectStructure));
-            RootMenu.Add(MenuItem.Separator);
             RootMenu.Add(createTraces);
             createTraces.Add(createAndTraceDecision);
             createTraces.Add(new MenuItem(Messages.MenuTraceToExistingElement,
@@ -117,18 +123,6 @@ namespace DecisionViewpoints.Logic.Menu
             }
         }
 
-
-        private static void CreateProjectStructure()
-        {
-            var rep = EARepository.Instance;
-            var decisionViewpoints = rep.CreateView("Decision Views", 0);
-            decisionViewpoints.CreateDiagram("Relationship", Settings.Default.RelationshipDiagramMetaType);
-            decisionViewpoints.CreateDiagram("Chronological", Settings.Default.ChronologicalDiagramMetaType);
-            decisionViewpoints.CreateDiagram("Stakeholder Involvement",
-                                             Settings.Default.StakeholderInvolvementDiagramMetaType);
-        }
-
-
         private static void CreateAndTraceDecision()
         {
             var repository = EARepository.Instance;
@@ -158,14 +152,21 @@ namespace DecisionViewpoints.Logic.Menu
             }
         }
 
+        [Obsolete("move to correct class and remove clones in broadcasthandler")]
         private static void CreateBaseline()
         {
-            var project = EARepository.Instance.GetProject();
-            var rep = EARepository.Instance;
-            var notes = String.Format("Decision History");
-            var dvp = rep.GetPackageFromRootByName("Decision Views");
-            var bv = project.GetBaselineLatestVesrion(dvp);
-            project.CreateBaseline(dvp.GUID, bv, notes);
+            if (NativeType.Package == EARepository.Instance.GetContextItemType() && Settings.Default.BaselineOptionManually)
+            {
+                var eapackage = EARepository.Instance.GetContextObject<EAPackage>();
+                if (eapackage != null && eapackage.IsDecisionViewPackge())
+                {
+                    var project = EARepository.Instance.GetProject();
+                    var notes = String.Format("Decision History");
+                    var dvp = eapackage;
+                    var bv = project.GetBaselineLatestVesrion(dvp);
+                    project.CreateBaseline(dvp.GUID, bv, notes);
+                }
+            }
         }
 
         private static void Generate()

@@ -6,6 +6,7 @@
         Diagram,
         Element,
         Connector,
-        Unspecified
+        Unspecified,
+        Model
     }
 }

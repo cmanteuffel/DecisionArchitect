@@ -56,7 +56,6 @@
     <Compile Include="CreateDecision.Designer.cs">
       <DependentUpon>CreateDecision.cs</DependentUpon>
     </Compile>
-    <Compile Include="Logic\AddinEventHandler.cs" />
     <Compile Include="Logic\Automation\ChronologicalViewpointGenerator.cs" />
     <Compile Include="Logic\Automation\DecisionDiffItem.cs" />
     <Compile Include="Logic\BroadcastEventHandler.cs" />
@@ -70,13 +69,12 @@
     <Compile Include="Logic\Rules\ModelValidator.cs" />
     <Compile Include="Logic\Rules\NameUniquenessRule.cs" />
     <Compile Include="Logic\Rules\RuleType.cs" />
-    <Compile Include="Logic\AutoGeneration\ChronologicalGenerator.cs" />
-    <Compile Include="Logic\AutoGeneration\IGenerator.cs" />
     <Compile Include="Model\Baselines\Baseline.cs" />
     <Compile Include="Model\Baselines\BaselineDiff.cs" />
     <Compile Include="Model\Baselines\DiffItem.cs" />
     <Compile Include="Model\Baselines\DiffProperty.cs" />
     <Compile Include="Model\Baselines\DiffStatus.cs" />
+    <Compile Include="Model\DVTaggedValueKeys.cs" />
     <Compile Include="Model\EABaselineWrapper.cs" />
     <Compile Include="Model\EADiagram.cs" />
     <Compile Include="Model\EAElement.cs" />
@@ -144,7 +142,16 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="EmptyDecisionViewTemplate.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DefaultDecisionViewTemplate.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

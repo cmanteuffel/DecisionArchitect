@@ -3,7 +3,7 @@ using EA;
 
 namespace DecisionViewpoints.Model
 {
-    public sealed class DVStereotypes
+    public static class DVStereotypes
     {
         public const string DecisionMetaType = "Decision";
 

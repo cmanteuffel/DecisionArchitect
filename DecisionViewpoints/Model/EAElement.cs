@@ -201,5 +201,15 @@ namespace DecisionViewpoints.Model
         {
             return _native.Update();
         }
+
+        public string GetTaggedValue(string dvDecisionviewpackage)
+        {
+            TaggedValue value = _native.TaggedValues.GetByName(dvDecisionviewpackage);
+            if (value == null)
+            {
+                return null;
+            }
+            return value.Value;
+        }
     }
 }

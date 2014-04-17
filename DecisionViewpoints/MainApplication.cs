@@ -18,17 +18,15 @@ namespace DecisionViewpoints
         public override object EA_OnInitializeTechnologies(Repository repository)
         {
             EARepository.UpdateRepository(repository);
-            string technology;
-            using (var stream = Assembly.GetExecutingAssembly()
-                                        .GetManifestResourceStream("DecisionViewpoints." + "DecisionViewpoints.xml"))
-            {
-                using (var reader = new StreamReader(stream))
-                {
+            string resource = "DecisionViewpoints." + "DecisionViewpoints.xml";
+            return Utilities.GetResourceContents(resource);
+        }
 
-                   technology = reader.ReadToEnd();
-                }
-            }
-            return technology;
+        public override string EA_OnRetrieveModelTemplate(Repository repository, string location)
+        {
+            EARepository.UpdateRepository(repository);
+            string resource = "DecisionViewpoints." + location;
+            return Utilities.GetResourceContents(resource);
         }
 
         public override object EA_GetMenuItems(Repository repository, string location, string menuName)

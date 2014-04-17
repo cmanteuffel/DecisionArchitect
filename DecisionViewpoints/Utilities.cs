@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 
 namespace DecisionViewpoints
 {
@@ -17,11 +19,25 @@ namespace DecisionViewpoints
         public static long ParseToLong(string value, long valueOnFailure)
         {
             long number;
-            if (!long.TryParse(value, out number))
+            if (!Int64.TryParse(value, out number))
             {
                 number = valueOnFailure;
             }
             return number;
+        }
+
+        public static string GetResourceContents(string resource)
+        {
+            string technology;
+            using (var stream = Assembly.GetExecutingAssembly()
+                                        .GetManifestResourceStream(resource))
+            {
+                using (var reader = new StreamReader(stream))
+                {
+                    technology = reader.ReadToEnd();
+                }
+            }
+            return technology;
         }
     }
 }

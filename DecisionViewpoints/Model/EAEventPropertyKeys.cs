@@ -1,6 +1,6 @@
 namespace DecisionViewpoints.Model
 {
-    public class EAEventPropertyKeys
+    public static class EAEventPropertyKeys
     {
         public const string SupplierId = "supplierID";
         public const string ClientId = "clientID"; 

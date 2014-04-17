@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
+using System.Windows.Forms;
 using EA;
-using Microsoft.VisualBasic;
 
 namespace DecisionViewpoints.Model
 {
@@ -9,12 +9,7 @@ namespace DecisionViewpoints.Model
     {
         private static EARepository _instance;
 
-        [Obsolete]
-        private EARepository(Repository native)
-        {
-        }
-
-        private EARepository()
+       private EARepository()
         {
         }
 
@@ -27,50 +22,14 @@ namespace DecisionViewpoints.Model
         //maybe we consider to move the model to an own assembly
         internal Repository Native { get; private set; }
 
-        internal static void UpdateRepository(Repository r)
-        {
-            Instance.Native = r;
-        }
-
         private Package Root
         {
             get { return Native.Models.GetAt(0); }
         }
 
-
-        [Obsolete]
-        public EAPackage CreateView(string name, int pos)
+        internal static void UpdateRepository(Repository r)
         {
-            Package view = Root.Packages.AddNew(name, "");
-            // Set the icon of the view. Info can be found in ScriptingEA page 20
-            view.Flags = "VICON=0;";
-            view.TreePos = pos;
-            view.Update();
-            Root.Packages.Refresh();
-            return EAPackage.Wrap(view);
-        }
-
-        [Obsolete]
-        public Diagram CreateDiagram(EAPackage parent, string name, string metatype)
-        {
-            throw  new NotImplementedException();
-            //Diagram diagram = parent.Diagrams.AddNew(name, metatype);
-            //diagram.Update();
-            //parent.Diagrams.Refresh();
-            //Native.RefreshModelView(parent.PackageID);
-            //return diagram;
-            
-        }
-
-        [Obsolete]
-        public EAPackage CreatePackage(EAPackage parent, string name)
-        {
-            throw new NotImplementedException("Create Package");
-            //Package package = parent.Packages.AddNew(name, "");
-            //package.Update();
-            //package.Packages.Refresh();
-            //Native.RefreshModelView(parent.PackageID);
-            //return package;
+            Instance.Native = r;
         }
 
         public EAPackage GetPackageFromRootByName(string name)
@@ -126,12 +85,16 @@ namespace DecisionViewpoints.Model
                     return NativeType.Diagram;
                 case ObjectType.otPackage:
                     return NativeType.Package;
+                case ObjectType.otNone: 
+                    //FIX: model returns for some reason otNone, translated to otModel. Might cause problems. 
+                    return NativeType.Model;
                 default:
+                    MessageBox.Show("" + nativeOt);
                     return NativeType.Unspecified;
             }
         }
 
-        public  bool IsProjectOpen()
+        public bool IsProjectOpen()
         {
             try
             {
@@ -149,7 +112,7 @@ namespace DecisionViewpoints.Model
             Type typeT = typeof (T);
             if (typeT == typeof (EAElement))
             {
-                Element nativeElement = obj as Element;
+                var nativeElement = obj as Element;
                 if (nativeElement != null)
                 {
                     dynamic element = EAElement.Wrap(nativeElement);
@@ -157,9 +120,18 @@ namespace DecisionViewpoints.Model
                 }
                 return default(T);
             }
+            if (typeT == typeof (EAPackage))
+            {
+                var nativePackage = obj as Package;
+                if (nativePackage != null)
+                {
+                    dynamic element = EAPackage.Wrap(nativePackage);
+                    return element;
+                }
+                return default(T);
+            }
 
-            throw new NotSupportedException("Type not yet supported");
-
+            throw new NotSupportedException("Type (" + typeT.Name + ") not supported by GetContextObject()");
         }
 
         public EAProjectWrapper GetProject()
