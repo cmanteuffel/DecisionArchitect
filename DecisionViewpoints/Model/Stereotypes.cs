@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace DecisionViewpoints.Model
 {
-    public class Stereotypes
+    public sealed class Stereotypes
     {
         public const string StateIdea = "idea";
         public const string StateTentative = "tentative";
