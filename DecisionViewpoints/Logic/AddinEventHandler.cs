@@ -126,14 +126,17 @@ namespace DecisionViewpoints.Logic
                 case MenuOnFileClose:
                     Settings.Default["BaselineOptionOnFileClose"] =
                         !(bool) Settings.Default["BaselineOptionOnFileClose"];
+                    Settings.Default.Save();
                     break;
                 case MenuOnModification:
                     Settings.Default["BaselineOptionOnModification"] =
                         !(bool) Settings.Default["BaselineOptionOnModification"];
+                    Settings.Default.Save();
                     break;
                 case MenuManually:
                     Settings.Default["BaselineOptionManually"] =
                         !(bool) Settings.Default["BaselineOptionManually"];
+                    Settings.Default.Save();
                     break;
                 default:
                     if (menuName.Equals(MenuTracingFollowTraces))
