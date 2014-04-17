@@ -65,10 +65,14 @@ namespace DecisionViewpointsTests
                     break;
                 case RepositoryType.Relationships:
                     root = Repo.Models.GetAt(0);
-                    for (var index = (short)(root.Elements.Count - 1); index != -1; index--)
+                    Package view = root.Packages.GetAt(0);
+                    for (var elemIndex = (short)(view.Elements.Count - 1); elemIndex != -1; elemIndex--)
                     {
-                        Element e = root.Elements.GetAt(index);
-                        
+                        Element e = view.Elements.GetAt(elemIndex);
+                        for (var conIndex = (short) (e.Connectors.Count - 1); conIndex != -1; conIndex --)
+                        {
+                            e.Connectors.Delete(conIndex);
+                        }
                     }
                     break;
             }

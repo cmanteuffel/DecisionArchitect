@@ -6,6 +6,14 @@ namespace DecisionViewpointsTests
     [TestClass]
     public class DecisionViewpointsBroadcastEventHandlerTests : DecisionViewpointsBaseTests
     {
+        private const string Idea = "Idea";
+        private const string Tentative = "Tentative";
+        private const string Decided = "Decided";
+        private const string Approved = "Approved";
+        private const string Challenged = "Challenged";
+        private const string Rejected = "Decided";
+        private const string Discarded = "Discarded";
+
         [TestMethod]
         public void OnPostOpenDiagram_OpenDecisionViewpointDiagram_ToolboxActivated()
         {
@@ -15,21 +23,34 @@ namespace DecisionViewpointsTests
             Package view = root.Packages.GetAt(0);
             Diagram diagram = view.Diagrams.GetAt(0);
             Repo.OpenDiagram(diagram.DiagramID);
-            var toolboxName = MainApp.EA_OnPostOpenDiagram(Repo, diagram.DiagramID);
+            string toolboxName = MainApp.EA_OnPostOpenDiagram(Repo, diagram.DiagramID);
             ResetRepository(RepositoryType.BasicStructure);
             CloseRepositoryFile();
             Assert.AreEqual("DecisionVS", toolboxName);
         }
 
         [TestMethod]
-        public void OnPreNewConnector_DecisionToIdea_RelationshipIsNotCreated()
+        public void OnPreNewConnector_CausedBy_RelationshipIsNotCreated()
         {
             OpenRepositoryFile(RepositoryType.Relationships);
             ResetRepository(RepositoryType.Relationships);
-            var result = ValidateConnector("Decided", "Idea", "Caused By");
+            const string relationshipType = "Caused By";
+            // Any decision to decision with state Idea
+            Assert.IsFalse(ValidateConnector(Decided, Idea, relationshipType));
+            Assert.IsFalse(ValidateConnector(Tentative, Idea, relationshipType));
+            Assert.IsFalse(ValidateConnector(Approved, Idea, relationshipType));
+            Assert.IsFalse(ValidateConnector(Challenged, Idea, relationshipType));
+            Assert.IsFalse(ValidateConnector(Rejected, Idea, relationshipType));
+            Assert.IsFalse(ValidateConnector(Discarded, Idea, relationshipType));
+            // Decision with state Idea to any Decision
+            Assert.IsFalse(ValidateConnector(Idea, Decided, relationshipType));
+            Assert.IsFalse(ValidateConnector(Idea, Tentative, relationshipType));
+            Assert.IsFalse(ValidateConnector(Idea, Approved, relationshipType));
+            Assert.IsFalse(ValidateConnector(Idea, Challenged, relationshipType));
+            Assert.IsFalse(ValidateConnector(Idea, Rejected, relationshipType));
+            Assert.IsFalse(ValidateConnector(Idea, Discarded, relationshipType));
             ResetRepository(RepositoryType.Relationships);
             CloseRepositoryFile();
-            Assert.IsFalse(result);
         }
 
         private bool ValidateConnector(string supplierState, string clientState, string relationshipStereotype)
@@ -51,7 +72,7 @@ namespace DecisionViewpointsTests
             client.Connectors.Refresh();
             // Test if the relationship can be created
             var info = EventPropertiesHelper.Create(type, "", relationshipStereotype, client.ElementID,
-                supplier.ElementID, diagram.DiagramID);
+                                                                      supplier.ElementID, diagram.DiagramID);
             return MainApp.EA_OnPreNewConnector(Repo, info);
         }
     }

@@ -1,6 +1,6 @@
 namespace DecisionViewpoints.Model
 {
-    class EventPropertyKeys
+    public class EventPropertyKeys
     {
         public const string SupplierId = "supplierID";
         public const string ClientId = "clientID"; 
@@ -8,6 +8,5 @@ namespace DecisionViewpoints.Model
         public const string Stereotype = "stereotype"; 
         public const string Type = "type";
         public const string Subtype = "subtype";
-
     }
 }
