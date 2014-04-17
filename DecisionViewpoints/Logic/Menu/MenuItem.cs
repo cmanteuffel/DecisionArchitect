@@ -4,7 +4,6 @@
     {
         public static IMenu Separator = new MenuItem("-");
 
-
         public MenuItem(string name, ClickDelegate clickDelegate = null)
         {
             Name = name;
@@ -14,7 +13,6 @@
             IsChecked = false;
             IsVisible = true;
         }
-
 
         public string Name { get; set; }
         public bool IsEnabled { get; set; }
@@ -35,11 +33,7 @@
 
         public IMenu FindMenuItem(string name)
         {
-            if (Name.Equals(name))
-            {
-                return this;
-            }
-            return null;
+            return Name.Equals(name) ? this : null;
         }
 
         public string[] GetSubItems()

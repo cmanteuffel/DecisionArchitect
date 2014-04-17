@@ -80,11 +80,14 @@ namespace DecisionViewpoints.Logic.Menu
             Header.Add(MenuItem.Separator);
             Header.Add(createTraces);
             createTraces.Add(new MenuItem("&New Decision", CreateAndTraceDecision));
+            Header.Add(MenuItem.Separator);
             Header.Add(baselinesOptions);
             baselinesOptions.Add(baselineManually);
             baselinesOptions.Add(baselineOnFileClose);
             baselinesOptions.Add(baselineOnModification);
             Header.Add(createBaseline);
+            Header.Add(MenuItem.Separator);
+            Header.Add(new MenuItem("Generate CVP", Generate));
 
             /*
             createTraces.Add();
@@ -180,6 +183,12 @@ namespace DecisionViewpoints.Logic.Menu
 
         private static void CreateBaseline()
         {
+
+        }
+
+        private static void Generate()
+        {
+            
         }
     }
 }

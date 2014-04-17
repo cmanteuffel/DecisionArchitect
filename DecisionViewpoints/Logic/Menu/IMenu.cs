@@ -5,8 +5,6 @@
 
     public interface IMenu
     {
-
-
         string Name { get; set; }
 
         bool IsEnabled { get; set; }
