@@ -19,7 +19,6 @@ namespace DecisionViewpoints
 
         public bool OnPreNewElement(Repository repository, EventProperties info)
         {
-            MessageBox.Show("to be added");
             return true;
         }
 
@@ -31,6 +30,15 @@ namespace DecisionViewpoints
             MessageBox.Show("Decision has state Idea. Relationship is not permitted.",
                 "Invalid Relationship");
             return false;
+        }
+
+        public void OnPostOpenDiagram(Repository repository, int diagramId)
+        {
+            var diagram = repository.GetDiagramByID(diagramId);
+            if (diagram.Name.Equals("Decision Relationship View"))
+            {
+                // activate the Decision Viewpoints toolbox
+            }
         }
 
         public void Disconnect()

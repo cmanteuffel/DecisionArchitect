@@ -54,6 +54,16 @@ namespace DecisionViewpoints
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="repository"></param>
+        /// <param name="diagramId"></param>
+        public void EA_OnPostOpenDiagram(Repository repository, int diagramId)
+        {
+            _eventHandler.OnPostOpenDiagram(repository, diagramId);
+        }
+
+        /// <summary>
         /// EA calls this operation when it exists. It is used to
         /// do some cleanup work.
         /// </summary>
