@@ -149,8 +149,8 @@ namespace DecisionViewpoints.Logic.Menu
                         repository.RefreshModelView(dvPackage.ID);
                         decision.ShowInProjectView();
                     }
+                    }
                 }
-            }
         }
 
         private static void CreateBaseline()
