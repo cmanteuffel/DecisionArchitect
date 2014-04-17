@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 using DecisionViewpoints.Logic;
+using DecisionViewpoints.Logic.Menu;
 using DecisionViewpoints.Logic.Rules;
 using DecisionViewpoints.Model;
 using DecisionViewpoints.Model.Events;
@@ -33,20 +34,20 @@ namespace DecisionViewpoints
         public override object EA_GetMenuItems(Repository repository, string location, string menuName)
         {
             EARepository.UpdateRepository(repository);
-            return AddinEventHandler.GetMenuItems(location, menuName);
+            return MenuEventHandler.GetMenuItems(location, menuName);
         }
 
         public override void EA_GetMenuState(Repository repository, string location, string menuName,
                                              string itemName, ref bool isEnabled, ref bool isChecked)
         {
             EARepository.UpdateRepository(repository);
-            AddinEventHandler.GetMenuState(location, menuName, itemName, ref isEnabled, ref isChecked);
+            MenuEventHandler.GetMenuState(location, menuName, itemName, ref isEnabled, ref isChecked);
         }
 
         public override void EA_MenuClick(Repository repository, string location, string menuName, string itemName)
         {
             EARepository.UpdateRepository(repository);
-            AddinEventHandler.MenuClick(location, menuName, itemName);
+            MenuEventHandler.MenuClick(location, menuName, itemName);
         }
 
         public override bool EA_OnPreNewElement(Repository repository, EventProperties info)

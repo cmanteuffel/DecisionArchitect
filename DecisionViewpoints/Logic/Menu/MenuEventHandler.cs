@@ -35,7 +35,7 @@ namespace DecisionViewpoints.Logic.Menu
             Header.Add(new GenerateChronological());
         }
 
-        public static object GetMenuItems(Repository repository, string location, string menuName)
+        public static object GetMenuItems(string location, string menuName)
         {
             if (menuName.Equals(""))
                 return Header.Name;
@@ -47,7 +47,7 @@ namespace DecisionViewpoints.Logic.Menu
             return "";
         }
 
-        public static void GetMenuState(Repository repository, string location, string menuName, string itemName,
+        public static void GetMenuState(string location, string menuName, string itemName,
                                         ref bool isEnabled,
                                         ref bool isChecked)
         {
@@ -55,7 +55,7 @@ namespace DecisionViewpoints.Logic.Menu
             isChecked = Header.GetMenuItem(itemName).Checked();
         }
 
-        public static void MenuClick(Repository repository, string location, string menuName, string itemName)
+        public static void MenuClick(string location, string menuName, string itemName)
         {
         }
     }
