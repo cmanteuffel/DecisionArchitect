@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using EA;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DecisionViewpoints.Model;
@@ -42,7 +43,7 @@ namespace DecisionViewpointsTests
                     AssertionFailedMessage(States.Idea, s, Stereotypes.RelationCausedBy));
             }
             // Any decision to decision with state Discarded
-            foreach (var s in Stereotypes.States)
+            foreach (var s in Stereotypes.States.Where(s => s != Stereotypes.StateIdea))
             {
                 Assert.IsFalse(ValidateConnector(s, Stereotypes.StateDiscarded, Stereotypes.RelationCausedBy),
                     AssertionFailedMessage(s, States.Discarded, Stereotypes.RelationCausedBy));
@@ -67,26 +68,29 @@ namespace DecisionViewpointsTests
         {
             OpenRepositoryFile(RepositoryType.Relationships);
             ResetRepository(RepositoryType.Relationships);
-            //const string relationshipType = "Depends On";
-            // Any Decision to decision with state Idea
-            /*Assert.IsFalse(ValidateConnector(Decided, Idea, relationshipType));
-            Assert.IsFalse(ValidateConnector(Tentative, Idea, relationshipType));
-            Assert.IsFalse(ValidateConnector(Approved, Idea, relationshipType));
-            Assert.IsFalse(ValidateConnector(Challenged, Idea, relationshipType));
-            Assert.IsFalse(ValidateConnector(Rejected, Idea, relationshipType));
-            Assert.IsFalse(ValidateConnector(Discarded, Idea, relationshipType));
+            foreach (var s in Stereotypes.States)
+            {
+                Assert.IsFalse(ValidateConnector(s, Stereotypes.StateIdea, Stereotypes.RelationDependsOn),
+                    AssertionFailedMessage(s, States.Idea, Stereotypes.RelationDependsOn));
+            }
             // Decision with state Idea to Any Decision
-            Assert.IsFalse(ValidateConnector(Idea, Decided, relationshipType));
-            Assert.IsFalse(ValidateConnector(Idea, Tentative, relationshipType));
-            Assert.IsFalse(ValidateConnector(Idea, Approved, relationshipType));
-            Assert.IsFalse(ValidateConnector(Idea, Challenged, relationshipType));
-            Assert.IsFalse(ValidateConnector(Idea, Rejected, relationshipType));
-            Assert.IsFalse(ValidateConnector(Idea, Discarded, relationshipType));
+            foreach (var s in Stereotypes.States)
+            {
+                Assert.IsFalse(ValidateConnector(States.Idea, s, Stereotypes.RelationDependsOn),
+                    AssertionFailedMessage(States.Idea, s, Stereotypes.RelationDependsOn));
+            }
             // Any Decision to decision with states {tentative, decided, approved, challenged}
-            Assert.IsFalse(ValidateConnector(Idea, Decided, relationshipType));
-            Assert.IsFalse(ValidateConnector(Idea, Tentative, relationshipType));
-            Assert.IsFalse(ValidateConnector(Idea, Approved, relationshipType));
-            Assert.IsFalse(ValidateConnector(Idea, Challenged, relationshipType));*/
+            foreach (var s in Stereotypes.States.Where(s => s != Stereotypes.StateIdea))
+            {
+                Assert.IsFalse(ValidateConnector(s, Stereotypes.StateTentative, Stereotypes.RelationDependsOn),
+                               AssertionFailedMessage(s, Stereotypes.StateTentative, Stereotypes.RelationDependsOn));
+                Assert.IsFalse(ValidateConnector(s, Stereotypes.StateDecided, Stereotypes.RelationDependsOn),
+                               AssertionFailedMessage(s, Stereotypes.StateDecided, Stereotypes.RelationDependsOn));
+                Assert.IsFalse(ValidateConnector(s, Stereotypes.StateApproved, Stereotypes.RelationDependsOn),
+                               AssertionFailedMessage(s, Stereotypes.StateApproved, Stereotypes.RelationDependsOn));
+                Assert.IsFalse(ValidateConnector(s, Stereotypes.StateChallenged, Stereotypes.RelationDependsOn),
+                               AssertionFailedMessage(s, Stereotypes.StateChallenged, Stereotypes.RelationDependsOn));
+            }
             ResetRepository(RepositoryType.Relationships);
             CloseRepositoryFile();
         }
@@ -119,7 +123,7 @@ namespace DecisionViewpointsTests
             return MainApp.EA_OnPreNewConnector(Repo, info);
         }
 
-        private string AssertionFailedMessage(string clientState, string supplierState, string relationshipType)
+        private static string AssertionFailedMessage(string clientState, string supplierState, string relationshipType)
         {
             return String.Format("Assertion Failed with client state {0}, supplier state: {1}, and relationship type: {2}", 
                     clientState, supplierState, relationshipType);
