@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using System.Xml;
 using EA;
 
@@ -8,153 +9,194 @@ namespace DecisionViewpoints.Model
 {
     public class EAElement : IModelObject
     {
-        public string GUID { get; private set; }
-        public int ID { get; private set; }
-        public NativeType NativeType { get; private set; }
-        public string Name { get; set; }
-        public string Notes { get; set; }
-        public DateTime Created { get; set; }
-        public DateTime Modified { get; set; }
-        public string Version { get; set; }
-        public EAPackage ParentPackage { get; set; }
+        private readonly Element _native;
 
-        public EAElement ParentElement { get; set; }
-
-        private readonly Element _element;
-        private readonly int _parentID;
-        private readonly Repository _repository;
-        private readonly string _stereotype;
-        private readonly string _type;
-
-        private EAElement(Repository repository, int parentId, string stereotype, string type,
-                                 Element element = null)
+        private EAElement(Element native)
         {
-            _repository = repository;
-            _parentID = parentId;
-            _stereotype = stereotype;
-            _type = type;
-            _element = element;
+            _native = native;
         }
 
-        public Repository Repository
-        {
-            get { return _repository; }
-        }
 
         public string Type
         {
-            get { return _type; }
-        }
-
-        public int ParentID
-        {
-            get { return _parentID; }
+            get { return _native.Type; }
         }
 
         public string Stereotype
         {
-            get { return _stereotype; }
+            get { return _native.Stereotype; }
+            set { Stereotype = value; }
         }
 
-        [Obsolete]
-        public Element Element
+        public string MetaType
         {
-            get { return _element; }
+            get { return _native.MetaType; }
+            set { MetaType = value; }
         }
 
-        public static EAElement Wrap(Element native)
+        public EAElement ParentElement
         {
-            throw new NotImplementedException();
+            get
+            {
+                EAElement parentElmt = null;
+                if (_native.ParentID != 0)
+                {
+                    parentElmt = EARepository.Instance.GetElementByID(_native.ParentID);
+                }
+                return parentElmt;
+            }
+            set { _native.ParentID = value.ID; }
         }
 
-        public static EAElement Wrap(Repository repository, EventProperties properties)
+        public string GUID
         {
-            dynamic type = properties.Get(EAEventPropertyKeys.Type).Value;
-            dynamic stereotype = properties.Get(EAEventPropertyKeys.Stereotype).Value;
-            dynamic parentId = Utilities.ParseToInt32(properties.Get(EAEventPropertyKeys.ParentId).Value, -1);
-            return new EAElement(repository, parentId, stereotype, type);
+            get { return _native.ElementGUID; }
         }
 
-        public static EAElement Wrap(Repository repository, Element element)
+        public int ID
         {
-            return new EAElement(repository, element.ParentID, element.Stereotype, element.Type, element);
+            get { return _native.ElementID; }
         }
 
-        public static EAElement Wrap(Repository repository, string guid)
+        public NativeType NativeType
         {
-            Element element = repository.GetElementByGuid(guid);
-            return Wrap(repository, element);
+            get { return NativeType.Element; }
         }
 
-        public static EAElement Wrap(Repository repository, int id)
+        public string Name
         {
-            Element element = repository.GetElementByID(id);
-            return Wrap(repository, element);
+            get { return _native.Name; }
+            set { _native.Name = value; }
         }
 
-        public Element GetParent()
+        public string Notes
         {
-            return _repository.GetElementByID(_parentID);
+            get { return _native.Notes; }
+            set { _native.Notes = value; }
         }
 
-        public EAElement[] GetTracedElements()
+        public DateTime Created
         {
-            if (_element == null)
+            get { return _native.Created; }
+            set { _native.Created = value; }
+        }
+
+        public DateTime Modified
+        {
+            get { return _native.Modified; }
+            set { _native.Modified = value; }
+        }
+
+        public string Version
+        {
+            get { return _native.Version; }
+            set { _native.Version = value; }
+        }
+
+        public EAPackage ParentPackage
+        {
+            get
+            {
+                EAPackage parentPkg = EARepository.Instance.GetPackageByID(_native.PackageID);
+                return parentPkg;
+            }
+            set { _native.PackageID = value.ID; }
+        }
+
+        public void ShowInProjectView()
+        {
+            EARepository.Instance.Native.ShowInProjectView(_native);
+        }
+
+        [Obsolete("Do not use outside of model namespace or main app")]
+        internal static EAElement Wrap(Element native)
+        {
+            return new EAElement(native);
+        }
+
+        public IEnumerable<EAElement> GetTracedElements()
+        {
+            if (_native == null)
             {
                 return new EAElement[0];
             }
-
             IList<EAConnectorWrapper> connectors = new List<EAConnectorWrapper>();
-            foreach (Connector c in _element.Connectors)
+            foreach (Connector c in _native.Connectors)
             {
-                connectors.Add(EAConnectorWrapper.Wrap(_repository, c.ConnectorGUID));
+                connectors.Add(EAConnectorWrapper.Wrap(c));
             }
 
             IEnumerable<EAElement> traces = from EAConnectorWrapper trace in connectors
-                                                   where trace.Stereotype.Equals("trace")
-                                                   select (trace.SupplierId == _element.ElementID
-                                                               ? Wrap(_repository, trace.GetClient())
-                                                               : Wrap(_repository, trace.GetSupplier())
-                                                          );
-            return traces.ToArray();
+                                            where trace.Stereotype.Equals("trace")
+                                            select (trace.SupplierId == ID
+                                                        ? Wrap(trace.GetClient())
+                                                        : Wrap(trace.GetSupplier())
+                                                   );
+            return traces;
         }
 
         public string GetProjectPath()
         {
             
-            
-            Package current = Repository.GetPackageByID(_element.PackageID);;
+            EAPackage current = ParentPackage;
             string path = current.Name;
-            if (current.ParentID != 0)
+            
+            while (!current.IsModelRoot())
             {
-                current = Repository.GetPackageByID(current.ParentID);
+            
+                current = current.ParentPackage;
                 path = current.Name + "/" + path;
             }
             path = "//" + path;
             return path;
         }
 
-        public Diagram[] GetDiagrams()
+        public EADiagram[] GetDiagrams()
         {
             string sql =
-                "Select t_diagramobjects.Diagram_ID FROM t_diagramobjects WHERE t_diagramobjects.Object_ID = " +
-                Element.ElementID + ";";
-
+                @"Select t_diagramobjects.Diagram_ID FROM t_diagramobjects WHERE t_diagramobjects.Object_ID = " + ID +
+                ";";
+            EARepository repository = EARepository.Instance;
             var document = new XmlDocument();
-            document.LoadXml(_repository.SQLQuery(sql));
+            document.LoadXml(repository.Query(sql));
             XmlNodeList diagramIDs = document.GetElementsByTagName(@"Diagram_ID");
 
-            var diagrams = new List<Diagram>();
+            var diagrams = new List<EADiagram>();
             foreach (XmlNode diagramID in diagramIDs)
             {
                 int id = Utilities.ParseToInt32(diagramID.InnerText, -1);
                 if (id != -1)
                 {
-                    diagrams.Add(_repository.GetDiagramByID(id));
+                    diagrams.Add(repository.GetDiagramByID(id));
                 }
             }
 
             return diagrams.ToArray();
+        }
+
+        public void ConnectTo(EAElement suppliedElement)
+        {
+            ConnectTo(suppliedElement,"ControlFlow", "followed by");
+        }
+
+        public void ConnectTo(EAElement suppliedElement, String type, String stereotype)
+        {
+            Connector connector = _native.Connectors.AddNew("", type);
+            connector.Stereotype = stereotype;
+            connector.SupplierID = suppliedElement.ID;
+            connector.Update();
+            _native.Connectors.Refresh();
+            suppliedElement._native.Connectors.Refresh();
+        }
+
+        public  bool IsDecision()
+        {
+            return (DVStereotypes.DecisionMetaType.Equals(MetaType));
+        }
+
+        public bool Update()
+        {
+            return _native.Update();
         }
     }
 }

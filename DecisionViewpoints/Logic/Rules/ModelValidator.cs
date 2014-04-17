@@ -43,8 +43,8 @@ namespace DecisionViewpoints.Logic.Rules
                 string message;
                 if (!rule.Validate(element, out message))
                 {
-                    string name = element.Element.Name;
-                    string stereotype = element.Element.Stereotype;
+                    string name = element.Name;
+                    string stereotype = element.Stereotype;
                     string errorMessage = string.Format(Messages.ModelValidationElementMessage, message, stereotype,
                                                         name);
                     project.PublishResult(ruleID, EnumMVErrorType.mvError, errorMessage);

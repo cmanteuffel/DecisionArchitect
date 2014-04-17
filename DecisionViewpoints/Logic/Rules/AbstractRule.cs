@@ -33,12 +33,23 @@ namespace DecisionViewpoints.Logic.Rules
                 validationResult = ValidateElement(element);
             }
 
+            var volatileElement = obj as EAVolatileElement;
+            if (volatileElement != null)
+            {
+                validationResult = ValidateElement(volatileElement);
+            }
+
 
             if (!validationResult)
             {
                 message = ErrorMessage;
             }
             return validationResult;
+        }
+
+        public virtual bool ValidateElement(EAVolatileElement element)
+        {
+            return true;
         }
 
         public virtual bool ValidateElement(EAElement element)

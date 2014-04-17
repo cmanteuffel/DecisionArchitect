@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using EA;
+using DecisionViewpoints.Model;
 
 namespace DecisionViewpoints
 {
@@ -18,21 +12,21 @@ namespace DecisionViewpoints
         {
             public string Name { get; set; }
             public int ID { get; set; }
-            public Diagram Diagram { get; set; }
+            public EADiagram Diagram { get; set; }
         }
 
-        public SelectDiagram(Diagram[] diagrams)
+        public SelectDiagram(EADiagram[] diagrams)
         {
             InitializeComponent();
 
             var datasource = new List<DiagramListItem>();
-            diagrams.ToList().ForEach(x => datasource.Add(new DiagramListItem{Name = x.Name, ID = x.DiagramID, Diagram = x}));
+            diagrams.ToList().ForEach(x => datasource.Add(new DiagramListItem{Name = x.Name, ID = x.ID, Diagram = x}));
             listDiagrams.ValueMember = "ID";
             listDiagrams.DisplayMember = "Name";
             listDiagrams.DataSource = datasource;
         }
 
-        public Diagram GetSelectedDiagram()
+        public EADiagram GetSelectedDiagram()
         {
             var item = listDiagrams.SelectedItem as DiagramListItem;
             if (item != null)

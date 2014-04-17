@@ -81,50 +81,43 @@ namespace DecisionViewpoints.Model
             set { _native.PackageID = value.ID; }
         }
 
-        //TODO: Change to package private
-        public static EADiagram Wrap(Diagram native)
+        public void ShowInProjectView()
         {
-            var diagram = new EADiagram(native);
-            return diagram;
+            EARepository.Instance.Native.ShowInProjectView(_native);
+        }
+
+        [Obsolete("Do not use outside of model namespace or main app")]
+        internal static EADiagram Wrap(Diagram native)
+        {
+            return new EADiagram(native);
+        }
+
+        [Obsolete("",true)]
+        public void CreateConnector(EAElement lastModified, EAElement newElement)
+        {
         }
 
         [Obsolete]
-        public Diagram Get()
-        {
-            return _native;
-        }
-
-        [Obsolete]
-        public void CreateConnector(IDualElement lastModified, IDualElement newElement)
-        {
-            Connector connector = lastModified.Connectors.AddNew("", "ControlFlow");
-            connector.Stereotype = "followed by";
-            connector.SupplierID = newElement.ElementID;
-            connector.Update();
-            lastModified.Connectors.Refresh();
-            newElement.Connectors.Refresh();
-        }
-
-        [Obsolete]
-        public void AddToDiagram(Repository repository, IDualElement newElement)
+        public void AddToDiagram(EAElement newElement)
         {
             DiagramObject diaObj = _native.DiagramObjects.AddNew("l=10;r=110;t=-20;b=-80", "");
-            diaObj.ElementID = newElement.ElementID;
+            diaObj.ElementID = newElement.ID;
             diaObj.Update();
-            repository.ReloadDiagram(_native.PackageID);
-            repository.SaveDiagram(_native.DiagramID);
+            var nativeRepository = EARepository.Instance.Native;
+            nativeRepository.ReloadDiagram(_native.DiagramID);
+            nativeRepository.SaveDiagram(_native.DiagramID);
         }
 
-        [Obsolete]
-        public void OpenAndSelectElement(Repository repository, IDualElement element)
+        public void OpenAndSelectElement(EAElement element)
         {
+            Repository repository = EARepository.Instance.Native;
             repository.OpenDiagram(_native.DiagramID);
 
             for (short i = 0; i < _native.SelectedObjects.Count; i++)
             {
                 _native.SelectedObjects.Delete(i);
             }
-            _native.SelectedObjects.AddNew(element.ElementID.ToString(), element.Type);
+            _native.SelectedObjects.AddNew(element.ID.ToString(), element.Type);
             repository.ActivateDiagram(_native.DiagramID);
         }
     }

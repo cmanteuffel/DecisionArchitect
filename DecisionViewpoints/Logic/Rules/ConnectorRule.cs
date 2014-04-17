@@ -13,6 +13,8 @@ namespace DecisionViewpoints.Logic.Rules
         {
             return RuleType.Connector;
         }
+
+        public new abstract bool ValidateConnector(EAConnectorWrapper element);
   
     }
 }

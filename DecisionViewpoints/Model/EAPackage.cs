@@ -1,41 +1,115 @@
 ﻿using System;
+using System.Collections.Generic;
 using EA;
 
 namespace DecisionViewpoints.Model
 {
     public class EAPackage : IModelObject
     {
-        private readonly Package _package;
+        private readonly Package _native;
 
-        public EAPackage(Package package)
+
+        private EAPackage(Package native)
         {
-            _package = package;
+            _native = native;
         }
+
 
         public string GUID
         {
-            get { return _package.PackageGUID; }
+            get { return _native.PackageGUID; }
         }
 
-        public int ID { get; private set; }
-        public NativeType NativeType { get; private set; }
-        public string Name { get; set; }
-        public string Notes { get; set; }
-        public DateTime Created { get; set; }
-        public DateTime Modified { get; set; }
-        public string Version { get; set; }
-        public EAPackage ParentPackage { get; set; }
-        public IModelObject Parent { get; set; }
+        public int ID
+        {
+            get { return _native.PackageID; }
+        }
 
-        [Obsolete]
+        public NativeType NativeType
+        {
+            get { return NativeType.Package; }
+        }
+
+        public string Name
+        {
+            get { return _native.Name; }
+            set { _native.Name = value; }
+        }
+
+        public string Notes
+        {
+            get { return _native.Notes; }
+            set { _native.Notes = value; }
+        }
+
+        public DateTime Created
+        {
+            get { return _native.Created; }
+            set { _native.Created = value; }
+        }
+
+        public DateTime Modified
+        {
+            get { return _native.Modified; }
+            set { _native.Modified = value; }
+        }
+
+        public string Version
+        {
+            get { return _native.Version; }
+            set { _native.Version = value; }
+        }
+
+        public EAPackage ParentPackage
+        {
+            get
+            {
+                //package is model root, returns itself
+                if (_native.ParentID == 0)
+                {
+                    return this;
+                } 
+                EAPackage parentPkg = EARepository.Instance.GetPackageByID(_native.ParentID);
+                return parentPkg;
+                
+            }
+            set { _native.ParentID = value.ID; }
+        }
+
+        //TODO: Transparent ILIST that wraps the strange EA Collection
+        public IList<EAElement> Elements
+        {
+            get { 
+                var elements = new List<EAElement>(_native.Elements.Count);
+                foreach (Element nativeElement in _native.Elements)
+                {
+                    elements.Add(EAElement.Wrap(nativeElement));
+                }
+                return elements;
+            }
+        }
+
+
+        public void ShowInProjectView()
+        {
+            EARepository.Instance.Native.ShowInProjectView(_native);
+        }
+
+        public bool IsModelRoot()
+        {
+            return (this == ParentPackage);
+        }
+
+        [Obsolete("",true)]
         public Package Get()
         {
-            return _package;
+            return _native;
         }
 
-        public Package CreatePackage(IDualRepository repository, string name, string stereotype = "")
+        [Obsolete]
+        public EAPackage CreatePackage(string name, string stereotype = "")
         {
-            Package newPackage = _package.Packages.AddNew(name, "");
+            Package newPackage = _native.Packages.AddNew(name, "");
             newPackage.Update();
             if (!stereotype.Equals(""))
             {
@@ -43,47 +117,62 @@ namespace DecisionViewpoints.Model
                 newPackage.Update();
             }
             newPackage.Packages.Refresh();
-            repository.RefreshModelView(_package.PackageID);
-            return newPackage;
+            EARepository.Instance.RefreshModelView(_native.PackageID);
+            return EAPackage.Wrap(newPackage);
         }
 
+        [Obsolete]
         public void DeletePackage(short pos, bool refresh)
         {
-            _package.Packages.DeleteAt(pos, refresh);
+            _native.Packages.DeleteAt(pos, refresh);
         }
 
-        public Element CreateElement(IDualRepository repository, string name, string stereotype, string type)
+        [Obsolete]
+        public Element CreateElement(string name, string stereotype, string type)
         {
-            Element newElement = _package.Elements.AddNew(name, type);
+            Element newElement = _native.Elements.AddNew(name, type);
             newElement.Stereotype = stereotype;
             newElement.Update();
-            _package.Elements.Refresh();
-            repository.RefreshModelView(_package.PackageID);
+            _native.Elements.Refresh();
+            EARepository.Instance.RefreshModelView(_native.PackageID);
             return newElement;
         }
 
+        [Obsolete]
         public Diagram CreateDiagram(IDualRepository repository, string name, string type)
         {
-            Diagram d = _package.Diagrams.AddNew(name, type);
+            Diagram d = _native.Diagrams.AddNew(name, type);
             d.Update();
-            _package.Diagrams.Refresh();
-            repository.RefreshModelView(_package.PackageID);
+            _native.Diagrams.Refresh();
+            repository.RefreshModelView(_native.PackageID);
             return d;
         }
-
+        
+        [Obsolete]
         public void DeleteDiagram(short pos, bool refresh)
         {
-            _package.Diagrams.DeleteAt(pos, refresh);
+            _native.Diagrams.DeleteAt(pos, refresh);
         }
 
-        public Diagram GetDiagram(string name)
+        [Obsolete]
+        public EADiagram GetDiagram(string name)
         {
-            return _package.Diagrams.GetByName(name);
+            return EADiagram.Wrap(_native.Diagrams.GetByName(name));
         }
 
         public static EAPackage Wrap(Package packageID)
         {
-            throw new NotImplementedException();
+            return new EAPackage(packageID);
+        }
+
+        public void RefreshElements()
+        {
+            _native.Elements.Refresh();
+        }
+
+        public EAElement AddElement(string name, string type)
+        {
+            return EAElement.Wrap(_native.Elements.AddNew(name, type));
         }
     }
 }

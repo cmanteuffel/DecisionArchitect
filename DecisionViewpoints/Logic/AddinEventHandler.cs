@@ -5,7 +5,6 @@ using System.Windows.Forms;
 using System.Xml;
 using DecisionViewpoints.Logic.AutoGeneration;
 using DecisionViewpoints.Model;
-using EA;
 using DecisionViewpoints.Properties;
 
 namespace DecisionViewpoints.Logic
@@ -40,7 +39,7 @@ namespace DecisionViewpoints.Logic
         private static readonly Dictionary<string, EAElement> TraceMenuContext =
             new Dictionary<string, EAElement>();
 
-        public static object GetMenuItems(Repository repository, string location, string menuName)
+        public static object GetMenuItems(string location, string menuName)
         {
             switch (menuName)
             {
@@ -54,18 +53,18 @@ namespace DecisionViewpoints.Logic
                             MenuCreateBaseline
                         };
                 case MenuTracingCreateTraces:
-                    if (ObjectType.otElement == repository.GetContextItemType())
+                    if (NativeType.Element == EARepository.Instance.GetContextItemType())
                     {
-                        dynamic obj = repository.GetContextObject();
-                        var eaelement = obj as Element;
-                        if (eaelement != null && !DVStereotypes.IsDecision(eaelement))
+                        var eaelement = EARepository.Instance.GetContextObject<EAElement>();
+                     
+                        if (eaelement != null && !eaelement.IsDecision())
                         {
                             return new[] {MenuTracingNewDecision, MenuTracingExistingDecision};
                         }
                     }
                     return new string[0];
                 case MenuTracingFollowTraces:
-                    return CreateTraceSubmenu(repository);
+                    return CreateTraceSubmenu();
                 case MenuBaselineOptions:
                     return new[]
                         {
@@ -75,12 +74,17 @@ namespace DecisionViewpoints.Logic
             return "";
         }
 
-        public static void GetMenuState(Repository repository, string location, string menuName, string itemName,
+        public static void GetMenuState(string location, string menuName, string itemName,
                                         ref bool isEnabled,
                                         ref bool isChecked)
         {
-            if (IsProjectOpen(repository))
-            {
+            if (!EARepository.Instance.IsProjectOpen())
+             {
+                // If no open project, disable all menu options
+                isEnabled = false;
+                 return;
+             }
+
                 switch (itemName)
                 {
                     case MenuCreateProjectStructure:
@@ -104,29 +108,25 @@ namespace DecisionViewpoints.Logic
                         isEnabled = menuName.Equals(MenuTracingFollowTraces);
                         break;
                 }
-            }
-            else
-            {
-                // If no open project, disable all menu options
-                isEnabled = false;
-            }
+            
+           
         }
 
-        public static void MenuClick(Repository repository, string location, string menuName, string itemName)
+        public static void MenuClick(string location, string menuName, string itemName)
         {
             switch (itemName)
             {
                 case MenuCreateProjectStructure:
-                    CreateProjectStructure(repository);
+                    CreateProjectStructure();
                     break;
                 case MenuCreateBaseline:
-                    CreateBaselines(repository);
+                    CreateBaselines();
                     break;
                 case MenuGenerateChronological:
-                    GenerateView(repository);
+                    GenerateView();
                     break;
                 case MenuTracingNewDecision:
-                    CreateAndTraceDecision(repository);
+                    CreateAndTraceDecision();
                     break;
                 case MenuOnFileClose:
                     Settings.Default["BaselineOptionOnFileClose"] =
@@ -147,74 +147,73 @@ namespace DecisionViewpoints.Logic
                     if (menuName.Equals(MenuTracingFollowTraces))
                     {
                         EAElement element = TraceMenuContext[itemName];
-                        Diagram[] diagrams = element.GetDiagrams();
+                        EADiagram[] diagrams = element.GetDiagrams();
                         if (diagrams.Count() == 1)
                         {
-                            Diagram d = diagrams[0];
-                            var diagram = EADiagram.Wrap(d);
-                            diagram.OpenAndSelectElement(repository, element.Element);
+                            var diagram = diagrams[0];
+                            diagram.OpenAndSelectElement(element);
                         }
                         else if (diagrams.Count() >= 2)
                         {
                             var selectForm = new SelectDiagram(diagrams);
                             if (selectForm.ShowDialog() == DialogResult.OK)
                             {
-                                Diagram d = selectForm.GetSelectedDiagram();
-                                var diagram = EADiagram.Wrap(d);
-                                diagram.OpenAndSelectElement(repository, element.Element);
+                                EADiagram diagram = selectForm.GetSelectedDiagram();
+                                diagram.OpenAndSelectElement(element);
                             }
                         }
-                        repository.ShowInProjectView(element.Element);
+                        element.ShowInProjectView();
                     }
                     break;
             }
         }
 
-        private static void CreateAndTraceDecision(Repository repository)
+        private static void CreateAndTraceDecision( )
         {
-            if (ObjectType.otElement == repository.GetContextItemType())
+            var repository = EARepository.Instance;
+            if (repository.GetContextItemType() == NativeType.Element)
             {
-                dynamic obj = repository.GetContextObject();
-                var eaelement = obj as Element;
-                if (eaelement != null && !DVStereotypes.IsDecision(eaelement))
+
+
+                var eaelement = EARepository.Instance.GetContextObject<EAElement>();
+                if (eaelement != null && !eaelement.IsDecision())
                 {
                     var createDecisionView = new CreateDecision(eaelement.Name + " Decision");
                     if (createDecisionView.ShowDialog() == DialogResult.OK)
                     {
-                        Package root = repository.Models.GetAt(0);
-                        Package package = root.Packages.GetByName("Decision Views");
-                        Element decision = package.Elements.AddNew(createDecisionView.GetName(), "Action");
+                        EAPackage dvPackage = repository.GetPackageFromRootByName("Decision Views");
+                        
+                        EAElement decision = dvPackage.AddElement(createDecisionView.GetName(), "Action");
                         decision.Stereotype = createDecisionView.GetState();
-                        Connector trace = eaelement.Connectors.AddNew("", "Abstraction");
-                        trace.Stereotype = "trace";
-                        trace.SupplierID = decision.ElementID;
-                        trace.Update();
-                        eaelement.Connectors.Refresh();
-                        decision.Connectors.Refresh();
+                        decision.MetaType = DVStereotypes.DecisionMetaType;
+
+
+                        eaelement.ConnectTo(decision,"Abstraction", "trace");
+
                         decision.Update();
-                        package.Elements.Refresh();
-                        repository.RefreshModelView(package.PackageID);
+
+                        dvPackage.RefreshElements();
+                        repository.RefreshModelView(dvPackage.ID);
                     }
                 }
             }
         }
 
 
-        private static string[] CreateTraceSubmenu(Repository repository)
+        private static string[] CreateTraceSubmenu()
         {
             TraceMenuContext.Clear();
-            if (ObjectType.otElement == repository.GetContextItemType())
+            var repository = EARepository.Instance;
+            if (repository.GetContextItemType() == NativeType.Element)
             {
-                dynamic obj = repository.GetContextObject();
-                var eaelement = obj as Element;
-                if (eaelement != null)
+                var element = EARepository.Instance.GetContextObject<EAElement>();
+                if (element != null)
                 {
-                    EAElement element = EAElement.Wrap(repository, eaelement);
-
                     foreach (EAElement tracedElement in element.GetTracedElements())
                     {
-                        string menuItem = tracedElement.GetProjectPath() + "/" + tracedElement.Element.Name;
-
+                 
+                        string menuItem = tracedElement.GetProjectPath() + "/" + tracedElement.Name;
+                 
                         if (! "".Equals(tracedElement.Stereotype))
                         {
                             menuItem += " «" + tracedElement.Stereotype + "»";
@@ -238,15 +237,13 @@ namespace DecisionViewpoints.Logic
         }
 
 
-        private static void GenerateView(Repository repository)
+        private static void GenerateView()
         {
-            var project = new EAProjectWrapper(repository);
-            Package root = repository.Models.GetAt(0);
-            var dv = new EAPackage(root.Packages.GetByName("Decision Views"));
-            Package pack = dv.CreatePackage(repository, "Data", "generated");
-            var hp = new EAPackage(pack);
-            var cd = EADiagram.Wrap(dv.GetDiagram("Chronological"));
-            XmlNodeList baselines = project.ReadPackageBaselines(repository, dv);
+            var project = EARepository.Instance.GetProject();
+            var dv = EARepository.Instance.GetPackageFromRootByName("Decision Views");
+            var hp = dv.CreatePackage("Data", "generated");
+            var cd = dv.GetDiagram("Chronological");
+          /*  XmlNodeList baselines = project.ReadPackageBaselines(repository, dv);
             project.ComparePackageBaselines(repository, dv, baselines);
             var chronologicalViewGenarator = new ChronologicalGenerator(repository, project, dv, hp, cd);
             // BatchAppend makes it more efficient to add many elements together
@@ -254,52 +251,28 @@ namespace DecisionViewpoints.Logic
             chronologicalViewGenarator.Generate();
             repository.BatchAppend = false;
             //project.Get().LayoutDiagramEx(cd.Get().DiagramGUID, ConstLayoutStyles.lsLayoutDirectionRight, 4, 20, 20, true);
+           * */
         }
 
-        private static void CreateBaselines(Repository repository)
+        private static void CreateBaselines()
         {
-            var project = new EAProjectWrapper(repository);
-            var rep = new EARepository(repository);
+            /*
+            var project = EARepository.Instance.GetProject();
+            var rep = EARepository.Instance;
             string notes = String.Format("Baseline Time: {0}", DateTime.Now);
-            var dvp = new EAPackage(rep.GetPackageFromRootByName("Decision Views"));
+            var dvp = rep.GetPackageFromRootByName("Decision Views");
             string bv = project.GetBaselineLatestVesrion(repository, dvp);
-            project.CreateBaseline(dvp.Get().PackageGUID, bv, notes);
-        }
-
-
-        /// <summary>
-        /// </summary>
-        /// <param name="repository"></param>
-        /// <param name="location"></param>
-        /// <param name="menuName"></param>
-        /// <param name="itemName"></param>
-        /// <param name="isEnabled"></param>
-        /// <param name="isChecked"></param>
-        /// Sets the state of the menu depending if there is
-        /// an active project or not
-        /// </summary>
-        /// <param name="repository">The EA repository.</param>
-        /// <returns>True if there is an active project, false otherwise.</returns>
-        private static bool IsProjectOpen(IDualRepository repository)
-        {
-            try
-            {
-                return null != repository.Models;
-            }
-            catch
-            {
-                return false;
-            }
+            project.CreateBaseline(dvp.GUID, bv, notes);*/
         }
 
         /// <summary>
         ///     Creates the project structure with the five views and one initial diagram for each view.
         /// </summary>
         /// <param name="repository">The EA repository.</param>
-        private static void CreateProjectStructure(Repository repository)
+        private static void CreateProjectStructure( )
         {
-            var rep = new EARepository(repository);
-            Package decisionViewpoints = rep.CreateView("Decision Views", 0);
+            var rep = EARepository.Instance;
+            EAPackage decisionViewpoints = rep.CreateView("Decision Views", 0);
             rep.CreateDiagram(decisionViewpoints, "Relationship", RelationshipDiagramMetaType);
             rep.CreateDiagram(decisionViewpoints, "Chronological", ChronologicalDiagramMetaType);
             rep.CreateDiagram(decisionViewpoints, "Stakeholder Involvement", StakeholderInvolvementDiagramMetaType);

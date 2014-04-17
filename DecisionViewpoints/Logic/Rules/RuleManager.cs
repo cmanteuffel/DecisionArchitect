@@ -30,6 +30,26 @@ namespace DecisionViewpoints.Logic.Rules
             get { return Singleton; }
         }
 
+        public bool ValidateElement(EAVolatileElement element, out string message)
+        {
+            message = "";
+
+            if (!DVStereotypes.States.Contains(element.Stereotype))
+            {
+                return true;
+            }
+
+
+            foreach (var rule in Rules.Where(r => r.GetRuleType() == RuleType.VolatileElement))
+            {
+                if (!rule.Validate(element, out message))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         public bool ValidateElement(EAElement element, out string message)
         {
             message = "";
@@ -40,7 +60,7 @@ namespace DecisionViewpoints.Logic.Rules
             }
 
 
-            foreach (var rule in Rules.Where(r => r.GetRuleType() == RuleType.Element))
+            foreach (var rule in Rules.Where(r => (r.GetRuleType() == RuleType.Element)))
             {
                 if (!rule.Validate(element, out message))
                 {

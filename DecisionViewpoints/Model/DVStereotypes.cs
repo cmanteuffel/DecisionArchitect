@@ -5,6 +5,8 @@ namespace DecisionViewpoints.Model
 {
     public sealed class DVStereotypes
     {
+        public const string DecisionMetaType = "Decision";
+
         public const string StateIdea = "idea";
         public const string StateTentative = "tentative";
         public const string StateDecided = "decided";
@@ -38,11 +40,5 @@ namespace DecisionViewpoints.Model
                 StateRejected,
                 StateTentative
             };
-
-        public static bool IsDecision(Element e)
-        {
-            //TODO:  metatype is sufficient 
-            return (e != null && States.Contains(e.Stereotype) && e.Type.Equals("Action"));
-        }
     }
 }

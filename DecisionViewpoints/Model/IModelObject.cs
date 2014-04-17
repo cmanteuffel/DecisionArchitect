@@ -12,5 +12,7 @@ namespace DecisionViewpoints.Model
         DateTime Modified { get; set; }
         String Version { get; set; }
         EAPackage ParentPackage { get; set; }
+
+        void ShowInProjectView();
     }
 }

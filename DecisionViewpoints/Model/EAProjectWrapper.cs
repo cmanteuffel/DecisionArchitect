@@ -8,14 +8,21 @@ using EA;
 
 namespace DecisionViewpoints.Model
 {
+    [Obsolete]
     public class EAProjectWrapper : IEAObject
     {
         private readonly Project _project;
         private readonly Dictionary<string, XmlNodeList> _comparisonResults = new Dictionary<string, XmlNodeList>();
 
-        public EAProjectWrapper(IDualRepository repository)
+        public EAProjectWrapper(Project project)
         {
-            _project = repository.GetProjectInterface();
+            _project = project;
+        }
+
+        [Obsolete]
+        public static EAProjectWrapper Wrap(Project project)
+        {
+            return new EAProjectWrapper(project);
         }
 
         public string GetPackageXml(EAPackage package)

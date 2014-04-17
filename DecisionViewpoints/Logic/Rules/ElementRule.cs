@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DecisionViewpoints.Model;
+﻿using DecisionViewpoints.Model;
 
 namespace DecisionViewpoints.Logic.Rules
 {
     public abstract class ElementRule : AbstractRule
     {
-        public ElementRule(string errorMessage) : base(errorMessage)
+        public ElementRule(string errorMessage)
+            : base(errorMessage)
         {
         }
 
@@ -17,5 +13,7 @@ namespace DecisionViewpoints.Logic.Rules
         {
             return RuleType.Element;
         }
+
+        public new abstract bool ValidateElement(EAElement element);
     }
 }

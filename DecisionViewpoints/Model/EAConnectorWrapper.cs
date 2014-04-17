@@ -61,6 +61,11 @@ namespace DecisionViewpoints.Model
             get { return _repository; }
         }
 
+        public static EAConnectorWrapper Wrap(Connector native)
+        {
+            return Wrap(EARepository.Instance.Native, native.ConnectorID);
+        }
+
         public static EAConnectorWrapper Wrap(Repository repository, EventProperties properties)
         {
             dynamic type = properties.Get(EAEventPropertyKeys.Type).Value;

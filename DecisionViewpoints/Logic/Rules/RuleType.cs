@@ -3,6 +3,7 @@
     public enum RuleType
     {
         Connector,
-        Element
+        Element,
+        VolatileElement
     }
 }

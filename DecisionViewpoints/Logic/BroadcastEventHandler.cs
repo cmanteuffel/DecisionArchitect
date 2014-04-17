@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 using System.Windows.Forms;
-using DecisionViewpoints.Logic.AutoGeneration;
 using DecisionViewpoints.Logic.Rules;
 using DecisionViewpoints.Model;
 using DecisionViewpoints.Properties;
 using EA;
+
+namespace DecisionViewpoints.Model
+{
+}
 
 namespace DecisionViewpoints.Logic
 {
@@ -22,7 +22,7 @@ namespace DecisionViewpoints.Logic
 
         public static bool OnPreNewElement(Repository repository, EventProperties info)
         {
-            EAElement element = EAElement.Wrap(repository, info);
+            var element = EAVolatileElement.Wrap(info);
             string message;
             if (!RuleManager.Instance.ValidateElement(element, out message))
             {
@@ -82,10 +82,10 @@ namespace DecisionViewpoints.Logic
                 case ObjectType.otElement:
 
 
-                    var element = EAElement.Wrap(repository, guid);
+                    var element = EARepository.Instance.GetElementByGUID(guid);
 
                     //dirty hack to prevent that the event is fired twice when an decision is modified
-                    if (lastGUID.Equals(guid) && lastChange.Equals(element.Element.Modified))
+                    if (lastGUID.Equals(guid) && lastChange.Equals(element.Modified))
                     {
                         return;
                     }
@@ -101,25 +101,25 @@ namespace DecisionViewpoints.Logic
                             MessageBoxDefaultButton.Button1);
                     }
                     lastGUID = guid;
-                    lastChange = element.Element.Modified;
+                    lastChange = element.Modified;
 
                     // An element hass been modified
                     if ((bool)Settings.Default["BaselineOptionOnFileClose"])
-                        if (element.Element.MetaType.Equals("Decision"))
+                        if (element.MetaType.Equals("Decision"))
                         {
                             _modified = true;
                         }
 
                     // Create a baseline upon a modification of a decision
                     if ((bool)Settings.Default["BaselineOptionOnModification"])
-                        if (element.Element.MetaType.Equals("Decision"))
+                        if (element.MetaType.Equals("Decision"))
                         {
-                            var project = new EAProjectWrapper(repository);
-                            var rep = new EARepository(repository);
+                            var project = EARepository.Instance.GetProject();
+                            var rep =  EARepository.Instance;
                             var notes = String.Format("Baseline Time: {0}", DateTime.Now);
-                            var dvp = new EAPackage(rep.GetPackageFromRootByName("Decision Views"));
+                            var dvp = rep.GetPackageFromRootByName("Decision Views");
                             var bv = project.GetBaselineLatestVesrion(repository, dvp);
-                            project.CreateBaseline(dvp.Get().PackageGUID, bv, notes);
+                            project.CreateBaseline(dvp.GUID, bv, notes);
                         }
                     break;
                 case ObjectType.otConnector:
@@ -154,12 +154,12 @@ namespace DecisionViewpoints.Logic
         {
             if (!(bool)Settings.Default["BaselineOptionOnFileClose"]) return;
             if (!_modified) return;
-            var project = new EAProjectWrapper(repository);
-            var rep = new EARepository(repository);
+            var project = EARepository.Instance.GetProject();
+            var rep =  EARepository.Instance;
             var notes = String.Format("Baseline Time: {0}", DateTime.Now);
-            var dvp = new EAPackage(rep.GetPackageFromRootByName("Decision Views"));
+            var dvp = rep.GetPackageFromRootByName("Decision Views");
             var bv = project.GetBaselineLatestVesrion(repository, dvp);
-            project.CreateBaseline(dvp.Get().PackageGUID, bv, notes);
+            project.CreateBaseline(dvp.GUID, bv, notes);
         }
     }
 }

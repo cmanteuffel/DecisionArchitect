@@ -39,7 +39,6 @@
       <HintPath>..\..\references\Interop.EA.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -59,9 +58,8 @@
     </Compile>
     <Compile Include="Logic\AddinEventHandler.cs" />
     <Compile Include="Logic\BroadcastEventHandler.cs" />
-    <Compile Include="Logic\IAddInEventHandler.cs" />
-    <Compile Include="Logic\IModelEventHandler.cs" />
     <Compile Include="Logic\Rules\ElementRule.cs" />
+    <Compile Include="Logic\Rules\VolatileElementRule.cs" />
     <Compile Include="Logic\Rules\ModelValidator.cs" />
     <Compile Include="Logic\Rules\NameUniquenessRule.cs" />
     <Compile Include="Logic\Rules\RuleType.cs" />
@@ -80,6 +78,7 @@
     <Compile Include="Model\EAPackage.cs" />
     <Compile Include="Model\EAProjectWrapper.cs" />
     <Compile Include="Model\EARepository.cs" />
+    <Compile Include="Model\EAVolatileElement.cs" />
     <Compile Include="Model\IEAObject.cs" />
     <Compile Include="Model\Events\EAEventAdapter.cs" />
     <Compile Include="Model\Events\IEAAddInEvents.cs" />
