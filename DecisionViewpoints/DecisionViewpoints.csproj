@@ -52,9 +52,19 @@
     <Compile Include="AddinEventHandler.cs" />
     <Compile Include="BroadcastEventHandler.cs" />
     <Compile Include="MainApplication.cs" />
-    <Compile Include="Model\ConnectorRule.cs" />
+    <Compile Include="Messages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Messages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Rules\CompositeRule.cs" />
     <Compile Include="Model\EventPropertyKeys.cs" />
-    <Compile Include="Model\PreConnector.cs" />
+    <Compile Include="Model\Rules\ExclusionRule.cs" />
+    <Compile Include="Model\Rules\ICompositeRule.cs" />
+    <Compile Include="Model\Rules\InclusionRule.cs" />
+    <Compile Include="Model\Rules\PreConnector.cs" />
+    <Compile Include="Model\Rules\ConnectorRule.cs" />
+    <Compile Include="Model\Rules\SameCLientSupplier.cs" />
     <Compile Include="Model\States.cs" />
     <Compile Include="Model\Stereotypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -72,6 +82,12 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Messages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

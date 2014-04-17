@@ -11,6 +11,7 @@ namespace DecisionViewpoints.Model
         public const string StateChallenged = "challenged";
         public const string StateDiscarded = "discarded";
         public const string StateRejected = "rejected";
+
         public const string RelationDependsOn = "depends on";
         public const string RelationCausedBy = "caused by";
         public const string RelationAlternativeFor = "alternative for";

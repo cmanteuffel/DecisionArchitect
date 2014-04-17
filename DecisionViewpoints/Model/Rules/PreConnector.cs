@@ -1,6 +1,6 @@
 using EA;
 
-namespace DecisionViewpoints.Model
+namespace DecisionViewpoints.Model.Rules
 {
     internal class PreConnector
     {
@@ -37,6 +37,21 @@ namespace DecisionViewpoints.Model
         public string Type
         {
             get { return _type; }
+        }
+
+        public int ClientId
+        {
+            get { return _clientId; }
+        }
+
+        public int DiagramId
+        {
+            get { return _diagramId; }
+        }
+
+        public int SupplierId
+        {
+            get { return _supplierId; }
         }
 
         public static PreConnector Wrap(Repository repository, EventProperties properties)

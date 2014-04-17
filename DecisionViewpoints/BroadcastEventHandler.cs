@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Forms;
 using DecisionViewpoints.Model;
+using DecisionViewpoints.Model.Rules;
 using EA;
 
 namespace DecisionViewpoints
@@ -39,7 +40,6 @@ namespace DecisionViewpoints
         public static bool OnPreNewConnector(Repository repository, EventProperties info)
         {
             PreConnector connector = PreConnector.Wrap(repository, info);
-            MessageBox.Show(connector.ToString());
 
             if (!Stereotypes.Relationships.Contains(connector.Stereotype))
             {
@@ -47,57 +47,59 @@ namespace DecisionViewpoints
             }
 
 
-            var constraint0 = new ExclusionConnectorRule(new string[] {Stereotypes.StateIdea},
-                                                         ConnectorRule.Any,
-                                                         ConnectorRule.Any,
-                                                         "Not originate from idea");
-            var constraint1 = new ExclusionConnectorRule(ConnectorRule.Any,
-                                                         ConnectorRule.Any,
-                                                         new string[] {Stereotypes.StateIdea},
-                                                         "Not point to idea");
-            var constraint2 = new ExclusionConnectorRule(ConnectorRule.Any,
-                                                         new string[] {Stereotypes.RelationCausedBy},
-                                                         new string[] {Stereotypes.StateDiscarded},
-                                                         "Caused by not point to discarded");
-            var constraint3 = new InclusionConnectorRule(ConnectorRule.Any,
-                                                         new string[] {Stereotypes.RelationDependsOn},
-                                                         new string[]
-                                                             {
-                                                                 Stereotypes.StateTentative, Stereotypes.StateDecided,
-                                                                 Stereotypes.StateApproved, Stereotypes.StateChallenged
-                                                             },
-                                                         "Depends on only point to tentative, discarded, approved, challenged");
-            var constraint4 = new ExclusionConnectorRule(ConnectorRule.Any,
-                                                         new string[] {Stereotypes.RelationExcludedBy},
-                                                         new string[]
-                                                             {
-                                                                 Stereotypes.StateTentative, Stereotypes.StateDiscarded,
-                                                                 Stereotypes.StateRejected
-                                                             },
-                                                         "Excluded by not point to tentative, discarded, rejected");
-            var constraint5 = new InclusionConnectorRule(new string[]
-                                                             {
-                                                                 Stereotypes.StateTentative, Stereotypes.StateDecided,
-                                                                 Stereotypes.StateRejected
-                                                             },
-                                                         new string[] {Stereotypes.RelationExcludedBy},
-                                                         ConnectorRule.Any,
-                                                         "Excluded only originate from tentative, discarded, rejected");
-            var constraint6 = new InclusionConnectorRule(ConnectorRule.Any,
-                                                        new string[] { Stereotypes.RelationReplaces},
-                                                        new string[]
-                                                             {
-                                                                 Stereotypes.StateRejected
-                                                             },
-                                                        "Replaces only point to rejected");
-            var constraint7 = new ExclusionConnectorRule(ConnectorRule.Any,
-                                                         new string[] { Stereotypes.RelationAlternativeFor },
-                                                         new string[] { Stereotypes.StateDiscarded },
-                                                         "Alternative for not point to discarded");
-            var constraint8 = new InclusionConnectorRule(new string[] { Stereotypes.StateDiscarded, Stereotypes.StateTentative },
-                                                         new string[] { Stereotypes.RelationAlternativeFor},
-                                                         ConnectorRule.Any,
-                                                         "Alternative for only originate from tentative, discarded");
+            var constraint0 = new ExclusionRule(new string[] {Stereotypes.StateIdea},
+                                                ConnectorRule.Any,
+                                                ConnectorRule.Any,
+                                                Messages.NotOriginFromIdea);
+            var constraint1 = new ExclusionRule(ConnectorRule.Any,
+                                                ConnectorRule.Any,
+                                                new string[] {Stereotypes.StateIdea},
+                                                Messages.NotPointToIdea);
+            var constraint2 = new ExclusionRule(ConnectorRule.Any,
+                                                new string[] {Stereotypes.RelationCausedBy},
+                                                new string[] {Stereotypes.StateDiscarded},
+                                                Messages.CausedByNotPointTo);
+            var constraint3 = new InclusionRule(ConnectorRule.Any,
+                                                new string[] {Stereotypes.RelationDependsOn},
+                                                new string[]
+                                                    {
+                                                        Stereotypes.StateTentative, Stereotypes.StateDecided,
+                                                        Stereotypes.StateApproved, Stereotypes.StateChallenged
+                                                    },
+                                                Messages.DependsOnOnlyPointTo);
+            var constraint4 = new ExclusionRule(ConnectorRule.Any,
+                                                new string[] {Stereotypes.RelationExcludedBy},
+                                                new string[]
+                                                    {
+                                                        Stereotypes.StateTentative, Stereotypes.StateDiscarded,
+                                                        Stereotypes.StateRejected
+                                                    },
+                                                Messages.ExcludedByNotPointTo);
+            var constraint5 = new InclusionRule(new string[]
+                {
+                    Stereotypes.StateTentative, Stereotypes.StateDecided,
+                    Stereotypes.StateRejected
+                },
+                                                new string[] {Stereotypes.RelationExcludedBy},
+                                                ConnectorRule.Any,
+                                                Messages.ExcludedOnlyOriginateFrom);
+            var constraint6 = new InclusionRule(ConnectorRule.Any,
+                                                new string[] {Stereotypes.RelationReplaces},
+                                                new string[]
+                                                    {
+                                                        Stereotypes.StateRejected
+                                                    },
+                                                Messages.ReplacesOnlyPointTo);
+            var constraint7 = new ExclusionRule(ConnectorRule.Any,
+                                                new string[] {Stereotypes.RelationAlternativeFor},
+                                                new string[] {Stereotypes.StateDiscarded},
+                                                Messages.AlternativeForNotPointTo);
+            var constraint8 = new InclusionRule(new string[] {Stereotypes.StateDiscarded, Stereotypes.StateTentative},
+                                                new string[] {Stereotypes.RelationAlternativeFor},
+                                                ConnectorRule.Any,
+                                                Messages.AlternativeForOnlyOriginateFrom);
+
+            var constraint9 = new SameClientSupplier(Messages.NoLoops);
             var rules = new CompositeRule();
             rules.Add(constraint0);
             rules.Add(constraint1);
@@ -108,7 +110,7 @@ namespace DecisionViewpoints
             rules.Add(constraint6);
             rules.Add(constraint7);
             rules.Add(constraint8);
-
+            rules.Add(constraint9);
             string message;
             if (!rules.Validate(connector, out message))
             {
