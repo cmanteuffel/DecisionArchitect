@@ -58,5 +58,41 @@ namespace DecisionViewpoints.Properties {
                 this["StakeholderInvolvementDiagramMetaType"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool BaselineOptionOnFileClose {
+            get {
+                return ((bool)(this["BaselineOptionOnFileClose"]));
+            }
+            set {
+                this["BaselineOptionOnFileClose"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool BaselineOptionOnModification {
+            get {
+                return ((bool)(this["BaselineOptionOnModification"]));
+            }
+            set {
+                this["BaselineOptionOnModification"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool BaselineOptionManually {
+            get {
+                return ((bool)(this["BaselineOptionManually"]));
+            }
+            set {
+                this["BaselineOptionManually"] = value;
+            }
+        }
     }
 }

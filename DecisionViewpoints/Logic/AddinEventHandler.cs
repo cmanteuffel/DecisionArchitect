@@ -61,7 +61,7 @@ namespace DecisionViewpoints.Logic
 
         public static void GetMenuState(Repository repository, string location, string menuName, string itemName,
                                         ref bool isEnabled,
-                                        ref bool isChecked, BaselineOptions bo)
+                                        ref bool isChecked)
         {
             if (IsProjectOpen(repository))
             {
@@ -72,16 +72,16 @@ namespace DecisionViewpoints.Logic
                         isEnabled = true;
                         break;
                     case MenuCreateBaseline:
-                        isEnabled = bo.GetOption(BaselineOptions.Option.Manually);
+                        isEnabled = (bool) Settings.Default["BaselineOptionManually"];
                         break;
                     case MenuOnFileClose:
-                        isEnabled = !bo.GetOption(BaselineOptions.Option.OnFileClose);
+                        isChecked = (bool) Settings.Default["BaselineOptionOnFileClose"];
                         break;
                     case MenuOnModification:
-                        isEnabled = !bo.GetOption(BaselineOptions.Option.OnModification);
+                        isChecked = (bool) Settings.Default["BaselineOptionOnModification"];
                         break;
                     case MenuManually:
-                        isEnabled = !bo.GetOption(BaselineOptions.Option.Manually);
+                        isChecked = (bool) Settings.Default["BaselineOptionManually"];
                         break;
                     default:
                         isEnabled = menuName.Equals(MenuTracingFollowTraces);
@@ -95,8 +95,7 @@ namespace DecisionViewpoints.Logic
             }
         }
 
-        public static void MenuClick(Repository repository, string location, string menuName, string itemName,
-                                     BaselineOptions bo)
+        public static void MenuClick(Repository repository, string location, string menuName, string itemName)
         {
             switch (itemName)
             {
@@ -110,19 +109,16 @@ namespace DecisionViewpoints.Logic
                     GenerateView(repository);
                     break;
                 case MenuOnFileClose:
-                    bo.SetOption(BaselineOptions.Option.OnFileClose, true);
-                    bo.SetOption(BaselineOptions.Option.OnModification, false);
-                    bo.SetOption(BaselineOptions.Option.Manually, false);
+                    Settings.Default["BaselineOptionOnFileClose"] =
+                        !(bool) Settings.Default["BaselineOptionOnFileClose"];
                     break;
                 case MenuOnModification:
-                    bo.SetOption(BaselineOptions.Option.OnFileClose, false);
-                    bo.SetOption(BaselineOptions.Option.OnModification, true);
-                    bo.SetOption(BaselineOptions.Option.Manually, false);
+                    Settings.Default["BaselineOptionOnModification"] =
+                        !(bool) Settings.Default["BaselineOptionOnModification"];
                     break;
                 case MenuManually:
-                    bo.SetOption(BaselineOptions.Option.OnFileClose, false);
-                    bo.SetOption(BaselineOptions.Option.OnModification, false);
-                    bo.SetOption(BaselineOptions.Option.Manually, true);
+                    Settings.Default["BaselineOptionManually"] =
+                        !(bool) Settings.Default["BaselineOptionManually"];
                     break;
                 default:
                     if (menuName.Equals(MenuTracingFollowTraces))

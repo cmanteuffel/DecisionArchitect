@@ -74,7 +74,7 @@ namespace DecisionViewpoints.Logic
             return "";
         }
 
-        public static void OnNotifyContextItemModified(Repository repository, string guid, ObjectType ot, BaselineOptions bo)
+        public static void OnNotifyContextItemModified(Repository repository, string guid, ObjectType ot)
         {
             string message;
             switch (ot)
@@ -104,14 +104,14 @@ namespace DecisionViewpoints.Logic
                     lastChange = element.Element.Modified;
 
                     // An element hass been modified
-                    if (bo.GetOption(BaselineOptions.Option.OnFileClose))
+                    if ((bool)Settings.Default["BaselineOptionOnFileClose"])
                         if (element.Element.MetaType.Equals("Decision"))
                         {
                             _modified = true;
                         }
 
                     // Create a baseline upon a modification of a decision
-                    if (bo.GetOption(BaselineOptions.Option.OnModification))
+                    if ((bool)Settings.Default["BaselineOptionOnModification"])
                         if (element.Element.MetaType.Equals("Decision"))
                         {
                             var project = new EAProjectWrapper(repository);
@@ -150,9 +150,9 @@ namespace DecisionViewpoints.Logic
         {
         }
 
-        public static void FileClose(Repository repository, BaselineOptions bo)
+        public static void FileClose(Repository repository)
         {
-            if (!bo.GetOption(BaselineOptions.Option.OnFileClose)) return;
+            if (!(bool)Settings.Default["BaselineOptionOnFileClose"]) return;
             if (!_modified) return;
             var project = new EAProjectWrapper(repository);
             var rep = new EARepositoryWrapper(repository);

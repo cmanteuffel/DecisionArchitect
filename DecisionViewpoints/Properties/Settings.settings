@@ -11,5 +11,14 @@
     <Setting Name="StakeholderInvolvementDiagramMetaType" Type="System.String" Scope="User">
       <Value Profile="(Default)">Decision Viewpoints::Stakeholder Involvement</Value>
     </Setting>
+    <Setting Name="BaselineOptionOnFileClose" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="BaselineOptionOnModification" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="BaselineOptionManually" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

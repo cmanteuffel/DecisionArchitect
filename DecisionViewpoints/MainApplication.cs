@@ -13,7 +13,6 @@ namespace DecisionViewpoints
     public class MainApplication : EAEventAdapter
     {
         private ModelValidator _modelValidator;
-        private BaselineOptions _baselineOptions = new BaselineOptions();
 
         public override object EA_OnInitializeTechnologies(Repository repository)
         {
@@ -38,12 +37,12 @@ namespace DecisionViewpoints
         public override void EA_GetMenuState(Repository repository, string location, string menuName,
                                              string itemName, ref bool isEnabled, ref bool isChecked)
         {
-            AddinEventHandler.GetMenuState(repository, location, menuName, itemName, ref isEnabled, ref isChecked, _baselineOptions);
+            AddinEventHandler.GetMenuState(repository, location, menuName, itemName, ref isEnabled, ref isChecked);
         }
 
         public override void EA_MenuClick(Repository repository, string location, string menuName, string itemName)
         {
-            AddinEventHandler.MenuClick(repository, location, menuName, itemName, _baselineOptions);
+            AddinEventHandler.MenuClick(repository, location, menuName, itemName);
         }
 
         public override bool EA_OnPreNewElement(Repository repository, EventProperties info)
@@ -68,7 +67,7 @@ namespace DecisionViewpoints
 
         public override void EA_OnNotifyContextItemModified(Repository repository, string guid, ObjectType ot)
         {
-            BroadcastEventHandler.OnNotifyContextItemModified(repository, guid, ot, _baselineOptions);
+            BroadcastEventHandler.OnNotifyContextItemModified(repository, guid, ot);
         }
 
         public override void EA_OnInitializeUserRules(Repository repository)
@@ -95,7 +94,7 @@ namespace DecisionViewpoints
 
         public override void EA_FileClose(Repository repository)
         {
-            BroadcastEventHandler.FileClose(repository, _baselineOptions);
+            BroadcastEventHandler.FileClose(repository);
         }
     }
 }
