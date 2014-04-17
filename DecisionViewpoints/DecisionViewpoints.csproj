@@ -52,7 +52,7 @@
     <Compile Include="AddinEventHandler.cs" />
     <Compile Include="BroadcastEventHandler.cs" />
     <Compile Include="MainApplication.cs" />
-    <Compile Include="Model\DependsOnConstraint.cs" />
+    <Compile Include="Model\ConnectorRule.cs" />
     <Compile Include="Model\EventPropertyKeys.cs" />
     <Compile Include="Model\PreConnector.cs" />
     <Compile Include="Model\Stereotypes.cs" />

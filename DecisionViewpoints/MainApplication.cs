@@ -4,7 +4,7 @@ using EA;
 namespace DecisionViewpoints
 {
     /// <summary>
-    /// This is the main entry point of the add-in.
+    /// This is the main entry point of the Add-in.
     /// All the events received in this class are delegated.
     /// </summary>
     public class MainApplication
