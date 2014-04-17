@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using DecisionViewpoints.Model;
 using DecisionViewpoints.Model.Baselines;
+using EA;
 
 namespace DecisionViewpoints.Logic.Automation
 {
@@ -13,48 +14,47 @@ namespace DecisionViewpoints.Logic.Automation
 
         private readonly EADiagram _chronologicalViewpoint;
         private readonly EAPackage _viewPackage;
+        private readonly EAPackage _historyPackage;
+        private readonly Dictionary<string, EAElement> decisions;
 
-        public ChronologicalViewpointGenerator(EAPackage viewPackage, EADiagram chronologicalViewpoint)
+        public ChronologicalViewpointGenerator(EAPackage viewPackage, EAPackage historyPackage, EADiagram chronologicalViewpoint)
         {
             _viewPackage = viewPackage;
             _chronologicalViewpoint = chronologicalViewpoint;
+            _historyPackage = historyPackage;
+            decisions = _viewPackage.GetAllDecisions().ToDictionary(e => e.GUID, e => e);
         }
 
 
         public bool GenerateViewpoint()
         {
-            //make sure diagram and data package exists, if not create those
-            IEnumerable<DecisionDiffItem> items = GetHistory(_viewPackage);
+            IEnumerable<DecisionDiffItem> items = GetHistory();
 
             string itemString = "";
-            var tmp = items.ToList();
-            tmp.Sort(DecisionDiffItem.CompareByDateModified);
-            foreach (var item in tmp)
+            foreach (var decisionDiffItem in items)
             {
-                itemString += item.Current.Name + " <" + item.Stereotype +"> @" + item.Modified + "\n";
+                itemString += decisionDiffItem.Current.Name + " <" + decisionDiffItem.Stereotype + "> @" +
+                              decisionDiffItem.Modified +"\n";
             }
             MessageBox.Show(itemString);
-
-            //IEnumerable<EAElement> decisions = CreateDecisions(items);
-            //IList<EAElement> connectedDecisions = ConnectDecisions(decisions);
-
-            //GenerateDiagram(_chronologicalViewpoint, connectedDecisions);
+            IEnumerable<EAElement> decisionElements = CreateDecisions(items);
+            IList<EAElement> connectedElements = ConnectDecisions(decisionElements);
+            GenerateDiagram(_chronologicalViewpoint, connectedElements);
 
             return true;
         }
 
-        private IEnumerable<DecisionDiffItem> GetHistory(EAPackage viewPackage)
+        private IEnumerable<DecisionDiffItem> GetHistory()
         {
             IEnumerable<Baseline> baselines =
-                viewPackage.GetBaselines().Where(baseline => baseline.Notes.Equals(BaselineIdentifier));
+                _viewPackage.GetBaselines().Where(baseline => baseline.Notes.Equals(BaselineIdentifier));
             
-            IDictionary<string, DecisionDiffItem> nomodificationFilter = new Dictionary<string, DecisionDiffItem>();
-            Dictionary<string, EAElement> decisions = viewPackage.GetAllDecisions().ToDictionary(e => e.GUID, e => e);
-
+            //TODO: Identify our decisions by tagged values and not metatype and it needs to be recursive (depth search for decisions in groups etc)
+            IDictionary<string, DecisionDiffItem> nomodificationFilter = new Dictionary<string, DecisionDiffItem>();           
             foreach (Baseline baseline in baselines)
             {
-                BaselineDiff baselineDiff = viewPackage.CompareWithBaseline(baseline);
-                DiffItem packageItem = baselineDiff.DiffItems.First(item => item.Guid.Equals(viewPackage.GUID));
+                BaselineDiff baselineDiff = _viewPackage.CompareWithBaseline(baseline);
+                DiffItem packageItem = baselineDiff.DiffItems.First(item => item.Guid.Equals(_viewPackage.GUID));
 
                 var changedDecisions = FilterChangedDecisionsOnly(packageItem, decisions);
                 foreach (DecisionDiffItem decisionItem in changedDecisions)
@@ -66,12 +66,12 @@ namespace DecisionViewpoints.Logic.Automation
                     }
                 }
             }
-            var tmp = nomodificationFilter.Values.ToList();
+
             string itemString = "";
-            tmp.Sort(DecisionDiffItem.CompareByDateModified);
-            foreach (var item in tmp)
+            foreach (var decisionDiffItem in nomodificationFilter.Values)
             {
-                itemString += item.Current.Name + " <" + item.Stereotype + "> @" + item.Modified + "\n";
+                itemString += decisionDiffItem.Current.Name + " <" + decisionDiffItem.Stereotype + "> @" +
+                              decisionDiffItem.Modified + "\n";
             }
             MessageBox.Show(itemString);
 
@@ -80,19 +80,66 @@ namespace DecisionViewpoints.Logic.Automation
 
         private IEnumerable<EAElement> CreateDecisions(IEnumerable<DecisionDiffItem> items)
         {
-            //check if current element exists if not create in data package
-            throw new NotImplementedException();
+ 
+
+            var diffItems = items.ToList();
+            
+           //create non existing and update existing (name)
+            var pastDecisions = new List<EAElement>();
+            foreach (var item in diffItems)
+            {
+                //TODO: if there is an element with the tagged value original guid and modified name than skip creating and just updating it with name and then add it to list
+                var name = item.Current.Name;
+                var stereotype = item.Stereotype;
+                var modified = item.Modified;
+                var metatype = DVStereotypes.DecisionMetaType;
+                var type = "Action";
+                //TODO: add tagged value original guid
+                //TODO: add tagged value modified
+                EAElement pastDecision = _historyPackage.CreateElement(name, stereotype, type);
+                pastDecision.MetaType = metatype;
+                pastDecision.Modified = modified;
+                
+                ;
+
+                pastDecisions.Add(pastDecision);
+            }
+
+            //combine decisions and created or updated elements
+            return pastDecisions.Union(decisions.Values);
         }
 
-        private IList<EAElement> ConnectDecisions(IEnumerable<EAElement> decisions)
+        private IList<EAElement> ConnectDecisions(IEnumerable<EAElement> elements)
         {
-            throw new NotImplementedException();
+            var sortedElements = elements.ToList();
+            sortedElements.Sort(EAElement.CompareByDateModified);
+
+            string itemString = "";
+            foreach (var decisionDiffItem in sortedElements)
+            {
+                itemString += decisionDiffItem.Name + " <" + decisionDiffItem.Stereotype + "> @" +
+                              decisionDiffItem.Modified + "\n";
+            }
+            MessageBox.Show(itemString);
+
+            // connect subsequent elements
+            for (int i = 1; i < sortedElements.Count(); i++)
+            {
+                //TODO: check if connected (remove previous followed bys
+                sortedElements[i - 1].ConnectTo(sortedElements[i], "ControlFlow", "followed by");
+            }
+
+            return sortedElements;
         }
 
 
-        private void GenerateDiagram(EADiagram chronologicalViewpoint, IList<EAElement> connectedDecisions)
+        private void GenerateDiagram(EADiagram chronologicalViewpoint, IList<EAElement> elements)
         {
-            throw new NotImplementedException();
+            foreach (var element in elements)
+            {
+                chronologicalViewpoint.AddToDiagram(element);    
+            }
+            
         }
 
 
@@ -120,16 +167,9 @@ namespace DecisionViewpoints.Logic.Automation
             foreach (string guid in decisions.Keys)
             {
                 List<DecisionDiffItem> items = decisionHistory.Where(d => d.Guid.Equals(guid)).ToList();
-
                 if (!items.Any()) continue;
 
                 items.Sort(DecisionDiffItem.CompareByDateModified);
-
-                string itemString = "";
-                foreach (var item in items)
-                {
-                    itemString += item.Current.Name + " <" + item.Stereotype + "> @" + item.Modified + "\n";
-                }
                 
                 var consecutiveChanges = new List<DecisionDiffItem>();
                 foreach (DecisionDiffItem item in items)

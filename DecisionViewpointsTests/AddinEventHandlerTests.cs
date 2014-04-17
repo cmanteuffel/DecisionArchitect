@@ -1,4 +1,5 @@
-﻿using DecisionViewpoints.Logic;
+﻿using System;
+using DecisionViewpoints.Logic;
 using DecisionViewpointsTests.Logic;
 using EA;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -33,39 +34,43 @@ namespace DecisionViewpointsTests
         [TestMethod]
         public void GetMenuItems_ReturnCorrectSubmenus()
         {
-            string[] subMenus = {AddinEventHandler.MenuCreateProjectStructure};
-            var retrievedSubMenus = (string[]) MainApp.EA_GetMenuItems(Repo, "TreeView", AddinEventHandler.MenuHeader);
-            Assert.AreEqual(subMenus[0], retrievedSubMenus[0]);
+            throw new NotSupportedException();
+            //string[] subMenus = {AddinEventHandler.MenuCreateProjectStructure};
+           // var retrievedSubMenus = (string[]) MainApp.EA_GetMenuItems(Repo, "TreeView", AddinEventHandler.MenuHeader);
+           // Assert.AreEqual(subMenus[0], retrievedSubMenus[0]);
         }
 
         [TestMethod]
         public void GetMenuState_FileClosed_ReturnFalse()
         {
+            throw new NotSupportedException();
             // Here we need to close the file first in order for the test to pass and then open it again
-            _f.Close();
+           /* _f.Close();
             var isEnabled = false;
             var isChecked = false;
             MainApp.EA_GetMenuState(Repo, "TreeView", AddinEventHandler.MenuHeader,
                                     AddinEventHandler.MenuCreateProjectStructure,
                                     ref isEnabled, ref isChecked);
             _f.Open();
-            Assert.IsFalse(isEnabled);
+            Assert.IsFalse(isEnabled);*/
         }
 
         [TestMethod]
         public void GetMenuState_FileOpen_ReturnTrue()
         {
-            var isEnabled = false;
+            throw new NotSupportedException();
+            /*var isEnabled = false;
             var isChecked = false;
             MainApp.EA_GetMenuState(Repo, "TreeView", AddinEventHandler.MenuHeader, AddinEventHandler.MenuCreateProjectStructure,
                                     ref isEnabled, ref isChecked);
-            Assert.IsTrue(isEnabled);
+            Assert.IsTrue(isEnabled);*/
         }
 
         [TestMethod]
         public void MenuClick_CreateProjectStructure_ExpectedStructureCreated()
         {
-            _f.Reset();
+            throw new NotSupportedException();
+            /*_f.Reset();
             MainApp.EA_MenuClick(Repo, "TreeView", AddinEventHandler.MenuHeader, AddinEventHandler.MenuCreateProjectStructure);
             Package root = Repo.Models.GetAt(0);
             Package rv = root.Packages.GetAt(0);
@@ -80,7 +85,7 @@ namespace DecisionViewpointsTests
             Assert.AreEqual("Chronological", cv.Name);
             Assert.AreEqual("Diagram1", cd.Name);
             Assert.AreEqual("Stakeholder Involvement", siv.Name);
-            Assert.AreEqual("Diagram1", sid.Name);
+            Assert.AreEqual("Diagram1", sid.Name);*/
         }
     }
 }

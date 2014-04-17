@@ -14,7 +14,10 @@ namespace DecisionViewpoints.Model
         {
             _native = native;
         }
-
+        public static int CompareByDateModified(EAElement x, EAElement y)
+        {
+            return DateTime.Compare(x.Modified, y.Modified);
+        }
 
         public string Type
         {
@@ -173,6 +176,7 @@ namespace DecisionViewpoints.Model
             return diagrams.ToArray();
         }
 
+        [Obsolete]
         public void ConnectTo(EAElement suppliedElement)
         {
             ConnectTo(suppliedElement,"ControlFlow", "followed by");

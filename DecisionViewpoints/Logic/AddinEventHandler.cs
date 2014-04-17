@@ -9,6 +9,7 @@ using DecisionViewpoints.Properties;
 
 namespace DecisionViewpoints.Logic
 {
+    [Obsolete("",true)]
     public static class AddinEventHandler
     {
         public const string MenuHeader = "-&Decision Viewpoints";

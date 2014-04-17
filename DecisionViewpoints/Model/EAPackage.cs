@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 using System.Xml;
 using DecisionViewpoints.Model.Baselines;
 using EA;
@@ -16,6 +15,19 @@ namespace DecisionViewpoints.Model
         private EAPackage(Package native)
         {
             _native = native;
+        }
+
+        public IList<EAElement> Elements
+        {
+            get
+            {
+                var elements = new List<EAElement>(_native.Elements.Count);
+                foreach (Element nativeElement in _native.Elements)
+                {
+                    elements.Add(EAElement.Wrap(nativeElement));
+                }
+                return elements;
+            }
         }
 
 
@@ -80,18 +92,6 @@ namespace DecisionViewpoints.Model
         }
 
         //TODO: Transparent ILIST that wraps the strange EA Collection
-        public IList<EAElement> Elements
-        {
-            get
-            {
-                var elements = new List<EAElement>(_native.Elements.Count);
-                foreach (Element nativeElement in _native.Elements)
-                {
-                    elements.Add(EAElement.Wrap(nativeElement));
-                }
-                return elements;
-            }
-        }
 
 
         public void ShowInProjectView()
@@ -122,7 +122,7 @@ namespace DecisionViewpoints.Model
             }
             newPackage.Packages.Refresh();
             EARepository.Instance.RefreshModelView(_native.PackageID);
-            return EAPackage.Wrap(newPackage);
+            return Wrap(newPackage);
         }
 
         [Obsolete]
@@ -132,14 +132,14 @@ namespace DecisionViewpoints.Model
         }
 
         [Obsolete]
-        public Element CreateElement(string name, string stereotype, string type)
+        public EAElement CreateElement(string name, string stereotype, string type)
         {
             Element newElement = _native.Elements.AddNew(name, type);
             newElement.Stereotype = stereotype;
             newElement.Update();
             _native.Elements.Refresh();
             EARepository.Instance.RefreshModelView(_native.PackageID);
-            return newElement;
+            return EAElement.Wrap(newElement);
         }
 
         [Obsolete]
@@ -166,8 +166,8 @@ namespace DecisionViewpoints.Model
 
         public IList<Baseline> GetBaselines()
         {
-            var project = EARepository.Instance.Native.GetProjectInterface();
-            var baselineString = project.GetBaselines(GUID, "");
+            Project project = EARepository.Instance.Native.GetProjectInterface();
+            string baselineString = project.GetBaselines(GUID, "");
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(baselineString);
 
@@ -181,15 +181,15 @@ namespace DecisionViewpoints.Model
 
         public BaselineDiff CompareWithBaseline(Baseline baseline)
         {
-            var project = EARepository.Instance.Native.GetProjectInterface();
-            var baselineXmlGuid = project.GUIDtoXML(baseline.Guid);
-            var diffString = project.DoBaselineCompare(GUID, baselineXmlGuid, "");
+            Project project = EARepository.Instance.Native.GetProjectInterface();
+            string baselineXmlGuid = project.GUIDtoXML(baseline.Guid);
+            string diffString = project.DoBaselineCompare(GUID, baselineXmlGuid, "");
             return BaselineDiff.ParseFromXml(this, baseline, diffString);
         }
 
         public bool CreateBaseline(string version, string notes)
         {
-            var project = EARepository.Instance.Native.GetProjectInterface();
+            Project project = EARepository.Instance.Native.GetProjectInterface();
             return project.CreateBaseline(GUID, version, notes);
         }
 
@@ -211,10 +211,24 @@ namespace DecisionViewpoints.Model
 
         public IEnumerable<EAElement> GetAllDecisions()
         {
-            return 
-            _native.Elements.Cast<Element>()
-                   .Where(e => e.MetaType.Equals(DVStereotypes.DecisionMetaType))
-                   .Select(e => EAElement.Wrap(e));
+            return
+                _native.Elements.Cast<Element>()
+                       .Where(e => e.MetaType.Equals(DVStereotypes.DecisionMetaType))
+                       .Select(e => EAElement.Wrap(e));
+        }
+
+        public EAPackage GetSubpackageByName(string data)
+        {
+            IEnumerable<Package> packages = _native.Packages.Cast<Package>();
+            if (packages.Any())
+            {
+                Package foundPackage = packages.FirstOrDefault(e => e.Name.Equals(data));
+                if (foundPackage != null)
+                {
+                    return Wrap(foundPackage);
+                }
+            }
+            return null;
         }
     }
 }

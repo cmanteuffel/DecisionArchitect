@@ -166,8 +166,14 @@ namespace DecisionViewpoints.Logic.Menu
             EARepository repository = EARepository.Instance;
             EAPackage viewPackage = repository.GetPackageFromRootByName("Decision Views");
             EADiagram chronologicalView = viewPackage.GetDiagram("Chronological");
+            var historyPackage = viewPackage.GetSubpackageByName("Data");
 
-            ChronologicalViewpointGenerator generator = new ChronologicalViewpointGenerator(viewPackage, chronologicalView);
+            if (historyPackage == null)
+            {
+                historyPackage = viewPackage.CreatePackage("Data", "generated");
+            }
+
+            ChronologicalViewpointGenerator generator = new ChronologicalViewpointGenerator(viewPackage, historyPackage,chronologicalView);
             generator.GenerateViewpoint();
 
         }
