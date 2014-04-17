@@ -174,7 +174,7 @@ namespace DecisionViewpoints.Logic.Menu
         private static void Generate()
         {
             EARepository repository = EARepository.Instance;
-            EAPackage viewPackage = repository.GetPackageFromRootByName("Decision Views");
+            /*EAPackage viewPackage = repository.GetPackageFromRootByName("Decision Views");
             EADiagram chronologicalView = viewPackage.GetDiagram("Chronological");
             var historyPackage = viewPackage.GetSubpackageByName("Data");
 
@@ -185,10 +185,12 @@ namespace DecisionViewpoints.Logic.Menu
 
             ChronologicalViewpointGenerator generator = new ChronologicalViewpointGenerator(viewPackage, historyPackage,
                                                                                             chronologicalView);
-            generator.GenerateViewpoint();
+            generator.GenerateViewpoint();*/
             // this is test code, it will be deleted
-            //var forces = (Forces) repository.Native.AddTab("Forces", "DecisionViewpointsCustomViews.Forces");
-            //if (forces != null) MessageBox.Show(forces.GetText());
+            var forces = (Forces) repository.Native.AddTab("Forces", "DecisionViewpointsCustomViews.Forces");
+            if (forces == null) return;
+            forces.Init();
+            MessageBox.Show(forces.GetText());
         }
     }
 }

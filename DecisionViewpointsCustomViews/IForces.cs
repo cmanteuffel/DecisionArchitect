@@ -7,7 +7,7 @@ namespace DecisionViewpointsCustomViews
     [InterfaceType(ComInterfaceType.InterfaceIsDual)]
     public interface IForces
     {
-        [ComVisible(true)]
+        void Init();
         string GetText();
     }
 }
