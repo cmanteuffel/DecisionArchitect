@@ -1,25 +1,16 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
-using DecisionViewpoints.Logic.Automation;
-using DecisionViewpoints.Logic.Rules;
 using DecisionViewpoints.Model;
-using DecisionViewpoints.Properties;
 using EA;
 
-namespace DecisionViewpoints.Model
+namespace DecisionViewpoints.Logic.Validation
 {
-}
-
-namespace DecisionViewpoints.Logic
-{
-    public class BroadcastEventHandler : RepositoryAdapter
+    public class ValidationHandler : RepositoryAdapter
     {
         // These values need to be consistent with the ones defined in the DecisionVP MDG file.
-        private const string RelStereotype = "Relationship";
         private static string lastGUID = string.Empty;
         private static DateTime lastChange = DateTime.MinValue;
         private static bool _preventConnectorModifiedEvent;
-        private static bool _modified;
 
 
         public override bool OnPreNewElement(EAVolatileElement element)
@@ -69,7 +60,6 @@ namespace DecisionViewpoints.Logic
         }
 
 
-
         public override void OnNotifyContextItemModified(string guid, ObjectType ot)
         {
             string message;
@@ -78,7 +68,7 @@ namespace DecisionViewpoints.Logic
                 case ObjectType.otElement:
 
 
-                    var element = EARepository.Instance.GetElementByGUID(guid);
+                    EAElement element = EARepository.Instance.GetElementByGUID(guid);
 
                     //dirty hack to prevent that the event is fired twice when an decision is modified
                     if (lastGUID.Equals(guid) && lastChange.Equals(element.Modified))
@@ -99,24 +89,9 @@ namespace DecisionViewpoints.Logic
                     lastGUID = guid;
                     lastChange = element.Modified;
 
-                    // An element hass been modified
-                    if ((bool)Settings.Default["BaselineOptionOnFileClose"])
-                        if (element.MetaType.Equals("Decision"))
-                        {
-                            _modified = true;
-                        }
-
-                    // Create a baseline upon a modification of a decision
-                    if ((bool)Settings.Default["BaselineOptionOnModification"])
-                        if (element.MetaType.Equals("Decision"))
-                        {
-                            var rep =  EARepository.Instance;
-                            var dvp = rep.GetPackageFromRootByName("Decision Views");
-                            ChronologicalViewpointUtilities.CreateDecisionSnapshot(dvp);
-                        }
                     break;
                 case ObjectType.otConnector:
-                    var connectorWrapper = EAConnectorWrapper.Wrap(guid);
+                    EAConnectorWrapper connectorWrapper = EAConnectorWrapper.Wrap(guid);
 
                     //dirty hack that prevents that an modified event is fired after a connector has been created
                     if (_preventConnectorModifiedEvent)
@@ -137,20 +112,6 @@ namespace DecisionViewpoints.Logic
                     }
                     break;
             }
-        }
-
-
-        public override void OnFileClose()
-        {
-            if (!(bool)Settings.Default["BaselineOptionOnFileClose"]) return;
-            if (!_modified) return;
-
-            throw new Exception("needs to be performed for ALL decision view packages");
-            
-            var rep =  EARepository.Instance;
-            
-            var dvp = rep.GetPackageFromRootByName("Decision Views");
-            ChronologicalViewpointUtilities.CreateDecisionSnapshot(dvp);
         }
     }
 }

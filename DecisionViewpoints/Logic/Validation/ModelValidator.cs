@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using DecisionViewpoints.Logic.Rules;
 using DecisionViewpoints.Model;
 using EA;
 
-namespace DecisionViewpoints.Logic.Rules
+namespace DecisionViewpoints.Logic.Validation
 {
     internal class ModelValidator
     {

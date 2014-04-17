@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+using DecisionViewpoints.Logic.Rules;
 using DecisionViewpoints.Model;
-using EA;
 
-namespace DecisionViewpoints.Logic.Rules
+namespace DecisionViewpoints.Logic.Validation
 {
     public sealed class RuleManager
     {

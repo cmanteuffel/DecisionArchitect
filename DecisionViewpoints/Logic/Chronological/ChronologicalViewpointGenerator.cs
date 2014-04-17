@@ -7,7 +7,7 @@ using DecisionViewpoints.Model.Baselines;
 using DecisionViewpoints.Properties;
 using EA;
 
-namespace DecisionViewpoints.Logic.Automation
+namespace DecisionViewpoints.Logic.Chronological
 {
     internal class ChronologicalViewpointGenerator
     {

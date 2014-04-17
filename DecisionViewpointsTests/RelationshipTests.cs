@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using DecisionViewpoints.Logic.Rules;
+using DecisionViewpoints.Logic.Validation;
 using DecisionViewpoints.Model;
 using DecisionViewpointsTests.Logic;
 using DecisionViewpointsTests.Model.EventProperties;

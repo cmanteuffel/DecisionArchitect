@@ -1,8 +1,6 @@
-﻿using System;
-using System.Windows.Forms;
-using DecisionViewpoints.Logic.Automation;
+﻿using System.Windows.Forms;
+using DecisionViewpoints.Logic.Chronological;
 using DecisionViewpoints.Model;
-using DecisionViewpoints.Model.Baselines;
 using DecisionViewpoints.Properties;
 using DecisionViewpointsCustomViews;
 
@@ -127,7 +125,7 @@ namespace DecisionViewpoints.Logic.Menu
 
         private static void CreateAndTraceDecision()
         {
-            var repository = EARepository.Instance;
+            EARepository repository = EARepository.Instance;
             if (repository.GetContextItemType() == NativeType.Element)
             {
                 var eaelement = EARepository.Instance.GetContextObject<EAElement>();
@@ -154,14 +152,13 @@ namespace DecisionViewpoints.Logic.Menu
             }
         }
 
-        [Obsolete("move to correct class and remove clones in broadcasthandler")]
         private static void ManualDecisionSnapshot()
         {
             if (NativeType.Package == EARepository.Instance.GetContextItemType() &&
                 Settings.Default.BaselineOptionManually)
             {
                 var eapackage = EARepository.Instance.GetContextObject<EAPackage>();
-                ChronologicalViewpointUtilities.CreateDecisionSnapshot(eapackage);
+                ChronologicalViewpointHandler.CreateDecisionSnapshot(eapackage);
             }
         }
 

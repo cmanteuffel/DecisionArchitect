@@ -1,4 +1,4 @@
-﻿namespace DecisionViewpoints.Logic.Rules
+﻿namespace DecisionViewpoints.Logic.Validation
 {
     public enum RuleType
     {

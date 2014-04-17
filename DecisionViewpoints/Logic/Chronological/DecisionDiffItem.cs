@@ -3,7 +3,7 @@ using System.Linq;
 using DecisionViewpoints.Model;
 using DecisionViewpoints.Model.Baselines;
 
-namespace DecisionViewpoints.Logic.Automation
+namespace DecisionViewpoints.Logic.Chronological
 {
     internal class DecisionDiffItem
     {

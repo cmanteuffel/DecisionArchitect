@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DecisionViewpoints.Logic.Rules;
 using DecisionViewpoints.Model;
 
-namespace DecisionViewpoints.Logic.Rules
+namespace DecisionViewpoints.Logic.Validation
 {
     public abstract class VolatileElementRule : AbstractRule
     {

@@ -56,12 +56,15 @@
     <Compile Include="CreateDecision.Designer.cs">
       <DependentUpon>CreateDecision.cs</DependentUpon>
     </Compile>
-    <Compile Include="Logic\Automation\ChronologicalViewpointGenerator.cs" />
-    <Compile Include="Logic\Automation\ChronologicalViewpointUtilities.cs" />
-    <Compile Include="Logic\Automation\DecisionDiffItem.cs" />
-    <Compile Include="Logic\BroadcastEventHandler.cs" />
+    <Compile Include="Logic\Chronological\ChronologicalViewpointGenerator.cs" />
+    <Compile Include="Logic\Chronological\ChronologicalViewpointHandler.cs" />
+    <Compile Include="Logic\Chronological\DecisionDiffItem.cs" />
     <Compile Include="Logic\RepositoryAdapter.cs" />
     <Compile Include="Logic\IRepositoryListener.cs" />
+    <Compile Include="Logic\Validation\ValidationHandler.cs" />
+    <Compile Include="MainApplicationMenuEvents.cs" />
+    <Compile Include="MainApplicationModelValidatorEvents.cs" />
+    <Compile Include="MainApplicationRepositoryEvents.cs" />
     <Compile Include="Model\EAVolatileConnector.cs" />
     <Compile Include="Model\EAVolatileDiagram.cs" />
     <Compile Include="Model\EAVolatilePackage.cs" />
@@ -70,11 +73,11 @@
     <Compile Include="Logic\Menu\IMenu.cs" />
     <Compile Include="Logic\Menu\MenuItem.cs" />
     <Compile Include="Logic\Menu\MenuEventHandler.cs" />
-    <Compile Include="Logic\Rules\ElementRule.cs" />
-    <Compile Include="Logic\Rules\VolatileElementRule.cs" />
-    <Compile Include="Logic\Rules\ModelValidator.cs" />
-    <Compile Include="Logic\Rules\NameUniquenessRule.cs" />
-    <Compile Include="Logic\Rules\RuleType.cs" />
+    <Compile Include="Logic\Validation\ElementRule.cs" />
+    <Compile Include="Logic\Validation\VolatileElementRule.cs" />
+    <Compile Include="Logic\Validation\ModelValidator.cs" />
+    <Compile Include="Logic\Validation\NameUniquenessRule.cs" />
+    <Compile Include="Logic\Validation\RuleType.cs" />
     <Compile Include="Model\Baselines\Baseline.cs" />
     <Compile Include="Model\Baselines\BaselineDiff.cs" />
     <Compile Include="Model\Baselines\BaselineException.cs" />
@@ -84,7 +87,7 @@
     <Compile Include="Model\DVTaggedValueKeys.cs" />
     <Compile Include="Model\EADiagram.cs" />
     <Compile Include="Model\EAElement.cs" />
-    <Compile Include="Logic\Rules\AbstractRule.cs" />
+    <Compile Include="Logic\Validation\AbstractRule.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Messages.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -99,11 +102,11 @@
     <Compile Include="Model\Events\IEAAddInEvents.cs" />
     <Compile Include="Model\Events\IEABroadcastEvents.cs" />
     <Compile Include="Model\EAEventPropertyKeys.cs" />
-    <Compile Include="Logic\Rules\ExclusionRule.cs" />
+    <Compile Include="Logic\Validation\ExclusionRule.cs" />
     <Compile Include="Model\EAConnectorWrapper.cs" />
-    <Compile Include="Logic\Rules\ConnectorRule.cs" />
-    <Compile Include="Logic\Rules\NoLoopRule.cs" />
-    <Compile Include="Logic\Rules\RuleManager.cs" />
+    <Compile Include="Logic\Validation\ConnectorRule.cs" />
+    <Compile Include="Logic\Validation\NoLoopRule.cs" />
+    <Compile Include="Logic\Validation\RuleManager.cs" />
     <Compile Include="Model\DVStereotypes.cs" />
     <Compile Include="Model\IModelItem.cs" />
     <Compile Include="Model\IModelObject.cs" />

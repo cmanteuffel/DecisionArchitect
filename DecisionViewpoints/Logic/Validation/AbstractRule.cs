@@ -1,4 +1,5 @@
-﻿using DecisionViewpoints.Model;
+﻿using DecisionViewpoints.Logic.Validation;
+using DecisionViewpoints.Model;
 
 namespace DecisionViewpoints.Logic.Rules
 {
