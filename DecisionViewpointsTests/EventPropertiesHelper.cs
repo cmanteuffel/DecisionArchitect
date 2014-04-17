@@ -9,7 +9,7 @@ namespace DecisionViewpointsTests
     {
         private readonly IDictionary<string, EventProperty> _properties;
 
-        private EventPropertiesHelper()
+        public EventPropertiesHelper()
         {
             _properties = new Dictionary<string, EventProperty>
                     {
@@ -20,18 +20,6 @@ namespace DecisionViewpointsTests
                         {EventPropertyKeys.SupplierId, null},
                         {EventPropertyKeys.DiagramId, null},
                     };
-        }
-
-        public static EventPropertiesHelper Create(string type, string subtype, string stereotype, long clientid, long supplierid, long diagramid)
-        {
-            var eventPropertiesHelper = new EventPropertiesHelper();
-            eventPropertiesHelper.Set(EventPropertyKeys.Type, type);
-            eventPropertiesHelper.Set(EventPropertyKeys.Subtype, subtype);
-            eventPropertiesHelper.Set(EventPropertyKeys.Stereotype, stereotype);
-            eventPropertiesHelper.Set(EventPropertyKeys.ClientId, clientid);
-            eventPropertiesHelper.Set(EventPropertyKeys.ClientId, supplierid);
-            eventPropertiesHelper.Set(EventPropertyKeys.DiagramId, diagramid);
-            return eventPropertiesHelper;
         }
 
         IEnumerator IEnumerable.GetEnumerator()
