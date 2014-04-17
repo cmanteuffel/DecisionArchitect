@@ -39,6 +39,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Interop.EA">
+      <HintPath>..\..\..\..\Program Files (x86)\Sparx Systems\EA\Interop.EA.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
   </ItemGroup>
@@ -58,7 +62,15 @@
     <Compile Include="DecisionViewpointsAddinEventHandlerTests.cs" />
     <Compile Include="DecisionViewpointsBaseTests.cs" />
     <Compile Include="DecisionViewpointsBroadcastEventHandlerTests.cs" />
+    <Compile Include="EventPropertiesHelper.cs" />
+    <Compile Include="EventPropertyHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DecisionViewpoints\DecisionViewpoints.csproj">
+      <Project>{778a9a09-5030-4cc1-85a3-c7dbb053cea2}</Project>
+      <Name>DecisionViewpoints</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
