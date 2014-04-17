@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TSDAD", "TSDAD\TSDAD.csproj", "{819D5119-8D08-4736-8316-5F0A3A11996D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DecisionViewpoints", "DecisionViewpoints\DecisionViewpoints.csproj", "{819D5119-8D08-4736-8316-5F0A3A11996D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
