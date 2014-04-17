@@ -1070,7 +1070,7 @@
 		<row><td>ISSelfRegisterFiles</td><td>3073</td><td>ISSELFREG.DLL</td><td>ISSelfRegisterFiles</td><td/><td/></row>
 		<row><td>ISSelfRegisterFinalize</td><td>1</td><td>ISSELFREG.DLL</td><td>ISSelfRegisterFinalize</td><td/><td/></row>
 		<row><td>ISUnSelfRegisterFiles</td><td>3073</td><td>ISSELFREG.DLL</td><td>ISUnSelfRegisterFiles</td><td/><td/></row>
-		<row><td>Register_DLL_COM_Codebase</td><td>34</td><td>V4.0.303194</td><td>[V4.0.303194]regasm "C:\Program Files (x86)\SEARCH Group\Decision Viewpoints\DecisionViewpoints.dll" /codebase</td><td/><td/></row>
+		<row><td>Register_DLL_COM_Codebase</td><td>34</td><td>V4.0.303194</td><td>[V4.0.303194]regasm "[INSTALLDIR]\DecisionViewpoints.dll" /codebase</td><td/><td/></row>
 		<row><td>SetARPINSTALLLOCATION</td><td>51</td><td>ARPINSTALLLOCATION</td><td>[INSTALLDIR]</td><td/><td/></row>
 		<row><td>SetAllUsersProfileNT</td><td>51</td><td>ALLUSERSPROFILE</td><td>[%SystemRoot]\Profiles\All Users</td><td/><td/></row>
 		<row><td>ShowMsiLog</td><td>226</td><td>SystemFolder</td><td>[SystemFolder]notepad.exe "[MsiLogFileLocation]"</td><td/><td>Shows Property-driven MSI Log</td></row>
@@ -3895,7 +3895,7 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>295819617</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>295819617</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>295819617</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://www.SEARCHGroup.com</td><td>0</td><td/><td>2040635152</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://www.SEARCHGroup.com</td><td>0</td><td/><td>-1851719158</td></row>
 		<row><td>ID_STRING2</td><td>1033</td><td>SEARCH Group</td><td>0</td><td/><td>2040635152</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>=-NewEnvironment1</td><td>0</td><td/><td>2040626001</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>=-NewEnvironment1</td><td>0</td><td/><td>2040599409</td></row>
@@ -4139,7 +4139,7 @@ RABWAEQALQA1AAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{578FB7E8-677A-4949-B521-436B8C28887E}</td></row>
 		<row><td>ISUSSignature</td><td>{8813F9FF-399B-4583-B6CD-E0EF00AB5B05}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewObjects,viewRegistry,viewCustomActions,viewInstallScriptStd,viewSystemSearch,viewProject,viewUpgradePaths,viewAppFiles,viewShortcuts,viewRelease,viewSupportFiles,viewUpdateService,viewDependencies,viewIniFiles,viewTextFiles,viewFileExtensions,viewEnvironmentVariables,viewVRoots,viewSQLServer,viewComponentServices,viewUI,viewTextMessages</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewObjects,viewRegistry,viewCustomActions,viewInstallScriptStd,viewSystemSearch,viewProject,viewUpgradePaths,viewAppFiles,viewShortcuts,viewRelease,viewSupportFiles,viewUpdateService,viewDependencies,viewIniFiles,viewTextFiles,viewFileExtensions,viewEnvironmentVariables,viewVRoots,viewSQLServer,viewComponentServices,viewUI,viewTextMessages,viewRealSetupDesign</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
