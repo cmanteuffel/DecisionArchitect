@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Forms;
 using System.Xml;
-using EA;
 
 namespace DecisionViewpoints.Model.Baselines
 {
@@ -69,32 +69,26 @@ namespace DecisionViewpoints.Model.Baselines
 
                 var compareItems = compareResults.SelectNodes("./CompareItem");
                 if (compareItems != null)
-                    foreach (XmlNode compareItem in compareItems)
-                    {
-                        if (compareItem.Attributes == null) continue;
-                        var diffItem = GetDiffItem(compareItem);
-
-                        diffItem.Properties = GetProperties(compareItem.SelectSingleNode("./Properties"));
-
-                        foreach (
-                            var childCompareItem in
-                                compareItem.ChildNodes.Cast<XmlNode>()
-                                           .Where(childCompareItem => childCompareItem.Name.Equals("CompareItem")))
-                        {
-                            if (childCompareItem.Attributes == null) continue;
-                            var childDiffItem = GetDiffItem(childCompareItem);
-
-                            childDiffItem.Properties = GetProperties(childCompareItem.SelectSingleNode("./Properties"));
-
-                            diffItem.DiffItems.Add(childDiffItem);
-                        }
-
-                        baselineDiffItems.Add(diffItem);
-                    }
+                    baselineDiffItems.AddRange(from XmlNode compareItem in compareItems select Parse(compareItem));
             }
             baselineDiff.DiffItems = baselineDiffItems;
 
             return baselineDiff;
+        }
+
+        private static DiffItem Parse(XmlNode node)
+        {
+            var diffItem = GetDiffItem(node);
+            var properties = node.SelectSingleNode("./Properties");
+            if (properties != null)
+                diffItem.Properties = GetProperties(properties);
+            var compareItems = node.SelectNodes("./CompareItem");
+            if (compareItems != null)
+                foreach (var childDiffItem in from XmlNode compareItem in compareItems select Parse(compareItem))
+                {
+                    diffItem.DiffItems.Add(childDiffItem);
+                }
+            return diffItem;
         }
 
         private static ICollection<DiffProperty> GetProperties(XmlNode propertiesNode)
@@ -111,7 +105,6 @@ namespace DecisionViewpoints.Model.Baselines
             var diffItem = new DiffItem();
             if (compareItem.Attributes != null)
             {
-                Project p = EARepository.Instance.Native.GetProjectInterface();
                 diffItem.Guid = compareItem.Attributes["guid"].Value;
                 diffItem.Name = compareItem.Attributes["name"].Value;
                 diffItem.Status = GetStatus(compareItem.Attributes["status"].Value);
