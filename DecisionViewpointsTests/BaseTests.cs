@@ -1,7 +1,5 @@
-﻿using System.Diagnostics;
-using System.IO;
+﻿using System.IO;
 using DecisionViewpoints;
-using DecisionViewpoints.Model.Rules;
 using EA;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

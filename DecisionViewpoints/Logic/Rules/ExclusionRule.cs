@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using DecisionViewpoints.Logic.Rules;
+using DecisionViewpoints.Model;
 
-namespace DecisionViewpoints.Model.Rules
+namespace DecisionViewpoints.Logic.Rules
 {
     internal class ExclusionRule : ConnectorRule
     {

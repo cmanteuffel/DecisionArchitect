@@ -1,5 +1,4 @@
 ﻿using DecisionViewpoints.Model;
-using DecisionViewpoints.Model.Rules;
 
 namespace DecisionViewpoints.Logic.Rules
 {
