@@ -6,7 +6,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace DecisionViewpointsTests
 {
     [TestClass]
-    [DeploymentItem(@"EATestFiles\", "EATestFiles")]
     public class BaseTests
     {
         public MainApplication MainApp { get; private set; }

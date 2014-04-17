@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace DecisionViewpointsTests
 {
     [TestClass]
+    [DeploymentItem(@"EATestFiles\UnitTestEmpty.eap", "EATestFiles")]
     public class AddinEventHandlerTests : BaseTests
     {
         private EmptyRepositoryFile _f;

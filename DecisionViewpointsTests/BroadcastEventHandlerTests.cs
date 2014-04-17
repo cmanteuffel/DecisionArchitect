@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace DecisionViewpointsTests
 {
     [TestClass]
+    [DeploymentItem(@"EATestFiles\UnitTestBasicStructure.eap", "EATestFiles")]
     public class BroadcastEventHandlerTests : BaseTests
     {
         private BasicStructureRepositoryFile _f;
