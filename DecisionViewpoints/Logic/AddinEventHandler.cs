@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
@@ -19,6 +18,11 @@ namespace DecisionViewpoints.Logic
         public const string MenuGenerateChronological = "Generate CVP";
         public const string Separator = "-";
         public const string MenuTracingFollowTraces = "-&Follow trace(s) to ...";
+        public const string MenuTracingCreateTraces = "-&Create Trace to ...";
+
+        public const string MenuTracingNewDecision = "&New Decision";
+        public const string MenuTracingExistingDecision = "&Existing Element";
+
         public const string MenuBaselineOptions = "-Baseline Options";
         public const string MenuOnFileClose = "File Close";
         public const string MenuManually = "Manually";
@@ -46,10 +50,17 @@ namespace DecisionViewpoints.Logic
                     return new[]
                         {
                             MenuCreateProjectStructure, MenuGenerateChronological, Separator,
-                            MenuTracingFollowTraces, Separator, MenuBaselineOptions, MenuCreateBaseline
+                            MenuTracingFollowTraces, MenuTracingCreateTraces, Separator, MenuBaselineOptions,
+                            MenuCreateBaseline
                         };
+                case MenuTracingCreateTraces:
+                    if (ObjectType.otElement == repository.GetContextItemType())
+                    {
+                    return new[] {MenuTracingNewDecision, MenuTracingExistingDecision};
+                    }
+                    break;
                 case MenuTracingFollowTraces:
-                    return CreateTraceSubmenu(repository);
+                        return CreateTraceSubmenu(repository);
                 case MenuBaselineOptions:
                     return new[]
                         {
@@ -69,6 +80,7 @@ namespace DecisionViewpoints.Logic
                 {
                     case MenuCreateProjectStructure:
                     case MenuGenerateChronological:
+                    case MenuTracingNewDecision:
                         isEnabled = true;
                         break;
                     case MenuCreateBaseline:
@@ -107,6 +119,9 @@ namespace DecisionViewpoints.Logic
                     break;
                 case MenuGenerateChronological:
                     GenerateView(repository);
+                    break;
+                case MenuTracingNewDecision:
+                    CreateAndTraceDecision(repository);
                     break;
                 case MenuOnFileClose:
                     Settings.Default["BaselineOptionOnFileClose"] =
@@ -147,6 +162,11 @@ namespace DecisionViewpoints.Logic
             }
         }
 
+        private static void CreateAndTraceDecision(Repository r)
+        {
+            
+        }
+
 
         private static string[] CreateTraceSubmenu(Repository repository)
         {
@@ -166,7 +186,7 @@ namespace DecisionViewpoints.Logic
                         if (! "".Equals(tracedElement.Stereotype))
                         {
                             menuItem += " «" + tracedElement.Stereotype + "»";
-                    }
+                        }
 
                         int duplicate = 1;
                         string uniqueMenuItem = menuItem;
@@ -191,10 +211,10 @@ namespace DecisionViewpoints.Logic
             var project = new EAProjectWrapper(repository);
             Package root = repository.Models.GetAt(0);
             var dv = new EAPackageWrapper(root.Packages.GetByName("Decision Views"));
-            var pack = dv.CreatePackage(repository, "Data", "generated");
+            Package pack = dv.CreatePackage(repository, "Data", "generated");
             var hp = new EAPackageWrapper(pack);
             var cd = new EADiagramWrapper(dv.GetDiagram("Chronological"));
-            var baselines = project.ReadPackageBaselines(repository, dv);
+            XmlNodeList baselines = project.ReadPackageBaselines(repository, dv);
             project.ComparePackageBaselines(repository, dv, baselines);
             var chronologicalViewGenarator = new ChronologicalGenerator(repository, project, dv, hp, cd);
             // BatchAppend makes it more efficient to add many elements together
@@ -208,9 +228,9 @@ namespace DecisionViewpoints.Logic
         {
             var project = new EAProjectWrapper(repository);
             var rep = new EARepositoryWrapper(repository);
-            var notes = String.Format("Baseline Time: {0}", DateTime.Now);
+            string notes = String.Format("Baseline Time: {0}", DateTime.Now);
             var dvp = new EAPackageWrapper(rep.GetPackageFromRootByName("Decision Views"));
-            var bv = project.GetBaselineLatestVesrion(repository, dvp);
+            string bv = project.GetBaselineLatestVesrion(repository, dvp);
             project.CreateBaseline(dvp.Get().PackageGUID, bv, notes);
         }
 
@@ -247,7 +267,7 @@ namespace DecisionViewpoints.Logic
         private static void CreateProjectStructure(Repository repository)
         {
             var rep = new EARepositoryWrapper(repository);
-            var decisionViewpoints = rep.CreateView("Decision Views", 0);
+            Package decisionViewpoints = rep.CreateView("Decision Views", 0);
             rep.CreateDiagram(decisionViewpoints, "Relationship", RelationshipDiagramMetaType);
             rep.CreateDiagram(decisionViewpoints, "Chronological", ChronologicalDiagramMetaType);
             rep.CreateDiagram(decisionViewpoints, "Stakeholder Involvement", StakeholderInvolvementDiagramMetaType);
