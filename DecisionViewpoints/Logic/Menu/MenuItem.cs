@@ -15,6 +15,7 @@
         }
 
         public string Name { get; set; }
+        public object Value { get; set; }
         public bool IsEnabled { get; set; }
         public bool IsChecked { get; set; }
         public bool IsVisible { get; set; }
@@ -38,7 +39,7 @@
 
         public string[] GetSubItems()
         {
-            return new[] {Name};
+            return new[] {""};
         }
     }
 }

@@ -6,7 +6,7 @@
     public interface IMenu
     {
         string Name { get; set; }
-
+        object Value { get; set; }
         bool IsEnabled { get; set; }
         bool IsChecked { get; set;  }
         bool IsVisible { get; set; }

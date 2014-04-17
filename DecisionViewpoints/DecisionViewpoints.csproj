@@ -58,6 +58,7 @@
     </Compile>
     <Compile Include="Logic\AddinEventHandler.cs" />
     <Compile Include="Logic\BroadcastEventHandler.cs" />
+    <Compile Include="Logic\Menu\FollowTraceMenu.cs" />
     <Compile Include="Logic\Menu\Menu.cs" />
     <Compile Include="Logic\Menu\IMenu.cs" />
     <Compile Include="Logic\Menu\MenuItem.cs" />

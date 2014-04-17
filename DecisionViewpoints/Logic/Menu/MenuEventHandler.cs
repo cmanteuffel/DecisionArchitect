@@ -80,6 +80,7 @@ namespace DecisionViewpoints.Logic.Menu
             Header.Add(MenuItem.Separator);
             Header.Add(createTraces);
             createTraces.Add(new MenuItem("&New Decision", CreateAndTraceDecision));
+            Header.Add(new FollowTraceMenu("-&Follow Trace"));
             Header.Add(MenuItem.Separator);
             Header.Add(baselinesOptions);
             baselinesOptions.Add(baselineManually);

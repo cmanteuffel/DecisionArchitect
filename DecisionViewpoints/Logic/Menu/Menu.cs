@@ -18,6 +18,7 @@ namespace DecisionViewpoints.Logic.Menu
         }
 
         public string Name { get; set; }
+        public object Value { get; set; }
         public bool IsEnabled { get; set; }
         public bool IsChecked { get; set; }
         public bool IsVisible { get; set; }
@@ -62,6 +63,11 @@ namespace DecisionViewpoints.Logic.Menu
         public void Remove(IMenu i)
         {
             _subitems.Remove(i);
+        }
+
+        public void Clear()
+        {
+            _subitems.Clear();
         }
 
         public virtual string[] GetSubItems()
