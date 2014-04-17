@@ -56,9 +56,9 @@ namespace DecisionViewpoints
             if (!rel.CheckStereotype(RelStereotype)) return false;
             
             // Check if the Relationship is connected to different Decisions
-            if (rel.CheckIfDifferentDecisions())
+            if (rel.CheckIfDecisionsEqual())
             {
-                MessageBox.Show("A Relationship can exist between different decisions.", "Invalid Relationship");
+                MessageBox.Show("A relationship cannot exist between the same decision.", "Invalid relationship");
                 return false;
             }
             
@@ -76,6 +76,7 @@ namespace DecisionViewpoints
         /// <param name="diagramId">The ID of the diagram that has been opened.</param>
         public void OnPostOpenDiagram(Repository repository, int diagramId)
         {
+            // Activate the Decision toolbox when user open for the first time a Relationship View diagram
             var diagram = repository.GetDiagramByID(diagramId);
             if (diagram.MetaType.Equals(DiagramMetaType))
             {
@@ -84,11 +85,11 @@ namespace DecisionViewpoints
         }
 
         /// <summary>
-        /// 
+        /// Called when the user modifies the context of any element in the EA user interface.
         /// </summary>
-        /// <param name="repository"></param>
-        /// <param name="guid"></param>
-        /// <param name="ot"></param>
+        /// <param name="repository">The EA repository.</param>
+        /// <param name="guid">The guid of the element whose context modified.</param>
+        /// <param name="ot">The object type of the element whose context modified.</param>
         public void OnNotifyContextItemModified(Repository repository, string guid, ObjectType ot)
         {
             // Check if the Decision name already exists. If it exists print message and change
@@ -102,7 +103,7 @@ namespace DecisionViewpoints
                               where element.Name.Equals(e.Name) select e)
             {
                 MessageBox.Show(String.Format("The name {0} already exists. Please pick a different name.", e.Name), 
-                                "Invalid Decision name");
+                                "Invalid decision name");
                 element.Name = _preModifyDecisionName;
                 element.Update();
                 element.Refresh();
@@ -110,11 +111,11 @@ namespace DecisionViewpoints
         }
 
         /// <summary>
-        /// 
+        /// Called when user selects a new element anywhere in the EA user interface.
         /// </summary>
-        /// <param name="repository"></param>
-        /// <param name="guid"></param>
-        /// <param name="ot"></param>
+        /// <param name="repository">The EA repostiory.</param>
+        /// <param name="guid">The guid of the selected element.</param>
+        /// <param name="ot">The object type of the selected element.</param>
         public void OnContextItemChanged(Repository repository, string guid, ObjectType ot)
         {
             // Save the name of the selected element, which is going to be used in OnNotifyContextItemModified.

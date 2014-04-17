@@ -35,7 +35,7 @@ namespace DecisionViewpoints
         /// Compares the stereotype of the relationship with the given stereotype.
         /// </summary>
         /// <param name="stereotype">The stereotype to be used in the comparison.</param>
-        /// <returns>True if the two stereotypes are equal, else false.</returns>
+        /// <returns>True if the two stereotypes are equal, false otherwise.</returns>
         public bool CheckStereotype(string stereotype)
         {
             return _stereotype.Equals(stereotype);
@@ -44,7 +44,7 @@ namespace DecisionViewpoints
         /// <summary>
         /// Checks if a relationship between two Decisions is allowed.
         /// </summary>
-        /// <returns>True if the relationship is permitted, else false.</returns>
+        /// <returns>True if the relationship is permitted, false otherwise.</returns>
         public bool CheckIfPossible()
         {
             var client = _repository.GetElementByID(Convert.ToInt32(_clientid));
@@ -57,8 +57,8 @@ namespace DecisionViewpoints
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>
-        public bool CheckIfDifferentDecisions()
+        /// <returns>True if the client and the supplier are the same, false otherwise.</returns>
+        public bool CheckIfDecisionsEqual()
         {            
             return _clientid.Equals(_supplierid);
         }

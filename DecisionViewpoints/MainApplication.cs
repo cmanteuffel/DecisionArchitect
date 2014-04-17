@@ -62,7 +62,7 @@ namespace DecisionViewpoints
         }
 
         /// <summary>
-        /// 
+        /// Handled by the EventHandler.
         /// </summary>
         /// <param name="repository"></param>
         /// <param name="guid"></param>
@@ -73,7 +73,7 @@ namespace DecisionViewpoints
         }
 
         /// <summary>
-        /// 
+        /// Handled by the EventHandler.
         /// </summary>
         /// <param name="repository"></param>
         /// <param name="guid"></param>
