@@ -2,8 +2,8 @@
 using System.Windows.Forms;
 using DecisionViewpoints.Logic.Automation;
 using DecisionViewpoints.Model;
-using DecisionViewpoints.Model.Baselines;
 using DecisionViewpoints.Properties;
+using DecisionViewpointsCustomViews;
 
 namespace DecisionViewpoints.Logic.Menu
 {
@@ -64,7 +64,8 @@ namespace DecisionViewpoints.Logic.Menu
                 {
                     UpdateDelegate = self =>
                         {
-                            if (NativeType.Package == EARepository.Instance.GetContextItemType() && Settings.Default.BaselineOptionManually)
+                            if (NativeType.Package == EARepository.Instance.GetContextItemType() &&
+                                Settings.Default.BaselineOptionManually)
                             {
                                 var eapackage = EARepository.Instance.GetContextObject<EAPackage>();
                                 self.IsEnabled = (eapackage != null && eapackage.IsDecisionViewPackge());
@@ -155,7 +156,8 @@ namespace DecisionViewpoints.Logic.Menu
         [Obsolete("move to correct class and remove clones in broadcasthandler")]
         private static void CreateBaseline()
         {
-            if (NativeType.Package == EARepository.Instance.GetContextItemType() && Settings.Default.BaselineOptionManually)
+            if (NativeType.Package == EARepository.Instance.GetContextItemType() &&
+                Settings.Default.BaselineOptionManually)
             {
                 var eapackage = EARepository.Instance.GetContextObject<EAPackage>();
                 if (eapackage != null && eapackage.IsDecisionViewPackge())
@@ -184,6 +186,9 @@ namespace DecisionViewpoints.Logic.Menu
             ChronologicalViewpointGenerator generator = new ChronologicalViewpointGenerator(viewPackage, historyPackage,
                                                                                             chronologicalView);
             generator.GenerateViewpoint();
+            // this is test code, it will be deleted
+            //var forces = (Forces) repository.Native.AddTab("Forces", "DecisionViewpointsCustomViews.Forces");
+            //if (forces != null) MessageBox.Show(forces.GetText());
         }
     }
 }

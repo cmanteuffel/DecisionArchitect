@@ -9,7 +9,7 @@ namespace DecisionViewpoints.Model
     {
         private static EARepository _instance;
 
-       private EARepository()
+        private EARepository()
         {
         }
 

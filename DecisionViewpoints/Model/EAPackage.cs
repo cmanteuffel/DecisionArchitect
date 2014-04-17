@@ -148,6 +148,7 @@ namespace DecisionViewpoints.Model
         {
             EARepository repository = EARepository.Instance;
             Diagram d = _native.Diagrams.AddNew(name, type);
+            
             d.Update();
             _native.Diagrams.Refresh();
             repository.Native.RefreshModelView(_native.PackageID);
@@ -236,7 +237,7 @@ namespace DecisionViewpoints.Model
         public bool IsDecisionViewPackge()
         {
             EAElement underlyingElement = EAElement.Wrap(_native.Element);
-            string value = underlyingElement.GetTaggedValue(DVTaggedValueKeys.DecisionViewPackage);
+            string value = underlyingElement.GetTaggedValue("");
             return (value!=null && value.Equals("true"));
         }
     }
