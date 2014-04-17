@@ -16,6 +16,39 @@ namespace DecisionViewpoints.Model.Baselines
         {
         }
 
+        /// <summary>
+        /// Created a BaselineDiff by parsing the provided xml.
+        /// 
+        /// Baseline XML structure:
+        /// 
+        /// <EA.CompareLog>
+        ///     <ComparePackage>
+        ///         <CompareResults hasChanges="">
+        ///             <CompareItem>
+        ///                 <Properties>
+        ///                     <Property></Property>
+        ///                     ...
+        ///                 </Properties>
+        ///                 <CompareItem>
+        ///                     <Properties>
+        ///                         <Property></Property>
+        ///                         ...
+        ///                     </Properties>
+        ///                     <CompareItem></CompareItem>
+        ///                     ...
+        ///                 </CompareItem>
+        ///                 ...
+        ///             </CompareItem>
+        ///             ...
+        ///         </CompareResults>
+        ///     </ComparePackage>
+        /// </EA.CompareLog>
+        /// 
+        /// </summary>
+        /// <param name="package">The package that its baselines are used in comparison.</param>
+        /// <param name="baseline">The baseline that is compared with hte current model of the package.</param>
+        /// <param name="xml">The xml that is obtained when comparing baselines.</param>
+        /// <returns></returns>
         public static BaselineDiff ParseFromXml(EAPackage package, Baseline baseline, string xml)
         {
             var baselineDiff = new BaselineDiff {Baseline = baseline, Package = package};
@@ -37,10 +70,7 @@ namespace DecisionViewpoints.Model.Baselines
                         if (compareItem.Attributes == null) continue;
                         var diffItem = GetDiffItem(compareItem);
 
-                        var properties = compareItem.SelectSingleNode("./Properties");
-                        if (properties != null)
-                            foreach (XmlNode diffItemProperty in properties.ChildNodes)
-                                diffItem.Properties.Add(GetDiffProperty(diffItemProperty));
+                        GetProperties(compareItem.SelectSingleNode("./Properties"), diffItem);
 
                         foreach (
                             var childCompareItem in
@@ -50,12 +80,7 @@ namespace DecisionViewpoints.Model.Baselines
                             if (childCompareItem.Attributes == null) continue;
                             var childDiffItem = GetDiffItem(childCompareItem);
 
-                            var selectSingleNode = childCompareItem.SelectSingleNode("./Properties");
-                            if (selectSingleNode != null)
-                                foreach (XmlNode childDiffItemProperty in selectSingleNode.ChildNodes)
-                                {
-                                    childDiffItem.Properties.Add(GetDiffProperty(childDiffItemProperty));
-                                }
+                            GetProperties(childCompareItem.SelectSingleNode("./Properties"), childDiffItem);
 
                             diffItem.DiffItems.Add(childDiffItem);
                         }
@@ -66,6 +91,13 @@ namespace DecisionViewpoints.Model.Baselines
             baselineDiff.DiffItems = diffItems;
 
             return baselineDiff;
+        }
+
+        private static void GetProperties(XmlNode properties, DiffItem diffItem)
+        {
+            if (properties != null)
+                foreach (XmlNode diffItemProperty in properties.ChildNodes)
+                    diffItem.Properties.Add(GetDiffProperty(diffItemProperty));
         }
 
         private static DiffItem GetDiffItem(XmlNode compareItem)
