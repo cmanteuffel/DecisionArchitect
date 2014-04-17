@@ -1,47 +1,88 @@
-﻿using DecisionViewpoints.Logic.Menu.Baselines;
-using DecisionViewpoints.Logic.Menu.General;
-using DecisionViewpoints.Logic.Menu.Generate;
-using DecisionViewpoints.Logic.Menu.Tracing;
+﻿using System.Windows.Forms;
+using DecisionViewpoints.Model;
+using DecisionViewpoints.Properties;
 
 namespace DecisionViewpoints.Logic.Menu
 {
     public static class MenuEventHandler
     {
-        private static readonly Header Header = new Header();
+        private static readonly Menu Header = new Menu("-&Decision Viewpoints");
+        private static readonly string RelationshipDiagramMetaType =
+            Settings.Default["RelationshipDiagramMetaType"].ToString();
+
+        private static readonly string ChronologicalDiagramMetaType =
+            Settings.Default["ChronologicalDiagramMetaType"].ToString();
+
+        private static readonly string StakeholderInvolvementDiagramMetaType =
+            Settings.Default["StakeholderInvolvementDiagramMetaType"].ToString();
 
         static MenuEventHandler()
         {
             // Add general menu items
-            Header.Add(new CreateProjectStructure());
-            Header.Add(new Separator());
+
             // Add tracing menu items
-            Header.Add(new FollowTraces());
-            var createTraces = new CreateTraces();
-            createTraces.Add(new TracingNewDecision());
+            //Header.Add(new FollowTraces());
+
+            var createTraces = new Menu("-&Create Traces");
+            createTraces.UpdateDelegate = menuItem =>
+                {
+                    if (NativeType.Element == EARepository.Instance.GetContextItemType())
+                    {
+                        var eaelement = EARepository.Instance.GetContextObject<EAElement>();
+                        menuItem.IsVisible = (eaelement != null && !eaelement.IsDecision());
+                        return;
+                    }
+                    menuItem.IsVisible = false;
+                };
+            
+
+            var baselinesOptions = new Menu("-&Baseline Options");
+            var baselineManually = new MenuItem("Manually");
+            baselineManually.ClickDelegate = () =>
+                {
+                    Settings.Default["BaselineOptionManually"] =
+                        !(bool) Settings.Default["BaselineOptionManually"];
+                    Settings.Default.Save();
+                };
+            baselineManually.UpdateDelegate = self =>
+                {
+                    self.IsChecked = (bool) Settings.Default["BaselineOptionManually"];
+                };
+
+
+            Header.Add(new MenuItem("&Create Project Structure", CreateProjectStructure));
+            Header.Add(MenuItem.Separator);
+            Header.Add(createTraces);
+            createTraces.Add(new MenuItem("&New Decision", CreateAndTraceDecision));
+            Header.Add(baselinesOptions);
+            baselinesOptions.Add(baselineManually);
+
+            /*
+            createTraces.Add();
             createTraces.Add(new TracingExistingDecision());
             Header.Add(createTraces);
-            Header.Add(new Separator());
+            Header.Add(MenuItem.Separator);
             // Add baseline menu items
-            var baselinesOptions = new BaselineOptions();
-            baselinesOptions.Add(new CreateBaselineManually());
-            baselinesOptions.Add(new CreateBaselineOnFileClose());
-            baselinesOptions.Add(new CreateBaselineOnModification());
+            
+          
             Header.Add(baselinesOptions);
             Header.Add(new CreateBaseline());
-            Header.Add(new Separator());
+            Header.Add(MenuItem.Separator);
             // Add generation menu items
             Header.Add(new GenerateChronological());
+            */
         }
 
         public static object GetMenuItems(string location, string menuName)
         {
             if (menuName.Equals(""))
                 return Header.Name;
-            if (menuName.Equals(Header.Name))
-                return Header.GetMenuItemsAsArray();
-            var menuItem = Header.GetMenuItem(menuName) as CompositeMenuItem;
+
+            IMenu menuItem = Header.FindMenuItem(menuName);
             if (menuItem != null)
-                return menuItem.Visible() ? menuItem.GetMenuItemsAsArray() : new string[0];
+            {
+                return menuItem.GetSubItems();   
+            }
             return "";
         }
 
@@ -49,12 +90,65 @@ namespace DecisionViewpoints.Logic.Menu
                                         ref bool isEnabled,
                                         ref bool isChecked)
         {
-            isEnabled = Header.GetMenuItem(itemName).Enabled();
-            isChecked = Header.GetMenuItem(itemName).Checked();
+            IMenu menuItem = Header.FindMenuItem(itemName);
+            if (menuItem != null)
+            {
+                isChecked = menuItem.IsChecked;
+                isEnabled = menuItem.IsEnabled;
+            }
         }
 
         public static void MenuClick(string location, string menuName, string itemName)
         {
+            IMenu menuItem = Header.FindMenuItem(itemName);
+            if (menuItem != null)
+            {
+                menuItem.Click();
+            }
+        }
+
+
+        private static void CreateProjectStructure()
+        {
+            var rep = EARepository.Instance;
+            EAPackage decisionViewpoints = rep.CreateView("Decision Views", 0);
+            rep.CreateDiagram(decisionViewpoints, "Relationship", RelationshipDiagramMetaType);
+            rep.CreateDiagram(decisionViewpoints, "Chronological", ChronologicalDiagramMetaType);
+            rep.CreateDiagram(decisionViewpoints, "Stakeholder Involvement", StakeholderInvolvementDiagramMetaType);
+        }
+
+
+        private static void CreateAndTraceDecision()
+        {
+            MessageBox.Show("Create and trace");
+            /*
+            var repository = EARepository.Instance;
+            if (repository.GetContextItemType() == NativeType.Element)
+            {
+
+
+                var eaelement = EARepository.Instance.GetContextObject<EAElement>();
+                if (eaelement != null && !eaelement.IsDecision())
+                {
+                    var createDecisionView = new CreateDecision(eaelement.Name + " Decision");
+                    if (createDecisionView.ShowDialog() == DialogResult.OK)
+                    {
+                        EAPackage dvPackage = repository.GetPackageFromRootByName("Decision Views");
+
+                        EAElement decision = dvPackage.AddElement(createDecisionView.GetName(), "Action");
+                        decision.Stereotype = createDecisionView.GetState();
+                        decision.MetaType = DVStereotypes.DecisionMetaType;
+
+
+                        eaelement.ConnectTo(decision, "Abstraction", "trace");
+
+                        decision.Update();
+
+                        dvPackage.RefreshElements();
+                        repository.RefreshModelView(dvPackage.ID);
+                    }
+                }
+            }*/
         }
     }
 }

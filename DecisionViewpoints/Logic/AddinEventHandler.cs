@@ -117,7 +117,7 @@ namespace DecisionViewpoints.Logic
             switch (itemName)
             {
                 case MenuCreateProjectStructure:
-                    CreateProjectStructure();
+                   // CreateProjectStructure();
                     break;
                 case MenuCreateBaseline:
                     CreateBaselines();
@@ -126,7 +126,7 @@ namespace DecisionViewpoints.Logic
                     GenerateView();
                     break;
                 case MenuTracingNewDecision:
-                    CreateAndTraceDecision();
+                  //  CreateAndTraceDecision();
                     break;
                 case MenuOnFileClose:
                     Settings.Default["BaselineOptionOnFileClose"] =
@@ -168,36 +168,7 @@ namespace DecisionViewpoints.Logic
             }
         }
 
-        private static void CreateAndTraceDecision( )
-        {
-            var repository = EARepository.Instance;
-            if (repository.GetContextItemType() == NativeType.Element)
-            {
 
-
-                var eaelement = EARepository.Instance.GetContextObject<EAElement>();
-                if (eaelement != null && !eaelement.IsDecision())
-                {
-                    var createDecisionView = new CreateDecision(eaelement.Name + " Decision");
-                    if (createDecisionView.ShowDialog() == DialogResult.OK)
-                    {
-                        EAPackage dvPackage = repository.GetPackageFromRootByName("Decision Views");
-                        
-                        EAElement decision = dvPackage.AddElement(createDecisionView.GetName(), "Action");
-                        decision.Stereotype = createDecisionView.GetState();
-                        decision.MetaType = DVStereotypes.DecisionMetaType;
-
-
-                        eaelement.ConnectTo(decision,"Abstraction", "trace");
-
-                        decision.Update();
-
-                        dvPackage.RefreshElements();
-                        repository.RefreshModelView(dvPackage.ID);
-                    }
-                }
-            }
-        }
 
 
         private static string[] CreateTraceSubmenu()
@@ -269,13 +240,6 @@ namespace DecisionViewpoints.Logic
         ///     Creates the project structure with the five views and one initial diagram for each view.
         /// </summary>
         /// <param name="repository">The EA repository.</param>
-        private static void CreateProjectStructure( )
-        {
-            var rep = EARepository.Instance;
-            EAPackage decisionViewpoints = rep.CreateView("Decision Views", 0);
-            rep.CreateDiagram(decisionViewpoints, "Relationship", RelationshipDiagramMetaType);
-            rep.CreateDiagram(decisionViewpoints, "Chronological", ChronologicalDiagramMetaType);
-            rep.CreateDiagram(decisionViewpoints, "Stakeholder Involvement", StakeholderInvolvementDiagramMetaType);
-        }
+
     }
 }

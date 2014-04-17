@@ -1,6 +1,6 @@
 ﻿namespace DecisionViewpoints.Logic.Menu
 {
-    public class Header : CompositeMenuItem
+    public class Header : Menu
     {
         public Header()
             : base("-&Decision Viewpoints")
