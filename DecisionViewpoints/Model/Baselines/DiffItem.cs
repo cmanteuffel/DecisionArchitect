@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace DecisionViewpoints.Model.Baselines
 {
@@ -6,6 +7,8 @@ namespace DecisionViewpoints.Model.Baselines
     {
         public DiffItem()
         {
+            Properties = new Collection<DiffProperty>();
+            DiffItems = new Collection<DiffItem>();
         }
 
         public string Guid { get; set; }

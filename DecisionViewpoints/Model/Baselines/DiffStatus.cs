@@ -5,6 +5,7 @@ namespace DecisionViewpoints.Model.Baselines
         Changed,
         Baseline,
         Model,
-        Identical
+        Identical,
+        None
     }
 }

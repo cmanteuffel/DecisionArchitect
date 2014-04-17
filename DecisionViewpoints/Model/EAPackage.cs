@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms;
 using System.Xml;
 using DecisionViewpoints.Model.Baselines;
 using EA;
@@ -70,10 +72,9 @@ namespace DecisionViewpoints.Model
                 if (_native.ParentID == 0)
                 {
                     return this;
-                } 
+                }
                 EAPackage parentPkg = EARepository.Instance.GetPackageByID(_native.ParentID);
                 return parentPkg;
-                
             }
             set { _native.ParentID = value.ID; }
         }
@@ -81,7 +82,8 @@ namespace DecisionViewpoints.Model
         //TODO: Transparent ILIST that wraps the strange EA Collection
         public IList<EAElement> Elements
         {
-            get { 
+            get
+            {
                 var elements = new List<EAElement>(_native.Elements.Count);
                 foreach (Element nativeElement in _native.Elements)
                 {
@@ -102,7 +104,7 @@ namespace DecisionViewpoints.Model
             return (this == ParentPackage);
         }
 
-        [Obsolete("",true)]
+        [Obsolete("", true)]
         public Package Get()
         {
             return _native;
@@ -149,7 +151,7 @@ namespace DecisionViewpoints.Model
             repository.RefreshModelView(_native.PackageID);
             return d;
         }
-        
+
         [Obsolete]
         public void DeleteDiagram(short pos, bool refresh)
         {
@@ -162,18 +164,19 @@ namespace DecisionViewpoints.Model
             return EADiagram.Wrap(_native.Diagrams.GetByName(name));
         }
 
-        public IEnumerable<Baseline> GetBaselines()
+        public IList<Baseline> GetBaselines()
         {
-            var baselines = new List<Baseline>();
             var project = EARepository.Instance.Native.GetProjectInterface();
             var baselineString = project.GetBaselines(GUID, "");
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(baselineString);
 
-            throw new NotImplementedException("parse xml and create xml");
-
-
-            return baselines;
+            return (from XmlNode baselineNode in xmlDocument.FirstChild.ChildNodes
+                    where baselineNode.Attributes != null
+                    let version = baselineNode.Attributes["version"].Value
+                    let notes = baselineNode.Attributes["notes"].Value
+                    let guid = baselineNode.Attributes["guid"].Value
+                    select new Baseline(guid, version, notes)).ToList();
         }
 
         public BaselineDiff CompareWithBaseline(Baseline baseline)
@@ -181,7 +184,7 @@ namespace DecisionViewpoints.Model
             var project = EARepository.Instance.Native.GetProjectInterface();
             var baselineXmlGuid = project.GUIDtoXML(baseline.Guid);
             var diffString = project.DoBaselineCompare(GUID, baselineXmlGuid, "");
-            return BaselineDiff.ParseFromXML(this, baseline, diffString);
+            return BaselineDiff.ParseFromXml(this, baseline, diffString);
         }
 
         public bool CreateBaseline(string version, string notes)
@@ -189,7 +192,7 @@ namespace DecisionViewpoints.Model
             var project = EARepository.Instance.Native.GetProjectInterface();
             return project.CreateBaseline(GUID, version, notes);
         }
- 
+
 
         public static EAPackage Wrap(Package packageID)
         {
