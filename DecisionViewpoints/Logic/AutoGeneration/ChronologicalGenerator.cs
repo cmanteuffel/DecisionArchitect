@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Windows.Forms;
 using System.Xml;
 using DecisionViewpoints.Model;
@@ -28,23 +31,27 @@ namespace DecisionViewpoints.Logic.AutoGeneration
 
         public void Generate()
         {
-            var elements = new List<Element>();
+            var elements = new OrderedDictionary();
             foreach (var result in _project.GetComparisonResults())
             {
                 foreach (XmlNode element in result.Value)
                 {
                     if (element.Attributes == null) continue;
                     var elementName = element.Attributes["name"].Value;
-                    var generate =
-                        element.FirstChild.SelectSingleNode("//Property[@status='Changed' and @name='DateModified']") !=
-                        null;
+                    var dateModified =
+                        element.FirstChild.SelectSingleNode("//Property[@status='Changed' and @name='DateModified']");
+                    var generate = dateModified != null;
                     if (!generate) continue;
+                    if (dateModified.Attributes == null) continue;
+                    var elementDateModified = dateModified.Attributes["baseline"].Value;
+                    var key = String.Format("{0}::{1}", elementName, elementDateModified);
                     var stereotypeProperty =
                         element.FirstChild.SelectSingleNode("//Property[@name='Stereotype' and @status='Changed']");
                     if (stereotypeProperty == null) continue;
                     if (stereotypeProperty.Attributes == null) continue;
                     var stereotype = stereotypeProperty.Attributes["baseline"].Value;
-                    elements.Add(_history.CreateElement(_repository, elementName, stereotype, "Action"));
+                    if (!elements.Contains(key))
+                        elements.Add(key, _history.CreateElement(_repository, elementName, stereotype, "Action"));
                 }
             }
             GenerateElements(elements);
@@ -53,7 +60,6 @@ namespace DecisionViewpoints.Logic.AutoGeneration
 
         public void Update()
         {
-
         }
 
         private static void GenerateElements(IDualCollection elements)
@@ -73,16 +79,18 @@ namespace DecisionViewpoints.Logic.AutoGeneration
             }
         }
 
-        private static void GenerateElements(IReadOnlyList<Element> elements)
+        private static void GenerateElements(IDictionary elementsDict)
         {
-            if (elements.Count <= 0) return;
+            if (elementsDict.Count <= 0) return;
+            var elements = new Element[elementsDict.Values.Count];
+            elementsDict.Values.CopyTo(elements, 0);
             _cvpd.AddToDiagram(_repository, elements[0]);
-            for (short i = 1; i < elements.Count; i++)
+            for (short i = 1; i < elements.Length; i++)
             {
                 _cvpd.AddToDiagram(_repository, elements[i]);
                 _cvpd.CreateConnector(elements[i - 1], elements[i]);
             }
-            _lastCreated = elements[elements.Count - 1];
+            _lastCreated = elements[elements.Length - 1];
         }
     }
 }
