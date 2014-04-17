@@ -23,7 +23,7 @@ namespace DecisionViewpoints.Logic
                 case "":
                     return MenuHeader;
                 case MenuHeader:
-                    string[] subMenus = {MenuCreateProjectStructure, MenuTestBaselines};
+                    string[] subMenus = {MenuCreateProjectStructure};
                     return subMenus;
             }
             return "";

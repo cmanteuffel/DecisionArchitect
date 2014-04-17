@@ -16,6 +16,7 @@ namespace DecisionViewpoints.Logic
         private static readonly string ToolboxName = Settings.Default["ToolboxName"].ToString();
         private static string lastGUID = string.Empty;
         private static DateTime lastChange = DateTime.MinValue;
+        private static bool _preventConnectorModifiedEvent = false;
 
 
         public static bool OnPreNewElement(Repository repository, EventProperties info)
@@ -58,7 +59,9 @@ namespace DecisionViewpoints.Logic
                 {
                     return false;
                 }
+                _preventConnectorModifiedEvent = true;
             }
+            
             return true;
         }
 
@@ -79,11 +82,14 @@ namespace DecisionViewpoints.Logic
 
 
                     EAElementWrapper element = EAElementWrapper.Wrap(repository, guid);
-                    //dirty hack to prevent that the event is fired twice
+
+                    //dirty hack to prevent that the event is fired twice when an decision is modified
                     if (lastGUID.Equals(guid) && lastChange.Equals(element.Element.Modified))
                     {
                         return;
                     }
+
+
                     if (!RuleManager.Instance.ValidateElement(element, out message))
                     {
                         MessageBox.Show(
@@ -98,14 +104,23 @@ namespace DecisionViewpoints.Logic
                     break;
                 case ObjectType.otConnector:
                     EAConnectorWrapper connectorWrapper = EAConnectorWrapper.Wrap(repository, guid);
-                    if (!RuleManager.Instance.ValidateConnector(connectorWrapper, out message))
+
+                    //dirty hack that prevents that an modified event is fired after a connector has been created
+                    if (_preventConnectorModifiedEvent)
                     {
-                        MessageBox.Show(
-                            message,
-                            Messages.WarningCreateRelation,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Exclamation,
-                            MessageBoxDefaultButton.Button1);
+                        _preventConnectorModifiedEvent = false;
+                    }
+                    else
+                    {
+                        if (!RuleManager.Instance.ValidateConnector(connectorWrapper, out message))
+                        {
+                            MessageBox.Show(
+                                message,
+                                Messages.WarningCreateRelation,
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Exclamation,
+                                MessageBoxDefaultButton.Button1);
+                        }
                     }
                     break;
             }

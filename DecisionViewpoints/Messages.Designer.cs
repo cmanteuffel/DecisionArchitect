@@ -61,7 +61,7 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alternative for-relationships cannot point to discarded decisions..
+        ///   Looks up a localized string similar to Alternative for-relationships should not point to discarded decisions..
         /// </summary>
         internal static string AlternativeForNotPointTo {
             get {
@@ -70,7 +70,7 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alternative for-relationships can only originate from tentative or discarded decisions..
+        ///   Looks up a localized string similar to Alternative for-relationships should only originate from tentative or discarded decisions..
         /// </summary>
         internal static string AlternativeForOnlyOriginateFrom {
             get {
@@ -79,7 +79,7 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Caused by-relationships cannot point to discarded decisions..
+        ///   Looks up a localized string similar to Caused by-relationships should not point to discarded decisions..
         /// </summary>
         internal static string CausedByNotPointTo {
             get {
@@ -97,7 +97,7 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Depends on-relationships can only point to tentative, decided, approved or challenged decisions..
+        ///   Looks up a localized string similar to Depends on-relationships should only point to tentative, decided, approved or challenged decisions..
         /// </summary>
         internal static string DependsOnOnlyPointTo {
             get {
@@ -106,7 +106,7 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Excluded by-relationships cannot point to idea, tentative, discarded or rejected decisions..
+        ///   Looks up a localized string similar to Excluded by-relationships should not point to idea, tentative, discarded or rejected decisions..
         /// </summary>
         internal static string ExcludedByNotPointTo {
             get {
@@ -115,7 +115,7 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Excluded by-relationships can only originate from idea, tentative, discarded or rejected decisions..
+        ///   Looks up a localized string similar to Excluded by-relationships should only originate from idea, tentative, discarded or rejected decisions..
         /// </summary>
         internal static string ExcludedOnlyOriginateFrom {
             get {
@@ -160,7 +160,7 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A decision is not allowed to have a relation with itself.
+        ///   Looks up a localized string similar to A decision should not have a relation with itself..
         /// </summary>
         internal static string NoLoops {
             get {
@@ -169,7 +169,7 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Relationships cannot originate from idea decisions..
+        ///   Looks up a localized string similar to Relationships should not originate from idea decisions..
         /// </summary>
         internal static string NotOriginateFromIdea {
             get {
@@ -178,7 +178,7 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Relationships cannot point to idea decisions..
+        ///   Looks up a localized string similar to Relationships should not point to idea decisions..
         /// </summary>
         internal static string NotPointToIdea {
             get {
@@ -187,7 +187,7 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Replaces-relationships can only point to rejected decisions..
+        ///   Looks up a localized string similar to Replaces-relationships should only point to rejected decisions..
         /// </summary>
         internal static string ReplacesOnlyPointTo {
             get {
