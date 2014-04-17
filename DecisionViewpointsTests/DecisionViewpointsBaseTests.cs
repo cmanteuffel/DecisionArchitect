@@ -8,6 +8,7 @@ namespace DecisionViewpointsTests
     [TestClass]
     public class DecisionViewpointsBaseTests
     {
+        //all .eap files should be one location - path to be added later
         private const string EapTestProjectName = "\\DecisionViewUnitTestsProject.eap";
 
         public MainApplication MainApp { get; private set; }
@@ -31,7 +32,7 @@ namespace DecisionViewpointsTests
         public void ClearRepository()
         {
             Package root = Repo.Models.GetAt(0);
-            for (var packageIndex = (short)(root.Packages.Count - 1); packageIndex != -1; packageIndex--)
+            for (short packageIndex = (short) (root.Packages.Count - 1); packageIndex != -1; packageIndex--)
             {
                 root.Packages.Delete(packageIndex);
             }

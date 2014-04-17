@@ -13,7 +13,7 @@ namespace DecisionViewpoints
         private const string MenuHeader = "-&Decision Viewpoints";
         private const string MenuCreateProjectStructure = "&Create Project Structure";
         // private const string MenuCreateDecisionGroup = "Create Decision &Group";
-        private const string Con = "connected";
+        private const string Connected = "connected";
 
         /// <summary>
         /// Called Before EA starts to check if Add-In Exists. Nothing is done here.
@@ -22,7 +22,7 @@ namespace DecisionViewpoints
         /// <returns>Returns a constant string 'connected'</returns>
         public static string Connect()
         {
-            return Con;
+            return Connected;
         }
 
         /// <summary>
