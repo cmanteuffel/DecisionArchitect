@@ -79,17 +79,27 @@ namespace DecisionViewpointsTests
                 Assert.IsFalse(ValidateConnector(States.Idea, s, Stereotypes.RelationDependsOn),
                     AssertionFailedMessage(States.Idea, s, Stereotypes.RelationDependsOn));
             }
+            ResetRepository(RepositoryType.Relationships);
+            CloseRepositoryFile();
+        }
+
+        [TestMethod]
+        public void OnPreNewConnector_DependsOn_RelationshipIsCreated()
+        {
+            OpenRepositoryFile(RepositoryType.Relationships);
+            ResetRepository(RepositoryType.Relationships);
             // Any Decision to decision with states {tentative, decided, approved, challenged}
-            foreach (var s in Stereotypes.States.Where(s => s != Stereotypes.StateIdea))
+            foreach (var s in Stereotypes.States.Where(s => s != Stereotypes.StateIdea && s != Stereotypes.StateTentative && 
+                s != Stereotypes.StateDecided && s != Stereotypes.StateApproved && s != Stereotypes.StateChallenged))
             {
-                Assert.IsFalse(ValidateConnector(s, Stereotypes.StateTentative, Stereotypes.RelationDependsOn),
-                               AssertionFailedMessage(s, Stereotypes.StateTentative, Stereotypes.RelationDependsOn));
-                Assert.IsFalse(ValidateConnector(s, Stereotypes.StateDecided, Stereotypes.RelationDependsOn),
-                               AssertionFailedMessage(s, Stereotypes.StateDecided, Stereotypes.RelationDependsOn));
-                Assert.IsFalse(ValidateConnector(s, Stereotypes.StateApproved, Stereotypes.RelationDependsOn),
-                               AssertionFailedMessage(s, Stereotypes.StateApproved, Stereotypes.RelationDependsOn));
-                Assert.IsFalse(ValidateConnector(s, Stereotypes.StateChallenged, Stereotypes.RelationDependsOn),
-                               AssertionFailedMessage(s, Stereotypes.StateChallenged, Stereotypes.RelationDependsOn));
+                Assert.IsTrue(ValidateConnector(s, Stereotypes.StateTentative, Stereotypes.RelationDependsOn),
+                              AssertionFailedMessage(s, Stereotypes.StateTentative, Stereotypes.RelationDependsOn));
+                Assert.IsTrue(ValidateConnector(s, Stereotypes.StateDecided, Stereotypes.RelationDependsOn),
+                              AssertionFailedMessage(s, Stereotypes.StateDecided, Stereotypes.RelationDependsOn));
+                Assert.IsTrue(ValidateConnector(s, Stereotypes.StateApproved, Stereotypes.RelationDependsOn),
+                              AssertionFailedMessage(s, Stereotypes.StateApproved, Stereotypes.RelationDependsOn));
+                Assert.IsTrue(ValidateConnector(s, Stereotypes.StateChallenged, Stereotypes.RelationDependsOn),
+                              AssertionFailedMessage(s, Stereotypes.StateChallenged, Stereotypes.RelationDependsOn));
             }
             ResetRepository(RepositoryType.Relationships);
             CloseRepositoryFile();
