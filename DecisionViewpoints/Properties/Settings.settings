@@ -1,0 +1,15 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="DecisionViewpoints.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="DecisionStereotype" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ArchitecturalDecision</Value>
+    </Setting>
+    <Setting Name="DiagramMetaType" Type="System.String" Scope="User">
+      <Value Profile="(Default)">DecisionVS::RelationshipView</Value>
+    </Setting>
+    <Setting Name="ToolboxName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">DecisionVS</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
