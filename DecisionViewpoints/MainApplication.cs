@@ -20,52 +20,49 @@ namespace DecisionViewpoints
         }
 
         /// <summary>
-        /// Called Before EA starts to check Add-In Exists
-        /// Nothing is done here.
-        /// This operation needs to exists for the addin to work
+        /// Handled by the EventHandler.
         /// </summary>
-        /// <param name="repository">the EA repository</param>
-        /// <returns>connected</returns>
+        /// <param name="repository">The EA repository.</param>
+        /// <returns>Returns a constant string 'connected'</returns>
         public String EA_Connect(Repository repository)
         {
             return _eventHandler.Connect();
         }
 
         /// <summary>
-        /// 
+        /// Handled by the EventHandler.
         /// </summary>
-        /// <param name="repository">the EA repository</param>
-        /// <param name="info">contains properties of the element to be created</param>
-        /// <returns>true to permit the creation of the element, false to deny</returns>
+        /// <param name="repository">The EA repository.</param>
+        /// <param name="info">Contains properties of the element to be created.</param>
+        /// <returns>Returns true to permit the creation of the element, false to deny.</returns>
         public bool EA_OnPreNewElement(Repository repository, EventProperties info)
         {
             return _eventHandler.OnPreNewElement(repository, info);
         }
 
         /// <summary>
-        /// 
+        /// Handled by the EventHandler.
         /// </summary>
-        /// <param name="repository"></param>
-        /// <param name="info"></param>
-        /// <returns>true to permit the creation of the element, false to deny</returns>
+        /// <param name="repository">The EA repository.</param>
+        /// <param name="info">Contains properties of the connector to be created.</param>
+        /// <returns>Returns true to permit the creation of the connector, false to deny.</returns>
         public bool EA_OnPreNewConnector(Repository repository, EventProperties info)
         {
             return _eventHandler.OnPreNewConnector(repository, info);
         }
 
         /// <summary>
-        /// 
+        /// Handled by the EventHandler.
         /// </summary>
-        /// <param name="repository"></param>
-        /// <param name="diagramId"></param>
+        /// <param name="repository">The EA repository.</param>
+        /// <param name="diagramId">The ID of the diagram that has been opened.</param>
         public void EA_OnPostOpenDiagram(Repository repository, int diagramId)
         {
             _eventHandler.OnPostOpenDiagram(repository, diagramId);
         }
 
         /// <summary>
-        /// EA calls this operation when it exists. It is used to
-        /// do some cleanup work.
+        /// Handled by the EventHandler.
         /// </summary>
         public void EA_Disconnect() 
         { 
