@@ -1070,7 +1070,7 @@
 		<row><td>ISSelfRegisterFiles</td><td>3073</td><td>ISSELFREG.DLL</td><td>ISSelfRegisterFiles</td><td/><td/></row>
 		<row><td>ISSelfRegisterFinalize</td><td>1</td><td>ISSELFREG.DLL</td><td>ISSelfRegisterFinalize</td><td/><td/></row>
 		<row><td>ISUnSelfRegisterFiles</td><td>3073</td><td>ISSELFREG.DLL</td><td>ISUnSelfRegisterFiles</td><td/><td/></row>
-		<row><td>Register_DLL_COM_Codebase</td><td>34</td><td>V4.0.30319</td><td>[V4.0.30319]regasm "C:\Program Files (x86)\SEARCH Group\Decision Viewpoints\DecisionViewpoints.dll" /codebase</td><td/><td/></row>
+		<row><td>Register_DLL_COM_Codebase</td><td>34</td><td>V4.0.303194</td><td>[V4.0.303194]regasm "C:\Program Files (x86)\SEARCH Group\Decision Viewpoints\DecisionViewpoints.dll" /codebase</td><td/><td/></row>
 		<row><td>SetARPINSTALLLOCATION</td><td>51</td><td>ARPINSTALLLOCATION</td><td>[INSTALLDIR]</td><td/><td/></row>
 		<row><td>SetAllUsersProfileNT</td><td>51</td><td>ALLUSERSPROFILE</td><td>[%SystemRoot]\Profiles\All Users</td><td/><td/></row>
 		<row><td>ShowMsiLog</td><td>226</td><td>SystemFolder</td><td>[SystemFolder]notepad.exe "[MsiLogFileLocation]"</td><td/><td>Shows Property-driven MSI Log</td></row>
@@ -1143,8 +1143,13 @@
 		<row><td>DIRPROPERTY1</td><td>TARGETDIR</td><td>.</td><td/><td>0</td><td/></row>
 		<row><td>DIRPROPERTY2</td><td>TARGETDIR</td><td>.</td><td/><td>0</td><td/></row>
 		<row><td>DIRPROPERTY3</td><td>TARGETDIR</td><td>.</td><td/><td>0</td><td/></row>
+		<row><td>DIRPROPERTY4</td><td>TARGETDIR</td><td>.</td><td/><td>0</td><td/></row>
 		<row><td>DesktopFolder</td><td>TARGETDIR</td><td>.:Desktop</td><td/><td>3</td><td/></row>
 		<row><td>FRAMEWORK</td><td>MICROSOFT.NET</td><td>FRAMEW~1|Framework</td><td/><td>0</td><td/></row>
+		<row><td>FRAMEWORK1</td><td>MICROSOFT.NET1</td><td>FRAMEW~1|Framework</td><td/><td>0</td><td/></row>
+		<row><td>FRAMEWORK2</td><td>MICROSOFT.NET2</td><td>FRAMEW~1|Framework</td><td/><td>0</td><td/></row>
+		<row><td>FRAMEWORK3</td><td>MICROSOFT.NET3</td><td>FRAMEW~1|Framework</td><td/><td>0</td><td/></row>
+		<row><td>FRAMEWORK4</td><td>MICROSOFT.NET4</td><td>FRAMEW~1|Framework</td><td/><td>0</td><td/></row>
 		<row><td>FavoritesFolder</td><td>TARGETDIR</td><td>.:FAVORI~1|Favorites</td><td/><td>0</td><td/></row>
 		<row><td>FontsFolder</td><td>TARGETDIR</td><td>.:Fonts</td><td/><td>0</td><td/></row>
 		<row><td>GlobalAssemblyCache</td><td>TARGETDIR</td><td>.:Global~1|GlobalAssemblyCache</td><td/><td>0</td><td/></row>
@@ -1156,6 +1161,10 @@
 		<row><td>LocalAppDataFolder</td><td>TARGETDIR</td><td>.:LocalA~1|LocalAppData</td><td/><td>0</td><td/></row>
 		<row><td>MDG_TECHNOLOGY</td><td>INSTALLDIR</td><td>MDGTEC~1|MDG Technology</td><td/><td>0</td><td/></row>
 		<row><td>MICROSOFT.NET</td><td>WINDOWS</td><td>MICROS~1|Microsoft.NET</td><td/><td>0</td><td/></row>
+		<row><td>MICROSOFT.NET1</td><td>SystemFolder</td><td>MICROS~1|Microsoft.NET</td><td/><td>0</td><td/></row>
+		<row><td>MICROSOFT.NET2</td><td>WinDir</td><td>MICROS~1|Microsoft.NET</td><td/><td>0</td><td/></row>
+		<row><td>MICROSOFT.NET3</td><td>WINDIR</td><td>MICROS~1|Microsoft.NET</td><td/><td>0</td><td/></row>
+		<row><td>MICROSOFT.NET4</td><td>WindowsFolder</td><td>MICROS~1|Microsoft.NET</td><td/><td>0</td><td/></row>
 		<row><td>MY_PRODUCT_NAME</td><td>SEARCH_GROUP</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
 		<row><td>MyPicturesFolder</td><td>TARGETDIR</td><td>.:MyPict~1|MyPictures</td><td/><td>0</td><td/></row>
 		<row><td>NEW_DIRECTORY1</td><td>TARGETDIR</td><td>NEW_DIRECTORY1</td><td/><td>0</td><td/></row>
@@ -1178,7 +1187,13 @@
 		<row><td>TemplateFolder</td><td>TARGETDIR</td><td>.:ShellNew</td><td/><td>0</td><td/></row>
 		<row><td>USERPROFILE</td><td>TARGETDIR</td><td>.:USERPR~1|UserProfile</td><td/><td>0</td><td/></row>
 		<row><td>V4.0.30319</td><td>FRAMEWORK</td><td>V4_0_3~1|v4.0.30319</td><td/><td>0</td><td/></row>
+		<row><td>V4.0.303191</td><td>FRAMEWORK1</td><td>V4_0_3~1|v4.0.30319</td><td/><td>0</td><td/></row>
+		<row><td>V4.0.303192</td><td>FRAMEWORK2</td><td>V4_0_3~1|v4.0.30319</td><td/><td>0</td><td/></row>
+		<row><td>V4.0.303193</td><td>FRAMEWORK3</td><td>V4_0_3~1|v4.0.30319</td><td/><td>0</td><td/></row>
+		<row><td>V4.0.303194</td><td>FRAMEWORK4</td><td>V4_0_3~1|v4.0.30319</td><td/><td>0</td><td/></row>
+		<row><td>WINDIR</td><td>TARGETDIR</td><td>.</td><td/><td>0</td><td/></row>
 		<row><td>WINDOWS</td><td>DIRPROPERTY3</td><td>Windows</td><td/><td>0</td><td/></row>
+		<row><td>WinDir</td><td>TARGETDIR</td><td>.</td><td/><td>0</td><td/></row>
 		<row><td>WindowsFolder</td><td>TARGETDIR</td><td>.:Windows</td><td/><td>0</td><td/></row>
 		<row><td>WindowsVolume</td><td>TARGETDIR</td><td>.:WinRoot</td><td/><td>0</td><td/></row>
 	</table>
@@ -2780,7 +2795,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>SEARCH Group</td><td>0</td><td/><td>564210765</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>SEARCH Group</td><td>0</td><td/><td>2040635152</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>295819617</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>295819617</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION45FULL</td><td>1033</td><td>Microsoft .NET Framework 4.5 Full package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>295819649</td></row>
@@ -3880,8 +3895,10 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>295819617</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>295819617</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>295819617</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://www.rug.nl/search/</td><td>0</td><td/><td>564239693</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>SEARCH Group</td><td>0</td><td/><td>564210765</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://www.SEARCHGroup.com</td><td>0</td><td/><td>2040635152</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>SEARCH Group</td><td>0</td><td/><td>2040635152</td></row>
+		<row><td>ID_STRING3</td><td>1033</td><td>=-NewEnvironment1</td><td>0</td><td/><td>2040626001</td></row>
+		<row><td>ID_STRING4</td><td>1033</td><td>=-NewEnvironment1</td><td>0</td><td/><td>2040599409</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>295819617</td></row>
 	</table>
 
@@ -4122,7 +4139,7 @@ RABWAEQALQA1AAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{578FB7E8-677A-4949-B521-436B8C28887E}</td></row>
 		<row><td>ISUSSignature</td><td>{8813F9FF-399B-4583-B6CD-E0EF00AB5B05}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewObjects,viewRegistry,viewCustomActions,viewInstallScriptStd,viewSystemSearch,viewProject,viewUpgradePaths,viewAppFiles,viewShortcuts,viewRelease</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewObjects,viewRegistry,viewCustomActions,viewInstallScriptStd,viewSystemSearch,viewProject,viewUpgradePaths,viewAppFiles,viewShortcuts,viewRelease,viewSupportFiles,viewUpdateService,viewDependencies,viewIniFiles,viewTextFiles,viewFileExtensions,viewEnvironmentVariables,viewVRoots,viewSQLServer,viewComponentServices,viewUI,viewTextMessages</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
@@ -4440,6 +4457,7 @@ RABWAEQALQA1AAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>DIRPROPERTY1</td><td>%WINDIR%\Microsoft.NET\Framework\v4.0.30319\regasm</td><td/></row>
 		<row><td>DIRPROPERTY2</td><td>%WINDIR%\Microsoft.NET\Framework\v4.0.30319</td><td/></row>
 		<row><td>DIRPROPERTY3</td><td>C:\</td><td/></row>
+		<row><td>DIRPROPERTY4</td><td>%CSIDL_WINDOWS%\Microsoft.NET\Framework\v4.0.30319</td><td/></row>
 		<row><td>DWUSINTERVAL</td><td>30</td><td/></row>
 		<row><td>DWUSLINK</td><td>CE7C671F99EC77BF29ACC76F2E9C978F0E6C378FCE9C80D8CEBBA7B88E2CA0B8697C30FFC9AC</td><td/></row>
 		<row><td>DefaultUIFont</td><td>ExpressDefault</td><td/></row>
