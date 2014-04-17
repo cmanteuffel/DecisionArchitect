@@ -84,7 +84,7 @@ namespace DecisionViewpoints.Logic
             project.ComparePackageBaselines(repository, rvp, baselines);
             var chronologicalViewGenarator = new ChronologicalGenerator(repository, project, rvp, hp, cd);
             chronologicalViewGenarator.Generate();
-            //project.Get().LayoutDiagramEx(cd.Get().DiagramGUID, ConstLayoutStyles.lsLayoutDirectionRight, 3, ConstLayoutStyles.lsLayeringOptimalLinkLength, 40, true);
+            //project.Get().LayoutDiagramEx(cd.Get().DiagramGUID, ConstLayoutStyles.lsLayoutDirectionRight, 4, 20, 20, true);
         }
 
         private static void CreateBaselines(IDualRepository repository)
