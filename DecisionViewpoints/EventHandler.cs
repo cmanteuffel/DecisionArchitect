@@ -51,7 +51,7 @@ namespace DecisionViewpoints
         /// <returns>Returns true to permit the creation of the connector, false to deny.</returns>
         public bool OnPreNewConnector(Repository repository, EventProperties info)
         {
-            var rel = new Relationship(repository, info);
+            var rel = new Relationship(info);
             // If the stereotype is different than 'Relationship' then permit the creation
             if (!rel.CheckStereotype(RelStereotype)) return false;
             
@@ -63,7 +63,7 @@ namespace DecisionViewpoints
             }
             
             // Check if one of the Decisions that the new Relationship is connected is in the state 'Idea'.
-            if (rel.CheckIfPossible()) return true;
+            if (rel.CheckIfPossible(repository)) return true;
             MessageBox.Show("Decision has state Idea. Relationship is not permitted.",
                 "Invalid Relationship");
             return false;

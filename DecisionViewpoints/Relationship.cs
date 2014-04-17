@@ -11,7 +11,6 @@ namespace DecisionViewpoints
         private readonly string _stereotype;
         private readonly string _clientid;
         private readonly string _supplierid;
-        private readonly Repository _repository;
 
         public enum Property
         {
@@ -21,11 +20,9 @@ namespace DecisionViewpoints
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="repository">The EA repository.</param>
         /// <param name="info"></param>
-        public Relationship(Repository repository, _EventProperties info)
+        public Relationship(_EventProperties info)
         {
-            _repository = repository;
             _stereotype = info.Get(Property.Stereotype).Value;
             _clientid = info.Get(Property.ClientId).Value;
             _supplierid = info.Get(Property.SupplierId).Value;
@@ -45,10 +42,10 @@ namespace DecisionViewpoints
         /// Checks if a relationship between two Decisions is allowed.
         /// </summary>
         /// <returns>True if the relationship is permitted, false otherwise.</returns>
-        public bool CheckIfPossible()
+        public bool CheckIfPossible(Repository repository)
         {
-            var client = _repository.GetElementByID(Convert.ToInt32(_clientid));
-            var supplier = _repository.GetElementByID(Convert.ToInt32(_supplierid));
+            var client = repository.GetElementByID(Convert.ToInt32(_clientid));
+            var supplier = repository.GetElementByID(Convert.ToInt32(_supplierid));
             TaggedValue clientState = client.TaggedValues.GetByName("state");
             TaggedValue supplierState = supplier.TaggedValues.GetByName("state");
             return !clientState.Value.Equals("idea") && !supplierState.Value.Equals("idea");
