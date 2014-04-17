@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Windows.Forms;
 using DecisionViewpoints.Model.Rules;
 
 namespace DecisionViewpoints.Model.Rules
@@ -22,12 +23,11 @@ namespace DecisionViewpoints.Model.Rules
         public override bool Validate(PreConnector connector, out string message)
         {
             message = "";
-            if (_relationType.Count == 0 || _relationType.Contains(connector.Stereotype))
+            if (_relationType.Count == 0 ||_relationType.Contains(connector.Stereotype))
             {
                 if (_clientState.Count == 0 || _clientState.Contains(connector.GetClient().GetStereotypeList()))
                 {
-                    if (_supplierState.Count == 0 ||
-                        _supplierState.Contains(connector.GetSupplier().GetStereotypeList()))
+                    if (_supplierState.Count == 0 || _supplierState.Contains(connector.GetSupplier().GetStereotypeList()))
                     {
                         message = _errorMessage;
                         return false;

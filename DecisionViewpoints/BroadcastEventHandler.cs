@@ -47,59 +47,54 @@ namespace DecisionViewpoints
             }
 
 
-            var constraint0 = new ExclusionRule(new string[] {Stereotypes.StateIdea},
+            var constraint0 = new ExclusionRule(new[] {Stereotypes.StateIdea},
                                                 ConnectorRule.Any,
                                                 ConnectorRule.Any,
                                                 Messages.NotOriginFromIdea);
             var constraint1 = new ExclusionRule(ConnectorRule.Any,
                                                 ConnectorRule.Any,
-                                                new string[] {Stereotypes.StateIdea},
+                                                new[] {Stereotypes.StateIdea},
                                                 Messages.NotPointToIdea);
             var constraint2 = new ExclusionRule(ConnectorRule.Any,
-                                                new string[] {Stereotypes.RelationCausedBy},
-                                                new string[] {Stereotypes.StateDiscarded},
+                                                new[] {Stereotypes.RelationCausedBy},
+                                                new[] {Stereotypes.StateDiscarded},
                                                 Messages.CausedByNotPointTo);
-            var constraint3 = new InclusionRule(ConnectorRule.Any,
-                                                new string[] {Stereotypes.RelationDependsOn},
-                                                new string[]
-                                                    {
-                                                        Stereotypes.StateTentative, Stereotypes.StateDecided,
-                                                        Stereotypes.StateApproved, Stereotypes.StateChallenged
-                                                    },
+            var constraint3 = new ExclusionRule(ConnectorRule.Any,
+                                                new[] {Stereotypes.RelationDependsOn},
+                                                new[] {Stereotypes.StateDiscarded, Stereotypes.StateRejected},
                                                 Messages.DependsOnOnlyPointTo);
             var constraint4 = new ExclusionRule(ConnectorRule.Any,
-                                                new string[] {Stereotypes.RelationExcludedBy},
-                                                new string[]
+                                                new[] {Stereotypes.RelationExcludedBy},
+                                                new[]
                                                     {
                                                         Stereotypes.StateTentative, Stereotypes.StateDiscarded,
                                                         Stereotypes.StateRejected
                                                     },
                                                 Messages.ExcludedByNotPointTo);
-            var constraint5 = new InclusionRule(new string[]
-                {
-                    Stereotypes.StateTentative, Stereotypes.StateDecided,
-                    Stereotypes.StateRejected
-                },
-                                                new string[] {Stereotypes.RelationExcludedBy},
+            var constraint5 = new ExclusionRule(new[] {Stereotypes.StateApproved, Stereotypes.StateDecided},
+                                                new[] {Stereotypes.RelationExcludedBy},
                                                 ConnectorRule.Any,
                                                 Messages.ExcludedOnlyOriginateFrom);
-            var constraint6 = new InclusionRule(ConnectorRule.Any,
-                                                new string[] {Stereotypes.RelationReplaces},
-                                                new string[]
-                                                    {
-                                                        Stereotypes.StateRejected
-                                                    },
+            var constraint6 = new ExclusionRule(ConnectorRule.Any,
+                                                new[] {Stereotypes.RelationReplaces},
+                                                new[] {Stereotypes.StateApproved,Stereotypes.StateChallenged,Stereotypes.StateDecided,Stereotypes.StateDiscarded,Stereotypes.StateTentative},
                                                 Messages.ReplacesOnlyPointTo);
             var constraint7 = new ExclusionRule(ConnectorRule.Any,
-                                                new string[] {Stereotypes.RelationAlternativeFor},
-                                                new string[] {Stereotypes.StateDiscarded},
+                                                new[] {Stereotypes.RelationAlternativeFor},
+                                                new[] {Stereotypes.StateDiscarded},
                                                 Messages.AlternativeForNotPointTo);
-            var constraint8 = new InclusionRule(new string[] {Stereotypes.StateDiscarded, Stereotypes.StateTentative},
-                                                new string[] {Stereotypes.RelationAlternativeFor},
-                                                ConnectorRule.Any,
-                                                Messages.AlternativeForOnlyOriginateFrom);
+            var constraint8 =
+                new ExclusionRule(
+                    new[]
+                        {
+                            Stereotypes.StateApproved, Stereotypes.StateDecided, Stereotypes.StateChallenged,
+                            Stereotypes.StateRejected
+                        },
+                    new[] {Stereotypes.RelationAlternativeFor},
+                    Stereotypes.States,
+                    Messages.AlternativeForOnlyOriginateFrom);
 
-            var constraint9 = new SameClientSupplier(Messages.NoLoops);
+            var constraint9 = new NoLoopRule(Messages.NoLoops);
             var rules = new CompositeRule();
             rules.Add(constraint0);
             rules.Add(constraint1);

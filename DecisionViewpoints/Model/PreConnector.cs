@@ -1,6 +1,6 @@
 using EA;
 
-namespace DecisionViewpoints.Model.Rules
+namespace DecisionViewpoints.Model
 {
     internal class PreConnector
     {
@@ -76,7 +76,7 @@ namespace DecisionViewpoints.Model.Rules
 
         public override string ToString()
         {
-            return "Connector " + _stereotype + "(" + _type + ")\n" + _supplierId + " - " + _clientId + "\n";
+            return  GetClient().GetStereotypeList() + " " + _stereotype + " " + GetSupplier().GetStereotypeList() + " - " + "\n";
         }
     }
 }

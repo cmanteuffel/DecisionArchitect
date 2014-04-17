@@ -2,11 +2,11 @@ using DecisionViewpoints.Model.Rules;
 
 namespace DecisionViewpoints.Model.Rules
 {
-    internal class SameClientSupplier : ConnectorRule
+    internal class NoLoopRule : ConnectorRule
     {
         private readonly string _errorMessage;
 
-        public SameClientSupplier(string errorMessage)
+        public NoLoopRule(string errorMessage)
         {
             _errorMessage = errorMessage;
         }

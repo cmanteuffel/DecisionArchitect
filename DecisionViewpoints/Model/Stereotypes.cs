@@ -26,5 +26,16 @@ namespace DecisionViewpoints.Model
                 RelationExcludedBy,
                 RelationReplaces
             };
+
+        public static readonly HashSet<string> States = new HashSet<string>
+            {
+                StateApproved,
+                StateChallenged,
+                StateDecided,
+                StateDiscarded,
+                StateIdea,
+                StateRejected,
+                StateTentative
+            };
     }
 }

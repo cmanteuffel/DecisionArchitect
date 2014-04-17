@@ -61,10 +61,9 @@
     <Compile Include="Model\EventPropertyKeys.cs" />
     <Compile Include="Model\Rules\ExclusionRule.cs" />
     <Compile Include="Model\Rules\ICompositeRule.cs" />
-    <Compile Include="Model\Rules\InclusionRule.cs" />
-    <Compile Include="Model\Rules\PreConnector.cs" />
+    <Compile Include="Model\PreConnector.cs" />
     <Compile Include="Model\Rules\ConnectorRule.cs" />
-    <Compile Include="Model\Rules\SameCLientSupplier.cs" />
+    <Compile Include="Model\Rules\NoLoopRule.cs" />
     <Compile Include="Model\States.cs" />
     <Compile Include="Model\Stereotypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
