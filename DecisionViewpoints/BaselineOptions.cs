@@ -1,31 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace DecisionViewpoints
 {
     public class BaselineOptions
     {
-        public enum BaselineOption
+        public enum Option
         {
             OnFileClose, OnModification, Manually
         }
 
-        private readonly Dictionary<BaselineOption, bool> _baselinesOptions = new Dictionary<BaselineOption, bool>()
+        private readonly Dictionary<Option, bool> _baselinesOptions = new Dictionary<Option, bool>()
             {
-                {BaselineOption.OnFileClose, false},
-                {BaselineOption.OnModification, false},
-                {BaselineOption.Manually, true}
+                {Option.OnFileClose, false},
+                {Option.OnModification, false},
+                {Option.Manually, true}
             };
 
-        public bool GetOption(BaselineOption o)
+        public bool GetOption(Option o)
         {
             return _baselinesOptions[o];
         }
 
-        public void SetOption(BaselineOption o, bool state)
+        public void SetOption(Option o, bool state)
         {
             _baselinesOptions[o] = state;
         }

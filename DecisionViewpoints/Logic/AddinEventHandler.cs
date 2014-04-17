@@ -76,16 +76,16 @@ namespace DecisionViewpoints.Logic
                         isEnabled = true;
                         break;
                     case MenuCreateBaseline:
-                        isEnabled = bo.GetOption(BaselineOptions.BaselineOption.Manually);
+                        isEnabled = bo.GetOption(BaselineOptions.Option.Manually);
                         break;
                     case MenuOnFileClose:
-                        isEnabled = !bo.GetOption(BaselineOptions.BaselineOption.OnFileClose);
+                        isEnabled = !bo.GetOption(BaselineOptions.Option.OnFileClose);
                         break;
                     case MenuOnModification:
-                        isEnabled = !bo.GetOption(BaselineOptions.BaselineOption.OnModification);
+                        isEnabled = !bo.GetOption(BaselineOptions.Option.OnModification);
                         break;
                     case MenuManually:
-                        isEnabled = !bo.GetOption(BaselineOptions.BaselineOption.Manually);
+                        isEnabled = !bo.GetOption(BaselineOptions.Option.Manually);
                         break;
                     default:
                         isEnabled = (traceMenuRegex.IsMatch(itemName));
@@ -114,19 +114,19 @@ namespace DecisionViewpoints.Logic
                     GenerateView(repository);
                     break;
                 case MenuOnFileClose:
-                    bo.SetOption(BaselineOptions.BaselineOption.OnFileClose, true);
-                    bo.SetOption(BaselineOptions.BaselineOption.OnModification, false);
-                    bo.SetOption(BaselineOptions.BaselineOption.Manually, false);
+                    bo.SetOption(BaselineOptions.Option.OnFileClose, true);
+                    bo.SetOption(BaselineOptions.Option.OnModification, false);
+                    bo.SetOption(BaselineOptions.Option.Manually, false);
                     break;
                 case MenuOnModification:
-                    bo.SetOption(BaselineOptions.BaselineOption.OnFileClose, false);
-                    bo.SetOption(BaselineOptions.BaselineOption.OnModification, true);
-                    bo.SetOption(BaselineOptions.BaselineOption.Manually, false);
+                    bo.SetOption(BaselineOptions.Option.OnFileClose, false);
+                    bo.SetOption(BaselineOptions.Option.OnModification, true);
+                    bo.SetOption(BaselineOptions.Option.Manually, false);
                     break;
                 case MenuManually:
-                    bo.SetOption(BaselineOptions.BaselineOption.OnFileClose, false);
-                    bo.SetOption(BaselineOptions.BaselineOption.OnModification, false);
-                    bo.SetOption(BaselineOptions.BaselineOption.Manually, true);
+                    bo.SetOption(BaselineOptions.Option.OnFileClose, false);
+                    bo.SetOption(BaselineOptions.Option.OnModification, false);
+                    bo.SetOption(BaselineOptions.Option.Manually, true);
                     break;
                 default:
                     if (menuName.Equals(MenuTracingFollowTraces) && traceMenuRegex.IsMatch(itemName))
@@ -191,6 +191,7 @@ namespace DecisionViewpoints.Logic
             var baselines = project.ReadPackageBaselines(repository, dv);
             project.ComparePackageBaselines(repository, dv, baselines);
             var chronologicalViewGenarator = new ChronologicalGenerator(repository, project, dv, hp, cd);
+            // BatchAppend makes it more efficient to add many elements together
             repository.BatchAppend = true;
             chronologicalViewGenarator.Generate();
             repository.BatchAppend = false;

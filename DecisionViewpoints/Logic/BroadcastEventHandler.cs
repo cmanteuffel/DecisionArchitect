@@ -104,14 +104,14 @@ namespace DecisionViewpoints.Logic
                     lastChange = element.Element.Modified;
 
                     // An element hass been modified
-                    if (bo.GetOption(BaselineOptions.BaselineOption.OnFileClose))
+                    if (bo.GetOption(BaselineOptions.Option.OnFileClose))
                         if (element.Element.MetaType.Equals("Decision"))
                         {
                             _modified = true;
                         }
 
                     // Create a baseline upon a modification of a decision
-                    if (bo.GetOption(BaselineOptions.BaselineOption.OnModification))
+                    if (bo.GetOption(BaselineOptions.Option.OnModification))
                         if (element.Element.MetaType.Equals("Decision"))
                         {
                             var project = new EAProjectWrapper(repository);
@@ -152,7 +152,7 @@ namespace DecisionViewpoints.Logic
 
         public static void FileClose(Repository repository, BaselineOptions bo)
         {
-            if (!bo.GetOption(BaselineOptions.BaselineOption.OnFileClose)) return;
+            if (!bo.GetOption(BaselineOptions.Option.OnFileClose)) return;
             if (!_modified) return;
             var project = new EAProjectWrapper(repository);
             var rep = new EARepositoryWrapper(repository);
