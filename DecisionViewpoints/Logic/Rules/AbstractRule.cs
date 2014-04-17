@@ -16,7 +16,7 @@ namespace DecisionViewpoints.Logic.Rules
             get { return _errorMessage; }
         }
 
-        public bool Validate(IEAWrapper obj, out string message)
+        public bool Validate(IEAObject obj, out string message)
         {
             bool validationResult = true;
             message = "";
@@ -27,7 +27,7 @@ namespace DecisionViewpoints.Logic.Rules
                 validationResult = ValidateConnector(connector);
             }
 
-            var element = obj as EAElementWrapper;
+            var element = obj as EAElement;
             if (element != null)
             {
                 validationResult = ValidateElement(element);
@@ -41,7 +41,7 @@ namespace DecisionViewpoints.Logic.Rules
             return validationResult;
         }
 
-        public virtual bool ValidateElement(EAElementWrapper element)
+        public virtual bool ValidateElement(EAElement element)
         {
             return true;
         }

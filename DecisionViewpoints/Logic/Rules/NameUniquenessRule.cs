@@ -16,7 +16,7 @@ namespace DecisionViewpoints.Logic.Rules
         {
         }
 
-        public override bool ValidateElement(EAElementWrapper element)
+        public override bool ValidateElement(EAElement element)
         {
             return (element.Element == null) || !(from Element e in element.Repository.GetElementSet(null, 0)
                      where DVStereotypes.States.Contains(e.Stereotype)

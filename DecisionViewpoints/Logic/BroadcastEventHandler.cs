@@ -22,7 +22,7 @@ namespace DecisionViewpoints.Logic
 
         public static bool OnPreNewElement(Repository repository, EventProperties info)
         {
-            EAElementWrapper element = EAElementWrapper.Wrap(repository, info);
+            EAElement element = EAElement.Wrap(repository, info);
             string message;
             if (!RuleManager.Instance.ValidateElement(element, out message))
             {
@@ -68,9 +68,9 @@ namespace DecisionViewpoints.Logic
 
         public static string OnPostOpenDiagram(Repository repository, int diagramId)
         {
-            /*var diagram = repository.GetDiagramByID(diagramId);
+            /*var diagram = native.GetDiagramByID(diagramId);
             if (!diagram.MetaType.Equals(DiagramMetaType)) return "";
-            return repository.ActivateToolbox(ToolboxName, 0) ? ToolboxName : "";*/
+            return native.ActivateToolbox(ToolboxName, 0) ? ToolboxName : "";*/
             return "";
         }
 
@@ -82,7 +82,7 @@ namespace DecisionViewpoints.Logic
                 case ObjectType.otElement:
 
 
-                    var element = EAElementWrapper.Wrap(repository, guid);
+                    var element = EAElement.Wrap(repository, guid);
 
                     //dirty hack to prevent that the event is fired twice when an decision is modified
                     if (lastGUID.Equals(guid) && lastChange.Equals(element.Element.Modified))
@@ -115,9 +115,9 @@ namespace DecisionViewpoints.Logic
                         if (element.Element.MetaType.Equals("Decision"))
                         {
                             var project = new EAProjectWrapper(repository);
-                            var rep = new EARepositoryWrapper(repository);
+                            var rep = new EARepository(repository);
                             var notes = String.Format("Baseline Time: {0}", DateTime.Now);
-                            var dvp = new EAPackageWrapper(rep.GetPackageFromRootByName("Decision Views"));
+                            var dvp = new EAPackage(rep.GetPackageFromRootByName("Decision Views"));
                             var bv = project.GetBaselineLatestVesrion(repository, dvp);
                             project.CreateBaseline(dvp.Get().PackageGUID, bv, notes);
                         }
@@ -155,9 +155,9 @@ namespace DecisionViewpoints.Logic
             if (!(bool)Settings.Default["BaselineOptionOnFileClose"]) return;
             if (!_modified) return;
             var project = new EAProjectWrapper(repository);
-            var rep = new EARepositoryWrapper(repository);
+            var rep = new EARepository(repository);
             var notes = String.Format("Baseline Time: {0}", DateTime.Now);
-            var dvp = new EAPackageWrapper(rep.GetPackageFromRootByName("Decision Views"));
+            var dvp = new EAPackage(rep.GetPackageFromRootByName("Decision Views"));
             var bv = project.GetBaselineLatestVesrion(repository, dvp);
             project.CreateBaseline(dvp.Get().PackageGUID, bv, notes);
         }

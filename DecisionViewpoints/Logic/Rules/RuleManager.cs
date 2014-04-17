@@ -30,7 +30,7 @@ namespace DecisionViewpoints.Logic.Rules
             get { return Singleton; }
         }
 
-        public bool ValidateElement(EAElementWrapper element, out string message)
+        public bool ValidateElement(EAElement element, out string message)
         {
             message = "";
 

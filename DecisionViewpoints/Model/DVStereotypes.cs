@@ -41,6 +41,7 @@ namespace DecisionViewpoints.Model
 
         public static bool IsDecision(Element e)
         {
+            //TODO:  metatype is sufficient 
             return (e != null && States.Contains(e.Stereotype) && e.Type.Equals("Action"));
         }
     }

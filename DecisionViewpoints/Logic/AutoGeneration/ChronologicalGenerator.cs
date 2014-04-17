@@ -13,14 +13,14 @@ namespace DecisionViewpoints.Logic.AutoGeneration
     {
         private static Repository _repository;
         private static EAProjectWrapper _project;
-        private static EAPackageWrapper _history;
-        private static EAPackageWrapper _generateFrom;
-        private static EADiagramWrapper _cvpd;
+        private static EAPackage _history;
+        private static EAPackage _generateFrom;
+        private static EADiagram _cvpd;
         private static Element _lastCreated;
 
-        public ChronologicalGenerator(Repository repository, EAProjectWrapper project, EAPackageWrapper generateFrom,
-                                      EAPackageWrapper history,
-                                      EADiagramWrapper diagram)
+        public ChronologicalGenerator(Repository repository, EAProjectWrapper project, EAPackage generateFrom,
+                                      EAPackage history,
+                                      EADiagram diagram)
         {
             _repository = repository;
             _project = project;
@@ -29,6 +29,7 @@ namespace DecisionViewpoints.Logic.AutoGeneration
             _cvpd = diagram;
         }
 
+        //TODO: Name identification might be weak
         public void Generate()
         {
             var elements = new OrderedDictionary();

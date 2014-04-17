@@ -39,6 +39,7 @@
       <HintPath>..\..\references\Interop.EA.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -67,8 +68,8 @@
     <Compile Include="Logic\AutoGeneration\ChronologicalGenerator.cs" />
     <Compile Include="Logic\AutoGeneration\IGenerator.cs" />
     <Compile Include="Model\EABaselineWrapper.cs" />
-    <Compile Include="Model\EADiagramWrapper.cs" />
-    <Compile Include="Model\EAElementWrapper.cs" />
+    <Compile Include="Model\EADiagram.cs" />
+    <Compile Include="Model\EAElement.cs" />
     <Compile Include="Logic\Rules\AbstractRule.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Messages.Designer.cs">
@@ -76,10 +77,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
-    <Compile Include="Model\EAPackageWrapper.cs" />
+    <Compile Include="Model\EAPackage.cs" />
     <Compile Include="Model\EAProjectWrapper.cs" />
-    <Compile Include="Model\EARepositoryWrapper.cs" />
-    <Compile Include="Model\IEAWrapper.cs" />
+    <Compile Include="Model\EARepository.cs" />
+    <Compile Include="Model\IEAObject.cs" />
     <Compile Include="Model\Events\EAEventAdapter.cs" />
     <Compile Include="Model\Events\IEAAddInEvents.cs" />
     <Compile Include="Model\Events\IEABroadcastEvents.cs" />
@@ -90,12 +91,11 @@
     <Compile Include="Logic\Rules\NoLoopRule.cs" />
     <Compile Include="Logic\Rules\RuleManager.cs" />
     <Compile Include="Model\DVStereotypes.cs" />
+    <Compile Include="Model\IModelItem.cs" />
+    <Compile Include="Model\IModelObject.cs" />
+    <Compile Include="Model\NativeType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs" />
     <Compile Include="SelectDiagram.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,7 +108,7 @@
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -1,8 +1,9 @@
+using System;
 using EA;
 
 namespace DecisionViewpoints.Model
 {
-    public class EAConnectorWrapper : IEAWrapper
+    public class EAConnectorWrapper : IEAObject
     {
         private readonly int _clientId;
         private readonly Connector _connector;        
@@ -49,6 +50,7 @@ namespace DecisionViewpoints.Model
             get { return _supplierId; }
         }
 
+        [Obsolete]
         public Connector Connector
         {
             get { return _connector; }

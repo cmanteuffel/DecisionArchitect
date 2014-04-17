@@ -1,6 +1,6 @@
 ﻿namespace DecisionViewpoints.Model
 {
-    public interface IEAWrapper
+    public interface IEAObject
     {
     }
 }

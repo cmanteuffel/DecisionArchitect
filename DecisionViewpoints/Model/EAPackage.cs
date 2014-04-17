@@ -1,30 +1,39 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
+﻿using System;
 using EA;
 
 namespace DecisionViewpoints.Model
 {
-    public class EAPackageWrapper : IEAWrapper
+    public class EAPackage : IModelObject
     {
         private readonly Package _package;
 
-        public EAPackageWrapper(Package package)
+        public EAPackage(Package package)
         {
             _package = package;
         }
 
-        public string GUID()
+        public string GUID
         {
-            return _package.PackageGUID;
+            get { return _package.PackageGUID; }
         }
 
+        public int ID { get; private set; }
+        public NativeType NativeType { get; private set; }
+        public string Name { get; set; }
+        public string Notes { get; set; }
+        public DateTime Created { get; set; }
+        public DateTime Modified { get; set; }
+        public string Version { get; set; }
+        public EAPackage ParentPackage { get; set; }
+        public IModelObject Parent { get; set; }
+
+        [Obsolete]
         public Package Get()
         {
             return _package;
         }
 
-        public Package CreatePackage(IDualRepository repository, string name, string stereotype="")
+        public Package CreatePackage(IDualRepository repository, string name, string stereotype = "")
         {
             Package newPackage = _package.Packages.AddNew(name, "");
             newPackage.Update();
@@ -70,6 +79,11 @@ namespace DecisionViewpoints.Model
         public Diagram GetDiagram(string name)
         {
             return _package.Diagrams.GetByName(name);
+        }
+
+        public static EAPackage Wrap(Package packageID)
+        {
+            throw new NotImplementedException();
         }
     }
 }

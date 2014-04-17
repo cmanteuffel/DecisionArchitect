@@ -34,7 +34,7 @@ namespace DecisionViewpoints.Logic.Rules
         {
         }
 
-        public void ValidateElementUsingRuleID(Repository repository, string ruleID, EAElementWrapper element)
+        public void ValidateElementUsingRuleID(Repository repository, string ruleID, EAElement element)
         {
             Project project = repository.GetProjectInterface();
             AbstractRule rule = _lookup[ruleID];

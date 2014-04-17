@@ -5,8 +5,8 @@ using System.Windows.Forms;
 using System.Xml;
 using DecisionViewpoints.Logic.AutoGeneration;
 using DecisionViewpoints.Model;
-using DecisionViewpoints.Properties;
 using EA;
+using DecisionViewpoints.Properties;
 
 namespace DecisionViewpoints.Logic
 {
@@ -37,8 +37,8 @@ namespace DecisionViewpoints.Logic
         private static readonly string StakeholderInvolvementDiagramMetaType =
             Settings.Default["StakeholderInvolvementDiagramMetaType"].ToString();
 
-        private static readonly Dictionary<string, EAElementWrapper> TraceMenuContext =
-            new Dictionary<string, EAElementWrapper>();
+        private static readonly Dictionary<string, EAElement> TraceMenuContext =
+            new Dictionary<string, EAElement>();
 
         public static object GetMenuItems(Repository repository, string location, string menuName)
         {
@@ -146,12 +146,12 @@ namespace DecisionViewpoints.Logic
                 default:
                     if (menuName.Equals(MenuTracingFollowTraces))
                     {
-                        EAElementWrapper element = TraceMenuContext[itemName];
+                        EAElement element = TraceMenuContext[itemName];
                         Diagram[] diagrams = element.GetDiagrams();
                         if (diagrams.Count() == 1)
                         {
                             Diagram d = diagrams[0];
-                            var diagram = new EADiagramWrapper(d);
+                            var diagram = EADiagram.Wrap(d);
                             diagram.OpenAndSelectElement(repository, element.Element);
                         }
                         else if (diagrams.Count() >= 2)
@@ -160,7 +160,7 @@ namespace DecisionViewpoints.Logic
                             if (selectForm.ShowDialog() == DialogResult.OK)
                             {
                                 Diagram d = selectForm.GetSelectedDiagram();
-                                var diagram = new EADiagramWrapper(d);
+                                var diagram = EADiagram.Wrap(d);
                                 diagram.OpenAndSelectElement(repository, element.Element);
                             }
                         }
@@ -209,9 +209,9 @@ namespace DecisionViewpoints.Logic
                 var eaelement = obj as Element;
                 if (eaelement != null)
                 {
-                    EAElementWrapper element = EAElementWrapper.Wrap(repository, eaelement);
+                    EAElement element = EAElement.Wrap(repository, eaelement);
 
-                    foreach (EAElementWrapper tracedElement in element.GetTracedElements())
+                    foreach (EAElement tracedElement in element.GetTracedElements())
                     {
                         string menuItem = tracedElement.GetProjectPath() + "/" + tracedElement.Element.Name;
 
@@ -242,10 +242,10 @@ namespace DecisionViewpoints.Logic
         {
             var project = new EAProjectWrapper(repository);
             Package root = repository.Models.GetAt(0);
-            var dv = new EAPackageWrapper(root.Packages.GetByName("Decision Views"));
+            var dv = new EAPackage(root.Packages.GetByName("Decision Views"));
             Package pack = dv.CreatePackage(repository, "Data", "generated");
-            var hp = new EAPackageWrapper(pack);
-            var cd = new EADiagramWrapper(dv.GetDiagram("Chronological"));
+            var hp = new EAPackage(pack);
+            var cd = EADiagram.Wrap(dv.GetDiagram("Chronological"));
             XmlNodeList baselines = project.ReadPackageBaselines(repository, dv);
             project.ComparePackageBaselines(repository, dv, baselines);
             var chronologicalViewGenarator = new ChronologicalGenerator(repository, project, dv, hp, cd);
@@ -259,9 +259,9 @@ namespace DecisionViewpoints.Logic
         private static void CreateBaselines(Repository repository)
         {
             var project = new EAProjectWrapper(repository);
-            var rep = new EARepositoryWrapper(repository);
+            var rep = new EARepository(repository);
             string notes = String.Format("Baseline Time: {0}", DateTime.Now);
-            var dvp = new EAPackageWrapper(rep.GetPackageFromRootByName("Decision Views"));
+            var dvp = new EAPackage(rep.GetPackageFromRootByName("Decision Views"));
             string bv = project.GetBaselineLatestVesrion(repository, dvp);
             project.CreateBaseline(dvp.Get().PackageGUID, bv, notes);
         }
@@ -298,7 +298,7 @@ namespace DecisionViewpoints.Logic
         /// <param name="repository">The EA repository.</param>
         private static void CreateProjectStructure(Repository repository)
         {
-            var rep = new EARepositoryWrapper(repository);
+            var rep = new EARepository(repository);
             Package decisionViewpoints = rep.CreateView("Decision Views", 0);
             rep.CreateDiagram(decisionViewpoints, "Relationship", RelationshipDiagramMetaType);
             rep.CreateDiagram(decisionViewpoints, "Chronological", ChronologicalDiagramMetaType);

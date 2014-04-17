@@ -8,7 +8,7 @@ using EA;
 
 namespace DecisionViewpoints.Model
 {
-    public class EAProjectWrapper : IEAWrapper
+    public class EAProjectWrapper : IEAObject
     {
         private readonly Project _project;
         private readonly Dictionary<string, XmlNodeList> _comparisonResults = new Dictionary<string, XmlNodeList>();
@@ -18,9 +18,9 @@ namespace DecisionViewpoints.Model
             _project = repository.GetProjectInterface();
         }
 
-        public string GetPackageXml(EAPackageWrapper package)
+        public string GetPackageXml(EAPackage package)
         {
-            return _project.GUIDtoXML(package.GUID());
+            return _project.GUIDtoXML(package.GUID);
         }
 
         public Dictionary<string, XmlNodeList> GetComparisonResults()
@@ -28,7 +28,8 @@ namespace DecisionViewpoints.Model
             return _comparisonResults;
         }
 
-        public string GetBaselineLatestVesrion(IDualRepository repository, EAPackageWrapper package)
+        //TODO: FIX NAN ISSUE
+        public string GetBaselineLatestVesrion(IDualRepository repository, EAPackage package)
         {
             var xmlBaselines = _project.GetBaselines(GetPackageXml(package), "");
             var xml = new XmlDocument();
@@ -49,7 +50,7 @@ namespace DecisionViewpoints.Model
             return _project.CreateBaseline(packageGUID, version, notes);
         }
 
-        public XmlNodeList ReadPackageBaselines(IDualRepository repository, EAPackageWrapper package)
+        public XmlNodeList ReadPackageBaselines(IDualRepository repository, EAPackage package)
         {
             var xmlBaselines = _project.GetBaselines(GetPackageXml(package), "");
             var xml = new XmlDocument();
@@ -58,7 +59,8 @@ namespace DecisionViewpoints.Model
             return xml.SelectNodes("//@guid");
         }
 
-        public void ComparePackageBaselines(IDualRepository repository, EAPackageWrapper package, XmlNodeList baselines)
+        //TODO: Identification of Decision not sufficient
+        public void ComparePackageBaselines(IDualRepository repository, EAPackage package, XmlNodeList baselines)
         {
             foreach (XmlNode baseline in baselines)
             {

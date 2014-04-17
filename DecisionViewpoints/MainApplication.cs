@@ -88,7 +88,7 @@ namespace DecisionViewpoints
 
         public override void EA_OnRunElementRule(Repository repository, string ruleId, Element element)
         {
-            var wrappedElement = EAElementWrapper.Wrap(repository, element);
+            var wrappedElement = EAElement.Wrap(repository, element);
            _modelValidator.ValidateElementUsingRuleID(repository, ruleId, wrappedElement);
         }
 
