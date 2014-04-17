@@ -11,10 +11,10 @@ namespace DecisionViewpoints.Model.Rules
             _errorMessage = errorMessage;
         }
 
-        public override bool ValidateConnector(PreConnector connector, out string message)
+        public override bool ValidateConnector(EAConnectorWrapper connectorWrapper, out string message)
         {
             message = "";
-            if (connector.SupplierId == connector.ClientId)
+            if (connectorWrapper.SupplierId == connectorWrapper.ClientId)
             {
                 message = _errorMessage;
                 return false;

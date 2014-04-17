@@ -20,14 +20,14 @@ namespace DecisionViewpoints.Model.Rules
             _supplierState.UnionWith(supplierStates);
         }
 
-        public override bool ValidateConnector(PreConnector connector, out string message)
+        public override bool ValidateConnector(EAConnectorWrapper connectorWrapper, out string message)
         {
             message = "";
-            if (_relationType.Count == 0 ||_relationType.Contains(connector.Stereotype))
+            if (_relationType.Count == 0 ||_relationType.Contains(connectorWrapper.Stereotype))
             {
-                if (_clientState.Count == 0 || _clientState.Contains(connector.GetClient().GetStereotypeList()))
+                if (_clientState.Count == 0 || _clientState.Contains(connectorWrapper.GetClient().GetStereotypeList()))
                 {
-                    if (_supplierState.Count == 0 || _supplierState.Contains(connector.GetSupplier().GetStereotypeList()))
+                    if (_supplierState.Count == 0 || _supplierState.Contains(connectorWrapper.GetSupplier().GetStereotypeList()))
                     {
                         message = _errorMessage;
                         return false;

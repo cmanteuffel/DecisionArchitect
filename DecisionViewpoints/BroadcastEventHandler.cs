@@ -39,15 +39,9 @@ namespace DecisionViewpoints
         /// <returns>Returns true to permit the creation of the connector, false to deny.</returns>
         public static bool OnPreNewConnector(Repository repository, EventProperties info)
         {
-            PreConnector connector = PreConnector.Wrap(repository, info);
-
-            if (!Stereotypes.Relationships.Contains(connector.Stereotype))
-            {
-                return true;
-            }
-
+            EAConnectorWrapper connectorWrapper = EAConnectorWrapper.Wrap(repository, info);
             string message;
-            if (!Validator.Instance.ValidateConnector(connector, out message))
+            if (!Validator.Instance.ValidateConnector(connectorWrapper, out message))
             {
                 MessageBox.Show(message);
                 return false;
@@ -91,12 +85,7 @@ namespace DecisionViewpoints
                     break;
                 case ObjectType.otConnector:
                     var connector = repository.GetConnectorByGuid(guid);
-                    switch (connector.Stereotype)
-                    {
-                        case RelStereotype:
-                            // RelContextChanged(repository, connector);
-                            break;
-                    }
+                    EAConnectorWrapper connectorWrapper = EAConnectorWrapper.Wrap(repository, guid);
                     break;
             }
         }

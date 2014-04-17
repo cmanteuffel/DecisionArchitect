@@ -58,16 +58,15 @@
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
     <Compile Include="Model\Rules\CompositeRule.cs" />
-    <Compile Include="Model\EventPropertyKeys.cs" />
+    <Compile Include="Model\EAEventPropertyKeys.cs" />
     <Compile Include="Model\Rules\ExclusionRule.cs" />
     <Compile Include="Model\Rules\ICompositeRule.cs" />
-    <Compile Include="Model\PreConnector.cs" />
+    <Compile Include="Model\EAConnectorWrapper.cs" />
     <Compile Include="Model\Rules\ConnectorRule.cs" />
     <Compile Include="Model\Rules\IConnectorRule.cs" />
     <Compile Include="Model\Rules\NoLoopRule.cs" />
     <Compile Include="Model\Rules\Validator.cs" />
-    <Compile Include="Model\States.cs" />
-    <Compile Include="Model\Stereotypes.cs" />
+    <Compile Include="Model\DVStereotypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

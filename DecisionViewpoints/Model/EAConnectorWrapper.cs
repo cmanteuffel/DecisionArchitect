@@ -1,8 +1,10 @@
+using System.Globalization;
+using System.Windows.Forms;
 using EA;
 
 namespace DecisionViewpoints.Model
 {
-    public  class PreConnector
+    public  class EAConnectorWrapper
     {
         private readonly int _clientId;
         private readonly int _diagramId;
@@ -12,16 +14,16 @@ namespace DecisionViewpoints.Model
         private readonly int _supplierId;
         private readonly string _type;
 
-        private PreConnector(Repository repository, EventProperties properties)
+        private EAConnectorWrapper(Repository repository, EventProperties properties)
         {
             _repository = repository;
-            _type = properties.Get(EventPropertyKeys.Type).Value;
-            _subtype = properties.Get(EventPropertyKeys.Subtype).Value;
-            _stereotype = properties.Get(EventPropertyKeys.Stereotype).Value;
+            _type = properties.Get(EAEventPropertyKeys.Type).Value;
+            _subtype = properties.Get(EAEventPropertyKeys.Subtype).Value;
+            _stereotype = properties.Get(EAEventPropertyKeys.Stereotype).Value;
 
-            _supplierId = Utilities.ParseToInt32(properties.Get(EventPropertyKeys.SupplierId).Value, -1);
-            _clientId = Utilities.ParseToInt32(properties.Get(EventPropertyKeys.ClientId).Value, -1);
-            _diagramId = Utilities.ParseToInt32(properties.Get(EventPropertyKeys.DiagramId).Value, -1);
+            _supplierId = Utilities.ParseToInt32(properties.Get(EAEventPropertyKeys.SupplierId).Value, -1);
+            _clientId = Utilities.ParseToInt32(properties.Get(EAEventPropertyKeys.ClientId).Value, -1);
+            _diagramId = Utilities.ParseToInt32(properties.Get(EAEventPropertyKeys.DiagramId).Value, -1);
         }
 
         public string Subtype
@@ -54,9 +56,20 @@ namespace DecisionViewpoints.Model
             get { return _supplierId; }
         }
 
-        public static PreConnector Wrap(Repository repository, EventProperties properties)
+        public static EAConnectorWrapper Wrap(Repository repository, EventProperties properties)
         {
-            return new PreConnector(repository, properties);
+            return new EAConnectorWrapper(repository, properties);
+        }
+
+        public static EAConnectorWrapper Wrap(Repository repository, string guid)
+        {
+            Element element = repository.GetElementByGuid(guid);
+            if (element is Connector)
+            {
+                var eaConnector = (Connector) element;
+                MessageBox.Show("Converted element to connector");
+            }
+            return null;
         }
 
         public Diagram GetDiagram()

@@ -13,12 +13,12 @@ namespace DecisionViewpointsTests
         {
             _properties = new Dictionary<string, EventProperty>
                     {
-                        {EventPropertyKeys.Type, null},
-                        {EventPropertyKeys.Subtype, null},
-                        {EventPropertyKeys.Stereotype, null},
-                        {EventPropertyKeys.ClientId, null},
-                        {EventPropertyKeys.SupplierId, null},
-                        {EventPropertyKeys.DiagramId, null},
+                        {EAEventPropertyKeys.Type, null},
+                        {EAEventPropertyKeys.Subtype, null},
+                        {EAEventPropertyKeys.Stereotype, null},
+                        {EAEventPropertyKeys.ClientId, null},
+                        {EAEventPropertyKeys.SupplierId, null},
+                        {EAEventPropertyKeys.DiagramId, null},
                     };
         }
 

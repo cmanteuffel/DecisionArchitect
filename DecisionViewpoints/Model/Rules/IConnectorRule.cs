@@ -2,6 +2,6 @@ namespace DecisionViewpoints.Model.Rules
 {
     internal interface IConnectorRule
     {
-        bool ValidateConnector(PreConnector connector, out string message);
+        bool ValidateConnector(EAConnectorWrapper connectorWrapper, out string message);
     }
 }

@@ -8,12 +8,12 @@ namespace DecisionViewpoints.Model.Rules
     {
         private readonly ICollection<ConnectorRule> _childRules = new Collection<ConnectorRule>();
 
-        public override bool ValidateConnector(PreConnector connector, out string message)
+        public override bool ValidateConnector(EAConnectorWrapper connectorWrapper, out string message)
         {
             message = "";
             foreach (ConnectorRule rule in _childRules)
             {
-                if (!rule.ValidateConnector(connector, out message))
+                if (!rule.ValidateConnector(connectorWrapper, out message))
                 {
                     return false;
                 }
