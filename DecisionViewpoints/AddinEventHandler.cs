@@ -12,7 +12,7 @@ namespace DecisionViewpoints
     {
         // define menu constants
         private const string MenuHeader = "-&DecisionVS";
-        private const string MenuCreateDecisionViews = "Create Decision &Views";
+        private const string MenuCreateProjectStructure = "Create Decision &Views";
         private const string MenuCreateDecisionGroup = "Create Decision &Group";
         private const string Con = "connected";
 
@@ -40,7 +40,7 @@ namespace DecisionViewpoints
                 case "":
                     return MenuHeader;
                 case MenuHeader:
-                    string[] subMenus = { MenuCreateDecisionViews, MenuCreateDecisionGroup };
+                    string[] subMenus = {MenuCreateProjectStructure, MenuCreateDecisionGroup};
                     return subMenus;
             }
             return "";
@@ -62,7 +62,7 @@ namespace DecisionViewpoints
             {
                 switch (itemName)
                 {
-                    case MenuCreateDecisionViews:
+                    case MenuCreateProjectStructure:
                         isEnabled = true;
                         break;
                     case MenuCreateDecisionGroup:
@@ -91,7 +91,7 @@ namespace DecisionViewpoints
         {
             switch (itemName)
             {
-                case MenuCreateDecisionViews:
+                case MenuCreateProjectStructure:
                     CreateDecisionViews(repository);
                     break;
                 case MenuCreateDecisionGroup:
