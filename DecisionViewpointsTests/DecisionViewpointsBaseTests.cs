@@ -9,7 +9,7 @@ namespace DecisionViewpointsTests
     public class DecisionViewpointsBaseTests
     {
         //all .eap files should be one location - path to be added later
-        private const string EapTestProjectName = "\\DecisionViewUnitTestsProject.eap";
+        private const string EapTestProjectName = "\\EATestFiles\\DecisionViewUnitTestsProject.eap";
 
         public MainApplication MainApp { get; private set; }
 
