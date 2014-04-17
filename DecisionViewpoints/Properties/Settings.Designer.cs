@@ -25,7 +25,7 @@ namespace DecisionViewpoints.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Decision ")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Decision")]
         public string DecisionMetaType {
             get {
                 return ((string)(this["DecisionMetaType"]));

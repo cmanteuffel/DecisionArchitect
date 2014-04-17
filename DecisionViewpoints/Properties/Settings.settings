@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="DecisionMetaType" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Decision </Value>
+      <Value Profile="(Default)">Decision</Value>
     </Setting>
     <Setting Name="DiagramMetaType" Type="System.String" Scope="User">
       <Value Profile="(Default)">DecisionVS::RelationshipView</Value>

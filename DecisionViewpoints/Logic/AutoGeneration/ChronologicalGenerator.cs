@@ -61,7 +61,8 @@ namespace DecisionViewpoints.Logic.AutoGeneration
 
         private static void CreateConnector(IDualElement lastModified, IDualElement newElement)
         {
-            Connector connector = lastModified.Connectors.AddNew("", "Dependency");
+            Connector connector = lastModified.Connectors.AddNew("", "ControlFlow");
+            connector.Stereotype = "followed by";
             connector.SupplierID = newElement.ElementID;
             connector.Update();
             lastModified.Connectors.Refresh();
