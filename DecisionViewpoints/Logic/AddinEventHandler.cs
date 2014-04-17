@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml;
 using DecisionViewpoints.Logic.AutoGeneration;
@@ -34,10 +33,7 @@ namespace DecisionViewpoints.Logic
         private static readonly string StakeholderInvolvementDiagramMetaType =
             Settings.Default["StakeholderInvolvementDiagramMetaType"].ToString();
 
-
-        private static readonly Regex traceMenuRegex = new Regex(@"[1-9][0-9]*:");
-
-        private static readonly Dictionary<string, EAElementWrapper> _traceMenuContext =
+        private static readonly Dictionary<string, EAElementWrapper> TraceMenuContext =
             new Dictionary<string, EAElementWrapper>();
 
         public static object GetMenuItems(Repository repository, string location, string menuName)
@@ -88,7 +84,7 @@ namespace DecisionViewpoints.Logic
                         isEnabled = !bo.GetOption(BaselineOptions.Option.Manually);
                         break;
                     default:
-                        isEnabled = (traceMenuRegex.IsMatch(itemName));
+                        isEnabled = menuName.Equals(MenuTracingFollowTraces);
                         break;
                 }
             }
@@ -129,9 +125,9 @@ namespace DecisionViewpoints.Logic
                     bo.SetOption(BaselineOptions.Option.Manually, true);
                     break;
                 default:
-                    if (menuName.Equals(MenuTracingFollowTraces) && traceMenuRegex.IsMatch(itemName))
+                    if (menuName.Equals(MenuTracingFollowTraces))
                     {
-                        EAElementWrapper element = _traceMenuContext[itemName];
+                        EAElementWrapper element = TraceMenuContext[itemName];
                         Diagram[] diagrams = element.GetDiagrams();
                         if (diagrams.Count() == 1)
                         {
@@ -158,7 +154,7 @@ namespace DecisionViewpoints.Logic
 
         private static string[] CreateTraceSubmenu(Repository repository)
         {
-            _traceMenuContext.Clear();
+            TraceMenuContext.Clear();
             if (ObjectType.otElement == repository.GetContextItemType())
             {
                 dynamic obj = repository.GetContextObject();
@@ -167,13 +163,27 @@ namespace DecisionViewpoints.Logic
                 {
                     EAElementWrapper element = EAElementWrapper.Wrap(repository, eaelement);
 
-                    int i = 0;
                     foreach (EAElementWrapper tracedElement in element.GetTracedElements())
                     {
-                        string menuItem = ++i + ": " + tracedElement.Element.Name;
-                        _traceMenuContext[menuItem] = tracedElement;
+                        string menuItem = tracedElement.GetProjectPath() + "/" + tracedElement.Element.Name;
+
+                        if (! "".Equals(tracedElement.Stereotype))
+                        {
+                            menuItem += " «" + tracedElement.Stereotype + "»";
                     }
-                    return _traceMenuContext.Keys.ToArray();
+
+                        int duplicate = 1;
+                        string uniqueMenuItem = menuItem;
+                        while (TraceMenuContext.ContainsKey(uniqueMenuItem))
+                        {
+                            // identify number of duplication
+                            uniqueMenuItem = menuItem + " (" + ++duplicate + ")";
+                        }
+                        TraceMenuContext[uniqueMenuItem] = tracedElement;
+                    }
+                    List<string> menuItems = TraceMenuContext.Keys.ToList();
+                    menuItems.Sort();
+                    return menuItems.ToArray();
                 }
             }
             return new string[0];

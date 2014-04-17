@@ -100,6 +100,21 @@ namespace DecisionViewpoints.Model
             return traces.ToArray();
         }
 
+        public string GetProjectPath()
+        {
+            
+            
+            Package current = Repository.GetPackageByID(_element.PackageID);;
+            string path = current.Name;
+            if (current.ParentID != 0)
+            {
+                current = Repository.GetPackageByID(current.ParentID);
+                path = current.Name + "/" + path;
+            }
+            path = "//" + path;
+            return path;
+        }
+
         public Diagram[] GetDiagrams()
         {
             string sql =
