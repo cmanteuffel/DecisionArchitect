@@ -1,7 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using EA;
 
 namespace DecisionViewpointsTests
@@ -31,7 +28,6 @@ namespace DecisionViewpointsTests
             MainApp.EA_GetMenuState(Repo, "TreeView", "-&DecisionVS", "Create Decision &Views",
                 ref isEnabled, ref isChecked);
             Assert.IsFalse(isEnabled);
-            
         }
 
         [TestMethod]
@@ -42,22 +38,23 @@ namespace DecisionViewpointsTests
             var isChecked = false;
             MainApp.EA_GetMenuState(Repo, "TreeView", "-&DecisionVS", "Create Decision &Views",
                 ref isEnabled, ref isChecked);
-            Assert.IsTrue(isEnabled);
             CloseRepositoryFile();
+            Assert.IsTrue(isEnabled);
         }
 
         [TestMethod]
         public void MenuClick_CreateProjectStructure_ExpectedStructureCreated()
         {
             OpenRepositoryFile();
+            ClearRepository();
             MainApp.EA_MenuClick(Repo, "TreeView", "-&DecisionVS", "Create Decision &Views");
             Package root = Repo.Models.GetAt(0);
             Package view = root.Packages.GetAt(0);
-            Assert.AreEqual("Decision Relationship View", view.Name);
             Diagram diagram = view.Diagrams.GetAt(0);
-            Assert.AreEqual("Decision Relationship View", diagram.Name);
             ClearRepository();
             CloseRepositoryFile();
+            Assert.AreEqual("Decision Relationship View", view.Name);
+            Assert.AreEqual("Decision Relationship View", diagram.Name);
         }
     }
 }
