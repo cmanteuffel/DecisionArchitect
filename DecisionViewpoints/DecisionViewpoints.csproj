@@ -57,6 +57,8 @@
     <Compile Include="Logic\Rules\ModelValidator.cs" />
     <Compile Include="Logic\Rules\NameUniquenessRule.cs" />
     <Compile Include="Logic\Rules\RuleType.cs" />
+    <Compile Include="Logic\AutoGeneration\ChronologicalGenerator.cs" />
+    <Compile Include="Logic\AutoGeneration\IAutoGenerator.cs" />
     <Compile Include="Model\EAElementWrapper.cs" />
     <Compile Include="Logic\Rules\AbstractRule.cs" />
     <Compile Include="MainApplication.cs" />
@@ -98,7 +100,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DecisionViewpoints.xml" />
+    <EmbeddedResource Include="DecisionViewpoints.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

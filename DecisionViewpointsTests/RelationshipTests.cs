@@ -292,9 +292,8 @@ namespace DecisionViewpointsTests
             Element supplier = view.Elements.GetByName(String.Format("{0}_supplier", supplierState));
             // Get the client Decision element from the Repository
             Element client = view.Elements.GetByName(String.Format("{0}_client", clientState));
-            // Create a Relationship between them
-            const string type = "ControlFlow";
             // Test if the relationship can be created
+            const string type = "ControlFlow";
             var info = EAEventPropertiesHelper.GetInstance(type, "", relationshipStereotype, client.ElementID,
                                                            supplier.ElementID, diagram.DiagramID);
             var connector = EAConnectorWrapper.Wrap(Repo, info);

@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
+using DecisionViewpoints.Logic.AutoGeneration;
 using DecisionViewpoints.Logic.Rules;
 using DecisionViewpoints.Model;
 using DecisionViewpoints.Properties;
@@ -11,7 +14,7 @@ namespace DecisionViewpoints.Logic
     {
         // These values need to be consistent with the ones defined in the DecisionVS MDG file.
         private const string RelStereotype = "Relationship";
-        private static readonly string DecisionStereotype = Settings.Default["DecisionStereotype"].ToString();
+        private static readonly string DecisionMetaType = Settings.Default["DecisionMetaType"].ToString();
         private static readonly string DiagramMetaType = Settings.Default["DiagramMetaType"].ToString();
         private static readonly string ToolboxName = Settings.Default["ToolboxName"].ToString();
         private static string lastGUID = string.Empty;
@@ -68,7 +71,7 @@ namespace DecisionViewpoints.Logic
 
         public static string OnPostOpenDiagram(Repository repository, int diagramId)
         {
-            Diagram diagram = repository.GetDiagramByID(diagramId);
+            var diagram = repository.GetDiagramByID(diagramId);
             if (!diagram.MetaType.Equals(DiagramMetaType)) return "";
             return repository.ActivateToolbox(ToolboxName, 0) ? ToolboxName : "";
         }
@@ -81,7 +84,7 @@ namespace DecisionViewpoints.Logic
                 case ObjectType.otElement:
 
 
-                    EAElementWrapper element = EAElementWrapper.Wrap(repository, guid);
+                    var element = EAElementWrapper.Wrap(repository, guid);
 
                     //dirty hack to prevent that the event is fired twice when an decision is modified
                     if (lastGUID.Equals(guid) && lastChange.Equals(element.Element.Modified))
@@ -101,9 +104,16 @@ namespace DecisionViewpoints.Logic
                     }
                     lastGUID = guid;
                     lastChange = element.Element.Modified;
+
+                    // Update the ChronologicalGenerator View to reflect changes
+                    if (element.Element.MetaType.Equals(DecisionMetaType))
+                    {
+                        var chronologicalGenerator = new ChronologicalGenerator(repository);
+                        chronologicalGenerator.Update(element);
+                    }
                     break;
                 case ObjectType.otConnector:
-                    EAConnectorWrapper connectorWrapper = EAConnectorWrapper.Wrap(repository, guid);
+                    var connectorWrapper = EAConnectorWrapper.Wrap(repository, guid);
 
                     //dirty hack that prevents that an modified event is fired after a connector has been created
                     if (_preventConnectorModifiedEvent)
@@ -125,7 +135,6 @@ namespace DecisionViewpoints.Logic
                     break;
             }
         }
-
 
         public static void OnContextItemChanged(Repository repository, string guid, ObjectType type)
         {

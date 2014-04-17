@@ -341,7 +341,6 @@
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
 		<row><td>DecisionViewpoints.Primary_output1</td><td>{61EEA843-2A63-460D-8271-E7B44EEA4A02}</td><td>INSTALLDIR</td><td>2</td><td/><td>decisionviewpoints.primary_o1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>ISX_DEFAULTCOMPONENT</td><td>{D127F6C2-A2CC-4CB6-BBB5-580828A289E9}</td><td>MDG_TECHNOLOGY</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{7E7D0D85-0F5D-4897-966A-DECDF1BF53C2}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
@@ -1159,7 +1158,6 @@
 		<row><td>ISMyProductDir</td><td>ISMyCompanyDir</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
 		<row><td>ISYourDataBaseDir</td><td>INSTALLDIR</td><td>Database</td><td/><td>0</td><td/></row>
 		<row><td>LocalAppDataFolder</td><td>TARGETDIR</td><td>.:LocalA~1|LocalAppData</td><td/><td>0</td><td/></row>
-		<row><td>MDG_TECHNOLOGY</td><td>INSTALLDIR</td><td>MDGTEC~1|MDG Technology</td><td/><td>0</td><td/></row>
 		<row><td>MICROSOFT.NET</td><td>WINDOWS</td><td>MICROS~1|Microsoft.NET</td><td/><td>0</td><td/></row>
 		<row><td>MICROSOFT.NET1</td><td>SystemFolder</td><td>MICROS~1|Microsoft.NET</td><td/><td>0</td><td/></row>
 		<row><td>MICROSOFT.NET2</td><td>WinDir</td><td>MICROS~1|Microsoft.NET</td><td/><td>0</td><td/></row>
@@ -1888,7 +1886,6 @@
 		<col key="yes" def="s38">Feature_</col>
 		<col key="yes" def="s72">Component_</col>
 		<row><td>AlwaysInstall</td><td>DecisionViewpoints.Primary_output1</td></row>
-		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT1</td></row>
 	</table>
 
@@ -1905,7 +1902,6 @@
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
 		<row><td>decisionviewpoints.primary_o1</td><td>DecisionViewpoints.Primary_output1</td><td>DecisionViewpoints.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;DecisionViewpoints&gt;|Built</td><td>3</td><td/></row>
-		<row><td>decisionviewpoints.xml</td><td>ISX_DEFAULTCOMPONENT</td><td>DECISI~1.XML|DecisionViewpoints.xml</td><td>0</td><td/><td/><td/><td>1</td><td>F:\DecisionViewpoints\ViewpointsMetamodel\DecisionViewpoints.xml</td><td>1</td><td/></row>
 	</table>
 
 	<table name="FileSFPCatalog">
@@ -2164,7 +2160,6 @@
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
 		<row><td>DecisionViewpoints.Primary_output1</td><td/><td/><td>_58981E3A_4A50_4C7A_A48D_1ACBA4B99F5E_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>ISX_DEFAULTCOMPONENT</td><td/><td/><td>_2E640C30_B1D1_4A70_B20B_12C7BD287637_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_D048FC65_A288_403C_81A5_7E8F6B4D2B00_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
@@ -3895,7 +3890,7 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>295819617</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>295819617</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>295819617</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://www.SEARCHGroup.com</td><td>0</td><td/><td>-1717456532</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://www.cs.rug.nl/search/</td><td>0</td><td/><td>706830798</td></row>
 		<row><td>ID_STRING2</td><td>1033</td><td>SEARCH Group</td><td>0</td><td/><td>-1717456532</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>=-NewEnvironment1</td><td>0</td><td/><td>2040626001</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>=-NewEnvironment1</td><td>0</td><td/><td>2040599409</td></row>

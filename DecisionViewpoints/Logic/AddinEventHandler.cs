@@ -12,6 +12,7 @@ namespace DecisionViewpoints.Logic
         public const string MenuHeader = "-&Decision Viewpoints";
         public const string MenuCreateProjectStructure = "&Create Project Structure";
         public const string MenuTestBaselines = "&Test Baselines";
+        public const string MenuGenerateChronological = "Generate CVP";
 
         private static readonly string DiagramMetaType = Settings.Default["DiagramMetaType"].ToString();
 
@@ -23,7 +24,7 @@ namespace DecisionViewpoints.Logic
                 case "":
                     return MenuHeader;
                 case MenuHeader:
-                    string[] subMenus = {MenuCreateProjectStructure};
+                    string[] subMenus = {MenuCreateProjectStructure, MenuTestBaselines, MenuGenerateChronological};
                     return subMenus;
             }
             return "";
@@ -38,6 +39,9 @@ namespace DecisionViewpoints.Logic
                     break;
                 case MenuTestBaselines:
                     TestBaselines(repository);
+                    break;
+                case MenuGenerateChronological:
+                    //GenerateChronologicalView(repository);
                     break;
                     /*case MenuCreateDecisionGroup:
                 CreateDecisionGroup(repository);
@@ -105,6 +109,7 @@ namespace DecisionViewpoints.Logic
                 {
                     case MenuCreateProjectStructure:
                     case MenuTestBaselines:
+                    case MenuGenerateChronological:
                         isEnabled = true;
                         break;
                         /*case MenuCreateDecisionGroup:
@@ -154,19 +159,25 @@ namespace DecisionViewpoints.Logic
         /// <param name="repository">The EA repository.</param>
         private static void CreateProjectStructure(IDualRepository repository)
         {
-            // Create new Decision Relationship View
+            CreateNewView(repository, "Decision Relationship View", 0);
+            CreateNewView(repository, "Decision ChronologicalGenerator View", 1);
+            // TODO: Still to implement the creation of the other four views and the related diagrams.
+        }
+
+        private static void CreateNewView(IDualRepository repository, string name, int pos)
+        {
             Package root = repository.Models.GetAt(0);
-            Package view = root.Packages.AddNew("Decision Relationship View", "");
+            Package vp = root.Packages.AddNew(name, "");
             // Set the icon of the view. Info can be found in ScriptingEA page 20
-            view.Flags = "VICON=0;";
-            view.Update();
+            vp.Flags = "VICON=0;";
+            vp.TreePos = pos;
+            vp.Update();
             root.Packages.Refresh();
             // Create new Decision Relationship model diagram
-            Diagram diagram = view.Diagrams.AddNew("Diagram1", DiagramMetaType);
+            Diagram diagram = vp.Diagrams.AddNew("Diagram1", DiagramMetaType);
             diagram.Update();
-            view.Diagrams.Refresh();
-            repository.RefreshModelView(view.PackageID);
-            // TODO: Still to implement the creation of the other four views and the related diagrams.
+            vp.Diagrams.Refresh();
+            repository.RefreshModelView(vp.PackageID);
         }
     }
 }
