@@ -39,6 +39,7 @@
       <HintPath>..\..\..\..\Program Files (x86)\Sparx Systems\EA\Interop.EA.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
