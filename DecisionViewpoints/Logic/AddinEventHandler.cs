@@ -1,4 +1,5 @@
-﻿using EA;
+﻿using DecisionViewpoints.Properties;
+using EA;
 
 namespace DecisionViewpoints.Logic
 {
@@ -8,11 +9,10 @@ namespace DecisionViewpoints.Logic
     /// </summary>
     public static class AddinEventHandler
     {
-        // define menu constants
-        private const string MenuHeader = "-&Decision Viewpoints";
-        private const string MenuCreateProjectStructure = "&Create Project Structure";
-        // private const string MenuCreateDecisionGroup = "Create Decision &Group";
+        public const string MenuHeader = "-&Decision Viewpoints";
+        public const string MenuCreateProjectStructure = "&Create Project Structure";
 
+        private static readonly string DiagramMetaType = Settings.Default["DiagramMetaType"].ToString();
 
         /// <summary>
         /// </summary>
@@ -112,11 +112,12 @@ namespace DecisionViewpoints.Logic
             // Create new Decision Relationship View
             Package root = repository.Models.GetAt(0);
             Package view = root.Packages.AddNew("Decision Relationship View", "");
+            // Set the icon of the view. Info can be found in ScriptingEA page 20
             view.Flags = "VICON=0;";
             view.Update();
             root.Packages.Refresh();
             // Create new Decision Relationship model diagram
-            Diagram diagram = view.Diagrams.AddNew("Diagram1", "DecisionVS::RelationshipView");
+            Diagram diagram = view.Diagrams.AddNew("Diagram1", DiagramMetaType);
             diagram.Update();
             view.Diagrams.Refresh();
             repository.RefreshModelView(view.PackageID);

@@ -1,4 +1,5 @@
-﻿using EA;
+﻿using DecisionViewpoints.Logic;
+using EA;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DecisionViewpointsTests
@@ -15,8 +16,8 @@ namespace DecisionViewpointsTests
         [TestMethod]
         public void GetMenuItems_ReturnCorrectSubmenus()
         {
-            string[] subMenus = {"&Create Project Structure"};
-            var retrievedSubMenus = (string[])MainApp.EA_GetMenuItems(Repo, "TreeView", "-&Decision Viewpoints");
+            string[] subMenus = {AddinEventHandler.MenuCreateProjectStructure};
+            var retrievedSubMenus = (string[]) MainApp.EA_GetMenuItems(Repo, "TreeView", AddinEventHandler.MenuHeader);
             Assert.AreEqual(subMenus[0], retrievedSubMenus[0]);
         }
 
@@ -25,8 +26,9 @@ namespace DecisionViewpointsTests
         {
             var isEnabled = false;
             var isChecked = false;
-            MainApp.EA_GetMenuState(Repo, "TreeView", "-&Decision Viewpoints", "&Create Project Structure",
-                ref isEnabled, ref isChecked);
+            MainApp.EA_GetMenuState(Repo, "TreeView", AddinEventHandler.MenuHeader,
+                                    AddinEventHandler.MenuCreateProjectStructure,
+                                    ref isEnabled, ref isChecked);
             Assert.IsFalse(isEnabled);
         }
 
@@ -36,8 +38,8 @@ namespace DecisionViewpointsTests
             OpenRepositoryFile(RepositoryType.Empty);
             var isEnabled = false;
             var isChecked = false;
-            MainApp.EA_GetMenuState(Repo, "TreeView", "-&Decision Viewpoints", "&Create Project Structure",
-                ref isEnabled, ref isChecked);
+            MainApp.EA_GetMenuState(Repo, "TreeView", AddinEventHandler.MenuHeader, AddinEventHandler.MenuCreateProjectStructure,
+                                    ref isEnabled, ref isChecked);
             CloseRepositoryFile();
             Assert.IsTrue(isEnabled);
         }
@@ -47,7 +49,7 @@ namespace DecisionViewpointsTests
         {
             OpenRepositoryFile(RepositoryType.Empty);
             ResetRepository(RepositoryType.Empty);
-            MainApp.EA_MenuClick(Repo, "TreeView", "-&Decision Viewpoints", "&Create Project Structure");
+            MainApp.EA_MenuClick(Repo, "TreeView", AddinEventHandler.MenuHeader, AddinEventHandler.MenuCreateProjectStructure);
             Package root = Repo.Models.GetAt(0);
             Package view = root.Packages.GetAt(0);
             Diagram diagram = view.Diagrams.GetAt(0);
