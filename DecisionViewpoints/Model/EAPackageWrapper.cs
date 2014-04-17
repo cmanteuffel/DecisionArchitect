@@ -62,63 +62,9 @@ namespace DecisionViewpoints.Model
             _package.Diagrams.DeleteAt(pos, refresh);
         }
 
-        public Element LastModifiedElement()
+        public Diagram GetDiagram(string name)
         {
-            Element[] lastModified = {null};
-            if (_package.Elements.Count > 0)
-            {
-                lastModified[0] = _package.Elements.GetAt(0);
-                foreach (
-                    var e in from Element e in _package.Elements where e.Modified > lastModified[0].Modified select e)
-                {
-                    lastModified[0] = e;
-                }
-            }
-            return lastModified[0];
-        }
-
-        public Element LastCreated()
-        {
-            Element lastCreated = null;
-            if (_package.Elements.Count > 0)
-            {
-                lastCreated = _package.Elements.GetAt(0);
-                for (short i = 1; i < _package.Elements.Count; i++)
-                {
-                    Element e = _package.Elements.GetAt(i);
-                    if (e.Created > lastCreated.Created)
-                    {
-                        lastCreated = e;
-                    }
-                }
-            }
-            return lastCreated;
-        }
-
-        public Element LastModifiedElement(IReadOnlyList<Element> sameElements)
-        {
-            Element[] lastSameModified = {null};
-            if (sameElements.Count > 0)
-            {
-                lastSameModified[0] = sameElements[0];
-                foreach (var e in sameElements.Where(e => e.Modified > lastSameModified[0].Modified))
-                {
-                    lastSameModified[0] = e;
-                }
-            }
-            return lastSameModified[0];
-        }
-
-        public List<Element> SameElements(EAElementWrapper element)
-        {
-            var sameElements = new List<Element>();
-            if (_package.Elements.Count > 0)
-            {
-                sameElements.AddRange(from Element e in _package.Elements
-                                      where e.Name.Equals(element.Element.Name)
-                                      select e);
-            }
-            return sameElements;
+            return _package.Diagrams.GetByName(name);
         }
     }
 }

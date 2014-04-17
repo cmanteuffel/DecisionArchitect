@@ -13,6 +13,7 @@ namespace DecisionViewpoints.Logic.AutoGeneration
         private static EAPackageWrapper _history;
         private static EAPackageWrapper _generateFrom;
         private static EADiagramWrapper _cvpd;
+        private static Element _lastCreated;
 
         public ChronologicalGenerator(Repository repository, EAProjectWrapper project, EAPackageWrapper generateFrom,
                                       EAPackageWrapper history,
@@ -57,14 +58,10 @@ namespace DecisionViewpoints.Logic.AutoGeneration
 
         private static void GenerateElements(IDualCollection elements)
         {
-            // Find last modified element
-            var lastCreated = _history.LastCreated();
             // Add the new element in the ChronologicalGenerator View diagram
             _cvpd.AddToDiagram(_repository, elements.GetAt(0));
             // Create a connector between the last modified and the new element
-            if (lastCreated == null) return;
-            //MessageBox.Show(string.Format("{0}, {1}", lastCreated.Name, lastCreated.Created));
-            _cvpd.CreateConnector(lastCreated, elements.GetAt(0));
+            _cvpd.CreateConnector(_lastCreated, elements.GetAt(0));
             for (short i = 1; i < elements.Count; i++)
             {
                 _cvpd.AddToDiagram(_repository, elements.GetAt(i));
@@ -80,6 +77,7 @@ namespace DecisionViewpoints.Logic.AutoGeneration
                 _cvpd.AddToDiagram(_repository, elements[i]);
                 _cvpd.CreateConnector(elements[i - 1], elements[i]);
             }
+            _lastCreated = elements[elements.Count - 1];
         }
     }
 }

@@ -67,30 +67,12 @@ namespace DecisionViewpoints.Logic
         {
             var project = new EAProjectWrapper(repository);
             Package root = repository.Models.GetAt(0);
-            var rvp = new EAPackageWrapper(root.Packages.GetByName("Relationship")); // relationship package
-            var cvp = new EAPackageWrapper(root.Packages.GetByName("Chronological")); // chronological package
-            try
-            {
-                cvp.DeletePackage(0, false);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("No previous history.");
-            }
-            try
-            {
-                cvp.DeleteDiagram(0, false);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("No previous diagram.");
-                throw;
-            }
-            var hp = new EAPackageWrapper(cvp.CreatePackage(repository, "history")); // history package
-            var cd = new EADiagramWrapper(cvp.CreateDiagram(repository, "Diagram1", "Custom")); // chronological diagram
-            var baselines = project.ReadPackageBaselines(repository, rvp);
-            project.ComparePackageBaselines(repository, rvp, baselines);
-            var chronologicalViewGenarator = new ChronologicalGenerator(repository, project, rvp, hp, cd);
+            var dv = new EAPackageWrapper(root.Packages.GetByName("Decision Views")); // Decision Views package
+            var hp = new EAPackageWrapper(dv.CreatePackage(repository, "Generated Data")); // history package
+            var cd = new EADiagramWrapper(dv.GetDiagram("Chronological")); // chronological diagram
+            var baselines = project.ReadPackageBaselines(repository, dv);
+            project.ComparePackageBaselines(repository, dv, baselines);
+            var chronologicalViewGenarator = new ChronologicalGenerator(repository, project, dv, hp, cd);
             chronologicalViewGenarator.Generate();
             //project.Get().LayoutDiagramEx(cd.Get().DiagramGUID, ConstLayoutStyles.lsLayoutDirectionRight, 4, 20, 20, true);
         }
@@ -100,6 +82,15 @@ namespace DecisionViewpoints.Logic
             var project = new EAProjectWrapper(repository);
             var rep = new EARepositoryWrapper(repository);
             _baselineVersion += 0.1;
+            object item;
+            var ot = repository.GetContextItem(out item);
+            switch (ot)
+            {
+                case ObjectType.otDiagram:
+                    var diagram = (Diagram) item;
+                    MessageBox.Show(diagram.MetaType);
+                    break;
+            }
             project.CreateBaseline(rep.GetPackageFromRootByName("Relationship").PackageGUID,
                                    _baselineVersion.ToString(CultureInfo.InvariantCulture), "");
         }
