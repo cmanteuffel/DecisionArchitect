@@ -12,11 +12,12 @@ namespace DecisionViewpoints
     {
         // define menu constants
         private const string MenuHeader = "-&DecisionVS";
-        private const string MenuAdd = "&Add";
+        private const string MenuCreateDecisionViews = "Create Decision &Views";
+        private const string MenuCreateDecisionGroup = "Create Decision &Group";
         private const string Con = "connected";
 
         /// <summary>
-        /// Called Before EA starts to check Add-In Exists. Nothing is done here.
+        /// Called Before EA starts to check if Add-In Exists. Nothing is done here.
         /// This operation needs to exists for the addin to work.
         /// </summary>
         /// <returns>Returns a constant string 'connected'</returns>
@@ -39,7 +40,7 @@ namespace DecisionViewpoints
                 case "":
                     return MenuHeader;
                 case MenuHeader:
-                    string[] subMenus = { MenuAdd };
+                    string[] subMenus = { MenuCreateDecisionViews, MenuCreateDecisionGroup };
                     return subMenus;
             }
             return "";
@@ -54,14 +55,17 @@ namespace DecisionViewpoints
         /// <param name="itemName"></param>
         /// <param name="isEnabled"></param>
         /// <param name="isChecked"></param>
-        public static void GetManuState(Repository repository, string location, string menuName,
+        public static void GetMenuState(Repository repository, string location, string menuName,
                                     string itemName, ref bool isEnabled, ref bool isChecked)
         {
             if (IsProjectOpen(repository))
             {
                 switch (itemName)
                 {
-                    case MenuAdd:
+                    case MenuCreateDecisionViews:
+                        isEnabled = true;
+                        break;
+                    case MenuCreateDecisionGroup:
                         isEnabled = true;
                         break;
                     default:
@@ -87,8 +91,11 @@ namespace DecisionViewpoints
         {
             switch (itemName)
             {
-                case MenuAdd:
-                    Add();
+                case MenuCreateDecisionViews:
+                    CreateDecisionViews(repository);
+                    break;
+                case MenuCreateDecisionGroup:
+                    CreateDecisionGroup(repository);
                     break;
             }
         }
@@ -111,9 +118,34 @@ namespace DecisionViewpoints
             }
         }
 
-        private static void Add()
+        private static void CreateDecisionViews(IDualRepository repository)
         {
-            MessageBox.Show("Add");
+            // Create new Decision Relationship View
+            Package root = repository.Models.GetAt(0);
+            Package view = root.Packages.AddNew("Decision Relationship View", "");
+            view.Flags = "VICON=0;";
+            view.Update();
+            root.Packages.Refresh();
+            // Create new Decision Relationship diagram
+            Diagram diagram = view.Diagrams.AddNew("Decision Relationship View", "Custom");
+            diagram.Update();
+            view.Diagrams.Refresh();
+            repository.RefreshModelView(view.PackageID);
+        }
+
+        private static void CreateDecisionGroup(IDualRepository repository)
+        {
+            // Create a new Decision Group
+            Package root = repository.Models.GetAt(0);
+            Package view = root.Packages.GetByName("Decision Relationship View");
+            Package group = view.Packages.AddNew("Web Application", "");
+            group.Update();
+            group.Packages.Refresh();
+            // Create a new diagram along with the new Group
+            Diagram diagram = group.Diagrams.AddNew(group.Name, "Custom");
+            diagram.Update();
+            group.Packages.Refresh();
+            repository.RefreshModelView(group.PackageID);
         }
 
         /// <summary>

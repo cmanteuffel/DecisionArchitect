@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 using EA;
 
 namespace DecisionViewpoints
@@ -40,10 +41,10 @@ namespace DecisionViewpoints
         /// <param name="itemName"></param>
         /// <param name="isEnabled"></param>
         /// <param name="isChecked"></param>
-        public void EA_GetManuState(Repository repository, string location, string menuName,
+        public void EA_GetMenuState(Repository repository, string location, string menuName,
                                     string itemName, ref bool isEnabled, ref bool isChecked)
         {
-            AddinEventHandler.GetManuState(repository, location, menuName, itemName, ref isEnabled, ref isChecked);
+            AddinEventHandler.GetMenuState(repository, location, menuName, itemName, ref isEnabled, ref isChecked);
         }
 
         /// <summary>

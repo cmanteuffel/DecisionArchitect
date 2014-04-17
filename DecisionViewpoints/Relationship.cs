@@ -11,6 +11,7 @@ namespace DecisionViewpoints
         private readonly string _stereotype;
         private readonly string _clientid;
         private readonly string _supplierid;
+        private Connector _connector;
 
         public enum Property
         {
@@ -26,6 +27,15 @@ namespace DecisionViewpoints
             _stereotype = info.Get(Property.Stereotype).Value;
             _clientid = info.Get(Property.ClientId).Value;
             _supplierid = info.Get(Property.SupplierId).Value;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="connector"></param>
+        public Relationship(Connector connector)
+        {
+            _connector = connector;
         }
 
         /// <summary>
@@ -52,7 +62,7 @@ namespace DecisionViewpoints
         }
 
         /// <summary>
-        /// 
+        /// Checks if the two decisions related to the relationship are equal.
         /// </summary>
         /// <returns>True if the client and the supplier are the same, false otherwise.</returns>
         public bool CheckIfDecisionsEqual()

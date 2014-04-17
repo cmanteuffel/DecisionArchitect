@@ -1,4 +1,6 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Linq;
+using System.Windows.Forms;
 using EA;
 
 namespace DecisionViewpoints
@@ -7,12 +9,12 @@ namespace DecisionViewpoints
     {
         // These values need to be consistent with the ones defined in the DecisionVS MDG file.
         private const string RelStereotype = "Relationship";
-        // private const string DecisionStereotype = "ArchitectureDecision";
+        private const string DecisionStereotype = "ArchitectureDecision";
         private const string DiagramMetaType = "DecisionVS::RelationshipView";
         private const string ToolboxName = "DecisionVS";
 
         // TODO: it is recommended not to hold state information, to be discussed (name uniqueness)
-        // private static string _preModifyDecisionName;
+        private static string _preModifyDecisionName;
 
         /// <summary>
         /// Called before a new element is created. It can be used to deny the creation
@@ -76,23 +78,30 @@ namespace DecisionViewpoints
         /// <param name="ot">The object type of the element whose context modified.</param>
         public static void OnNotifyContextItemModified(Repository repository, string guid, ObjectType ot)
         {
-            // TODO: it is recommended not to hold state information, to be discussed (name uniqueness)
-            /*// Check if the Decision name already exists. If it exists print message and change
-            // the name to the pre modify one.
-            if (!ot.ToString().Equals("otElement")) return;
-            var element = repository.GetElementByGuid(guid);
-            if (!element.Stereotype.Equals(DecisionStereotype)) return;
-            foreach (var e in from Element e in repository.GetElementSet(null, 0) 
-                              where e.Stereotype.Equals(DecisionStereotype) 
-                              where !e.ElementGUID.Equals(guid) 
-                              where element.Name.Equals(e.Name) select e)
+            switch (ot.ToString())
             {
-                MessageBox.Show(String.Format("The name {0} already exists. Please pick a different name.", e.Name), 
-                                "Invalid decision name");
-                element.Name = _preModifyDecisionName;
-                element.Update();
-                element.Refresh();
-            }*/
+                case "otElement":
+                    var element = repository.GetElementByGuid(guid);
+                    switch (element.Stereotype)
+                    {
+                        case DecisionStereotype:
+                            // TODO: it is recommended not to hold state information, to be discussed (name uniqueness)
+                            // Check if the Decision name already exists. If it exists print message and change
+                            // the name to the pre modify one.
+                            // DecisionContextChanged(repository, element);
+                            break;
+                    }
+                    break;
+                case "otConnector":
+                    var connector = repository.GetConnectorByGuid(guid);
+                    switch (connector.Stereotype)
+                    {
+                        case RelStereotype:
+                            // RelContextChanged(repository, connector);
+                            break;
+                    }
+                    break;
+            }
         }
 
         /// <summary>
@@ -107,10 +116,33 @@ namespace DecisionViewpoints
             // Save the name of the selected element, which is going to be used in OnNotifyContextItemModified.
             // If the user changes the name of the selected element and the decision name already
             // exists, we will replace it with this pre modify name.
-            /*if (!ot.ToString().Equals("otElement")) return;
+            if (!ot.ToString().Equals("otElement")) return;
             var element = repository.GetElementByGuid(guid);
             if (!element.Stereotype.Equals(DecisionStereotype)) return;
-            _preModifyDecisionName = element.Name;*/
+            _preModifyDecisionName = element.Name;
+        }
+
+        private static void DecisionContextChanged(IDualRepository repository, IDualElement element)
+        {
+            foreach (var e in from Element e in repository.GetElementSet(null, 0)
+                              where e.Stereotype.Equals(DecisionStereotype)
+                              where !e.ElementGUID.Equals(element.ElementGUID)
+                              where element.Name.Equals(e.Name)
+                              select e)
+            {
+                MessageBox.Show(String.Format("The name {0} already exists. Please pick a different name.", e.Name),
+                                "Invalid decision name");
+                element.Name = _preModifyDecisionName;
+                element.Update();
+                element.Refresh();
+            }
+        }
+
+        private static void RelContextChanged(Repository repository, Connector connector)
+        {
+            // var rel = new Relationship(connector);
+            // TaggedValue taggedValue = connector.TaggedValues.GetByName("type");
+            // MessageBox.Show(taggedValue.Name);
         }
     }
 }
