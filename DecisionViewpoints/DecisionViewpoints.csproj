@@ -59,7 +59,6 @@
     <Compile Include="Logic\AddinEventHandler.cs" />
     <Compile Include="Logic\BroadcastEventHandler.cs" />
     <Compile Include="Logic\Menu\Menu.cs" />
-    <Compile Include="Logic\Menu\Header.cs" />
     <Compile Include="Logic\Menu\IMenu.cs" />
     <Compile Include="Logic\Menu\MenuItem.cs" />
     <Compile Include="Logic\Menu\MenuEventHandler.cs" />

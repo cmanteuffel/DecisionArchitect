@@ -7,6 +7,7 @@ namespace DecisionViewpoints.Logic.Menu
     public static class MenuEventHandler
     {
         private static readonly Menu Header = new Menu("-&Decision Viewpoints");
+
         private static readonly string RelationshipDiagramMetaType =
             Settings.Default["RelationshipDiagramMetaType"].ToString();
 
@@ -34,19 +35,44 @@ namespace DecisionViewpoints.Logic.Menu
                     }
                     menuItem.IsVisible = false;
                 };
-            
+
 
             var baselinesOptions = new Menu("-&Baseline Options");
-            var baselineManually = new MenuItem("Manually");
-            baselineManually.ClickDelegate = () =>
+            var baselineManually = new MenuItem("Manually")
                 {
-                    Settings.Default["BaselineOptionManually"] =
-                        !(bool) Settings.Default["BaselineOptionManually"];
-                    Settings.Default.Save();
+                    ClickDelegate = () =>
+                        {
+                            Settings.Default["BaselineOptionManually"] =
+                                !(bool) Settings.Default["BaselineOptionManually"];
+                            Settings.Default.Save();
+                        },
+                    UpdateDelegate = self => { self.IsChecked = (bool) Settings.Default["BaselineOptionManually"]; }
                 };
-            baselineManually.UpdateDelegate = self =>
+            var baselineOnFileClose = new MenuItem("On File Close")
                 {
-                    self.IsChecked = (bool) Settings.Default["BaselineOptionManually"];
+                    ClickDelegate = () =>
+                        {
+                            Settings.Default["BaselineOptionOnFileClose"] =
+                                !(bool) Settings.Default["BaselineOptionOnFileClose"];
+                            Settings.Default.Save();
+                        },
+                    UpdateDelegate = self => { self.IsChecked = (bool) Settings.Default["BaselineOptionOnFileClose"]; }
+                };
+            var baselineOnModification = new MenuItem("On Modification")
+                {
+                    ClickDelegate = () =>
+                        {
+                            Settings.Default["BaselineOptionOnModification"] =
+                                !(bool) Settings.Default["BaselineOptionOnModification"];
+                            Settings.Default.Save();
+                        },
+                    UpdateDelegate =
+                        self => { self.IsChecked = (bool) Settings.Default["BaselineOptionOnModification"]; }
+                };
+
+            var createBaseline = new MenuItem("Create Baseline", CreateBaseline)
+                {
+                    UpdateDelegate = self => { self.IsEnabled = (bool) Settings.Default["BaselineOptionManually"]; }
                 };
 
 
@@ -56,6 +82,9 @@ namespace DecisionViewpoints.Logic.Menu
             createTraces.Add(new MenuItem("&New Decision", CreateAndTraceDecision));
             Header.Add(baselinesOptions);
             baselinesOptions.Add(baselineManually);
+            baselinesOptions.Add(baselineOnFileClose);
+            baselinesOptions.Add(baselineOnModification);
+            Header.Add(createBaseline);
 
             /*
             createTraces.Add();
@@ -63,9 +92,7 @@ namespace DecisionViewpoints.Logic.Menu
             Header.Add(createTraces);
             Header.Add(MenuItem.Separator);
             // Add baseline menu items
-            
           
-            Header.Add(baselinesOptions);
             Header.Add(new CreateBaseline());
             Header.Add(MenuItem.Separator);
             // Add generation menu items
@@ -81,7 +108,7 @@ namespace DecisionViewpoints.Logic.Menu
             IMenu menuItem = Header.FindMenuItem(menuName);
             if (menuItem != null)
             {
-                return menuItem.GetSubItems();   
+                return menuItem.GetSubItems();
             }
             return "";
         }
@@ -149,6 +176,10 @@ namespace DecisionViewpoints.Logic.Menu
                     }
                 }
             }*/
+        }
+
+        private static void CreateBaseline()
+        {
         }
     }
 }

@@ -42,16 +42,15 @@ namespace DecisionViewpoints.Logic.Menu
                 return this;
             }
 
-            IMenu result = null;
             foreach (IMenu subitem in _subitems)
             {
-                result = subitem.FindMenuItem(name);
+                IMenu result = subitem.FindMenuItem(name);
                 if (result != null)
                 {
                     return result;
                 }
             }
-            return result;
+            return null;
         }
 
 

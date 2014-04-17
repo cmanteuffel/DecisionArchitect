@@ -236,10 +236,5 @@ namespace DecisionViewpoints.Logic
             project.CreateBaseline(dvp.GUID, bv, notes);*/
         }
 
-        /// <summary>
-        ///     Creates the project structure with the five views and one initial diagram for each view.
-        /// </summary>
-        /// <param name="repository">The EA repository.</param>
-
     }
 }
