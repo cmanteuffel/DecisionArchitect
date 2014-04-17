@@ -10,7 +10,7 @@ namespace DecisionViewpointsTests
     public class DecisionViewpointsBroadcastEventHandlerTests : DecisionViewpointsBaseTests
     {
         [TestMethod]
-        public void OnPostOpenDiagram_ToolboxActivated_True()
+        public void OnPostOpenDiagram_OpenDecisionViewpointDiagram_ToolboxActivated()
         {
             OpenRepositoryFile();
             MainApp.EA_MenuClick(Repo, "TreeView", "-&DecisionVS", "Create Decision &Views");

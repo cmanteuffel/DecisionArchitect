@@ -8,6 +8,8 @@ namespace DecisionViewpointsTests
     [TestClass]
     public class DecisionViewpointsBaseTests
     {
+        private const string EapTestProjectName = "\\DecisionViewUnitTestsProject.eap";
+
         public MainApplication MainApp { get; private set; }
 
         public Repository Repo { get; private set; }
@@ -17,7 +19,7 @@ namespace DecisionViewpointsTests
             var directoryInfo = Directory.GetParent(Directory.GetCurrentDirectory()).Parent;
             if (directoryInfo == null) return;
             var projectDirectory = directoryInfo.FullName;
-            var filename = projectDirectory + "\\DecisionViewUnitTestsProject.eap";
+            var filename = projectDirectory + EapTestProjectName;
             Repo.OpenFile(filename);
         }
 
