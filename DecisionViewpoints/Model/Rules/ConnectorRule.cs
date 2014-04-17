@@ -1,8 +1,8 @@
 namespace DecisionViewpoints.Model.Rules
 {
-    internal abstract class ConnectorRule
+    internal abstract class ConnectorRule : IConnectorRule
     {
         public static readonly string[] Any = new string[0];
-        public abstract bool Validate(PreConnector connector, out string message);
+        public abstract bool ValidateConnector(PreConnector connector, out string message);
     }
 }

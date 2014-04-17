@@ -63,7 +63,9 @@
     <Compile Include="Model\Rules\ICompositeRule.cs" />
     <Compile Include="Model\PreConnector.cs" />
     <Compile Include="Model\Rules\ConnectorRule.cs" />
+    <Compile Include="Model\Rules\IConnectorRule.cs" />
     <Compile Include="Model\Rules\NoLoopRule.cs" />
+    <Compile Include="Model\Rules\Validator.cs" />
     <Compile Include="Model\States.cs" />
     <Compile Include="Model\Stereotypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -46,68 +46,8 @@ namespace DecisionViewpoints
                 return true;
             }
 
-
-            var constraint0 = new ExclusionRule(new[] {Stereotypes.StateIdea},
-                                                ConnectorRule.Any,
-                                                ConnectorRule.Any,
-                                                Messages.NotOriginFromIdea);
-            var constraint1 = new ExclusionRule(ConnectorRule.Any,
-                                                ConnectorRule.Any,
-                                                new[] {Stereotypes.StateIdea},
-                                                Messages.NotPointToIdea);
-            var constraint2 = new ExclusionRule(ConnectorRule.Any,
-                                                new[] {Stereotypes.RelationCausedBy},
-                                                new[] {Stereotypes.StateDiscarded},
-                                                Messages.CausedByNotPointTo);
-            var constraint3 = new ExclusionRule(ConnectorRule.Any,
-                                                new[] {Stereotypes.RelationDependsOn},
-                                                new[] {Stereotypes.StateDiscarded, Stereotypes.StateRejected},
-                                                Messages.DependsOnOnlyPointTo);
-            var constraint4 = new ExclusionRule(ConnectorRule.Any,
-                                                new[] {Stereotypes.RelationExcludedBy},
-                                                new[]
-                                                    {
-                                                        Stereotypes.StateTentative, Stereotypes.StateDiscarded,
-                                                        Stereotypes.StateRejected
-                                                    },
-                                                Messages.ExcludedByNotPointTo);
-            var constraint5 = new ExclusionRule(new[] {Stereotypes.StateApproved, Stereotypes.StateDecided},
-                                                new[] {Stereotypes.RelationExcludedBy},
-                                                ConnectorRule.Any,
-                                                Messages.ExcludedOnlyOriginateFrom);
-            var constraint6 = new ExclusionRule(ConnectorRule.Any,
-                                                new[] {Stereotypes.RelationReplaces},
-                                                new[] {Stereotypes.StateApproved,Stereotypes.StateChallenged,Stereotypes.StateDecided,Stereotypes.StateDiscarded,Stereotypes.StateTentative},
-                                                Messages.ReplacesOnlyPointTo);
-            var constraint7 = new ExclusionRule(ConnectorRule.Any,
-                                                new[] {Stereotypes.RelationAlternativeFor},
-                                                new[] {Stereotypes.StateDiscarded},
-                                                Messages.AlternativeForNotPointTo);
-            var constraint8 =
-                new ExclusionRule(
-                    new[]
-                        {
-                            Stereotypes.StateApproved, Stereotypes.StateDecided, Stereotypes.StateChallenged,
-                            Stereotypes.StateRejected
-                        },
-                    new[] {Stereotypes.RelationAlternativeFor},
-                    Stereotypes.States,
-                    Messages.AlternativeForOnlyOriginateFrom);
-
-            var constraint9 = new NoLoopRule(Messages.NoLoops);
-            var rules = new CompositeRule();
-            rules.Add(constraint0);
-            rules.Add(constraint1);
-            rules.Add(constraint2);
-            rules.Add(constraint3);
-            rules.Add(constraint4);
-            rules.Add(constraint5);
-            rules.Add(constraint6);
-            rules.Add(constraint7);
-            rules.Add(constraint8);
-            rules.Add(constraint9);
             string message;
-            if (!rules.Validate(connector, out message))
+            if (!Validator.Instance.ValidateConnector(connector, out message))
             {
                 MessageBox.Show(message);
                 return false;

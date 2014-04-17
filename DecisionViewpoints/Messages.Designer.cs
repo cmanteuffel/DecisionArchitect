@@ -126,9 +126,9 @@ namespace DecisionViewpoints {
         /// <summary>
         ///   Looks up a localized string similar to No origin from state idea.
         /// </summary>
-        internal static string NotOriginFromIdea {
+        internal static string NotOriginateFromIdea {
             get {
-                return ResourceManager.GetString("NotOriginFromIdea", resourceCulture);
+                return ResourceManager.GetString("NotOriginateFromIdea", resourceCulture);
             }
         }
         

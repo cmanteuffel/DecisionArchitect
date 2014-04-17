@@ -11,7 +11,7 @@ namespace DecisionViewpoints.Model.Rules
             _errorMessage = errorMessage;
         }
 
-        public override bool Validate(PreConnector connector, out string message)
+        public override bool ValidateConnector(PreConnector connector, out string message)
         {
             message = "";
             if (connector.SupplierId == connector.ClientId)

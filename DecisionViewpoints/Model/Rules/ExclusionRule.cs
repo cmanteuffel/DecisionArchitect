@@ -20,7 +20,7 @@ namespace DecisionViewpoints.Model.Rules
             _supplierState.UnionWith(supplierStates);
         }
 
-        public override bool Validate(PreConnector connector, out string message)
+        public override bool ValidateConnector(PreConnector connector, out string message)
         {
             message = "";
             if (_relationType.Count == 0 ||_relationType.Contains(connector.Stereotype))

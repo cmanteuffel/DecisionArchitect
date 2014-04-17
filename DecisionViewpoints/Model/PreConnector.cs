@@ -2,7 +2,7 @@ using EA;
 
 namespace DecisionViewpoints.Model
 {
-    internal class PreConnector
+    public  class PreConnector
     {
         private readonly int _clientId;
         private readonly int _diagramId;
