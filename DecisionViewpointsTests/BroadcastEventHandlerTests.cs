@@ -57,8 +57,21 @@ namespace DecisionViewpointsTests
         {
             OpenRepositoryFile(RepositoryType.Relationships);
             ResetRepository(RepositoryType.Relationships);
-            //const string relationshipType = "Caused By";
-            //
+            // Any decision to decision with state {tentative, decided, approved, challenged, rejected}
+            foreach (var s in Stereotypes.States.Where(s => s != Stereotypes.StateIdea && s != Stereotypes.StateTentative &&
+                s != Stereotypes.StateDecided && s != Stereotypes.StateApproved && s != Stereotypes.StateChallenged && s != Stereotypes.StateRejected))
+            {
+                Assert.IsTrue(ValidateConnector(s, Stereotypes.StateTentative, Stereotypes.RelationCausedBy),
+                              AssertionFailedMessage(s, Stereotypes.StateTentative, Stereotypes.RelationCausedBy));
+                Assert.IsTrue(ValidateConnector(s, Stereotypes.StateDecided, Stereotypes.RelationCausedBy),
+                              AssertionFailedMessage(s, Stereotypes.StateDecided, Stereotypes.RelationCausedBy));
+                Assert.IsTrue(ValidateConnector(s, Stereotypes.StateApproved, Stereotypes.RelationCausedBy),
+                              AssertionFailedMessage(s, Stereotypes.StateApproved, Stereotypes.RelationCausedBy));
+                Assert.IsTrue(ValidateConnector(s, Stereotypes.StateChallenged, Stereotypes.RelationCausedBy),
+                              AssertionFailedMessage(s, Stereotypes.StateChallenged, Stereotypes.RelationCausedBy));
+                Assert.IsTrue(ValidateConnector(s, Stereotypes.StateRejected, Stereotypes.RelationCausedBy),
+                              AssertionFailedMessage(s, Stereotypes.StateRejected, Stereotypes.RelationCausedBy));
+            }
             ResetRepository(RepositoryType.Relationships);
             CloseRepositoryFile(); 
         }
@@ -154,6 +167,16 @@ namespace DecisionViewpointsTests
                 Assert.IsTrue(ValidateConnector(Stereotypes.StateRejected, s, Stereotypes.RelationExcludedBy),
                               AssertionFailedMessage(Stereotypes.StateRejected, s, Stereotypes.RelationExcludedBy));
             }
+            ResetRepository(RepositoryType.Relationships);
+            CloseRepositoryFile();
+        }
+
+        [TestMethod]
+        public void OnPreNewConnector_Replaces_InvalidRelationships()
+        {
+            OpenRepositoryFile(RepositoryType.Relationships);
+            ResetRepository(RepositoryType.Relationships);
+            //
             ResetRepository(RepositoryType.Relationships);
             CloseRepositoryFile();
         }
