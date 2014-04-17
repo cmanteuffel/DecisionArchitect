@@ -1,4 +1,8 @@
-﻿using DecisionViewpoints.Properties;
+﻿using System;
+using System.Text;
+using System.Windows.Forms;
+using System.Xml;
+using DecisionViewpoints.Properties;
 using EA;
 
 namespace DecisionViewpoints.Logic
@@ -7,6 +11,7 @@ namespace DecisionViewpoints.Logic
     {
         public const string MenuHeader = "-&Decision Viewpoints";
         public const string MenuCreateProjectStructure = "&Create Project Structure";
+        public const string MenuTestBaselines = "&Test Baselines";
 
         private static readonly string DiagramMetaType = Settings.Default["DiagramMetaType"].ToString();
 
@@ -18,7 +23,7 @@ namespace DecisionViewpoints.Logic
                 case "":
                     return MenuHeader;
                 case MenuHeader:
-                    string[] subMenus = {MenuCreateProjectStructure};
+                    string[] subMenus = {MenuCreateProjectStructure, MenuTestBaselines};
                     return subMenus;
             }
             return "";
@@ -31,21 +36,75 @@ namespace DecisionViewpoints.Logic
                 case MenuCreateProjectStructure:
                     CreateProjectStructure(repository);
                     break;
+                case MenuTestBaselines:
+                    TestBaselines(repository);
+                    break;
                     /*case MenuCreateDecisionGroup:
                 CreateDecisionGroup(repository);
                 break;*/
             }
         }
 
+        private static void TestBaselines(Repository repository)
+        {
+            Project project = repository.GetProjectInterface();
+            foreach (Package m in repository.Models)
+            {
+                string xmlGuid = project.GUIDtoXML(m.PackageGUID);
+                string xmlBaselines = project.GetBaselines(xmlGuid, "");
+                var xml = new XmlDocument();
+                xml.LoadXml(xmlBaselines);
+
+                XmlNodeList baselines = xml.SelectNodes("//@guid");
+                foreach (XmlNode baseline in baselines)
+                {
+                    string xmlCompare = project.DoBaselineCompare(xmlGuid, baseline.Value, "");
+
+
+                    var compare = new XmlDocument();
+                    compare.LoadXml(xmlCompare);
+                    MessageBox.Show(xmlCompare);
+
+                    foreach (XmlNode compareItem in compare.SelectNodes("//CompareItem[@status='Changed']"))
+                    {
+                        var builder = new StringBuilder(compareItem.Attributes["name"].Value);
+                        builder.Append(Environment.NewLine);
+                        builder.Append(compareItem.Attributes["guid"].Value);
+                        builder.Append(Environment.NewLine);
+                        builder.Append(compareItem.ChildNodes.Count);
+                        builder.Append(Environment.NewLine);
+
+                        foreach (XmlNode property in compareItem.FirstChild.ChildNodes)
+                        {
+                            if (property.Attributes["status"].Value == "Changed")
+                            {
+                                foreach (XmlAttribute attribute in property.Attributes)
+                                {
+                                    builder.Append(attribute.Name);
+                                    builder.Append(" ");
+                                    builder.Append(attribute.Value);
+                                    builder.Append(Environment.NewLine);
+                                }
+                                builder.Append(Environment.NewLine);
+                            }
+                        }
+
+                        MessageBox.Show(builder.ToString());
+                    }
+                }
+            }
+        }
+
         public static void GetMenuState(Repository repository, string location, string menuName, string itemName,
-                                         ref bool isEnabled,
-                                         ref bool isChecked)
+                                        ref bool isEnabled,
+                                        ref bool isChecked)
         {
             if (IsProjectOpen(repository))
             {
                 switch (itemName)
                 {
                     case MenuCreateProjectStructure:
+                    case MenuTestBaselines:
                         isEnabled = true;
                         break;
                         /*case MenuCreateDecisionGroup:
