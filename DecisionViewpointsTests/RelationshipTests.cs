@@ -15,7 +15,7 @@ namespace DecisionViewpointsTests
         #region CausedBy
 
         [TestMethod]
-        public void OnPreNewConnector_CausedBy_InvalidRelationships()
+        public void CausedBy_InvalidRelationships()
         {
             OpenRepositoryFile(RepositoryType.Relationships);
             ResetRepository(RepositoryType.Relationships);
@@ -42,7 +42,7 @@ namespace DecisionViewpointsTests
         }
 
         [TestMethod]
-        public void OnPreNewConnector_CausedBy_ValidRelationships()
+        public void CausedBy_ValidRelationships()
         {
             OpenRepositoryFile(RepositoryType.Relationships);
             ResetRepository(RepositoryType.Relationships);
@@ -73,7 +73,7 @@ namespace DecisionViewpointsTests
         #region DependsOn
 
         [TestMethod]
-        public void OnPreNewConnector_DependsOn_InvalidRelationships()
+        public void DependsOn_InvalidRelationships()
         {
             OpenRepositoryFile(RepositoryType.Relationships);
             ResetRepository(RepositoryType.Relationships);
@@ -107,7 +107,7 @@ namespace DecisionViewpointsTests
         }
 
         [TestMethod]
-        public void OnPreNewConnector_DependsOn_ValidRelationships()
+        public void DependsOn_ValidRelationships()
         {
             OpenRepositoryFile(RepositoryType.Relationships);
             ResetRepository(RepositoryType.Relationships);
@@ -136,7 +136,7 @@ namespace DecisionViewpointsTests
         #region ExcludedBy
 
         [TestMethod]
-        public void OnPreNewConnector_ExcludedBy_InvalidRelationships()
+        public void ExcludedBy_InvalidRelationships()
         {
             OpenRepositoryFile(RepositoryType.Relationships);
             ResetRepository(RepositoryType.Relationships);
@@ -174,7 +174,7 @@ namespace DecisionViewpointsTests
         }
 
         [TestMethod]
-        public void OnPreNewConnector_ExcludedBy_ValidRelationships()
+        public void ExcludedBy_ValidRelationships()
         {
             OpenRepositoryFile(RepositoryType.Relationships);
             ResetRepository(RepositoryType.Relationships);
@@ -202,7 +202,7 @@ namespace DecisionViewpointsTests
         #region Replaces
 
         [TestMethod]
-        public void OnPreNewConnector_Replaces_InvalidRelationships()
+        public void Replaces_InvalidRelationships()
         {
             OpenRepositoryFile(RepositoryType.Relationships);
             ResetRepository(RepositoryType.Relationships);
@@ -237,7 +237,7 @@ namespace DecisionViewpointsTests
         }
 
         [TestMethod]
-        public void OnPreNewConnector_Replaces_ValidRelationships()
+        public void Replaces_ValidRelationships()
         {
             OpenRepositoryFile(RepositoryType.Relationships);
             ResetRepository(RepositoryType.Relationships);
@@ -256,7 +256,7 @@ namespace DecisionViewpointsTests
         #region AlternativeFor
 
         [TestMethod]
-        public void OnPreNewConnector_AlternativeFor_InvalidRelationships()
+        public void AlternativeFor_InvalidRelationships()
         {
             OpenRepositoryFile(RepositoryType.Relationships);
             ResetRepository(RepositoryType.Relationships);
@@ -286,7 +286,7 @@ namespace DecisionViewpointsTests
         }
 
         [TestMethod]
-        public void OnPreNewConnector_AlternativeFor_ValidRelationships()
+        public void AlternativeFor_ValidRelationships()
         {
             OpenRepositoryFile(RepositoryType.Relationships);
             ResetRepository(RepositoryType.Relationships);
