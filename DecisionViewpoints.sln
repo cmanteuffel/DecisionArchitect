@@ -6,6 +6,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DecisionViewpointsTests", "DecisionViewpointsTests\DecisionViewpointsTests.csproj", "{2EFFDDA4-B70F-4A95-8F86-E4F1B6BF52BE}"
 EndProject
 Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "DecisionViewpointsInstaller", "DecisionViewpointsInstaller\DecisionViewpointsInstaller.isproj", "{6B6D70B7-E4FB-46EC-872B-9A03BFB9BD0B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{778A9A09-5030-4CC1-85A3-C7DBB053CEA2} = {778A9A09-5030-4CC1-85A3-C7DBB053CEA2}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
