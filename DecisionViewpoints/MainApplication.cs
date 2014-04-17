@@ -85,7 +85,8 @@ namespace DecisionViewpoints
         /// </summary>
         /// <param name="repository">The EA repository.</param>
         /// <param name="diagramId">The ID of the diagram that has been opened.</param>
-        public bool EA_OnPostOpenDiagram(Repository repository, int diagramId)
+        /// <returns></returns>
+        public string EA_OnPostOpenDiagram(Repository repository, int diagramId)
         {
             return BroadcastEventHandler.OnPostOpenDiagram(repository, diagramId);
         }

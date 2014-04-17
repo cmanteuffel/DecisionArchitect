@@ -1,4 +1,5 @@
-﻿using EA;
+﻿using System.Diagnostics;
+using EA;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DecisionViewpointsTests
@@ -16,10 +17,10 @@ namespace DecisionViewpointsTests
             Package view = root.Packages.GetAt(0);
             Diagram diagram = view.Diagrams.GetAt(0);
             Repo.OpenDiagram(diagram.DiagramID);
-            var toolboxActivated = MainApp.EA_OnPostOpenDiagram(Repo, diagram.DiagramID);
+            var toolboxName = MainApp.EA_OnPostOpenDiagram(Repo, diagram.DiagramID);
             ClearRepository();
             CloseRepositoryFile();
-            Assert.IsTrue(toolboxActivated);
+            Assert.AreEqual("DecisionVS", toolboxName);
         }
     }
 }

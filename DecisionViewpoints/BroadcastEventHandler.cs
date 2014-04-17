@@ -60,11 +60,13 @@ namespace DecisionViewpoints
         /// </summary>
         /// <param name="repository">The EA repository.</param>
         /// <param name="diagramId">The ID of the diagram that has been opened.</param>
-        public static bool OnPostOpenDiagram(Repository repository, int diagramId)
+        /// <returns>The name of the our Decision Viewpoints toolbox which was activated or an empty string.</returns>
+        public static string OnPostOpenDiagram(Repository repository, int diagramId)
         {
             // Activate the Decision toolbox when user opens for the first time a Relationship View diagram.
             var diagram = repository.GetDiagramByID(diagramId);
-            return repository.ActivateToolbox(ToolboxName, 0) && diagram.MetaType.Equals(DiagramMetaType);
+            if (!diagram.MetaType.Equals(DiagramMetaType)) return "";
+            return repository.ActivateToolbox(ToolboxName, 0) ? ToolboxName : "";
         }
 
         /// <summary>
