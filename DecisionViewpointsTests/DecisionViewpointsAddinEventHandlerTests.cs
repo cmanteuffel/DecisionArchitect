@@ -1,5 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using EA;
+﻿using EA;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DecisionViewpointsTests
 {
@@ -9,7 +9,7 @@ namespace DecisionViewpointsTests
         [TestMethod]
         public void EaConnect_ReturnConnected()
         {
-            Assert.AreEqual("connected", "connected");
+            Assert.AreEqual("connected", MainApp.EA_Connect(Repo));
         }
 
         [TestMethod]
