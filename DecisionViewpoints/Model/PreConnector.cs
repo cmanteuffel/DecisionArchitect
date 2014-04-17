@@ -1,4 +1,3 @@
-using System;
 using EA;
 
 namespace DecisionViewpoints.Model

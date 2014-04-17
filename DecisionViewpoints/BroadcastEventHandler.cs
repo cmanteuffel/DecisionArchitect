@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Windows.Forms;
 using EA;
-using DecisionViewpoints.Model;
 
 namespace DecisionViewpoints
 {
@@ -42,23 +41,13 @@ namespace DecisionViewpoints
             PreConnector connector = PreConnector.Wrap(repository, info);
             MessageBox.Show(connector.ToString());
 
-         
-
-        // If the stereotype is different than 'Relationship' then permit the creation
-            if (!rel.CheckStereotype(RelStereotype)) return true;
-
-            // Check if the Relationship is connected to different Decisions
-            if (rel.CheckIfDecisionsEqual())
+            if (!Stereotypes.Relationships.Contains(connector.Stereotype))
             {
-                MessageBox.Show("A relationship cannot exist between the same decision.", "Invalid relationship");
-                return false;
+                return true;
             }
 
-            // Check if one of the Decisions that the new Relationship is connected is in the state 'Idea'.
-            if (rel.CheckIfPossible(repository)) return true;
-            MessageBox.Show("Decision has state Idea. Relationship is not permitted.",
-                "Invalid Relationship");
-            return true;
+            return DependsOnConstraint.Validate(connector);
+
         }
 
         /// <summary>
