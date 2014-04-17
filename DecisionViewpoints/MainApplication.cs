@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Forms;
 using EA;
 
 namespace DecisionViewpoints
@@ -86,9 +85,9 @@ namespace DecisionViewpoints
         /// </summary>
         /// <param name="repository">The EA repository.</param>
         /// <param name="diagramId">The ID of the diagram that has been opened.</param>
-        public void EA_OnPostOpenDiagram(Repository repository, int diagramId)
+        public bool EA_OnPostOpenDiagram(Repository repository, int diagramId)
         {
-            BroadcastEventHandler.OnPostOpenDiagram(repository, diagramId);
+            return BroadcastEventHandler.OnPostOpenDiagram(repository, diagramId);
         }
 
         /// <summary>
@@ -111,6 +110,11 @@ namespace DecisionViewpoints
         public void EA_OnContextItemChanged(Repository repository, string guid, ObjectType ot)
         {
             BroadcastEventHandler.OnContextItemChanged(repository, guid, ot);
+        }
+
+        public bool EA_OnPostNewPackage(Repository repository, EventProperties info)
+        {
+            return BroadcastEventHandler.OnPostNewPackage(repository, info);
         }
 
         /// <summary>

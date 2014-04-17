@@ -37,7 +37,7 @@ namespace DecisionViewpoints
         /// <returns>Returns true to permit the creation of the connector, false to deny.</returns>
         public static bool OnPreNewConnector(Repository repository, EventProperties info)
         {
-            var rel = new Relationship(info);
+            /*var rel = new Relationship(info);
             // If the stereotype is different than 'Relationship' then permit the creation
             if (!rel.CheckStereotype(RelStereotype)) return true;
 
@@ -51,8 +51,8 @@ namespace DecisionViewpoints
             // Check if one of the Decisions that the new Relationship is connected is in the state 'Idea'.
             if (rel.CheckIfPossible(repository)) return true;
             MessageBox.Show("Decision has state Idea. Relationship is not permitted.",
-                "Invalid Relationship");
-            return false;
+                "Invalid Relationship");*/
+            return true;
         }
 
         /// <summary>
@@ -60,14 +60,11 @@ namespace DecisionViewpoints
         /// </summary>
         /// <param name="repository">The EA repository.</param>
         /// <param name="diagramId">The ID of the diagram that has been opened.</param>
-        public static void OnPostOpenDiagram(Repository repository, int diagramId)
+        public static bool OnPostOpenDiagram(Repository repository, int diagramId)
         {
-            // Activate the Decision toolbox when user open for the first time a Relationship View diagram
+            // Activate the Decision toolbox when user opens for the first time a Relationship View diagram.
             var diagram = repository.GetDiagramByID(diagramId);
-            if (diagram.MetaType.Equals(DiagramMetaType))
-            {
-                repository.ActivateToolbox(ToolboxName, 0);
-            }
+            return diagram.MetaType.Equals(DiagramMetaType) && repository.ActivateToolbox(ToolboxName, 0);
         }
 
         /// <summary>
@@ -143,6 +140,11 @@ namespace DecisionViewpoints
             // var rel = new Relationship(connector);
             // TaggedValue taggedValue = connector.TaggedValues.GetByName("type");
             // MessageBox.Show(taggedValue.Name);
+        }
+
+        public static bool OnPostNewPackage(Repository repository, EventProperties info)
+        {
+            return false;
         }
     }
 }

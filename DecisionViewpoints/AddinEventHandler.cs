@@ -131,7 +131,7 @@ namespace DecisionViewpoints
             view.Update();
             root.Packages.Refresh();
             // Create new Decision Relationship diagram
-            Diagram diagram = view.Diagrams.AddNew("Decision Relationship View", "Custom");
+            Diagram diagram = view.Diagrams.AddNew("Decision Relationship View", "DecisionVS::RelationshipView");
             diagram.Update();
             view.Diagrams.Refresh();
             repository.RefreshModelView(view.PackageID);
