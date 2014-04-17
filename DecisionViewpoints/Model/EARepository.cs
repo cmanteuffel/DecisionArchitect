@@ -47,6 +47,17 @@ namespace DecisionViewpoints.Model
             return EAElement.Wrap(Native.GetElementByID(elementID));
         }
 
+        public EAConnectorWrapper GetConnectorByID(int connectorId)
+        {
+            return EAConnectorWrapper.Wrap(Native.GetConnectorByID(connectorId));
+        }
+
+        public EAConnectorWrapper GetConnectorByGUID(string guid)
+        {
+            return EAConnectorWrapper.Wrap(Native.GetConnectorByGuid(guid));
+        }
+
+
         public string Query(string sql)
         {
             return Native.SQLQuery(sql);
@@ -133,6 +144,5 @@ namespace DecisionViewpoints.Model
 
             throw new NotSupportedException("Type (" + typeT.Name + ") not supported by GetContextObject()");
         }
-
     }
 }

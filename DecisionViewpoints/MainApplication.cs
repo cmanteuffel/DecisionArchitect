@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
 using System.Windows.Forms;
 using DecisionViewpoints.Logic;
 using DecisionViewpoints.Logic.Menu;
@@ -14,6 +12,12 @@ namespace DecisionViewpoints
     public class MainApplication : EAEventAdapter
     {
         private ModelValidator _modelValidator;
+        private IList<IRepositoryListener> listener = new List<IRepositoryListener>();
+
+        public MainApplication()
+        {
+            listener.Add(new BroadcastEventHandler());
+        }
 
         public override object EA_OnInitializeTechnologies(Repository repository)
         {
@@ -51,31 +55,49 @@ namespace DecisionViewpoints
         public override bool EA_OnPreNewElement(Repository repository, EventProperties info)
         {
             EARepository.UpdateRepository(repository);
-            return BroadcastEventHandler.OnPreNewElement(repository, info);
+            var element = EAVolatileElement.Wrap(info);
+
+            foreach (var l in listener)
+            {
+                if (! l.OnPreNewElement(element))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         public override bool EA_OnPreNewConnector(Repository repository, EventProperties info)
         {
             EARepository.UpdateRepository(repository);
-            return BroadcastEventHandler.OnPreNewConnector(repository, info);
-        }
-
-        public override string EA_OnPostOpenDiagram(Repository repository, int diagramId)
-        {
-            EARepository.UpdateRepository(repository);
-            return BroadcastEventHandler.OnPostOpenDiagram(repository, diagramId);
-        }
-
-        public override void EA_OnContextItemChanged(Repository repository, string guid, ObjectType type)
-        {
-            EARepository.UpdateRepository(repository);
-            BroadcastEventHandler.OnContextItemChanged(repository, guid, type);
+            var connectorWrapper = EAConnectorWrapper.Wrap(info);
+            foreach (var l in listener)
+            {
+                if (!l.OnPreNewConnector(connectorWrapper))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         public override void EA_OnNotifyContextItemModified(Repository repository, string guid, ObjectType ot)
         {
             EARepository.UpdateRepository(repository);
-            BroadcastEventHandler.OnNotifyContextItemModified(repository, guid, ot);
+            foreach (var l in listener)
+            {
+                l.OnNotifyContextItemModified(guid, ot);
+
+            }
+        }
+
+        public override void EA_FileClose(Repository repository)
+        {
+            EARepository.UpdateRepository(repository);
+            foreach (var l in listener)
+            {
+                l.OnFileClose();
+            }
         }
 
         public override void EA_OnInitializeUserRules(Repository repository)
@@ -93,7 +115,7 @@ namespace DecisionViewpoints
         public override void EA_OnRunConnectorRule(Repository repository, string ruleId, int connectorId)
         {
             EARepository.UpdateRepository(repository);
-            var connector = EAConnectorWrapper.Wrap(repository, connectorId);
+            var connector = EAConnectorWrapper.Wrap(connectorId);
             _modelValidator.ValidateConectorUsingRuleID(repository, ruleId, connector);
         }
 
@@ -104,10 +126,6 @@ namespace DecisionViewpoints
            _modelValidator.ValidateElementUsingRuleID(repository, ruleId, wrappedElement);
         }
 
-        public override void EA_FileClose(Repository repository)
-        {
-            EARepository.UpdateRepository(repository);
-            BroadcastEventHandler.FileClose(repository);
-        }
+
     }
 }

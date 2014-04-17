@@ -131,8 +131,8 @@ namespace DecisionViewpoints.Model
             IEnumerable<EAElement> traces = from EAConnectorWrapper trace in connectors
                                             where trace.Stereotype.Equals("trace")
                                             select (trace.SupplierId == ID
-                                                        ? Wrap(trace.GetClient())
-                                                        : Wrap(trace.GetSupplier())
+                                                        ? trace.GetClient()
+                                                        : trace.GetSupplier()
                                                    );
             return traces;
         }

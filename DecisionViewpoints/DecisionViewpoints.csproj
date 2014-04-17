@@ -60,6 +60,11 @@
     <Compile Include="Logic\Automation\ChronologicalViewpointUtilities.cs" />
     <Compile Include="Logic\Automation\DecisionDiffItem.cs" />
     <Compile Include="Logic\BroadcastEventHandler.cs" />
+    <Compile Include="Logic\RepositoryAdapter.cs" />
+    <Compile Include="Logic\IRepositoryListener.cs" />
+    <Compile Include="Model\EAVolatileConnector.cs" />
+    <Compile Include="Model\EAVolatileDiagram.cs" />
+    <Compile Include="Model\EAVolatilePackage.cs" />
     <Compile Include="Logic\Menu\FollowTraceMenu.cs" />
     <Compile Include="Logic\Menu\Menu.cs" />
     <Compile Include="Logic\Menu\IMenu.cs" />

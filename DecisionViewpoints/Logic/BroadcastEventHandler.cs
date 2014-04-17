@@ -12,7 +12,7 @@ namespace DecisionViewpoints.Model
 
 namespace DecisionViewpoints.Logic
 {
-    public static class BroadcastEventHandler
+    public class BroadcastEventHandler : RepositoryAdapter
     {
         // These values need to be consistent with the ones defined in the DecisionVP MDG file.
         private const string RelStereotype = "Relationship";
@@ -21,9 +21,10 @@ namespace DecisionViewpoints.Logic
         private static bool _preventConnectorModifiedEvent;
         private static bool _modified;
 
-        public static bool OnPreNewElement(Repository repository, EventProperties info)
+
+        public override bool OnPreNewElement(EAVolatileElement element)
         {
-            var element = EAVolatileElement.Wrap(info);
+            MessageBox.Show("On pre new element");
             string message;
             if (!RuleManager.Instance.ValidateElement(element, out message))
             {
@@ -43,11 +44,11 @@ namespace DecisionViewpoints.Logic
             return true;
         }
 
-        public static bool OnPreNewConnector(Repository repository, EventProperties info)
+        public override bool OnPreNewConnector(EAConnectorWrapper connector)
         {
-            EAConnectorWrapper connectorWrapper = EAConnectorWrapper.Wrap(repository, info);
+            MessageBox.Show("On pre new connecotr");
             string message;
-            if (!RuleManager.Instance.ValidateConnector(connectorWrapper, out message))
+            if (!RuleManager.Instance.ValidateConnector(connector, out message))
             {
                 DialogResult answer =
                     MessageBox.Show(
@@ -67,15 +68,9 @@ namespace DecisionViewpoints.Logic
             return true;
         }
 
-        public static string OnPostOpenDiagram(Repository repository, int diagramId)
-        {
-            /*var diagram = native.GetDiagramByID(diagramId);
-            if (!diagram.MetaType.Equals(DiagramMetaType)) return "";
-            return native.ActivateToolbox(ToolboxName, 0) ? ToolboxName : "";*/
-            return "";
-        }
 
-        public static void OnNotifyContextItemModified(Repository repository, string guid, ObjectType ot)
+
+        public override void OnNotifyContextItemModified(string guid, ObjectType ot)
         {
             string message;
             switch (ot)
@@ -121,7 +116,7 @@ namespace DecisionViewpoints.Logic
                         }
                     break;
                 case ObjectType.otConnector:
-                    var connectorWrapper = EAConnectorWrapper.Wrap(repository, guid);
+                    var connectorWrapper = EAConnectorWrapper.Wrap(guid);
 
                     //dirty hack that prevents that an modified event is fired after a connector has been created
                     if (_preventConnectorModifiedEvent)
@@ -144,12 +139,8 @@ namespace DecisionViewpoints.Logic
             }
         }
 
-        public static void OnContextItemChanged(Repository repository, string guid, ObjectType type)
-        {
-        }
 
-
-        public static void FileClose(Repository repository)
+        public override void OnFileClose()
         {
             if (!(bool)Settings.Default["BaselineOptionOnFileClose"]) return;
             if (!_modified) return;

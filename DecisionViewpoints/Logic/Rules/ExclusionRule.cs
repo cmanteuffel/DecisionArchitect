@@ -21,10 +21,10 @@ namespace DecisionViewpoints.Logic.Rules
         {
             if (_relationType.Count == 0 || _relationType.Contains(connector.Stereotype))
             {
-                if (_clientState.Count == 0 || _clientState.Contains(connector.GetClient().GetStereotypeList()))
+                if (_clientState.Count == 0 || _clientState.Contains(connector.GetClient().Stereotype))
                 {
                     if (_supplierState.Count == 0 ||
-                        _supplierState.Contains(connector.GetSupplier().GetStereotypeList()))
+                        _supplierState.Contains(connector.GetSupplier().Stereotype))
                     {
                         return false;
                     }

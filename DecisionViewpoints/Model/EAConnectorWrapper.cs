@@ -5,24 +5,20 @@ namespace DecisionViewpoints.Model
 {
     public class EAConnectorWrapper : IEAObject
     {
-        private readonly int _clientId;
-        private readonly Connector _connector;        
-        private readonly Repository _repository;
+        private readonly int _clientId;  
         private readonly string _stereotype;
         private readonly string _subtype;
         private readonly int _supplierId;
         private readonly string _type;
 
-        private EAConnectorWrapper(Repository repository, int clientId, int supplierId, string stereotype, string type,
-                                   string subtype,Connector connector = null)
+        private EAConnectorWrapper(int clientId, int supplierId, string stereotype, string type,
+                                   string subtype)
         {
-            _repository = repository;
             _clientId = clientId;
             _stereotype = stereotype;
             _subtype = subtype;
             _supplierId = supplierId;
             _type = type;
-            _connector = connector;
         }
 
         public string Subtype
@@ -50,59 +46,48 @@ namespace DecisionViewpoints.Model
             get { return _supplierId; }
         }
 
-        [Obsolete]
-        public Connector Connector
-        {
-            get { return _connector; }
-        }
-
-        public Repository Repository
-        {
-            get { return _repository; }
-        }
-
         public static EAConnectorWrapper Wrap(Connector native)
         {
-            return Wrap(EARepository.Instance.Native, native.ConnectorID);
+            return Wrap(native.ConnectorID);
         }
 
-        public static EAConnectorWrapper Wrap(Repository repository, EventProperties properties)
+        public static EAConnectorWrapper Wrap(EventProperties properties)
         {
             dynamic type = properties.Get(EAEventPropertyKeys.Type).Value;
             dynamic subtype = properties.Get(EAEventPropertyKeys.Subtype).Value;
             dynamic stereotype = properties.Get(EAEventPropertyKeys.Stereotype).Value;
             dynamic supplierId = Utilities.ParseToInt32(properties.Get(EAEventPropertyKeys.SupplierId).Value, -1);
             dynamic clientId = Utilities.ParseToInt32(properties.Get(EAEventPropertyKeys.ClientId).Value, -1);
-            return new EAConnectorWrapper(repository, clientId, supplierId, stereotype, type, subtype);
+            return new EAConnectorWrapper(clientId, supplierId, stereotype, type, subtype);
         }
 
-        public static EAConnectorWrapper Wrap(Repository repository, int id)
+        public static EAConnectorWrapper Wrap(int id)
         {
-            Connector connector = repository.GetConnectorByID(id);
-            return new EAConnectorWrapper(repository, connector.ClientID, connector.SupplierID, connector.Stereotype,
-                                          connector.Type, connector.Subtype, connector);
+            EARepository repository = EARepository.Instance;
+            return repository.GetConnectorByID(id);
         }
 
-        public static EAConnectorWrapper Wrap(Repository repository, string guid)
+        public static EAConnectorWrapper Wrap(string guid)
         {
-            Connector connector = repository.GetConnectorByGuid(guid);
-            return new EAConnectorWrapper(repository, connector.ClientID, connector.SupplierID, connector.Stereotype,
-                                          connector.Type, connector.Subtype, connector);
+            EARepository repository = EARepository.Instance;
+            return repository.GetConnectorByGUID(guid);
         }
 
-        public Element GetSupplier()
+        public EAElement GetSupplier()
         {
-            return _repository.GetElementByID(_supplierId);
+            EARepository repository = EARepository.Instance;
+            return repository.GetElementByID(_supplierId);
         }
 
-        public Element GetClient()
+        public EAElement GetClient()
         {
-            return _repository.GetElementByID(_clientId);
+            EARepository repository = EARepository.Instance;
+            return repository.GetElementByID(_clientId);
         }
 
         public override string ToString()
         {
-            return GetClient().GetStereotypeList() + " " + _stereotype + " " + GetSupplier().GetStereotypeList() + " - " +
+            return GetClient().Stereotype + " " + _stereotype + " " + GetSupplier().Stereotype + " - " +
                    "\n";
         }
 

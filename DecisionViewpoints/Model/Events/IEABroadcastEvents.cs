@@ -8,7 +8,7 @@ namespace DecisionViewpoints.Model.Events
     {
     }
 
-    internal interface IEAFileEvents
+    public interface IEAFileEvents
     {
         void EA_FileOpen(Repository repository);
         void EA_FileClose(Repository repository);

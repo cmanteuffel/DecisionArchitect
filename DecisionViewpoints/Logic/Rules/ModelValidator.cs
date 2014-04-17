@@ -61,8 +61,8 @@ namespace DecisionViewpoints.Logic.Rules
                 string message;
                 if (!rule.Validate(connector, out message))
                 {
-                    string supplierStereotype = connector.GetSupplier().GetStereotypeList();
-                    string clientStereotype = connector.GetClient().GetStereotypeList();
+                    string supplierStereotype = connector.GetSupplier().Stereotype;
+                    string clientStereotype = connector.GetClient().Stereotype;
                     string errorMessage = string.Format(Messages.ModelValidationConnectorMessage, message,
                                                         clientStereotype,
                                                         supplierStereotype, connector.Stereotype);

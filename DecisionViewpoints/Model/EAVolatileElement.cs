@@ -1,3 +1,4 @@
+using System.Windows.Forms;
 using EA;
 
 namespace DecisionViewpoints.Model
@@ -20,7 +21,7 @@ namespace DecisionViewpoints.Model
             volatileElement.Stereotype = info.Get(EAEventPropertyKeys.Stereotype).Value;
 
             dynamic parentElementID = Utilities.ParseToInt32(info.Get(EAEventPropertyKeys.ParentId).Value, -1);
-            if (parentElementID != -1)
+            if (parentElementID > 0)
             {
                 volatileElement.ParentElement = EARepository.Instance.GetElementByID(parentElementID);
             }
