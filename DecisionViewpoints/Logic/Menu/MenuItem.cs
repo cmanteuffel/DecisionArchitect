@@ -9,11 +9,7 @@
         {
             Name = name;
             UpdateDelegate = self => { };
-            if (clickDelegate == null)
-            {
-                clickDelegate = () => { };
-            }
-            ClickDelegate = clickDelegate;
+            ClickDelegate = clickDelegate ?? (() => { });
             IsEnabled = true;
             IsChecked = false;
             IsVisible = true;
