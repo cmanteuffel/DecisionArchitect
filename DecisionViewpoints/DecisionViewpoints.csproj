@@ -70,6 +70,11 @@
     <Compile Include="Logic\Rules\RuleType.cs" />
     <Compile Include="Logic\AutoGeneration\ChronologicalGenerator.cs" />
     <Compile Include="Logic\AutoGeneration\IGenerator.cs" />
+    <Compile Include="Model\Baselines\Baseline.cs" />
+    <Compile Include="Model\Baselines\BaselineDiff.cs" />
+    <Compile Include="Model\Baselines\DiffItem.cs" />
+    <Compile Include="Model\Baselines\DiffProperty.cs" />
+    <Compile Include="Model\Baselines\DiffStatus.cs" />
     <Compile Include="Model\EABaselineWrapper.cs" />
     <Compile Include="Model\EADiagram.cs" />
     <Compile Include="Model\EAElement.cs" />
@@ -132,6 +137,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

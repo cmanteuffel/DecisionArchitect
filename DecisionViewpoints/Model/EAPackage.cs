@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml;
+using DecisionViewpoints.Model.Baselines;
 using EA;
 
 namespace DecisionViewpoints.Model
@@ -159,6 +161,35 @@ namespace DecisionViewpoints.Model
         {
             return EADiagram.Wrap(_native.Diagrams.GetByName(name));
         }
+
+        public IEnumerable<Baseline> GetBaselines()
+        {
+            var baselines = new List<Baseline>();
+            var project = EARepository.Instance.Native.GetProjectInterface();
+            var baselineString = project.GetBaselines(GUID, "");
+            var xmlDocument = new XmlDocument();
+            xmlDocument.LoadXml(baselineString);
+
+            throw new NotImplementedException("parse xml and create xml");
+
+
+            return baselines;
+        }
+
+        public BaselineDiff CompareWithBaseline(Baseline baseline)
+        {
+            var project = EARepository.Instance.Native.GetProjectInterface();
+            var baselineXmlGuid = project.GUIDtoXML(baseline.Guid);
+            var diffString = project.DoBaselineCompare(GUID, baselineXmlGuid, "");
+            return BaselineDiff.ParseFromXML(this, baseline, diffString);
+        }
+
+        public bool CreateBaseline(string version, string notes)
+        {
+            var project = EARepository.Instance.Native.GetProjectInterface();
+            return project.CreateBaseline(GUID, version, notes);
+        }
+ 
 
         public static EAPackage Wrap(Package packageID)
         {
