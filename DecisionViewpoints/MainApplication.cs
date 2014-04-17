@@ -15,7 +15,7 @@ namespace DecisionViewpoints
 
         public override object EA_OnInitializeTechnologies(Repository repository)
         {
-            string technology = "";
+            string technology;
             using (var stream = Assembly.GetExecutingAssembly()
                                         .GetManifestResourceStream("DecisionViewpoints." + "DecisionViewpoints.xml"))
             {

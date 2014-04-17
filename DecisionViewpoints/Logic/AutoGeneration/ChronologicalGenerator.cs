@@ -56,7 +56,6 @@ namespace DecisionViewpoints.Logic.AutoGeneration
             AddToDiagram(newElement);
             // Create a connector between the last modified and the new element
             if (lastModified == null) return;
-            // TODO: Create our own connector for the chronological vp
             CreateConnector(lastModified, newElement);
         }
 
