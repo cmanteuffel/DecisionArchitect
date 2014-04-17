@@ -90,19 +90,6 @@ namespace DecisionViewpoints.Logic.Menu
             RootMenu.Add(createBaseline);
             RootMenu.Add(MenuItem.Separator);
             RootMenu.Add(new MenuItem("Generate CVP", Generate));
-
-            /*
-            createTraces.Add();
-            createTraces.Add(new TracingExistingDecision());
-            RootMenu.Add(createTraces);
-            RootMenu.Add(MenuItem.Separator);
-            // Add baseline menu items
-          
-            RootMenu.Add(new CreateBaseline());
-            RootMenu.Add(MenuItem.Separator);
-            // Add generation menu items
-            RootMenu.Add(new GenerateChronological());
-            */
         }
 
         public static object GetMenuItems(string location, string menuName)
@@ -152,13 +139,9 @@ namespace DecisionViewpoints.Logic.Menu
 
         private static void CreateAndTraceDecision()
         {
-            MessageBox.Show("Create and trace");
-            /*
             var repository = EARepository.Instance;
             if (repository.GetContextItemType() == NativeType.Element)
             {
-
-
                 var eaelement = EARepository.Instance.GetContextObject<EAElement>();
                 if (eaelement != null && !eaelement.IsDecision())
                 {
@@ -173,14 +156,14 @@ namespace DecisionViewpoints.Logic.Menu
 
 
                         eaelement.ConnectTo(decision, "Abstraction", "trace");
-
                         decision.Update();
 
                         dvPackage.RefreshElements();
                         repository.RefreshModelView(dvPackage.ID);
+                        decision.ShowInProjectView();
                     }
                 }
-            }*/
+            }
         }
 
         private static void CreateBaseline()

@@ -25,13 +25,13 @@ namespace DecisionViewpoints.Model
         public string Stereotype
         {
             get { return _native.Stereotype; }
-            set { Stereotype = value; }
+            set { _native.Stereotype = value; }
         }
 
         public string MetaType
         {
             get { return _native.MetaType; }
-            set { MetaType = value; }
+            set { _native.MetaType = value; }
         }
 
         public EAElement ParentElement
