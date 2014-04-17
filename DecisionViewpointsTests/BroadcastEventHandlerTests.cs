@@ -8,7 +8,7 @@ using DecisionViewpoints.Model;
 namespace DecisionViewpointsTests
 {
     [TestClass]
-    public class DecisionViewpointsBroadcastEventHandlerTests : DecisionViewpointsBaseTests
+    public class BroadcastEventHandlerTests : BaseTests
     {
         [TestMethod]
         public void OnPostOpenDiagram_OpenDecisionViewpointDiagram_ToolboxActivated()

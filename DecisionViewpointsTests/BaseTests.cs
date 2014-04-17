@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace DecisionViewpointsTests
 {
     [TestClass]
-    public class DecisionViewpointsBaseTests
+    public class BaseTests
     {
         //all .eap files should be one location - path to be added later
         private const string UnitTestEmty = "\\EATestFiles\\UntiTestEmpty.eap";

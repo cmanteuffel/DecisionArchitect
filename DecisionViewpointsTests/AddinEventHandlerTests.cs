@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace DecisionViewpointsTests
 {
     [TestClass]
-    public class DecisionViewpointsAddinEventHandlerTests : DecisionViewpointsBaseTests
+    public class AddinEventHandlerTests : BaseTests
     {
         [TestMethod]
         public void EaConnect_ReturnConnected()
