@@ -69,29 +69,27 @@ namespace DecisionViewpoints.Model.Baselines
 
                 var compareItems = compareResults.SelectNodes("./CompareItem");
                 if (compareItems != null)
-                    baselineDiffItems.AddRange(from XmlNode compareItem in compareItems select Parse(compareItem));
+                    baselineDiffItems.AddRange(from XmlNode node in compareItems select ParseNode(node));
             }
             baselineDiff.DiffItems = baselineDiffItems;
 
             return baselineDiff;
         }
 
-        private static DiffItem Parse(XmlNode node)
+        private static DiffItem ParseNode(XmlNode node)
         {
             var diffItem = GetDiffItem(node);
             var properties = node.SelectSingleNode("./Properties");
             if (properties != null)
-                diffItem.Properties = GetProperties(properties);
+                diffItem.Properties = GetDiffProperties(properties);
             var compareItems = node.SelectNodes("./CompareItem");
             if (compareItems != null)
-                foreach (var childDiffItem in from XmlNode compareItem in compareItems select Parse(compareItem))
-                {
+                foreach (var childDiffItem in from XmlNode compareItem in compareItems select ParseNode(compareItem))
                     diffItem.DiffItems.Add(childDiffItem);
-                }
             return diffItem;
         }
 
-        private static ICollection<DiffProperty> GetProperties(XmlNode propertiesNode)
+        private static ICollection<DiffProperty> GetDiffProperties(XmlNode propertiesNode)
         {
             var properties = new Collection<DiffProperty>();
             if (propertiesNode != null)
@@ -100,15 +98,15 @@ namespace DecisionViewpoints.Model.Baselines
             return properties;
         }
 
-        private static DiffItem GetDiffItem(XmlNode compareItem)
+        private static DiffItem GetDiffItem(XmlNode node)
         {
             var diffItem = new DiffItem();
-            if (compareItem.Attributes != null)
+            if (node.Attributes != null)
             {
-                diffItem.Guid = compareItem.Attributes["guid"].Value;
-                diffItem.Name = compareItem.Attributes["name"].Value;
-                diffItem.Status = GetStatus(compareItem.Attributes["status"].Value);
-                diffItem.Type = compareItem.Attributes["type"].Value;
+                diffItem.Guid = GetAttributeValue(node.Attributes["guid"]);
+                diffItem.Name = GetAttributeValue(node.Attributes["name"]);
+                diffItem.Status = GetStatus(GetAttributeValue(node.Attributes["status"]));
+                diffItem.Type = GetAttributeValue(node.Attributes["type"]);
             }
             return diffItem;
         }
@@ -118,16 +116,17 @@ namespace DecisionViewpoints.Model.Baselines
             var diffProperty = new DiffProperty();
             if (property.Attributes != null)
             {
-                diffProperty.Name = property.Attributes["name"].Value;
-                diffProperty.Status = GetStatus(property.Attributes["status"].Value);
-                diffProperty.BaselineValue = property.Attributes["baseline"] != null
-                                                 ? property.Attributes["baseline"].Value
-                                                 : "";
-                diffProperty.ModelValue = property.Attributes["model"] != null
-                                              ? property.Attributes["model"].Value
-                                              : "";
+                diffProperty.Name = GetAttributeValue(property.Attributes["name"]);
+                diffProperty.Status = GetStatus(GetAttributeValue(property.Attributes["status"]));
+                diffProperty.BaselineValue = GetAttributeValue(property.Attributes["baseline"]);
+                diffProperty.ModelValue = GetAttributeValue(property.Attributes["model"]);
             }
             return diffProperty;
+        }
+
+        private static string GetAttributeValue(XmlNode attribute)
+        {
+            return attribute != null ? attribute.Value : "";
         }
 
         private static DiffStatus GetStatus(string diffStatus)
