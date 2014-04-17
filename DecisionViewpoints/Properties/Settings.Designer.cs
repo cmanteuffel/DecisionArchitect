@@ -37,25 +37,37 @@ namespace DecisionViewpoints.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("DecisionVS::DecisionViewpoints")]
-        public string DiagramMetaType {
+        [global::System.Configuration.DefaultSettingValueAttribute("DecisionVP::Relationship")]
+        public string RelationshipDiagramMetaType {
             get {
-                return ((string)(this["DiagramMetaType"]));
+                return ((string)(this["RelationshipDiagramMetaType"]));
             }
             set {
-                this["DiagramMetaType"] = value;
+                this["RelationshipDiagramMetaType"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("DecisionVS")]
-        public string ToolboxName {
+        [global::System.Configuration.DefaultSettingValueAttribute("DecisionVP::Chronological")]
+        public string ChronologicalDiagramMetaType {
             get {
-                return ((string)(this["ToolboxName"]));
+                return ((string)(this["ChronologicalDiagramMetaType"]));
             }
             set {
-                this["ToolboxName"] = value;
+                this["ChronologicalDiagramMetaType"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("DecisionVP::Stakeholder Involvement")]
+        public string StakeholderInvolvementDiagramMetaType {
+            get {
+                return ((string)(this["StakeholderInvolvementDiagramMetaType"]));
+            }
+            set {
+                this["StakeholderInvolvementDiagramMetaType"] = value;
             }
         }
     }

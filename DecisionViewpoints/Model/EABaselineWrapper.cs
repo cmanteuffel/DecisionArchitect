@@ -7,7 +7,7 @@ using System.Xml;
 
 namespace DecisionViewpoints.Model
 {
-    public class EABaselineWrapper
+    public class EABaselineWrapper : IEAWrapper
     {
         private readonly XmlNode _baseline;
 

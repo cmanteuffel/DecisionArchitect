@@ -5,11 +5,14 @@
     <Setting Name="DecisionMetaType" Type="System.String" Scope="User">
       <Value Profile="(Default)">Decision</Value>
     </Setting>
-    <Setting Name="DiagramMetaType" Type="System.String" Scope="User">
-      <Value Profile="(Default)">DecisionVS::DecisionViewpoints</Value>
+    <Setting Name="RelationshipDiagramMetaType" Type="System.String" Scope="User">
+      <Value Profile="(Default)">DecisionVP::Relationship</Value>
     </Setting>
-    <Setting Name="ToolboxName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">DecisionVS</Value>
+    <Setting Name="ChronologicalDiagramMetaType" Type="System.String" Scope="User">
+      <Value Profile="(Default)">DecisionVP::Chronological</Value>
+    </Setting>
+    <Setting Name="StakeholderInvolvementDiagramMetaType" Type="System.String" Scope="User">
+      <Value Profile="(Default)">DecisionVP::Stakeholder Involvement</Value>
     </Setting>
   </Settings>
 </SettingsFile>

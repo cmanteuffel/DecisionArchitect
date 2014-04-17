@@ -14,9 +14,6 @@ namespace DecisionViewpoints.Logic
     {
         // These values need to be consistent with the ones defined in the DecisionVS MDG file.
         private const string RelStereotype = "Relationship";
-        private static readonly string DecisionMetaType = Settings.Default["DecisionMetaType"].ToString();
-        private static readonly string DiagramMetaType = Settings.Default["DiagramMetaType"].ToString();
-        private static readonly string ToolboxName = Settings.Default["ToolboxName"].ToString();
         private static string lastGUID = string.Empty;
         private static DateTime lastChange = DateTime.MinValue;
         private static bool _preventConnectorModifiedEvent = false;
@@ -70,9 +67,10 @@ namespace DecisionViewpoints.Logic
 
         public static string OnPostOpenDiagram(Repository repository, int diagramId)
         {
-            var diagram = repository.GetDiagramByID(diagramId);
+            /*var diagram = repository.GetDiagramByID(diagramId);
             if (!diagram.MetaType.Equals(DiagramMetaType)) return "";
-            return repository.ActivateToolbox(ToolboxName, 0) ? ToolboxName : "";
+            return repository.ActivateToolbox(ToolboxName, 0) ? ToolboxName : "";*/
+            return "";
         }
 
         public static void OnNotifyContextItemModified(Repository repository, string guid, ObjectType ot)

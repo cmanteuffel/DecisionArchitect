@@ -20,7 +20,14 @@ namespace DecisionViewpoints.Logic
 
         private static double _baselineVersion = 0.0;
 
-        private static readonly string DiagramMetaType = Settings.Default["DiagramMetaType"].ToString();
+        private static readonly string RelationshipDiagramMetaType =
+            Settings.Default["RelationshipDiagramMetaType"].ToString();
+
+        private static readonly string ChronologicalDiagramMetaType =
+            Settings.Default["ChronologicalDiagramMetaType"].ToString();
+
+        private static readonly string StakeholderInvolvementDiagramMetaType =
+            Settings.Default["StakeholderInvolvementDiagramMetaType"].ToString();
 
         public static object GetMenuItems(Repository repository, string location, string menuName)
         {
@@ -87,13 +94,13 @@ namespace DecisionViewpoints.Logic
             //project.Get().LayoutDiagramEx(cd.Get().DiagramGUID, ConstLayoutStyles.lsLayoutDirectionRight, 4, 20, 20, true);
         }
 
-        private static void CreateBaselines(IDualRepository repository)
+        private static void CreateBaselines(Repository repository)
         {
             var project = new EAProjectWrapper(repository);
-            Package root = repository.Models.GetAt(0);
-            var rvp = new EAPackageWrapper(root.Packages.GetByName("Relationship")); // relationship package
+            var rep = new EARepositoryWrapper(repository);
             _baselineVersion += 0.1;
-            project.Get().CreateBaseline(rvp.Get().PackageGUID, _baselineVersion.ToString(CultureInfo.InvariantCulture), "");
+            project.CreateBaseline(rep.GetPackageFromRootByName("Relationship").PackageGUID,
+                                   _baselineVersion.ToString(CultureInfo.InvariantCulture), "");
         }
 
         private static void TestBaselines(Repository repository)
@@ -204,27 +211,14 @@ namespace DecisionViewpoints.Logic
         ///     Creates the project structure with the five views and one initial diagram for each view.
         /// </summary>
         /// <param name="repository">The EA repository.</param>
-        private static void CreateProjectStructure(IDualRepository repository)
+        private static void CreateProjectStructure(Repository repository)
         {
-            CreateNewView(repository, "Relationship", 0);
-            CreateNewView(repository, "Chronological", 1);
-            CreateNewView(repository, "Stakeholder Involvement", 2);
-        }
-
-        private static void CreateNewView(IDualRepository repository, string name, int pos)
-        {
-            Package root = repository.Models.GetAt(0);
-            Package vp = root.Packages.AddNew(name, "");
-            // Set the icon of the view. Info can be found in ScriptingEA page 20
-            vp.Flags = "VICON=0;";
-            vp.TreePos = pos;
-            vp.Update();
-            root.Packages.Refresh();
-            // Create new Decision Relationship model diagram
-            Diagram diagram = vp.Diagrams.AddNew("Diagram1", DiagramMetaType);
-            diagram.Update();
-            vp.Diagrams.Refresh();
-            repository.RefreshModelView(vp.PackageID);
+            var rep = new EARepositoryWrapper(repository);
+            var decisionViewpoints = rep.CreateView("Decision Viewpoints", 0);
+            rep.CreateDiagram(decisionViewpoints, "Relationship", RelationshipDiagramMetaType);
+            rep.CreateDiagram(decisionViewpoints, "Chronological", ChronologicalDiagramMetaType);
+            rep.CreateDiagram(decisionViewpoints, "Stakeholder Involvement", StakeholderInvolvementDiagramMetaType);
+            rep.CreatePackage(decisionViewpoints, "history");
         }
     }
 }

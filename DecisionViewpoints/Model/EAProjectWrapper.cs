@@ -5,19 +5,14 @@ using EA;
 
 namespace DecisionViewpoints.Model
 {
-    public class EAProjectWrapper
+    public class EAProjectWrapper : IEAWrapper
     {
         private readonly Project _project;
-        private Dictionary<string, XmlNodeList> _comparisonResults = new Dictionary<string, XmlNodeList>();
+        private readonly Dictionary<string, XmlNodeList> _comparisonResults = new Dictionary<string, XmlNodeList>();
 
         public EAProjectWrapper(IDualRepository repository)
         {
             _project = repository.GetProjectInterface();
-        }
-
-        public Project Get()
-        {
-            return _project;
         }
 
         public string GetPackageXml(EAPackageWrapper package)
@@ -30,6 +25,11 @@ namespace DecisionViewpoints.Model
             return _comparisonResults;
         }
 
+        public bool CreateBaseline(string packageGUID, string version, string notes)
+        {
+            return _project.CreateBaseline(packageGUID, version, notes);
+        }
+
         public XmlNodeList ReadPackageBaselines(IDualRepository repository, EAPackageWrapper package)
         {
             var xmlBaselines = _project.GetBaselines(GetPackageXml(package), "");
@@ -40,7 +40,6 @@ namespace DecisionViewpoints.Model
 
         public void ComparePackageBaselines(IDualRepository repository, EAPackageWrapper package, XmlNodeList baselines)
         {
-            //var results = new Dictionary<string, XmlNodeList>();
             foreach (XmlNode baseline in baselines)
             {
                 // here baseline is the guid (node element) of each baseline
@@ -49,7 +48,6 @@ namespace DecisionViewpoints.Model
                 compare.LoadXml(xmlCompare);
                 _comparisonResults.Add(baseline.Value, compare.SelectNodes("//CompareItem[@status='Changed' and @type='Action']"));
             }
-            //return results;
         }
     }
 }

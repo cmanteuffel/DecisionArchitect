@@ -71,6 +71,7 @@
     </Compile>
     <Compile Include="Model\EAPackageWrapper.cs" />
     <Compile Include="Model\EAProjectWrapper.cs" />
+    <Compile Include="Model\EARepositoryWrapper.cs" />
     <Compile Include="Model\IEAWrapper.cs" />
     <Compile Include="Model\Events\EAEventAdapter.cs" />
     <Compile Include="Model\Events\IEAAddInEvents.cs" />
