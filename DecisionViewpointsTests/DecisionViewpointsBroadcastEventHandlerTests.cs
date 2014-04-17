@@ -68,6 +68,7 @@ namespace DecisionViewpointsTests
         {
             OpenRepositoryFile(RepositoryType.Relationships);
             ResetRepository(RepositoryType.Relationships);
+            // Any Decision to decision with state Idea
             foreach (var s in Stereotypes.States)
             {
                 Assert.IsFalse(ValidateConnector(s, Stereotypes.StateIdea, Stereotypes.RelationDependsOn),
@@ -100,6 +101,38 @@ namespace DecisionViewpointsTests
                               AssertionFailedMessage(s, Stereotypes.StateApproved, Stereotypes.RelationDependsOn));
                 Assert.IsTrue(ValidateConnector(s, Stereotypes.StateChallenged, Stereotypes.RelationDependsOn),
                               AssertionFailedMessage(s, Stereotypes.StateChallenged, Stereotypes.RelationDependsOn));
+            }
+            ResetRepository(RepositoryType.Relationships);
+            CloseRepositoryFile();
+        }
+
+        [TestMethod]
+        public void OnPreNewConnector_ExcludedBy_RelationshipIsNotCreated()
+        {
+            OpenRepositoryFile(RepositoryType.Relationships);
+            ResetRepository(RepositoryType.Relationships);
+            // Any Decision to decision with state Idea
+            foreach (var s in Stereotypes.States)
+            {
+                Assert.IsFalse(ValidateConnector(s, Stereotypes.StateIdea, Stereotypes.RelationExcludedBy),
+                    AssertionFailedMessage(s, States.Idea, Stereotypes.RelationExcludedBy));
+            }
+            // Decision with state Idea to Any Decision
+            foreach (var s in Stereotypes.States)
+            {
+                Assert.IsFalse(ValidateConnector(States.Idea, s, Stereotypes.RelationExcludedBy),
+                    AssertionFailedMessage(States.Idea, s, Stereotypes.RelationExcludedBy));
+            }
+            // Any Decision to decision with states {tentative, discarded, rejected}
+            foreach (var s in Stereotypes.States.Where(s => s != Stereotypes.StateIdea && s != Stereotypes.StateTentative &&
+                s != Stereotypes.StateDiscarded && s != Stereotypes.StateRejected))
+            {
+                Assert.IsFalse(ValidateConnector(s, Stereotypes.StateTentative, Stereotypes.RelationExcludedBy),
+                              AssertionFailedMessage(s, Stereotypes.StateTentative, Stereotypes.RelationExcludedBy));
+                Assert.IsFalse(ValidateConnector(s, Stereotypes.StateDiscarded, Stereotypes.RelationExcludedBy),
+                              AssertionFailedMessage(s, Stereotypes.StateDiscarded, Stereotypes.RelationExcludedBy));
+                Assert.IsFalse(ValidateConnector(s, Stereotypes.StateRejected, Stereotypes.RelationExcludedBy),
+                              AssertionFailedMessage(s, Stereotypes.StateRejected, Stereotypes.RelationExcludedBy));
             }
             ResetRepository(RepositoryType.Relationships);
             CloseRepositoryFile();
