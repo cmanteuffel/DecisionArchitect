@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Reflection;
+using System.Globalization;
 using EA;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DecisionViewpoints.Model;
@@ -30,25 +29,23 @@ namespace DecisionViewpointsTests
         {
             OpenRepositoryFile(RepositoryType.Relationships);
             ResetRepository(RepositoryType.Relationships);
-            const string relationshipType = "Caused By";
-            var states = new States();
             // Any Decision to decision with state Idea
-            foreach (var s in states.Get())
+            foreach (var s in Stereotypes.States)
             {
-                Assert.IsFalse(ValidateConnector(s, States.Idea, relationshipType), 
-                    AssertionFailedMessage(s, States.Idea, relationshipType));
+                Assert.IsFalse(ValidateConnector(s, Stereotypes.StateIdea, Stereotypes.RelationCausedBy),
+                    AssertionFailedMessage(s, States.Idea, Stereotypes.RelationCausedBy));
             }
             // Decision with state Idea to Any Decision
-            foreach (var s in states.Get())
+            foreach (var s in Stereotypes.States)
             {
-                Assert.IsFalse(ValidateConnector(States.Idea, s, relationshipType),
-                    AssertionFailedMessage(States.Idea, s, relationshipType));
+                Assert.IsFalse(ValidateConnector(States.Idea, s, Stereotypes.RelationCausedBy),
+                    AssertionFailedMessage(States.Idea, s, Stereotypes.RelationCausedBy));
             }
             // Any decision to decision with state Discarded
-            foreach (var s in states.Get())
+            foreach (var s in Stereotypes.States)
             {
-                Assert.IsFalse(ValidateConnector(s, States.Discarded, relationshipType),
-                    AssertionFailedMessage(s, States.Discarded, relationshipType));
+                Assert.IsFalse(ValidateConnector(s, Stereotypes.StateDiscarded, Stereotypes.RelationCausedBy),
+                    AssertionFailedMessage(s, States.Discarded, Stereotypes.RelationCausedBy));
             }
             ResetRepository(RepositoryType.Relationships);
             CloseRepositoryFile();
@@ -116,9 +113,9 @@ namespace DecisionViewpointsTests
             info.Set(EventPropertyKeys.Type, type);
             info.Set(EventPropertyKeys.Subtype, "");
             info.Set(EventPropertyKeys.Stereotype, relationshipStereotype);
-            info.Set(EventPropertyKeys.ClientId, client.ElementID.ToString());
-            info.Set(EventPropertyKeys.SupplierId, supplier.ElementID.ToString());
-            info.Set(EventPropertyKeys.DiagramId, diagram.DiagramID.ToString());
+            info.Set(EventPropertyKeys.ClientId, client.ElementID.ToString(CultureInfo.InvariantCulture));
+            info.Set(EventPropertyKeys.SupplierId, supplier.ElementID.ToString(CultureInfo.InvariantCulture));
+            info.Set(EventPropertyKeys.DiagramId, diagram.DiagramID.ToString(CultureInfo.InvariantCulture));
             return MainApp.EA_OnPreNewConnector(Repo, info);
         }
 
