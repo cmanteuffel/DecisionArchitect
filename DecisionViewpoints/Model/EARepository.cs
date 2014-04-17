@@ -134,9 +134,5 @@ namespace DecisionViewpoints.Model
             throw new NotSupportedException("Type (" + typeT.Name + ") not supported by GetContextObject()");
         }
 
-        public EAProjectWrapper GetProject()
-        {
-            return EAProjectWrapper.Wrap(Native.GetProjectInterface());
-        }
     }
 }

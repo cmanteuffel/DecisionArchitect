@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using DecisionViewpoints.Logic.Automation;
 using DecisionViewpoints.Logic.Rules;
 using DecisionViewpoints.Model;
 using DecisionViewpoints.Properties;
@@ -114,12 +115,9 @@ namespace DecisionViewpoints.Logic
                     if ((bool)Settings.Default["BaselineOptionOnModification"])
                         if (element.MetaType.Equals("Decision"))
                         {
-                            var project = EARepository.Instance.GetProject();
                             var rep =  EARepository.Instance;
-                            var notes = String.Format(Settings.Default.BaselineIdentifier);
                             var dvp = rep.GetPackageFromRootByName("Decision Views");
-                            var bv = project.GetBaselineLatestVesrion(dvp);
-                            project.CreateBaseline(dvp.GUID, bv, notes);
+                            ChronologicalViewpointUtilities.CreateDecisionSnapshot(dvp);
                         }
                     break;
                 case ObjectType.otConnector:
@@ -150,16 +148,18 @@ namespace DecisionViewpoints.Logic
         {
         }
 
+
         public static void FileClose(Repository repository)
         {
             if (!(bool)Settings.Default["BaselineOptionOnFileClose"]) return;
             if (!_modified) return;
-            var project = EARepository.Instance.GetProject();
+
+            throw new Exception("needs to be performed for ALL decision view packages");
+            
             var rep =  EARepository.Instance;
-            var notes = String.Format(Settings.Default.BaselineIdentifier);
+            
             var dvp = rep.GetPackageFromRootByName("Decision Views");
-            var bv = project.GetBaselineLatestVesrion(dvp);
-            project.CreateBaseline(dvp.GUID, bv, notes);
+            ChronologicalViewpointUtilities.CreateDecisionSnapshot(dvp);
         }
     }
 }

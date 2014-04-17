@@ -1,3 +1,6 @@
+using System;
+using DecisionViewpoints.Properties;
+
 namespace DecisionViewpoints.Model.Baselines
 {
     public class Baseline
@@ -10,7 +13,9 @@ namespace DecisionViewpoints.Model.Baselines
         }
 
         public string Guid { get; private set; }
-        public string Version { get;  private set; }
+        public string Version { get; private set; }
         public string Notes { get; private set; }
+
+        
     }
 }

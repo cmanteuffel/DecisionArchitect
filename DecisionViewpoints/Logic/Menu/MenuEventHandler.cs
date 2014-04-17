@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using DecisionViewpoints.Logic.Automation;
 using DecisionViewpoints.Model;
+using DecisionViewpoints.Model.Baselines;
 using DecisionViewpoints.Properties;
 using DecisionViewpointsCustomViews;
 
@@ -60,7 +61,7 @@ namespace DecisionViewpoints.Logic.Menu
                         self => { self.IsChecked = Settings.Default.BaselineOptionOnModification; }
                 };
 
-            var createBaseline = new MenuItem(Messages.MenuCreateBaseline, CreateBaseline)
+            var createBaseline = new MenuItem(Messages.MenuCreateBaseline, ManualDecisionSnapshot)
                 {
                     UpdateDelegate = self =>
                         {
@@ -154,20 +155,13 @@ namespace DecisionViewpoints.Logic.Menu
         }
 
         [Obsolete("move to correct class and remove clones in broadcasthandler")]
-        private static void CreateBaseline()
+        private static void ManualDecisionSnapshot()
         {
             if (NativeType.Package == EARepository.Instance.GetContextItemType() &&
                 Settings.Default.BaselineOptionManually)
             {
                 var eapackage = EARepository.Instance.GetContextObject<EAPackage>();
-                if (eapackage != null && eapackage.IsDecisionViewPackge())
-                {
-                    var project = EARepository.Instance.GetProject();
-                    var notes = String.Format("Decision History");
-                    var dvp = eapackage;
-                    var bv = project.GetBaselineLatestVesrion(dvp);
-                    project.CreateBaseline(dvp.GUID, bv, notes);
-                }
+                ChronologicalViewpointUtilities.CreateDecisionSnapshot(eapackage);
             }
         }
 

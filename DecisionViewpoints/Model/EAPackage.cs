@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
 using DecisionViewpoints.Model.Baselines;
+using DecisionViewpoints.Properties;
 using EA;
 
 namespace DecisionViewpoints.Model
@@ -182,6 +183,24 @@ namespace DecisionViewpoints.Model
                     select new Baseline(guid, version, notes)).ToList();
         }
 
+        public Baseline CreateBaseline(string notes, bool excludeSubPackages = false)
+        {
+            int flags = 0;
+            if (excludeSubPackages)
+            {
+                flags = 1;
+            }
+            string version = DateTime.Now.ToString("yyyyMMddHHmmssffff");
+
+            Project project = EARepository.Instance.Native.GetProjectInterface();             
+            if (!project.CreateBaselineEx(GUID, version, notes, flags))
+            {
+                throw new BaselineException("Baseline could not be created");
+            }
+
+            return GetBaselines().First(bl => bl.Version.Equals(version) && bl.Notes.Equals(Notes));
+        }
+
         public BaselineDiff CompareWithBaseline(Baseline baseline)
         {
             Project project = EARepository.Instance.Native.GetProjectInterface();
@@ -189,13 +208,6 @@ namespace DecisionViewpoints.Model
             string diffString = project.DoBaselineCompare(GUID, baselineXmlGuid, "");
             return BaselineDiff.ParseFromXml(this, baseline, diffString);
         }
-
-        public bool CreateBaseline(string version, string notes)
-        {
-            Project project = EARepository.Instance.Native.GetProjectInterface();
-            return project.CreateBaseline(GUID, version, notes);
-        }
-
 
         public static EAPackage Wrap(Package packageID)
         {
