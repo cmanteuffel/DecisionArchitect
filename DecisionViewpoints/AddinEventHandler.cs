@@ -125,12 +125,12 @@ namespace DecisionViewpoints
         {
             // Create new Decision Relationship View
             Package root = repository.Models.GetAt(0);
-            Package view = root.Packages.AddNew("Decision Relationship View", "");
+            Package view = root.Packages.AddNew("Decision Relationship Viewpoint", "");
             view.Flags = "VICON=0;";
             view.Update();
             root.Packages.Refresh();
-            // Create new Decision Relationship diagram
-            Diagram diagram = view.Diagrams.AddNew("Decision Relationship View", "DecisionVS::RelationshipView");
+            // Create new Decision Relationship model diagram
+            Diagram diagram = view.Diagrams.AddNew("Diagram1", "DecisionVS::RelationshipView");
             diagram.Update();
             view.Diagrams.Refresh();
             repository.RefreshModelView(view.PackageID);
