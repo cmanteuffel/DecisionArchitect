@@ -6,7 +6,7 @@ namespace DecisionViewpoints.Logic.Menu
 {
     public static class MenuEventHandler
     {
-        private static readonly Menu Header = new Menu("-&Decision Viewpoints");
+        private static readonly Menu RootMenu = new Menu("-&Decision Viewpoints");
 
         private static readonly string RelationshipDiagramMetaType =
             Settings.Default["RelationshipDiagramMetaType"].ToString();
@@ -22,7 +22,7 @@ namespace DecisionViewpoints.Logic.Menu
             // Add general menu items
 
             // Add tracing menu items
-            //Header.Add(new FollowTraces());
+            //RootMenu.Add(new FollowTraces());
 
             var createTraces = new Menu("-&Create Traces");
             createTraces.UpdateDelegate = menuItem =>
@@ -76,40 +76,41 @@ namespace DecisionViewpoints.Logic.Menu
                 };
 
 
-            Header.Add(new MenuItem("&Create Project Structure", CreateProjectStructure));
-            Header.Add(MenuItem.Separator);
-            Header.Add(createTraces);
+            RootMenu.Add(new MenuItem("&Create Project Structure", CreateProjectStructure));
+            RootMenu.Add(MenuItem.Separator);
+            RootMenu.Add(createTraces);
             createTraces.Add(new MenuItem("&New Decision", CreateAndTraceDecision));
-            Header.Add(new FollowTraceMenu("-&Follow Trace"));
-            Header.Add(MenuItem.Separator);
-            Header.Add(baselinesOptions);
+            createTraces.Add(new MenuItem("Existing Element", (delegate { MessageBox.Show("To be implemented"); })));
+            RootMenu.Add(new FollowTraceMenu());
+            RootMenu.Add(MenuItem.Separator);
+            RootMenu.Add(baselinesOptions);
             baselinesOptions.Add(baselineManually);
             baselinesOptions.Add(baselineOnFileClose);
             baselinesOptions.Add(baselineOnModification);
-            Header.Add(createBaseline);
-            Header.Add(MenuItem.Separator);
-            Header.Add(new MenuItem("Generate CVP", Generate));
+            RootMenu.Add(createBaseline);
+            RootMenu.Add(MenuItem.Separator);
+            RootMenu.Add(new MenuItem("Generate CVP", Generate));
 
             /*
             createTraces.Add();
             createTraces.Add(new TracingExistingDecision());
-            Header.Add(createTraces);
-            Header.Add(MenuItem.Separator);
+            RootMenu.Add(createTraces);
+            RootMenu.Add(MenuItem.Separator);
             // Add baseline menu items
           
-            Header.Add(new CreateBaseline());
-            Header.Add(MenuItem.Separator);
+            RootMenu.Add(new CreateBaseline());
+            RootMenu.Add(MenuItem.Separator);
             // Add generation menu items
-            Header.Add(new GenerateChronological());
+            RootMenu.Add(new GenerateChronological());
             */
         }
 
         public static object GetMenuItems(string location, string menuName)
         {
             if (menuName.Equals(""))
-                return Header.Name;
+                return RootMenu.Name;
 
-            IMenu menuItem = Header.FindMenuItem(menuName);
+            IMenu menuItem = RootMenu.FindMenuItem(menuName);
             if (menuItem != null)
             {
                 return menuItem.GetSubItems();
@@ -121,7 +122,7 @@ namespace DecisionViewpoints.Logic.Menu
                                         ref bool isEnabled,
                                         ref bool isChecked)
         {
-            IMenu menuItem = Header.FindMenuItem(itemName);
+            IMenu menuItem = RootMenu.FindMenuItem(itemName);
             if (menuItem != null)
             {
                 isChecked = menuItem.IsChecked;
@@ -131,7 +132,7 @@ namespace DecisionViewpoints.Logic.Menu
 
         public static void MenuClick(string location, string menuName, string itemName)
         {
-            IMenu menuItem = Header.FindMenuItem(itemName);
+            IMenu menuItem = RootMenu.FindMenuItem(itemName);
             if (menuItem != null)
             {
                 menuItem.Click();

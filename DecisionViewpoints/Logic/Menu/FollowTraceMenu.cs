@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using DecisionViewpoints.Model;
 
@@ -10,8 +7,11 @@ namespace DecisionViewpoints.Logic.Menu
 {
     class FollowTraceMenu : Menu
     {
+        private const string NoTracesDefinedName = "No Traces defined";
+        private const string DefaultName = "-&Follow Trac(e)";
 
-        public FollowTraceMenu(string name) : base(name)
+        public FollowTraceMenu()
+            : base(DefaultName)
         {
             UpdateDelegate = OnNoTracesDefined;
         }
@@ -24,13 +24,13 @@ namespace DecisionViewpoints.Logic.Menu
                 var element = repository.GetContextObject<EAElement>();
                 if (element != null)
                 {
-                    if (element.GetTracedElements().Count() <= 0)
+                    if (!element.GetTracedElements().Any())
                     {
-                        Name = "No Traces defined";
+                        Name = NoTracesDefinedName;
                         IsEnabled = false;
                         return;
                     }
-                    Name = "-&Follow Trace(s)";
+                    Name = DefaultName;
                     IsEnabled = true;
                 }
             }
@@ -70,13 +70,13 @@ namespace DecisionViewpoints.Logic.Menu
             return new string[0];
         }
 
-        private static string GetUniqueName(string name, List<string> menuItemNames)
+        private static string GetUniqueName(string name, ICollection<string> menuItemNames)
         {
             int duplicate = 1;
             string uniqueName = name;
+            // identify number of duplicates
             while (menuItemNames.Contains(uniqueName))
             {
-                // identify number of duplicates
                 uniqueName = name + " (" + ++duplicate + ")";
             }
             return uniqueName;
