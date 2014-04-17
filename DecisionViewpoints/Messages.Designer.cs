@@ -133,11 +133,29 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {3} ({0} {1} {2}).
+        ///   Looks up a localized string similar to {0} ({1} {3} {2}).
         /// </summary>
-        internal static string ModelValidationMessage {
+        internal static string ModelValidationConnectorMessage {
             get {
-                return ResourceManager.GetString("ModelValidationMessage", resourceCulture);
+                return ResourceManager.GetString("ModelValidationConnectorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} (‹‹{1}›› {2}).
+        /// </summary>
+        internal static string ModelValidationElementMessage {
+            get {
+                return ResourceManager.GetString("ModelValidationElementMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Every decision should have a unique name..
+        /// </summary>
+        internal static string NameUniqueness {
+            get {
+                return ResourceManager.GetString("NameUniqueness", resourceCulture);
             }
         }
         

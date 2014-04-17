@@ -8,16 +8,13 @@ namespace DecisionViewpoints.Logic.Rules
         {
         }
 
-        public override bool ValidateConnector(EAConnectorWrapper connectorWrapper, out string message)
+        public override bool ValidateConnector(EAConnectorWrapper connector)
         {
-            message = "";
-            if (connectorWrapper.SupplierId == connectorWrapper.ClientId)
+            if (connector.SupplierId == connector.ClientId)
             {
-                message = getErrorMessage();
                 return false;
             }
             return true;
         }
-
     }
 }

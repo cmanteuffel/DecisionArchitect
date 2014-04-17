@@ -3,10 +3,6 @@ using EA;
 
 namespace DecisionViewpoints.Logic
 {
-    /// <summary>
-    ///     This class is responsible for handling all the EA events delegated
-    ///     from MainApplication which is the entry point.
-    /// </summary>
     public static class AddinEventHandler
     {
         public const string MenuHeader = "-&Decision Viewpoints";
@@ -14,12 +10,7 @@ namespace DecisionViewpoints.Logic
 
         private static readonly string DiagramMetaType = Settings.Default["DiagramMetaType"].ToString();
 
-        /// <summary>
-        /// </summary>
-        /// <param name="repository"></param>
-        /// <param name="location"></param>
-        /// <param name="menuName"></param>
-        /// <returns></returns>
+
         public static object GetMenuItems(Repository repository, string location, string menuName)
         {
             switch (menuName)
@@ -33,16 +24,22 @@ namespace DecisionViewpoints.Logic
             return "";
         }
 
-        /// <summary>
-        /// </summary>
-        /// <param name="repository"></param>
-        /// <param name="location"></param>
-        /// <param name="menuName"></param>
-        /// <param name="itemName"></param>
-        /// <param name="isEnabled"></param>
-        /// <param name="isChecked"></param>
-        public static void GetMenuState(Repository repository, string location, string menuName,
-                                        string itemName, ref bool isEnabled, ref bool isChecked)
+        public static void MenuClick(Repository repository, string location, string menuName, string itemName)
+        {
+            switch (itemName)
+            {
+                case MenuCreateProjectStructure:
+                    CreateProjectStructure(repository);
+                    break;
+                    /*case MenuCreateDecisionGroup:
+                CreateDecisionGroup(repository);
+                break;*/
+            }
+        }
+
+        public static void GetMenuState(Repository repository, string location, string menuName, string itemName,
+                                         ref bool isEnabled,
+                                         ref bool isChecked)
         {
             if (IsProjectOpen(repository))
             {
@@ -52,8 +49,8 @@ namespace DecisionViewpoints.Logic
                         isEnabled = true;
                         break;
                         /*case MenuCreateDecisionGroup:
-                        isEnabled = true;
-                        break;*/
+                    isEnabled = true;
+                    break;*/
                     default:
                         isEnabled = false;
                         break;
@@ -66,28 +63,17 @@ namespace DecisionViewpoints.Logic
             }
         }
 
+
         /// <summary>
         /// </summary>
         /// <param name="repository"></param>
         /// <param name="location"></param>
         /// <param name="menuName"></param>
         /// <param name="itemName"></param>
-        public static void MenuClick(Repository repository, string location, string menuName, string itemName)
-        {
-            switch (itemName)
-            {
-                case MenuCreateProjectStructure:
-                    CreateProjectStructure(repository);
-                    break;
-                    /*case MenuCreateDecisionGroup:
-                    CreateDecisionGroup(repository);
-                    break;*/
-            }
-        }
-
-        /// <summary>
-        ///     Sets the state of the menu depending if there is
-        ///     an active project or not
+        /// <param name="isEnabled"></param>
+        /// <param name="isChecked"></param>
+        /// Sets the state of the menu depending if there is
+        /// an active project or not
         /// </summary>
         /// <param name="repository">The EA repository.</param>
         /// <returns>True if there is an active project, false otherwise.</returns>

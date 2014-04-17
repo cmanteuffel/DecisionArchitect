@@ -156,7 +156,13 @@
   <data name="ModelValidationCategory" xml:space="preserve">
     <value>Decision Viewpoints</value>
   </data>
-  <data name="ModelValidationMessage" xml:space="preserve">
-    <value>{3} ({0} {1} {2})</value>
+  <data name="ModelValidationConnectorMessage" xml:space="preserve">
+    <value>{0} ({1} {3} {2})</value>
+  </data>
+  <data name="ModelValidationElementMessage" xml:space="preserve">
+    <value>{0} (‹‹{1}›› {2})</value>
+  </data>
+  <data name="NameUniqueness" xml:space="preserve">
+    <value>Every decision should have a unique name.</value>
   </data>
 </root>

@@ -2,11 +2,10 @@ using EA;
 
 namespace DecisionViewpoints.Model
 {
-    public class EAConnectorWrapper
+    public class EAConnectorWrapper : IEAWrapper
     {
         private readonly int _clientId;
-        private readonly Connector _connector;
-        private readonly int _diagramId;
+        private readonly Connector _connector;        
         private readonly Repository _repository;
         private readonly string _stereotype;
         private readonly string _subtype;
@@ -14,12 +13,10 @@ namespace DecisionViewpoints.Model
         private readonly string _type;
 
         private EAConnectorWrapper(Repository repository, int clientId, int supplierId, string stereotype, string type,
-                                   string subtype,
-                                   int diagramId, Connector connector = null)
+                                   string subtype,Connector connector = null)
         {
             _repository = repository;
             _clientId = clientId;
-            _diagramId = diagramId;
             _stereotype = stereotype;
             _subtype = subtype;
             _supplierId = supplierId;
@@ -47,10 +44,7 @@ namespace DecisionViewpoints.Model
             get { return _clientId; }
         }
 
-        public int DiagramId
-        {
-            get { return _diagramId; }
-        }
+
 
         public int SupplierId
         {
@@ -62,6 +56,11 @@ namespace DecisionViewpoints.Model
             get { return _connector; }
         }
 
+        public Repository Repository
+        {
+            get { return _repository; }
+        }
+
         public static EAConnectorWrapper Wrap(Repository repository, EventProperties properties)
         {
             dynamic type = properties.Get(EAEventPropertyKeys.Type).Value;
@@ -69,29 +68,23 @@ namespace DecisionViewpoints.Model
             dynamic stereotype = properties.Get(EAEventPropertyKeys.Stereotype).Value;
             dynamic supplierId = Utilities.ParseToInt32(properties.Get(EAEventPropertyKeys.SupplierId).Value, -1);
             dynamic clientId = Utilities.ParseToInt32(properties.Get(EAEventPropertyKeys.ClientId).Value, -1);
-            dynamic diagramId = Utilities.ParseToInt32(properties.Get(EAEventPropertyKeys.DiagramId).Value, -1);
-            return new EAConnectorWrapper(repository, clientId, supplierId, stereotype, type, subtype, diagramId);
+            return new EAConnectorWrapper(repository, clientId, supplierId, stereotype, type, subtype);
         }
 
         public static EAConnectorWrapper Wrap(Repository repository, int id)
         {
             Connector connector = repository.GetConnectorByID(id);
-            return Wrap(repository, connector.ConnectorGUID);
+            return new EAConnectorWrapper(repository, connector.ClientID, connector.SupplierID, connector.Stereotype,
+                                          connector.Type, connector.Subtype, connector);
         }
 
         public static EAConnectorWrapper Wrap(Repository repository, string guid)
         {
             Connector connector = repository.GetConnectorByGuid(guid);
             return new EAConnectorWrapper(repository, connector.ClientID, connector.SupplierID, connector.Stereotype,
-                                          connector.Type, connector.Subtype, connector.DiagramID, connector);
+                                          connector.Type, connector.Subtype, connector);
         }
 
-
-
-        public Diagram GetDiagram()
-        {
-            return _repository.GetDiagramByID(_diagramId);
-        }
 
         public Element GetSupplier()
         {

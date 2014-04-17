@@ -8,5 +8,6 @@ namespace DecisionViewpoints.Model
         public const string Stereotype = "stereotype"; 
         public const string Type = "type";
         public const string Subtype = "subtype";
+        public const string ParentId = "parentID";
     }
 }

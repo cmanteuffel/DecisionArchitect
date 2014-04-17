@@ -13,5 +13,15 @@ namespace DecisionViewpoints
             }
             return number;
         }
+
+        public static long ParseToLong(string value, long valueOnFailure)
+        {
+            long number;
+            if (!long.TryParse(value, out number))
+            {
+                number = valueOnFailure;
+            }
+            return number;
+        }
     }
 }

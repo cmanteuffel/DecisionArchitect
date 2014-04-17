@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using DecisionViewpoints.Model;
@@ -6,36 +7,42 @@ using EA;
 
 namespace DecisionViewpoints.Logic.Rules
 {
-    public sealed class Validator
+    public sealed class RuleManager
     {
-        private static readonly Validator Singleton = new Validator();
-        private readonly IList<IConnectorRule> rules = new List<IConnectorRule>();
-        private readonly IDictionary<string, IConnectorRule> lookup = new Dictionary<string, IConnectorRule>();
-        private string categoryID;
+        private static readonly RuleManager Singleton = new RuleManager();
+        private readonly IList<AbstractRule> _rules = new List<AbstractRule>();
 
-        private Validator()
+        public IList<AbstractRule> Rules
         {
-            CreateConnectorRules();
+            get { return _rules; }
         }
 
 
-        public static Validator Instance
+        private RuleManager()
+        {
+            CreateConnectorRules();
+            CreateElementRules();
+        }
+
+
+        public static RuleManager Instance
         {
             get { return Singleton; }
         }
 
-        public bool ValidateConnector(EAConnectorWrapper connectorWrapper, out string message)
+        public bool ValidateElement(EAElementWrapper element, out string message)
         {
             message = "";
 
-            if (!DVStereotypes.Relationships.Contains(connectorWrapper.Stereotype))
+            if (!DVStereotypes.States.Contains(element.Stereotype))
             {
                 return true;
             }
 
-            foreach (IConnectorRule rule in rules)
+
+            foreach (var rule in Rules.Where(r => r.GetRuleType() == RuleType.Element))
             {
-                if (!rule.ValidateConnector(connectorWrapper, out message))
+                if (!rule.Validate(element, out message))
                 {
                     return false;
                 }
@@ -43,58 +50,52 @@ namespace DecisionViewpoints.Logic.Rules
             return true;
         }
 
-        public void SetupModelValidator(Repository repository)
+        public bool ValidateConnector(EAConnectorWrapper conector, out string message)
         {
-            Project project = repository.GetProjectInterface();
-            categoryID = project.DefineRuleCategory(Messages.ModelValidationCategory);
+            message = "";
 
-            foreach (IConnectorRule rule in rules)
+            if (!DVStereotypes.Relationships.Contains(conector.Stereotype))
             {
-                var id = project.DefineRule(categoryID, EnumMVErrorType.mvError, rule.getErrorMessage());
-                lookup[id] = rule;
+                return true;
             }
-        }
 
-        public void RunConnectorRule(Repository repository, string ruleID, int connectorID)
-        {
-            Project project = repository.GetProjectInterface();
-            IConnectorRule rule = lookup[ruleID];
-            if (rule != null)
+            foreach (var rule in _rules.Where(r => r.GetRuleType() == RuleType.Connector))
             {
-                EAConnectorWrapper connector = EAConnectorWrapper.Wrap(repository, connectorID);
-                string message = "";
-                if (!rule.ValidateConnector(connector, out message))
+                if (!rule.Validate(conector, out message))
                 {
-                    string supplierStereotype = connector.GetSupplier().GetStereotypeList();
-                    string clientStereotype = connector.GetClient().GetStereotypeList();
-                    string errorMessage = string.Format(Messages.ModelValidationMessage, clientStereotype,
-                                                        connector.Stereotype, supplierStereotype, message);
-                    project.PublishResult(ruleID, EnumMVErrorType.mvError, errorMessage);
+                    return false;
                 }
             }
+            return true;
+        }
+
+        private void CreateElementRules()
+        {
+            var decisionNameUniqueness = new NameUniquenessRule(Messages.NameUniqueness);
+            _rules.Add(decisionNameUniqueness);
         }
 
         private void CreateConnectorRules()
         {
             var notOriginateFromIdea = new ExclusionRule(Messages.NotOriginateFromIdea,
                                                          new[] {DVStereotypes.StateIdea},
-                                                         ConnectorRule.Any,
-                                                         ConnectorRule.Any);
-            var notPointToIdea = new ExclusionRule(Messages.NotPointToIdea, ConnectorRule.Any, ConnectorRule.Any,
+                                                         ExclusionRule.Any,
+                                                         ExclusionRule.Any);
+            var notPointToIdea = new ExclusionRule(Messages.NotPointToIdea, ExclusionRule.Any, ExclusionRule.Any,
                                                    new[] {DVStereotypes.StateIdea}
                 );
-            var causedByNotPointTo = new ExclusionRule(Messages.CausedByNotPointTo, ConnectorRule.Any,
+            var causedByNotPointTo = new ExclusionRule(Messages.CausedByNotPointTo, ExclusionRule.Any,
                                                        new[] {DVStereotypes.RelationCausedBy},
                                                        new[] {DVStereotypes.StateDiscarded}
                 );
             var dependsOnOnlyPointTo = new ExclusionRule(Messages.DependsOnOnlyPointTo,
-                                                         ConnectorRule.Any,
+                                                         ExclusionRule.Any,
                                                          new[] {DVStereotypes.RelationDependsOn},
                                                          new[]
                                                              {DVStereotypes.StateDiscarded, DVStereotypes.StateRejected}
                 );
             var excludedByNotPointTo = new ExclusionRule(Messages.ExcludedByNotPointTo,
-                                                         ConnectorRule.Any,
+                                                         ExclusionRule.Any,
                                                          new[] {DVStereotypes.RelationExcludedBy},
                                                          new[]
                                                              {
@@ -109,10 +110,10 @@ namespace DecisionViewpoints.Logic.Rules
                                                                         DVStereotypes.StateDecided
                                                                     },
                                                                 new[] {DVStereotypes.RelationExcludedBy},
-                                                                ConnectorRule.Any
+                                                                ExclusionRule.Any
                 );
             var replacesOnlyPointTo = new ExclusionRule(Messages.ReplacesOnlyPointTo,
-                                                        ConnectorRule.Any,
+                                                        ExclusionRule.Any,
                                                         new[] {DVStereotypes.RelationReplaces},
                                                         new[]
                                                             {
@@ -122,7 +123,7 @@ namespace DecisionViewpoints.Logic.Rules
                                                             }
                 );
             var alternativeForNotPointTo = new ExclusionRule(Messages.AlternativeForNotPointTo,
-                                                             ConnectorRule.Any,
+                                                             ExclusionRule.Any,
                                                              new[] {DVStereotypes.RelationAlternativeFor},
                                                              new[] {DVStereotypes.StateDiscarded}
                 );
@@ -140,16 +141,16 @@ namespace DecisionViewpoints.Logic.Rules
 
             var noLoop = new NoLoopRule(Messages.NoLoops);
 
-            rules.Add(notOriginateFromIdea);
-            rules.Add(notPointToIdea);
-            rules.Add(causedByNotPointTo);
-            rules.Add(dependsOnOnlyPointTo);
-            rules.Add(excludedByNotPointTo);
-            rules.Add(excludedByOnlyOriginateFrom);
-            rules.Add(replacesOnlyPointTo);
-            rules.Add(alternativeForNotPointTo);
-            rules.Add(alternativeForOnlyOriginateFrom);
-            rules.Add(noLoop);
+            _rules.Add(notOriginateFromIdea);
+            _rules.Add(notPointToIdea);
+            _rules.Add(causedByNotPointTo);
+            _rules.Add(dependsOnOnlyPointTo);
+            _rules.Add(excludedByNotPointTo);
+            _rules.Add(excludedByOnlyOriginateFrom);
+            _rules.Add(replacesOnlyPointTo);
+            _rules.Add(alternativeForNotPointTo);
+            _rules.Add(alternativeForOnlyOriginateFrom);
+            _rules.Add(noLoop);
         }
     }
 }

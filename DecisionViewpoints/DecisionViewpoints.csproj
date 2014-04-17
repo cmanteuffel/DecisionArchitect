@@ -51,12 +51,21 @@
   <ItemGroup>
     <Compile Include="Logic\AddinEventHandler.cs" />
     <Compile Include="Logic\BroadcastEventHandler.cs" />
+    <Compile Include="Logic\IAddInEventHandler.cs" />
+    <Compile Include="Logic\IModelEventHandler.cs" />
+    <Compile Include="Logic\Rules\ElementRule.cs" />
+    <Compile Include="Logic\Rules\ModelValidator.cs" />
+    <Compile Include="Logic\Rules\NameUniquenessRule.cs" />
+    <Compile Include="Logic\Rules\RuleType.cs" />
+    <Compile Include="Model\EAElementWrapper.cs" />
+    <Compile Include="Logic\Rules\AbstractRule.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Messages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Model\IEAWrapper.cs" />
     <Compile Include="Model\Events\EAEventAdapter.cs" />
     <Compile Include="Model\Events\IEAAddInEvents.cs" />
     <Compile Include="Model\Events\IEABroadcastEvents.cs" />
@@ -64,9 +73,8 @@
     <Compile Include="Logic\Rules\ExclusionRule.cs" />
     <Compile Include="Model\EAConnectorWrapper.cs" />
     <Compile Include="Logic\Rules\ConnectorRule.cs" />
-    <Compile Include="Logic\Rules\IConnectorRule.cs" />
     <Compile Include="Logic\Rules\NoLoopRule.cs" />
-    <Compile Include="Logic\Rules\Validator.cs" />
+    <Compile Include="Logic\Rules\RuleManager.cs" />
     <Compile Include="Model\DVStereotypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -89,8 +97,18 @@
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="DecisionViewpoints.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

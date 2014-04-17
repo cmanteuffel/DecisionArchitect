@@ -2,23 +2,17 @@ using DecisionViewpoints.Model;
 
 namespace DecisionViewpoints.Logic.Rules
 {
-    internal abstract class ConnectorRule : IConnectorRule
+    public abstract class ConnectorRule : AbstractRule
     {
-        private readonly string _errorMessage;
         
-
-        public static readonly string[] Any = new string[0];
-
-        protected ConnectorRule(string errorMessage)
+        protected ConnectorRule(string errorMessage) : base(errorMessage)
         {
-            _errorMessage = errorMessage;
         }
 
-        public abstract bool ValidateConnector(EAConnectorWrapper connectorWrapper, out string message);
-        public string getErrorMessage()
+        public override sealed RuleType GetRuleType()
         {
-            return _errorMessage;
+            return RuleType.Connector;
         }
-    
+  
     }
 }

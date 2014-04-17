@@ -299,7 +299,7 @@ namespace DecisionViewpointsTests
                                                            supplier.ElementID, diagram.DiagramID);
             var connector = EAConnectorWrapper.Wrap(Repo, info);
             string message;
-            return Validator.Instance.ValidateConnector(connector, out message);
+            return RuleManager.Instance.ValidateConnector(connector, out message);
         }
 
         private static string AssertionFailedMessage(string clientState, string supplierState, string relationshipType)
