@@ -10,9 +10,11 @@ namespace DecisionViewpoints
     /// </summary>
     public class EventHandler
     {
+        private const string Con = "connected";
+
         public string Connect()
         {
-            return "connected";
+            return Con;
         }
 
         public bool OnPreNewElement(Repository repository, EventProperties info)
@@ -23,9 +25,12 @@ namespace DecisionViewpoints
 
         public bool OnPreNewConnector(Repository repository, EventProperties info)
         {
-            Element client = repository.GetElementByID(info.Get(3).Value);
-            MessageBox.Show(String.Format("The client name is {0}", client.Name));
-            return true;
+            var rel = new Relationship(repository, info);
+            if (!rel.CheckStereotype("Relationship")) return true;
+            if (rel.CheckIfPossible()) return true;
+            MessageBox.Show("Decision has state Idea. Relationship is not permitted.",
+                "Invalid Relationship");
+            return false;
         }
 
         public void Disconnect()
