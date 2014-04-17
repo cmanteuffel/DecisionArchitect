@@ -25,19 +25,7 @@ namespace DecisionViewpoints.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Decision")]
-        public string DecisionMetaType {
-            get {
-                return ((string)(this["DecisionMetaType"]));
-            }
-            set {
-                this["DecisionMetaType"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("DecisionVP::Relationship")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Decision Viewpoints::Relationship")]
         public string RelationshipDiagramMetaType {
             get {
                 return ((string)(this["RelationshipDiagramMetaType"]));
@@ -49,7 +37,7 @@ namespace DecisionViewpoints.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("DecisionVP::Chronological")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Decision Viewpoints::Chronological")]
         public string ChronologicalDiagramMetaType {
             get {
                 return ((string)(this["ChronologicalDiagramMetaType"]));
@@ -61,7 +49,7 @@ namespace DecisionViewpoints.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("DecisionVP::Stakeholder Involvement")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Decision Viewpoints::Stakeholder Involvement")]
         public string StakeholderInvolvementDiagramMetaType {
             get {
                 return ((string)(this["StakeholderInvolvementDiagramMetaType"]));

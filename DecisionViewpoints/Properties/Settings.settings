@@ -2,17 +2,14 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="DecisionViewpoints.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="DecisionMetaType" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Decision</Value>
-    </Setting>
     <Setting Name="RelationshipDiagramMetaType" Type="System.String" Scope="User">
-      <Value Profile="(Default)">DecisionVP::Relationship</Value>
+      <Value Profile="(Default)">Decision Viewpoints::Relationship</Value>
     </Setting>
     <Setting Name="ChronologicalDiagramMetaType" Type="System.String" Scope="User">
-      <Value Profile="(Default)">DecisionVP::Chronological</Value>
+      <Value Profile="(Default)">Decision Viewpoints::Chronological</Value>
     </Setting>
     <Setting Name="StakeholderInvolvementDiagramMetaType" Type="System.String" Scope="User">
-      <Value Profile="(Default)">DecisionVP::Stakeholder Involvement</Value>
+      <Value Profile="(Default)">Decision Viewpoints::Stakeholder Involvement</Value>
     </Setting>
   </Settings>
 </SettingsFile>
