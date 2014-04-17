@@ -7,11 +7,9 @@ namespace DecisionViewpoints.Logic.Menu
 {
     class FollowTraceMenu : Menu
     {
-        private const string NoTracesDefinedName = "No Traces defined";
-        private const string DefaultName = "-&Follow Trac(e)";
 
         public FollowTraceMenu()
-            : base(DefaultName)
+            : base(Messages.MenuFollowTraceDefault)
         {
             UpdateDelegate = OnNoTracesDefined;
         }
@@ -26,11 +24,11 @@ namespace DecisionViewpoints.Logic.Menu
                 {
                     if (!element.GetTracedElements().Any())
                     {
-                        Name = NoTracesDefinedName;
+                        Name = Messages.MenuFollowTraceNoTraces;
                         IsEnabled = false;
                         return;
                     }
-                    Name = DefaultName;
+                    Name = Messages.MenuFollowTraceDefault;
                     IsEnabled = true;
                 }
             }

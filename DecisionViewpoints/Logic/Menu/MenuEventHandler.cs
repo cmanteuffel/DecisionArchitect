@@ -6,25 +6,11 @@ namespace DecisionViewpoints.Logic.Menu
 {
     public static class MenuEventHandler
     {
-        private static readonly Menu RootMenu = new Menu("-&Decision Viewpoints");
-
-        private static readonly string RelationshipDiagramMetaType =
-            Settings.Default["RelationshipDiagramMetaType"].ToString();
-
-        private static readonly string ChronologicalDiagramMetaType =
-            Settings.Default["ChronologicalDiagramMetaType"].ToString();
-
-        private static readonly string StakeholderInvolvementDiagramMetaType =
-            Settings.Default["StakeholderInvolvementDiagramMetaType"].ToString();
+        private static readonly Menu RootMenu = new Menu(Messages.MenuAddIn);
 
         static MenuEventHandler()
         {
-            // Add general menu items
-
-            // Add tracing menu items
-            //RootMenu.Add(new FollowTraces());
-
-            var createTraces = new Menu("-&Create Traces");
+            var createTraces = new Menu(Messages.MenuCreateTraces);
             createTraces.UpdateDelegate = menuItem =>
                 {
                     if (NativeType.Element == EARepository.Instance.GetContextItemType())
@@ -37,50 +23,50 @@ namespace DecisionViewpoints.Logic.Menu
                 };
 
 
-            var baselinesOptions = new Menu("-&Baseline Options");
-            var baselineManually = new MenuItem("Manually")
+            var baselinesOptions = new Menu(Messages.MenuBaselineOptions);
+            var baselineManually = new MenuItem(Messages.MenuBaselineManually)
                 {
                     ClickDelegate = () =>
                         {
-                            Settings.Default["BaselineOptionManually"] =
-                                !(bool) Settings.Default["BaselineOptionManually"];
+                            Settings.Default.BaselineOptionManually =
+                                !Settings.Default.BaselineOptionManually;
                             Settings.Default.Save();
                         },
-                    UpdateDelegate = self => { self.IsChecked = (bool) Settings.Default["BaselineOptionManually"]; }
+                    UpdateDelegate = self => { self.IsChecked = Settings.Default.BaselineOptionManually; }
                 };
-            var baselineOnFileClose = new MenuItem("On File Close")
+            var baselineOnFileClose = new MenuItem(Messages.MenuBaselineOnClose)
                 {
                     ClickDelegate = () =>
                         {
-                            Settings.Default["BaselineOptionOnFileClose"] =
-                                !(bool) Settings.Default["BaselineOptionOnFileClose"];
+                            Settings.Default.BaselineOptionOnFileClose =
+                                !Settings.Default.BaselineOptionOnFileClose;
                             Settings.Default.Save();
                         },
-                    UpdateDelegate = self => { self.IsChecked = (bool) Settings.Default["BaselineOptionOnFileClose"]; }
+                    UpdateDelegate = self => { self.IsChecked = Settings.Default.BaselineOptionOnFileClose; }
                 };
-            var baselineOnModification = new MenuItem("On Modification")
+            var baselineOnModification = new MenuItem(Messages.MenuBaselineOnModify)
                 {
                     ClickDelegate = () =>
                         {
-                            Settings.Default["BaselineOptionOnModification"] =
-                                !(bool) Settings.Default["BaselineOptionOnModification"];
+                            Settings.Default.BaselineOptionOnModification=
+                                ! Settings.Default.BaselineOptionOnModification;
                             Settings.Default.Save();
                         },
                     UpdateDelegate =
-                        self => { self.IsChecked = (bool) Settings.Default["BaselineOptionOnModification"]; }
+                        self => { self.IsChecked = Settings.Default.BaselineOptionOnModification; }
                 };
 
-            var createBaseline = new MenuItem("Create Baseline", CreateBaseline)
+            var createBaseline = new MenuItem(Messages.MenuCreateBaseline, CreateBaseline)
                 {
-                    UpdateDelegate = self => { self.IsEnabled = (bool) Settings.Default["BaselineOptionManually"]; }
+                    UpdateDelegate = self => { self.IsEnabled = Settings.Default.BaselineOptionManually; }
                 };
 
 
-            RootMenu.Add(new MenuItem("&Create Project Structure", CreateProjectStructure));
+            RootMenu.Add(new MenuItem(Messages.MenuCreateProjectStructure, CreateProjectStructure));
             RootMenu.Add(MenuItem.Separator);
             RootMenu.Add(createTraces);
-            createTraces.Add(new MenuItem("&New Decision", CreateAndTraceDecision));
-            createTraces.Add(new MenuItem("Existing Element", (delegate { MessageBox.Show("To be implemented"); })));
+            createTraces.Add(new MenuItem(Messages.MenuTraceToNewDecision, CreateAndTraceDecision));
+            createTraces.Add(new MenuItem(Messages.MenuTraceToExistingElement, (delegate { MessageBox.Show("To be implemented"); })));
             RootMenu.Add(new FollowTraceMenu());
             RootMenu.Add(MenuItem.Separator);
             RootMenu.Add(baselinesOptions);
@@ -89,7 +75,7 @@ namespace DecisionViewpoints.Logic.Menu
             baselinesOptions.Add(baselineOnModification);
             RootMenu.Add(createBaseline);
             RootMenu.Add(MenuItem.Separator);
-            RootMenu.Add(new MenuItem("Generate CVP", Generate));
+            RootMenu.Add(new MenuItem(Messages.MenuGenerateChronologicalVP, Generate));
         }
 
         public static object GetMenuItems(string location, string menuName)
@@ -131,9 +117,9 @@ namespace DecisionViewpoints.Logic.Menu
         {
             var rep = EARepository.Instance;
             EAPackage decisionViewpoints = rep.CreateView("Decision Views", 0);
-            rep.CreateDiagram(decisionViewpoints, "Relationship", RelationshipDiagramMetaType);
-            rep.CreateDiagram(decisionViewpoints, "Chronological", ChronologicalDiagramMetaType);
-            rep.CreateDiagram(decisionViewpoints, "Stakeholder Involvement", StakeholderInvolvementDiagramMetaType);
+            rep.CreateDiagram(decisionViewpoints, "Relationship", Settings.Default.RelationshipDiagramMetaType);
+            rep.CreateDiagram(decisionViewpoints, "Chronological", Settings.Default.ChronologicalDiagramMetaType);
+            rep.CreateDiagram(decisionViewpoints, "Stakeholder Involvement", Settings.Default.StakeholderInvolvementDiagramMetaType);
         }
 
 

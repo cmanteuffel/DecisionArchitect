@@ -124,6 +124,123 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to -&amp;Decision Viewpoints.
+        /// </summary>
+        internal static string MenuAddIn {
+            get {
+                return ResourceManager.GetString("MenuAddIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manually.
+        /// </summary>
+        internal static string MenuBaselineManually {
+            get {
+                return ResourceManager.GetString("MenuBaselineManually", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On File Close.
+        /// </summary>
+        internal static string MenuBaselineOnClose {
+            get {
+                return ResourceManager.GetString("MenuBaselineOnClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On Modification.
+        /// </summary>
+        internal static string MenuBaselineOnModify {
+            get {
+                return ResourceManager.GetString("MenuBaselineOnModify", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -&amp;Baseline Options.
+        /// </summary>
+        internal static string MenuBaselineOptions {
+            get {
+                return ResourceManager.GetString("MenuBaselineOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Baseline.
+        /// </summary>
+        internal static string MenuCreateBaseline {
+            get {
+                return ResourceManager.GetString("MenuCreateBaseline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Create Project Structure.
+        /// </summary>
+        internal static string MenuCreateProjectStructure {
+            get {
+                return ResourceManager.GetString("MenuCreateProjectStructure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -&amp;Create Traces.
+        /// </summary>
+        internal static string MenuCreateTraces {
+            get {
+                return ResourceManager.GetString("MenuCreateTraces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -&amp;Follow Trace(s).
+        /// </summary>
+        internal static string MenuFollowTraceDefault {
+            get {
+                return ResourceManager.GetString("MenuFollowTraceDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Traces defined.
+        /// </summary>
+        internal static string MenuFollowTraceNoTraces {
+            get {
+                return ResourceManager.GetString("MenuFollowTraceNoTraces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generate CVP.
+        /// </summary>
+        internal static string MenuGenerateChronologicalVP {
+            get {
+                return ResourceManager.GetString("MenuGenerateChronologicalVP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Existing Element.
+        /// </summary>
+        internal static string MenuTraceToExistingElement {
+            get {
+                return ResourceManager.GetString("MenuTraceToExistingElement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;New Decision.
+        /// </summary>
+        internal static string MenuTraceToNewDecision {
+            get {
+                return ResourceManager.GetString("MenuTraceToNewDecision", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Decision Viewpoints.
         /// </summary>
         internal static string ModelValidationCategory {

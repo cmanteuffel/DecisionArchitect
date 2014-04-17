@@ -165,4 +165,43 @@
   <data name="NameUniqueness" xml:space="preserve">
     <value>Every decision should have a unique name.</value>
   </data>
+  <data name="MenuAddIn" xml:space="preserve">
+    <value>-&amp;Decision Viewpoints</value>
+  </data>
+  <data name="MenuBaselineManually" xml:space="preserve">
+    <value>Manually</value>
+  </data>
+  <data name="MenuBaselineOnClose" xml:space="preserve">
+    <value>On File Close</value>
+  </data>
+  <data name="MenuBaselineOnModify" xml:space="preserve">
+    <value>On Modification</value>
+  </data>
+  <data name="MenuBaselineOptions" xml:space="preserve">
+    <value>-&amp;Baseline Options</value>
+  </data>
+  <data name="MenuCreateBaseline" xml:space="preserve">
+    <value>Create Baseline</value>
+  </data>
+  <data name="MenuCreateProjectStructure" xml:space="preserve">
+    <value>&amp;Create Project Structure</value>
+  </data>
+  <data name="MenuCreateTraces" xml:space="preserve">
+    <value>-&amp;Create Traces</value>
+  </data>
+  <data name="MenuFollowTraceDefault" xml:space="preserve">
+    <value>-&amp;Follow Trace(s)</value>
+  </data>
+  <data name="MenuFollowTraceNoTraces" xml:space="preserve">
+    <value>No Traces defined</value>
+  </data>
+  <data name="MenuGenerateChronologicalVP" xml:space="preserve">
+    <value>Generate CVP</value>
+  </data>
+  <data name="MenuTraceToExistingElement" xml:space="preserve">
+    <value>Existing Element</value>
+  </data>
+  <data name="MenuTraceToNewDecision" xml:space="preserve">
+    <value>&amp;New Decision</value>
+  </data>
 </root>
