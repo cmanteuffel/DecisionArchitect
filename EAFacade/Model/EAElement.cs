@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using System.Xml;
 using EA;
 
@@ -167,6 +168,16 @@ namespace EAFacade.Model
             return traces;
         }
 
+         public IEnumerable<EAElement> GetDecisionsForTopic()
+         {
+             if (!IsTopic())
+             {
+                 throw new Exception("EAElement is not a topic");
+             }
+             
+             return from EAElement e in GetElements() where e.IsDecision() select e;
+         }
+
         public IEnumerable<EAElement> GetConnectedRequirements()
         {
             if (_native == null)
@@ -250,6 +261,11 @@ namespace EAFacade.Model
             return DVStereotypes.RequirementMetaType.Equals(MetaType);
         }
 
+        public bool IsTopic()
+        {
+            return DVStereotypes.TopicMetaType.Equals(MetaType);
+        }
+
         public bool IsHistoryDecision()
         {
             return true.ToString().Equals(GetTaggedValue(DVTaggedValueKeys.IsHistoryDecision));
@@ -264,6 +280,11 @@ namespace EAFacade.Model
         {
             _native.Refresh();
         }
+
+        public List<EAElement> GetElements()
+        {
+            return _native.Elements.Cast<Element>().Select(Wrap).ToList();
+        } 
 
         public List<EAConnector> GetConnectors()
         {
@@ -333,5 +354,7 @@ namespace EAFacade.Model
         {
             return 0;
         }
+
+     
     }
 }

@@ -50,12 +50,26 @@ namespace DecisionViewpointsCustomViews.Model
             }
         }
 
+        // Get Decision from Diagram and Topics that are on the diagram
         public EAElement[] GetDecisions()
         {
             var repository = EARepository.Instance;
-            return (from diagramObject in _diagram.GetElements()
+            var topics = (from diagramObject in _diagram.GetElements()
+                          select repository.GetElementByID(diagramObject.ElementID)
+                              into element
+                              where element.IsTopic()
+                              select element).ToArray();
+
+
+            var decisionsFromTopic = (from EAElement topic in topics select topic.GetDecisionsForTopic()).SelectMany(x=>x);
+
+          
+
+            var decisionsDirectlyFromDiagram = (from diagramObject in _diagram.GetElements()
                     select repository.GetElementByID(diagramObject.ElementID)
-                    into element where element.IsDecision() select element).ToArray();
+                    into element where element.IsDecision() select element);
+
+            return decisionsFromTopic.Union(decisionsDirectlyFromDiagram).ToArray();
         }
 
         public EAElement[] GetRequirements()
