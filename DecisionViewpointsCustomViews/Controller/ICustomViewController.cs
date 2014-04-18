@@ -7,7 +7,7 @@ namespace DecisionViewpointsCustomViews.Controller
     public interface ICustomViewController
     {
         ICustomViewModel Model { get; set; }
-        ICustomView View { get; set; }
+        IForcesView View { get; set; }
         void UpdateTable();
         void SaveRatings();
         void Configure();

@@ -33,7 +33,7 @@ namespace DecisionViewpoints.Logic.Forces
                 return true;
             }
 
-            ICustomView forcesView = repository.AddTab(forcesDiagramModel.Name,
+            IForcesView forcesView = repository.AddTab(forcesDiagramModel.Name,
                                                        "DecisionViewpointsCustomViews.ForcesView");
             ICustomViewController forcesController;
 

@@ -9,10 +9,10 @@ namespace DecisionViewpointsCustomViews.Controller
 {
     public class ForcesController : ICustomViewController
     {
-        private ICustomView _view;
+        private IForcesView _view;
         private ICustomViewModel _model;
 
-        public ForcesController(ICustomView view, ICustomViewModel model)
+        public ForcesController(IForcesView view, ICustomViewModel model)
         {
             _view = view;
             _model = model;
@@ -30,7 +30,7 @@ namespace DecisionViewpointsCustomViews.Controller
             }
         }
 
-        public ICustomView View
+        public IForcesView View
         {
             get { return _view; }
             set

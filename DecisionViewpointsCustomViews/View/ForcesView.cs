@@ -15,8 +15,8 @@ namespace DecisionViewpointsCustomViews.View
     [Guid("D65970AD-12A7-402A-9F88-ED50D8C1DD82")]
     [ProgId("DecisionViewpointsCustomViews.ForcesView")]
     [ClassInterface(ClassInterfaceType.None)]
-    [ComDefaultInterface(typeof (ICustomView))]
-    public class ForcesView : UserControl, ICustomView
+    [ComDefaultInterface(typeof (IForcesView))]
+    public class ForcesView : UserControl, IForcesView
     {
         private DataGridView _forcesTable;
         private Button _btnConfigure;
