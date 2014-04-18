@@ -28,7 +28,7 @@ namespace DecisionViewpointsCustomViews.View
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cbxState = new System.Windows.Forms.ComboBox();
@@ -56,6 +56,7 @@ namespace DecisionViewpointsCustomViews.View
             this.StatusColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IterationColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label10 = new System.Windows.Forms.Label();
+            this.lbxAlternativesDecision = new System.Windows.Forms.ListBox();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHistory)).BeginInit();
             this.SuspendLayout();
@@ -198,10 +199,10 @@ namespace DecisionViewpointsCustomViews.View
             this.txtAlternatives.AcceptsTab = true;
             this.txtAlternatives.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtAlternatives.Location = new System.Drawing.Point(126, 200);
+            this.txtAlternatives.Location = new System.Drawing.Point(137, 215);
             this.txtAlternatives.Margin = new System.Windows.Forms.Padding(2);
             this.txtAlternatives.Name = "txtAlternatives";
-            this.txtAlternatives.Size = new System.Drawing.Size(403, 52);
+            this.txtAlternatives.Size = new System.Drawing.Size(377, 26);
             this.txtAlternatives.TabIndex = 11;
             this.txtAlternatives.Text = "";
             this.txtAlternatives.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.rtf_LinkClicked);
@@ -307,14 +308,14 @@ namespace DecisionViewpointsCustomViews.View
             this.ActionColumn,
             this.StatusColumn,
             this.IterationColumn});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.916231F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvHistory.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.916231F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvHistory.DefaultCellStyle = dataGridViewCellStyle1;
             this.dgvHistory.Location = new System.Drawing.Point(126, 428);
             this.dgvHistory.Margin = new System.Windows.Forms.Padding(2);
             this.dgvHistory.Name = "dgvHistory";
@@ -358,6 +359,18 @@ namespace DecisionViewpointsCustomViews.View
             this.label10.TabIndex = 18;
             this.label10.Text = "History:";
             // 
+            // lbxAlternativesDecision
+            // 
+            this.lbxAlternativesDecision.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbxAlternativesDecision.FormattingEnabled = true;
+            this.lbxAlternativesDecision.Location = new System.Drawing.Point(126, 198);
+            this.lbxAlternativesDecision.Margin = new System.Windows.Forms.Padding(2);
+            this.lbxAlternativesDecision.Name = "lbxAlternativesDecision";
+            this.lbxAlternativesDecision.SelectionMode = System.Windows.Forms.SelectionMode.None;
+            this.lbxAlternativesDecision.Size = new System.Drawing.Size(401, 56);
+            this.lbxAlternativesDecision.TabIndex = 21;
+            // 
             // DetailView
             // 
             this.AcceptButton = this.buttonOk;
@@ -365,6 +378,7 @@ namespace DecisionViewpointsCustomViews.View
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(540, 575);
+            this.Controls.Add(this.lbxAlternativesDecision);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.dgvHistory);
             this.Controls.Add(this.lbxRelatedDecisions);
@@ -428,5 +442,6 @@ namespace DecisionViewpointsCustomViews.View
         private System.Windows.Forms.DataGridViewTextBoxColumn StatusColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn IterationColumn;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ListBox lbxAlternativesDecision;
     }
 }

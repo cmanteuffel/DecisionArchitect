@@ -1,6 +1,7 @@
 ﻿using System.CodeDom.Compiler;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using DecisionViewpointsCustomViews.Model;
 using DecisionViewpointsCustomViews.View;
 
@@ -30,11 +31,33 @@ namespace DecisionViewpointsCustomViews.Controller
             // Update Related Decisions field
             foreach (var connector in _decision.GetConnectors().Where(connector => connector.IsRelationship()))
             {
-                if (connector.ClientId == _decision.ID)
-                    _view.AddRelatedDecision(connector.Stereotype, connector.GetSupplier().Name, true);
+                if (connector.ClientId == _decision.ID)//original
+                //if (connector.ClientId == _decision.ID && !connector.Stereotype.Equals("alternative for"))//angor task158
+                    _view.AddRelatedDecision(connector.Stereotype, connector.GetSupplier().Name, true); //original
                 else
-                    _view.AddRelatedDecision(connector.Stereotype, connector.GetClient().Name, false);
+                {
+                    if (!connector.Stereotype.Equals("alternative for"))//angor task158
+                    _view.AddRelatedDecision(connector.Stereotype, connector.GetClient().Name, false); //original
+                }
+
             }
+
+            
+            //angor START task156
+            // Update Alternative Decisions field
+            foreach (var connector in _decision.GetConnectors().Where(connector => connector.IsRelationship()))
+            {
+                if (connector.ClientId != _decision.ID && connector.Stereotype.Equals("alternative for"))
+                {
+                    /*      DEBUG
+                    MessageBox.Show("[2] Stereotype: " + connector.Stereotype + "\nSupplier: " + connector.GetSupplier().Name
+                        + "\nClient: " + connector.GetClient().Name);
+                     * */// DEBUG
+                    _view.AddAlternativeDecision(connector.Stereotype, connector.GetClient().Name);
+                }
+            }
+            //angor END task156
+            
 
             // Update History field
             foreach (var connector in _decision.GetConnectors().Where(connector => connector.IsAction()))

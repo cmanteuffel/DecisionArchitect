@@ -62,6 +62,14 @@ namespace DecisionViewpointsCustomViews.View
                                               : string.Format("{0} <<{1}>> This", name, relationship));
         }
 
+        //angor START task156
+        //IMPORTANT!!! --> added a Alternative Decisions listbox on top of the old textbox..
+        public void AddAlternativeDecision(string relationship, string name)
+        {
+            lbxAlternativesDecision.Items.Add(string.Format("{0} <<{1}>> This", name, relationship));
+        }
+        //angor END task156
+
         public void AddHistoryEntry(string name, string stereotype, string s, string state)
         {
             var stakeholderText = string.Format("{0}\n<<{1}>>", name, stereotype);
