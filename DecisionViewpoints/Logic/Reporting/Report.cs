@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -28,13 +29,6 @@ namespace DecisionViewpoints.Logic.Reporting
             _body = _mainPart.Document.AppendChild(new Body());
         }
 
-        public void Create()
-        {
-            var para = _body.AppendChild(new Paragraph());
-            var run = para.AppendChild(new Run());
-            run.AppendChild(new Text("Hello World!"));
-        }
-
         public void AddDecisionTable(IDecision decision)
         {
             var table = new Table();
@@ -44,32 +38,32 @@ namespace DecisionViewpoints.Logic.Reporting
                     new TopBorder
                         {
                             Val = new EnumValue<BorderValues>(BorderValues.Single),
-                            Size = 12
+                            Size = 11
                         },
                     new BottomBorder
                         {
                             Val = new EnumValue<BorderValues>(BorderValues.Single),
-                            Size = 12
+                            Size = 11
                         },
                     new LeftBorder
                         {
                             Val = new EnumValue<BorderValues>(BorderValues.Single),
-                            Size = 12
+                            Size = 11
                         },
                     new RightBorder
                         {
                             Val = new EnumValue<BorderValues>(BorderValues.Single),
-                            Size = 12
+                            Size = 11
                         },
                     new InsideHorizontalBorder
                         {
                             Val = new EnumValue<BorderValues>(BorderValues.Single),
-                            Size = 12
+                            Size = 11
                         },
                     new InsideVerticalBorder
                         {
                             Val = new EnumValue<BorderValues>(BorderValues.Single),
-                            Size = 12
+                            Size = 11
                         }));
 
             table.AppendChild(props);
@@ -94,7 +88,7 @@ namespace DecisionViewpoints.Logic.Reporting
                     tc.AppendChild(new Paragraph(new Run(new Text(data[i, j]))));
 
                     // Assume you want columns that are automatically sized.
-                    /*tc.Append(new TableCellProperties(
+                    /*tc.AppendChild(new TableCellProperties(
                                   new TableCellWidth {Type = TableWidthUnitValues.Auto}));*/
 
                     tr.AppendChild(tc);
@@ -138,86 +132,83 @@ namespace DecisionViewpoints.Logic.Reporting
         {
             // Define the reference of the image.
             var element =
-                 new Drawing(
-                     new DW.Inline(
-                         new DW.Extent() { Cx = size[0], Cy = size[1] },
-                         new DW.EffectExtent()
-                         {
-                             LeftEdge = 0L,
-                             TopEdge = 0L,
-                             RightEdge = 0L,
-                             BottomEdge = 0L
-                         },
-                         new DW.DocProperties()
-                         {
-                             Id = (UInt32Value)1U,
-                             Name = "Picture 1"
-                         },
-                         new DW.NonVisualGraphicFrameDrawingProperties(
-                             new A.GraphicFrameLocks() { NoChangeAspect = true }),
-                         new A.Graphic(
-                             new A.GraphicData(
-                                 new PIC.Picture(
-                                     new PIC.NonVisualPictureProperties(
-                                         new PIC.NonVisualDrawingProperties()
-                                         {
-                                             Id = (UInt32Value)0U,
-                                             Name = "New Bitmap Image.jpg"
-                                         },
-                                         new PIC.NonVisualPictureDrawingProperties()),
-                                     new PIC.BlipFill(
-                                         new A.Blip(
-                                             new A.BlipExtensionList(
-                                                 new A.BlipExtension()
-                                                 {
-                                                     Uri =
-                                                       "{28A0092B-C50C-407E-A947-70E740481C1C}"
-                                                 })
-                                         )
-                                         {
-                                             Embed = relationshipId,
-                                             CompressionState =
-                                             A.BlipCompressionValues.Print
-                                         },
-                                         new A.Stretch(
-                                             new A.FillRectangle())),
-                                     new PIC.ShapeProperties(
-                                         new A.Transform2D(
-                                             new A.Offset() { X = 0L, Y = 0L },
-                                             new A.Extents() { Cx = size[0], Cy = size[1] }),
-                                         new A.PresetGeometry(
-                                             new A.AdjustValueList()
-                                         ) { Preset = A.ShapeTypeValues.Rectangle }))
-                             ) { Uri = "http://schemas.openxmlformats.org/drawingml/2006/picture" })
-                     )
-                     {
-                         DistanceFromTop = (UInt32Value)0U,
-                         DistanceFromBottom = (UInt32Value)0U,
-                         DistanceFromLeft = (UInt32Value)0U,
-                         DistanceFromRight = (UInt32Value)0U,
-                         EditId = "50D07946"
-                     });
+                new Drawing(
+                    new DW.Inline(
+                        new DW.Extent {Cx = size[0], Cy = size[1]},
+                        new DW.EffectExtent
+                            {
+                                LeftEdge = 0L,
+                                TopEdge = 0L,
+                                RightEdge = 0L,
+                                BottomEdge = 0L
+                            },
+                        new DW.DocProperties
+                            {
+                                Id = (UInt32Value) 1U,
+                                Name = "Picture 1"
+                            },
+                        new DW.NonVisualGraphicFrameDrawingProperties(
+                            new A.GraphicFrameLocks {NoChangeAspect = true}),
+                        new A.Graphic(
+                            new A.GraphicData(
+                                new PIC.Picture(
+                                    new PIC.NonVisualPictureProperties(
+                                        new PIC.NonVisualDrawingProperties
+                                            {
+                                                Id = (UInt32Value) 0U,
+                                                Name = "New Bitmap Image.jpg"
+                                            },
+                                        new PIC.NonVisualPictureDrawingProperties()),
+                                    new PIC.BlipFill(
+                                        new A.Blip(
+                                            new A.BlipExtensionList(
+                                                new A.BlipExtension
+                                                    {
+                                                        Uri = Guid.NewGuid().ToString()
+                                                    })
+                                            )
+                                            {
+                                                Embed = relationshipId,
+                                                CompressionState =
+                                                    A.BlipCompressionValues.Print
+                                            },
+                                        new A.Stretch(
+                                            new A.FillRectangle())),
+                                    new PIC.ShapeProperties(
+                                        new A.Transform2D(
+                                            new A.Offset {X = 0L, Y = 0L},
+                                            new A.Extents {Cx = size[0], Cy = size[1]}),
+                                        new A.PresetGeometry(
+                                            new A.AdjustValueList()
+                                            ) {Preset = A.ShapeTypeValues.Rectangle}))
+                                ) {Uri = "http://schemas.openxmlformats.org/drawingml/2006/picture"})
+                        )
+                        {
+                            DistanceFromTop = (UInt32Value) 0U,
+                            DistanceFromBottom = (UInt32Value) 0U,
+                            DistanceFromLeft = (UInt32Value) 0U,
+                            DistanceFromRight = (UInt32Value) 0U,
+                        });
 
             // Append the reference to body, the element should be in a Run.
             _body.AppendChild(new Paragraph(new Run(element)));
+            _body.AppendChild(new Paragraph());
         }
 
         private static long[] GetImageSize(Image img)
         {
             var size = new long[2];
-            var widthPx = img.Size.Width;
-            var heightPx = img.Size.Height;
+            var widthPx = img.Width;
+            var heightPx = img.Height;
             var horzRezDpi = img.HorizontalResolution;
             var vertRezDpi = img.VerticalResolution;
             const int emusPerInch = 914400;
-            const int emusPerCm = 360000;
-            var widthEmus = (long)(widthPx / horzRezDpi * emusPerInch);
-            var heightEmus = (long)(heightPx / vertRezDpi * emusPerInch);
-            var maxWidthEmus = (long)(4 * emusPerCm);
-            if (widthEmus <= maxWidthEmus) return size;
-            var ratio = (heightEmus * 1.0m) / widthEmus;
-            size[0] = maxWidthEmus; //widthEmus
-            size[1] = (long)(widthEmus * ratio); //heightEmus
+            var widthEmus = (long) (widthPx/horzRezDpi*emusPerInch);
+            var heightEmus = (long) (heightPx/vertRezDpi*emusPerInch);
+            const long maxWidthEmus = (long) (6.5*emusPerInch);
+            var ratio = (heightEmus*1.0m)/widthEmus;
+            size[0] = widthEmus <= maxWidthEmus ? widthEmus : maxWidthEmus;
+            size[1] = (long) (widthEmus*ratio);
             return size;
         }
 
