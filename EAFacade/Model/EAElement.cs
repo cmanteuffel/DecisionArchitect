@@ -252,7 +252,7 @@ namespace EAFacade.Model
 
         public bool IsHistoryDecision()
         {
-            return GetTaggedValue(DVTaggedValueKeys.IsHistoryDecision).Equals(true.ToString());
+            return true.ToString().Equals(GetTaggedValue(DVTaggedValueKeys.IsHistoryDecision));
         }
 
         public bool Update()

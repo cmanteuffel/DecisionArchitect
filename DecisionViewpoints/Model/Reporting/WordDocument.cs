@@ -8,10 +8,27 @@ using System.Text;
 using System.Windows.Forms;
 using DecisionViewpointsCustomViews.Model;
 using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Drawing;
+using DocumentFormat.OpenXml.Drawing.Wordprocessing;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 using EAFacade;
 using EAFacade.Model;
+using BottomBorder = DocumentFormat.OpenXml.Wordprocessing.BottomBorder;
+using InsideHorizontalBorder = DocumentFormat.OpenXml.Wordprocessing.InsideHorizontalBorder;
+using InsideVerticalBorder = DocumentFormat.OpenXml.Wordprocessing.InsideVerticalBorder;
+using LeftBorder = DocumentFormat.OpenXml.Wordprocessing.LeftBorder;
+using NonVisualGraphicFrameDrawingProperties = DocumentFormat.OpenXml.Drawing.Wordprocessing.NonVisualGraphicFrameDrawingProperties;
+using Paragraph = DocumentFormat.OpenXml.Wordprocessing.Paragraph;
+using Path = System.IO.Path;
+using RightBorder = DocumentFormat.OpenXml.Wordprocessing.RightBorder;
+using Run = DocumentFormat.OpenXml.Wordprocessing.Run;
+using Table = DocumentFormat.OpenXml.Wordprocessing.Table;
+using TableCell = DocumentFormat.OpenXml.Wordprocessing.TableCell;
+using TableProperties = DocumentFormat.OpenXml.Wordprocessing.TableProperties;
+using TableRow = DocumentFormat.OpenXml.Wordprocessing.TableRow;
+using Text = DocumentFormat.OpenXml.Wordprocessing.Text;
+using TopBorder = DocumentFormat.OpenXml.Wordprocessing.TopBorder;
 
 namespace DecisionViewpoints.Model.Reporting
 {
@@ -246,24 +263,24 @@ namespace DecisionViewpoints.Model.Reporting
             // Define the reference of the image.
             var element =
                 new Drawing(
-                    new DocumentFormat.OpenXml.Drawing.Wordprocessing.Inline(
-                        new DocumentFormat.OpenXml.Drawing.Wordprocessing.Extent {Cx = size[0], Cy = size[1]},
-                        new DocumentFormat.OpenXml.Drawing.Wordprocessing.EffectExtent
+                    new Inline(
+                        new Extent {Cx = size[0], Cy = size[1]},
+                        new EffectExtent
                             {
                                 LeftEdge = 0L,
                                 TopEdge = 0L,
                                 RightEdge = 0L,
                                 BottomEdge = 0L
                             },
-                        new DocumentFormat.OpenXml.Drawing.Wordprocessing.DocProperties
+                        new DocProperties
                             {
                                 Id = (UInt32Value) 1U,
                                 Name = "Picture 1"
                             },
-                        new DocumentFormat.OpenXml.Drawing.Wordprocessing.NonVisualGraphicFrameDrawingProperties(
-                            new DocumentFormat.OpenXml.Drawing.GraphicFrameLocks {NoChangeAspect = true}),
-                        new DocumentFormat.OpenXml.Drawing.Graphic(
-                            new DocumentFormat.OpenXml.Drawing.GraphicData(
+                        new NonVisualGraphicFrameDrawingProperties(
+                            new GraphicFrameLocks {NoChangeAspect = true}),
+                        new Graphic(
+                            new GraphicData(
                                 new DocumentFormat.OpenXml.Drawing.Pictures.Picture(
                                     new DocumentFormat.OpenXml.Drawing.Pictures.NonVisualPictureProperties(
                                         new DocumentFormat.OpenXml.Drawing.Pictures.NonVisualDrawingProperties
@@ -273,9 +290,9 @@ namespace DecisionViewpoints.Model.Reporting
                                             },
                                         new DocumentFormat.OpenXml.Drawing.Pictures.NonVisualPictureDrawingProperties()),
                                     new DocumentFormat.OpenXml.Drawing.Pictures.BlipFill(
-                                        new DocumentFormat.OpenXml.Drawing.Blip(
-                                            new DocumentFormat.OpenXml.Drawing.BlipExtensionList(
-                                                new DocumentFormat.OpenXml.Drawing.BlipExtension
+                                        new Blip(
+                                            new BlipExtensionList(
+                                                new BlipExtension
                                                     {
                                                         Uri = Guid.NewGuid().ToString()
                                                     })
@@ -283,17 +300,17 @@ namespace DecisionViewpoints.Model.Reporting
                                             {
                                                 Embed = relationshipId,
                                                 CompressionState =
-                                                    DocumentFormat.OpenXml.Drawing.BlipCompressionValues.Print
+                                                    BlipCompressionValues.Print
                                             },
-                                        new DocumentFormat.OpenXml.Drawing.Stretch(
-                                            new DocumentFormat.OpenXml.Drawing.FillRectangle())),
+                                        new Stretch(
+                                            new FillRectangle())),
                                     new DocumentFormat.OpenXml.Drawing.Pictures.ShapeProperties(
-                                        new DocumentFormat.OpenXml.Drawing.Transform2D(
-                                            new DocumentFormat.OpenXml.Drawing.Offset {X = 0L, Y = 0L},
-                                            new DocumentFormat.OpenXml.Drawing.Extents {Cx = size[0], Cy = size[1]}),
-                                        new DocumentFormat.OpenXml.Drawing.PresetGeometry(
-                                            new DocumentFormat.OpenXml.Drawing.AdjustValueList()
-                                            ) {Preset = DocumentFormat.OpenXml.Drawing.ShapeTypeValues.Rectangle}))
+                                        new Transform2D(
+                                            new Offset {X = 0L, Y = 0L},
+                                            new Extents {Cx = size[0], Cy = size[1]}),
+                                        new PresetGeometry(
+                                            new AdjustValueList()
+                                            ) {Preset = ShapeTypeValues.Rectangle}))
                                 ) {Uri = "http://schemas.openxmlformats.org/drawingml/2006/picture"})
                         )
                         {
