@@ -257,5 +257,6 @@ namespace DecisionViewpoints.Logic.Reporting
 
             return newCell;
         }
+        public void InsertDecisionDetailViewMessage(){}
     }
 }

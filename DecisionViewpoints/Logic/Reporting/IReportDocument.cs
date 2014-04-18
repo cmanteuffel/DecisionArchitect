@@ -7,6 +7,7 @@ namespace DecisionViewpoints.Logic.Reporting
     {
         void InsertTopicTable(ITopic topic);
         void InsertDecisionWithoutTopicMessage();
+        void InsertDecisionDetailViewMessage();
         void InsertDecisionTable(IDecision decision);
         void InsertForcesTable(IForcesModel forces);
         void InsertDiagramImage(EADiagram diagram);

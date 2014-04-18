@@ -19,15 +19,15 @@ namespace DecisionViewpoints.Model.Reporting
         private const string DetailTemplateSlideId = "rId2";
         private const string ImageTemplateSlideId = "rId3";
         private const string ForcesTemplateSlideId = "rId4";
+        private const string TopicTemplateSlideId = "rIdtopic";
 
         private readonly string _filename;
         private SlidePart _detailSlideTemplate;
         private PresentationDocument _doc;
         private SlidePart _forcesSlideTemplate;
         private SlidePart _imageSlideTemplate;
+        private SlidePart _topicSlideTemplate;
 
-        private int _topicCounter = 0;
-        private int _decisionCounter = 0;
 
         public PowerPointDocument(string filename)
         {
@@ -50,6 +50,7 @@ namespace DecisionViewpoints.Model.Reporting
             _detailSlideTemplate = (SlidePart) _doc.PresentationPart.GetPartById(DetailTemplateSlideId);
             _imageSlideTemplate = (SlidePart) _doc.PresentationPart.GetPartById(ImageTemplateSlideId);
             _forcesSlideTemplate = (SlidePart) _doc.PresentationPart.GetPartById(ForcesTemplateSlideId);
+            //_topicSlideTemplate = (SlidePart)_doc.PresentationPart.GetPartById(TopicTemplateSlideId);
         }
 
         public void InsertTopicTable(ITopic topic)
@@ -115,5 +116,7 @@ namespace DecisionViewpoints.Model.Reporting
             _doc.PresentationPart.DeletePart(slidePart);
             _doc.PresentationPart.Presentation.Save();
         }
+
+        public void InsertDecisionDetailViewMessage() { }
     }
 }

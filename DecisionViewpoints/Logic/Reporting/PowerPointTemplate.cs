@@ -8545,6 +8545,272 @@ namespace DecisionViewpoints.Logic.Reporting
 
             slidePart2.Slide = slide2;
         }
+        // Generates content of slidePart5.
+        private void GenerateSlidePart5ContentTopic(SlidePart slidePart5)
+        {
+            Slide slide2 = new Slide();
+            slide2.AddNamespaceDeclaration("a", "http://schemas.openxmlformats.org/drawingml/2006/main");
+            slide2.AddNamespaceDeclaration("r", "http://schemas.openxmlformats.org/officeDocument/2006/relationships");
+            slide2.AddNamespaceDeclaration("p", "http://schemas.openxmlformats.org/presentationml/2006/main");
+
+            CommonSlideData commonSlideData14 = new CommonSlideData();
+
+            ShapeTree shapeTree14 = new ShapeTree();
+
+            NonVisualGroupShapeProperties nonVisualGroupShapeProperties14 = new NonVisualGroupShapeProperties();
+            NonVisualDrawingProperties nonVisualDrawingProperties80 = new NonVisualDrawingProperties() { Id = (UInt32Value)1U, Name = "" };
+            NonVisualGroupShapeDrawingProperties nonVisualGroupShapeDrawingProperties14 = new NonVisualGroupShapeDrawingProperties();
+            ApplicationNonVisualDrawingProperties applicationNonVisualDrawingProperties80 = new ApplicationNonVisualDrawingProperties();
+
+            nonVisualGroupShapeProperties14.Append(nonVisualDrawingProperties80);
+            nonVisualGroupShapeProperties14.Append(nonVisualGroupShapeDrawingProperties14);
+            nonVisualGroupShapeProperties14.Append(applicationNonVisualDrawingProperties80);
+
+            GroupShapeProperties groupShapeProperties14 = new GroupShapeProperties();
+
+            A.TransformGroup transformGroup14 = new A.TransformGroup();
+            A.Offset offset39 = new A.Offset() { X = 0L, Y = 0L };
+            A.Extents extents39 = new A.Extents() { Cx = 0L, Cy = 0L };
+            A.ChildOffset childOffset14 = new A.ChildOffset() { X = 0L, Y = 0L };
+            A.ChildExtents childExtents14 = new A.ChildExtents() { Cx = 0L, Cy = 0L };
+
+            transformGroup14.Append(offset39);
+            transformGroup14.Append(extents39);
+            transformGroup14.Append(childOffset14);
+            transformGroup14.Append(childExtents14);
+
+            groupShapeProperties14.Append(transformGroup14);
+
+            GraphicFrame graphicFrame1 = new GraphicFrame();
+
+            NonVisualGraphicFrameProperties nonVisualGraphicFrameProperties1 = new NonVisualGraphicFrameProperties();
+            NonVisualDrawingProperties nonVisualDrawingProperties81 = new NonVisualDrawingProperties() { Id = (UInt32Value)4U, Name = "Table 3" };
+
+            NonVisualGraphicFrameDrawingProperties nonVisualGraphicFrameDrawingProperties1 = new NonVisualGraphicFrameDrawingProperties();
+            A.GraphicFrameLocks graphicFrameLocks1 = new A.GraphicFrameLocks() { NoGrouping = true };
+
+            nonVisualGraphicFrameDrawingProperties1.Append(graphicFrameLocks1);
+
+            ApplicationNonVisualDrawingProperties applicationNonVisualDrawingProperties81 = new ApplicationNonVisualDrawingProperties();
+
+            ApplicationNonVisualDrawingPropertiesExtensionList applicationNonVisualDrawingPropertiesExtensionList1 = new ApplicationNonVisualDrawingPropertiesExtensionList();
+
+            ApplicationNonVisualDrawingPropertiesExtension applicationNonVisualDrawingPropertiesExtension1 = new ApplicationNonVisualDrawingPropertiesExtension() { Uri = "{D42A27DB-BD31-4B8C-83A1-F6EECF244321}" };
+
+            P14.ModificationId modificationId1 = new P14.ModificationId() { Val = (UInt32Value)3251908189U };
+            modificationId1.AddNamespaceDeclaration("p14", "http://schemas.microsoft.com/office/powerpoint/2010/main");
+
+            applicationNonVisualDrawingPropertiesExtension1.Append(modificationId1);
+
+            applicationNonVisualDrawingPropertiesExtensionList1.Append(applicationNonVisualDrawingPropertiesExtension1);
+
+            applicationNonVisualDrawingProperties81.Append(applicationNonVisualDrawingPropertiesExtensionList1);
+
+            nonVisualGraphicFrameProperties1.Append(nonVisualDrawingProperties81);
+            nonVisualGraphicFrameProperties1.Append(nonVisualGraphicFrameDrawingProperties1);
+            nonVisualGraphicFrameProperties1.Append(applicationNonVisualDrawingProperties81);
+
+            Transform transform1 = new Transform();
+            A.Offset offset40 = new A.Offset() { X = 838200L, Y = 685800L };
+            A.Extents extents40 = new A.Extents() { Cx = 7391401L, Cy = 2743201L };
+
+            transform1.Append(offset40);
+            transform1.Append(extents40);
+
+            A.Graphic graphic1 = new A.Graphic();
+
+            A.GraphicData graphicData1 = new A.GraphicData() { Uri = "http://schemas.openxmlformats.org/drawingml/2006/table" };
+
+            A.Table table1 = new A.Table();
+
+            A.TableProperties tableProperties1 = new A.TableProperties() { FirstRow = true, BandRow = true };
+            A.TableStyleId tableStyleId1 = new A.TableStyleId();
+            tableStyleId1.Text = "{5C22544A-7EE6-4342-B048-85BDC9FD1C3A}";
+
+            tableProperties1.Append(tableStyleId1);
+
+            A.TableGrid tableGrid1 = new A.TableGrid();
+            A.GridColumn gridColumn1 = new A.GridColumn() { Width = 1676400L };
+            A.GridColumn gridColumn2 = new A.GridColumn() { Width = 5715001L };
+
+            tableGrid1.Append(gridColumn1);
+            tableGrid1.Append(gridColumn2);
+
+            A.TableRow tableRow1 = new A.TableRow() { Height = 304801L };
+
+            A.TableCell tableCell1 = new A.TableCell();
+
+            A.TextBody textBody66 = new A.TextBody();
+            A.BodyProperties bodyProperties66 = new A.BodyProperties();
+            A.ListStyle listStyle66 = new A.ListStyle();
+
+            A.Paragraph paragraph102 = new A.Paragraph();
+
+            A.Run run64 = new A.Run();
+
+            A.RunProperties runProperties88 = new A.RunProperties() { Language = "en-US", FontSize = 1200, Dirty = false };
+            runProperties88.SetAttribute(new OpenXmlAttribute("", "smtClean", "", "0"));
+            A.Text text88 = new A.Text();
+            text88.Text = "Name";
+
+            run64.Append(runProperties88);
+            run64.Append(text88);
+            A.EndParagraphRunProperties endParagraphRunProperties61 = new A.EndParagraphRunProperties() { Language = "en-US", FontSize = 1200, Dirty = false };
+
+            paragraph102.Append(run64);
+            paragraph102.Append(endParagraphRunProperties61);
+
+            textBody66.Append(bodyProperties66);
+            textBody66.Append(listStyle66);
+            textBody66.Append(paragraph102);
+            A.TableCellProperties tableCellProperties1 = new A.TableCellProperties();
+
+            tableCell1.Append(textBody66);
+            tableCell1.Append(tableCellProperties1);
+
+            A.TableCell tableCell2 = new A.TableCell();
+
+            A.TextBody textBody67 = new A.TextBody();
+            A.BodyProperties bodyProperties67 = new A.BodyProperties();
+            A.ListStyle listStyle67 = new A.ListStyle();
+
+            A.Paragraph paragraph103 = new A.Paragraph();
+
+            A.Run run65 = new A.Run();
+
+            A.RunProperties runProperties89 = new A.RunProperties() { Language = "en-US", FontSize = 1200, Dirty = false };
+            runProperties89.SetAttribute(new OpenXmlAttribute("", "smtClean", "", "0"));
+            A.Text text89 = new A.Text();
+            text89.Text = "{name}";
+
+            run65.Append(runProperties89);
+            run65.Append(text89);
+            A.EndParagraphRunProperties endParagraphRunProperties62 = new A.EndParagraphRunProperties() { Language = "en-US", FontSize = 1200, Dirty = false };
+
+            paragraph103.Append(run65);
+            paragraph103.Append(endParagraphRunProperties62);
+
+            textBody67.Append(bodyProperties67);
+            textBody67.Append(listStyle67);
+            textBody67.Append(paragraph103);
+            A.TableCellProperties tableCellProperties2 = new A.TableCellProperties();
+
+            tableCell2.Append(textBody67);
+            tableCell2.Append(tableCellProperties2);
+
+            tableRow1.Append(tableCell1);
+            tableRow1.Append(tableCell2);
+
+            A.TableRow tableRow2 = new A.TableRow() { Height = 304800L };
+
+            A.TableCell tableCell3 = new A.TableCell();
+
+            A.TextBody textBody68 = new A.TextBody();
+            A.BodyProperties bodyProperties68 = new A.BodyProperties();
+            A.ListStyle listStyle68 = new A.ListStyle();
+
+            A.Paragraph paragraph104 = new A.Paragraph();
+
+            A.Run run66 = new A.Run();
+
+            A.RunProperties runProperties90 = new A.RunProperties() { Language = "en-US", FontSize = 1200, Dirty = false };
+            runProperties90.SetAttribute(new OpenXmlAttribute("", "smtClean", "", "0"));
+            A.Text text90 = new A.Text();
+            text90.Text = "Description";
+
+            run66.Append(runProperties90);
+            run66.Append(text90);
+            A.EndParagraphRunProperties endParagraphRunProperties63 = new A.EndParagraphRunProperties() { Language = "en-US", FontSize = 1200, Dirty = false };
+
+            paragraph104.Append(run66);
+            paragraph104.Append(endParagraphRunProperties63);
+
+            textBody68.Append(bodyProperties68);
+            textBody68.Append(listStyle68);
+            textBody68.Append(paragraph104);
+            A.TableCellProperties tableCellProperties3 = new A.TableCellProperties();
+
+            tableCell3.Append(textBody68);
+            tableCell3.Append(tableCellProperties3);
+
+            A.TableCell tableCell4 = new A.TableCell();
+
+            A.TextBody textBody69 = new A.TextBody();
+            A.BodyProperties bodyProperties69 = new A.BodyProperties();
+            A.ListStyle listStyle69 = new A.ListStyle();
+
+            A.Paragraph paragraph105 = new A.Paragraph();
+
+            A.Run run67 = new A.Run();
+
+            A.RunProperties runProperties91 = new A.RunProperties() { Language = "en-US", FontSize = 1200, Dirty = false };
+            runProperties91.SetAttribute(new OpenXmlAttribute("", "smtClean", "", "0"));
+            A.Text text91 = new A.Text();
+            text91.Text = "{description}";
+
+            run67.Append(runProperties91);
+            run67.Append(text91);
+            A.EndParagraphRunProperties endParagraphRunProperties64 = new A.EndParagraphRunProperties() { Language = "en-US", FontSize = 1200, Dirty = false };
+
+            paragraph105.Append(run67);
+            paragraph105.Append(endParagraphRunProperties64);
+
+            textBody69.Append(bodyProperties69);
+            textBody69.Append(listStyle69);
+            textBody69.Append(paragraph105);
+            A.TableCellProperties tableCellProperties4 = new A.TableCellProperties();
+
+            tableCell4.Append(textBody69);
+            tableCell4.Append(tableCellProperties4);
+
+            tableRow2.Append(tableCell3);
+            tableRow2.Append(tableCell4);
+
+            
+
+         
+
+            table1.Append(tableProperties1);
+            table1.Append(tableGrid1);
+            table1.Append(tableRow1);
+            table1.Append(tableRow2);
+
+            graphicData1.Append(table1);
+
+            graphic1.Append(graphicData1);
+
+            graphicFrame1.Append(nonVisualGraphicFrameProperties1);
+            graphicFrame1.Append(transform1);
+            graphicFrame1.Append(graphic1);
+
+            shapeTree14.Append(nonVisualGroupShapeProperties14);
+            shapeTree14.Append(groupShapeProperties14);
+            shapeTree14.Append(graphicFrame1);
+
+            CommonSlideDataExtensionList commonSlideDataExtensionList14 = new CommonSlideDataExtensionList();
+
+            CommonSlideDataExtension commonSlideDataExtension14 = new CommonSlideDataExtension() { Uri = "{BB962C8B-B14F-4D97-AF65-F5344CB8AC3E}" };
+
+            P14.CreationId creationId14 = new P14.CreationId() { Val = (UInt32Value)331602207U };
+            creationId14.AddNamespaceDeclaration("p14", "http://schemas.microsoft.com/office/powerpoint/2010/main");
+
+            commonSlideDataExtension14.Append(creationId14);
+
+            commonSlideDataExtensionList14.Append(commonSlideDataExtension14);
+
+            commonSlideData14.Append(shapeTree14);
+            commonSlideData14.Append(commonSlideDataExtensionList14);
+
+            ColorMapOverride colorMapOverride13 = new ColorMapOverride();
+            A.MasterColorMapping masterColorMapping13 = new A.MasterColorMapping();
+
+            colorMapOverride13.Append(masterColorMapping13);
+
+            slide2.Append(commonSlideData14);
+            slide2.Append(colorMapOverride13);
+
+            slidePart5.Slide = slide2;
+        }
 
         // Generates content of viewPropertiesPart1.
         private void GenerateViewPropertiesPart1Content(ViewPropertiesPart viewPropertiesPart1)

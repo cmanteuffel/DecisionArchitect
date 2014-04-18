@@ -40,6 +40,7 @@ namespace DecisionViewpoints.Model.Reporting
         private Body _body;
         private readonly string _filename;
 
+        private int _diagmarCounter = 0;
         private int _topicCounter = 0;
         private int _decisionCounter = 0;
 
@@ -51,84 +52,58 @@ namespace DecisionViewpoints.Model.Reporting
                 _mainPart = wordDoc.AddMainDocumentPart();
                 _mainPart.Document = new Document();
                 _body = _mainPart.Document.AppendChild(new Body());
+
+                DateTime saveNow = DateTime.Now;
+
+                Paragraph para = _body.AppendChild(new Paragraph());
+                Run run = para.AppendChild(new Run());
+                DocumentFormat.OpenXml.Wordprocessing.RunProperties runProperties = getHeading1(run);
+                run.AppendChild(new Text("Decision Report [" + saveNow + "]"));
+                //_body.Append(new Paragraph(new Run(new Text("Decision Report [" + saveNow + "]"))));
+                _body.AppendChild(new Paragraph());
             }
         }
 
         public void InsertTopicTable(ITopic topic)
         {
-            var table = new Table();
-            var props = new TableProperties(
-                new TableBorders(
-                    new TopBorder
-                    {
-                        Val = new EnumValue<BorderValues>(BorderValues.Single),
-                        Size = 11
-                    },
-                    new BottomBorder
-                    {
-                        Val = new EnumValue<BorderValues>(BorderValues.Single),
-                        Size = 11
-                    },
-                    new LeftBorder
-                    {
-                        Val = new EnumValue<BorderValues>(BorderValues.Single),
-                        Size = 11
-                    },
-                    new RightBorder
-                    {
-                        Val = new EnumValue<BorderValues>(BorderValues.Single),
-                        Size = 11
-                    },
-                    new InsideHorizontalBorder
-                    {
-                        Val = new EnumValue<BorderValues>(BorderValues.Single),
-                        Size = 11
-                    },
-                    new InsideVerticalBorder
-                    {
-                        Val = new EnumValue<BorderValues>(BorderValues.Single),
-                        Size = 11
-                    }));
-
-            table.AppendChild(props);
-
-            var data = new[,]
-                {
-                    {"Name", topic.Name},
-                    {"Description", topic.Description}
-                };
-
-            for (var i = 0; i <= data.GetUpperBound(0); i++)
+            Paragraph para = _body.AppendChild(new Paragraph());
+            Run run = para.AppendChild(new Run());
+            DocumentFormat.OpenXml.Wordprocessing.RunProperties runProperties = getHeading3(run);
+            run.AppendChild(new Text(_diagmarCounter + "." + (++_topicCounter) + ". " + topic.Name));
+            //_body.AppendChild(new Paragraph(new Run(new Text(_diagmarCounter + "." + (++_topicCounter) + ". " + topic.Name)))); //Topic Name
+            if (topic.Description != "")
             {
-                var tr = new TableRow();
-                for (var j = 0; j <= data.GetUpperBound(1); j++)
-                {
-                    var tc = new TableCell();
-                    tc.AppendChild(new Paragraph(new Run(new Text(data[i, j]))));
-
-                    tr.AppendChild(tc);
-                }
-                if (data[i, 1] != "")
-                    table.AppendChild(tr);
+                _body.AppendChild(new Paragraph(new Run(new Text(topic.Description))));//Topic Desc
             }
-            _topicCounter++;
-            _body.AppendChild(new Paragraph());
-            _body.AppendChild(new Paragraph(new Run(new Text(_topicCounter.ToString() + ". Topic: " + topic.Name))));
-            _body.AppendChild(table);
             _body.AppendChild(new Paragraph());
         }
 
         public void InsertDecisionWithoutTopicMessage()
         {
+            Paragraph para = _body.AppendChild(new Paragraph());
+            Run run = para.AppendChild(new Run());
+            DocumentFormat.OpenXml.Wordprocessing.RunProperties runProperties = getHeading2(run);
+            run.AppendChild(new Text("Decisions not included in a topic:"));
+            //_body.AppendChild(new Paragraph(new Run(new Text("Decisions not included in a topic:"))));
             _body.AppendChild(new Paragraph());
-            _body.AppendChild(new Paragraph(new Run(new Text("Decisions not included in a topic:"))));
         }
+
+        public void InsertDecisionDetailViewMessage()
+        {
+            Paragraph para = _body.AppendChild(new Paragraph());
+            Run run = para.AppendChild(new Run());
+            DocumentFormat.OpenXml.Wordprocessing.RunProperties runProperties = getHeading2(run);
+            run.AppendChild(new Text(++_diagmarCounter + ". Decision Detail View"));
+               // _body.AppendChild(new Paragraph(new Run(new Text(++_diagmarCounter + ". Decision Detail View"))));
+            _body.AppendChild(new Paragraph());
+        }
+       
 
         public void InsertDecisionTable(IDecision decision)
         {
             _decisionCounter++;
-            _body.AppendChild(new Paragraph());
-            _body.AppendChild(new Paragraph(new Run(new Text("Decision " +_decisionCounter.ToString() +": " + decision.Name))));
+            //_body.AppendChild(new Paragraph());
+            //_body.AppendChild(new Paragraph(new Run(new Text("Decision " +_decisionCounter.ToString() +": " + decision.Name))));
 
             var table = new Table();
 
@@ -163,7 +138,18 @@ namespace DecisionViewpoints.Model.Reporting
                         {
                             Val = new EnumValue<BorderValues>(BorderValues.Single),
                             Size = 11
-                        }));
+                        },
+                    new TableWidth
+                        {
+                            Width = "5000",
+                            Type = TableWidthUnitValues.Pct
+                        }
+                   ),
+                    new TableCaption
+                    {
+                        Val = new StringValue("My Caption Val")
+                        
+                    });
 
             table.AppendChild(props);
    
@@ -175,15 +161,15 @@ namespace DecisionViewpoints.Model.Reporting
                 if (!connector.Stereotype.Equals("alternative for"))
                 {
                     relatedDecisions.AppendLine(connector.ClientId == decision.ID
-                        ? "# <<this>> " + decision.Name +" - "+ connector.Stereotype + " - " + connector.GetSupplier().Name + Environment.NewLine
-                        : "# " + connector.GetClient().Name + " - " + connector.Stereotype + " - <<this>> " + decision.Name + Environment.NewLine);
+                        ? "<<this>> " + decision.Name +" - "+ connector.Stereotype + " - " + connector.GetSupplier().Name
+                        :  connector.GetClient().Name + " - " + connector.Stereotype + " - <<this>> " + decision.Name);
                 }
                 // Alternative Decisions
                 else if (connector.Stereotype.Equals("alternative for"))
                 {
                     alternativeDecisions.AppendLine(connector.ClientId == decision.ID
-                        ? "# <<this>> " + decision.Name + " - " + connector.Stereotype + " - " + connector.GetSupplier().Name + Environment.NewLine
-                        : "# " + connector.GetClient().Name + " - " + connector.Stereotype + " - <<this>> " + decision.Name + Environment.NewLine);
+                        ? "<<this>> " + decision.Name + " - " + connector.Stereotype + " - " + connector.GetSupplier().Name
+                        : connector.GetClient().Name + " - " + connector.Stereotype + " - <<this>> " + decision.Name);
                 }
             }
 
@@ -194,7 +180,7 @@ namespace DecisionViewpoints.Model.Reporting
             {
                 var req = EARepository.Instance.GetElementByGUID(rating.RequirementGUID);
                 var concern = EARepository.Instance.GetElementByGUID(rating.ConcernGUID);
-                relatedRequirements.AppendLine("# " + req.Name + " - " + req.Notes + "\n");
+                relatedRequirements.AppendLine(req.Name + " - " + req.Notes);
             }
 
             var data = new[,]
@@ -218,20 +204,56 @@ namespace DecisionViewpoints.Model.Reporting
                 for (var j = 0; j <= data.GetUpperBound(1); j++)
                 {
                     var tc = new TableCell();
+                    if (j == 0)
+                    {
+                        //Apply the same width at column 1 (0)
+                        tc.Append(new TableCellWidth() { Type = TableWidthUnitValues.Dxa, Width = "1821" });
+                        tc.Append(new DocumentFormat.OpenXml.Wordprocessing.TableCellProperties(new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "##d3d4d6" }));
+                        Paragraph para = tc.AppendChild(new Paragraph());
+                        Run run = para.AppendChild(new Run());
+                        DocumentFormat.OpenXml.Wordprocessing.RunProperties runProperties = getBold(run);
+                        run.AppendChild(new Text(data[i, j]));
+                    }
+                    else
+                    {
+                        tc.AppendChild(new Paragraph(new Run(new Text(data[i, j]))));
+                    }
+                    
+                    tr.AppendChild(tc);
+                }
+                if (data[i, 1] != "")
+                    table.AppendChild(tr);
+            }
+
+            /*
+            for (var i = 0; i <= data.GetUpperBound(0); i++)
+            {
+                var tr = new TableRow();
+                for (var j = 0; j <= data.GetUpperBound(1); j++)
+                {
+                    var tc = new TableCell();
                     tc.AppendChild(new Paragraph(new Run(new Text(data[i, j]))));
                     
                     tr.AppendChild(tc);
                 }
                 if (data[i, 1] != "")
                 table.AppendChild(tr);
-            }
+            }*/
 
             _body.AppendChild(table);
             _body.AppendChild(new Paragraph());
+
         }
 
         public void InsertForcesTable(IForcesModel forces)
         {
+            Paragraph para = _body.AppendChild(new Paragraph());
+            Run run = para.AppendChild(new Run());
+            DocumentFormat.OpenXml.Wordprocessing.RunProperties runProperties = getHeading2(run);
+            run.AppendChild(new Text(++_diagmarCounter + ". Decision Forces Viewpoint: " + forces.Name));
+            //_body.AppendChild(new Paragraph(new Run(new Text(++_diagmarCounter + ". Decision Forces Viewpoint"))));
+            _body.AppendChild(new Paragraph(new Run(new Text())));
+
             var table = new Table();
 
             var props = new TableProperties(
@@ -269,20 +291,37 @@ namespace DecisionViewpoints.Model.Reporting
 
             table.AppendChild(props);
 
-            var emptyCell = new TableCell(new Paragraph(new Run(new Text(""))));
+            var emptyCell = new TableCell();
+            //emptyCell.Append(new TableCellWidth() { Type = TableWidthUnitValues.Dxa, Width = "1821" });
+            //emptyCell.Append(new DocumentFormat.OpenXml.Wordprocessing.TableCellProperties(new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "##d3d4d6" })); 
 
             // insert an empty cell in tol left of forces table
             var decRow = new TableRow();
             decRow.AppendChild(emptyCell);
+            para = emptyCell.AppendChild(new Paragraph(new Run(new Text(""))));
+            //run = para.AppendChild(new Run());
+            //runProperties = getBold(run);
+            //run.AppendChild(new Text(""));
 
             // insert the concern header and the decisions names
             var concCellHeader = new TableCell(new Paragraph(new Run(new Text("Concerns"))));
+            //var concCellHeader = new TableCell();
+            //concCellHeader.Append(new TableCellWidth() { Type = TableWidthUnitValues.Dxa, Width = "1821" });
+            //concCellHeader.Append(new DocumentFormat.OpenXml.Wordprocessing.TableCellProperties(new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "##d3d4d6" })); 
+
             decRow.AppendChild(concCellHeader);
+            //para = concCellHeader.AppendChild(new Paragraph());
+            //run = para.AppendChild(new Run());
+            //runProperties = getBold(run);
+            //run.AppendChild(new Text("Concerns"));
             foreach (
                 var decCell in
                     forces.GetDecisions()
                           .Select(decision => new TableCell(new Paragraph(new Run(new Text(decision.Name))))))
             {
+                //decCell.Append(new TableCellWidth() { Type = TableWidthUnitValues.Dxa, Width = "1821" });
+                //decCell.Append(new DocumentFormat.OpenXml.Wordprocessing.TableCellProperties(new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "##d3d4d6" })); 
+
                 decRow.AppendChild(decCell);
             }
             table.AppendChild(decRow);
@@ -319,13 +358,40 @@ namespace DecisionViewpoints.Model.Reporting
             }
 
            
-
             _body.AppendChild(table);
             _body.AppendChild(new Paragraph());
         }
 
         public void InsertDiagramImage(EADiagram diagram)
         {
+            //angor reporting  
+            if (diagram.IsRelationshipView())
+            {
+                Paragraph para = _body.AppendChild(new Paragraph());
+                Run run = para.AppendChild(new Run());
+                DocumentFormat.OpenXml.Wordprocessing.RunProperties runProperties = getHeading2(run);
+                run.AppendChild(new Text(++_diagmarCounter + ". Relationship Viewpoint: " + diagram.Name));
+                //_body.AppendChild(new Paragraph(new Run(new Text(++_diagmarCounter + ". Relationship Viewpoint"))));
+            }
+            else if (diagram.IsStakeholderInvolvementView())
+            {
+                Paragraph para = _body.AppendChild(new Paragraph());
+                Run run = para.AppendChild(new Run());
+                DocumentFormat.OpenXml.Wordprocessing.RunProperties runProperties = getHeading2(run);
+                run.AppendChild(new Text(++_diagmarCounter + ". Decision Stakeholder Involvement Viewpoint: " + diagram.Name));
+                //_body.AppendChild(new Paragraph(new Run(new Text(++_diagmarCounter + ". Decision Stakeholder Involvement Viewpoint"))));
+            }
+            else if (diagram.IsChronologicalView())
+            {
+                Paragraph para = _body.AppendChild(new Paragraph());
+                Run run = para.AppendChild(new Run());
+                DocumentFormat.OpenXml.Wordprocessing.RunProperties runProperties = getHeading2(run);
+                run.AppendChild(new Text(++_diagmarCounter + ". Decision Chronological Viewpoint: " + diagram.Name));
+                //_body.AppendChild(new Paragraph(new Run(new Text(++_diagmarCounter + ". Decision Chronological Viewpoint"))));
+            }
+            
+             _body.AppendChild(new Paragraph(new Run(new Text())));
+
             var imagePart = _mainPart.AddImagePart(ImagePartType.Emf);
             FileStream fs = diagram.DiagramToStream();
             imagePart.FeedData(fs);
@@ -418,5 +484,59 @@ namespace DecisionViewpoints.Model.Reporting
             _body.AppendChild(new Paragraph(new Run(element)));
             _body.AppendChild(new Paragraph());
         }
+
+        public DocumentFormat.OpenXml.Wordprocessing.RunProperties getBold(Run run)
+        {
+            DocumentFormat.OpenXml.Wordprocessing.RunProperties runProperties = run.AppendChild(new DocumentFormat.OpenXml.Wordprocessing.RunProperties());
+            Bold bold = new Bold();
+            bold.Val = OnOffValue.FromBoolean(true);
+            runProperties.AppendChild(bold);
+            return runProperties;
+        }
+
+        public DocumentFormat.OpenXml.Wordprocessing.RunProperties getHeading1(Run run)
+        {
+            DocumentFormat.OpenXml.Wordprocessing.RunProperties runProperties = run.AppendChild(new DocumentFormat.OpenXml.Wordprocessing.RunProperties());
+            Bold bold = new Bold();
+            bold.Val = OnOffValue.FromBoolean(true);
+            DocumentFormat.OpenXml.Wordprocessing.Color color = new DocumentFormat.OpenXml.Wordprocessing.Color() { Val = "365F91", ThemeColor = ThemeColorValues.Accent1, ThemeShade = "BF" };
+            FontSize size = new FontSize() { Val = new StringValue("33")};
+            
+            runProperties.AppendChild(bold);
+            runProperties.AppendChild(color);
+            runProperties.AppendChild(size);
+            return runProperties;
+        }
+
+        public DocumentFormat.OpenXml.Wordprocessing.RunProperties getHeading2(Run run)
+        {
+            DocumentFormat.OpenXml.Wordprocessing.RunProperties runProperties = run.AppendChild(new DocumentFormat.OpenXml.Wordprocessing.RunProperties());
+            Bold bold = new Bold();
+            bold.Val = OnOffValue.FromBoolean(true);
+            DocumentFormat.OpenXml.Wordprocessing.Color color = new DocumentFormat.OpenXml.Wordprocessing.Color() { Val = "365F91", ThemeColor = ThemeColorValues.Accent1, ThemeShade = "BF" };
+            FontSize size = new FontSize() { Val = new StringValue("29") };
+
+            runProperties.AppendChild(bold);
+            runProperties.AppendChild(color);
+            runProperties.AppendChild(size);
+            return runProperties;
+        }
+
+        public DocumentFormat.OpenXml.Wordprocessing.RunProperties getHeading3(Run run)
+        {
+            DocumentFormat.OpenXml.Wordprocessing.RunProperties runProperties = run.AppendChild(new DocumentFormat.OpenXml.Wordprocessing.RunProperties());
+            Bold bold = new Bold();
+            bold.Val = OnOffValue.FromBoolean(true);
+            DocumentFormat.OpenXml.Wordprocessing.Color color = new DocumentFormat.OpenXml.Wordprocessing.Color() { Val = "365F91", ThemeColor = ThemeColorValues.Accent1, ThemeShade = "BF" };
+            FontSize size = new FontSize() { Val = new StringValue("25") };
+
+            runProperties.AppendChild(bold);
+            runProperties.AppendChild(color);
+            runProperties.AppendChild(size);
+            return runProperties;
+        }
     }
+
+   
+
 }
