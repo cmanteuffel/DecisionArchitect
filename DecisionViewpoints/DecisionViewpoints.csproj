@@ -68,7 +68,7 @@
     </Compile>
     <Compile Include="Logic\Chronological\ChronologicalViewpointGenerator.cs" />
     <Compile Include="Logic\Chronological\ChronologicalViewpointHandler.cs" />
-    <Compile Include="Logic\Chronological\DecisionDiffItem.cs" />
+    <Compile Include="Logic\Chronological\DecisionStateChange.cs" />
     <Compile Include="Logic\Forces\ForcesHandler.cs" />
     <Compile Include="Logic\Detail\DetailHandler.cs" />
     <Compile Include="Logic\General\DecisionStateModifedDateHandler.cs" />

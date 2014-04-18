@@ -249,4 +249,10 @@
   <data name="NameSuggestionTopic" xml:space="preserve">
     <value>{0} Topic</value>
   </data>
+  <data name="DialogOpenLatestDecision" xml:space="preserve">
+    <value>This is only an old version of a decision, only the state and date of modfication were captured. Do you want to open the latest version of the decision instead?</value>
+  </data>
+  <data name="DialogOpenLatestDecisionTitle" xml:space="preserve">
+    <value>Open latest version of the decision</value>
+  </data>
 </root>

@@ -19,86 +19,38 @@ namespace DecisionViewpoints.Logic.Menu
         static MenuEventHandler()
         {
             var createTraces = new Model.Menu.Menu(Messages.MenuCreateTraces);
-            var createAndTraceDecision = new MenuItem(Messages.MenuTraceToNewDecision, CreateTraceMenu.CreateAndTraceDecision)
-            {
+            var createAndTraceDecision = new MenuItem(Messages.MenuTraceToNewDecision,
+                                                      CreateTraceMenu.CreateAndTraceDecision)
+                {
                     UpdateDelegate = menuItem =>
                         {
                             if (NativeType.Element == EARepository.Instance.GetContextItemType())
                             {
                                 var eaelement = EARepository.Instance.GetContextObject<EAElement>();
-                                menuItem.IsEnabled = (eaelement != null && !eaelement.IsDecision() &&!eaelement.IsTopic());
+                                menuItem.IsEnabled = (eaelement != null && !eaelement.IsDecision() &&
+                                                      !eaelement.IsTopic());
                                 return;
                             }
                             menuItem.IsEnabled = false;
                         }
                 };
 
-            
+
             var createAndTraceTopic = new MenuItem(Messages.MenuTraceToNewTopic, CreateTraceMenu.CreateAndTraceTopic)
-            {
-                UpdateDelegate = menuItem =>
                 {
-                    if (NativeType.Element == EARepository.Instance.GetContextItemType())
-                    {
-                        var eaelement = EARepository.Instance.GetContextObject<EAElement>();
-                        menuItem.IsEnabled = (eaelement != null && !eaelement.IsDecision() && !eaelement.IsTopic());
-                        return;
-                    }
-                    menuItem.IsEnabled = false;
-                }
-            };
-            
-
-            var baselinesOptions = new Model.Menu.Menu(Messages.MenuBaselineOptions);
-            var baselineManually = new MenuItem(Messages.MenuBaselineManually)
-                {
-                    ClickDelegate = () =>
+                    UpdateDelegate = menuItem =>
                         {
-                            Settings.Default.BaselineOptionManually =
-                                !Settings.Default.BaselineOptionManually;
-                            Settings.Default.Save();
-                        },
-                    UpdateDelegate = self => { self.IsChecked = Settings.Default.BaselineOptionManually; }
-                };
-
-            var baselineOnFileClose = new MenuItem(Messages.MenuBaselineOnClose)
-                {
-                    ClickDelegate = () =>
-                        {
-                            Settings.Default.BaselineOptionOnFileClose =
-                                !Settings.Default.BaselineOptionOnFileClose;
-                            Settings.Default.Save();
-                        },
-                    UpdateDelegate = self => { self.IsChecked = Settings.Default.BaselineOptionOnFileClose; }
-                };
-
-            var baselineOnModification = new MenuItem(Messages.MenuBaselineOnModify)
-                {
-                    ClickDelegate = () =>
-                        {
-                            Settings.Default.BaselineOptionOnModification =
-                                ! Settings.Default.BaselineOptionOnModification;
-                            Settings.Default.Save();
-                        },
-                    UpdateDelegate =
-                        self => { self.IsChecked = Settings.Default.BaselineOptionOnModification; }
-                };
-
-
-            var createBaseline = new MenuItem(Messages.MenuCreateBaseline, ManualDecisionSnapshot)
-                {
-                    UpdateDelegate = self =>
-                        {
-                            if (NativeType.Package == EARepository.Instance.GetContextItemType() &&
-                                Settings.Default.BaselineOptionManually)
+                            if (NativeType.Element == EARepository.Instance.GetContextItemType())
                             {
-                                var eapackage = EARepository.Instance.GetContextObject<EAPackage>();
-                                self.IsEnabled = (eapackage != null && eapackage.IsDecisionViewPackage());
+                                var eaelement = EARepository.Instance.GetContextObject<EAElement>();
+                                menuItem.IsEnabled = (eaelement != null && !eaelement.IsDecision() &&
+                                                      !eaelement.IsTopic());
                                 return;
                             }
-                            self.IsEnabled = false;
+                            menuItem.IsEnabled = false;
                         }
                 };
+
 
             var generateChronologicalView = new MenuItem(Messages.MenuGenerateChronologicalVP, Generate)
                 {
@@ -115,48 +67,41 @@ namespace DecisionViewpoints.Logic.Menu
                 };
 
 
-
             var reportMenu = new Model.Menu.Menu(Messages.MenuExport);
             var generateWordReport = new MenuItem(Messages.MenuExportWord)
                 {
-                    
-                    ClickDelegate = () => GenerateReport("Report.docx",ReportType.Word),
-                    
-                    UpdateDelegate = self => {}
-                    
+                    ClickDelegate = () => GenerateReport("Report.docx", ReportType.Word),
+                    UpdateDelegate = self => { }
                 };
 
             var generateExecelAllReport = new MenuItem(Messages.MenuExportExcelForcesAll)
-            {
-                //ClickDelegate = () => GenerateReport("AllForcesReport.docx", ReportType.Excel),//original
-                ClickDelegate = () => GenerateReport("AllForcesReport.xlsx", ReportType.Excel),//angor
-                UpdateDelegate = self => { }
-
-            };
+                {
+                    //ClickDelegate = () => GenerateReport("AllForcesReport.docx", ReportType.Excel),//original
+                    ClickDelegate = () => GenerateReport("AllForcesReport.xlsx", ReportType.Excel), //angor
+                    UpdateDelegate = self => { }
+                };
 
             var generateExcelReport = new MenuItem(Messages.MenuExportExcelForces)
-            {
-                ClickDelegate = () =>
-                    {
-                        if (NativeType.Diagram == EARepository.Instance.GetContextItemType())
+                {
+                    ClickDelegate = () =>
                         {
-                            var eadiagram = EARepository.Instance.GetContextObject<EADiagram>();
-                            GenerateForcesReport(eadiagram.Name + "_Report.xlsx", eadiagram);
-                        }
-                        
-                    },
-                UpdateDelegate = self =>
-                    {
-                        if (NativeType.Diagram == EARepository.Instance.GetContextItemType())
+                            if (NativeType.Diagram == EARepository.Instance.GetContextItemType())
+                            {
+                                var eadiagram = EARepository.Instance.GetContextObject<EADiagram>();
+                                GenerateForcesReport(eadiagram.Name + "_Report.xlsx", eadiagram);
+                            }
+                        },
+                    UpdateDelegate = self =>
                         {
-                            var eadiagram = EARepository.Instance.GetContextObject<EADiagram>();
-                            self.IsEnabled = ((eadiagram != null) && eadiagram.IsForcesView());
-                            return;
+                            if (NativeType.Diagram == EARepository.Instance.GetContextItemType())
+                            {
+                                var eadiagram = EARepository.Instance.GetContextObject<EADiagram>();
+                                self.IsEnabled = ((eadiagram != null) && eadiagram.IsForcesView());
+                                return;
+                            }
+                            self.IsEnabled = false;
                         }
-                        self.IsEnabled = false;
-                    }
-
-            };
+                };
 /* Original
             var generatePowerpointReport = new MenuItem(Messages.MenuExportPowerPoint)
             {
@@ -166,12 +111,11 @@ namespace DecisionViewpoints.Logic.Menu
 */
             //angor 17/9/2013
             var generatePowerpointReport = new MenuItem(Messages.MenuExportPowerPoint)
-            {
-                ClickDelegate = () => 
-                    GenerateReport("Report.pptx", ReportType.PowerPoint),
-                UpdateDelegate = self => { }
-
-            };
+                {
+                    ClickDelegate = () =>
+                                    GenerateReport("Report.pptx", ReportType.PowerPoint),
+                    UpdateDelegate = self => { }
+                };
 
             RootMenu.Add(createTraces);
             createTraces.Add(createAndTraceDecision);
@@ -182,11 +126,6 @@ namespace DecisionViewpoints.Logic.Menu
              */ //angor 
             RootMenu.Add(new FollowTraceMenu());
             RootMenu.Add(MenuItem.Separator);
-            RootMenu.Add(baselinesOptions);
-            baselinesOptions.Add(baselineManually);
-            baselinesOptions.Add(baselineOnFileClose);
-            baselinesOptions.Add(baselineOnModification);
-            RootMenu.Add(createBaseline);
             RootMenu.Add(MenuItem.Separator);
             RootMenu.Add(generateChronologicalView);
             RootMenu.Add(MenuItem.Separator);
@@ -195,7 +134,6 @@ namespace DecisionViewpoints.Logic.Menu
             reportMenu.Add(generateExcelReport);
             reportMenu.Add(generateExecelAllReport);
             reportMenu.Add(generatePowerpointReport);
-            
         }
 
         public static object GetMenuItems(string location, string menuName)
@@ -232,19 +170,6 @@ namespace DecisionViewpoints.Logic.Menu
             }
         }
 
-        
-        //angor task191 END
-
-        private static void ManualDecisionSnapshot()
-        {
-            if (NativeType.Package == EARepository.Instance.GetContextItemType() &&
-                Settings.Default.BaselineOptionManually)
-            {
-                var eapackage = EARepository.Instance.GetContextObject<EAPackage>();
-                ChronologicalViewpointHandler.CreateDecisionSnapshot(eapackage);
-            }
-        }
-
         private static void Generate()
         {
             var eadiagram = EARepository.Instance.GetContextObject<EADiagram>();
@@ -278,9 +203,8 @@ namespace DecisionViewpoints.Logic.Menu
 
         private static void GenerateReport(string filename, ReportType reportType)
         {
-
             //EARepository.Instance.GetSelectedItems();
-            
+
             EARepository repository = EARepository.Instance;
             List<Decision> decisions =
                 (from EAElement element in repository.GetAllElements()
@@ -294,36 +218,37 @@ namespace DecisionViewpoints.Logic.Menu
             IReportDocument report = null;
             try
             {
-                var filenameExtension = filename.Substring(filename.IndexOf('.'));
-                var saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+                string filenameExtension = filename.Substring(filename.IndexOf('.'));
+                var saveFileDialog1 = new SaveFileDialog();
                 saveFileDialog1.Title = Messages.SaveReportAs;
-                saveFileDialog1.Filter = "Microsoft " + reportType.ToString() + " (*"+ filenameExtension + ")|*" + filenameExtension;
+                saveFileDialog1.Filter = "Microsoft " + reportType.ToString() + " (*" + filenameExtension + ")|*" +
+                                         filenameExtension;
                 saveFileDialog1.FilterIndex = 0;
-                
+
                 if (saveFileDialog1.ShowDialog() != DialogResult.OK)
                 {
                     return;
                 }
                 saveFileDialog1.CheckFileExists = true;
                 saveFileDialog1.CheckPathExists = true;
-                var reportFilename = saveFileDialog1.FileName;
+                string reportFilename = saveFileDialog1.FileName;
                 report = ReportFactory.Create(reportType, reportFilename);
                 //if the report cannot be created because is already used by another program a message will appear
                 if (report == null)
                 {
                     MessageBox.Show("Check if another program is using this file.",
-                        "Fail to create report",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
+                                    "Fail to create report",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
                     return;
                 }
                 report.Open();
 
-                List<Decision> decisionsWithoutTopic = new List<Decision>();
+                var decisionsWithoutTopic = new List<Decision>();
                 //angor START
                 List<Topic> topics = (from EAElement element in repository.GetAllElements()
-                 where element.IsTopic()
-                 select new Topic(element)).ToList();
+                                      where element.IsTopic()
+                                      select new Topic(element)).ToList();
 
                 // Insert Decisions that have a Topic
                 foreach (Topic topic in topics)
@@ -333,7 +258,7 @@ namespace DecisionViewpoints.Logic.Menu
                     report.InsertTopicTable(topic);
                     foreach (Decision decision in decisions)
                     {
-                        var parent = EARepository.Instance.GetElementByID(decision.ID).ParentElement;
+                        EAElement parent = EARepository.Instance.GetElementByID(decision.ID).ParentElement;
                         if (parent != null && parent.IsTopic())
                         {
                             if (parent.ID.Equals(topic.ID))
@@ -352,9 +277,9 @@ namespace DecisionViewpoints.Logic.Menu
                 // Insert decisions without a Topic
                 foreach (Decision decision in decisionsWithoutTopic)
                 {
-                    var parent = EARepository.Instance.GetElementByID(decision.ID).ParentElement;
+                    EAElement parent = EARepository.Instance.GetElementByID(decision.ID).ParentElement;
                     if (parent == null || !parent.IsTopic())
-                       report.InsertDecisionTable(decision);
+                        report.InsertDecisionTable(decision);
                 }
                 //angor END
 
@@ -369,23 +294,20 @@ namespace DecisionViewpoints.Logic.Menu
                 var customMessage = new ExportReportsCustomMessageBox(reportType.ToString(), reportFilename);
                 customMessage.Show();
             }
-                finally
-                {
-                    if (report != null)
-                        report.Close();
-                }
-            
-
+            finally
+            {
+                if (report != null)
+                    report.Close();
+            }
         }
 
         private static void GenerateForcesReport(string filename, EADiagram diagram)
         {
-
             IReportDocument report = null;
             try
             {
-                var filenameExtension = filename.Substring(filename.IndexOf('.'));
-                var saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+                string filenameExtension = filename.Substring(filename.IndexOf('.'));
+                var saveFileDialog1 = new SaveFileDialog();
                 saveFileDialog1.Title = "Save report as..";
                 saveFileDialog1.Filter = "Microsoft Excel (*" + filenameExtension + ")|*" + filenameExtension;
                 saveFileDialog1.FilterIndex = 0;
@@ -396,7 +318,7 @@ namespace DecisionViewpoints.Logic.Menu
                 }
                 saveFileDialog1.CheckFileExists = true;
                 saveFileDialog1.CheckPathExists = true;
-                var reportFilename = saveFileDialog1.FileName;
+                string reportFilename = saveFileDialog1.FileName;
                 report = ReportFactory.Create(ReportType.Excel, reportFilename);
                 report.Open();
                 if (diagram.IsForcesView())

@@ -251,6 +251,18 @@ namespace EAFacade.Model
             ConnectTo(suppliedElement, "ControlFlow", "followed by");
         }
 
+
+        public IList<EAConnector> FindConnectors(EAElement suppliedElement, String type, String stereotype)
+        {
+            return GetConnectors().Where(c =>
+                {
+                    return c.GetSupplier().GUID.Equals(suppliedElement.GUID) &&
+                           c.Stereotype.Equals(stereotype) &&
+                           c.GetType().Equals(type);
+                }).ToList();
+
+        }
+
         public void ConnectTo(EAElement suppliedElement, String type, String stereotype)
         {
             Connector connector = _native.Connectors.AddNew("", type);
@@ -260,6 +272,7 @@ namespace EAFacade.Model
             _native.Connectors.Refresh();
             suppliedElement._native.Connectors.Refresh();
         }
+
 
         public bool IsDecision()
         {

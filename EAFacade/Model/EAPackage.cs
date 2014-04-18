@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml;
 using EA;
-using EAFacade.Model.Baselines;
 
 namespace EAFacade.Model
 {
@@ -139,46 +137,6 @@ namespace EAFacade.Model
             return EADiagram.Wrap(_native.Diagrams.GetByName(name));
         }
 
-        public IList<Baseline> GetBaselines()
-        {
-            Project project = EARepository.Instance.Native.GetProjectInterface();
-            string baselineString = project.GetBaselines(GUID, "");
-            var xmlDocument = new XmlDocument();
-            xmlDocument.LoadXml(baselineString);
-
-            return (from XmlNode baselineNode in xmlDocument.FirstChild.ChildNodes
-                    where baselineNode.Attributes != null
-                    let version = baselineNode.Attributes["version"].Value
-                    let notes = baselineNode.Attributes["notes"].Value
-                    let guid = baselineNode.Attributes["guid"].Value
-                    select new Baseline(guid, version, notes)).ToList();
-        }
-
-        public void CreateBaseline(string notes, bool excludeSubPackages = false)
-        {
-            int flags = 0;
-            if (excludeSubPackages)
-            {
-                flags = 1;
-            }
-            string version = DateTime.Now.ToString("yyyyMMddHHmmssffff");
-
-            Project project = EARepository.Instance.Native.GetProjectInterface();
-            if (!project.CreateBaselineEx(GUID, version, notes, flags))
-            {
-                throw new BaselineException("Baseline could not be created");
-            }
-
-        }
-
-        public BaselineDiff CompareWithBaseline(Baseline baseline)
-        {
-            Project project = EARepository.Instance.Native.GetProjectInterface();
-            string baselineXmlGuid = project.GUIDtoXML(baseline.Guid);
-            string diffString = project.DoBaselineCompare(GUID, baselineXmlGuid, "");
-            return BaselineDiff.ParseFromXml(this, baseline, diffString);
-        }
-
         public static EAPackage Wrap(Package packageID)
         {
             return new EAPackage(packageID);
@@ -196,11 +154,42 @@ namespace EAFacade.Model
 
         public IEnumerable<EAElement> GetAllDecisions()
         {
-            return
-                _native.Elements.Cast<Element>()
-                       .Where(e => e.MetaType.Equals(DVStereotypes.DecisionMetaType))
-                       .Select(e => EAElement.Wrap(e));
+            var decisions = new List<EAElement>();
+            var elementsStack = new Stack<EAElement>();
+            _native.Elements.Cast<Element>().ToList().ForEach(e => elementsStack.Push(EAElement.Wrap(e)));
+
+            while (elementsStack.Count > 0)
+            {
+                var element = elementsStack.Pop(); 
+                element.GetElements().ForEach(elementsStack.Push);
+                if (element.IsDecision())
+                {
+                    decisions.Add(element);
+                }
+            }
+
+            return decisions;
         }
+
+        public IEnumerable<EAElement> GetAllTopics()
+        {
+            var topics = new List<EAElement>();
+            var elementsStack = new Stack<EAElement>();
+            _native.Elements.Cast<Element>().ToList().ForEach(e => elementsStack.Push(EAElement.Wrap(e)));
+
+            while (elementsStack.Count > 0)
+            {
+                var element = elementsStack.Pop();
+                element.GetElements().ForEach(elementsStack.Push);
+                if (element.IsTopic())
+                {
+                    topics.Add(element);
+                }
+            }
+
+            return topics;
+        } 
+
 
         public EAPackage GetSubpackageByName(string data)
         {

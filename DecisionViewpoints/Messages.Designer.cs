@@ -106,6 +106,24 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This is only an old version of a decision, only the state and date of modfication were captured. Do you want to open the latest version of the decision instead?.
+        /// </summary>
+        internal static string DialogOpenLatestDecision {
+            get {
+                return ResourceManager.GetString("DialogOpenLatestDecision", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open latest version of the decision.
+        /// </summary>
+        internal static string DialogOpenLatestDecisionTitle {
+            get {
+                return ResourceManager.GetString("DialogOpenLatestDecisionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please supply a name for the decision..
         /// </summary>
         internal static string ErrorNoNameForDecision {

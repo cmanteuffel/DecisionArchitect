@@ -1,38 +1,41 @@
-﻿using DecisionViewpointsCustomViews.Controller;
+﻿using System.Windows.Forms;
+using DecisionViewpointsCustomViews.Controller;
 using DecisionViewpointsCustomViews.Model;
 using DecisionViewpointsCustomViews.View;
 using EAFacade.Model;
-using System.Windows.Forms;
 
 namespace DecisionViewpoints.Logic.Detail
 {
     public class DetailHandler : RepositoryAdapter
     {
-        /*
         public override bool OnContextItemDoubleClicked(string guid, NativeType type)
         {
             if (type != NativeType.Element) return false;
-            var repository = EARepository.Instance;
-            var element = repository.GetElementByGUID(guid);
-            if (!element.IsDecision()) return false;
-            //var detailController = new DetailController(new Decision(element), new DetailView());//original
-            var detailController = new DetailController(new Decision(element), new DetailViewNew());//angor
-            detailController.ShowDetailView();
-            return true;
-        }
-         */
-        //angor task189 START
-        public override bool OnContextItemDoubleClicked(string guid, NativeType type)
-        {
-            if (type != NativeType.Element) return false;
-            var repository = EARepository.Instance;
-            var element = repository.GetElementByGUID(guid);
+            EARepository repository = EARepository.Instance;
+            EAElement element = repository.GetElementByGUID(guid);
             if (!element.IsDecision() && !element.IsTopic()) return false;
-            if (element.IsDecision())
+            if (element.IsDecision() && !element.IsHistoryDecision())
             {
                 //var detailController = new DetailController(new Decision(element), new DetailView());//original
-                var detailController = new DetailController(new Decision(element), new DetailView());//angor
+                var detailController = new DetailController(new Decision(element), new DetailView()); //angor
                 detailController.ShowDetailView();
+            }
+            else if (element.IsDecision() && element.IsHistoryDecision())
+            {
+                DialogResult dialogResult =
+                    MessageBox.Show(
+                        Messages.DialogOpenLatestDecision,
+                        Messages.DialogOpenLatestDecisionTitle,
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Information);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    var originalguid = element.GetTaggedValue(DVTaggedValueKeys.OriginalDecisionGuid);
+                    var decision = EARepository.Instance.GetElementByGUID(originalguid);
+                    var detailController = new DetailController(new Decision(decision), new DetailView());
+                    detailController.ShowDetailView();
+
+                }
             }
             else if (element.IsTopic())
             {
@@ -41,8 +44,8 @@ namespace DecisionViewpoints.Logic.Detail
                 topicDetailController.ShowDetailView();
             }
             return true;
-
         }
+
         //angor task189 END
 
         /*
@@ -64,10 +67,10 @@ namespace DecisionViewpoints.Logic.Detail
             EARepository.Instance.SuppressDefaultDialogs(true);
             if (element.IsDecision())
             {
-                var detailController = new DetailController(new Decision(element), new DetailView());//angor
+                var detailController = new DetailController(new Decision(element), new DetailView()); //angor
                 detailController.ShowDetailView();
             }
-            else if(element.IsTopic())
+            else if (element.IsTopic())
             {
                 //MessageBox.Show("Topic: OnPostNewElement");
                 var topicDetailController = new TopicDetailController(new Topic(element), new TopicDetailView());
@@ -75,6 +78,7 @@ namespace DecisionViewpoints.Logic.Detail
             }
             return false;
         }
+
         //angor task189 END
     }
 }

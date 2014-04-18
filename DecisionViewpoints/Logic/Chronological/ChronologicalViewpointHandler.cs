@@ -1,33 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using DecisionViewpoints.Properties;
+using System.Linq;
 using EAFacade.Model;
-using EAFacade.Model.Baselines;
 
 namespace DecisionViewpoints.Logic.Chronological
 {
     internal class ChronologicalViewpointHandler : RepositoryAdapter
     {
-        public static void CreateDecisionSnapshot(EAPackage eapackage)
-        {
-            if (eapackage == null || !eapackage.IsDecisionViewPackage())
-            {
-                throw new BaselineException("Package needs to be a decision viewpoint packge");
-            }
-            string notes = String.Format(Settings.Default.BaselineIdentifier);
-            eapackage.CreateBaseline(notes);
-        }
-
-        public static void CreateDecisionSnapshotForAllDecisionPackages()
-        {
-            EARepository rep = EARepository.Instance;
-            IEnumerable<EAPackage> packages = rep.GetAllDecisionViewPackages();
-
-            foreach (EAPackage p in packages)
-            {
-                CreateDecisionSnapshot(p);
-            }
-        }
 
         public override void OnNotifyContextItemModified(string guid, NativeType type)
         {
@@ -48,27 +26,26 @@ namespace DecisionViewpoints.Logic.Chronological
 
                     if (element == null) throw new Exception("element is null");
 
-                    // Create a baseline upon a modification of a decision
-                    if (Settings.Default.BaselineOptionOnModification)
+                    //save state change
+                    if (element.IsDecision())
                     {
-                        if (element.IsDecision())
+                        var newState = element.Stereotype;
+                        var history = DecisionStateChange.GetHistory(element).ToList();
+                        history.Sort(DecisionStateChange.CompareByDateModified);
+                        if (history.Count > 0)
                         {
-                            //find containing decision view package
-                            EAPackage package = element.ParentPackage;
-                            if (package == null) throw new Exception("package is null");
-
-                            while (!(package.IsModelRoot() || package.IsDecisionViewPackage()))
+                            //check if there was actually a state change (current state != new state)s
+                            var currentState = history.Last();
+                            if (currentState.State != newState)
                             {
-                                package = package.ParentPackage;
+                               DecisionStateChange.SaveStateChange(element,newState,DateTime.Now);       
                             }
-
-                            if (package == null || !package.IsDecisionViewPackage())
-                            {
-                                throw new BaselineException("Elements needs to be in a decision viewpoint packge");
-                            }
-
-                            CreateDecisionSnapshot(package);
                         }
+                        else
+                        {
+                            DecisionStateChange.SaveStateChange(element, newState, DateTime.Now); 
+                        }
+                        
                     }
                     break;
             }
@@ -84,13 +61,6 @@ namespace DecisionViewpoints.Logic.Chronological
                     DVStereotypes.RelationExcludedBy, DVStereotypes.RelationReplaces
                 });
         }
-
-
-        public override void OnFileClose()
-        {
-            if (!Settings.Default.BaselineOptionOnFileClose) return;
-
-            CreateDecisionSnapshotForAllDecisionPackages();
-        }
+        
     }
 }
