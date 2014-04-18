@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 using System.Xml;
 using EA;
 
@@ -109,7 +108,7 @@ namespace EAFacade.Model
             get
             {
                 return _native.TaggedValues.Cast<TaggedValue>()
-                              .Select(taggedValue => EATaggedValue.Wrap(taggedValue)).ToList();
+                              .Select(EATaggedValue.Wrap).ToList();
             }
         }
 

@@ -73,7 +73,8 @@ namespace DecisionViewpoints.Logic.Forces
             if (diagrams.Count == 0) return;
             foreach (var diagram in diagrams)
             {
-                if (repository.IsTabOpen(diagram.Name) <= 0) continue;
+                if (repository.IsTabOpen(CreateForcesTabName(diagram.Name)) <= 0) continue;
+                if (!_controllers.ContainsKey(diagram.GUID)) continue;
                 var forcesController = _controllers[diagram.GUID];
                 forcesController.SetDiagramModel(diagram);
             }
@@ -106,7 +107,7 @@ namespace DecisionViewpoints.Logic.Forces
                     where repository.IsTabOpen(CreateForcesTabName(diagram.Name)) > 0
                     select _controllers[diagram.GUID])
             {
-                // we cannot update the viwe with a new diagram model here, as the diagram changes
+                // we cannot update the view with a new diagram model here, as the diagram changes are applied
                 // after the deletion event is successful
                 if (element.IsDecision())
                     forcesController.RemoveDecision(element);
@@ -127,7 +128,5 @@ namespace DecisionViewpoints.Logic.Forces
         {
             return String.Format("{0} (Forces)", diagramName);
         }
-
-        // TODO: when an element is in mutliple tables and some of them are open then any change in one diagram is not propagated to the others
     }
 }
