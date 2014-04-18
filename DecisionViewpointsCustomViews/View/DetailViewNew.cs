@@ -130,7 +130,7 @@ namespace DecisionViewpointsCustomViews.View
         }
 
 
-        /*
+        /* original
         public void rtf_LinkClicked(object sender, LinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start(e.LinkText);
