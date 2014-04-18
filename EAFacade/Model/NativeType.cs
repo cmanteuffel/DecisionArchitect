@@ -6,6 +6,7 @@ namespace EAFacade.Model
         Diagram,
         Element,
         Connector,
+        Repository,
         Unspecified,
         Model
     }

@@ -41,6 +41,8 @@ namespace EAFacade
                     return NativeType.Diagram;
                 case ObjectType.otPackage:
                     return NativeType.Package;
+                case ObjectType.otRepository:
+                    return NativeType.Repository;
                 case ObjectType.otNone:
                     //FIX: model returns for some reason otNone, translated to otModel. Might cause problems. 
                     return NativeType.Model;

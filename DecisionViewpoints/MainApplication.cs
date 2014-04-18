@@ -24,7 +24,7 @@ namespace DecisionViewpoints
         public override object EA_OnInitializeTechnologies(Repository repository)
         {
             EARepository.UpdateRepository(repository);
-            const string resource = "DecisionViewpoints." + "DecisionViewpoints.xml";
+            const string resource = "EAFacade." + "DecisionViewpoints.xml";
             return Utilities.GetResourceContents(resource);
         }
 
