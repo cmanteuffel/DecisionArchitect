@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DecisionViewpointsCustomViews.Controller;
 using DecisionViewpointsCustomViews.Model;
+using EAFacade.Model.Events;
+using Hyperlink = DocumentFormat.OpenXml.Drawing.Hyperlink;
+
 namespace DecisionViewpointsCustomViews.View
 
 {
@@ -40,52 +44,73 @@ namespace DecisionViewpointsCustomViews.View
 
         public string DecisionIssue
         {
-            // original
-           get { return txtIssue.Text.Trim(' '); }
-           set { txtIssue.Text = value; }
-             
-           // get { return txtIssue.Rtf.Trim(' '); }//angor
-          //  set{txtIssue.Rtf = value;}
-        }
-        
-        public string DecisionText
-        {   
-            // original
-            get { return txtDecision.Text.Trim(' '); }
-            set { txtDecision.Text = value; }
-             
-        //    get { return txtDecision.Rtf.Trim(' '); }//angor
-        //    set{txtDecision.Rtf = value;}//angor
-        }
-         
+            /*  //original for not formatted Text
+            get { return txtIssue.Text.Trim(' '); }
+            set { txtIssue.Text = value; }
+             */
 
-        public string DecisionAlternatives { get; set; }
-        /*
-        public string DecisionAlternatives
-        {
-            get { return txtAlternatives.Text.Trim(' '); }
-            set { txtAlternatives.Text = value; }
+            //Get-Set for formatted Test.
+            //Non-formatted text is first converted to Rtf format
+            get { return txtIssue.Rtf.Trim(' '); }
+            set
+            {
+                txtIssue.Rtf = value.Contains("\\rtf1")
+                    ? value
+                    : PlaintextToRtf(value);
+            }
         }
-         */
+
+        public string DecisionText
+        {
+            /*  //original for not formatted Text
+             //get { return txtDecision.Text.Trim(' '); }
+             //set { txtDecision.Text = value; }
+             */
+
+            //Get-Set for formatted Test. 
+            //Non-formatted text is first converted to Rtf format
+            get { return txtDecision.Rtf.Trim(' '); }
+            set
+            {
+                txtDecision.Rtf = value.Contains("\\rtf1")
+                    ? value
+                    : PlaintextToRtf(value);
+            }
+        }
 
         public string DecisionArguments
         {
-            // original
+            /*  //original for not formatted Text
             get { return txtArguments.Text.Trim(' '); }
             set { txtArguments.Text = value; }
-             
-         //   get { return txtArguments.Rtf.Trim(' '); }
-          //  set { txtArguments.Rtf = value; }
+             */
+
+            //Get-Set for formatted Test. 
+            //Non-formatted text is first converted to Rtf format
+            get { return txtArguments.Rtf.Trim(' '); }
+            set
+            {
+                txtArguments.Rtf = value.Contains("\\rtf1")
+                    ? value
+                    : PlaintextToRtf(value);
+            }
         }
 
-         
-
         public string DecisionRelatedRequirements { get; set; }
-        /*
+        /*  not implemented in this DetailView
         public string DecisionRelatedRequirements
         {
             get { return txtRelatedRequirements.Text.Trim(' '); }
             set { txtRelatedRequirements.Text = value; }
+        }
+         */
+
+        public string DecisionAlternatives { get; set; }
+        /*  not implemented in this DetailView
+        public string DecisionAlternatives
+        {
+            get { return txtAlternatives.Text.Trim(' '); }
+            set { txtAlternatives.Text = value; }
         }
          */
 
@@ -101,22 +126,22 @@ namespace DecisionViewpointsCustomViews.View
 
         public void AddRelatedDecision(string relationship, string name, bool isClient)
         {
-            dgvRelatedDecisions.Rows.Add(isClient 
-                ? new object[] { "<<this>> " + txtName.Text, relationship, name } 
-                : new object[] { name, relationship, "<<this>> " + txtName.Text });
+            dgvRelatedDecisions.Rows.Add(isClient
+                ? new object[] {"<<this>> " + txtName.Text, relationship, name}
+                : new object[] {name, relationship, "<<this>> " + txtName.Text});
         }
 
         public void AddHistoryEntry(string name, string stereotype, string s, string state)
         {
             var stakeholderText = string.Format("{0}\n<<{1}>>", name, stereotype);
-            dgvHistory.Rows.Add(new object[] { stakeholderText, s, state });
+            dgvHistory.Rows.Add(new object[] {stakeholderText, s, state});
         }
 
         public void AddAlternativeDecision(string relationship, string name, bool isClient)
         {
-            dgvAlternatives.Rows.Add(isClient 
-                ? new object[] { "<<this>> " + txtName.Text, name } 
-                : new object[] { name, "<<this>> " + txtName.Text });
+            dgvAlternatives.Rows.Add(isClient
+                ? new object[] {"<<this>> " + txtName.Text, name}
+                : new object[] {name, "<<this>> " + txtName.Text});
         }
 
         public void AddTrace(string name, string type)
@@ -126,11 +151,11 @@ namespace DecisionViewpointsCustomViews.View
 
         public void AddRelatedRequirement(string name, string rating, string description)
         {
-            dgvRelatedRequirements.Rows.Add(new object[] { name, "", "", description });
+            dgvRelatedRequirements.Rows.Add(new object[] {name, "", "", description});
         }
 
 
-        /* original
+        /* not implemented in this DetailView
         public void rtf_LinkClicked(object sender, LinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start(e.LinkText);
@@ -147,8 +172,8 @@ namespace DecisionViewpointsCustomViews.View
             if (txtName.Text.Length < 50)
                 Text = txtName.Text + " (" + cbxState.Text + ")";
             else
-                Text = txtName.Text.Substring(0,40) + "... (" + cbxState.Text + ")";
-            
+                Text = txtName.Text.Substring(0, 40) + "... (" + cbxState.Text + ")";
+
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
@@ -161,11 +186,10 @@ namespace DecisionViewpointsCustomViews.View
         {
             if (tbCnrtlModifiable.SelectedTab == ProblemTab)
             {
-                
-                txtIssue.SelectionFont = txtIssue.SelectionFont.Bold 
-                    ? new Font(txtIssue.SelectionFont, FontStyle.Regular) 
+                txtIssue.SelectionFont = txtIssue.SelectionFont.Bold
+                    ? new Font(txtIssue.SelectionFont, FontStyle.Regular)
                     : new Font(txtIssue.SelectionFont, FontStyle.Bold);
-                 
+
             }
             else if (tbCnrtlModifiable.SelectedTab == DescriptionTab)
             {
@@ -202,6 +226,68 @@ namespace DecisionViewpointsCustomViews.View
                     : new Font(txtArguments.SelectionFont, FontStyle.Italic);
             }
         }
+
+        private void btnunderline_Click(object sender, EventArgs e)
+        {
+            if (tbCnrtlModifiable.SelectedTab == ProblemTab)
+            {
+                txtIssue.SelectionFont = txtIssue.SelectionFont.Underline
+                    ? new Font(txtIssue.SelectionFont, FontStyle.Regular)
+                    : new Font(txtIssue.SelectionFont, FontStyle.Underline);
+            }
+            else if (tbCnrtlModifiable.SelectedTab == DescriptionTab)
+            {
+                txtDecision.SelectionFont = txtDecision.SelectionFont.Underline
+                    ? new Font(txtDecision.SelectionFont, FontStyle.Regular)
+                    : new Font(txtDecision.SelectionFont, FontStyle.Underline);
+            }
+            else if (tbCnrtlModifiable.SelectedTab == ArgumentsTab)
+            {
+                txtArguments.SelectionFont = txtArguments.SelectionFont.Underline
+                    ? new Font(txtArguments.SelectionFont, FontStyle.Regular)
+                    : new Font(txtArguments.SelectionFont, FontStyle.Underline);
+            }
+        }
+
+        // This method needs improvement! Too many unecessary variables.. 
+        public static String PlaintextToRtf(string plainText)
+        {
+            if (string.IsNullOrEmpty(plainText))
+                return "";
+
+            string escapedPlainText = plainText.Replace(@"\", @"\\").Replace("{", @"\{").Replace("}", @"\}");
+            // escapedPlainText = EncodeCharacters(escapedPlainText);
+
+            //string rtf = @"{\rtf1\ansi\ansicpg1250\deff0{\fonttbl\f0\fswiss Helvetica;}\f0\pard ";//original
+            string rtf = @"{\rtf1\ansi\ansicpg1253\deff0\deflang1032{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}
+                            {\f1\fnil\fcharset161 Microsoft Sans Serif;}}\viewkind4\uc1\pard\lang1033\f0\fs17 ";
+            //rtf += escapedPlainText.Replace(Environment.NewLine, "\\par\r\n ");//original
+            rtf += escapedPlainText.Replace(Environment.NewLine, "\\lang1032\\f1\\par");
+            rtf += " }";
+            return rtf;
+        }
+
+        private void txtIssue_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
+            Process.Start("IExplore.exe", e.LinkText);
+        }
+
+        /*
+        private void AddHyperlinkText(string linkURL, string linkName,
+              TextPointer start)
+        {
+            
+            txtArguments.IsDocumentEnabled = true;
+            Hyperlink link = new Hyperlink();
+            TextRange tr = null;
+            string URI = tr.Text;
+
+            if (tbCnrtlModifiable.SelectedTab == ArgumentsTab)
+            {
+            }
+            
+        }
+         * */
     }
 }
 

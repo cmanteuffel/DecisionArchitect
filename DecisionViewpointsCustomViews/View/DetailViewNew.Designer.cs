@@ -48,11 +48,11 @@
             this.tbCntrlUnodifiable = new System.Windows.Forms.TabControl();
             this.AlternativeTb = new System.Windows.Forms.TabPage();
             this.dgvAlternatives = new System.Windows.Forms.DataGridView();
-            this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AlternativeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AlternativeFor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RelatedDecisionsTb = new System.Windows.Forms.TabPage();
             this.dgvRelatedDecisions = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RelatedName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Relation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RelatedTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RelatedFilesTb = new System.Windows.Forms.TabPage();
@@ -192,6 +192,7 @@
             this.txtIssue.Size = new System.Drawing.Size(500, 180);
             this.txtIssue.TabIndex = 0;
             this.txtIssue.Text = "";
+            this.txtIssue.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.txtIssue_LinkClicked);
             // 
             // DescriptionTab
             // 
@@ -276,6 +277,7 @@
             this.btnunderline.TabIndex = 10;
             this.btnunderline.Text = "U";
             this.btnunderline.UseVisualStyleBackColor = true;
+            this.btnunderline.Click += new System.EventHandler(this.btnunderline_Click);
             // 
             // btnHyperlink
             // 
@@ -322,7 +324,7 @@
             this.dgvAlternatives.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvAlternatives.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAlternatives.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Name,
+            this.AlternativeName,
             this.AlternativeFor});
             this.dgvAlternatives.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvAlternatives.Location = new System.Drawing.Point(3, 3);
@@ -332,12 +334,12 @@
             this.dgvAlternatives.Size = new System.Drawing.Size(527, 178);
             this.dgvAlternatives.TabIndex = 19;
             // 
-            // Name
+            // AlternativeName
             // 
-            this.Name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Name.HeaderText = "Decision Name";
-            this.Name.Name = "Name";
-            this.Name.ReadOnly = true;
+            this.AlternativeName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.AlternativeName.HeaderText = "Decision Name";
+            this.AlternativeName.Name = "AlternativeName";
+            this.AlternativeName.ReadOnly = true;
             // 
             // AlternativeFor
             // 
@@ -364,7 +366,7 @@
             this.dgvRelatedDecisions.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvRelatedDecisions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvRelatedDecisions.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
+            this.RelatedName,
             this.Relation,
             this.RelatedTo});
             this.dgvRelatedDecisions.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -375,12 +377,12 @@
             this.dgvRelatedDecisions.Size = new System.Drawing.Size(527, 178);
             this.dgvRelatedDecisions.TabIndex = 19;
             // 
-            // dataGridViewTextBoxColumn1
+            // RelatedName
             // 
-            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn1.HeaderText = "Decision Name";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.RelatedName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.RelatedName.HeaderText = "Decision Name";
+            this.RelatedName.Name = "RelatedName";
+            this.RelatedName.ReadOnly = true;
             // 
             // Relation
             // 
@@ -617,6 +619,7 @@
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.NameLabel);
             this.MinimumSize = new System.Drawing.Size(240, 520);
+            this.Name = "DetailViewNew";
             this.ShowIcon = false;
             this.Text = "DetailViewNew";
             this.Load += new System.EventHandler(this.DetailViewNew_Load);
@@ -682,14 +685,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Action;
         private System.Windows.Forms.DataGridViewTextBoxColumn Status;
         private System.Windows.Forms.DataGridViewTextBoxColumn Iteration;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AlternativeFor;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Relation;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RelatedTo;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Concern;
         private System.Windows.Forms.DataGridViewTextBoxColumn Rating;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AlternativeName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AlternativeFor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RelatedName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Relation;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RelatedTo;
     }
 }
