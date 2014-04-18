@@ -72,6 +72,7 @@
     <Compile Include="Logic\Forces\ForcesHandler.cs" />
     <Compile Include="Logic\Detail\DetailHandler.cs" />
     <Compile Include="Logic\Chronological\ModifedDateHandler.cs" />
+    <Compile Include="Logic\Menu\ChronologyMenu.cs" />
     <Compile Include="Logic\Menu\CreateTraceMenu.cs" />
     <Compile Include="Logic\Menu\ExportReportsCustomMessageBox.cs">
       <SubType>Form</SubType>
@@ -79,6 +80,7 @@
     <Compile Include="Logic\Menu\ExportReportsCustomMessageBox.Designer.cs">
       <DependentUpon>ExportReportsCustomMessageBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Logic\Menu\ReportMenu.cs" />
     <Compile Include="Logic\Relationship\RelationshipHandler.cs" />
     <Compile Include="Logic\Reporting\ReportFactory.cs" />
     <Compile Include="Logic\Reporting\TopicDetailSlide.cs" />

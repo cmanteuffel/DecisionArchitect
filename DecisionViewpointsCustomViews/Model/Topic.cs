@@ -60,6 +60,11 @@ namespace DecisionViewpointsCustomViews.Model
         {
             _element.LoadLinkedDocument(fileName);
         }
+
+        public EAElement GetElement()
+        {
+            return _element;
+        }
         /*
         public void AddObserver(ITopicObserver observer)
         {

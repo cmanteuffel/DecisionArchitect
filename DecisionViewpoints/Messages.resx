@@ -187,7 +187,7 @@
     <value>&amp;Create Project Structure</value>
   </data>
   <data name="MenuCreateTraces" xml:space="preserve">
-    <value>-&amp;Create Traces</value>
+    <value>-&amp;Create Trace</value>
   </data>
   <data name="MenuFollowTraceDefault" xml:space="preserve">
     <value>-&amp;Follow Trace(s)</value>
@@ -217,13 +217,13 @@
     <value>Generate PowerPoint</value>
   </data>
   <data name="MenuExportSelectedDecisionsPowerPoint" xml:space="preserve">
-    <value>Generate PowerPoint for selected decisions</value>
+    <value>Generate PowerPoint (Selected Decisions)</value>
   </data>
   <data name="MenuExportWord" xml:space="preserve">
     <value>Generate Word</value>
   </data>
   <data name="MenuExportSelectedDecisionsWord" xml:space="preserve">
-    <value>Generate Word for selected decisions</value>
+    <value>Generate Word  (Selected Decisions)</value>
   </data>
   <data name="SuccesfulForcesReportCreation" xml:space="preserve">
     <value>forces report created succesfuly.</value>

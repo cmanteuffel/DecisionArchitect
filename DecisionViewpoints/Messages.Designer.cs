@@ -223,7 +223,7 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to -&amp;Create Traces.
+        ///   Looks up a localized string similar to -&amp;Create Trace.
         /// </summary>
         internal static string MenuCreateTraces {
             get {
@@ -268,7 +268,7 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Generate PowerPoint for selected decisions.
+        ///   Looks up a localized string similar to Generate PowerPoint (Selected Decisions).
         /// </summary>
         internal static string MenuExportSelectedDecisionsPowerPoint {
             get {
@@ -277,7 +277,7 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Generate Word for selected decisions.
+        ///   Looks up a localized string similar to Generate Word  (Selected Decisions).
         /// </summary>
         internal static string MenuExportSelectedDecisionsWord {
             get {
