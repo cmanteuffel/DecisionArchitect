@@ -47,32 +47,22 @@ namespace DecisionViewpointsCustomViews.Controller
 
         public void SaveRatings()
         {
-            // Data structure: <decisionGUID, <r:requirementGUID, rating>>
-            var data = new Dictionary<string, Dictionary<string, string>>();
+            var data = new List<Rating>();
             var decisionColumnIndex = 3;
             foreach (var decisionGUID in _view.DecisionGuids)
             {
                 var requirementRowIndex = 0;
-                var requirementsRatings = new Dictionary<string, string>();
                 foreach (var requirementGUID in _view.RequirementGuids)
                 {
                     var rating = _view.GetRating(requirementRowIndex, decisionColumnIndex);
-                    if (rating.Length > 255)
-                    {
-                        var repository = EARepository.Instance;
-                        var decision = repository.GetElementByGUID(decisionGUID);
-                        var requirement = repository.GetElementByGUID(requirementGUID);
-                        MessageBox.Show(
-                            String.Format(
-                                "The length  of the rating '{0}' of decision '{1}' and requirement '{2}' is too large. It must be less than 256 characters.",
-                                rating, decision.Name, requirement.Name));
-                        requirementRowIndex++;
-                        continue;
-                    }
-                    requirementsRatings.Add(String.Format("r:{0}", requirementGUID), rating);
+                    data.Add(new Rating
+                        {
+                            DecisionGUID = decisionGUID,
+                            RequirementGUID = requirementGUID,
+                            Value = rating
+                        });
                     requirementRowIndex++;
                 }
-                data.Add(decisionGUID, requirementsRatings);
                 decisionColumnIndex++;
             }
             _model.SaveRatings(data);

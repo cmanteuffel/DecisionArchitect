@@ -164,23 +164,20 @@ namespace DecisionViewpointsCustomViews.View
             }
 
             // insert the ratings in the table
-            foreach (var decision in model.GetRatings())
+            foreach (var rating in model.GetRatings())
             {
                 var decisionColumnIndex = 0;
                 for (var index = DecisionColumnIndex; index != data.Columns.Count; index++)
                 {
-                    if (!data.Rows[data.Rows.Count - 1][index].ToString().Equals(decision.Key))
+                    if (!data.Rows[data.Rows.Count - 1][index].ToString().Equals(rating.DecisionGUID))
                         continue;
                     decisionColumnIndex = index;
                     break;
                 }
-                foreach (var reqConc in decision.Value)
-                {
-                    var requirementGUID = reqConc.Key.Split(':')[1];
-                    var row = data.Rows.Find(requirementGUID);
-                    if (row == null) continue;
-                    row[decisionColumnIndex] = reqConc.Value;
-                }
+                if (decisionColumnIndex == 0) continue;
+                var row = data.Rows.Find(rating.RequirementGUID.Split(':')[1]);
+                if (row == null) continue;
+                row[decisionColumnIndex] = rating.Value;
             }
 
             _forcesTable.DataSource = data;

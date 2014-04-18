@@ -85,34 +85,39 @@ namespace DecisionViewpointsCustomViews.Model
             return requirementsConcerns;
         }
 
-        public Dictionary<string, Dictionary<string, string>> GetRatings()
+        public List<Rating> GetRatings()
         {
             var repository = EARepository.Instance;
-            var data = new Dictionary<string, Dictionary<string, string>>();
-            foreach (var diagramObject in _diagram.GetElements())
+            var data = new List<Rating>();
+            foreach (
+                var element in
+                    _diagram.GetElements()
+                            .Select(diagramObject => repository.GetElementByID(diagramObject.ElementID))
+                            .Where(element => element.IsDecision()))
             {
-                var element = repository.GetElementByID(diagramObject.ElementID);
-                var requirementRating =
-                    element.TaggedValues.Where(taggedValue => taggedValue.Name.Split(':')[0].Equals("r"))
-                           .ToDictionary(taggedValue => taggedValue.Name, taggedValue => taggedValue.Value);
-                data.Add(element.GUID, requirementRating);
+                data.AddRange(from taggedValue in element.TaggedValues
+                              where taggedValue.Name.Split(':')[0].Equals("r")
+                              select new Rating
+                                  {
+                                      DecisionGUID = element.GUID,
+                                      RequirementGUID = taggedValue.Name,
+                                      Value = taggedValue.Value
+                                  });
             }
             return data;
         }
 
-        public void SaveRatings(Dictionary<string, Dictionary<string, string>> data)
+        public void SaveRatings(List<Rating> data)
         {
             var repository = EARepository.Instance;
-            foreach (var decision in data)
+            foreach (var rating in data)
             {
-                var element = repository.GetElementByGUID(decision.Key);
-                foreach (var requirementRating in decision.Value)
-                {
-                    if (element.GetTaggedValue(requirementRating.Key) != null)
-                        element.UpdateTaggedValue(requirementRating.Key, requirementRating.Value);
-                    else
-                        element.AddTaggedValue(requirementRating.Key, requirementRating.Value);
-                }
+                var decision = repository.GetElementByGUID(rating.DecisionGUID);
+                if (decision == null) continue;
+                if (decision.GetTaggedValue(rating.RequirementGUID) != null)
+                    decision.UpdateTaggedValue(rating.RequirementGUID, rating.Value);
+                else
+                    decision.AddTaggedValue(rating.RequirementGUID, rating.Value);
             }
         }
     }

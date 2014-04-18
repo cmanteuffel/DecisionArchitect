@@ -51,6 +51,7 @@
     <Compile Include="Controller\ICustomViewController.cs" />
     <Compile Include="Model\ICustomViewModel.cs" />
     <Compile Include="Model\ICustomViewModelObserver.cs" />
+    <Compile Include="Model\Rating.cs" />
     <Compile Include="View\ForcesView.cs">
       <SubType>UserControl</SubType>
     </Compile>
