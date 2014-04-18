@@ -13,6 +13,7 @@ namespace DecisionViewpoints.Logic.General
                 element.AddTaggedValue(DVTaggedValueKeys.DecisionState, element.Stereotype);
                 element.AddTaggedValue(DVTaggedValueKeys.DecisionStateModifiedDate,
                                        element.Modified.ToString(CultureInfo.InvariantCulture));
+                element.AddTaggedValue(DVTaggedValueKeys.IsHistoryDecision, false.ToString());
             }
             return true;
         }

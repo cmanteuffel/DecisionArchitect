@@ -250,6 +250,11 @@ namespace EAFacade.Model
             return DVStereotypes.RequirementMetaType.Equals(MetaType);
         }
 
+        public bool IsHistoryDecision()
+        {
+            return GetTaggedValue(DVTaggedValueKeys.IsHistoryDecision).Equals(true.ToString());
+        }
+
         public bool Update()
         {
             return _native.Update();

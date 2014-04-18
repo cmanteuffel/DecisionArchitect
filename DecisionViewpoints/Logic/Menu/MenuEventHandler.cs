@@ -224,6 +224,7 @@ namespace DecisionViewpoints.Logic.Menu
             var decisions =
                 (from EAElement element in EARepository.Instance.GetAllElements()
                  where element.IsDecision()
+                 where !element.IsHistoryDecision()
                  select new Decision(element)).ToList();
             var report = new Report();
             report.CreateWord(decisions);

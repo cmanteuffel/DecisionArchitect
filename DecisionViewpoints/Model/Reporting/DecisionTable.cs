@@ -36,7 +36,7 @@ namespace DecisionViewpoints.Model.Reporting
             objTable.Cell(2, 2).Range.Text = _decision.State;
 
             objTable.Cell(3, 1).Range.Text = "Group";
-            objTable.Cell(2, 1).Range.Text = _decision.Group;
+            objTable.Cell(3, 2).Range.Text = _decision.Group;
 
             objTable.Cell(4, 1).Range.Text = "Problem/Issue";
             objTable.Cell(4, 2).Range.Text = _decision.Issue;

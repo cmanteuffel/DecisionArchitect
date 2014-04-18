@@ -6,5 +6,6 @@ namespace EAFacade.Model
         public const string DecisionStateModifiedDate = "DV.StateModifiedDate";
         public const string DecisionState = "DV.DecisionState";
         public const string DecisionHistoryState = "DV.DecisionHistoryState";
+        public const string IsHistoryDecision = "DV.IsHistory";
     }
 }

@@ -98,6 +98,7 @@ namespace DecisionViewpoints.Logic.Chronological
                 pastDecision.Modified = modified;
                 pastDecision.AddTaggedValue(DVTaggedValueKeys.DecisionStateModifiedDate,modified.ToString());
                 pastDecision.AddTaggedValue(DVTaggedValueKeys.DecisionState,stereotype);
+                pastDecision.AddTaggedValue(DVTaggedValueKeys.IsHistoryDecision, true.ToString());
                 pastDecisions.Add(pastDecision);
             }
 
