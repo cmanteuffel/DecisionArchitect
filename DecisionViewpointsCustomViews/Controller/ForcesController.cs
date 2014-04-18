@@ -6,16 +6,23 @@ namespace DecisionViewpointsCustomViews.Controller
     public class ForcesController
     {
         private readonly ICustomView _view;
+        private readonly ForcesModel _model;
 
-        public ForcesController(ICustomView view)
+        public ForcesController(ICustomView view, ForcesModel model)
         {
             _view = view;
+            _model = model;
             view.SetController(this);
         }
 
-        public void UpdateTable(ForcesModel forcesModel)
+        public string DiagramGUID()
         {
-            _view.UpdateTable(forcesModel);
+            return _view.DiagramGUID;
+        }
+
+        public void UpdateTable()
+        {
+            _view.UpdateTable(_model);
         }
     }
 }

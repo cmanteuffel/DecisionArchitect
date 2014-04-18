@@ -23,8 +23,5 @@
     <Setting Name="BaselineIdentifier" Type="System.String" Scope="User">
       <Value Profile="(Default)">Decision History</Value>
     </Setting>
-    <Setting Name="ForcesDiagramMetatype" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Decision Viewpoints::Forces</Value>
-    </Setting>
   </Settings>
 </SettingsFile>

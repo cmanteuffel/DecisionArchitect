@@ -48,10 +48,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\ForcesController.cs" />
+    <Compile Include="Events\CustomViewListener.cs" />
     <Compile Include="View\CustomViewControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Model\ForcesModel.cs" />
+    <Compile Include="Model\ForcesModel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="View\ICustomView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

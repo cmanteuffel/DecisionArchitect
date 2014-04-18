@@ -2,24 +2,21 @@
 using DecisionViewpoints.Logic;
 using DecisionViewpoints.Logic.Chronological;
 using DecisionViewpoints.Logic.Forces;
-using DecisionViewpoints.Logic.Validation;
 using DecisionViewpoints.Model;
-using DecisionViewpoints.Model.Events;
-using DecisionViewpointsCustomViews;
 using EA;
 
 namespace DecisionViewpoints
 {
-    public partial class MainApplication : EAEventAdapter
+    public partial class MainApplication
     {
-        private readonly IList<IRepositoryListener> _listener = new List<IRepositoryListener>();
+        private readonly IList<IRepositoryListener> _listeners = new List<IRepositoryListener>();
 
         //init repository listener
         public MainApplication()
         {
-          // _listener.Add(new ValidationHandler());
-            _listener.Add(new ChronologicalViewpointHandler());
-            _listener.Add(new ForcesHandler());
+          // _listeners.Add(new ValidationHandler());
+            _listeners.Add(new ChronologicalViewpointHandler());
+            _listeners.Add(new ForcesHandler());
         }
 
         public override object EA_OnInitializeTechnologies(Repository repository)

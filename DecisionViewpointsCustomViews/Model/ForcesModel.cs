@@ -1,28 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 
 namespace DecisionViewpointsCustomViews.Model
 {
-    [Serializable]
-    public class ForcesModel
+    public class ForcesModel : DataTable
     {
         public ForcesModel()
         {
             Requirements = new List<ForcesRequirement>();
-            Decisions = new List<ForcesDecision>();
         }
 
         public List<ForcesRequirement> Requirements { get; private set; }
-
-        public List<ForcesDecision> Decisions { get; private set; }
     }
 
-    public class ForcesRequirement
-    {
-        public string Name { get; set; }
-    }
-
-    public class ForcesDecision
+    public struct ForcesRequirement
     {
         public string Name { get; set; }
     }

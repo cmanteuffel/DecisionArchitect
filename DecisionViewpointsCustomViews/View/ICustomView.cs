@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.InteropServices;
 using DecisionViewpointsCustomViews.Controller;
+using DecisionViewpointsCustomViews.Events;
 using DecisionViewpointsCustomViews.Model;
 
 namespace DecisionViewpointsCustomViews.View
@@ -15,6 +11,8 @@ namespace DecisionViewpointsCustomViews.View
     public interface ICustomView
     {
         void SetController(ForcesController controller);
-        void UpdateTable(ForcesModel forcesModel);
+        void UpdateTable(ForcesModel model);
+        void AddListener(ICustomViewListener listener);
+        string DiagramGUID { get; set; }
     }
 }

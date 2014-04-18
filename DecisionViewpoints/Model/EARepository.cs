@@ -152,6 +152,11 @@ namespace DecisionViewpoints.Model
             return Native.AddTab(tabName, controlID);
         }
 
+        public void OpenDiagram(int diagramID)
+        {
+            Native.OpenDiagram(diagramID);
+        }
+
         public T GetContextObject<T>() where T : IModelItem
         {
             dynamic obj = Native.GetContextObject();
@@ -179,7 +184,5 @@ namespace DecisionViewpoints.Model
 
             throw new NotSupportedException("Type (" + typeT.Name + ") not supported by GetContextObject()");
         }
-
-        
     }
 }

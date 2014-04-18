@@ -6,6 +6,7 @@ namespace DecisionViewpoints.Model
     public static class DVStereotypes
     {
         public const string DecisionMetaType = "Decision";
+        public const string DiagramMetaType = "Decision Viewpoints::Forces";
 
         public const string StateIdea = "idea";
         public const string StateTentative = "tentative";

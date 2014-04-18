@@ -132,5 +132,10 @@ namespace DecisionViewpoints.Model
             // TODO: should we wrap DiagramObject?
             return _native.DiagramObjects.Cast<object>().Cast<DiagramObject>().ToList();
         }
+
+        public bool IsForces()
+        {
+            return (DVStereotypes.DiagramMetaType.Equals(Metatype));
+        }
     }
 }

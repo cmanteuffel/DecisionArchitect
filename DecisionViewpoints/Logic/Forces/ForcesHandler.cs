@@ -1,91 +1,79 @@
 ﻿using System;
-using System.IO;
-using System.Reflection;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using DecisionViewpoints.Model;
-using DecisionViewpoints.Properties;
 using DecisionViewpointsCustomViews.Controller;
+using DecisionViewpointsCustomViews.Events;
 using DecisionViewpointsCustomViews.Model;
 using DecisionViewpointsCustomViews.View;
 using EA;
 
 namespace DecisionViewpoints.Logic.Forces
 {
-    public class ForcesHandler : RepositoryAdapter
+    public class ForcesHandler : RepositoryAdapter, ICustomViewListener
     {
         public override bool OnContextItemDoubleClicked(string guid, ObjectType type)
         {
             if (ObjectType.otDiagram != type) return false;
             var repository = EARepository.Instance;
             var diagram = repository.GetDiagramByGuid(guid);
-            if (!diagram.Metatype.Equals(Settings.Default["ForcesDiagramMetatype"])) return false;
-            if (repository.IsTabOpen(diagram.Name) > 0)
+            if (!diagram.IsForces()) return false;
+            var forcesModel = new ForcesModel();
+            foreach (var diagramObject in diagram.GetElements())
             {
-                repository.ActivateTab(diagram.Name);
+                var element = repository.GetElementByID(diagramObject.ElementID);
+                // if the element is a decision then add its name as column in the forces model
+                if (element.IsDecision())
+                    forcesModel.Columns.Add(element.Name);
+                // if the element is a requirement then add a new row and a requirement in the forces model
+                if (!element.Type.Equals("Requirement")) continue;
+                forcesModel.Rows.Add();
+                forcesModel.Requirements.Add(new ForcesRequirement { Name = element.Name });
+            }
+            if (repository.IsTabOpen(String.Format("{0} Forces", diagram.Name)) > 0)
+            {
+                repository.ActivateTab(String.Format("{0} Forces", diagram.Name));
                 return true;
             }
-            repository.AddTab(diagram.Name, "DecisionViewpointsCustomViews.CustomViewControl");
-            return false;
+            ICustomView forcesView = repository.AddTab(String.Format("{0} Forces", diagram.Name), "DecisionViewpointsCustomViews.CustomViewControl");
+            forcesView.DiagramGUID = diagram.GUID;
+            var forcesController = new ForcesController(forcesView, forcesModel);
+            forcesController.UpdateTable();
+            forcesView.AddListener(this);
+            return true;
         }
 
-        public override void OnNotifyContextItemModified(string guid, ObjectType type)
+        public void Save(ICustomView view)
         {
-            if (ObjectType.otDiagram != type) return;
+            MessageBox.Show("Saving...");
+        }
+
+        public void Configure(ICustomView view)
+        {
             var repository = EARepository.Instance;
-            var diagram = repository.GetDiagramByGuid(guid);
-            // TODO: Update the corresponding table of the modified Forces view
+            var diagram = repository.GetDiagramByGuid(view.DiagramGUID);
+            if (repository.IsTabOpen(diagram.Name) > 1) return;
+            repository.OpenDiagram(diagram.ID);
+        }
+
+        public void Update(ICustomView view)
+        {
+            var repository = EARepository.Instance;
+            var diagram = repository.GetDiagramByGuid(view.DiagramGUID);
+            if (!diagram.IsForces()) return;
             var forcesModel = new ForcesModel();
-            foreach (var o in diagram.GetElements())
+            foreach (var diagramObject in diagram.GetElements())
             {
-                var element = repository.GetElementByID(o.ElementID);
-                // TODO: check for requirement, decision, (concern)
-                forcesModel.Requirements.Add(new ForcesRequirement{Name = element.Name});
+                var element = repository.GetElementByID(diagramObject.ElementID);
+                // if the element is a decision then add its name as column in the forces model
+                if (element.IsDecision())
+                    forcesModel.Columns.Add(element.Name);
+                // if the element is a requirement then add a new row and a requirement in the forces model
+                if (!element.Type.Equals("Requirement")) continue;
+                forcesModel.Rows.Add();
+                forcesModel.Requirements.Add(new ForcesRequirement { Name = element.Name });
             }
-            // TODO: maybe find out if there is an existing force view
-            var forcesView =
-                    (ICustomView)repository.AddTab(diagram.Name, "DecisionViewpointsCustomViews.CustomViewControl");
-            var forcesController = new ForcesController(forcesView);
-            forcesController.UpdateTable(forcesModel);
+            var forcesController = new ForcesController(view, forcesModel);
+            forcesController.UpdateTable();
         }
-
-        /*public static T DeserializeFromString<T>(string data) where T : new()
-        {
-            if (data == null) return new T();
-            if (data.Equals("")) return new T();
-            var byteArray = Convert.FromBase64String(data);
-            using (var stream = new MemoryStream(byteArray))
-            {
-                var bf = new BinaryFormatter {Binder = new BindChanger()};
-                return (T) bf.Deserialize(stream);
-            }
-        }
-
-        public static string SerializeToString<T>(T data)
-        {
-            if (data == null) return string.Empty;
-            using (var ms = new MemoryStream())
-            {
-                var bf = new BinaryFormatter();
-                bf.Serialize(ms, data);
-                return Convert.ToBase64String(ms.GetBuffer());
-            }
-        }*/
     }
-
-    /*sealed class BindChanger : SerializationBinder
-    {
-        public override Type BindToType(string assemblyName, string typeName)
-        {
-            // In this case we are always using the current assembly
-            assemblyName = Assembly.GetExecutingAssembly().FullName;
-
-            // Get the type using the typeName and assemblyName
-            var typeToDeserialize = Type.GetType(String.Format("{0}, {1}",
-                                                                typeName, assemblyName));
-
-            return typeToDeserialize;
-        }
-    }*/
 }
