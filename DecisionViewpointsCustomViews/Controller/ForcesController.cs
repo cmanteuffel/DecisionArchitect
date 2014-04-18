@@ -20,17 +20,37 @@ namespace DecisionViewpointsCustomViews.Controller
             _model.AddObserver(_view);
         }
 
-        public void SetModel(ICustomViewModel model)
+        public ICustomViewModel Model 
+        {
+            get { return _model; }
+            set
+            {
+                _model = value;
+                _model.AddObserver(_view);
+            }
+        }
+
+        public ICustomView View
+        {
+            get { return _view; }
+            set
+            {
+                _view = value;
+                _view.SetController(this);
+            }
+        }
+
+        /*public void SetModel(ICustomViewModel model)
         {
             _model = model;
             _model.AddObserver(_view);
-        }
+        }*/
 
-        public void SetView(ICustomView view)
+        /*public void SetView(ICustomView view)
         {
             _view = view;
             _view.SetController(this);
-        }
+        }*/
 
         public void UpdateTable()
         {
