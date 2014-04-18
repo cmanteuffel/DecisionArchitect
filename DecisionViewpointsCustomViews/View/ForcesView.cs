@@ -20,6 +20,8 @@ namespace DecisionViewpointsCustomViews.View
         private Button _btnConfigure;
         private ICustomViewController _controller;
 
+        private const int RequirementGUIDColumnIndex = 0;
+        private const int RequirementGUIDRowIndex = 0;
         private const int ConcernColumnIndex = 1;
         private const int ConcernGUIDColumnIndex = 2;
         private const int DecisionColumnIndex = 3;
@@ -39,7 +41,7 @@ namespace DecisionViewpointsCustomViews.View
             this._btnSave = new System.Windows.Forms.Button();
             this._forcesTable = new System.Windows.Forms.DataGridView();
             this._btnConfigure = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this._forcesTable)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this._forcesTable)).BeginInit();
             this.SuspendLayout();
             // 
             // _btnSave
@@ -56,10 +58,12 @@ namespace DecisionViewpointsCustomViews.View
             // 
             this._forcesTable.AllowUserToAddRows = false;
             this._forcesTable.AllowUserToDeleteRows = false;
-            this._forcesTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this._forcesTable.ColumnHeadersHeightSizeMode =
+                System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._forcesTable.Location = new System.Drawing.Point(35, 30);
             this._forcesTable.Name = "_forcesTable";
-            this._forcesTable.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
+            this._forcesTable.RowHeadersWidthSizeMode =
+                System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this._forcesTable.RowTemplate.Height = 33;
             this._forcesTable.Size = new System.Drawing.Size(762, 582);
             this._forcesTable.TabIndex = 2;
@@ -81,13 +85,14 @@ namespace DecisionViewpointsCustomViews.View
             this.Controls.Add(this._btnSave);
             this.Name = "ForcesView";
             this.Size = new System.Drawing.Size(850, 696);
-            ((System.ComponentModel.ISupportInitialize)(this._forcesTable)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this._forcesTable)).EndInit();
             this.ResumeLayout(false);
-
         }
 
         private void _btnSave_Click(object sender, System.EventArgs e)
         {
+            // create the data and pass them to the controller to pass them to the model
+
             _controller.SaveRatings();
         }
 
@@ -122,12 +127,20 @@ namespace DecisionViewpointsCustomViews.View
             {
                 data.Columns.Add(decision.Name);
             }
+
             // insert the requirement guids in the table
             foreach (var requirement in model.GetRequirements())
             {
                 data.Rows.Add(new object[] {requirement.GUID});
             }
-            data.Rows.Add(new object[] {"-", "-", "-"});
+
+            // insert the decision guids in the table
+            data.Rows.Add(new object[] { "-", "-", "-" });
+            var decisionIndex = 0;
+            foreach (var decision in model.GetDecisions())
+            {
+                data.Rows[data.Rows.Count - 1][decisionIndex++ + DecisionColumnIndex] = decision.GUID;
+            }
 
             // insert the concenrs and concerns guids in the table
             foreach (var reqConcerns in model.GetConcerns())
@@ -149,25 +162,19 @@ namespace DecisionViewpointsCustomViews.View
                 data.Rows.Find(reqConcerns.Key.GUID)[ConcernGUIDColumnIndex] = concernsGUID;
             }
 
-            // insert the decision guids in the table
-            var decisionIndex = 0;
-            foreach (var decision in model.GetDecisions())
-            {
-                data.Rows[data.Rows.Count - 1][decisionIndex++ + DecisionColumnIndex] = decision.GUID;
-            }
-            
             _forcesTable.DataSource = data;
 
             if (data.Columns.Count <= 0) return;
 
             for (var index = 0; index < model.GetRequirements().Count; index++)
             {
-                _forcesTable.Rows[index].HeaderCell.Value = model.GetRequirements()[index].Name;
+                _forcesTable.Rows[RequirementGUIDRowIndex + index].HeaderCell.Value =
+                    model.GetRequirements()[index].Name;
             }
             _forcesTable.Rows[_forcesTable.Rows.Count - 1].HeaderCell.Value = DecisionGUIDHeader;
 
             // hide the columns which contain the guids of the elements
-            var requirementGUIDColumn = _forcesTable.Columns[RequirementGUIDHeader];
+            var requirementGUIDColumn = _forcesTable.Columns[RequirementGUIDHeader];    
             if (requirementGUIDColumn != null)
                 requirementGUIDColumn.Visible = false;
 
@@ -188,16 +195,20 @@ namespace DecisionViewpointsCustomViews.View
             // TODO: permit only certain symbols for ratings
         }
 
-        public void RemoveDecision(string name)
+        public void RemoveDecision(string guid)
         {
-            _forcesTable.Columns.Remove(name);
+            var columnIndex =
+                _forcesTable.Rows[_forcesTable.Rows.Count - 1].Cells.Cast<DataGridViewCell>()
+                                                       .Count(cell => !cell.Value.ToString().Equals(guid));
+            _forcesTable.Columns.RemoveAt(columnIndex);
         }
 
-        public void RemoveRequirement(string name)
+        public void RemoveRequirement(string guid)
         {
             foreach (
                 var row in
-                    _forcesTable.Rows.Cast<DataGridViewRow>().Where(row => row.HeaderCell.Value.Equals(name)))
+                    _forcesTable.Rows.Cast<DataGridViewRow>()
+                                .Where(row => row.Cells[RequirementGUIDColumnIndex].Value.ToString().Equals(guid)))
             {
                 _forcesTable.Rows.Remove(row);
             }

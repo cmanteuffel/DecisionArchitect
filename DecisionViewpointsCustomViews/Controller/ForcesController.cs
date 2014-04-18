@@ -8,8 +8,8 @@ namespace DecisionViewpointsCustomViews.Controller
 {
     public class ForcesController : ICustomViewController
     {
-        private readonly ICustomView _view;
-        private readonly ICustomViewModel _model;
+        private ICustomView _view;
+        private ICustomViewModel _model;
 
         public ForcesController(ICustomView view, ICustomViewModel model)
         {
@@ -17,6 +17,18 @@ namespace DecisionViewpointsCustomViews.Controller
             _model = model;
             _view.SetController(this);
             _model.AddObserver(_view);
+        }
+
+        public void SetModel(ICustomViewModel model)
+        {
+            _model = model;
+            _model.AddObserver(_view);
+        }
+
+        public void SetView(ICustomView view)
+        {
+            _view = view;
+            _view.SetController(this);
         }
 
         public void UpdateTable()
@@ -50,12 +62,12 @@ namespace DecisionViewpointsCustomViews.Controller
 
         public void RemoveDecision(EAElement element)
         {
-            _view.RemoveDecision(element.Name);
+            _view.RemoveDecision(element.GUID);
         }
 
         public void RemoveRequirement(EAElement element)
         {
-            _view.RemoveRequirement(element.Name);
+            _view.RemoveRequirement(element.GUID);
         }
     }
 }

@@ -11,7 +11,8 @@ namespace DecisionViewpoints.Logic.Forces
     public class ForcesHandler : RepositoryAdapter
     {
         // hold referecnes to the created views so to respond to the changed events (might need to change)
-        private readonly Dictionary<string, ICustomView> _views = new Dictionary<string, ICustomView>();
+        private readonly Dictionary<string, ICustomViewController> _controllers =
+            new Dictionary<string, ICustomViewController>();
 
         public override bool OnContextItemDoubleClicked(string guid, NativeType type)
         {
@@ -26,19 +27,28 @@ namespace DecisionViewpoints.Logic.Forces
                 };
             if (repository.IsTabOpen(forcesDiagramModel.Name) > 0)
             {
-                // naming is not optimal as tabs can have same names... need to find a solution that we can distinguish tabs more optimal
+                // naming is not optimal as tabs can have same names... need to find a solution that we can
+                // distinguish tabs more optimal
                 repository.ActivateTab(forcesDiagramModel.Name);
                 return true;
             }
 
             ICustomView forcesView = repository.AddTab(forcesDiagramModel.Name,
                                                        "DecisionViewpointsCustomViews.ForcesView");
-            if (!_views.ContainsKey(forcesDiagramModel.DiagramGUID))
-                _views.Add(forcesDiagramModel.DiagramGUID, forcesView);
+            ICustomViewController forcesController;
+
+            if (!_controllers.ContainsKey(forcesDiagramModel.DiagramGUID))
+            {
+                forcesController = new ForcesController(forcesView, forcesDiagramModel);
+                _controllers.Add(forcesDiagramModel.DiagramGUID, forcesController);
+            }
             else
-                _views[forcesDiagramModel.DiagramGUID] = forcesView;
-            
-            var forcesController = new ForcesController(forcesView, forcesDiagramModel);
+            {
+                forcesController = _controllers[forcesDiagramModel.DiagramGUID];
+                forcesController.SetView(forcesView);
+                forcesController.SetModel(forcesDiagramModel);
+            }
+
             forcesController.UpdateTable();
             return true;
         }
@@ -62,14 +72,9 @@ namespace DecisionViewpoints.Logic.Forces
             if (diagrams.Count == 0) return;
             foreach (var diagram in diagrams)
             {
-                var forcesDiagramModel = new ForcesDiagramModel
-                    {
-                        DiagramModel = diagram,
-                        Name = CreateForcesTabName(diagram.Name)
-                    };
-                if (repository.IsTabOpen(forcesDiagramModel.Name) <= 0) continue;
-                var forcesController = new ForcesController(_views[forcesDiagramModel.DiagramGUID], forcesDiagramModel);
-                forcesController.UpdateTable();
+                if (repository.IsTabOpen(diagram.Name) <= 0) continue;
+                var forcesController = _controllers[diagram.GUID];
+                forcesController.SetDiagramModel(diagram);
             }
         }
 
@@ -78,11 +83,11 @@ namespace DecisionViewpoints.Logic.Forces
             var repository = EARepository.Instance;
             var diagram = repository.GetDiagramByID(volatileDiagram.DiagramID);
             if (!diagram.IsForces()) return true;
-            if (_views.ContainsKey(diagram.GUID))
+            if (_controllers.ContainsKey(diagram.GUID))
             {
                 if (repository.IsTabOpen(CreateForcesTabName(diagram.Name)) > 0)
                     repository.RemoveTab(CreateForcesTabName(diagram.Name));
-                _views.Remove(diagram.GUID);
+                _controllers.Remove(diagram.GUID);
             }
             return true;
         }
@@ -94,15 +99,14 @@ namespace DecisionViewpoints.Logic.Forces
             diagrams.AddRange(element.GetDiagrams().Where(eaDiagram => eaDiagram.IsForces()));
             if (diagrams.Count == 0) return true;
             var repository = EARepository.Instance;
-            foreach (var diagram in diagrams)
+            foreach (
+                var forcesController in
+                    from diagram in diagrams
+                    where repository.IsTabOpen(CreateForcesTabName(diagram.Name)) > 0
+                    select _controllers[diagram.GUID])
             {
-                var forcesDiagramModel = new ForcesDiagramModel
-                {
-                    DiagramModel = diagram,
-                    Name = CreateForcesTabName(diagram.Name)
-                };
-                if (repository.IsTabOpen(forcesDiagramModel.Name) <= 0) continue;
-                var forcesController = new ForcesController(_views[forcesDiagramModel.DiagramGUID], forcesDiagramModel);
+                // we cannot update the viwe with a new diagram model here, as the diagram changes
+                // after the deletion event is successful
                 if (element.IsDecision())
                     forcesController.RemoveDecision(element);
                 if (element.MetaType.Equals("Requirement"))
@@ -113,12 +117,14 @@ namespace DecisionViewpoints.Logic.Forces
 
         public override void OnFileOpen()
         {
-            _views.Clear();
+            _controllers.Clear();
         }
 
         private static string CreateForcesTabName(string diagramName)
         {
             return String.Format("{0} (Forces)", diagramName);
         }
+
+        // TODO: when an element is in mutliple tables and some of them are open then any change in one diagram is not propagated to the others
     }
 }

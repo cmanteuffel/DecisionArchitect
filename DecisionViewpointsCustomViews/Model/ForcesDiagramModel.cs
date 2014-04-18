@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 using EAFacade.Model;
 
 namespace DecisionViewpointsCustomViews.Model
@@ -87,7 +86,8 @@ namespace DecisionViewpointsCustomViews.Model
 
         public void SaveRatings()
         {
-            MessageBox.Show("saving ratings...");
+            // validate the ratings (++, +, blank, -, --, X, ?)
+
         }
     }
 }
