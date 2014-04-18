@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -16,16 +17,20 @@ namespace DecisionViewpoints.Logic.Reporting
 {
     public class WordDocument : IReportDocument
     {
-        private readonly WordprocessingDocument _wordDoc;
-        private readonly MainDocumentPart _mainPart;
-        private readonly Body _body;
+        private WordprocessingDocument _wordDoc;
+        private MainDocumentPart _mainPart;
+        private Body _body;
+        private readonly string _filename;
 
         public WordDocument(string filename)
         {
-            _wordDoc = WordprocessingDocument.Create(filename, WordprocessingDocumentType.Document);
-            _mainPart = _wordDoc.AddMainDocumentPart();
-            _mainPart.Document = new Document();
-            _body = _mainPart.Document.AppendChild(new Body());
+            using (var wordDoc = WordprocessingDocument.Create(filename, WordprocessingDocumentType.Document))
+            {
+                _mainPart = wordDoc.AddMainDocumentPart();
+                _mainPart.Document = new Document();
+                _body = _mainPart.Document.AppendChild(new Body());
+            }
+            _filename = filename;
         }
 
         public void InsertDecisionTable(IDecision decision)
@@ -208,6 +213,14 @@ namespace DecisionViewpoints.Logic.Reporting
             imagePart.FeedData(Utilities.ImageToStream(image, ImageFormat.Jpeg));
 
             AddImageToBody(_mainPart.GetIdOfPart(imagePart), Utilities.GetImageSize(image));
+        }
+
+        public void Open()
+        {
+            var filepath = string.Format("{0}/{1}", Directory.GetCurrentDirectory(), _filename);
+            _wordDoc = WordprocessingDocument.Open(filepath, true);
+            _mainPart = _wordDoc.MainDocumentPart;
+            _body = _mainPart.Document.Body;
         }
 
         public void Close()

@@ -65,9 +65,10 @@
     <Compile Include="Logic\Detail\DetailHandler.cs" />
     <Compile Include="Logic\General\DecisionStateModifedDateHandler.cs" />
     <Compile Include="Logic\Relationship\RelationshipHandler.cs" />
+    <Compile Include="Logic\Reporting\PowerPoint.cs" />
     <Compile Include="Logic\Reporting\ExcelDocument.cs" />
     <Compile Include="Logic\Reporting\PowerPointDocument.cs" />
-    <Compile Include="Logic\Reporting\Report.cs" />
+    <Compile Include="Logic\Reporting\ReportFactory.cs" />
     <Compile Include="Logic\Reporting\IReportDocument.cs" />
     <Compile Include="Logic\Reporting\WordDocument.cs" />
     <Compile Include="Logic\RepositoryAdapter.cs" />
@@ -118,6 +119,9 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Settings2.Designer.cs</LastGenOutput>
     </None>
+    <EmbeddedResource Include="Template.pptx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CreateDecision.resx">

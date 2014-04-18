@@ -234,7 +234,8 @@ namespace DecisionViewpoints.Logic.Menu
                 (from EAPackage package in repository.GetAllDecisionViewPackages()
                  from EADiagram diagram in package.GetDiagrams()
                  select diagram).ToList();
-            var report = Report.Create(ReportType.Word, "Report.docx");
+            var report = ReportFactory.Create(ReportType.PowerPoint, "Presentation.pptx");
+            report.Open();
             foreach (var decision in decisions)
             {
                 report.InsertDecisionTable(decision);

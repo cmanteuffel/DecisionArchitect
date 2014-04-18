@@ -7,10 +7,14 @@ namespace DecisionViewpointsCustomViews.Model
 {
     public static class DecisionDataTags
     {
+        public const string Name = "{name}";
+        public const string State = "{state}";
+        public const string Group = "{group}";
         public const string Issue = "{issue}";
         public const string DecisionText = "{decision}";
         public const string Alternatives = "{alternatives}";
         public const string Arguments = "{arguments}";
+        public const string RelatedDecisions = "{decisions}";
         public const string RelatedRequirements = "{requirements}";
     }
 

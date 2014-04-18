@@ -6,9 +6,11 @@ namespace DecisionViewpoints.Logic.Reporting
 {
     public class ExcelDocument : IReportDocument
     {
+        private readonly string _filename;
+
         public ExcelDocument(string filename)
         {
-            
+            _filename = filename;
         }
 
         public void InsertDecisionTable(IDecision decision)
@@ -22,6 +24,11 @@ namespace DecisionViewpoints.Logic.Reporting
         }
 
         public void InsertDiagramImage(EADiagram diagram)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Open()
         {
             throw new NotImplementedException();
         }
