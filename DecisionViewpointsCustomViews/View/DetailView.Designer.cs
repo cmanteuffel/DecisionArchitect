@@ -57,6 +57,8 @@ namespace DecisionViewpointsCustomViews.View
             this.IterationColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label10 = new System.Windows.Forms.Label();
             this.lbxAlternativesDecision = new System.Windows.Forms.ListBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.lbxTraces = new System.Windows.Forms.ListBox();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHistory)).BeginInit();
             this.SuspendLayout();
@@ -153,7 +155,7 @@ namespace DecisionViewpointsCustomViews.View
             // 
             this.flowLayoutPanel1.Controls.Add(this.buttonOk);
             this.flowLayoutPanel1.Controls.Add(this.buttonCancel);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(406, 539);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(406, 599);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(123, 27);
@@ -316,7 +318,7 @@ namespace DecisionViewpointsCustomViews.View
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvHistory.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvHistory.Location = new System.Drawing.Point(126, 428);
+            this.dgvHistory.Location = new System.Drawing.Point(126, 488);
             this.dgvHistory.Margin = new System.Windows.Forms.Padding(2);
             this.dgvHistory.Name = "dgvHistory";
             this.dgvHistory.ReadOnly = true;
@@ -352,7 +354,7 @@ namespace DecisionViewpointsCustomViews.View
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(11, 428);
+            this.label10.Location = new System.Drawing.Point(9, 488);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(42, 13);
@@ -371,13 +373,32 @@ namespace DecisionViewpointsCustomViews.View
             this.lbxAlternativesDecision.Size = new System.Drawing.Size(401, 56);
             this.lbxAlternativesDecision.TabIndex = 21;
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(9, 428);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(40, 13);
+            this.label11.TabIndex = 22;
+            this.label11.Text = "Traces";
+            // 
+            // lbxTraces
+            // 
+            this.lbxTraces.FormattingEnabled = true;
+            this.lbxTraces.Location = new System.Drawing.Point(126, 427);
+            this.lbxTraces.Name = "lbxTraces";
+            this.lbxTraces.Size = new System.Drawing.Size(403, 56);
+            this.lbxTraces.TabIndex = 23;
+            // 
             // DetailView
             // 
             this.AcceptButton = this.buttonOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(540, 575);
+            this.ClientSize = new System.Drawing.Size(540, 638);
+            this.Controls.Add(this.lbxTraces);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.lbxAlternativesDecision);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.dgvHistory);
@@ -443,5 +464,7 @@ namespace DecisionViewpointsCustomViews.View
         private System.Windows.Forms.DataGridViewTextBoxColumn IterationColumn;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ListBox lbxAlternativesDecision;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ListBox lbxTraces;
     }
 }

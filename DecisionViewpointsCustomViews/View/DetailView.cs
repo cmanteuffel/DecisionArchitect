@@ -64,11 +64,20 @@ namespace DecisionViewpointsCustomViews.View
 
         //angor START task156
         //IMPORTANT!!! --> added a Alternative Decisions listbox on top of the old textbox..
-        public void AddAlternativeDecision(string relationship, string name)
+        public void AddAlternativeDecision(string relationship, string name,bool isClient)
         {
-            lbxAlternativesDecision.Items.Add(string.Format("{0} <<{1}>> This", name, relationship));
+            lbxAlternativesDecision.Items.Add(isClient
+                ? string.Format("This <<{1}>> {0}", name, relationship)
+                : string.Format("{0} <<{1}>> This", name, relationship));
         }
         //angor END task156
+
+        //angor START task157
+        public void AddTrace(string name, string type)
+        {
+            lbxTraces.Items.Add(name + " (" + type + ")");
+        }
+        //angor END task157
 
         public void AddHistoryEntry(string name, string stereotype, string s, string state)
         {

@@ -17,6 +17,7 @@ namespace DecisionViewpointsCustomViews.View
         void SetController(IDetailViewController controller);
         void AddRelatedDecision(string relationship, string name, bool isClient);
         void AddHistoryEntry(string name, string stereotype, string s, string state);
-        void AddAlternativeDecision(string relationship, string name);//angor
+        void AddAlternativeDecision(string relationship, string name, bool isClient);//angor task 158
+        void AddTrace(string name, string type);//angor task 157
     }
 }

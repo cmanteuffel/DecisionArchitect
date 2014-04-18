@@ -1,9 +1,12 @@
 ﻿using System.CodeDom.Compiler;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using DecisionViewpointsCustomViews.Model;
 using DecisionViewpointsCustomViews.View;
+using EA;
+using EAFacade.Model; //angor task157
 
 namespace DecisionViewpointsCustomViews.Controller
 {
@@ -31,33 +34,64 @@ namespace DecisionViewpointsCustomViews.Controller
             // Update Related Decisions field
             foreach (var connector in _decision.GetConnectors().Where(connector => connector.IsRelationship()))
             {
-                if (connector.ClientId == _decision.ID)//original
-                //if (connector.ClientId == _decision.ID && !connector.Stereotype.Equals("alternative for"))//angor task158
-                    _view.AddRelatedDecision(connector.Stereotype, connector.GetSupplier().Name, true); //original
-                else
+                if (!connector.Stereotype.Equals("alternative for"))//angor task 158
                 {
-                    if (!connector.Stereotype.Equals("alternative for"))//angor task158
-                    _view.AddRelatedDecision(connector.Stereotype, connector.GetClient().Name, false); //original
+                    if (connector.ClientId == _decision.ID) //original
+                        
+                        _view.AddRelatedDecision(connector.Stereotype, connector.GetSupplier().Name, true);
+                    else
+                    {
+                        _view.AddRelatedDecision(connector.Stereotype, connector.GetClient().Name, false);        
+                    }
                 }
 
             }
 
-            
+           
             //angor START task156
             // Update Alternative Decisions field
             foreach (var connector in _decision.GetConnectors().Where(connector => connector.IsRelationship()))
             {
-                if (connector.ClientId != _decision.ID && connector.Stereotype.Equals("alternative for"))
+                if (connector.Stereotype.Equals("alternative for"))
                 {
-                    /*      DEBUG
+
+                    if (connector.ClientId != _decision.ID)
+                    {
+                        /*  DEBUG
                     MessageBox.Show("[2] Stereotype: " + connector.Stereotype + "\nSupplier: " + connector.GetSupplier().Name
                         + "\nClient: " + connector.GetClient().Name);
-                     * */// DEBUG
-                    _view.AddAlternativeDecision(connector.Stereotype, connector.GetClient().Name);
+                     * */ //DEBUG
+                        _view.AddAlternativeDecision(connector.Stereotype, connector.GetClient().Name,false);
+                    }
+                    else
+                    {
+                        _view.AddAlternativeDecision(connector.Stereotype, connector.GetSupplier().Name,true);
+                    }
+
                 }
             }
             //angor END task156
             
+            //angor START task157
+            //MessageBox.Show("Stereotype: " + connector.Stereotype);
+            var traces = from EAConnector trace in _decision.GetConnectors()
+                where trace.Stereotype.Equals("trace")
+                             select (trace.SupplierId == _decision.ID
+                                         ? trace.GetClient()
+                                         : trace.GetSupplier()
+                                   );
+            foreach (EAElement tracedElement in traces)
+            {
+                /*  DEBUG
+                MessageBox.Show("Traced element: "+tracedElement.Name
+                    + "\nStereotype: " + tracedElement.Stereotype
+                    + "\nID: " + tracedElement.ID
+                    + "\nType: " + tracedElement.Type
+                    + "\nNativeType: " + tracedElement.NativeType);
+                 *///DEBUG
+                _view.AddTrace(tracedElement.Name, tracedElement.Type);
+            }
+            //angor END task157
 
             // Update History field
             foreach (var connector in _decision.GetConnectors().Where(connector => connector.IsAction()))
