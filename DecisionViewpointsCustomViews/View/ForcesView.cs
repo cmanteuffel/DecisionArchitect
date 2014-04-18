@@ -1,5 +1,7 @@
 ﻿using System.Data;
+using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Windows.Forms;
 using DecisionViewpointsCustomViews.Controller;
 using DecisionViewpointsCustomViews.Model;
@@ -100,11 +102,25 @@ namespace DecisionViewpointsCustomViews.View
 
             foreach (var decision in model.GetDecisions())
             {
-                data.Columns.Add(decision);
+                data.Columns.Add(decision.Name);
             }
             for (var index = 0; index < model.GetRequirements().Count; index++)
             {
                 data.Rows.Add();
+            }
+
+            var rowIndex = 0;
+            foreach (var reqConcerns in model.GetConcerns())
+            {
+                var concerns = new StringBuilder();
+                var concIndex = 0;
+                foreach (var concern in reqConcerns.Value)
+                {
+                    if (concIndex++ > 0)
+                        concerns.Append(", ");
+                    concerns.Append(concern.Name);
+                }
+                data.Rows[rowIndex++][0] = concerns;
             }
 
             _forcesTable.DataSource = data;
@@ -113,8 +129,10 @@ namespace DecisionViewpointsCustomViews.View
 
             for (var index = 0; index < model.GetRequirements().Count; index++)
             {
-                _forcesTable.Rows[index].HeaderCell.Value = model.GetRequirements()[index];
+                _forcesTable.Rows[index].HeaderCell.Value = model.GetRequirements()[index].Name;
             }
+
+            _forcesTable.AutoResizeRowHeadersWidth(DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders);
         }
 
         public void RemoveDecision(string name)
@@ -124,10 +142,11 @@ namespace DecisionViewpointsCustomViews.View
 
         public void RemoveRequirement(string name)
         {
-            foreach (DataGridViewRow row in _forcesTable.Rows)
+            foreach (
+                var row in
+                    _forcesTable.Rows.Cast<DataGridViewRow>().Where(row => row.HeaderCell.Value.Equals(name)))
             {
-                if (row.HeaderCell.Value.Equals(name))
-                    _forcesTable.Rows.Remove(row);
+                _forcesTable.Rows.Remove(row);
             }
         }
     }

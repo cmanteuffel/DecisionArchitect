@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using System.Xml;
 using EA;
 
 namespace EAFacade.Model
 {
-    public class EAElement : IModelObject
+    public class EAElement : IModelObject, IEquatable<EAElement>
     {
         private readonly Element _native;
 
@@ -22,8 +23,8 @@ namespace EAFacade.Model
 
         public static int CompareByStateDateModified(EAElement x, EAElement y)
         {
-           var xModified = DateTime.Parse(x.GetTaggedValue(DVTaggedValueKeys.DecisionStateModifiedDate));
-           var yModified = DateTime.Parse(y.GetTaggedValue(DVTaggedValueKeys.DecisionStateModifiedDate));
+            var xModified = DateTime.Parse(x.GetTaggedValue(DVTaggedValueKeys.DecisionStateModifiedDate));
+            var yModified = DateTime.Parse(y.GetTaggedValue(DVTaggedValueKeys.DecisionStateModifiedDate));
             return DateTime.Compare(xModified, yModified);
         }
 
@@ -141,30 +142,39 @@ namespace EAFacade.Model
             {
                 return new EAElement[0];
             }
-            IList<EAConnector> connectors = new List<EAConnector>();
-            foreach (Connector c in _native.Connectors)
-            {
-                connectors.Add(EAConnector.Wrap(c));
-            }
+            IList<EAConnector> connectors = (from Connector c in _native.Connectors select EAConnector.Wrap(c)).ToList();
 
-            IEnumerable<EAElement> traces = from EAConnector trace in connectors
-                                            where trace.Stereotype.Equals("trace")
-                                            select (trace.SupplierId == ID
-                                                        ? trace.GetClient()
-                                                        : trace.GetSupplier()
-                                                   );
+            var traces = from EAConnector trace in connectors
+                         where trace.Stereotype.Equals("trace")
+                         select (trace.SupplierId == ID
+                                     ? trace.GetClient()
+                                     : trace.GetSupplier()
+                                );
             return traces;
+        }
+
+        public IEnumerable<EAElement> GetConnectedRequirements()
+        {
+            if (_native == null)
+            {
+                return new EAElement[0];
+            }
+            IList<EAConnector> connectors = (from Connector c in _native.Connectors select EAConnector.Wrap(c)).ToList();
+
+            var connectedRequirements = from EAConnector connector in connectors
+                                        where connector.Stereotype.Equals("classified by")
+                                        select (connector.GetClient());
+
+            return connectedRequirements;
         }
 
         public string GetProjectPath()
         {
-            
             EAPackage current = ParentPackage;
             string path = current.Name;
-            
+
             while (!current.IsModelRoot())
             {
-            
                 current = current.ParentPackage;
                 path = current.Name + "/" + path;
             }
@@ -174,18 +184,18 @@ namespace EAFacade.Model
 
         public EADiagram[] GetDiagrams()
         {
-            string sql =
+            var sql =
                 @"Select t_diagramobjects.Diagram_ID FROM t_diagramobjects WHERE t_diagramobjects.Object_ID = " + ID +
                 ";";
-            EARepository repository = EARepository.Instance;
+            var repository = EARepository.Instance;
             var document = new XmlDocument();
             document.LoadXml(repository.Query(sql));
-            XmlNodeList diagramIDs = document.GetElementsByTagName(@"Diagram_ID");
+            var diagramIDs = document.GetElementsByTagName(@"Diagram_ID");
 
             var diagrams = new List<EADiagram>();
             foreach (XmlNode diagramID in diagramIDs)
             {
-                int id = Utilities.ParseToInt32(diagramID.InnerText, -1);
+                var id = Utilities.ParseToInt32(diagramID.InnerText, -1);
                 if (id != -1)
                 {
                     diagrams.Add(repository.GetDiagramByID(id));
@@ -198,7 +208,7 @@ namespace EAFacade.Model
         [Obsolete]
         public void ConnectTo(EAElement suppliedElement)
         {
-            ConnectTo(suppliedElement,"ControlFlow", "followed by");
+            ConnectTo(suppliedElement, "ControlFlow", "followed by");
         }
 
         public void ConnectTo(EAElement suppliedElement, String type, String stereotype)
@@ -259,6 +269,25 @@ namespace EAFacade.Model
             taggedValue.Update();
             _native.TaggedValues.Refresh();
             Update();
+        }
+
+        public bool Equals(EAElement element)
+        {
+            if (element == null) return false;
+            return _native.ElementGUID == element.GUID;
+        }
+
+        public override bool Equals(object other)
+        {
+            if (other == null) return false;
+            var element = other as EAElement;
+            if (element == null) return false;
+            return Equals(element);
+        }
+
+        public override int GetHashCode()
+        {
+            return 0;
         }
     }
 }

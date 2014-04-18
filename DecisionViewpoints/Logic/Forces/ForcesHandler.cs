@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 using DecisionViewpointsCustomViews.Controller;
 using DecisionViewpointsCustomViews.Model;
 using DecisionViewpointsCustomViews.View;
@@ -12,7 +11,7 @@ namespace DecisionViewpoints.Logic.Forces
     public class ForcesHandler : RepositoryAdapter
     {
         // hold referecnes to the created views so to respond to the changed events (might need to change)
-        private Dictionary<string, ICustomView> _views = new Dictionary<string, ICustomView>();
+        private readonly Dictionary<string, ICustomView> _views = new Dictionary<string, ICustomView>();
 
         public override bool OnContextItemDoubleClicked(string guid, NativeType type)
         {
@@ -27,7 +26,7 @@ namespace DecisionViewpoints.Logic.Forces
                 };
             if (repository.IsTabOpen(forcesDiagramModel.Name) > 0)
             {
-                // checking names is not optimal as tabs can have same names...
+                // naming is not optimal as tabs can have same names... need to find a solution that we can distinguish tabs more optimal
                 repository.ActivateTab(forcesDiagramModel.Name);
                 return true;
             }

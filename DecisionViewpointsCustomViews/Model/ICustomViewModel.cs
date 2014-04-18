@@ -12,7 +12,8 @@ namespace DecisionViewpointsCustomViews.Model
         void AddObserver(ICustomViewModelObserver observer);
         void RemoveObserver(ICustomViewModelObserver observer);
         void SaveRatings();
-        List<string> GetDecisions();
-        List<string> GetRequirements();
+        List<EAElement> GetDecisions();
+        List<EAElement> GetRequirements();
+        Dictionary<EAElement, List<EAElement>> GetConcerns();
     }
 }

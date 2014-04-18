@@ -138,5 +138,17 @@ namespace EAFacade.Model
         {
             return Metatype.Equals(DVStereotypes.DiagramMetaTypeChronological);
         }
+
+        public bool Contains(EAElement element)
+        {
+            var repository = EARepository.Instance;
+            foreach (DiagramObject diagramObject in _native.DiagramObjects)
+            {
+                var diagramElement = repository.GetElementByID(diagramObject.ElementID);
+                if (diagramElement.GUID == element.GUID)
+                    return true;
+            }
+            return false;
+        }
     }
 }

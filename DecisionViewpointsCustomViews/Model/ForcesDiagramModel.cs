@@ -43,20 +43,46 @@ namespace DecisionViewpointsCustomViews.Model
             }
         }
 
-        public List<string> GetDecisions()
+        public List<EAElement> GetDecisions()
         {
             var repository = EARepository.Instance;
             return (from diagramObject in _diagram.GetElements()
                     select repository.GetElementByID(diagramObject.ElementID)
-                    into element where element.IsDecision() select element.Name).ToList();
+                    into element where element.IsDecision() select element).ToList();
         }
 
-        public List<string> GetRequirements()
+        public List<EAElement> GetRequirements()
         {
             var repository = EARepository.Instance;
             return (from diagramObject in _diagram.GetElements()
                     select repository.GetElementByID(diagramObject.ElementID)
-                    into element where element.Type.Equals("Requirement") select element.Name).ToList();
+                    into element where element.Type.Equals("Requirement") select element).ToList();
+        }
+
+        public Dictionary<EAElement, List<EAElement>> GetConcerns()
+        {
+            var repository = EARepository.Instance;
+            var requirementsConcerns = new Dictionary<EAElement, List<EAElement>>();
+            foreach (var diagramObject in _diagram.GetElements())
+            {
+                var concern = repository.GetElementByID(diagramObject.ElementID);
+                if (!concern.IsConcern()) continue;
+                foreach (
+                    var connectedRequirement in
+                        concern.GetConnectedRequirements()
+                               .Where(connectedRequirement => _diagram.Contains(connectedRequirement)))
+                {
+                    if (requirementsConcerns.ContainsKey(connectedRequirement))
+                    {
+                        requirementsConcerns[connectedRequirement].Add(concern);
+                    }
+                    else
+                    {
+                        requirementsConcerns.Add(connectedRequirement, new List<EAElement> {concern});
+                    }
+                }
+            }
+            return requirementsConcerns;
         }
 
         public void SaveRatings()
