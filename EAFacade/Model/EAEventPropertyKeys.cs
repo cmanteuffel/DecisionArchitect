@@ -1,6 +1,6 @@
-namespace EAFacade.Model.Impl
+namespace EAFacade.Model
 {
-    internal static class EAEventPropertyKeys
+    public static class EAEventPropertyKeys
     {
         public const string SupplierId = "supplierID";
         public const string ClientId = "clientID";

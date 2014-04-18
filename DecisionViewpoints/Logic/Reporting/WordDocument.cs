@@ -123,6 +123,10 @@ namespace DecisionViewpoints.Logic.Reporting
                 run.AppendChild(new Text(++_diagmarCounter + ". Decision Chronological View: " + diagram.Name));
                 //_body.AppendChild(new Paragraph(new Run(new Text(++_diagmarCounter + ". Decision Chronological Viewpoint"))));
             }
+            else
+            {
+                return;
+            }
 
             _body.AppendChild(new Paragraph(new Run(new Text())));
 
@@ -280,7 +284,7 @@ namespace DecisionViewpoints.Logic.Reporting
 
             foreach (var entry in decision.GetHistory())
             {
-                dataDict["History"].Add(entry.Key + " " + entry.Value.ToShortDateString());
+                dataDict["History"].Add(entry.State + " " + entry.DateModified.ToShortDateString());
             }
 
             foreach (Model.StakeholderInvolvement stakeholderInvolvment in decision.GetStakeholderInvolvements())

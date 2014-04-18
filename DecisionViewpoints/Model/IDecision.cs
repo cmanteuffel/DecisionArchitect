@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DecisionViewpoints.Logic.Chronological;
 using EAFacade.Model;
 
 namespace DecisionViewpoints.Model
@@ -36,6 +37,7 @@ namespace DecisionViewpoints.Model
         /// <returns>Returns a enumeration of Ratings.</returns>
         IEnumerable<Rating> GetForces();
         IEnumerable<StakeholderInvolvement> GetStakeholderInvolvements();
-        IDictionary<string, DateTime> GetHistory();
+        IList<DecisionStateChange> GetHistory();
+        void AddHistory(string newState, DateTime dateModified);
     }
 }

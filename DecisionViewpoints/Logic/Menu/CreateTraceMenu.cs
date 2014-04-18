@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Forms;
+using EAFacade;
 using EAFacade.Model;
 
 namespace DecisionViewpoints.Logic.Menu

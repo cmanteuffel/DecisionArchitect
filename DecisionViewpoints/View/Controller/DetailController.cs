@@ -95,7 +95,7 @@ namespace DecisionViewpoints.View.Controller
             // Update History field
             foreach (var entry in _decision.GetHistory())
             {
-                _view.AddHistoryEntry(entry.Key, entry.Value);
+                _view.AddHistoryEntry(entry.State, entry.DateModified);
             }
 
             //update topic

@@ -3,6 +3,7 @@ using System.Linq;
 using DecisionViewpoints.Model;
 using DecisionViewpoints.View;
 using DecisionViewpoints.View.Controller;
+using EAFacade;
 using EAFacade.Model;
 
 

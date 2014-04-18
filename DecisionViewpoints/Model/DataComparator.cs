@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using EAFacade;
 using EAFacade.Model;
 
 namespace DecisionViewpoints.Model
@@ -12,8 +13,8 @@ namespace DecisionViewpoints.Model
             string xDateString = x.GetTaggedValue(EATaggedValueKeys.DecisionStateModifiedDate) ?? oldestDateString;
             string yDateString = y.GetTaggedValue(EATaggedValueKeys.DecisionStateModifiedDate) ?? oldestDateString;
 
-            DateTime xModified = DateTime.Parse(xDateString);
-            DateTime yModified = DateTime.Parse(yDateString);
+            DateTime xModified = Utilities.TryParseDateTime(xDateString, DateTime.MinValue);
+            DateTime yModified = Utilities.TryParseDateTime(yDateString, DateTime.MinValue);
             return DateTime.Compare(xModified, yModified);
         }
     }

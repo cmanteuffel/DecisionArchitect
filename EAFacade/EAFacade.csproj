@@ -63,7 +63,7 @@
     <Compile Include="Model\IEARepository.cs" />
     <Compile Include="Model\IEAConnector.cs" />
     <Compile Include="Model\Impl\EAElement.cs" />
-    <Compile Include="Model\Impl\EAEventPropertyKeys.cs" />
+    <Compile Include="Model\EAEventPropertyKeys.cs" />
     <Compile Include="Model\Impl\EARepository.cs" />
     <Compile Include="Model\IEAVolatileDiagramObject.cs" />
     <Compile Include="Model\IEAVolatilePackage.cs" />

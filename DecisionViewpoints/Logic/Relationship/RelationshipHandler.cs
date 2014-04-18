@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using EAFacade;
 using EAFacade.Model;
 
 namespace DecisionViewpoints.Logic.Relationship

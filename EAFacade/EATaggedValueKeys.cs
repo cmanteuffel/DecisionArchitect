@@ -9,5 +9,7 @@ namespace EAFacade
         public const string IsHistoryDecision = "DV.IsHistory";
         public const string DecisionStateChange = "DV.StateChange";
         public const string OriginalDecisionGuid = "DV.OriginalDecisionGuid";
+
+        public const string DecisionSerialVersionID = "DV.SerialVersionID";
     }
 }

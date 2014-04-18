@@ -1,4 +1,5 @@
-﻿using EAFacade.Model;
+﻿using EAFacade;
+using EAFacade.Model;
 
 namespace DecisionViewpoints.Logic.StakeholderInvolvement
 {

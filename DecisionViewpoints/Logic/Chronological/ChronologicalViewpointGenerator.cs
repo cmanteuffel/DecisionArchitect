@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using DecisionViewpoints.Model;
+using EAFacade;
 using EAFacade.Model;
 
 
@@ -41,7 +42,7 @@ namespace DecisionViewpoints.Logic.Chronological
             IEnumerable<IEAElement> allDecisionsInPackage =
                 _viewPackage.GetAllDecisions();
 
-            var history =  allDecisionsInPackage.SelectMany(DecisionStateChange.GetHistory);
+            var history =  allDecisionsInPackage.SelectMany(d => new Decision(d).GetHistory());
         
             IEnumerable<IEAElement> exisitingHistoryDecisions = _historyPackage.Elements.Where(e => e.IsDecision());
 

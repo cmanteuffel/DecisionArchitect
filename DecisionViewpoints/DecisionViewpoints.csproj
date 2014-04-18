@@ -42,13 +42,12 @@
       <HintPath>C:\Program Files\Sparx Systems\EA\Interop.EA.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
@@ -81,7 +80,6 @@
     <Compile Include="Logic\Chronological\DecisionStateChange.cs" />
     <Compile Include="Logic\Forces\ForcesHandler.cs" />
     <Compile Include="Logic\Detail\DetailHandler.cs" />
-    <Compile Include="Logic\Chronological\ModifedDateHandler.cs" />
     <Compile Include="Logic\Menu\ChronologyMenu.cs" />
     <Compile Include="Logic\Menu\CreateTraceMenu.cs" />
     <Compile Include="Logic\Menu\ExportReportsCustomMessageBox.cs">

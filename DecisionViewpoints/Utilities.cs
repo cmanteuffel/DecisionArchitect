@@ -1,11 +1,13 @@
 using System;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
+using System.Windows.Forms;
 
-namespace EAFacade
+namespace DecisionViewpoints
 {
-    public class Utilities
+    public static class Utilities
     {
         public static string GetResourceContents(string resource)
         {
@@ -37,6 +39,17 @@ namespace EAFacade
             size[0] = widthEmus <= maxWidthEmus ? widthEmus : maxWidthEmus;
             size[1] = (long) (widthEmus*ratio);
             return size;
+        }
+
+        public static DateTime TryParseDateTime(string dateString, DateTime fallback)
+        {
+            DateTime parsed;
+            if (!DateTime.TryParse(dateString, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out parsed))
+            {
+                MessageBox.Show(dateString + " not parsed");
+                parsed = fallback;
+            }
+            return parsed;
         }
 
         public static string GetDocumentsDirectory()

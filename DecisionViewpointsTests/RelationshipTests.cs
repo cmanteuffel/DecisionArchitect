@@ -4,6 +4,7 @@ using DecisionViewpoints.Logic.Validation;
 using DecisionViewpointsTests.Logic;
 using DecisionViewpointsTests.Model.EventProperties;
 using EA;
+using EAFacade;
 using EAFacade.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

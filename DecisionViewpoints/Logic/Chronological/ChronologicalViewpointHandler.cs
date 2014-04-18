@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
+using DecisionViewpoints.Model;
+using EAFacade;
 using EAFacade.Model;
 
 
@@ -29,8 +32,9 @@ namespace DecisionViewpoints.Logic.Chronological
                     //save state change
                     if (element.IsDecision())
                     {
+                        var decision = new Decision(element);
                         var newState = element.Stereotype;
-                        var history = DecisionStateChange.GetHistory(element).ToList();
+                        var history = decision.GetHistory().ToList();
                         history.Sort(DecisionStateChange.CompareByDateModified);
                         if (history.Count > 0)
                         {
@@ -38,17 +42,39 @@ namespace DecisionViewpoints.Logic.Chronological
                             var currentState = history.Last();
                             if (currentState.State != newState)
                             {
-                               DecisionStateChange.SaveStateChange(element,newState,DateTime.Now);       
+                               decision.AddHistory(newState,DateTime.Now);       
                             }
                         }
                         else
                         {
-                            DecisionStateChange.SaveStateChange(element, newState, DateTime.Now); 
+                            decision.AddHistory(newState, DateTime.Now); 
                         }
+
+                        string oldState = element.GetTaggedValue(EATaggedValueKeys.DecisionState);
+                        if (oldState == null || element.Stereotype.Equals(oldState)) return;
+
+                        element.UpdateTaggedValue(EATaggedValueKeys.DecisionStateModifiedDate,
+                                                  element.Modified.ToString(CultureInfo.InvariantCulture));
+                        element.UpdateTaggedValue(EATaggedValueKeys.DecisionState, element.Stereotype);
                         
                     }
                     break;
             }
+        }
+
+        public override bool OnPostNewElement(IEAElement element)
+        {
+            if (element.IsDecision())
+            {
+                element.AddTaggedValue(EATaggedValueKeys.DecisionState, element.Stereotype);
+                element.AddTaggedValue(EATaggedValueKeys.IsHistoryDecision, false.ToString());
+            }
+            if (element.IsDecision() || element.IsTopic())
+            {
+                element.AddTaggedValue(EATaggedValueKeys.DecisionStateModifiedDate,
+                                       element.Modified.ToString(CultureInfo.InvariantCulture));
+            }
+            return true;
         }
 
         public override void OnPostOpenDiagram(IEADiagram diagram)

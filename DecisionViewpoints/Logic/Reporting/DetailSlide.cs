@@ -13,6 +13,21 @@ namespace DecisionViewpoints.Logic.Reporting
     {
         private readonly IDecision _decision;
 
+        public static class Placeholder
+        {
+            public const string Name = "{name}";
+            public const string State = "{state}";
+            public const string Topic = "{topic}";
+            public const string Issue = "{issue}";
+            public const string DecisionText = "{decision}";
+            public const string Alternatives = "{alternatives}";
+            public const string Arguments = "{arguments}";
+            public const string RelatedDecisions = "{decisions}";
+            public const string RelatedRequirements = "{requirements}";
+            public const string Traces = "{traces}";
+        }
+
+
         public DetailSlide(PresentationDocument document, SlidePart templateSlide, IDecision decision)
             : base(document, templateSlide)
         {
@@ -64,16 +79,16 @@ namespace DecisionViewpoints.Logic.Reporting
             }
 
 
-            SetPlaceholder(NewSlidePart, DecisionDataTags.Name, _decision.Name);
-            SetPlaceholder(NewSlidePart, DecisionDataTags.State, _decision.State);
-            SetPlaceholder(NewSlidePart, DecisionDataTags.Topic, _decision.HasTopic() ? _decision.Topic.Name : "");
-            SetPlaceholder(NewSlidePart, DecisionDataTags.Issue, _decision.Problem);
-            SetPlaceholder(NewSlidePart, DecisionDataTags.DecisionText, _decision.Solution);
-            SetPlaceholder(NewSlidePart, DecisionDataTags.Arguments, _decision.Argumentation);
-            SetPlaceholder(NewSlidePart, DecisionDataTags.Alternatives, alternativeDecisions.ToString());
-            SetPlaceholder(NewSlidePart, DecisionDataTags.RelatedDecisions, relatedDecisions.ToString());
-            SetPlaceholder(NewSlidePart, DecisionDataTags.RelatedRequirements, relatedRequirements.ToString());
-            SetPlaceholder(NewSlidePart, DecisionDataTags.Traces, traces.ToString());
+            SetPlaceholder(NewSlidePart, Placeholder.Name, _decision.Name);
+            SetPlaceholder(NewSlidePart, Placeholder.State, _decision.State);
+            SetPlaceholder(NewSlidePart, Placeholder.Topic, _decision.HasTopic() ? _decision.Topic.Name : "");
+            SetPlaceholder(NewSlidePart, Placeholder.Issue, _decision.Problem);
+            SetPlaceholder(NewSlidePart, Placeholder.DecisionText, _decision.Solution);
+            SetPlaceholder(NewSlidePart, Placeholder.Arguments, _decision.Argumentation);
+            SetPlaceholder(NewSlidePart, Placeholder.Alternatives, alternativeDecisions.ToString());
+            SetPlaceholder(NewSlidePart, Placeholder.RelatedDecisions, relatedDecisions.ToString());
+            SetPlaceholder(NewSlidePart, Placeholder.RelatedRequirements, relatedRequirements.ToString());
+            SetPlaceholder(NewSlidePart, Placeholder.Traces, traces.ToString());
         }
     }
 }
