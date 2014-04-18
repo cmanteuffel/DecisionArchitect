@@ -150,7 +150,8 @@ namespace DecisionViewpointsCustomViews.Model
         /// </summary>
         /// <param name="value">The taggged value name.</param>
         /// <returns></returns>
-        private static string GetReqGUIDFromTaggedValue(string value)
+        //private static string GetReqGUIDFromTaggedValue(string value)//original
+            public static string GetReqGUIDFromTaggedValue(string value)//angor
         {
             return value.Split(':')[1];
         }
@@ -160,7 +161,8 @@ namespace DecisionViewpointsCustomViews.Model
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        private static bool IsReqGUIDTaggedValue(string value)
+        //private static bool IsReqGUIDTaggedValue(string value)//original
+            public static bool IsReqGUIDTaggedValue(string value)//angor
         {
             return value.Split(':')[0].Equals("r");
         }

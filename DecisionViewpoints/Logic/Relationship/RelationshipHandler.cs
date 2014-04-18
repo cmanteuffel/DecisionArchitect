@@ -12,5 +12,16 @@ namespace DecisionViewpoints.Logic.Relationship
                     DVStereotypes.RelationFollowedBy
                 });
         }
+
+        public override bool OnPostNewDiagramObject(EADiagramObject diagramObject)
+        {
+            var diagram = diagramObject.Diagram;
+            if (!diagram.IsRelationshipView()) return true;
+            diagram.HideConnectors(new[]
+                {
+                    DVStereotypes.RelationFollowedBy
+                });
+            return base.OnPostNewDiagramObject(diagramObject);
+        }
     }
 }

@@ -105,5 +105,33 @@ namespace DecisionViewpoints
             }
             return true;
         }
+
+        //angor moved from MainApplication
+        public override void EA_OnPostOpenDiagram(Repository repository, int diagramId)
+        {
+            EARepository.UpdateRepository(repository);
+            var diagram = EARepository.Instance.GetDiagramByID(diagramId);
+            foreach (var l in _listeners)
+            {
+                l.OnPostOpenDiagram(diagram);
+            }
+        }
+
+        //angor
+        public override bool EA_OnPostNewDiagramObject(Repository repository, EventProperties properties)
+        {
+            EARepository.UpdateRepository(repository);
+            var diagramObject = EADiagramObject.Wrap(properties);
+            foreach (var l in _listeners)
+            {
+                if (!l.OnPostNewDiagramObject(diagramObject))
+                {
+                    return false;
+                }
+
+            }
+            return true;
+
+        }
     }
 }

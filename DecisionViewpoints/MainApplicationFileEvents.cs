@@ -31,15 +31,6 @@ namespace DecisionViewpoints
                 l.OnFileNew();
             }
         }
-
-        public override void EA_OnPostOpenDiagram(Repository repository, int diagramId)
-        {
-            EARepository.UpdateRepository(repository);
-            var diagram = EARepository.Instance.GetDiagramByID(diagramId);
-            foreach (var l in _listeners)
-            {
-                l.OnPostOpenDiagram(diagram);
-            }
-        }
+        
     }
 }

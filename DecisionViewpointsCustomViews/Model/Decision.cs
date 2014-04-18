@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using EAFacade.Model;
+
 
 namespace DecisionViewpointsCustomViews.Model
 {
@@ -95,6 +97,7 @@ namespace DecisionViewpointsCustomViews.Model
 
         public void RemoveObserver(IDecisionObserver observer)
         {
+          
             throw new NotImplementedException();
         }
 
@@ -106,6 +109,20 @@ namespace DecisionViewpointsCustomViews.Model
             var first = rtf.Text.IndexOf(tag, StringComparison.Ordinal) + tag.Length;
             var last = rtf.Text.LastIndexOf(tag, StringComparison.Ordinal);
             return last > first ? rtf.Text.Substring(first, last - first) : "";
+        }
+
+        //angor START
+        public void getForces()
+        {
+            var forces = from taggedValue in _element.TaggedValues
+                where ForcesModel.IsReqGUIDTaggedValue(taggedValue.Name)
+                select new Rating
+                {
+                    DecisionGUID = _element.GUID,
+                    RequirementGUID = ForcesModel.GetReqGUIDFromTaggedValue(taggedValue.Name),
+                    Value = taggedValue.Value
+                };
+            
         }
     }
 }

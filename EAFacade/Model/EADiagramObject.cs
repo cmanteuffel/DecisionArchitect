@@ -31,5 +31,13 @@ namespace EAFacade.Model
         {
             get { return _native.ElementID; }
         }
+
+        public EADiagram Diagram
+        {
+            get
+            {
+                return EARepository.Instance.GetDiagramByID(_native.DiagramID);
+            }
+        }
     }
 }

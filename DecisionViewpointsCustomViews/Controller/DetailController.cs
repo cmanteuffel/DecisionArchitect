@@ -36,7 +36,7 @@ namespace DecisionViewpointsCustomViews.Controller
             {
                 if (!connector.Stereotype.Equals("alternative for"))//angor task 158
                 {
-                    if (connector.ClientId == _decision.ID) //original
+                    if (connector.ClientId == _decision.ID)
                         
                         _view.AddRelatedDecision(connector.Stereotype, connector.GetSupplier().Name, true);
                     else
@@ -92,6 +92,37 @@ namespace DecisionViewpointsCustomViews.Controller
                 _view.AddTrace(tracedElement.Name, tracedElement.Type);
             }
             //angor END task157
+
+            //angor START task159
+            //MessageBox.Show(_view.DecisionRelatedRequirements);
+            /*
+            var repositoryElements = EARepository.Instance.GetAllElements();
+            foreach (EAElement repElement in repositoryElements)
+            {
+
+                //var connReq = repElement.GetConnectedRequirements();
+                //MessageBox.Show("Element type: " + repElement.MetaType + repElement.GetConnectedRequirements());
+                var diags = repElement.GetDiagrams();
+                foreach (EADiagram d in diags)
+                {
+                    //MessageBox.Show("Diagram: " + d.Metatype);
+                    if (d.IsForcesView())
+                    {
+                        var elems = d.GetElements();
+                        foreach (var eaDiagramObject in elems)
+                        {
+                            MessageBox.Show("Element: " + eaDiagramObject.GetType()
+                                + "\nid: " + eaDiagramObject.ElementID);
+                        }
+                        
+                    }
+                }
+                
+            }
+            //repository.
+            //angor END task159
+            */
+            
 
             // Update History field
             foreach (var connector in _decision.GetConnectors().Where(connector => connector.IsAction()))
