@@ -303,7 +303,7 @@ namespace DecisionViewpoints.Logic.Menu
                 var filenameExtension = filename.Substring(filename.IndexOf('.'));
                 //MessageBox.Show("filename ext: "+filenameExtension); //DEBUG
                 var saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-                saveFileDialog1.Title = "Save report as..";
+                saveFileDialog1.Title = Messages.SaveReportAs;
                 saveFileDialog1.Filter = "Microsoft " + reportType.ToString() + " (*"+ filenameExtension + ")|*" + filenameExtension;
                 saveFileDialog1.FilterIndex = 0;
                 

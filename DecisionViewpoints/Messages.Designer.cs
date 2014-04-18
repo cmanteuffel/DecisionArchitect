@@ -358,6 +358,24 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} report succesfully exported..
+        /// </summary>
+        internal static string ReportSuccessful {
+            get {
+                return ResourceManager.GetString("ReportSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save report as....
+        /// </summary>
+        internal static string SaveReportAs {
+            get {
+                return ResourceManager.GetString("SaveReportAs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to forces report created succesfuly..
         /// </summary>
         internal static string SuccesfulForcesReportCreation {

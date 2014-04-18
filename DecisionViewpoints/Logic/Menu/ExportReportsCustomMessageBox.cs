@@ -22,7 +22,7 @@ namespace DecisionViewpoints.Logic.Menu
         public ExportReportsCustomMessageBox(string reportType, string filename)
         {
             InitializeComponent();
-            this.Text = reportType + " report was generated succesfully!";
+            this.Text = string.Format(Messages.ReportSuccessful, reportType);
             this.filename = filename;
             this.labelReportDetails.Text = filename.Substring(filename.LastIndexOf("\\")+1);
             this.labelReportFolderDetails.Text = filename.Substring(0, filename.LastIndexOf("\\"));

@@ -227,4 +227,10 @@
     <value>report created succesfuly.</value>
     <comment>angor</comment>
   </data>
+  <data name="ReportSuccessful" xml:space="preserve">
+    <value>{0} report succesfully exported.</value>
+  </data>
+  <data name="SaveReportAs" xml:space="preserve">
+    <value>Save report as...</value>
+  </data>
 </root>

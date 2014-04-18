@@ -41,7 +41,7 @@
             this.buttonOpenReport.Name = "buttonOpenReport";
             this.buttonOpenReport.Size = new System.Drawing.Size(106, 23);
             this.buttonOpenReport.TabIndex = 1;
-            this.buttonOpenReport.Text = "Open report file";
+            this.buttonOpenReport.Text = "Open Report";
             this.buttonOpenReport.UseVisualStyleBackColor = true;
             this.buttonOpenReport.Click += new System.EventHandler(this.buttonOpenReport_Click);
             // 
