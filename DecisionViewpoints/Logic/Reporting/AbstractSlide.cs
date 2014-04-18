@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using DecisionViewpoints.Logic.Reporting;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Presentation;
 using Text = DocumentFormat.OpenXml.Drawing.Text;

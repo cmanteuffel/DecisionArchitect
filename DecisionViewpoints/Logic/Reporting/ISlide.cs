@@ -1,4 +1,4 @@
-﻿namespace DecisionViewpoints.Model.Reporting
+﻿namespace DecisionViewpoints.Logic.Reporting
 {
     public interface ISlide
     {

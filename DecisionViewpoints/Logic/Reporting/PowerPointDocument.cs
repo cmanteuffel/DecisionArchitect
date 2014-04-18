@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using DecisionViewpoints.Logic.Reporting;
 using DecisionViewpointsCustomViews.Model;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;

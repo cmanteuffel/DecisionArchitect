@@ -196,12 +196,15 @@
     <value>No Traces defined</value>
   </data>
   <data name="MenuGenerateChronologicalVP" xml:space="preserve">
-    <value>Generate CVP</value>
+    <value>Generate Chronology View</value>
   </data>
   <data name="MenuTraceToExistingElement" xml:space="preserve">
     <value>Existing Element</value>
   </data>
   <data name="MenuTraceToNewDecision" xml:space="preserve">
     <value>&amp;New Decision</value>
+  </data>
+  <data name="MenuExport" xml:space="preserve">
+    <value>-&amp;Export</value>
   </data>
 </root>

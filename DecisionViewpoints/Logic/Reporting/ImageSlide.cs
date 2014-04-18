@@ -2,12 +2,13 @@
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Windows.Forms;
+using DecisionViewpoints.Model.Reporting;
 using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Packaging;
 using EAFacade;
 using EAFacade.Model;
 
-namespace DecisionViewpoints.Model.Reporting
+namespace DecisionViewpoints.Logic.Reporting
 {
     public class ImageSlide : AbstractSlide
     {

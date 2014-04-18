@@ -7,7 +7,7 @@ using P14 = DocumentFormat.OpenXml.Office2010.PowerPoint;
 using Ap = DocumentFormat.OpenXml.ExtendedProperties;
 using Vt = DocumentFormat.OpenXml.VariantTypes;
 
-namespace DecisionViewpoints.Model.Reporting
+namespace DecisionViewpoints.Logic.Reporting
 {
     public class PowerPointTemplate
     {

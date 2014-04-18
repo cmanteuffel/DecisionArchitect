@@ -3,6 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using DecisionViewpoints.Model.Reporting;
 using DecisionViewpointsCustomViews.Model;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
@@ -10,7 +11,7 @@ using DocumentFormat.OpenXml.Spreadsheet;
 using EAFacade;
 using EAFacade.Model;
 
-namespace DecisionViewpoints.Model.Reporting
+namespace DecisionViewpoints.Logic.Reporting
 {
     public class ExcelDocument : IReportDocument
     {

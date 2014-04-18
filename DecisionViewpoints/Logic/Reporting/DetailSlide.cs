@@ -1,10 +1,11 @@
 ﻿using System.Linq;
 using System.Text;
+using DecisionViewpoints.Model.Reporting;
 using DecisionViewpointsCustomViews.Model;
 using DocumentFormat.OpenXml.Packaging;
 using EAFacade.Model;
 
-namespace DecisionViewpoints.Model.Reporting
+namespace DecisionViewpoints.Logic.Reporting
 {
     public class DetailSlide : AbstractSlide
     {

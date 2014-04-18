@@ -5,7 +5,6 @@ using System.Windows.Forms;
 using DecisionViewpoints.Logic.Chronological;
 using DecisionViewpoints.Logic.Reporting;
 using DecisionViewpoints.Model.Menu;
-using DecisionViewpoints.Model.Reporting;
 using DecisionViewpoints.Properties;
 using DecisionViewpointsCustomViews.Model;
 using EAFacade.Model;
@@ -70,6 +69,7 @@ namespace DecisionViewpoints.Logic.Menu
                         self => { self.IsChecked = Settings.Default.BaselineOptionOnModification; }
                 };
 
+
             var createBaseline = new MenuItem(Messages.MenuCreateBaseline, ManualDecisionSnapshot)
                 {
                     UpdateDelegate = self =>
@@ -99,6 +99,7 @@ namespace DecisionViewpoints.Logic.Menu
                         }
                 };
 
+            var reportMenu = new Model.Menu.Menu(Messages.MenuExport);
             var generateReport = new MenuItem("Generate Report", GenerateReport);
 
             RootMenu.Add(createTraces);
@@ -115,7 +116,8 @@ namespace DecisionViewpoints.Logic.Menu
             RootMenu.Add(MenuItem.Separator);
             RootMenu.Add(generateChronologicalView);
             RootMenu.Add(MenuItem.Separator);
-            RootMenu.Add(generateReport);
+            RootMenu.Add(reportMenu);
+            reportMenu.Add(generateReport);
         }
 
         public static object GetMenuItems(string location, string menuName)

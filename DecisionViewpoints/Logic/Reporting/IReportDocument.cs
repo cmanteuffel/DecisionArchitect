@@ -1,7 +1,7 @@
 using DecisionViewpointsCustomViews.Model;
 using EAFacade.Model;
 
-namespace DecisionViewpoints.Model.Reporting
+namespace DecisionViewpoints.Logic.Reporting
 {
     public interface IReportDocument
     {
