@@ -1,7 +1,8 @@
 using System;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Reflection;
-using System.Windows.Forms;
 using EA;
 using EAFacade.Model;
 
@@ -65,6 +66,31 @@ namespace EAFacade
                     }
             }
             return technology;
+        }
+
+        public static Stream ImageToStream(Image image, ImageFormat format)
+        {
+            var stream = new MemoryStream();
+            image.Save(stream, format);
+            stream.Position = 0;
+            return stream;
+        }
+
+        public static long[] GetImageSize(Image img)
+        {
+            var size = new long[2];
+            var widthPx = img.Width;
+            var heightPx = img.Height;
+            var horzRezDpi = img.HorizontalResolution;
+            var vertRezDpi = img.VerticalResolution;
+            const int emusPerInch = 914400;
+            var widthEmus = (long)(widthPx / horzRezDpi * emusPerInch);
+            var heightEmus = (long)(heightPx / vertRezDpi * emusPerInch);
+            const long maxWidthEmus = (long)(6.5 * emusPerInch);
+            var ratio = (heightEmus * 1.0m) / widthEmus;
+            size[0] = widthEmus <= maxWidthEmus ? widthEmus : maxWidthEmus;
+            size[1] = (long)(widthEmus * ratio);
+            return size;
         }
     }
 }

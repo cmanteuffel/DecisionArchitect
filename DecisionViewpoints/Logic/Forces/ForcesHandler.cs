@@ -59,8 +59,8 @@ namespace DecisionViewpoints.Logic.Forces
             IForcesController forcesController;
             switch (type)
             {
+                // the diagram is modified when we remove an element or a connector from it
                 case NativeType.Diagram:
-                    // the diagram is modified when we remove an element or a connector from it
                     var diagram = repository.GetDiagramByGuid(guid);
                     if (!diagram.IsForcesView()) return;
                     // if the name of a diagram changed and the forces tab is open then close it to avoid conflicts

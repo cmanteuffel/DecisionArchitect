@@ -233,16 +233,19 @@ namespace DecisionViewpoints.Logic.Menu
             var diagrams =
                 (from EAPackage package in repository.GetAllDecisionViewPackages()
                  from EADiagram diagram in package.GetDiagrams()
-                 where !diagram.IsForcesView()
                  select diagram).ToList();
-            var report = new Report("Report.docx");
+            var report = Report.Create(ReportType.Word, "Report.docx");
             foreach (var decision in decisions)
             {
-                report.AddDecisionTable(decision);
+                report.InsertDecisionTable(decision);
             }
-            foreach (var diagram in diagrams)
+            foreach (var diagram in diagrams.Where(diagram => !diagram.IsForcesView()))
             {
-                report.AddDiagramImage(diagram);
+                report.InsertDiagramImage(diagram);
+            }
+            foreach (var diagram in diagrams.Where(diagram => diagram.IsForcesView()))
+            {
+                report.InsertForcesTable(new ForcesModel { DiagramModel = diagram});
             }
             report.Close();
         }

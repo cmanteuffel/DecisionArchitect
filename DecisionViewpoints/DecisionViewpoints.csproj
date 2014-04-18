@@ -65,7 +65,11 @@
     <Compile Include="Logic\Detail\DetailHandler.cs" />
     <Compile Include="Logic\General\DecisionStateModifedDateHandler.cs" />
     <Compile Include="Logic\Relationship\RelationshipHandler.cs" />
+    <Compile Include="Logic\Reporting\ExcelDocument.cs" />
+    <Compile Include="Logic\Reporting\PowerPointDocument.cs" />
     <Compile Include="Logic\Reporting\Report.cs" />
+    <Compile Include="Logic\Reporting\IReportDocument.cs" />
+    <Compile Include="Logic\Reporting\WordDocument.cs" />
     <Compile Include="Logic\RepositoryAdapter.cs" />
     <Compile Include="Logic\IRepositoryListener.cs" />
     <Compile Include="Logic\StakeholderInvolvement\StakeholderInvolvementHandler.cs" />
