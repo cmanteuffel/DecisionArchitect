@@ -11,11 +11,13 @@ namespace DecisionViewpointsCustomViews.Model
         private readonly List<IForcesModelObserver> _observers = new List<IForcesModelObserver>();
         private EADiagram _diagram;
         public string Name { get; set; }
+        public string DiagramName { get; private set; }
 
         public ForcesModel(EADiagram diagramModel)
         {
             DiagramModel = diagramModel;
             Name = CreateForcesTabName(diagramModel.Name);
+            DiagramName = diagramModel.Name;
         }
 
         public string DiagramGUID

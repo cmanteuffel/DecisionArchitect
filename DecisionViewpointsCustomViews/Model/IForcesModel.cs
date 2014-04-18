@@ -6,6 +6,7 @@ namespace DecisionViewpointsCustomViews.Model
     public interface IForcesModel : ICustomViewModel
     {
         string Name { get; }
+        string DiagramName { get; }
         string DiagramGUID { get; }
         EADiagram DiagramModel { set; }
 

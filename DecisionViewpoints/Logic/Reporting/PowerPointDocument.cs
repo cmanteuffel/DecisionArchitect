@@ -1,13 +1,10 @@
-using System;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
 using DecisionViewpoints.Logic.Reporting;
 using DecisionViewpointsCustomViews.Model;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Presentation;
-using EAFacade;
 using EAFacade.Model;
 
 namespace DecisionViewpoints.Model.Reporting
@@ -17,9 +14,9 @@ namespace DecisionViewpoints.Model.Reporting
         // These ids are read from the PowerPointTemplate. If the tempalte change then these need to be verified
         // that either remain the same, otherwise change them accordingly
         private const string DetailTemplateSlideId = "rId2";
-        private const string ImageTemplateSlideId = "rId3";
-        private const string ForcesTemplateSlideId = "rId4";
-        private const string TopicTemplateSlideId = "rIdtopic";
+        private const string ImageTemplateSlideId = "rId4";
+        private const string ForcesTemplateSlideId = "rId5";
+        private const string TopicTemplateSlideId = "rId3";
 
         private readonly string _filename;
         private SlidePart _detailSlideTemplate;
@@ -31,11 +28,10 @@ namespace DecisionViewpoints.Model.Reporting
 
         public PowerPointDocument(string filename)
         {
-            //_filename = String.Format("{0}\\{1}", Utilities.GetDocumentsDirectory(), filename);//original
-            _filename = filename;//angor
-            //MessageBox.Show("Document filename: " + _filename);//angor DEBUG
+            _filename = filename;   
             using (
-                PresentationDocument ppDoc = PresentationDocument.Create(_filename, PresentationDocumentType.Presentation)
+                PresentationDocument ppDoc = PresentationDocument.Create(_filename,
+                                                                         PresentationDocumentType.Presentation)
                 )
             {
                 var pp = new PowerPointTemplate();
@@ -50,19 +46,23 @@ namespace DecisionViewpoints.Model.Reporting
             _detailSlideTemplate = (SlidePart) _doc.PresentationPart.GetPartById(DetailTemplateSlideId);
             _imageSlideTemplate = (SlidePart) _doc.PresentationPart.GetPartById(ImageTemplateSlideId);
             _forcesSlideTemplate = (SlidePart) _doc.PresentationPart.GetPartById(ForcesTemplateSlideId);
-            //_topicSlideTemplate = (SlidePart)_doc.PresentationPart.GetPartById(TopicTemplateSlideId);
+            _topicSlideTemplate = (SlidePart)_doc.PresentationPart.GetPartById(TopicTemplateSlideId);
         }
 
         public void InsertTopicTable(ITopic topic)
         {
-            ISlide topicdetailSlide = new TopicDetailSlide(_doc, _detailSlideTemplate, topic);
+            ISlide topicdetailSlide = new TopicDetailSlide(_doc, _topicSlideTemplate, topic);
             topicdetailSlide.Create();
             topicdetailSlide.FillContent();
             topicdetailSlide.Save();
             topicdetailSlide.Add();
         }
 
-        public void InsertDecisionWithoutTopicMessage() { }
+        public void InsertDecisionWithoutTopicMessage()
+        {
+            
+        }
+
 
         public void InsertDecisionTable(IDecision decision)
         {
@@ -96,8 +96,13 @@ namespace DecisionViewpoints.Model.Reporting
             DeleteTemplateSlide(_detailSlideTemplate, DetailTemplateSlideId);
             DeleteTemplateSlide(_imageSlideTemplate, ImageTemplateSlideId);
             DeleteTemplateSlide(_forcesSlideTemplate, ForcesTemplateSlideId);
+            DeleteTemplateSlide(_topicSlideTemplate, TopicTemplateSlideId);
             _doc.PresentationPart.Presentation.Save();
             _doc.Close();
+        }
+
+        public void InsertDecisionDetailViewMessage()
+        {
         }
 
         private void DeleteTemplateSlide(SlidePart slidePart, string id)
@@ -116,7 +121,5 @@ namespace DecisionViewpoints.Model.Reporting
             _doc.PresentationPart.DeletePart(slidePart);
             _doc.PresentationPart.Presentation.Save();
         }
-
-        public void InsertDecisionDetailViewMessage() { }
     }
 }

@@ -20,7 +20,9 @@ namespace DecisionViewpointsCustomViews.Model
         void LoadLinkedDocument(string fileName);
         void AddObserver(IDecisionObserver observer);
         void RemoveObserver(IDecisionObserver observer);
-
-        IEnumerable<Rating> GetForces();//angor task159
+        bool HasTopic();
+        EAElement GetTopic();
+        IEnumerable<EAElement> GetTraces();
+        IEnumerable<Rating> GetForces();
     }
 }

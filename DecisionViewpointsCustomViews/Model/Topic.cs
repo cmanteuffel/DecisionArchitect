@@ -10,7 +10,7 @@ namespace DecisionViewpointsCustomViews.Model
 {
     public static class TopicDataTags
     {
-        public const string Name = "{name}";
+        public const string Name = "{topic}";
         public const string Description = "{description}";
     }
 

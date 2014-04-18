@@ -49,15 +49,26 @@ namespace DecisionViewpoints.Logic.Reporting
                 var concern = EARepository.Instance.GetElementByGUID(rating.ConcernGUID);
                 relatedRequirements.AppendLine(req.Name + " - " + req.Notes);
             }
+
+            //Traces Componenets
+            var traces = new StringBuilder();
+            foreach (var element in _decision.GetTraces())
+            {
+                var trace = element.GetProjectPath() + "/" + element.Name;
+                traces.AppendLine(trace);
+            }
+
+
             SetPlaceholder(NewSlidePart, DecisionDataTags.Name, _decision.Name);
             SetPlaceholder(NewSlidePart, DecisionDataTags.State, _decision.State);
-            //SetPlaceholder(NewSlidePart, DecisionDataTags.Group, _decision.Group);
+            SetPlaceholder(NewSlidePart, DecisionDataTags.Topic, _decision.HasTopic() ? _decision.GetTopic().Name : "");
             SetPlaceholder(NewSlidePart, DecisionDataTags.Issue, _decision.Issue);
             SetPlaceholder(NewSlidePart, DecisionDataTags.DecisionText, _decision.DecisionText);
             SetPlaceholder(NewSlidePart, DecisionDataTags.Arguments, _decision.Arguments);
             SetPlaceholder(NewSlidePart, DecisionDataTags.Alternatives, alternativeDecisions.ToString());
             SetPlaceholder(NewSlidePart, DecisionDataTags.RelatedDecisions, relatedDecisions.ToString());
             SetPlaceholder(NewSlidePart, DecisionDataTags.RelatedRequirements, relatedRequirements.ToString());
+            SetPlaceholder(NewSlidePart, DecisionDataTags.Traces, traces.ToString());
         }
     }
 }

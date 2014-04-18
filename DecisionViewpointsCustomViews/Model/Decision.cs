@@ -12,13 +12,14 @@ namespace DecisionViewpointsCustomViews.Model
     {
         public const string Name = "{name}";
         public const string State = "{state}";
-        public const string Group = "{group}";
+        public const string Topic = "{topic}";
         public const string Issue = "{issue}";
         public const string DecisionText = "{decision}";
         public const string Alternatives = "{alternatives}";
         public const string Arguments = "{arguments}";
         public const string RelatedDecisions = "{decisions}";
         public const string RelatedRequirements = "{requirements}";
+        public const string Traces = "{traces}";
     }
 
     public class Decision : IDecision
@@ -102,6 +103,16 @@ namespace DecisionViewpointsCustomViews.Model
             throw new NotImplementedException();
         }
 
+        public bool HasTopic()
+        {
+            return _element.HasTopic();
+        }
+
+        public EAElement GetTopic()
+        {
+            return _element.GetTopic();
+        }
+
         private string GetSubstring(string tag)
         {
             var rtf = new RichTextBox { Rtf = _element.GetLinkedDocument() };
@@ -127,6 +138,11 @@ namespace DecisionViewpointsCustomViews.Model
             return forces;
         }
         //angor END task159
+
+        public IEnumerable<EAElement> GetTraces()
+        {
+            return _element.GetTracedElements();
+        } 
 
     }
 }

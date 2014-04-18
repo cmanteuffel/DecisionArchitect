@@ -20,7 +20,7 @@ namespace DecisionViewpoints.Logic.Reporting
 
         public override void FillContent()
         {
-            SetPlaceholder(NewSlidePart, "{title}", _forces.Name);
+            SetPlaceholder(NewSlidePart, "{title}", _forces.DiagramName);
 
             Table tbl = NewSlidePart.Slide.Descendants<Table>().First();
 
