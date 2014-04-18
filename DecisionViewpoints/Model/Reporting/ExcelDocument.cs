@@ -7,6 +7,7 @@ using DecisionViewpointsCustomViews.Model;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
+using EAFacade;
 using EAFacade.Model;
 
 namespace DecisionViewpoints.Model.Reporting
@@ -19,14 +20,14 @@ namespace DecisionViewpoints.Model.Reporting
 
         public ExcelDocument(string filename)
         {
-            using (SpreadsheetDocument excelDoc = SpreadsheetDocument.Create(filename, SpreadsheetDocumentType.Workbook)
+            _filename = String.Format("{0}\\{1}", Utilities.GetHomeDirectory(), filename);
+            using (SpreadsheetDocument excelDoc = SpreadsheetDocument.Create(_filename, SpreadsheetDocumentType.Workbook)
                 )
             {
                 _mainPart = excelDoc.AddWorkbookPart();
                 _mainPart.Workbook = new Workbook();
                 _mainPart.Workbook.AppendChild(new Sheets());
             }
-            _filename = filename;
         }
 
         public void InsertDecisionTable(IDecision decision)

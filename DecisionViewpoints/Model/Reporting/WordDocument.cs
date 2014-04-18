@@ -41,13 +41,13 @@ namespace DecisionViewpoints.Model.Reporting
 
         public WordDocument(string filename)
         {
-            using (var wordDoc = WordprocessingDocument.Create(filename, WordprocessingDocumentType.Document))
+            _filename = String.Format("{0}\\{1}", Utilities.GetHomeDirectory(), filename);
+            using (var wordDoc = WordprocessingDocument.Create(_filename, WordprocessingDocumentType.Document))
             {
                 _mainPart = wordDoc.AddMainDocumentPart();
                 _mainPart.Document = new Document();
                 _body = _mainPart.Document.AppendChild(new Body());
             }
-            _filename = filename;
         }
 
         public void InsertDecisionTable(IDecision decision)

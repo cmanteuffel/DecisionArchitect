@@ -1,9 +1,11 @@
+using System;
 using System.IO;
 using System.Linq;
 using DecisionViewpointsCustomViews.Model;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Presentation;
+using EAFacade;
 using EAFacade.Model;
 
 namespace DecisionViewpoints.Model.Reporting
@@ -24,14 +26,14 @@ namespace DecisionViewpoints.Model.Reporting
 
         public PowerPointDocument(string filename)
         {
+            _filename = String.Format("{0}\\{1}", Utilities.GetHomeDirectory(), filename);
             using (
-                PresentationDocument ppDoc = PresentationDocument.Create(filename, PresentationDocumentType.Presentation)
+                PresentationDocument ppDoc = PresentationDocument.Create(_filename, PresentationDocumentType.Presentation)
                 )
             {
                 var pp = new PowerPointTemplate();
                 pp.CreateParts(ppDoc);
             }
-            _filename = filename;
         }
 
         public void Open()

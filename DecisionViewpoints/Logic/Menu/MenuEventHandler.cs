@@ -237,7 +237,7 @@ namespace DecisionViewpoints.Logic.Menu
             IReportDocument report = null;
             try
             {
-                report = ReportFactory.Create(ReportType.Word, "Report.docx");
+                report = ReportFactory.Create(ReportType.PowerPoint, "Report.pptx");
                 report.Open();
                 foreach (Decision decision in decisions)
                 {

@@ -56,8 +56,8 @@ namespace EAFacade
         public static string GetResourceContents(string resource)
         {
             string technology = null;
-            using (var stream = Assembly.GetExecutingAssembly()
-                                        .GetManifestResourceStream(resource))
+            using (Stream stream = Assembly.GetExecutingAssembly()
+                                           .GetManifestResourceStream(resource))
             {
                 if (stream != null)
                     using (var reader = new StreamReader(stream))
@@ -79,18 +79,27 @@ namespace EAFacade
         public static long[] GetImageSize(Image img)
         {
             var size = new long[2];
-            var widthPx = img.Width;
-            var heightPx = img.Height;
-            var horzRezDpi = img.HorizontalResolution;
-            var vertRezDpi = img.VerticalResolution;
+            int widthPx = img.Width;
+            int heightPx = img.Height;
+            float horzRezDpi = img.HorizontalResolution;
+            float vertRezDpi = img.VerticalResolution;
             const int emusPerInch = 914400;
-            var widthEmus = (long)(widthPx / horzRezDpi * emusPerInch);
-            var heightEmus = (long)(heightPx / vertRezDpi * emusPerInch);
-            const long maxWidthEmus = (long)(6.5 * emusPerInch);
-            var ratio = (heightEmus * 1.0m) / widthEmus;
+            var widthEmus = (long) (widthPx/horzRezDpi*emusPerInch);
+            var heightEmus = (long) (heightPx/vertRezDpi*emusPerInch);
+            const long maxWidthEmus = (long) (6.5*emusPerInch);
+            decimal ratio = (heightEmus*1.0m)/widthEmus;
             size[0] = widthEmus <= maxWidthEmus ? widthEmus : maxWidthEmus;
-            size[1] = (long)(widthEmus * ratio);
+            size[1] = (long) (widthEmus*ratio);
             return size;
+        }
+
+        public static string GetHomeDirectory()
+        {
+            return Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
+            // (Environment.OSVersion.Platform == PlatformID.Unix ||
+            //        Environment.OSVersion.Platform == PlatformID.MacOSX)
+            //           ? Environment.GetEnvironmentVariable("HOME")
+            //           :
         }
     }
 }
