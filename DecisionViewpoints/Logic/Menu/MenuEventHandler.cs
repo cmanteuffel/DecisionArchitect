@@ -20,7 +20,8 @@ namespace DecisionViewpoints.Logic.Menu
         {
             var createTraces = new Model.Menu.Menu(Messages.MenuCreateTraces);
             var createAndTraceDecision = new MenuItem(Messages.MenuTraceToNewDecision, CreateAndTraceDecision)
-                {
+         
+            {
                     UpdateDelegate = menuItem =>
                         {
                             if (NativeType.Element == EARepository.Instance.GetContextItemType())
@@ -99,8 +100,53 @@ namespace DecisionViewpoints.Logic.Menu
                         }
                 };
 
+
+
             var reportMenu = new Model.Menu.Menu(Messages.MenuExport);
-            var generateReport = new MenuItem("Generate Report", GenerateReport);
+            var generateWordReport = new MenuItem(Messages.MenuExportWord)
+                {
+                    ClickDelegate = () => GenerateReport("Report.docx",ReportType.Word),
+                    UpdateDelegate = self => {}
+
+                };
+
+            var generateExecelAllReport = new MenuItem(Messages.MenuExportExcelForcesAll)
+            {
+                ClickDelegate = () => GenerateReport("AllForcesReport.docx", ReportType.Excel),
+                UpdateDelegate = self => { }
+
+            };
+
+            var generateExcelReport = new MenuItem(Messages.MenuExportExcelForces)
+            {
+                ClickDelegate = () =>
+                    {
+                        if (NativeType.Diagram == EARepository.Instance.GetContextItemType())
+                        {
+                            var eadiagram = EARepository.Instance.GetContextObject<EADiagram>();
+                            GenerateForcesReport(eadiagram.Name + "_Report.xlsx", eadiagram);
+                        }
+                        
+                    },
+                UpdateDelegate = self =>
+                    {
+                        if (NativeType.Diagram == EARepository.Instance.GetContextItemType())
+                        {
+                            var eadiagram = EARepository.Instance.GetContextObject<EADiagram>();
+                            self.IsEnabled = ((eadiagram != null) && eadiagram.IsForcesView());
+                            return;
+                        }
+                        self.IsEnabled = false;
+                    }
+
+            };
+
+            var generatePowerpointReport = new MenuItem(Messages.MenuExportPowerPoint)
+            {
+                ClickDelegate = () => GenerateReport("Report.pptx", ReportType.PowerPoint),
+                UpdateDelegate = self => { }
+
+            };
 
             RootMenu.Add(createTraces);
             createTraces.Add(createAndTraceDecision);
@@ -117,7 +163,11 @@ namespace DecisionViewpoints.Logic.Menu
             RootMenu.Add(generateChronologicalView);
             RootMenu.Add(MenuItem.Separator);
             RootMenu.Add(reportMenu);
-            reportMenu.Add(generateReport);
+            reportMenu.Add(generateWordReport);
+            reportMenu.Add(generateExcelReport);
+            reportMenu.Add(generateExecelAllReport);
+            reportMenu.Add(generatePowerpointReport);
+            
         }
 
         public static object GetMenuItems(string location, string menuName)
@@ -224,7 +274,7 @@ namespace DecisionViewpoints.Logic.Menu
             }
         }
 
-        private static void GenerateReport()
+        private static void GenerateReport(string filename, ReportType reportType)
         {
             EARepository repository = EARepository.Instance;
             List<Decision> decisions =
@@ -239,7 +289,7 @@ namespace DecisionViewpoints.Logic.Menu
             IReportDocument report = null;
             try
             {
-                report = ReportFactory.Create(ReportType.PowerPoint, "Report.pptx");
+                report = ReportFactory.Create(reportType,filename);
                 report.Open();
                 foreach (Decision decision in decisions)
                 {
@@ -250,6 +300,26 @@ namespace DecisionViewpoints.Logic.Menu
                     report.InsertDiagramImage(diagram);
                 }
                 foreach (EADiagram diagram in diagrams.Where(diagram => diagram.IsForcesView()))
+                {
+                    report.InsertForcesTable(new ForcesModel(diagram));
+                }
+            }
+            finally
+            {
+                if (report != null)
+                    report.Close();
+            }
+        }
+
+        private static void GenerateForcesReport(string filename, EADiagram diagram)
+        {
+
+            IReportDocument report = null;
+            try
+            {
+                report = ReportFactory.Create(ReportType.Excel, filename);
+                report.Open();
+                if (diagram.IsForcesView())
                 {
                     report.InsertForcesTable(new ForcesModel(diagram));
                 }

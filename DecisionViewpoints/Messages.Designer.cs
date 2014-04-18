@@ -205,6 +205,42 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Generate Excel (Selected Forces view).
+        /// </summary>
+        internal static string MenuExportExcelForces {
+            get {
+                return ResourceManager.GetString("MenuExportExcelForces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generate Excel (All Forces views).
+        /// </summary>
+        internal static string MenuExportExcelForcesAll {
+            get {
+                return ResourceManager.GetString("MenuExportExcelForcesAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generate PowerPoint.
+        /// </summary>
+        internal static string MenuExportPowerPoint {
+            get {
+                return ResourceManager.GetString("MenuExportPowerPoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generate Word.
+        /// </summary>
+        internal static string MenuExportWord {
+            get {
+                return ResourceManager.GetString("MenuExportWord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to -&amp;Follow Trace(s).
         /// </summary>
         internal static string MenuFollowTraceDefault {

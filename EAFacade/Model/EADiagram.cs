@@ -146,7 +146,7 @@ namespace EAFacade.Model
 
         public bool IsForcesView()
         {
-            return Metatype.Equals(DVStereotypes.DiagramMetaTypeForces);
+          return Metatype.Equals(DVStereotypes.DiagramMetaTypeForces);
         }
 
         public bool IsChronologicalView()

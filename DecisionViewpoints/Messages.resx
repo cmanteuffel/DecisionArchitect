@@ -207,4 +207,16 @@
   <data name="MenuExport" xml:space="preserve">
     <value>-&amp;Export</value>
   </data>
+  <data name="MenuExportExcelForces" xml:space="preserve">
+    <value>Generate Excel (Selected Forces view)</value>
+  </data>
+  <data name="MenuExportExcelForcesAll" xml:space="preserve">
+    <value>Generate Excel (All Forces views)</value>
+  </data>
+  <data name="MenuExportPowerPoint" xml:space="preserve">
+    <value>Generate PowerPoint</value>
+  </data>
+  <data name="MenuExportWord" xml:space="preserve">
+    <value>Generate Word</value>
+  </data>
 </root>

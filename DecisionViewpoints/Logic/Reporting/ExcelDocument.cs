@@ -39,8 +39,8 @@ namespace DecisionViewpoints.Logic.Reporting
         public void InsertForcesTable(IForcesModel forces)
         {
             WorksheetPart worksheetPart = InsertWorksheet(forces.Name);
-            const string forcesTableTopLeftColumn = "F";
-            const uint forcesTopLeftRow = 4;
+            const string forcesTableTopLeftColumn = "A";
+            const uint forcesTopLeftRow = 1;
 
             InsertText(worksheetPart, forcesTableTopLeftColumn, forcesTopLeftRow, "");
             InsertText(worksheetPart, forcesTopLeftRow, "Concern");
