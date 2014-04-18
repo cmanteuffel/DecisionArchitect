@@ -78,7 +78,8 @@ namespace DecisionViewpoints.Logic.Forces
                     // if the name of a diagram changed and the forces tab is open then close it to avoid conflicts
                     if (!_controllers.ContainsKey(diagram.GUID)) continue;
                     forcesController = _controllers[diagram.GUID];
-                    repository.RemoveTab(forcesController.Model.Name);
+                    if (repository.IsTabOpen(forcesController.Model.Name) > 0)
+                        repository.RemoveTab(forcesController.Model.Name);
                     continue;
                 }
                 if (!_controllers.ContainsKey(diagram.GUID)) continue;
