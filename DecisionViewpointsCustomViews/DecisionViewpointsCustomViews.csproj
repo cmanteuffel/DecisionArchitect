@@ -49,7 +49,7 @@
   <ItemGroup>
     <Compile Include="Controller\ForcesController.cs" />
     <Compile Include="Events\CustomViewListener.cs" />
-    <Compile Include="View\CustomViewControl.cs">
+    <Compile Include="View\ForcesView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Model\ForcesModel.cs">
@@ -59,8 +59,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="View\CustomViewControl.resx">
-      <DependentUpon>CustomViewControl.cs</DependentUpon>
+    <EmbeddedResource Include="View\ForcesView.resx">
+      <DependentUpon>ForcesView.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

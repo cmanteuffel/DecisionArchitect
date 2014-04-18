@@ -17,7 +17,8 @@ namespace DecisionViewpoints.Logic.Forces
             var repository = EARepository.Instance;
             var diagram = repository.GetDiagramByGuid(guid);
             if (!diagram.IsForces()) return false;
-            var forcesModel = new ForcesModel();
+            var forcesModel = new ForcesModel { Name = String.Format("{0} (Forces)", diagram.Name) };
+            forcesModel.Columns.Add("Concerns");
             foreach (var diagramObject in diagram.GetElements())
             {
                 var element = repository.GetElementByID(diagramObject.ElementID);
@@ -28,13 +29,14 @@ namespace DecisionViewpoints.Logic.Forces
                 if (!element.Type.Equals("Requirement")) continue;
                 forcesModel.Rows.Add();
                 forcesModel.Requirements.Add(new ForcesRequirement { Name = element.Name });
+                // if the element is a concern?
             }
-            if (repository.IsTabOpen(String.Format("{0} Forces", diagram.Name)) > 0)
+            if (repository.IsTabOpen(forcesModel.Name) > 0)
             {
-                repository.ActivateTab(String.Format("{0} Forces", diagram.Name));
+                repository.ActivateTab(forcesModel.Name);
                 return true;
             }
-            ICustomView forcesView = repository.AddTab(String.Format("{0} Forces", diagram.Name), "DecisionViewpointsCustomViews.CustomViewControl");
+            ICustomView forcesView = repository.AddTab(forcesModel.Name, "DecisionViewpointsCustomViews.CustomViewControl");
             forcesView.DiagramGUID = diagram.GUID;
             var forcesController = new ForcesController(forcesView, forcesModel);
             forcesController.UpdateTable();
@@ -45,13 +47,14 @@ namespace DecisionViewpoints.Logic.Forces
         public void Save(ICustomView view)
         {
             MessageBox.Show("Saving...");
+            // What is the user modify diagram, save it, but then do not update the table and start
+            // modifying values and try to save?
         }
 
         public void Configure(ICustomView view)
         {
             var repository = EARepository.Instance;
             var diagram = repository.GetDiagramByGuid(view.DiagramGUID);
-            if (repository.IsTabOpen(diagram.Name) > 1) return;
             repository.OpenDiagram(diagram.ID);
         }
 
@@ -61,6 +64,7 @@ namespace DecisionViewpoints.Logic.Forces
             var diagram = repository.GetDiagramByGuid(view.DiagramGUID);
             if (!diagram.IsForces()) return;
             var forcesModel = new ForcesModel();
+            forcesModel.Columns.Add("Concerns");
             foreach (var diagramObject in diagram.GetElements())
             {
                 var element = repository.GetElementByID(diagramObject.ElementID);

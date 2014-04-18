@@ -11,6 +11,7 @@ namespace DecisionViewpointsCustomViews.Model
             Requirements = new List<ForcesRequirement>();
         }
 
+        public string Name { get; set; }
         public List<ForcesRequirement> Requirements { get; private set; }
     }
 

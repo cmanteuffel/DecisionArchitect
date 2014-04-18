@@ -12,7 +12,7 @@ namespace DecisionViewpointsCustomViews.View
     [ProgId("DecisionViewpointsCustomViews.CustomViewControl")]
     [ClassInterface(ClassInterfaceType.None)]
     [ComDefaultInterface(typeof(ICustomView))]
-    public class CustomViewControl : UserControl, ICustomView
+    public class ForcesView : UserControl, ICustomView
     {
         private Button _btnSave;
         private DataGridView _forcesTable;
@@ -22,7 +22,7 @@ namespace DecisionViewpointsCustomViews.View
         private Button _btnUpdate;
         private readonly IList<ICustomViewListener> _listeners = new List<ICustomViewListener>();
         
-        public CustomViewControl()
+        public ForcesView()
         {
             InitializeComponent();
         }
