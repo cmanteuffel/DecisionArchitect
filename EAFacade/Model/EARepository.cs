@@ -144,6 +144,11 @@ namespace EAFacade.Model
             Native.OpenDiagram(diagramID);
         }
 
+        public void ReloadDiagram(int diagramID)
+        {
+            Native.ReloadDiagram(diagramID);
+        }
+
         public T GetContextObject<T>() where T : IModelItem
         {
             dynamic obj = Native.GetContextObject();

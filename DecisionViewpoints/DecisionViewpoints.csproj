@@ -61,8 +61,10 @@
     <Compile Include="Logic\Chronological\DecisionDiffItem.cs" />
     <Compile Include="Logic\Chronological\DecisionStateModifedDateHandler.cs" />
     <Compile Include="Logic\Forces\ForcesHandler.cs" />
+    <Compile Include="Logic\Relationship\RelationshipHandler.cs" />
     <Compile Include="Logic\RepositoryAdapter.cs" />
     <Compile Include="Logic\IRepositoryListener.cs" />
+    <Compile Include="Logic\StakeholderInvolvement\StakeholderInvolvementHandler.cs" />
     <Compile Include="Logic\Validation\ValidationHandler.cs" />
     <Compile Include="MainApplicationMenuEvents.cs" />
     <Compile Include="MainApplicationModelValidatorEvents.cs" />

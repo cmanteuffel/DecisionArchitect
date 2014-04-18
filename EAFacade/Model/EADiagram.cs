@@ -129,14 +129,39 @@ namespace EAFacade.Model
                     .ToList();
         }
 
-        public bool IsForces()
+        public void HideConnectors(string[] stereotypes)
         {
-            return (DVStereotypes.DiagramMetaTypeForces.Equals(Metatype));
+            var repository = EARepository.Instance;
+            foreach (var diagramLink in from DiagramLink diagramLink in _native.DiagramLinks
+                                                let connector = repository.GetConnectorByID(diagramLink.ConnectorID)
+                                                where stereotypes.Contains(connector.Stereotype)
+                                                select diagramLink)
+            {
+                diagramLink.IsHidden = true;
+                diagramLink.Update();
+            }
+            _native.DiagramLinks.Refresh();
+            repository.ReloadDiagram(_native.DiagramID);
+        }
+
+        public bool IsForcesView()
+        {
+            return Metatype.Equals(DVStereotypes.DiagramMetaTypeForces);
         }
 
         public bool IsChronologicalView()
         {
             return Metatype.Equals(DVStereotypes.DiagramMetaTypeChronological);
+        }
+
+        public bool IsRelationshipView()
+        {
+            return Metatype.Equals(DVStereotypes.DiagramMetaTypeRelationship);
+        }
+
+        public bool IsStakeholderInvolvementView()
+        {
+            return Metatype.Equals(DVStereotypes.DiagramMetaTypeStakeholder);
         }
 
         public bool Contains(EAElement element)

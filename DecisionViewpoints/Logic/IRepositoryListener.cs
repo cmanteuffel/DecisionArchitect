@@ -4,7 +4,7 @@ namespace DecisionViewpoints.Logic
 {
     interface IRepositoryListener
     {
-        string OnPostOpenDiagram(EADiagram diagram);
+        void OnPostOpenDiagram(EADiagram diagram);
 
         void OnPostCloseDiagram(EADiagram diagram);
 

@@ -2,6 +2,7 @@
 using DecisionViewpoints.Logic;
 using DecisionViewpoints.Logic.Chronological;
 using DecisionViewpoints.Logic.Forces;
+using DecisionViewpoints.Logic.Relationship;
 using EA;
 using EAFacade.Model;
 using EAFacade.Model.Events;
@@ -20,6 +21,7 @@ namespace DecisionViewpoints
             _listeners.Add(new ChronologicalViewpointHandler());
             _listeners.Add(new ForcesHandler());
             _listeners.Add(new DecisionStateModifedDateHandler());
+            _listeners.Add(new RelationshipHandler());
         }
 
         public override object EA_OnInitializeTechnologies(Repository repository)

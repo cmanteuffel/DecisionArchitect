@@ -36,16 +36,17 @@ namespace DecisionViewpoints.Logic.Chronological
                 case NativeType.Element:
                     EAElement element = EARepository.Instance.GetElementByGUID(guid);
 
-                    if (element==null) throw new Exception("element is null");
+                    if (element == null) throw new Exception("element is null");
 
                     // Create a baseline upon a modification of a decision
-                    if (Settings.Default.BaselineOptionOnModification) {
+                    if (Settings.Default.BaselineOptionOnModification)
+                    {
                         if (element.IsDecision())
                         {
                             //find containing decision view package
                             EAPackage package = element.ParentPackage;
-                            if (package==null) throw new Exception("package is null");
-                            
+                            if (package == null) throw new Exception("package is null");
+
                             while (!(package.IsModelRoot() || package.IsDecisionViewPackage()))
                             {
                                 package = package.ParentPackage;
@@ -55,12 +56,23 @@ namespace DecisionViewpoints.Logic.Chronological
                             {
                                 throw new BaselineException("Elements needs to be in a decision viewpoint packge");
                             }
-                            
+
                             CreateDecisionSnapshot(package);
                         }
                     }
                     break;
             }
+        }
+
+        public override void OnPostOpenDiagram(EADiagram diagram)
+        {
+            if (!diagram.IsChronologicalView()) return;
+            diagram.HideConnectors(new[]
+                {
+                    DVStereotypes.RelationAlternativeFor, DVStereotypes.RelationCausedBy,
+                    DVStereotypes.RelationDependsOn,
+                    DVStereotypes.RelationExcludedBy, DVStereotypes.RelationReplaces
+                });
         }
 
         public override void OnFileClose()

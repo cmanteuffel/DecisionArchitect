@@ -19,7 +19,7 @@ namespace DecisionViewpoints.Logic.Forces
             if (NativeType.Diagram != type) return false;
             var repository = EARepository.Instance;
             var diagram = repository.GetDiagramByGuid(guid);
-            if (!diagram.IsForces()) return false;
+            if (!diagram.IsForcesView()) return false;
             var forcesDiagramModel = new ForcesDiagramModel
                 {
                     DiagramModel = diagram,
@@ -62,7 +62,7 @@ namespace DecisionViewpoints.Logic.Forces
                 case NativeType.Diagram:
                     // the diagram is modified when we remove an element or a connector from it
                     var diagram = repository.GetDiagramByGuid(guid);
-                    if (!diagram.IsForces()) return;
+                    if (!diagram.IsForcesView()) return;
                     // if the name of a diagram changed and the forces tab is open then close it to avoid conflicts
                     if (repository.IsTabOpen(CreateForcesTabName(diagram.Name)) <= 0)
                     {
@@ -81,7 +81,7 @@ namespace DecisionViewpoints.Logic.Forces
                     foreach (
                         var eaDiagram in
                             element.GetDiagrams()
-                                   .Where(eaDiagram => eaDiagram.IsForces())
+                                   .Where(eaDiagram => eaDiagram.IsForcesView())
                                    .Where(eaDiagram => _controllers.ContainsKey(eaDiagram.GUID)))
                     {
                         forcesController = _controllers[eaDiagram.GUID];
@@ -100,7 +100,7 @@ namespace DecisionViewpoints.Logic.Forces
         {
             var repository = EARepository.Instance;
             var diagram = repository.GetDiagramByID(volatileDiagram.DiagramID);
-            if (!diagram.IsForces()) return true;
+            if (!diagram.IsForcesView()) return true;
             if (_controllers.ContainsKey(diagram.GUID))
             {
                 if (repository.IsTabOpen(CreateForcesTabName(diagram.Name)) > 0)
@@ -114,7 +114,7 @@ namespace DecisionViewpoints.Logic.Forces
         {
             if (!element.IsDecision() && !element.IsConcern() && !element.IsRequirement()) return true;
             var diagrams = new List<EADiagram>();
-            diagrams.AddRange(element.GetDiagrams().Where(eaDiagram => eaDiagram.IsForces()));
+            diagrams.AddRange(element.GetDiagrams().Where(eaDiagram => eaDiagram.IsForcesView()));
             if (diagrams.Count == 0) return true;
             var repository = EARepository.Instance;
             foreach (
@@ -138,6 +138,17 @@ namespace DecisionViewpoints.Logic.Forces
         public override void OnFileOpen()
         {
             _controllers.Clear();
+        }
+
+        public override void OnPostOpenDiagram(EADiagram diagram)
+        {
+            if (!diagram.IsForcesView()) return;
+            diagram.HideConnectors(new[]
+                {
+                    DVStereotypes.RelationAlternativeFor, DVStereotypes.RelationCausedBy,
+                    DVStereotypes.RelationDependsOn,
+                    DVStereotypes.RelationExcludedBy, DVStereotypes.RelationReplaces, DVStereotypes.RelationFollowedBy
+                });
         }
 
         private static string CreateForcesTabName(string diagramName)

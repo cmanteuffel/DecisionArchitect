@@ -4,9 +4,8 @@ namespace DecisionViewpoints.Logic
 {
     public abstract class RepositoryAdapter : IRepositoryListener
     {
-        public virtual string OnPostOpenDiagram(EADiagram diagram)
+        public virtual void OnPostOpenDiagram(EADiagram diagram)
         {
-            return "";
         }
 
         public virtual void OnPostCloseDiagram(EADiagram diagram)

@@ -26,6 +26,7 @@ namespace EAFacade.Model
         public const string RelationExcludedBy = "excluded by";
         public const string RelationReplaces = "replaces";
         public const string RelationClassifiedBy = "classified by";
+        public const string RelationFollowedBy = "followed by";
 
         public static readonly HashSet<string> Relationships = new HashSet<string>
             {

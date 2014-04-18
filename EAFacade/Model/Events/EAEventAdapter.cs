@@ -59,9 +59,8 @@ namespace EAFacade.Model.Events
         {
         }
 
-        public virtual string EA_OnPostOpenDiagram(Repository repository, int diagramId)
+        public virtual void EA_OnPostOpenDiagram(Repository repository, int diagramId)
         {
-            return "";
         }
 
         public virtual void EA_OnPostCloseDiagram(Repository repository, int diagramId)

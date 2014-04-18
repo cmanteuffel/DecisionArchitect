@@ -13,7 +13,7 @@ namespace EAFacade.Model.Events
         void EA_FileOpen(Repository repository);
         void EA_FileClose(Repository repository);
         void EA_FileNew(Repository repository);
-        string EA_OnPostOpenDiagram(Repository repository, int diagramId);
+        void EA_OnPostOpenDiagram(Repository repository, int diagramId);
         void EA_OnPostCloseDiagram(Repository repository, int diagramId);
     }
 
