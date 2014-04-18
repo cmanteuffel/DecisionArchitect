@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 using System.Xml;
 using EA;
 
@@ -121,6 +120,13 @@ namespace EAFacade.Model
                 return parentPkg;
             }
             set { _native.PackageID = value.ID; }
+        }
+
+        // To modify the stereotype we need to modify the list and not the stereotype directly
+        public string StereotypeList
+        {
+            get { return _native.StereotypeEx; }
+            set { _native.StereotypeEx = value; }
         }
 
         public void ShowInProjectView()
@@ -255,6 +261,21 @@ namespace EAFacade.Model
             _native.Refresh();
         }
 
+        public List<EAConnector> GetConnectors()
+        {
+            return _native.Connectors.Cast<Connector>().Select(EAConnector.Wrap).ToList();
+        }
+
+        public string GetLinkedDocument()
+        {
+            return _native.GetLinkedDocument();
+        }
+
+        public void LoadLinkedDocument(string fileName)
+        {
+            _native.LoadLinkedDocument(fileName);
+        }
+
         public string GetTaggedValue(string dvDecisionviewpackage)
         {
             try
@@ -308,25 +329,5 @@ namespace EAFacade.Model
         {
             return 0;
         }
-
-        public List<EAConnector> GetConnectors()
-        {
-            return _native.Connectors.Cast<Connector>().Select(EAConnector.Wrap).ToList();
-        }
-
-        /*public string GetLastError()
-        {
-            return _native.GetLastError();
-        }
-
-        public string GetLinkedDocument()
-        {
-            return _native.GetLinkedDocument();
-        }
-
-        public void LoadLinkedDocument(string fileName)
-        {
-            _native.LoadLinkedDocument(fileName);
-        }*/
     }
 }

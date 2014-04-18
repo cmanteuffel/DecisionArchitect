@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.CodeDom.Compiler;
+using System.Linq;
 using System.Text;
 using DecisionViewpointsCustomViews.Model;
 using DecisionViewpointsCustomViews.View;
@@ -34,6 +35,8 @@ namespace DecisionViewpointsCustomViews.Controller
                     _view.AddRelatedDecision(connector.Stereotype, connector.GetClient().Name, false);
             }
 
+            _view.DecisionRelatedRequirements = _decision.RelatedRequirements;
+
             _view.ShowDialog();
         }
 
@@ -42,21 +45,26 @@ namespace DecisionViewpointsCustomViews.Controller
             _decision.Name = _view.DecisionName;
             _decision.State = _view.DecisionState;
             var extraData = new StringBuilder();
-            extraData.Append(string.Format("{0}{1}", DecisionDataTags.Issue, _view.DecisionIssue));
-            extraData.Append(string.Format("{0}{1}", DecisionDataTags.DecisionText, _view.DecisionText));
-            extraData.Append(string.Format("{0}{1}", DecisionDataTags.Alternatives, _view.DecisionAlternatives));
-            extraData.Append(string.Format("{0}{1}", DecisionDataTags.Arguments, _view.DecisionArguments));
-            extraData.Append(DecisionDataTags.End);
-            _decision.Save(extraData.ToString());
-            /*using (var tempFiles = new TempFileCollection())
+            extraData.Append(string.Format("{0}{1}{2}", DecisionDataTags.Issue, _view.DecisionIssue,
+                                           DecisionDataTags.Issue));
+            extraData.Append(string.Format("{0}{1}{2}", DecisionDataTags.DecisionText, _view.DecisionText,
+                                           DecisionDataTags.DecisionText));
+            extraData.Append(string.Format("{0}{1}{2}", DecisionDataTags.Alternatives, _view.DecisionAlternatives,
+                                           DecisionDataTags.Alternatives));
+            extraData.Append(string.Format("{0}{1}{2}", DecisionDataTags.Arguments, _view.DecisionArguments,
+                                           DecisionDataTags.Arguments));
+            extraData.Append(string.Format("{0}{1}{2}", DecisionDataTags.RelatedRequirements,
+                                           _view.DecisionRelatedRequirements, DecisionDataTags.RelatedRequirements));
+            using (var tempFiles = new TempFileCollection())
             {
                 var fileName = tempFiles.AddExtension("rtf");
                 using (var file = new System.IO.StreamWriter(fileName))
                 {
-                    file.WriteLine(elementExtraDataBuilder.ToString());
+                    file.WriteLine(extraData.ToString());
                 }
-                element.LoadLinkedDocument(fileName);
-            }*/
+                _decision.LoadLinkedDocument(fileName);
+            }
+            _decision.Save(extraData.ToString());
         }
     }
 }

@@ -49,7 +49,14 @@ namespace DecisionViewpointsCustomViews.View
             this.label9 = new System.Windows.Forms.Label();
             this.txtRelatedRequirements = new System.Windows.Forms.RichTextBox();
             this.lbxRelatedDecisions = new System.Windows.Forms.ListBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.StakeholderColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ActionColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StatusColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IterationColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label10 = new System.Windows.Forms.Label();
             this.flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -92,7 +99,7 @@ namespace DecisionViewpointsCustomViews.View
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtName.Location = new System.Drawing.Point(253, 12);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(469, 31);
+            this.txtName.Size = new System.Drawing.Size(561, 31);
             this.txtName.TabIndex = 1;
             // 
             // buttonCancel
@@ -139,10 +146,10 @@ namespace DecisionViewpointsCustomViews.View
             this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel1.Controls.Add(this.buttonOk);
             this.flowLayoutPanel1.Controls.Add(this.buttonCancel);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(496, 922);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(588, 1176);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(266, 47);
-            this.flowLayoutPanel1.TabIndex = 18;
+            this.flowLayoutPanel1.TabIndex = 20;
             // 
             // txtIssue
             // 
@@ -150,7 +157,7 @@ namespace DecisionViewpointsCustomViews.View
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtIssue.Location = new System.Drawing.Point(253, 182);
             this.txtIssue.Name = "txtIssue";
-            this.txtIssue.Size = new System.Drawing.Size(437, 96);
+            this.txtIssue.Size = new System.Drawing.Size(529, 96);
             this.txtIssue.TabIndex = 7;
             this.txtIssue.Text = "";
             // 
@@ -160,7 +167,7 @@ namespace DecisionViewpointsCustomViews.View
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDecision.Location = new System.Drawing.Point(253, 303);
             this.txtDecision.Name = "txtDecision";
-            this.txtDecision.Size = new System.Drawing.Size(437, 96);
+            this.txtDecision.Size = new System.Drawing.Size(529, 96);
             this.txtDecision.TabIndex = 9;
             this.txtDecision.Text = "";
             this.txtDecision.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.rtf_LinkClicked);
@@ -180,7 +187,7 @@ namespace DecisionViewpointsCustomViews.View
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtAlternatives.Location = new System.Drawing.Point(253, 424);
             this.txtAlternatives.Name = "txtAlternatives";
-            this.txtAlternatives.Size = new System.Drawing.Size(437, 96);
+            this.txtAlternatives.Size = new System.Drawing.Size(529, 96);
             this.txtAlternatives.TabIndex = 11;
             this.txtAlternatives.Text = "";
             this.txtAlternatives.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.rtf_LinkClicked);
@@ -200,7 +207,7 @@ namespace DecisionViewpointsCustomViews.View
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtArguments.Location = new System.Drawing.Point(253, 545);
             this.txtArguments.Name = "txtArguments";
-            this.txtArguments.Size = new System.Drawing.Size(437, 96);
+            this.txtArguments.Size = new System.Drawing.Size(529, 96);
             this.txtArguments.TabIndex = 13;
             this.txtArguments.Text = "";
             this.txtArguments.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.rtf_LinkClicked);
@@ -218,16 +225,17 @@ namespace DecisionViewpointsCustomViews.View
             // 
             this.txtGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtGroup.BackColor = System.Drawing.SystemColors.Window;
             this.txtGroup.Location = new System.Drawing.Point(253, 126);
             this.txtGroup.Name = "txtGroup";
             this.txtGroup.ReadOnly = true;
-            this.txtGroup.Size = new System.Drawing.Size(437, 31);
+            this.txtGroup.Size = new System.Drawing.Size(529, 31);
             this.txtGroup.TabIndex = 5;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(14, 666);
+            this.label8.Location = new System.Drawing.Point(12, 666);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(194, 26);
             this.label8.TabIndex = 14;
@@ -248,7 +256,7 @@ namespace DecisionViewpointsCustomViews.View
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRelatedRequirements.Location = new System.Drawing.Point(253, 795);
             this.txtRelatedRequirements.Name = "txtRelatedRequirements";
-            this.txtRelatedRequirements.Size = new System.Drawing.Size(437, 96);
+            this.txtRelatedRequirements.Size = new System.Drawing.Size(529, 96);
             this.txtRelatedRequirements.TabIndex = 17;
             this.txtRelatedRequirements.Text = "";
             // 
@@ -261,8 +269,56 @@ namespace DecisionViewpointsCustomViews.View
             this.lbxRelatedDecisions.Location = new System.Drawing.Point(253, 666);
             this.lbxRelatedDecisions.Name = "lbxRelatedDecisions";
             this.lbxRelatedDecisions.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.lbxRelatedDecisions.Size = new System.Drawing.Size(437, 104);
+            this.lbxRelatedDecisions.Size = new System.Drawing.Size(529, 104);
             this.lbxRelatedDecisions.TabIndex = 15;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.StakeholderColumn,
+            this.ActionColumn,
+            this.StatusColumn,
+            this.IterationColumn});
+            this.dataGridView1.Location = new System.Drawing.Point(253, 916);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowTemplate.Height = 33;
+            this.dataGridView1.Size = new System.Drawing.Size(529, 206);
+            this.dataGridView1.TabIndex = 19;
+            // 
+            // StakeholderColumn
+            // 
+            this.StakeholderColumn.HeaderText = "Stakeholder";
+            this.StakeholderColumn.Name = "StakeholderColumn";
+            // 
+            // ActionColumn
+            // 
+            this.ActionColumn.HeaderText = "Action";
+            this.ActionColumn.Name = "ActionColumn";
+            // 
+            // StatusColumn
+            // 
+            this.StatusColumn.HeaderText = "Status";
+            this.StatusColumn.Name = "StatusColumn";
+            // 
+            // IterationColumn
+            // 
+            this.IterationColumn.HeaderText = "Iteration";
+            this.IterationColumn.Name = "IterationColumn";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(14, 916);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(86, 26);
+            this.label10.TabIndex = 18;
+            this.label10.Text = "History:";
             // 
             // DetailView
             // 
@@ -270,7 +326,9 @@ namespace DecisionViewpointsCustomViews.View
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(774, 981);
+            this.ClientSize = new System.Drawing.Size(866, 1235);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.lbxRelatedDecisions);
             this.Controls.Add(this.txtRelatedRequirements);
             this.Controls.Add(this.label9);
@@ -296,6 +354,7 @@ namespace DecisionViewpointsCustomViews.View
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Detail View";
             this.flowLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -324,5 +383,11 @@ namespace DecisionViewpointsCustomViews.View
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.RichTextBox txtRelatedRequirements;
         private System.Windows.Forms.ListBox lbxRelatedDecisions;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StakeholderColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActionColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StatusColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IterationColumn;
+        private System.Windows.Forms.Label label10;
     }
 }

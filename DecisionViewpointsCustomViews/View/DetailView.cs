@@ -48,6 +48,12 @@ namespace DecisionViewpointsCustomViews.View
             set { txtArguments.Text = value; }
         }
 
+        public string DecisionRelatedRequirements
+        {
+            get { return txtRelatedRequirements.Text.Trim(' '); }
+            set { txtRelatedRequirements.Text = value; }
+        }
+
         public void AddRelatedDecision(string relationship, string name, bool isClient)
         {
             lbxRelatedDecisions.Items.Add(isClient

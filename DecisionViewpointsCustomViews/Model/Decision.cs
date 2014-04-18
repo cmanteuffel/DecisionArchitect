@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using EAFacade.Model;
 
 namespace DecisionViewpointsCustomViews.Model
 {
     public static class DecisionDataTags
     {
-        public const string Issue = "issue:";
-        public const string DecisionText = "decision:";
-        public const string Alternatives = "alternatives:";
-        public const string Arguments = "arguments:";
-        public const string End = "end";
+        public const string Issue = "{issue}";
+        public const string DecisionText = "{decision}";
+        public const string Alternatives = "{alternatives}";
+        public const string Arguments = "{arguments}";
+        public const string RelatedRequirements = "{requirements}";
     }
 
     public class Decision
@@ -35,43 +36,38 @@ namespace DecisionViewpointsCustomViews.Model
 
         public string State
         {
-            get { return _element.Stereotype; }
-            set { _element.Stereotype = value; }
+            get { return _element.StereotypeList; }
+            set { _element.StereotypeList = value; }
         }
 
         public string Issue
         {
-            get { return GetSubstring(DecisionDataTags.Issue, DecisionDataTags.DecisionText); }
+            get { return GetSubstring(DecisionDataTags.Issue); }
         }
 
         public string DecisionText
         {
-            get { return GetSubstring(DecisionDataTags.DecisionText, DecisionDataTags.Alternatives); }
+            get { return GetSubstring(DecisionDataTags.DecisionText); }
         }
 
         public string Alternatives
         {
-            get { return GetSubstring(DecisionDataTags.Alternatives, DecisionDataTags.Arguments); }
+            get { return GetSubstring(DecisionDataTags.Alternatives); }
         }
 
         public string Arguments
         {
-            get { return GetSubstring(DecisionDataTags.Arguments, DecisionDataTags.End); }
+            get { return GetSubstring(DecisionDataTags.Arguments); }
+        }
+
+        public string RelatedRequirements
+        {
+            get { return GetSubstring(DecisionDataTags.RelatedRequirements); }
         }
 
         public void Save(string extraData)
         {
-            _element.Notes = extraData;
             _element.Update();
-            //element.Refresh();
-            //repository.AdviseElementChanged(element.ID);
-            //element.ParentPackage.RefreshElements();
-            //repository.RefreshModelView(element.ParentPackage.ID);
-            /*repository.RefreshOpenDiagrams(false);*/
-            /*foreach (var diagram in element.GetDiagrams())
-            {
-                repository.ReloadDiagram(diagram.ID);
-            }*/
         }
 
         public List<EAConnector> GetConnectors()
@@ -79,11 +75,19 @@ namespace DecisionViewpointsCustomViews.Model
             return _element.GetConnectors();
         }
 
-        private string GetSubstring(string first, string last)
+        public void LoadLinkedDocument(string fileName)
         {
-            var index1 = _element.Notes.IndexOf(first, StringComparison.Ordinal) + first.Length;
-            var index2 = _element.Notes.LastIndexOf(last, StringComparison.Ordinal);
-            return index2 > index1 ? _element.Notes.Substring(index1, index2 - index1) : "";
+            _element.LoadLinkedDocument(fileName);
+        }
+
+        private string GetSubstring(string tag)
+        {
+            var rtf = new RichTextBox { Rtf = _element.GetLinkedDocument() };
+            /*var first = _element.Notes.IndexOf(tag, StringComparison.Ordinal) + tag.Length;
+            var last = _element.Notes.LastIndexOf(tag, StringComparison.Ordinal);*/
+            var first = rtf.Text.IndexOf(tag, StringComparison.Ordinal) + tag.Length;
+            var last = rtf.Text.LastIndexOf(tag, StringComparison.Ordinal);
+            return last > first ? rtf.Text.Substring(first, last - first) : "";
         }
     }
 }
