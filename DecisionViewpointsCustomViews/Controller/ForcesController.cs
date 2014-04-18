@@ -7,12 +7,12 @@ using EAFacade.Model;
 
 namespace DecisionViewpointsCustomViews.Controller
 {
-    public class ForcesController : ICustomViewController
+    public class ForcesController : IForcesController
     {
         private IForcesView _view;
-        private ICustomViewModel _model;
+        private IForcesModel _model;
 
-        public ForcesController(IForcesView view, ICustomViewModel model)
+        public ForcesController(IForcesView view, IForcesModel model)
         {
             _view = view;
             _model = model;
@@ -20,7 +20,7 @@ namespace DecisionViewpointsCustomViews.Controller
             _model.AddObserver(_view);
         }
 
-        public ICustomViewModel Model
+        public IForcesModel Model
         {
             get { return _model; }
             set
@@ -40,12 +40,12 @@ namespace DecisionViewpointsCustomViews.Controller
             }
         }
 
-        public void UpdateTable()
+        public void Update()
         {
             _view.UpdateTable(_model);
         }
 
-        public void SaveRatings()
+        public void Save()
         {
             var data = new List<Rating>();
             var decisionColumnIndex = 3;

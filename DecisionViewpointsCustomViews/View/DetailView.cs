@@ -1,11 +1,12 @@
 using System.Windows.Forms;
 using DecisionViewpointsCustomViews.Controller;
+using DecisionViewpointsCustomViews.Model;
 
 namespace DecisionViewpointsCustomViews.View
 {
-    public partial class DetailView : Form
+    public partial class DetailView : Form, IDetailView
     {
-        private DetailController _controller;
+        private IDetailViewController _controller;
 
         public DetailView()
         {
@@ -61,9 +62,25 @@ namespace DecisionViewpointsCustomViews.View
                                               : string.Format("{0} <<{1}>> This", name, relationship));
         }
 
-        public void SetController(DetailController controller)
+        public void AddHistoryEntry(string name, string stereotype, string s, string state)
+        {
+            var stakeholderText = string.Format("{0}\n<<{1}>>", name, stereotype);
+            dgvHistory.Rows.Add(new object[] { stakeholderText, s, state });
+        }
+
+        public void ShowAsDialog()
+        {
+            ShowDialog();
+        }
+
+        public void SetController(IDetailViewController controller)
         {
             _controller = controller;
+        }
+
+        public void Update(IDecision model)
+        {
+            throw new System.NotImplementedException();
         }
 
         private void buttonOk_Click(object sender, System.EventArgs e)
@@ -74,12 +91,6 @@ namespace DecisionViewpointsCustomViews.View
         private void rtf_LinkClicked(object sender, LinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start(e.LinkText);
-        }
-
-        public void AddHistoryEntry(string name, string stereotype, string s, string state)
-        {
-            var stakeholderText = string.Format("{0}\n<<{1}>>", name, stereotype);
-            dgvHistory.Rows.Add(new object[] {stakeholderText, s, state});
         }
     }
 }

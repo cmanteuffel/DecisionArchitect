@@ -14,7 +14,7 @@ namespace DecisionViewpointsCustomViews.Model
         public const string RelatedRequirements = "{requirements}";
     }
 
-    public class Decision
+    public class Decision : IDecision
     {
         private readonly EAElement _element;
 
@@ -82,6 +82,16 @@ namespace DecisionViewpointsCustomViews.Model
         public void LoadLinkedDocument(string fileName)
         {
             _element.LoadLinkedDocument(fileName);
+        }
+
+        public void AddObserver(IDecisionObserver observer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveObserver(IDecisionObserver observer)
+        {
+            throw new NotImplementedException();
         }
 
         private string GetSubstring(string tag)

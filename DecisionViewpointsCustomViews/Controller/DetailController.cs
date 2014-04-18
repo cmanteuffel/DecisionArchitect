@@ -6,19 +6,19 @@ using DecisionViewpointsCustomViews.View;
 
 namespace DecisionViewpointsCustomViews.Controller
 {
-    public class DetailController
+    public class DetailController : IDetailViewController
     {
-        private readonly Decision _decision;
-        private readonly DetailView _view;
+        private readonly IDecision _decision;
+        private readonly IDetailView _view;
 
-        public DetailController(Decision decision, DetailView view)
+        public DetailController(IDecision decision, IDetailView view)
         {
             _view = view;
             _decision = decision;
             _view.SetController(this);
         }
 
-        public void UpdateView()
+        public void Update()
         {
             _view.DecisionName = _decision.Name;
             _view.DecisionState = _decision.State;
@@ -49,8 +49,8 @@ namespace DecisionViewpointsCustomViews.Controller
 
         public void ShowDetailView()
         {
-            UpdateView();
-            _view.ShowDialog();
+            Update();
+            _view.ShowAsDialog();
         }
 
         public void Save()

@@ -1,9 +1,6 @@
-﻿using DecisionViewpointsCustomViews.Controller;
-
-namespace DecisionViewpointsCustomViews.View
+﻿namespace DecisionViewpointsCustomViews.View
 {
     public interface ICustomView
     {
-        void SetController(ICustomViewController controller);
     }
 }

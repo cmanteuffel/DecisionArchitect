@@ -4,9 +4,9 @@ using EAFacade.Model;
 
 namespace DecisionViewpointsCustomViews.Model
 {
-    public class ForcesModel : ICustomViewModel
+    public class ForcesModel : IForcesModel
     {
-        private readonly List<ICustomViewModelObserver> _observers = new List<ICustomViewModelObserver>();
+        private readonly List<IForcesModelObserver> _observers = new List<IForcesModelObserver>();
         private EADiagram _diagram;
         public string Name { get; set; }
 
@@ -24,17 +24,17 @@ namespace DecisionViewpointsCustomViews.Model
             }
         }
 
-        public void AddObserver(ICustomViewModelObserver observer)
+        public void AddObserver(IForcesModelObserver observer)
         {
             _observers.Add(observer);
         }
 
-        public void RemoveObserver(ICustomViewModelObserver observer)
+        public void RemoveObserver(IForcesModelObserver observer)
         {
             _observers.Remove(observer);
         }
 
-        public void Notify()
+        private void Notify()
         {
             foreach (var observer in _observers)
             {

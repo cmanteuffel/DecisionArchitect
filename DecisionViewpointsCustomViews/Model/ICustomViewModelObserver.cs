@@ -2,6 +2,16 @@
 {
     public interface ICustomViewModelObserver
     {
-        void Update(ICustomViewModel model);
+        
+    }
+
+    public interface IForcesModelObserver : ICustomViewModelObserver
+    {
+        void Update(IForcesModel model);
+    }
+
+    public interface IDecisionObserver : ICustomViewModelObserver
+    {
+        void Update(IDecision model);
     }
 }

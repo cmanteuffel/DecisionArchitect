@@ -20,7 +20,7 @@ namespace DecisionViewpointsCustomViews.View
     {
         private DataGridView _forcesTable;
         private Button _btnConfigure;
-        private ICustomViewController _controller;
+        private IForcesController _controller;
 
         private const string EmptyCellValue = "-";
 
@@ -86,22 +86,22 @@ namespace DecisionViewpointsCustomViews.View
             this.ResumeLayout(false);
         }
 
-        private void _btnConfigure_Click(object sender, System.EventArgs e)
+        private void _btnConfigure_Click(object sender, EventArgs e)
         {
             _controller.Configure();
         }
 
-        public void SetController(ICustomViewController controller)
+        public void SetController(IForcesController controller)
         {
             _controller = controller;
         }
 
-        public void Update(ICustomViewModel model)
+        public void Update(IForcesModel model)
         {
             UpdateTable(model);
         }
 
-        public void UpdateTable(ICustomViewModel model)
+        public void UpdateTable(IForcesModel model)
         {
             var data = new DataTable();
 
@@ -234,7 +234,7 @@ namespace DecisionViewpointsCustomViews.View
                 column.Visible = false;
         }
 
-        private void InsertRequirements(ICustomViewModel model)
+        private void InsertRequirements(IForcesModel model)
         {
             var index = RequirementGUIDRowIndex;
             foreach (var requirement in model.GetRequirements())
@@ -243,7 +243,7 @@ namespace DecisionViewpointsCustomViews.View
             }
         }
 
-        private static void InsertRatings(ICustomViewModel model, DataTable data)
+        private static void InsertRatings(IForcesModel model, DataTable data)
         {
             foreach (var rating in model.GetRatings())
             {
@@ -262,7 +262,7 @@ namespace DecisionViewpointsCustomViews.View
             }
         }
 
-        private static void InsertConcerns(ICustomViewModel model, DataTable data)
+        private static void InsertConcerns(IForcesModel model, DataTable data)
         {
             foreach (var reqConcerns in model.GetConcerns())
             {
@@ -284,7 +284,7 @@ namespace DecisionViewpointsCustomViews.View
             }
         }
 
-        private static void InsertDecisionGuids(ICustomViewModel model, DataTable data)
+        private static void InsertDecisionGuids(IForcesModel model, DataTable data)
         {
             var decisionIndex = 0;
             foreach (var decision in model.GetDecisions())
@@ -293,7 +293,7 @@ namespace DecisionViewpointsCustomViews.View
             }
         }
 
-        private static void InsertRequirementGuids(ICustomViewModel model, DataTable data)
+        private static void InsertRequirementGuids(IForcesModel model, DataTable data)
         {
             foreach (var requirement in model.GetRequirements())
             {
@@ -301,7 +301,7 @@ namespace DecisionViewpointsCustomViews.View
             }
         }
 
-        private static void InsertDecisions(ICustomViewModel model, DataTable data)
+        private static void InsertDecisions(IForcesModel model, DataTable data)
         {
             foreach (var decision in model.GetDecisions())
             {
@@ -358,7 +358,7 @@ namespace DecisionViewpointsCustomViews.View
 
         private void _forcesTable_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            _controller.SaveRatings();
+            _controller.Save();
         }
 
         private void _forcesTable_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)

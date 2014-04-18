@@ -11,8 +11,8 @@ namespace DecisionViewpoints.Logic.Forces
     public class ForcesHandler : RepositoryAdapter
     {
         // hold referecnes to the created views so to respond to the changed events (might need to change)
-        private readonly Dictionary<string, ICustomViewController> _controllers =
-            new Dictionary<string, ICustomViewController>();
+        private readonly Dictionary<string, IForcesController> _controllers =
+            new Dictionary<string, IForcesController>();
 
         public override bool OnContextItemDoubleClicked(string guid, NativeType type)
         {
@@ -35,7 +35,7 @@ namespace DecisionViewpoints.Logic.Forces
 
             IForcesView forcesView = repository.AddTab(forcesDiagramModel.Name,
                                                        "DecisionViewpointsCustomViews.ForcesView");
-            ICustomViewController forcesController;
+            IForcesController forcesController;
 
             if (!_controllers.ContainsKey(forcesDiagramModel.DiagramGUID))
             {
@@ -49,14 +49,14 @@ namespace DecisionViewpoints.Logic.Forces
                 forcesController.Model = forcesDiagramModel;
             }
 
-            forcesController.UpdateTable();
+            forcesController.Update();
             return true;
         }
 
         public override void OnNotifyContextItemModified(string guid, NativeType type)
         {
             var repository = EARepository.Instance;
-            ICustomViewController forcesController;
+            IForcesController forcesController;
             switch (type)
             {
                 case NativeType.Diagram:
