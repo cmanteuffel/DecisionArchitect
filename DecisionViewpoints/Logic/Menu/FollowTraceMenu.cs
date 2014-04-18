@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using EAFacade;
 using EAFacade.Model;
 
 namespace DecisionViewpoints.Logic.Menu
@@ -80,7 +81,7 @@ namespace DecisionViewpoints.Logic.Menu
             return uniqueName;
         }
 
-        private MenuItem CreateTraceMenuItem(string uniqueName, EAElement tracedElement)
+        private static MenuItem CreateTraceMenuItem(string uniqueName, EAElement tracedElement)
         {
             var menuItem = new MenuItem(uniqueName);
             menuItem.Value = tracedElement;

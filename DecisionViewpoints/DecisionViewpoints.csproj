@@ -94,12 +94,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="SelectDiagram.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SelectDiagram.Designer.cs">
-      <DependentUpon>SelectDiagram.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -116,9 +110,6 @@
     <EmbeddedResource Include="Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectDiagram.resx">
-      <DependentUpon>SelectDiagram.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -3,11 +3,10 @@ using System.Linq;
 using System.Windows.Forms;
 using EAFacade.Model;
 
-namespace DecisionViewpoints
+namespace EAFacade
 {
     public partial class SelectDiagram : Form
     {
-        
         class DiagramListItem
         {
             public string Name { get; set; }
@@ -15,12 +14,12 @@ namespace DecisionViewpoints
             public EADiagram Diagram { get; set; }
         }
 
-        public SelectDiagram(EADiagram[] diagrams)
+        public SelectDiagram(IEnumerable<EADiagram> diagrams)
         {
             InitializeComponent();
 
             var datasource = new List<DiagramListItem>();
-            diagrams.ToList().ForEach(x => datasource.Add(new DiagramListItem{Name = x.Name, ID = x.ID, Diagram = x}));
+            diagrams.ToList().ForEach(x => datasource.Add(new DiagramListItem { Name = x.Name, ID = x.ID, Diagram = x }));
             listDiagrams.ValueMember = "ID";
             listDiagrams.DisplayMember = "Name";
             listDiagrams.DataSource = datasource;

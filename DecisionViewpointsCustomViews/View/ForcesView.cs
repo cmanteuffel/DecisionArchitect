@@ -5,6 +5,8 @@ using System.Text;
 using System.Windows.Forms;
 using DecisionViewpointsCustomViews.Controller;
 using DecisionViewpointsCustomViews.Model;
+using EAFacade;
+using EAFacade.Model;
 
 namespace DecisionViewpointsCustomViews.View
 {
@@ -41,24 +43,22 @@ namespace DecisionViewpointsCustomViews.View
         {
             this._forcesTable = new System.Windows.Forms.DataGridView();
             this._btnConfigure = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize) (this._forcesTable)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._forcesTable)).BeginInit();
             this.SuspendLayout();
             // 
             // _forcesTable
             // 
             this._forcesTable.AllowUserToAddRows = false;
             this._forcesTable.AllowUserToDeleteRows = false;
-            this._forcesTable.ColumnHeadersHeightSizeMode =
-                System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this._forcesTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._forcesTable.Location = new System.Drawing.Point(35, 30);
             this._forcesTable.Name = "_forcesTable";
-            this._forcesTable.RowHeadersWidthSizeMode =
-                System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
+            this._forcesTable.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this._forcesTable.RowTemplate.Height = 33;
             this._forcesTable.Size = new System.Drawing.Size(762, 582);
             this._forcesTable.TabIndex = 2;
-            this._forcesTable.CellValueChanged +=
-                new System.Windows.Forms.DataGridViewCellEventHandler(this._forcesTable_CellValueChanged);
+            this._forcesTable.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this._forcesTable_CellValueChanged);
+            this._forcesTable.ColumnHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this._forcesTable_ColumnHeaderMouseDoubleClick);
             // 
             // _btnConfigure
             // 
@@ -76,8 +76,9 @@ namespace DecisionViewpointsCustomViews.View
             this.Controls.Add(this._forcesTable);
             this.Name = "ForcesView";
             this.Size = new System.Drawing.Size(850, 696);
-            ((System.ComponentModel.ISupportInitialize) (this._forcesTable)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._forcesTable)).EndInit();
             this.ResumeLayout(false);
+
         }
 
         private void _btnConfigure_Click(object sender, System.EventArgs e)
@@ -307,6 +308,29 @@ namespace DecisionViewpointsCustomViews.View
         private void _forcesTable_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             _controller.SaveRatings();
+        }
+
+        private void _forcesTable_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.ColumnIndex < DecisionColumnIndex) return;
+            var elementGUID = _forcesTable.Rows[_forcesTable.Rows.Count - 1].Cells[e.ColumnIndex].Value.ToString();
+            var element = EARepository.Instance.GetElementByGUID(elementGUID);
+            var diagrams = element.GetDiagrams();
+            if (diagrams.Count() == 1)
+            {
+                var diagram = diagrams[0];
+                diagram.OpenAndSelectElement(element);
+            }
+            else if (diagrams.Count() >= 2)
+            {
+                var selectForm = new SelectDiagram(diagrams);
+                if (selectForm.ShowDialog() == DialogResult.OK)
+                {
+                    var diagram = selectForm.GetSelectedDiagram();
+                    diagram.OpenAndSelectElement(element);
+                }
+            }
+            element.ShowInProjectView();
         }
     }
 }
