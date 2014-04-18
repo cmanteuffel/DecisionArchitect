@@ -50,6 +50,13 @@ namespace EAFacade.Model
             return EAPackage.Wrap(Native.GetPackageByID(packageID));
         }
 
+        /*
+        public List<EAPackage> GetAllPackages()
+        {
+            return EAPackage.Wrap(Root.Packages);
+        }
+         */
+
         public EAElement GetElementByID(int elementID)
         {
             return EAElement.Wrap(Native.GetElementByID(elementID));

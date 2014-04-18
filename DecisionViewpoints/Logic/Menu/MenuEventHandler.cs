@@ -294,9 +294,7 @@ namespace DecisionViewpoints.Logic.Menu
             IReportDocument report = null;
             try
             {
-                //angor START
                 var filenameExtension = filename.Substring(filename.IndexOf('.'));
-                //MessageBox.Show("filename ext: "+filenameExtension); //DEBUG
                 var saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
                 saveFileDialog1.Title = Messages.SaveReportAs;
                 saveFileDialog1.Filter = "Microsoft " + reportType.ToString() + " (*"+ filenameExtension + ")|*" + filenameExtension;
@@ -308,16 +306,9 @@ namespace DecisionViewpoints.Logic.Menu
                 }
                 saveFileDialog1.CheckFileExists = true;
                 saveFileDialog1.CheckPathExists = true;
-                var reportFilename = saveFileDialog1.FileName;// + filenameExtension;
-                //MessageBox.Show("report filename: "+reportFilename + "\nOriginal filename: " + filename); //DEBUG
-                //angor END
-
-                //report = ReportFactory.Create(reportType,filename);// original
-
-                //angor START
-                report = ReportFactory.Create(reportType, reportFilename); //angor
+                var reportFilename = saveFileDialog1.FileName;
+                report = ReportFactory.Create(reportType, reportFilename);
                 //if the report cannot be created because is already used by another program a message will appear
-                //angor task165 START 
                 if (report == null)
                 {
                     MessageBox.Show("Check if another program is using this file.",
@@ -326,13 +317,47 @@ namespace DecisionViewpoints.Logic.Menu
                         MessageBoxIcon.Error);
                     return;
                 }
-                //angor task165 END
-                //angor END
                 report.Open();
-                foreach (Decision decision in decisions)
+
+                List<Decision> decisionsWithoutTopic = new List<Decision>();
+                //angor START
+                List<Topic> topics = (from EAElement element in repository.GetAllElements()
+                 where element.IsTopic()
+                 select new Topic(element)).ToList();
+
+                // Insert Decisions that have a Topic
+                foreach (Topic topic in topics)
                 {
-                    report.InsertDecisionTable(decision);
+                    //var topicparent = EARepository.Instance.GetElementByID(topic.ID).ParentPackage;
+                    //MessageBox.Show("Topic parent package: " + topicparent.Name);
+                    report.InsertTopicTable(topic);
+                    foreach (Decision decision in decisions)
+                    {
+                        var parent = EARepository.Instance.GetElementByID(decision.ID).ParentElement;
+                        if (parent != null && parent.IsTopic())
+                        {
+                            if (parent.ID.Equals(topic.ID))
+                                report.InsertDecisionTable(decision);
+                        }
+                        else if (parent == null || !parent.IsTopic())
+                        {
+                            decisionsWithoutTopic.Add(decision);
+                        }
+                    }
                 }
+
+                // Insert an appropriate message before the decisions that are not included in a topic
+                report.InsertDecisionWithoutTopicMessage();
+
+                // Insert decisions without a Topic
+                foreach (Decision decision in decisionsWithoutTopic)
+                {
+                    var parent = EARepository.Instance.GetElementByID(decision.ID).ParentElement;
+                    if (parent == null || !parent.IsTopic())
+                       report.InsertDecisionTable(decision);
+                }
+                //angor END
+
                 foreach (EADiagram diagram in diagrams.Where(diagram => !diagram.IsForcesView()))
                 {
                     report.InsertDiagramImage(diagram);
@@ -341,11 +366,8 @@ namespace DecisionViewpoints.Logic.Menu
                 {
                     report.InsertForcesTable(new ForcesModel(diagram));
                 }
-                //angor START
-                //MessageBox.Show(reportType.ToString() + " " + Messages.SuccesfulReportCreation); //DEBUG //angor
                 var customMessage = new ExportReportsCustomMessageBox(reportType.ToString(), reportFilename);
                 customMessage.Show();
-                //angor END
             }
                 finally
                 {
@@ -362,9 +384,7 @@ namespace DecisionViewpoints.Logic.Menu
             IReportDocument report = null;
             try
             {
-                //angor START
                 var filenameExtension = filename.Substring(filename.IndexOf('.'));
-                //MessageBox.Show("filename ext: "+filenameExtension); //DEBUG
                 var saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
                 saveFileDialog1.Title = "Save report as..";
                 saveFileDialog1.Filter = "Microsoft Excel (*" + filenameExtension + ")|*" + filenameExtension;
@@ -376,22 +396,15 @@ namespace DecisionViewpoints.Logic.Menu
                 }
                 saveFileDialog1.CheckFileExists = true;
                 saveFileDialog1.CheckPathExists = true;
-                var reportFilename = saveFileDialog1.FileName;// + filenameExtension;
-                //MessageBox.Show("report filename: "+reportFilename + "\nOriginal filename: " + filename); //DEBUG
-                //angor END
-
-                //report = ReportFactory.Create(ReportType.Excel, filename); //original
-                report = ReportFactory.Create(ReportType.Excel, reportFilename); //angor
+                var reportFilename = saveFileDialog1.FileName;
+                report = ReportFactory.Create(ReportType.Excel, reportFilename);
                 report.Open();
                 if (diagram.IsForcesView())
                 {
                     report.InsertForcesTable(new ForcesModel(diagram));
                 }
-                //angor START
-                //MessageBox.Show(ReportType.Excel.ToString() + " " + Messages.SuccesfulForcesReportCreation);   //angor DEBUG
                 var customMessage = new ExportReportsCustomMessageBox("Excel", reportFilename);
                 customMessage.Show();
-                //angor END
             }
             finally
             {

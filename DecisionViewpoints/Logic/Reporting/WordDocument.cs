@@ -40,10 +40,12 @@ namespace DecisionViewpoints.Model.Reporting
         private Body _body;
         private readonly string _filename;
 
+        private int _topicCounter = 0;
+        private int _decisionCounter = 0;
+
         public WordDocument(string filename)
         {
-            //_filename = String.Format("{0}\\{1}", Utilities.GetDocumentsDirectory(), filename);// original
-            _filename = filename; //angor
+            _filename = filename;
             using (var wordDoc = WordprocessingDocument.Create(_filename, WordprocessingDocumentType.Document))
             {
                 _mainPart = wordDoc.AddMainDocumentPart();
@@ -52,8 +54,82 @@ namespace DecisionViewpoints.Model.Reporting
             }
         }
 
+        public void InsertTopicTable(ITopic topic)
+        {
+            var table = new Table();
+            var props = new TableProperties(
+                new TableBorders(
+                    new TopBorder
+                    {
+                        Val = new EnumValue<BorderValues>(BorderValues.Single),
+                        Size = 11
+                    },
+                    new BottomBorder
+                    {
+                        Val = new EnumValue<BorderValues>(BorderValues.Single),
+                        Size = 11
+                    },
+                    new LeftBorder
+                    {
+                        Val = new EnumValue<BorderValues>(BorderValues.Single),
+                        Size = 11
+                    },
+                    new RightBorder
+                    {
+                        Val = new EnumValue<BorderValues>(BorderValues.Single),
+                        Size = 11
+                    },
+                    new InsideHorizontalBorder
+                    {
+                        Val = new EnumValue<BorderValues>(BorderValues.Single),
+                        Size = 11
+                    },
+                    new InsideVerticalBorder
+                    {
+                        Val = new EnumValue<BorderValues>(BorderValues.Single),
+                        Size = 11
+                    }));
+
+            table.AppendChild(props);
+
+            var data = new[,]
+                {
+                    {"Name", topic.Name},
+                    {"Description", topic.Description}
+                };
+
+            for (var i = 0; i <= data.GetUpperBound(0); i++)
+            {
+                var tr = new TableRow();
+                for (var j = 0; j <= data.GetUpperBound(1); j++)
+                {
+                    var tc = new TableCell();
+                    tc.AppendChild(new Paragraph(new Run(new Text(data[i, j]))));
+
+                    tr.AppendChild(tc);
+                }
+                if (data[i, 1] != "")
+                    table.AppendChild(tr);
+            }
+            _topicCounter++;
+            _body.AppendChild(new Paragraph());
+            _body.AppendChild(new Paragraph(new Run(new Text(_topicCounter.ToString() + ". Topic: " + topic.Name))));
+            _body.AppendChild(table);
+            _body.AppendChild(new Paragraph());
+        }
+
+        public void InsertDecisionWithoutTopicMessage()
+        {
+            _body.AppendChild(new Paragraph());
+            _body.AppendChild(new Paragraph(new Run(new Text("Decisions not included in a topic:"))));
+        }
+
         public void InsertDecisionTable(IDecision decision)
         {
+            _decisionCounter++;
+            _body.AppendChild(new Paragraph());
+            _body.AppendChild(new Paragraph(new Run(new Text("Decision " +_decisionCounter.ToString() +": " + decision.Name))));
+
             var table = new Table();
 
             var props = new TableProperties(
@@ -90,28 +166,50 @@ namespace DecisionViewpoints.Model.Reporting
                         }));
 
             table.AppendChild(props);
-
+   
             var relatedDecisions = new StringBuilder();
+            var alternativeDecisions = new StringBuilder();
             foreach (EAConnector connector in decision.GetConnectors().Where(connector => connector.IsRelationship()))
             {
-                relatedDecisions.AppendLine(connector.ClientId == decision.ID
-                                                      ? string.Format("This <<{1}>> {0}", connector.GetSupplier().Name,
-                                                                      connector.Stereotype)
-                                                      : string.Format("{0} <<{1}>> This", connector.GetClient().Name,
-                                                                      connector.Stereotype));
+                // Related Decisions
+                if (!connector.Stereotype.Equals("alternative for"))
+                {
+                    relatedDecisions.AppendLine(connector.ClientId == decision.ID
+                        ? "# <<this>> " + decision.Name +" - "+ connector.Stereotype + " - " + connector.GetSupplier().Name + Environment.NewLine
+                        : "# " + connector.GetClient().Name + " - " + connector.Stereotype + " - <<this>> " + decision.Name + Environment.NewLine);
+                }
+                // Alternative Decisions
+                else if (connector.Stereotype.Equals("alternative for"))
+                {
+                    alternativeDecisions.AppendLine(connector.ClientId == decision.ID
+                        ? "# <<this>> " + decision.Name + " - " + connector.Stereotype + " - " + connector.GetSupplier().Name + Environment.NewLine
+                        : "# " + connector.GetClient().Name + " - " + connector.Stereotype + " - <<this>> " + decision.Name + Environment.NewLine);
+                }
+            }
+
+            // Related Requirements
+            var relatedRequirements = new StringBuilder();
+            var forces = decision.GetForces();
+            foreach (var rating in forces)
+            {
+                var req = EARepository.Instance.GetElementByGUID(rating.RequirementGUID);
+                var concern = EARepository.Instance.GetElementByGUID(rating.ConcernGUID);
+                relatedRequirements.AppendLine("# " + req.Name + " - " + req.Notes + "\n");
             }
 
             var data = new[,]
                 {
                     {"Name", decision.Name},
                     {"State", decision.State},
-                    {"Group", decision.Group},
+                    //{"Group", decision.Group},
                     {"Issue", decision.Issue},
                     {"Decision", decision.DecisionText},
-                    {"Alternatives", decision.Alternatives},
+                    //{"Alternatives", decision.Alternatives},
                     {"Arguments", decision.Arguments},
+                    {"Alternatives", alternativeDecisions.ToString()},
                     {"Related Decision", relatedDecisions.ToString()},
-                    {"Related Requirements", decision.RelatedRequirements}
+                    //{"Related Requirements", decision.RelatedRequirements}
+                    {"Related Requirements", relatedRequirements.ToString()}
                 };
 
             for (var i = 0; i <= data.GetUpperBound(0); i++)
@@ -121,9 +219,10 @@ namespace DecisionViewpoints.Model.Reporting
                 {
                     var tc = new TableCell();
                     tc.AppendChild(new Paragraph(new Run(new Text(data[i, j]))));
-
+                    
                     tr.AppendChild(tc);
                 }
+                if (data[i, 1] != "")
                 table.AppendChild(tr);
             }
 

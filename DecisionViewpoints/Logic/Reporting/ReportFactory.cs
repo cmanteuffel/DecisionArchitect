@@ -14,7 +14,6 @@ namespace DecisionViewpoints.Logic.Reporting
         public static IReportDocument Create(ReportType type, string filename)
         {
             IReportDocument reportDocument = null;
-            //angor task165 START
             try
             {
                 switch (type)
@@ -34,21 +33,6 @@ namespace DecisionViewpoints.Logic.Reporting
             {
                 return null;
             }
-            //angor task165 END
-            /* original
-            switch (type)
-            {
-                case ReportType.Word:
-                    reportDocument = new WordDocument(filename);
-                    break;
-                case ReportType.Excel:
-                    reportDocument = new ExcelDocument(filename);
-                    break;
-                case ReportType.PowerPoint:
-                    reportDocument = new PowerPointDocument(filename);
-                    break;
-            }
-             */
             return reportDocument;
         }
     }

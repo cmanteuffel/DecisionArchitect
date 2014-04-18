@@ -81,6 +81,7 @@
     </Compile>
     <Compile Include="Logic\Relationship\RelationshipHandler.cs" />
     <Compile Include="Logic\Reporting\ReportFactory.cs" />
+    <Compile Include="Logic\Reporting\TopicDetailSlide.cs" />
     <Compile Include="Logic\RepositoryAdapter.cs" />
     <Compile Include="Logic\IRepositoryListener.cs" />
     <Compile Include="Logic\StakeholderInvolvement\StakeholderInvolvementHandler.cs" />

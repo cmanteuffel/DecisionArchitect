@@ -340,9 +340,11 @@
 		<col def="S0">ISDotNetInstallerArgsCommit</col>
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
+		<row><td>DecisionViewpoints.Primary_output</td><td>{2D1C5E0A-DB68-4DAE-9AED-CFE0322F1BB4}</td><td>INSTALLDIR</td><td>2</td><td/><td>decisionviewpoints.primary_o</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>DecisionViewpoints.Primary_output1</td><td>{61EEA843-2A63-460D-8271-E7B44EEA4A02}</td><td>INSTALLDIR</td><td>2</td><td/><td>decisionviewpoints.primary_o1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>DecisionViewpointsCustomViews.Primary_output</td><td>{FCCEE248-EE38-407D-A0D4-0CDEB1AAAE2D}</td><td>INSTALLDIR</td><td>2</td><td/><td>decisionviewpointscustomview</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>EAFacade.Primary_output</td><td>{71FD59E4-1CAB-44EE-9605-E0E6E267E098}</td><td>INSTALLDIR</td><td>2</td><td/><td>eafacade.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ISX_DEFAULTCOMPONENT</td><td>{F2C6BCD0-AF80-425E-A3BD-57E0EA035F55}</td><td>MDG_TECHNOLOGY</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{7E7D0D85-0F5D-4897-966A-DECDF1BF53C2}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
@@ -1169,6 +1171,7 @@
 		<row><td>ISMyProductDir</td><td>ISMyCompanyDir</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
 		<row><td>ISYourDataBaseDir</td><td>INSTALLDIR</td><td>Database</td><td/><td>0</td><td/></row>
 		<row><td>LocalAppDataFolder</td><td>TARGETDIR</td><td>.:LocalA~1|LocalAppData</td><td/><td>0</td><td/></row>
+		<row><td>MDG_TECHNOLOGY</td><td>INSTALLDIR</td><td>MDGTEC~1|MDG Technology</td><td/><td>0</td><td/></row>
 		<row><td>MICROSOFT.NET</td><td>WINDOWS</td><td>MICROS~1|Microsoft.NET</td><td/><td>0</td><td/></row>
 		<row><td>MICROSOFT.NET1</td><td>SystemFolder</td><td>MICROS~1|Microsoft.NET</td><td/><td>0</td><td/></row>
 		<row><td>MICROSOFT.NET2</td><td>WinDir</td><td>MICROS~1|Microsoft.NET</td><td/><td>0</td><td/></row>
@@ -1899,9 +1902,11 @@
 	<table name="FeatureComponents">
 		<col key="yes" def="s38">Feature_</col>
 		<col key="yes" def="s72">Component_</col>
+		<row><td>AlwaysInstall</td><td>DecisionViewpoints.Primary_output</td></row>
 		<row><td>AlwaysInstall</td><td>DecisionViewpoints.Primary_output1</td></row>
 		<row><td>AlwaysInstall</td><td>DecisionViewpointsCustomViews.Primary_output</td></row>
 		<row><td>AlwaysInstall</td><td>EAFacade.Primary_output</td></row>
+		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT1</td></row>
 	</table>
 
@@ -1917,7 +1922,9 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
+		<row><td>decisionviewpoints.primary_o</td><td>DecisionViewpoints.Primary_output</td><td>DecisionViewpoints.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;DecisionViewpoints&gt;|Built</td><td>3</td><td/></row>
 		<row><td>decisionviewpoints.primary_o1</td><td>DecisionViewpoints.Primary_output1</td><td>DecisionViewpoints.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;DecisionViewpoints&gt;|Built</td><td>3</td><td/></row>
+		<row><td>decisionviewpoints.xml</td><td>ISX_DEFAULTCOMPONENT</td><td>DECISI~1.XML|DecisionViewpoints.xml</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\angor\Documents\Visual Studio 2012\Projects\Addin\ViewpointsAddIn\src\DecisionViewpoints\bin\Debug\DecisionViewpoints.xml</td><td>1</td><td/></row>
 		<row><td>decisionviewpointscustomview</td><td>DecisionViewpointsCustomViews.Primary_output</td><td>DecisionViewpointsCustomViews.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;DecisionViewpointsCustomViews&gt;|Built</td><td>3</td><td/></row>
 		<row><td>eafacade.primary_output</td><td>EAFacade.Primary_output</td><td>EAFacade.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;EAFacade&gt;|Built</td><td>3</td><td/></row>
 	</table>
@@ -2177,9 +2184,11 @@
 		<col def="S0">FTPLocation</col>
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
+		<row><td>DecisionViewpoints.Primary_output</td><td/><td/><td>_9CBEEF70_83FB_4700_A2F8_ECE7B04A97D3_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>DecisionViewpoints.Primary_output1</td><td/><td/><td>_58981E3A_4A50_4C7A_A48D_1ACBA4B99F5E_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>DecisionViewpointsCustomViews.Primary_output</td><td/><td/><td>_7EF01EEC_9DBA_40A6_9245_126A508B8F48_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>EAFacade.Primary_output</td><td/><td/><td>_A7CAD05D_2807_4A04_AC84_72B9D8F68DD0_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ISX_DEFAULTCOMPONENT</td><td/><td/><td>_05CC79C5_6860_407F_BAFB_60AB84E97A27_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_D048FC65_A288_403C_81A5_7E8F6B4D2B00_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 

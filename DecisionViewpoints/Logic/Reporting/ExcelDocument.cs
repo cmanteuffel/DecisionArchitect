@@ -34,6 +34,8 @@ namespace DecisionViewpoints.Logic.Reporting
             }
         }
 
+        public void InsertTopicTable(ITopic topic) { }
+        public void InsertDecisionWithoutTopicMessage() { }
         public void InsertDecisionTable(IDecision decision)
         {
             // maybe here we need to create a sheet with the overview of the decisions

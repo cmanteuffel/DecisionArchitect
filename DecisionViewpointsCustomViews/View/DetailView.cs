@@ -156,14 +156,6 @@ namespace DecisionViewpointsCustomViews.View
             txtGroup.Text = name;
             txtTopicDescription.Text = description;
         }
-        
-
-        /* not implemented in this DetailView
-        public void rtf_LinkClicked(object sender, LinkClickedEventArgs e)
-        {
-            System.Diagnostics.Process.Start(e.LinkText);
-        }
-         */
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {

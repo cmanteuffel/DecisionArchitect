@@ -26,6 +26,9 @@ namespace DecisionViewpoints.Model.Reporting
         private SlidePart _forcesSlideTemplate;
         private SlidePart _imageSlideTemplate;
 
+        private int _topicCounter = 0;
+        private int _decisionCounter = 0;
+
         public PowerPointDocument(string filename)
         {
             //_filename = String.Format("{0}\\{1}", Utilities.GetDocumentsDirectory(), filename);//original
@@ -48,6 +51,17 @@ namespace DecisionViewpoints.Model.Reporting
             _imageSlideTemplate = (SlidePart) _doc.PresentationPart.GetPartById(ImageTemplateSlideId);
             _forcesSlideTemplate = (SlidePart) _doc.PresentationPart.GetPartById(ForcesTemplateSlideId);
         }
+
+        public void InsertTopicTable(ITopic topic)
+        {
+            ISlide topicdetailSlide = new TopicDetailSlide(_doc, _detailSlideTemplate, topic);
+            topicdetailSlide.Create();
+            topicdetailSlide.FillContent();
+            topicdetailSlide.Save();
+            topicdetailSlide.Add();
+        }
+
+        public void InsertDecisionWithoutTopicMessage() { }
 
         public void InsertDecisionTable(IDecision decision)
         {
