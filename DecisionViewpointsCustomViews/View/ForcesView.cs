@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -106,28 +105,88 @@ namespace DecisionViewpointsCustomViews.View
             data.PrimaryKey = new[] {data.Columns[RequirementGUIDHeader]};
             data.Columns.Add(ConcernHeader);
             data.Columns.Add(ConcernGUIDHeader);
-
-            // add columns with the decisions names
-            foreach (var decision in model.GetDecisions())
-            {
-                data.Columns.Add(string.Format("<<{0}>>\n{1}", decision.Stereotype, decision.Name));
-            }
+            
+            // insert the decisions names as new columns in the table
+            InsertDecisions(model, data);
 
             // insert the requirement guids in the table
-            foreach (var requirement in model.GetRequirements())
-            {
-                data.Rows.Add(new object[] {requirement.GUID});
-            }
+            InsertRequirementGuids(model, data);
 
             // insert the decision guids in the table
             data.Rows.Add(new object[] {EmptyCellValue, EmptyCellValue, EmptyCellValue});
-            var decisionIndex = 0;
-            foreach (var decision in model.GetDecisions())
-            {
-                data.Rows[data.Rows.Count - 1][decisionIndex++ + DecisionColumnIndex] = decision.GUID;
-            }
+            InsertDecisionGuids(model, data);
 
             // insert the concenrs and concerns guids in the table
+            InsertConcerns(model, data);
+
+            // insert the ratings in the table
+            InsertRatings(model, data);
+
+            _forcesTable.DataSource = data;
+
+            if (data.Columns.Count <= 0) return;
+
+            // insert the requirement names in the header rows
+            InsertRequirements(model);
+
+            _forcesTable.Rows[_forcesTable.Rows.Count - 1].HeaderCell.Value = DecisionGUIDHeader;
+
+            // hide the columns and row which contain the guids of the elements
+            HideColumn(RequirementGUIDHeader);
+            HideColumn(ConcernGUIDHeader);
+            HideRow(_forcesTable.Rows.Count - 1);
+
+            ReadOnlyColumn(ConcernHeader);
+
+            foreach (DataGridViewColumn column in _forcesTable.Columns)
+            {
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+        }
+
+        private void ReadOnlyColumn(string header)
+        {
+            var column = _forcesTable.Columns[header];
+            if (column != null) column.ReadOnly = true;
+        }
+
+        private void HideColumn(string header)
+        {
+            var column = _forcesTable.Columns[header];
+            if (column != null)
+                column.Visible = false;
+        }
+
+        private void InsertRequirements(ICustomViewModel model)
+        {
+            for (var index = 0; index < model.GetRequirements().Count; index++)
+            {
+                _forcesTable.Rows[RequirementGUIDRowIndex + index].HeaderCell.Value =
+                    model.GetRequirements()[index].Name;
+            }
+        }
+
+        private static void InsertRatings(ICustomViewModel model, DataTable data)
+        {
+            foreach (var rating in model.GetRatings())
+            {
+                var decisionColumnIndex = 0;
+                for (var index = DecisionColumnIndex; index != data.Columns.Count; index++)
+                {
+                    if (!data.Rows[data.Rows.Count - 1][index].ToString().Equals(rating.DecisionGUID))
+                        continue;
+                    decisionColumnIndex = index;
+                    break;
+                }
+                if (decisionColumnIndex == 0) continue;
+                var row = data.Rows.Find(rating.RequirementGUID.Split(':')[1]);
+                if (row == null) continue;
+                row[decisionColumnIndex] = rating.Value;
+            }
+        }
+
+        private static void InsertConcerns(ICustomViewModel model, DataTable data)
+        {
             foreach (var reqConcerns in model.GetConcerns())
             {
                 var concerns = new StringBuilder();
@@ -146,52 +205,30 @@ namespace DecisionViewpointsCustomViews.View
                 data.Rows.Find(reqConcerns.Key.GUID)[ConcernColumnIndex] = concerns;
                 data.Rows.Find(reqConcerns.Key.GUID)[ConcernGUIDColumnIndex] = concernsGUID;
             }
+        }
 
-            // insert the ratings in the table
-            foreach (var rating in model.GetRatings())
+        private static void InsertDecisionGuids(ICustomViewModel model, DataTable data)
+        {
+            var decisionIndex = 0;
+            foreach (var decision in model.GetDecisions())
             {
-                var decisionColumnIndex = 0;
-                for (var index = DecisionColumnIndex; index != data.Columns.Count; index++)
-                {
-                    if (!data.Rows[data.Rows.Count - 1][index].ToString().Equals(rating.DecisionGUID))
-                        continue;
-                    decisionColumnIndex = index;
-                    break;
-                }
-                if (decisionColumnIndex == 0) continue;
-                var row = data.Rows.Find(rating.RequirementGUID.Split(':')[1]);
-                if (row == null) continue;
-                row[decisionColumnIndex] = rating.Value;
+                data.Rows[data.Rows.Count - 1][decisionIndex++ + DecisionColumnIndex] = decision.GUID;
             }
+        }
 
-            _forcesTable.DataSource = data;
-
-            if (data.Columns.Count <= 0) return;
-
-            for (var index = 0; index < model.GetRequirements().Count; index++)
+        private static void InsertRequirementGuids(ICustomViewModel model, DataTable data)
+        {
+            foreach (var requirement in model.GetRequirements())
             {
-                _forcesTable.Rows[RequirementGUIDRowIndex + index].HeaderCell.Value =
-                    model.GetRequirements()[index].Name;
+                data.Rows.Add(new object[] {requirement.GUID});
             }
-            _forcesTable.Rows[_forcesTable.Rows.Count - 1].HeaderCell.Value = DecisionGUIDHeader;
+        }
 
-            // hide the columns which contain the guids of the elements
-            var requirementGUIDColumn = _forcesTable.Columns[RequirementGUIDHeader];
-            if (requirementGUIDColumn != null)
-                requirementGUIDColumn.Visible = false;
-
-            var concernGUIDColumn = _forcesTable.Columns[ConcernGUIDHeader];
-            if (concernGUIDColumn != null)
-                concernGUIDColumn.Visible = false;
-
-            HideDecisionGUIDRow();
-
-            var concernColumn = _forcesTable.Columns[ConcernHeader];
-            if (concernColumn != null) concernColumn.ReadOnly = true;
-
-            foreach (DataGridViewColumn column in _forcesTable.Columns)
+        private static void InsertDecisions(ICustomViewModel model, DataTable data)
+        {
+            foreach (var decision in model.GetDecisions())
             {
-                column.SortMode = DataGridViewColumnSortMode.NotSortable;
+                data.Columns.Add(string.Format("<<{0}>>\n{1}", decision.Stereotype, decision.Name));
             }
         }
 
@@ -211,7 +248,7 @@ namespace DecisionViewpointsCustomViews.View
                                 .Where(row => row.Cells[RequirementGUIDColumnIndex].Value.ToString().Equals(guid)))
             {
                 _forcesTable.Rows.Remove(row);
-                HideDecisionGUIDRow();
+                HideRow(_forcesTable.Rows.Count - 1);
                 break;
             }
         }
@@ -250,7 +287,7 @@ namespace DecisionViewpointsCustomViews.View
                 return _forcesTable.Rows[_forcesTable.Rows.Count - 1].Cells.Cast<DataGridViewCell>()
                                                                      .Select(cell => cell.Value.ToString())
                                                                      .Where(value => !value.Equals(EmptyCellValue))
-                                                                     .ToArray();// ToList();
+                                                                     .ToArray();
             }
         }
 
@@ -259,12 +296,12 @@ namespace DecisionViewpointsCustomViews.View
             return _forcesTable[column, row].Value.ToString();
         }
 
-        private void HideDecisionGUIDRow()
+        private void HideRow(int index)
         {
             // we need this to hide the last row for when the table has no rows
             // and it is visible as a tab and the user adds new elements
             _forcesTable.CurrentCell = null;
-            _forcesTable.Rows[_forcesTable.Rows.Count - 1].Visible = false;
+            _forcesTable.Rows[index].Visible = false;
         }
 
         private void _forcesTable_CellValueChanged(object sender, DataGridViewCellEventArgs e)
