@@ -28,7 +28,6 @@ namespace DecisionViewpoints.Logic.Forces
             }
             ICustomView forcesView = repository.AddTab(forcesDiagramModel.Name,
                                                        "DecisionViewpointsCustomViews.CustomViewControl");
-            forcesDiagramModel.AddListener(forcesView);
             _forcesController = new ForcesController(forcesView, forcesDiagramModel);
             _forcesController.UpdateTable();
             return true;

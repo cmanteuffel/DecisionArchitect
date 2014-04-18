@@ -7,14 +7,15 @@ namespace DecisionViewpoints
     {
         public static string GetResourceContents(string resource)
         {
-            string technology;
+            string technology = null;
             using (var stream = Assembly.GetExecutingAssembly()
                                         .GetManifestResourceStream(resource))
             {
-                using (var reader = new StreamReader(stream))
-                {
-                    technology = reader.ReadToEnd();
-                }
+                if (stream != null)
+                    using (var reader = new StreamReader(stream))
+                    {
+                        technology = reader.ReadToEnd();
+                    }
             }
             return technology;
         }

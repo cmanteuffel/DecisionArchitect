@@ -14,6 +14,7 @@ namespace DecisionViewpointsCustomViews.Controller
             _view = view;
             _model = model;
             view.SetController(this);
+            _model.AddListener(view);
         }
 
         public void UpdateTable()
