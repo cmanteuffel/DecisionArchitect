@@ -251,8 +251,8 @@
 		<col key="yes" def="s72">Name</col>
 		<col def="V0">Data</col>
 		<col def="S255">ISBuildSourcePath</col>
-		<row><td>ISExpHlp.dll</td><td/><td>&lt;ISProductFolder&gt;\redist\language independent\i386\ISExpHlp.dll</td></row>
-		<row><td>ISSELFREG.DLL</td><td/><td>&lt;ISProductFolder&gt;\redist\language independent\i386\isregsvr.dll</td></row>
+		<row><td>ISExpHlp.dll</td><td/><td>&lt;ISRedistPlatformDependentFolder&gt;\ISExpHlp.dll</td></row>
+		<row><td>ISSELFREG.DLL</td><td/><td>&lt;ISRedistPlatformDependentFolder&gt;\isregsvr.dll</td></row>
 		<row><td>NewBinary1</td><td/><td>&lt;ISProductFolder&gt;\Support\Themes\InstallShield Blue Theme\banner.jpg</td></row>
 		<row><td>NewBinary10</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\CompleteSetupIco.ibd</td></row>
 		<row><td>NewBinary11</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\CustomSetupIco.ibd</td></row>
@@ -271,7 +271,7 @@
 		<row><td>NewBinary7</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\ReinstIco.ibd</td></row>
 		<row><td>NewBinary8</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\RemoveIco.ibd</td></row>
 		<row><td>NewBinary9</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\SetupIcon.ibd</td></row>
-		<row><td>SetAllUsers.dll</td><td/><td>&lt;ISProductFolder&gt;\redist\language independent\i386\SetAllUsers.dll</td></row>
+		<row><td>SetAllUsers.dll</td><td/><td>&lt;ISRedistPlatformDependentFolder&gt;\SetAllUsers.dll</td></row>
 	</table>
 
 	<table name="BindImage">
@@ -340,10 +340,8 @@
 		<col def="S0">ISDotNetInstallerArgsCommit</col>
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
-		<row><td>DecisionViewpoints.Primary_output</td><td>{2D1C5E0A-DB68-4DAE-9AED-CFE0322F1BB4}</td><td>INSTALLDIR</td><td>2</td><td/><td>decisionviewpoints.primary_o</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>DecisionViewpoints.Primary_output1</td><td>{61EEA843-2A63-460D-8271-E7B44EEA4A02}</td><td>INSTALLDIR</td><td>2</td><td/><td>decisionviewpoints.primary_o1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>DecisionViewpointsCustomViews.Primary_output</td><td>{FCCEE248-EE38-407D-A0D4-0CDEB1AAAE2D}</td><td>INSTALLDIR</td><td>2</td><td/><td>decisionviewpointscustomview</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>EAFacade.Primary_output</td><td>{71FD59E4-1CAB-44EE-9605-E0E6E267E098}</td><td>INSTALLDIR</td><td>2</td><td/><td>eafacade.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>DecisionViewpoints.Primary_output</td><td>{D00C68CC-2F12-48F7-ABB6-8F7B5A5AB691}</td><td>INSTALLDIR</td><td>2</td><td/><td>decisionviewpoints.primary_o</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>EAFacade.Primary_output</td><td>{75F7EF10-247C-4CC9-A9D7-62DC299AE9A0}</td><td>INSTALLDIR</td><td>2</td><td/><td>eafacade.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT</td><td>{F2C6BCD0-AF80-425E-A3BD-57E0EA035F55}</td><td>MDG_TECHNOLOGY</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{7E7D0D85-0F5D-4897-966A-DECDF1BF53C2}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
@@ -942,11 +940,11 @@
 		<row><td>InstallChangeFolder</td><td>Up</td><td>DirectoryListUp</td><td>0</td><td>1</td><td>0</td></row>
 		<row><td>InstallWelcome</td><td>Back</td><td>NewDialog</td><td>SplashBitmap</td><td>Display_IsBitmapDlg</td><td>0</td></row>
 		<row><td>InstallWelcome</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>0</td></row>
-		<row><td>InstallWelcome</td><td>Next</td><td>NewDialog</td><td>LicenseAgreement</td><td>1</td><td>0</td></row>
+		<row><td>InstallWelcome</td><td>Next</td><td>NewDialog</td><td>ReadyToInstall</td><td>1</td><td>0</td></row>
 		<row><td>LicenseAgreement</td><td>Back</td><td>NewDialog</td><td>InstallWelcome</td><td>1</td><td>0</td></row>
 		<row><td>LicenseAgreement</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>0</td></row>
 		<row><td>LicenseAgreement</td><td>ISPrintButton</td><td>DoAction</td><td>ISPrint</td><td>1</td><td>0</td></row>
-		<row><td>LicenseAgreement</td><td>Next</td><td>NewDialog</td><td>CustomerInformation</td><td>AgreeToLicense = "Yes"</td><td>0</td></row>
+		<row><td>LicenseAgreement</td><td>Next</td><td>NewDialog</td><td>ReadyToInstall</td><td>AgreeToLicense = "Yes"</td><td>0</td></row>
 		<row><td>MaintenanceType</td><td>Back</td><td>NewDialog</td><td>MaintenanceWelcome</td><td>1</td><td>0</td></row>
 		<row><td>MaintenanceType</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>0</td></row>
 		<row><td>MaintenanceType</td><td>Next</td><td>NewDialog</td><td>CustomSetup</td><td>_IsMaintenance = "Change"</td><td>12</td></row>
@@ -977,7 +975,7 @@
 		<row><td>ReadmeInformation</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>1</td></row>
 		<row><td>ReadmeInformation</td><td>Next</td><td>NewDialog</td><td>CustomerInformation</td><td>1</td><td>1</td></row>
 		<row><td>ReadyToInstall</td><td>Back</td><td>NewDialog</td><td>CustomSetup</td><td>Installed OR _IsSetupTypeMin = "Custom"</td><td>2</td></row>
-		<row><td>ReadyToInstall</td><td>Back</td><td>NewDialog</td><td>CustomerInformation</td><td>NOT Installed</td><td>1</td></row>
+		<row><td>ReadyToInstall</td><td>Back</td><td>NewDialog</td><td>InstallWelcome</td><td>NOT Installed</td><td>1</td></row>
 		<row><td>ReadyToInstall</td><td>Back</td><td>NewDialog</td><td>MaintenanceType</td><td>Installed AND _IsMaintenance = "Reinstall"</td><td>3</td></row>
 		<row><td>ReadyToInstall</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>0</td></row>
 		<row><td>ReadyToInstall</td><td>InstallNow</td><td>EndDialog</td><td>Return</td><td>OutOfNoRbDiskSpace &lt;&gt; 1</td><td>0</td></row>
@@ -1014,17 +1012,15 @@
 		<row><td>SetupCompleteError</td><td>Finish</td><td>DoAction</td><td>CleanUp</td><td>ISSCRIPTRUNNING="1"</td><td>1</td></row>
 		<row><td>SetupCompleteError</td><td>Finish</td><td>DoAction</td><td>ShowMsiLog</td><td>MsiLogFileLocation And (ISSHOWMSILOG="1")</td><td>3</td></row>
 		<row><td>SetupCompleteError</td><td>Finish</td><td>EndDialog</td><td>Exit</td><td>1</td><td>2</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>CleanUp</td><td>ISSCRIPTRUNNING="1"</td><td>9</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>Register_DLL_Com_Codebase</td><td>Installed And (DOTNETVERSION45FULL&gt;="#1")</td><td>1</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>ShowMsiLog</td><td>MsiLogFileLocation And (ISSHOWMSILOG="1") And NOT ISENABLEDWUSFINISHDIALOG</td><td>14</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>reg_customView</td><td>Not Installed</td><td>5</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>reg_eafacade</td><td>Not Installed And (DOTNETVERSION45FULL&gt;="#1")</td><td>3</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>reg_main</td><td>Not Installed And (DOTNETVERSION45FULL&gt;="#1")</td><td>7</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>EndDialog</td><td>Exit</td><td>1</td><td>10</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>[Register_DLL_Com_Codebase]</td><td>Register_DLL_Com_Codebase</td><td>Installed</td><td>2</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>[reg_customView]</td><td>reg_customView</td><td>Not Installed</td><td>6</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>[reg_eafacade]</td><td>reg_eafacade</td><td>Not Installed</td><td>4</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>[reg_main]</td><td>reg_main</td><td>Not Installed</td><td>8</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>CleanUp</td><td>ISSCRIPTRUNNING="1"</td><td>23</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>Register_DLL_Com_Codebase</td><td>Installed And (DOTNETVERSION45FULL&gt;="#1")</td><td>7</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>ShowMsiLog</td><td>MsiLogFileLocation And (ISSHOWMSILOG="1") And NOT ISENABLEDWUSFINISHDIALOG</td><td>28</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>reg_eafacade</td><td>Not Installed And (DOTNETVERSION45FULL&gt;="#1")</td><td>5</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>reg_main</td><td>Not Installed And (DOTNETVERSION45FULL&gt;="#1")</td><td>1</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>EndDialog</td><td>Exit</td><td>1</td><td>24</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>[Register_DLL_Com_Codebase]</td><td>Register_DLL_Com_Codebase</td><td>Installed And (DOTNETVERSION45FULL&gt;="#1")</td><td>8</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>[reg_eafacade]</td><td>reg_eafacade</td><td>Not Installed And (DOTNETVERSION45FULL&gt;="#1")</td><td>6</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>[reg_main]</td><td>reg_main</td><td>Not Installed And (DOTNETVERSION45FULL&gt;="#1")</td><td>2</td></row>
 		<row><td>SetupError</td><td>A</td><td>EndDialog</td><td>ErrorAbort</td><td>1</td><td>0</td></row>
 		<row><td>SetupError</td><td>C</td><td>EndDialog</td><td>ErrorCancel</td><td>1</td><td>0</td></row>
 		<row><td>SetupError</td><td>I</td><td>EndDialog</td><td>ErrorIgnore</td><td>1</td><td>0</td></row>
@@ -1083,7 +1079,6 @@
 		<row><td>SetARPINSTALLLOCATION</td><td>51</td><td>ARPINSTALLLOCATION</td><td>[INSTALLDIR]</td><td/><td/></row>
 		<row><td>SetAllUsersProfileNT</td><td>51</td><td>ALLUSERSPROFILE</td><td>[%SystemRoot]\Profiles\All Users</td><td/><td/></row>
 		<row><td>ShowMsiLog</td><td>226</td><td>SystemFolder</td><td>[SystemFolder]notepad.exe "[MsiLogFileLocation]"</td><td/><td>Shows Property-driven MSI Log</td></row>
-		<row><td>reg_customView</td><td>34</td><td>V4.0.303194</td><td>[V4.0.303194]regasm "[INSTALLDIR]\DecisionViewpointsCustomViews.dll" /codebase</td><td/><td/></row>
 		<row><td>reg_eafacade</td><td>34</td><td>V4.0.303194</td><td>[V4.0.303194]regasm "[INSTALLDIR]\EAFacade.dll"</td><td/><td/></row>
 		<row><td>reg_main</td><td>34</td><td>V4.0.303194</td><td>[V4.0.303194]regasm "[INSTALLDIR]\DecisionViewpoints.dll" /codebase</td><td/><td/></row>
 		<row><td>setAllUsersProfile2K</td><td>51</td><td>ALLUSERSPROFILE</td><td>[%ALLUSERSPROFILE]</td><td/><td/></row>
@@ -1149,6 +1144,7 @@
 		<row><td>AdminToolsFolder</td><td>TARGETDIR</td><td>.:Admint~1|AdminTools</td><td/><td>0</td><td/></row>
 		<row><td>AppDataFolder</td><td>TARGETDIR</td><td>.:APPLIC~1|Application Data</td><td/><td>0</td><td/></row>
 		<row><td>CommonAppDataFolder</td><td>TARGETDIR</td><td>.:Common~1|CommonAppData</td><td/><td>0</td><td/></row>
+		<row><td>CommonFiles64Folder</td><td>TARGETDIR</td><td>.:Common64</td><td/><td>0</td><td/></row>
 		<row><td>CommonFilesFolder</td><td>TARGETDIR</td><td>.:Common</td><td/><td>0</td><td/></row>
 		<row><td>DATABASEDIR</td><td>ISYourDataBaseDir</td><td>.</td><td/><td>0</td><td/></row>
 		<row><td>DECISION_VIEWPOINTS</td><td>SEARCH_GROUP</td><td>DECISI~1|Decision Viewpoints</td><td/><td>0</td><td/></row>
@@ -1188,6 +1184,7 @@
 		<row><td>PersonalFolder</td><td>TARGETDIR</td><td>.:Personal</td><td/><td>0</td><td/></row>
 		<row><td>PrimaryVolumePath</td><td>TARGETDIR</td><td>.:Primar~1|PrimaryVolumePath</td><td/><td>0</td><td/></row>
 		<row><td>PrintHoodFolder</td><td>TARGETDIR</td><td>.:PRINTH~1|PrintHood</td><td/><td>0</td><td/></row>
+		<row><td>ProgramFiles64Folder</td><td>TARGETDIR</td><td>.:Prog64~1|Program Files 64</td><td/><td>0</td><td/></row>
 		<row><td>ProgramFilesFolder</td><td>TARGETDIR</td><td>.:PROGRA~1|program files</td><td/><td>0</td><td/></row>
 		<row><td>ProgramMenuFolder</td><td>TARGETDIR</td><td>.:Programs</td><td/><td>3</td><td/></row>
 		<row><td>RecentFolder</td><td>TARGETDIR</td><td>.:Recent</td><td/><td>0</td><td/></row>
@@ -1196,6 +1193,7 @@
 		<row><td>StartMenuFolder</td><td>TARGETDIR</td><td>.:STARTM~1|Start Menu</td><td/><td>3</td><td/></row>
 		<row><td>StartupFolder</td><td>TARGETDIR</td><td>.:StartUp</td><td/><td>3</td><td/></row>
 		<row><td>System16Folder</td><td>TARGETDIR</td><td>.:System</td><td/><td>0</td><td/></row>
+		<row><td>System64Folder</td><td>TARGETDIR</td><td>.:System64</td><td/><td>0</td><td/></row>
 		<row><td>SystemFolder</td><td>TARGETDIR</td><td>.:System32</td><td/><td>0</td><td/></row>
 		<row><td>TARGETDIR</td><td/><td>SourceDir</td><td/><td>0</td><td/></row>
 		<row><td>TempFolder</td><td>TARGETDIR</td><td>.:Temp</td><td/><td>0</td><td/></row>
@@ -1903,8 +1901,6 @@
 		<col key="yes" def="s38">Feature_</col>
 		<col key="yes" def="s72">Component_</col>
 		<row><td>AlwaysInstall</td><td>DecisionViewpoints.Primary_output</td></row>
-		<row><td>AlwaysInstall</td><td>DecisionViewpoints.Primary_output1</td></row>
-		<row><td>AlwaysInstall</td><td>DecisionViewpointsCustomViews.Primary_output</td></row>
 		<row><td>AlwaysInstall</td><td>EAFacade.Primary_output</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT1</td></row>
@@ -1923,9 +1919,7 @@
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
 		<row><td>decisionviewpoints.primary_o</td><td>DecisionViewpoints.Primary_output</td><td>DecisionViewpoints.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;DecisionViewpoints&gt;|Built</td><td>3</td><td/></row>
-		<row><td>decisionviewpoints.primary_o1</td><td>DecisionViewpoints.Primary_output1</td><td>DecisionViewpoints.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;DecisionViewpoints&gt;|Built</td><td>3</td><td/></row>
-		<row><td>decisionviewpoints.xml</td><td>ISX_DEFAULTCOMPONENT</td><td>DECISI~1.XML|DecisionViewpoints.xml</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\angor\Documents\Visual Studio 2012\Projects\Addin\ViewpointsAddIn\src\DecisionViewpoints\bin\Debug\DecisionViewpoints.xml</td><td>1</td><td/></row>
-		<row><td>decisionviewpointscustomview</td><td>DecisionViewpointsCustomViews.Primary_output</td><td>DecisionViewpointsCustomViews.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;DecisionViewpointsCustomViews&gt;|Built</td><td>3</td><td/></row>
+		<row><td>decisionviewpoints.xml</td><td>ISX_DEFAULTCOMPONENT</td><td>DECISI~1.XML|DecisionViewpoints.xml</td><td>0</td><td/><td/><td/><td>1</td><td>P:\ViewpointsAddIn\src\DecisionViewpoints\DecisionViewpoints.xml</td><td>1</td><td/></row>
 		<row><td>eafacade.primary_output</td><td>EAFacade.Primary_output</td><td>EAFacade.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;EAFacade&gt;|Built</td><td>3</td><td/></row>
 	</table>
 
@@ -1961,119 +1955,6 @@
 		<col def="S72">Font</col>
 		<col def="L72">Title</col>
 		<col def="S72">DisplayName</col>
-	</table>
-
-	<table name="ISCEApp">
-		<col key="yes" def="s50">AppKey</col>
-		<col def="s50">AppName</col>
-		<col def="s200">CompanyName</col>
-		<col def="s50">DefDir</col>
-		<col def="S255">IconPath</col>
-		<col def="I4">IconIndex</col>
-		<col def="S255">DeviceFile</col>
-		<col def="s50">DesktopTargetDir</col>
-		<col def="S255">Description</col>
-		<col def="i2">DeleteMedia</col>
-		<col def="I4">InstallNetCF</col>
-		<col def="I4">InstallSQLServer</col>
-		<col def="I4">InstallSQLClient</col>
-		<col def="I4">InstallSQLDev</col>
-		<col def="S255">PreXML</col>
-		<col def="S255">PostXML</col>
-		<col def="I2">NoUninstall</col>
-		<col def="S255">SPCFile</col>
-		<col def="S255">PVKFile</col>
-		<col def="I4">Attributes</col>
-		<col def="S255">RawDeviceFile</col>
-		<col def="S72">Component_</col>
-		<col def="I4">InstallNetCF2</col>
-		<col def="I4">InstallSQLServer2</col>
-		<col def="I4">InstallSQLClient2</col>
-		<col def="I4">InstallSQLDev2</col>
-		<col def="S255">SPCPwd</col>
-	</table>
-
-	<table name="ISCEDir">
-		<col key="yes" def="s50">AppKey</col>
-		<col key="yes" def="s50">DirKey</col>
-		<col def="s50">DirParent</col>
-		<col def="s255">DirValue</col>
-	</table>
-
-	<table name="ISCEFile">
-		<col key="yes" def="s50">AppKey</col>
-		<col key="yes" def="s50">FileKey</col>
-		<col def="s255">Name</col>
-		<col def="s50">Destination</col>
-		<col def="s255">Source</col>
-		<col def="i4">Processor</col>
-		<col def="i4">Platform</col>
-		<col def="i4">CopyOption</col>
-		<col def="i4">FileOption</col>
-		<col def="I4">AdvancedOptions</col>
-	</table>
-
-	<table name="ISCEFileExt">
-		<col key="yes" def="s50">AppKey</col>
-		<col key="yes" def="s50">ExtKey</col>
-		<col def="s50">FileKey</col>
-		<col def="S255">Description</col>
-		<col def="s50">Extension</col>
-		<col def="i4">IconIndex</col>
-	</table>
-
-	<table name="ISCEInstall">
-		<col key="yes" def="s255">CEInstallKey</col>
-		<col def="s255">CEAppName</col>
-		<col def="s255">CEDesktopDir</col>
-		<col def="s255">CEIniFileKey</col>
-		<col def="s0">CECabs</col>
-		<col def="s0">CEIcoFile</col>
-		<col def="i2">DeleteMedia</col>
-		<col def="S38">Component_</col>
-	</table>
-
-	<table name="ISCEOtherAppCABs">
-		<col key="yes" def="s50">AppKey</col>
-		<col key="yes" def="s50">FileKey</col>
-		<col def="s255">BuildSourcePath</col>
-	</table>
-
-	<table name="ISCERedist">
-		<col key="yes" def="s50">AppKey</col>
-		<col key="yes" def="S50">Name</col>
-		<col def="I4">Platforms</col>
-	</table>
-
-	<table name="ISCERegistry">
-		<col key="yes" def="s50">AppKey</col>
-		<col key="yes" def="s50">RegKey</col>
-		<col def="i4">Root</col>
-		<col def="s255">Key</col>
-		<col def="S255">Name</col>
-		<col def="S0">Value</col>
-		<col def="i4">Processor</col>
-		<col def="i4">Platform</col>
-		<col def="i4">Overwrite</col>
-	</table>
-
-	<table name="ISCESetupFile">
-		<col key="yes" def="s50">AppKey</col>
-		<col key="yes" def="s50">SetupFileKey</col>
-		<col def="s255">Name</col>
-		<col def="s255">Source</col>
-		<col def="i4">Processor</col>
-		<col def="i4">Platform</col>
-	</table>
-
-	<table name="ISCEShtCut">
-		<col key="yes" def="s50">AppKey</col>
-		<col key="yes" def="s50">ShtCutKey</col>
-		<col def="s255">DisplayName</col>
-		<col def="s255">Destination</col>
-		<col def="s50">Target</col>
-		<col def="i4">Platform</col>
-		<col def="S255">StartScreenIcon</col>
 	</table>
 
 	<table name="ISChainPackage">
@@ -2184,10 +2065,8 @@
 		<col def="S0">FTPLocation</col>
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
-		<row><td>DecisionViewpoints.Primary_output</td><td/><td/><td>_9CBEEF70_83FB_4700_A2F8_ECE7B04A97D3_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>DecisionViewpoints.Primary_output1</td><td/><td/><td>_58981E3A_4A50_4C7A_A48D_1ACBA4B99F5E_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>DecisionViewpointsCustomViews.Primary_output</td><td/><td/><td>_7EF01EEC_9DBA_40A6_9245_126A508B8F48_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>EAFacade.Primary_output</td><td/><td/><td>_A7CAD05D_2807_4A04_AC84_72B9D8F68DD0_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>DecisionViewpoints.Primary_output</td><td/><td/><td>_4B76F535_969E_4A34_ADF3_C4FBEAEDDE94_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>EAFacade.Primary_output</td><td/><td/><td>_FDAF69E4_6118_4EA3_BB16_5D249AD37029_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT</td><td/><td/><td>_05CC79C5_6860_407F_BAFB_60AB84E97A27_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_D048FC65_A288_403C_81A5_7E8F6B4D2B00_FILTER</td><td/><td/><td/><td/></row>
 	</table>
@@ -2443,17 +2322,6 @@
 		<col def="I2">IncludeInBuild</col>
 	</table>
 
-	<table name="ISPalmApp">
-		<col key="yes" def="s72">PalmApp</col>
-		<col key="yes" def="s72">Component</col>
-	</table>
-
-	<table name="ISPalmAppFile">
-		<col key="yes" def="s72">PalmApp</col>
-		<col key="yes" def="s72">FileKey</col>
-		<col def="i4">Destination</col>
-	</table>
-
 	<table name="ISPatchConfigImage">
 		<col key="yes" def="S72">PatchConfiguration_</col>
 		<col key="yes" def="s72">UpgradedImage_</col>
@@ -2504,6 +2372,7 @@
 		<row><td>CommonFilesFolder</td><td/><td/><td>1</td></row>
 		<row><td>DecisionViewpoints</td><td>DecisionViewpoints\DecisionViewpoints.csproj</td><td/><td>2</td></row>
 		<row><td>DecisionViewpointsCustomViews</td><td>DecisionViewpointsCustomViews\DecisionViewpointsCustomViews.csproj</td><td/><td>2</td></row>
+		<row><td>DecisionViewpointsTests</td><td>DecisionViewpointsTests\DecisionViewpointsTests.csproj</td><td/><td>2</td></row>
 		<row><td>EAFacade</td><td>EAFacade\EAFacade.csproj</td><td/><td>2</td></row>
 		<row><td>ISPROJECTDIR</td><td/><td/><td>1</td></row>
 		<row><td>ISProductFolder</td><td/><td/><td>1</td></row>
@@ -2626,7 +2495,7 @@
 		<row><td>DVD-5</td><td>Express</td><td>0</td><td>http://</td><td>0</td><td>install</td><td>install</td><td>[LocalAppDataFolder]Downloaded Installations</td><td>0</td><td>http://www.installengine.com/Msiengine20</td><td>http://www.installengine.com/Msiengine20</td><td>0</td><td>http://www.installengine.com/cert05/isengine</td><td>0</td><td/><td/><td/><td>3</td><td>http://www.installengine.com/cert05/dotnetfx</td><td>0</td><td>1033</td><td/><td/><td/><td/><td>1024</td><td>3</td><td/><td>http://www.installengine.com/Msiengine30</td><td/></row>
 		<row><td>DVD-9</td><td>Express</td><td>0</td><td>http://</td><td>0</td><td>install</td><td>install</td><td>[LocalAppDataFolder]Downloaded Installations</td><td>0</td><td>http://www.installengine.com/Msiengine20</td><td>http://www.installengine.com/Msiengine20</td><td>0</td><td>http://www.installengine.com/cert05/isengine</td><td>0</td><td/><td/><td/><td>3</td><td>http://www.installengine.com/cert05/dotnetfx</td><td>0</td><td>1033</td><td/><td/><td/><td/><td/><td>3</td><td/><td>http://www.installengine.com/Msiengine30</td><td/></row>
 		<row><td>SingleImage</td><td>Express</td><td>0</td><td>http://</td><td>0</td><td>install</td><td>install</td><td>[LocalAppDataFolder]Downloaded Installations</td><td>1</td><td>http://www.installengine.com/Msiengine20</td><td>http://www.installengine.com/Msiengine20</td><td>0</td><td>http://www.installengine.com/cert05/isengine</td><td>0</td><td/><td/><td/><td>3</td><td>http://www.installengine.com/cert05/dotnetfx</td><td>0</td><td>1033</td><td/><td/><td/><td/><td/><td>3</td><td/><td>http://www.installengine.com/Msiengine30</td><td/></row>
-		<row><td>WebDeployment</td><td>Express</td><td>0</td><td>http://</td><td>0</td><td>setup</td><td>Default</td><td>[LocalAppDataFolder]Downloaded Installations</td><td>2</td><td>http://www.Installengine.com/Msiengine20</td><td>http://www.Installengine.com/Msiengine20</td><td>0</td><td>http://www.installengine.com/cert05/isengine</td><td>2</td><td/><td/><td/><td>3</td><td>http://www.installengine.com/cert05/dotnetfx</td><td>0</td><td>1033</td><td/><td/><td/><td/><td/><td>3</td><td/><td>http://www.installengine.com/Msiengine30</td><td/></row>
+		<row><td>WebDeployment</td><td>Express</td><td>0</td><td>http://</td><td>0</td><td>setup</td><td>Default</td><td>[LocalAppDataFolder]Downloaded Installations</td><td>2</td><td>http://www.Installengine.com/Msiengine20</td><td>http://www.Installengine.com/Msiengine20</td><td>0</td><td>http://www.installengine.com/cert05/isengine</td><td>0</td><td/><td/><td/><td>3</td><td>http://www.installengine.com/cert05/dotnetfx</td><td>0</td><td>1033</td><td/><td/><td/><td/><td/><td>3</td><td/><td>http://www.installengine.com/Msiengine30</td><td/></row>
 	</table>
 
 	<table name="ISReleaseProperty">
@@ -2738,7 +2607,7 @@
 		<col def="i2">Attributes</col>
 		<col def="S255">Version</col>
 		<col def="S255">Condition</col>
-		<col def="S72">DisplayName</col>
+		<col def="S0">DisplayName</col>
 	</table>
 
 	<table name="ISSQLScriptImport">
@@ -3633,6 +3502,7 @@
 		<row><td>IDS_PROGMSG_XML_ROLLBACK_FILES</td><td>1033</td><td>Rolling back XML file changes...</td><td>0</td><td/><td>295819617</td></row>
 		<row><td>IDS_PROGMSG_XML_UPDATE_FILE</td><td>1033</td><td>Updating XML file %s...</td><td>0</td><td/><td>295819617</td></row>
 		<row><td>IDS_SETUPEXE_EXPIRE_MSG</td><td>1033</td><td>This setup works until %s. The setup will now exit.</td><td>0</td><td/><td>295819617</td></row>
+		<row><td>IDS_SETUPEXE_LAUNCH_COND_E</td><td>1033</td><td>This setup was built with an evaluation version of InstallShield and can only be launched from setup.exe.</td><td>0</td><td/><td>1713498383</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO</td><td>1033</td><td>From the list of servers below, select the database server you would like to target.</td><td>0</td><td/><td>295819617</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_DB</td><td>1033</td><td>From the list of catalog names below, select the database catalog you would like to target.</td><td>0</td><td/><td>295819617</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_TEMPLATE</td><td>1033</td><td>[IS_SQLBROWSE_INTRO]</td><td>0</td><td/><td>295819617</td></row>
@@ -4147,8 +4017,8 @@
 		<col def="S0">Value</col>
 		<row><td>ActiveLanguage</td><td>1033</td></row>
 		<row><td>Comments</td><td/></row>
-		<row><td>CurrentMedia</td><td dt:dt="bin.base64" md5="a4f66fafb30885f14d732b73e196bba0">
-RABWAEQALQA1AAEARQB4AHAAcgBlAHMAcwA=
+		<row><td>CurrentMedia</td><td dt:dt="bin.base64" md5="6d78a46bf2c52ee27034bbcad20f7f95">
+QwBEAF8AUgBPAE0AAQBFAHgAcAByAGUAcwBzAA==
 			</td></row>
 		<row><td>DefaultProductConfiguration</td><td>Express</td></row>
 		<row><td>EnableSwidtag</td><td>0</td></row>
@@ -4165,7 +4035,7 @@ RABWAEQALQA1AAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{578FB7E8-677A-4949-B521-436B8C28887E}</td></row>
 		<row><td>ISUSSignature</td><td>{8813F9FF-399B-4583-B6CD-E0EF00AB5B05}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewObjects,viewRegistry,viewCustomActions,viewInstallScriptStd,viewSystemSearch,viewProject,viewUpgradePaths,viewAppFiles,viewShortcuts,viewRelease,viewSupportFiles,viewUpdateService,viewDependencies,viewIniFiles,viewTextFiles,viewFileExtensions,viewEnvironmentVariables,viewVRoots,viewSQLServer,viewComponentServices,viewUI,viewTextMessages,viewRealSetupDesign,viewDesignPatches,viewISToday</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewObjects,viewRegistry,viewCustomActions,viewInstallScriptStd,viewSystemSearch,viewProject,viewUpgradePaths,viewAppFiles,viewShortcuts,viewRelease,viewSupportFiles,viewUpdateService,viewDependencies,viewIniFiles,viewTextFiles,viewFileExtensions,viewEnvironmentVariables,viewVRoots,viewSQLServer,viewComponentServices,viewUI,viewTextMessages,viewRealSetupDesign,viewDesignPatches,viewISToday,viewFeatureFiles</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
@@ -4177,7 +4047,7 @@ RABWAEQALQA1AAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>SaveAsSchema</td><td/></row>
 		<row><td>SccEnabled</td><td>0</td></row>
 		<row><td>SccPath</td><td>SAK</td></row>
-		<row><td>SchemaVersion</td><td>773</td></row>
+		<row><td>SchemaVersion</td><td>774</td></row>
 		<row><td>Type</td><td>MSIE</td></row>
 		<row><td>VSSccAuxPath</td><td>SAK</td></row>
 		<row><td>VSSccLocalPath</td><td>SAK</td></row>
@@ -4547,7 +4417,7 @@ RABWAEQALQA1AAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>ProductCode</td><td>{EC9AA0A6-9F77-48AC-B737-79434B81F589}</td><td/></row>
 		<row><td>ProductName</td><td>Decision Viewpoints</td><td/></row>
-		<row><td>ProductVersion</td><td>1.00.0000</td><td/></row>
+		<row><td>ProductVersion</td><td>0.4.6</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
@@ -5066,89 +4936,6 @@ RABWAEQALQA1AAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISBillBoard</td><td>Title</td><td>Y</td><td/><td/><td/><td/><td/><td/><td/></row>
 		<row><td>ISBillBoard</td><td>X</td><td>N</td><td>0</td><td>32767</td><td/><td/><td/><td/><td/></row>
 		<row><td>ISBillBoard</td><td>Y</td><td>N</td><td>0</td><td>32767</td><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEApp</td><td>AppKey</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEApp</td><td>AppName</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEApp</td><td>Attributes</td><td>Y</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEApp</td><td>CompanyName</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEApp</td><td>Component_</td><td>Y</td><td/><td/><td>Component</td><td>1</td><td/><td/><td/></row>
-		<row><td>ISCEApp</td><td>DefDir</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEApp</td><td>DeleteMedia</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEApp</td><td>Description</td><td>Y</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEApp</td><td>DesktopTargetDir</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEApp</td><td>DeviceFile</td><td>Y</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEApp</td><td>IconIndex</td><td>Y</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEApp</td><td>IconPath</td><td>Y</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEApp</td><td>InstallNetCF</td><td>Y</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEApp</td><td>InstallNetCF2</td><td>Y</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEApp</td><td>InstallSQLClient</td><td>Y</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEApp</td><td>InstallSQLClient2</td><td>Y</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEApp</td><td>InstallSQLDev</td><td>Y</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEApp</td><td>InstallSQLDev2</td><td>Y</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEApp</td><td>InstallSQLServer</td><td>Y</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEApp</td><td>InstallSQLServer2</td><td>Y</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEApp</td><td>NoUninstall</td><td>Y</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEApp</td><td>PVKFile</td><td>Y</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEApp</td><td>PostXML</td><td>Y</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEApp</td><td>PreXML</td><td>Y</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEApp</td><td>RawDeviceFile</td><td>Y</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEApp</td><td>SPCFile</td><td>Y</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEApp</td><td>SPCPwd</td><td>Y</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEDir</td><td>AppKey</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEDir</td><td>DirKey</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEDir</td><td>DirParent</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEDir</td><td>DirValue</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEFile</td><td>AdvancedOptions</td><td>Y</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEFile</td><td>AppKey</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEFile</td><td>CopyOption</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEFile</td><td>Destination</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEFile</td><td>FileKey</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEFile</td><td>FileOption</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEFile</td><td>Name</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEFile</td><td>Platform</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEFile</td><td>Processor</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEFile</td><td>Source</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEFileExt</td><td>AppKey</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEFileExt</td><td>Description</td><td>Y</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEFileExt</td><td>ExtKey</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEFileExt</td><td>Extension</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEFileExt</td><td>FileKey</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEFileExt</td><td>IconIndex</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEInstall</td><td>CEAppName</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEInstall</td><td>CECabs</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEInstall</td><td>CEDesktopDir</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEInstall</td><td>CEIcoFile</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEInstall</td><td>CEIniFileKey</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEInstall</td><td>CEInstallKey</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEInstall</td><td>Component_</td><td>Y</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEInstall</td><td>DeleteMedia</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEOtherAppCABs</td><td>AppKey</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEOtherAppCABs</td><td>BuildSourcePath</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEOtherAppCABs</td><td>FileKey</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCERedist</td><td>AppKey</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCERedist</td><td>Name</td><td>Y</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCERedist</td><td>Platforms</td><td>Y</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCERegistry</td><td>AppKey</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCERegistry</td><td>Key</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCERegistry</td><td>Name</td><td>Y</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCERegistry</td><td>Overwrite</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCERegistry</td><td>Platform</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCERegistry</td><td>Processor</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCERegistry</td><td>RegKey</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCERegistry</td><td>Root</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCERegistry</td><td>Value</td><td>Y</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCESetupFile</td><td>AppKey</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCESetupFile</td><td>Name</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCESetupFile</td><td>Platform</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCESetupFile</td><td>Processor</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCESetupFile</td><td>SetupFileKey</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCESetupFile</td><td>Source</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEShtCut</td><td>AppKey</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEShtCut</td><td>Destination</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEShtCut</td><td>DisplayName</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEShtCut</td><td>Platform</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEShtCut</td><td>ShtCutKey</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEShtCut</td><td>StartScreenIcon</td><td>Y</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISCEShtCut</td><td>Target</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
 		<row><td>ISChainPackage</td><td>DisplayName</td><td>Y</td><td/><td/><td/><td/><td>Text</td><td/><td>Display name for the chained package. Used only in the IDE.</td></row>
 		<row><td>ISChainPackage</td><td>ISReleaseFlags</td><td>Y</td><td/><td/><td/><td/><td/><td/><td/></row>
 		<row><td>ISChainPackage</td><td>InstallCondition</td><td>Y</td><td/><td/><td/><td/><td>Condition</td><td/><td/></row>
@@ -5366,11 +5153,6 @@ RABWAEQALQA1AAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISObjectProperty</td><td>ObjectName</td><td>Y</td><td/><td/><td>ISObject</td><td>1</td><td>Text</td><td/><td/></row>
 		<row><td>ISObjectProperty</td><td>Property</td><td>Y</td><td/><td/><td/><td/><td>Text</td><td/><td/></row>
 		<row><td>ISObjectProperty</td><td>Value</td><td>Y</td><td/><td/><td/><td/><td>Text</td><td/><td/></row>
-		<row><td>ISPalmApp</td><td>Component</td><td>N</td><td/><td/><td>Component</td><td>1</td><td/><td/><td/></row>
-		<row><td>ISPalmApp</td><td>PalmApp</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISPalmAppFile</td><td>Destination</td><td>N</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>ISPalmAppFile</td><td>FileKey</td><td>N</td><td/><td/><td>File</td><td>1</td><td/><td/><td/></row>
-		<row><td>ISPalmAppFile</td><td>PalmApp</td><td>N</td><td/><td/><td>ISPalmApp</td><td>1</td><td/><td/><td/></row>
 		<row><td>ISPatchConfigImage</td><td>PatchConfiguration_</td><td>Y</td><td/><td/><td>ISPatchConfiguration</td><td>1</td><td>Text</td><td/><td>Foreign key to the ISPatchConfigurationTable</td></row>
 		<row><td>ISPatchConfigImage</td><td>UpgradedImage_</td><td>N</td><td/><td/><td>ISUpgradedImage</td><td>1</td><td>Text</td><td/><td>Foreign key to the ISUpgradedImageTable</td></row>
 		<row><td>ISPatchConfiguration</td><td>Attributes</td><td>Y</td><td/><td/><td/><td/><td/><td/><td>PatchConfiguration attributes</td></row>

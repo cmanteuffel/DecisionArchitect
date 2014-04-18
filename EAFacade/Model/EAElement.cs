@@ -167,7 +167,7 @@ namespace EAFacade.Model
 
         public static EAElement Wrap(EventProperties properties)
         {
-            dynamic elementId = Utilities.ParseToInt32(properties.Get(EAEventPropertyKeys.ElementId).Value, -1);
+            dynamic elementId = EAUtilities.ParseToInt32(properties.Get(EAEventPropertyKeys.ElementId).Value, -1);
             EAElement element = null;
             if (elementId > 0)
             {
@@ -246,7 +246,7 @@ namespace EAFacade.Model
             var diagrams = new List<EADiagram>();
             foreach (XmlNode diagramID in diagramIDs)
             {
-                int id = Utilities.ParseToInt32(diagramID.InnerText, -1);
+                int id = EAUtilities.ParseToInt32(diagramID.InnerText, -1);
                 if (id > 0)
                 {
                     diagrams.Add(repository.GetDiagramByID(id));

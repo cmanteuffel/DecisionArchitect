@@ -1,4 +1,4 @@
-using DecisionViewpointsCustomViews.Model;
+using DecisionViewpoints.Model;
 using EAFacade.Model;
 
 namespace DecisionViewpoints.Logic.Reporting

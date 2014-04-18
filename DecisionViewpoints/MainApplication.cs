@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Windows.Forms;
 using DecisionViewpoints.Logic;
 using DecisionViewpoints.Logic.Chronological;
 using DecisionViewpoints.Logic.Detail;
@@ -34,14 +33,14 @@ namespace DecisionViewpoints
         public override object EA_OnInitializeTechnologies(Repository repository)
         {
             EARepository.UpdateRepository(repository);
-            const string resource = "EAFacade." + "DecisionViewpoints.xml";
+            const string resource = "DecisionViewpoints." + "DecisionViewpoints.xml";
             return Utilities.GetResourceContents(resource);
         }
 
         public override string EA_OnRetrieveModelTemplate(Repository repository, string location)
         {
             EARepository.UpdateRepository(repository);
-            string resource = "EAFacade." + location;
+            string resource = "DecisionViewpoints.Templates." + location;
             return Utilities.GetResourceContents(resource);
         }
     }

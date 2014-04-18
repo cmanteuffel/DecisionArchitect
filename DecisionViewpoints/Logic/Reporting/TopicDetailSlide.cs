@@ -1,15 +1,10 @@
-﻿using DecisionViewpoints.Model.Reporting;
-using DecisionViewpointsCustomViews.Model;
+﻿using DecisionViewpoints.Model;
+using DecisionViewpoints.Model.Reporting;
 using DocumentFormat.OpenXml.Packaging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DecisionViewpoints.Logic.Reporting
 {
-    class TopicDetailSlide: AbstractSlide
+    internal class TopicDetailSlide : AbstractSlide
     {
         private readonly ITopic _topic;
 

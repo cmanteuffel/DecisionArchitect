@@ -54,16 +54,25 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CreateDecision.cs">
+    <Compile Include="Model\StakeholderInvolvement.cs" />
+    <Compile Include="Utilities.cs" />
+    <Compile Include="View\Controller\DetailController.cs" />
+    <Compile Include="View\Controller\ForcesController.cs" />
+    <Compile Include="View\Controller\ICustomViewController.cs" />
+    <Compile Include="View\Controller\IDetailViewController.cs" />
+    <Compile Include="View\Controller\IForcesController.cs" />
+    <Compile Include="View\Controller\ITopicDetailController.cs" />
+    <Compile Include="View\Controller\TopicDetailController.cs" />
+    <Compile Include="View\CreateDecision.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CreateDecision.Designer.cs">
+    <Compile Include="View\CreateDecision.Designer.cs">
       <DependentUpon>CreateDecision.cs</DependentUpon>
     </Compile>
-    <Compile Include="CreateTopic.cs">
+    <Compile Include="View\CreateTopic.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CreateTopic.Designer.cs">
+    <Compile Include="View\CreateTopic.Designer.cs">
       <DependentUpon>CreateTopic.cs</DependentUpon>
     </Compile>
     <Compile Include="Logic\Chronological\ChronologicalViewpointGenerator.cs" />
@@ -110,6 +119,13 @@
     <Compile Include="Logic\Validation\NoLoopRule.cs" />
     <Compile Include="Logic\Validation\RuleManager.cs" />
     <Compile Include="Logic\Menu\FollowTraceMenu.cs" />
+    <Compile Include="Model\Decision.cs" />
+    <Compile Include="Model\ForcesModel.cs" />
+    <Compile Include="Model\ICustomViewModel.cs" />
+    <Compile Include="Model\ICustomViewModelObserver.cs" />
+    <Compile Include="Model\IDecision.cs" />
+    <Compile Include="Model\IForcesModel.cs" />
+    <Compile Include="Model\ITopic.cs" />
     <Compile Include="Model\Menu\IMenu.cs" />
     <Compile Include="Model\Menu\Menu.cs" />
     <Compile Include="Model\Menu\MenuItem.cs" />
@@ -123,44 +139,80 @@
     <Compile Include="Logic\Reporting\PowerPointTemplate.cs" />
     <Compile Include="Logic\Reporting\AbstractSlide.cs" />
     <Compile Include="Logic\Reporting\WordDocument.cs" />
+    <Compile Include="Model\Rating.cs" />
+    <Compile Include="Model\Topic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings2.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="View\DetailView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\DetailView.Designer.cs">
+      <DependentUpon>DetailView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\ForcesView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\ICustomView.cs" />
+    <Compile Include="View\IDetailView.cs" />
+    <Compile Include="View\IForcesView.cs" />
+    <Compile Include="View\ITopicDetailView.cs" />
+    <Compile Include="View\SelectDiagram.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\SelectDiagram.Designer.cs">
+      <DependentUpon>SelectDiagram.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\TopicDetailView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\TopicDetailView.Designer.cs">
+      <DependentUpon>TopicDetailView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="View\DetailView.resx">
+      <DependentUpon>DetailView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ForcesView.resx">
+      <DependentUpon>ForcesView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\SelectDiagram.resx">
+      <DependentUpon>SelectDiagram.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\TopicDetailView.resx">
+      <DependentUpon>TopicDetailView.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Settings2.Designer.cs</LastGenOutput>
     </None>
-    <EmbeddedResource Include="CreateTopic.resx">
+    <EmbeddedResource Include="View\CreateTopic.resx">
       <DependentUpon>CreateTopic.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Logic\Menu\ExportReportsCustomMessageBox.resx">
       <DependentUpon>ExportReportsCustomMessageBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Template.pptx">
+    <EmbeddedResource Include="Templates\Template.pptx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="CreateDecision.resx">
+    <EmbeddedResource Include="View\CreateDecision.resx">
       <DependentUpon>CreateDecision.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DecisionViewpointsCustomViews\DecisionViewpointsCustomViews.csproj">
-      <Project>{ed9e141b-e0ab-4d04-bf9a-4c8c1e676731}</Project>
-      <Name>DecisionViewpointsCustomViews</Name>
-    </ProjectReference>
     <ProjectReference Include="..\EAFacade\EAFacade.csproj">
       <Project>{1af84ad5-279f-473c-a20f-c46dcbe0d087}</Project>
       <Name>EAFacade</Name>
@@ -168,10 +220,25 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Logic\General\" />
-    <Folder Include="Model\Reporting\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
+    <EmbeddedResource Include="DecisionViewpoints.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\DefaultDecisionViewTemplate.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\EmptyDecisionViewTemplate.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\ExampleDecisionViewTemplate.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

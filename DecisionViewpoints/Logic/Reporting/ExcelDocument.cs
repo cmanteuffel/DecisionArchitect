@@ -1,15 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using DecisionViewpoints.Model.Reporting;
-using DecisionViewpointsCustomViews.Model;
+using DecisionViewpoints.Model;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
-using EAFacade;
 using EAFacade.Model;
 
 namespace DecisionViewpoints.Logic.Reporting
@@ -22,10 +19,11 @@ namespace DecisionViewpoints.Logic.Reporting
 
         public ExcelDocument(string filename)
         {
-            //_filename = String.Format("{0}\\{1}", Utilities.GetDocumentsDirectory(), filename);//original
-            _filename = filename;//angor
+            //_filename = String.Format("{0}\\{1}", EAUtilities.GetDocumentsDirectory(), filename);//original
+            _filename = filename; //angor
             //MessageBox.Show("Document filename: " + _filename);// angor DEBUG
-            using (SpreadsheetDocument excelDoc = SpreadsheetDocument.Create(_filename, SpreadsheetDocumentType.Workbook)
+            using (
+                SpreadsheetDocument excelDoc = SpreadsheetDocument.Create(_filename, SpreadsheetDocumentType.Workbook)
                 )
             {
                 _mainPart = excelDoc.AddWorkbookPart();
@@ -34,8 +32,14 @@ namespace DecisionViewpoints.Logic.Reporting
             }
         }
 
-        public void InsertTopicTable(ITopic topic) { }
-        public void InsertDecisionWithoutTopicMessage() { }
+        public void InsertTopicTable(ITopic topic)
+        {
+        }
+
+        public void InsertDecisionWithoutTopicMessage()
+        {
+        }
+
         public void InsertDecisionTable(IDecision decision)
         {
             // maybe here we need to create a sheet with the overview of the decisions
@@ -58,10 +62,10 @@ namespace DecisionViewpoints.Logic.Reporting
             uint rowIndex = forcesTopLeftRow + 1;
             foreach (var concernsPerRequirement in forces.GetConcernsPerRequirement())
             {
-                var requirement = concernsPerRequirement.Key;
-                var concerns = concernsPerRequirement.Value;
+                EAElement requirement = concernsPerRequirement.Key;
+                List<EAElement> concerns = concernsPerRequirement.Value;
 
-                foreach (var concern in concerns)
+                foreach (EAElement concern in concerns)
                 {
                     InsertText(worksheetPart, forcesTableTopLeftColumn, rowIndex, requirement.Name);
                     InsertText(worksheetPart, rowIndex, concern.Name);
@@ -76,7 +80,6 @@ namespace DecisionViewpoints.Logic.Reporting
                     rowIndex++;
                 }
             }
-
 
 
             worksheetPart.Worksheet.Save();
@@ -97,6 +100,10 @@ namespace DecisionViewpoints.Logic.Reporting
         public void Close()
         {
             _excelDoc.Close();
+        }
+
+        public void InsertDecisionDetailViewMessage()
+        {
         }
 
         private WorksheetPart InsertWorksheet(string name)
@@ -257,6 +264,5 @@ namespace DecisionViewpoints.Logic.Reporting
 
             return newCell;
         }
-        public void InsertDecisionDetailViewMessage(){}
     }
 }

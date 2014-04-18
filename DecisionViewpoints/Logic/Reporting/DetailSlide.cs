@@ -1,10 +1,10 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using DecisionViewpoints.Model;
 using DecisionViewpoints.Model.Reporting;
-using DecisionViewpointsCustomViews.Model;
 using DocumentFormat.OpenXml.Packaging;
 using EAFacade.Model;
-using System;
 
 namespace DecisionViewpoints.Logic.Reporting
 {
@@ -28,33 +28,37 @@ namespace DecisionViewpoints.Logic.Reporting
                 if (!connector.Stereotype.Equals("alternative for"))
                 {
                     relatedDecisions.AppendLine(connector.ClientId == _decision.ID
-                        ? "<<this>> " + _decision.Name + " - " + connector.Stereotype + " - " + connector.GetSupplier().Name
-                        : "" + connector.GetClient().Name + " - " + connector.Stereotype + " - <<this>> " + _decision.Name);
+                                                    ? "<<this>> " + _decision.Name + " - " + connector.Stereotype +
+                                                      " - " + connector.GetSupplier().Name
+                                                    : "" + connector.GetClient().Name + " - " + connector.Stereotype +
+                                                      " - <<this>> " + _decision.Name);
                 }
-                // Alternative Decisions
+                    // Alternative Decisions
                 else if (connector.Stereotype.Equals("alternative for"))
                 {
                     alternativeDecisions.AppendLine(connector.ClientId == _decision.ID
-                        ? "<<this>> " + _decision.Name + " - " + connector.Stereotype + " - " + connector.GetSupplier().Name
-                        : connector.GetClient().Name + " - " + connector.Stereotype + " - <<this>> " + _decision.Name);
+                                                        ? "<<this>> " + _decision.Name + " - " + connector.Stereotype +
+                                                          " - " + connector.GetSupplier().Name
+                                                        : connector.GetClient().Name + " - " + connector.Stereotype +
+                                                          " - <<this>> " + _decision.Name);
                 }
             }
 
             // Related Requirements
             var relatedRequirements = new StringBuilder();
-            var forces = _decision.GetForces();
-            foreach (var rating in forces)
+            IEnumerable<Rating> forces = _decision.GetForces();
+            foreach (Rating rating in forces)
             {
-                var req = EARepository.Instance.GetElementByGUID(rating.RequirementGUID);
-                var concern = EARepository.Instance.GetElementByGUID(rating.ConcernGUID);
+                EAElement req = EARepository.Instance.GetElementByGUID(rating.RequirementGUID);
+                EAElement concern = EARepository.Instance.GetElementByGUID(rating.ConcernGUID);
                 relatedRequirements.AppendLine(req.Name + " - " + req.Notes);
             }
 
             //Traces Componenets
             var traces = new StringBuilder();
-            foreach (var element in _decision.GetTraces())
+            foreach (EAElement element in _decision.GetTraces())
             {
-                var trace = element.GetProjectPath() + "/" + element.Name;
+                string trace = element.GetProjectPath() + "/" + element.Name;
                 traces.AppendLine(trace);
             }
 

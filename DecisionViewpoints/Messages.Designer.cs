@@ -88,6 +88,16 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}
+        ///[{1}].
+        /// </summary>
+        internal static string ChronologyDecisionName {
+            get {
+                return ResourceManager.GetString("ChronologyDecisionName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you still want to create this relationship?.
         /// </summary>
         internal static string ConfirmCreateRelation {
@@ -156,6 +166,33 @@ namespace DecisionViewpoints {
         internal static string ExcludedOnlyOriginateFrom {
             get {
                 return ResourceManager.GetString("ExcludedOnlyOriginateFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configure.
+        /// </summary>
+        internal static string ForcesViewConfigureButton {
+            get {
+                return ResourceManager.GetString("ForcesViewConfigureButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Decision Detail View.
+        /// </summary>
+        internal static string ForcesViewOpenDecisionInDetailView {
+            get {
+                return ResourceManager.GetString("ForcesViewOpenDecisionInDetailView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Decision in Diagram(s).
+        /// </summary>
+        internal static string ForcesViewOpenDecisionInDiagrams {
+            get {
+                return ResourceManager.GetString("ForcesViewOpenDecisionInDiagrams", resourceCulture);
             }
         }
         
@@ -435,6 +472,15 @@ namespace DecisionViewpoints {
         internal static string ReplacesOnlyPointTo {
             get {
                 return ResourceManager.GetString("ReplacesOnlyPointTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ‹‹{0}›› {1}: {2}.
+        /// </summary>
+        internal static string ReportingStakeholderInvolvmentLine {
+            get {
+                return ResourceManager.GetString("ReportingStakeholderInvolvmentLine", resourceCulture);
             }
         }
         

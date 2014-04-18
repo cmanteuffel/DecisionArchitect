@@ -127,7 +127,7 @@ namespace EAFacade.Model
         public NativeType GetContextItemType()
         {
             ObjectType nativeOt = Native.GetContextItemType();
-            return Utilities.Translate(nativeOt);
+            return EAUtilities.Translate(nativeOt);
         }
 
         public bool IsProjectOpen()

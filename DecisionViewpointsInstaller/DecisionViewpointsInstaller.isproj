@@ -1,4 +1,5 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<PropertyGroup>
 		<!-- Select a Product Configuration -->
 		<InstallShieldProductConfiguration>Express</InstallShieldProductConfiguration>
@@ -26,15 +27,11 @@
 			<TargetPath>My Test Exe.exe</TargetPath>
 		</TaggedOutputs> -->
 	</ItemGroup>
-	<Import Project="$(MSBuildExtensionsPath32)\InstallShield\2012SpringLimited\InstallShield.targets"/>
+	<Import Project="$(MSBuildExtensionsPath32)\InstallShield\2013Limited\InstallShield.targets"/>
 	<ItemGroup>
 		<ProjectReference Include="..\DecisionViewpoints\DecisionViewpoints.csproj">
 			<Name>DecisionViewpoints</Name>
 			<Project>{778A9A09-5030-4CC1-85A3-C7DBB053CEA2}</Project>
-		</ProjectReference>
-		<ProjectReference Include="..\DecisionViewpointsCustomViews\DecisionViewpointsCustomViews.csproj">
-			<Name>DecisionViewpointsCustomViews</Name>
-			<Project>{ED9E141B-E0AB-4D04-BF9A-4C8C1E676731}</Project>
 		</ProjectReference>
 		<ProjectReference Include="..\EAFacade\EAFacade.csproj">
 			<Name>EAFacade</Name>

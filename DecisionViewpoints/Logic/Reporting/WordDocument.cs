@@ -4,7 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using DecisionViewpointsCustomViews.Model;
+using DecisionViewpoints.Model;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Drawing.Wordprocessing;
@@ -14,12 +14,14 @@ using EAFacade;
 using EAFacade.Model;
 using BlipFill = DocumentFormat.OpenXml.Drawing.Pictures.BlipFill;
 using BottomBorder = DocumentFormat.OpenXml.Wordprocessing.BottomBorder;
+using Break = DocumentFormat.OpenXml.Wordprocessing.Break;
 using Color = DocumentFormat.OpenXml.Wordprocessing.Color;
 using InsideHorizontalBorder = DocumentFormat.OpenXml.Wordprocessing.InsideHorizontalBorder;
 using InsideVerticalBorder = DocumentFormat.OpenXml.Wordprocessing.InsideVerticalBorder;
 using LeftBorder = DocumentFormat.OpenXml.Wordprocessing.LeftBorder;
 using NonVisualDrawingProperties = DocumentFormat.OpenXml.Drawing.Pictures.NonVisualDrawingProperties;
-using NonVisualGraphicFrameDrawingProperties = DocumentFormat.OpenXml.Drawing.Wordprocessing.NonVisualGraphicFrameDrawingProperties;
+using NonVisualGraphicFrameDrawingProperties =
+    DocumentFormat.OpenXml.Drawing.Wordprocessing.NonVisualGraphicFrameDrawingProperties;
 using NonVisualPictureDrawingProperties = DocumentFormat.OpenXml.Drawing.Pictures.NonVisualPictureDrawingProperties;
 using NonVisualPictureProperties = DocumentFormat.OpenXml.Drawing.Pictures.NonVisualPictureProperties;
 using Paragraph = DocumentFormat.OpenXml.Wordprocessing.Paragraph;
@@ -72,20 +74,6 @@ namespace DecisionViewpoints.Logic.Reporting
             }
         }
 
-        public void InsertTopicTable(ITopic topic)
-        {
-            Paragraph para = _body.AppendChild(new Paragraph());
-            Run run = para.AppendChild(new Run());
-            RunProperties runProperties = getHeading3(run);
-            run.AppendChild(new Text(_diagmarCounter + "." + (++_topicCounter) + ". " + topic.Name));
-            //_body.AppendChild(new Paragraph(new Run(new Text(_diagmarCounter + "." + (++_topicCounter) + ". " + topic.Name)))); //Topic Name
-            if (topic.Description != "")
-            {
-                _body.AppendChild(new Paragraph(new Run(new Text(topic.Description)))); //Topic Desc
-            }
-            _body.AppendChild(new Paragraph());
-        }
-
         public void InsertDecisionWithoutTopicMessage()
         {
             Paragraph para = _body.AppendChild(new Paragraph());
@@ -107,8 +95,98 @@ namespace DecisionViewpoints.Logic.Reporting
         }
 
 
+        public void InsertDiagramImage(EADiagram diagram)
+        {
+            if (diagram.IsRelationshipView())
+            {
+                Paragraph para = _body.AppendChild(new Paragraph());
+                Run run = para.AppendChild(new Run());
+                RunProperties runProperties = getHeading2(run);
+                run.AppendChild(new Text(++_diagmarCounter + ". Relationship View: " + diagram.Name));
+                //_body.AppendChild(new Paragraph(new Run(new Text(++_diagmarCounter + ". Relationship Viewpoint"))));
+            }
+            else if (diagram.IsStakeholderInvolvementView())
+            {
+                Paragraph para = _body.AppendChild(new Paragraph());
+                Run run = para.AppendChild(new Run());
+                RunProperties runProperties = getHeading2(run);
+                run.AppendChild(
+                    new Text(++_diagmarCounter + ". Decision Stakeholder Involvement View: " + diagram.Name));
+                //_body.AppendChild(new Paragraph(new Run(new Text(++_diagmarCounter + ". Decision Stakeholder Involvement Viewpoint"))));
+            }
+            else if (diagram.IsChronologicalView())
+            {
+                Paragraph para = _body.AppendChild(new Paragraph());
+                Run run = para.AppendChild(new Run());
+                RunProperties runProperties = getHeading2(run);
+                run.AppendChild(new Text(++_diagmarCounter + ". Decision Chronological View: " + diagram.Name));
+                //_body.AppendChild(new Paragraph(new Run(new Text(++_diagmarCounter + ". Decision Chronological Viewpoint"))));
+            }
+
+            _body.AppendChild(new Paragraph(new Run(new Text())));
+
+            ImagePart imagePart = _mainPart.AddImagePart(ImagePartType.Emf);
+            FileStream fs = diagram.DiagramToStream();
+            imagePart.FeedData(fs);
+
+            Image image = Image.FromFile(fs.Name);
+            AddImageToBody(_mainPart.GetIdOfPart(imagePart), Utilities.GetImageSize(image));
+
+            //cleanup:
+            fs.Close();
+            image.Dispose();
+            File.Delete(fs.Name);
+        }
+
+        public void Open()
+        {
+            string filepath = Path.Combine(Directory.GetCurrentDirectory(), _filename);
+            _wordDoc = WordprocessingDocument.Open(filepath, true);
+            _mainPart = _wordDoc.MainDocumentPart;
+            _body = _mainPart.Document.Body;
+        }
+
+        public void Close()
+        {
+            _wordDoc.Close();
+        }
+
+        public void InsertTopicTable(ITopic topic)
+        {
+            Paragraph para = _body.AppendChild(new Paragraph());
+            Run run = para.AppendChild(new Run());
+            RunProperties runProperties = getHeading3(run);
+            run.AppendChild(new Text(_diagmarCounter + "." + (++_topicCounter) + ". " + topic.Name));
+            //_body.AppendChild(new Paragraph(new Run(new Text(_diagmarCounter + "." + (++_topicCounter) + ". " + topic.Name)))); //Topic Name
+            if (topic.Description != "")
+            {
+                _body.AppendChild(new Paragraph(new Run(new Text(topic.Description)))); //Topic Desc
+            }
+            _body.AppendChild(new Paragraph());
+        }
+
         public void InsertDecisionTable(IDecision decision)
         {
+            var dataDict = new Dictionary<String, IList<String>>();
+            dataDict.Add("Name", new List<string>());
+            dataDict.Add("State", new List<string>());
+            dataDict.Add("Issue", new List<string>());
+            dataDict.Add("Decision", new List<string>());
+            dataDict.Add("Arguments", new List<string>());
+            dataDict.Add("Alternatives", new List<string>());
+            dataDict.Add("Related Decisions", new List<string>());
+            dataDict.Add("Requirements", new List<string>());
+            dataDict.Add("Traces", new List<string>());
+            dataDict.Add("Stakeholder Involvement", new List<string>());
+            dataDict.Add("History", new List<string>());
+
+
+            dataDict["Name"].Add(decision.Name);
+            dataDict["State"].Add(decision.State);
+            dataDict["Issue"].Add(decision.Issue);
+            dataDict["Decision"].Add(decision.DecisionText);
+            dataDict["Arguments"].Add(decision.Arguments);
+
             _decisionCounter++;
             //_body.AppendChild(new Paragraph(new Run(new Text("Decision " +_decisionCounter.ToString() +": " + decision.Name))));
 
@@ -166,46 +244,95 @@ namespace DecisionViewpoints.Logic.Reporting
                 // Related Decisions
                 if (!connector.Stereotype.Equals("alternative for"))
                 {
-                    relatedDecisions.AppendLine(connector.ClientId == decision.ID
-                                                    ? "<<this>> " + decision.Name + " - " + connector.Stereotype + " - " +
-                                                      connector.GetSupplier().Name
-                                                    : connector.GetClient().Name + " - " + connector.Stereotype +
-                                                      " - <<this>> " + decision.Name);
+                    dataDict["Alternatives"].Add(connector.ClientId == decision.ID
+                                                     ? "<<this>> " + decision.Name + " - " + connector.Stereotype +
+                                                       " - " +
+                                                       connector.GetSupplier().Name
+                                                     : connector.GetClient().Name + " - " + connector.Stereotype +
+                                                       " - <<this>> " + decision.Name + "\r\n");
                 }
                     // Alternative Decisions
                 else if (connector.Stereotype.Equals("alternative for"))
                 {
-                    alternativeDecisions.AppendLine(connector.ClientId == decision.ID
-                                                        ? "<<this>> " + decision.Name + " - " + connector.Stereotype +
-                                                          " - " + connector.GetSupplier().Name
-                                                        : connector.GetClient().Name + " - " + connector.Stereotype +
-                                                          " - <<this>> " + decision.Name);
+                    dataDict["Related Decisions"].Add(connector.ClientId == decision.ID
+                                                          ? "<<this>> " + decision.Name + " - " + connector.Stereotype +
+                                                            " - " + connector.GetSupplier().Name
+                                                          : connector.GetClient().Name + " - " + connector.Stereotype +
+                                                            " - <<this>> " + decision.Name + "\r\n");
                 }
             }
 
             // Related Requirements
-            var relatedRequirements = new StringBuilder();
+
             IEnumerable<Rating> forces = decision.GetForces();
             foreach (Rating rating in forces)
             {
                 EAElement req = EARepository.Instance.GetElementByGUID(rating.RequirementGUID);
                 EAElement concern = EARepository.Instance.GetElementByGUID(rating.ConcernGUID);
-                relatedRequirements.AppendLine(req.Name + " - " + req.Notes);
+                dataDict["Requirements"].Add(req.Name + " - " + req.Notes);
             }
 
-            var data = new[,]
-                {
-                    {"Name", decision.Name},
-                    {"State", decision.State},
-                    {"Issue", decision.Issue},
-                    {"Decision", decision.DecisionText},
-                    {"Arguments", decision.Arguments},
-                    {"Alternatives", alternativeDecisions.ToString()},
-                    {"Related Decision", relatedDecisions.ToString()},
-                    {"Related Requirements", relatedRequirements.ToString()}
-                };
 
-            for (int i = 0; i <= data.GetUpperBound(0); i++)
+            foreach (EAElement trace in decision.GetTraces())
+            {
+                dataDict["Traces"].Add(trace.GetProjectPath() + "/" + trace.Name);
+            }
+
+
+            foreach (var entry in decision.GetHistory())
+            {
+                dataDict["History"].Add(entry.Key + " " + entry.Value.ToShortDateString());
+            }
+
+            foreach (Model.StakeholderInvolvement stakeholderInvolvment in decision.GetStakeholderInvolvements())
+            {
+                string line = string.Format(Messages.ReportingStakeholderInvolvmentLine,
+                                            stakeholderInvolvment.StakeholderType, stakeholderInvolvment.StakeholderName,
+                                            stakeholderInvolvment.Action);
+                dataDict["Stakeholder Involvement"].Add(line);
+            }
+
+
+            foreach (var entry in dataDict)
+            {
+                if (entry.Value.Count == 0) continue;
+                if ("".Equals(entry.Value[0])) continue;
+
+                var tableRow = new TableRow();
+
+                var rowHeader = new TableCell();
+                rowHeader.Append(new TableCellWidth {Type = TableWidthUnitValues.Dxa, Width = "1821"});
+                rowHeader.Append(
+                    new TableCellProperties(new Shading
+                        {
+                            Val = ShadingPatternValues.Clear,
+                            Color = "auto",
+                            Fill = "##d3d4d6"
+                        }));
+                Paragraph para = rowHeader.AppendChild(new Paragraph());
+                Run run = para.AppendChild(new Run());
+                getBold(run);
+                run.AppendChild(new Text(entry.Key));
+
+                var rowValue = new TableCell();
+                Paragraph rowValuePara = rowValue.AppendChild(new Paragraph());
+                Run rowValueRun = rowValuePara.AppendChild(new Run());
+                int lineCount = 0;
+                foreach (string line in entry.Value)
+                {
+                    rowValueRun.AppendChild(new Text(line));
+                    if (++lineCount != entry.Value.Count)
+                    {
+                        rowValueRun.AppendChild(new Break());
+                    }
+                }
+
+                tableRow.AppendChild(rowHeader);
+                tableRow.AppendChild(rowValue);
+                table.AppendChild(tableRow);
+            }
+
+            /*  for (int i = 0; i <= data.GetUpperBound(0); i++)
             {
                 var tr = new TableRow();
                 for (int j = 0; j <= data.GetUpperBound(1); j++)
@@ -215,17 +342,11 @@ namespace DecisionViewpoints.Logic.Reporting
                     {
                         //Apply the same width at column 1 (0)
                         tc.Append(new TableCellWidth {Type = TableWidthUnitValues.Dxa, Width = "1821"});
-                        tc.Append(
-                            new TableCellProperties(new Shading
-                                {
-                                    Val = ShadingPatternValues.Clear,
-                                    Color = "auto",
-                                    Fill = "##d3d4d6"
-                                }));
+                        tc.Append(new TableCellProperties(new Shading{Val = ShadingPatternValues.Clear,Color = "auto",Fill = "##d3d4d6"}));
                         Paragraph para = tc.AppendChild(new Paragraph());
                         Run run = para.AppendChild(new Run());
                         RunProperties runProperties = getBold(run);
-                        run.AppendChild(new Text(data[i, j]));
+                        run.AppendChild(new Text(dataDict.));
                     }
                     else
                     {
@@ -236,7 +357,7 @@ namespace DecisionViewpoints.Logic.Reporting
                 }
                 if (data[i, 1] != "")
                     table.AppendChild(tr);
-            }
+            }*/
 
             _body.AppendChild(table);
             _body.AppendChild(new Paragraph());
@@ -341,62 +462,6 @@ namespace DecisionViewpoints.Logic.Reporting
 
             _body.AppendChild(table);
             _body.AppendChild(new Paragraph());
-        }
-
-        public void InsertDiagramImage(EADiagram diagram)
-        {
-            if (diagram.IsRelationshipView())
-            {
-                Paragraph para = _body.AppendChild(new Paragraph());
-                Run run = para.AppendChild(new Run());
-                RunProperties runProperties = getHeading2(run);
-                run.AppendChild(new Text(++_diagmarCounter + ". Relationship Viewpoint: " + diagram.Name));
-                //_body.AppendChild(new Paragraph(new Run(new Text(++_diagmarCounter + ". Relationship Viewpoint"))));
-            }
-            else if (diagram.IsStakeholderInvolvementView())
-            {
-                Paragraph para = _body.AppendChild(new Paragraph());
-                Run run = para.AppendChild(new Run());
-                RunProperties runProperties = getHeading2(run);
-                run.AppendChild(
-                    new Text(++_diagmarCounter + ". Decision Stakeholder Involvement Viewpoint: " + diagram.Name));
-                //_body.AppendChild(new Paragraph(new Run(new Text(++_diagmarCounter + ". Decision Stakeholder Involvement Viewpoint"))));
-            }
-            else if (diagram.IsChronologicalView())
-            {
-                Paragraph para = _body.AppendChild(new Paragraph());
-                Run run = para.AppendChild(new Run());
-                RunProperties runProperties = getHeading2(run);
-                run.AppendChild(new Text(++_diagmarCounter + ". Decision Chronological Viewpoint: " + diagram.Name));
-                //_body.AppendChild(new Paragraph(new Run(new Text(++_diagmarCounter + ". Decision Chronological Viewpoint"))));
-            }
-
-            _body.AppendChild(new Paragraph(new Run(new Text())));
-
-            ImagePart imagePart = _mainPart.AddImagePart(ImagePartType.Emf);
-            FileStream fs = diagram.DiagramToStream();
-            imagePart.FeedData(fs);
-
-            Image image = Image.FromFile(fs.Name);
-            AddImageToBody(_mainPart.GetIdOfPart(imagePart), Utilities.GetImageSize(image));
-
-            //cleanup:
-            fs.Close();
-            image.Dispose();
-            File.Delete(fs.Name);
-        }
-
-        public void Open()
-        {
-            string filepath = Path.Combine(Directory.GetCurrentDirectory(), _filename);
-            _wordDoc = WordprocessingDocument.Open(filepath, true);
-            _mainPart = _wordDoc.MainDocumentPart;
-            _body = _mainPart.Document.Body;
-        }
-
-        public void Close()
-        {
-            _wordDoc.Close();
         }
 
         private void AddImageToBody(string relationshipId, IList<long> size)

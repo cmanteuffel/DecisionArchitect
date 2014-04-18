@@ -58,7 +58,7 @@ namespace DecisionViewpoints
             EARepository.UpdateRepository(repository);
             foreach (IRepositoryListener l in _listeners)
             {
-                l.OnContextItemChanged(guid, Utilities.Translate(ot));
+                l.OnContextItemChanged(guid, EAUtilities.Translate(ot));
             }
         }
 
@@ -67,7 +67,7 @@ namespace DecisionViewpoints
             EARepository.UpdateRepository(repository);
             foreach (IRepositoryListener l in _listeners)
             {
-                if (l.OnContextItemDoubleClicked(guid, Utilities.Translate(ot)))
+                if (l.OnContextItemDoubleClicked(guid, EAUtilities.Translate(ot)))
                 {
                     return true;
                 }
@@ -80,7 +80,7 @@ namespace DecisionViewpoints
             EARepository.UpdateRepository(repository);
             foreach (IRepositoryListener l in _listeners)
             {
-                l.OnNotifyContextItemModified(guid, Utilities.Translate(ot));
+                l.OnNotifyContextItemModified(guid, EAUtilities.Translate(ot));
             }
         }
 

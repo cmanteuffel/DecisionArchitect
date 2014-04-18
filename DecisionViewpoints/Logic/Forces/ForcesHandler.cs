@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using DecisionViewpointsCustomViews.Controller;
-using DecisionViewpointsCustomViews.Model;
-using DecisionViewpointsCustomViews.View;
+using DecisionViewpoints.Model;
+using DecisionViewpoints.View;
+using DecisionViewpoints.View.Controller;
 using EAFacade.Model;
 
 namespace DecisionViewpoints.Logic.Forces
@@ -29,7 +29,7 @@ namespace DecisionViewpoints.Logic.Forces
             }
 
             IForcesView forcesView = repository.AddTab(forcesDiagramModel.Name,
-                                                       "DecisionViewpointsCustomViews.ForcesView");
+                                                       "DecisionViewpoints.ForcesView");
             IForcesController forcesController;
 
             if (!_controllers.ContainsKey(forcesDiagramModel.DiagramGUID))

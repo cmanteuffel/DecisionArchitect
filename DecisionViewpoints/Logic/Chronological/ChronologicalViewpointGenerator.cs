@@ -48,10 +48,10 @@ namespace DecisionViewpoints.Logic.Chronological
             foreach (DecisionStateChange item in history.ToList())
             {
 
-                string name = item.Element.Name;
+                string name = string.Format(Messages.ChronologyDecisionName, item.Element.Name, item.DateModified.ToShortDateString());
                 string stereotype = item.State;
                 DateTime modified = item.DateModified;
-                var type = "Action";
+                var type = DVStereotypes.ActionMetaType;
                 string originalGUID = item.Element.GUID;
 
                 EAElement pastDecision = exisitingHistoryDecisions.FirstOrDefault(hd => originalGUID.Equals(hd.GetTaggedValue(DVTaggedValueKeys.OriginalDecisionGuid)) &&

@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
-using DecisionViewpointsCustomViews.Controller;
-using DecisionViewpointsCustomViews.Model;
-using DecisionViewpointsCustomViews.View;
+using DecisionViewpoints.Model;
+using DecisionViewpoints.View;
+using DecisionViewpoints.View.Controller;
 using EAFacade.Model;
 
 namespace DecisionViewpoints.Logic.Detail

@@ -261,4 +261,20 @@
   <data name="DialogOpenLatestDecisionTitle" xml:space="preserve">
     <value>Open latest version of the decision</value>
   </data>
+  <data name="ForcesViewConfigureButton" xml:space="preserve">
+    <value>Configure</value>
+  </data>
+  <data name="ForcesViewOpenDecisionInDiagrams" xml:space="preserve">
+    <value>Open Decision in Diagram(s)</value>
+  </data>
+  <data name="ForcesViewOpenDecisionInDetailView" xml:space="preserve">
+    <value>Open Decision Detail View</value>
+  </data>
+  <data name="ChronologyDecisionName" xml:space="preserve">
+    <value>{0}
+[{1}]</value>
+  </data>
+  <data name="ReportingStakeholderInvolvmentLine" xml:space="preserve">
+    <value>‹‹{0}›› {1}: {2}</value>
+  </data>
 </root>

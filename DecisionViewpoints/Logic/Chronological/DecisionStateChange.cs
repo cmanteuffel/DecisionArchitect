@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using DecisionViewpointsCustomViews.Model;
+using DecisionViewpoints.Model;
 using EAFacade.Model;
 
 namespace DecisionViewpoints.Logic.Chronological
 {
-    class DecisionStateChange
+    internal class DecisionStateChange
     {
         public EAElement Element { get; set; }
         public DateTime DateModified { get; set; }
@@ -20,22 +20,22 @@ namespace DecisionViewpoints.Logic.Chronological
 
         public static IEnumerable<DecisionStateChange> GetHistory(EAElement element)
         {
-
             var decision = new Decision(element);
-            var history = decision.GetHistory().Select(entry => new DecisionStateChange
+            IEnumerable<DecisionStateChange> history = decision.GetHistory().Select(entry => new DecisionStateChange
                 {
                     Element = element,
                     DateModified = entry.Value,
                     State = entry.Key
                 });
-                
+
             return history;
         }
 
         public static void SaveStateChange(EAElement element, String newState, DateTime dateModified)
         {
             element.AddTaggedValue(DVTaggedValueKeys.DecisionStateChange,
-                                   string.Format("{0}|{1}", newState, DateTime.Now.ToString(CultureInfo.InvariantCulture)));
+                                   string.Format("{0}|{1}", newState,
+                                                 DateTime.Now.ToString(CultureInfo.InvariantCulture)));
         }
     }
 }

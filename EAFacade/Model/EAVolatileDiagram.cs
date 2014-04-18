@@ -13,7 +13,7 @@ namespace EAFacade.Model
         public static EAVolatileDiagram Wrap(EventProperties info)
         {
             var volatileDiagram = new EAVolatileDiagram();
-            var diagramID = Utilities.ParseToInt32(info.Get(EAEventPropertyKeys.DiagramId).Value, -1);
+            var diagramID = EAUtilities.ParseToInt32(info.Get(EAEventPropertyKeys.DiagramId).Value, -1);
             if (diagramID > 0)
                 volatileDiagram.DiagramID = diagramID;
 

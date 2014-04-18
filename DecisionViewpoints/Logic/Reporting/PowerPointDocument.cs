@@ -1,13 +1,12 @@
 using System.IO;
 using System.Linq;
-using DecisionViewpoints.Logic.Reporting;
-using DecisionViewpointsCustomViews.Model;
+using DecisionViewpoints.Model;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Presentation;
 using EAFacade.Model;
 
-namespace DecisionViewpoints.Model.Reporting
+namespace DecisionViewpoints.Logic.Reporting
 {
     public class PowerPointDocument : IReportDocument
     {

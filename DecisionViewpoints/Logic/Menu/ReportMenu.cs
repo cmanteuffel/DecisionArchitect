@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows.Forms;
 using DecisionViewpoints.Logic.Reporting;
-using DecisionViewpointsCustomViews.Model;
+using DecisionViewpoints.Model;
 using EAFacade.Model;
 
 namespace DecisionViewpoints.Logic.Menu
@@ -15,7 +15,7 @@ namespace DecisionViewpoints.Logic.Menu
             List<Decision> decisions =
                 decisionViewPackage.GetAllDecisions().Select(element => new Decision(element)).ToList();
             List<EADiagram> diagrams = decisionViewPackage.GetAllDiagrams().ToList();
-                
+
             IReportDocument report = null;
             try
             {
@@ -143,7 +143,7 @@ namespace DecisionViewpoints.Logic.Menu
             }
         }
 
-       /* public static void GenerateSelectedDecisionsReport(string filename, ReportType reportType)
+        /* public static void GenerateSelectedDecisionsReport(string filename, ReportType reportType)
         {
             EARepository repository = EARepository.Instance;
 
@@ -319,23 +319,25 @@ namespace DecisionViewpoints.Logic.Menu
                                   select new Topic(element)).ToList();
 
             //remove unselected decisions 
-            var selectedTopicsAndDecisions =
+            IEnumerable<EAElement> selectedTopicsAndDecisions =
                 (from EAElement element in repository.GetSelectedItems()
                  where (element.IsDecision() || element.IsTopic()) && !element.IsHistoryDecision()
                  select element);
-                
+
             var selectedDecisionIDs = new List<int>();
-            foreach (var elem in selectedTopicsAndDecisions)
+            foreach (EAElement elem in selectedTopicsAndDecisions)
             {
                 if (elem.IsTopic())
                 {
-                    selectedDecisionIDs = selectedDecisionIDs.Union(elem.GetDecisionsForTopic().Select(x => new Decision(x).ID)).ToList();
-                }  else if (elem.IsDecision())
+                    selectedDecisionIDs =
+                        selectedDecisionIDs.Union(elem.GetDecisionsForTopic().Select(x => new Decision(x).ID)).ToList();
+                }
+                else if (elem.IsDecision())
                 {
                     selectedDecisionIDs.Add(new Decision(elem).ID);
                 }
             }
-            var copy = decisions.ToArray();
+            Decision[] copy = decisions.ToArray();
             foreach (Decision d in copy)
             {
                 if (!selectedDecisionIDs.Contains(d.ID))
@@ -348,10 +350,9 @@ namespace DecisionViewpoints.Logic.Menu
             foreach (Decision d in decisions)
             {
                 topicIDs.Add(d.GetTopic().ID);
-
             }
-            var topicsCopy = topics.ToArray();
-            foreach (var t in topicsCopy)
+            Topic[] topicsCopy = topics.ToArray();
+            foreach (Topic t in topicsCopy)
             {
                 if (!topicIDs.Contains(t.ID))
                 {
@@ -359,19 +360,20 @@ namespace DecisionViewpoints.Logic.Menu
                 }
             }
 
-            var allElements = decisions.Select(d => d.GetElement()).ToArray();
+            EAElement[] allElements = decisions.Select(d => d.GetElement()).ToArray();
             allElements = allElements.Union(topics.Select(t => t.GetElement())).ToArray();
 
-            var diagramsCopy = diagrams.ToArray();
-            foreach (var d in diagramsCopy)
+            EADiagram[] diagramsCopy = diagrams.ToArray();
+            foreach (EADiagram d in diagramsCopy)
             {
                 bool remove = true;
-                foreach (var element in allElements) {
+                foreach (EAElement element in allElements)
+                {
                     if (d.Contains(element))
                     {
                         remove = false;
                     }
-               }
+                }
                 if (remove)
                 {
                     diagrams.Remove(d);
@@ -415,7 +417,6 @@ namespace DecisionViewpoints.Logic.Menu
                     report.InsertDiagramImage(diagram);
                 }
 
-                
 
                 report.InsertDecisionDetailViewMessage();
 
@@ -468,6 +469,5 @@ namespace DecisionViewpoints.Logic.Menu
                     report.Close();
             }
         }
-
     }
 }

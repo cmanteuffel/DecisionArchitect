@@ -1,7 +1,7 @@
-﻿using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Linq;
+using DecisionViewpoints.Model;
 using DecisionViewpoints.Model.Reporting;
-using DecisionViewpointsCustomViews.Model;
 using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Packaging;
 using EAFacade.Model;
@@ -43,12 +43,12 @@ namespace DecisionViewpoints.Logic.Reporting
 
             foreach (var concernsPerRequirement in _forces.GetConcernsPerRequirement())
             {
-                var requirement = concernsPerRequirement.Key;
-                var concerns = concernsPerRequirement.Value;
+                EAElement requirement = concernsPerRequirement.Key;
+                List<EAElement> concerns = concernsPerRequirement.Value;
 
-                foreach (var concern in concerns)
+                foreach (EAElement concern in concerns)
                 {
-                    var reqRow = new TableRow { Height = 370840L };
+                    var reqRow = new TableRow {Height = 370840L};
                     reqRow.AppendChild(CreateTextCell(requirement.Name));
                     reqRow.AppendChild(CreateTextCell(concern.Name));
 
@@ -64,7 +64,6 @@ namespace DecisionViewpoints.Logic.Reporting
                     tbl.AppendChild(reqRow);
                 }
             }
-
         }
 
         private static TableCell CreateTextCell(string text)
