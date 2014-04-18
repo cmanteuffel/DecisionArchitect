@@ -201,6 +201,7 @@ namespace EAFacade.Model
             var fileName = Guid.NewGuid().ToString() + ".emf";
             string filename = Path.Combine(path, fileName);
 
+            EARepository.Instance.OpenDiagram(ID);
             project.SaveDiagramImageToFile(filename);
             return new FileStream(filename, FileMode.Open);
         }

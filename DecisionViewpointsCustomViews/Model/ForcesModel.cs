@@ -124,17 +124,15 @@ namespace DecisionViewpointsCustomViews.Model
             var data = new List<Rating>();
             foreach (
                 var element in
-                    _diagram.GetElements()
-                            .Select(diagramObject => repository.GetElementByID(diagramObject.ElementID))
-                            .Where(element => element.IsDecision()))
+                    GetDecisions())
             {
                 data.AddRange(from taggedValue in element.TaggedValues
-                              where IsForcesTaggedValue(taggedValue.Name)
+                              where Rating.IsForcesTaggedValue(taggedValue.Name)
                               select new Rating
                                   {
                                       DecisionGUID = element.GUID,
-                                      RequirementGUID = GetReqGUIDFromTaggedValue(taggedValue.Name),
-                                      ConcernGUID = GetConcernGUIDFromTaggedValue(taggedValue.Name),
+                                      RequirementGUID = Rating.GetReqGUIDFromTaggedValue(taggedValue.Name),
+                                      ConcernGUID = Rating.GetConcernGUIDFromTaggedValue(taggedValue.Name),
                                       Value = taggedValue.Value
                                   });
             }
@@ -148,7 +146,7 @@ namespace DecisionViewpointsCustomViews.Model
             {
                 var decision = repository.GetElementByGUID(rating.DecisionGUID);
                 if (decision == null) continue;
-                var forcesTaggedValue = ConstructForcesTaggedValue(rating.RequirementGUID, rating.ConcernGUID);
+                var forcesTaggedValue = Rating.ConstructForcesTaggedValue(rating.RequirementGUID, rating.ConcernGUID);
                 if (decision.GetTaggedValue(forcesTaggedValue) != null)
                     decision.UpdateTaggedValue(forcesTaggedValue, rating.Value);
                 else
@@ -159,44 +157,6 @@ namespace DecisionViewpointsCustomViews.Model
         public static string CreateForcesTabName(string diagramName)
         {
             return String.Format("{0} (Forces)", diagramName);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        private static string ConstructForcesTaggedValue(string requirementGUID, string concernGUID)
-        {
-            return string.Format("fv:{0}:{1}", requirementGUID,concernGUID);
-        }
-
-        /// <summary>
-        /// Returns just the GUID from the requirement GUID tagged value.
-        /// The format of the requirement GUID tagged value is r:{GUID}.
-        /// </summary>
-        /// <param name="value">The taggged value name.</param>
-        /// <returns></returns>
-        //private static string GetReqGUIDFromTaggedValue(string value)//original
-        public static string GetReqGUIDFromTaggedValue(string value)//angor
-        {
-            return value.Split(':')[1];
-        }
-
-        public static string GetConcernGUIDFromTaggedValue(string value)//angor
-        {
-            return value.Split(':')[2];
-        }
-
-        /// <summary>
-        /// Checks if the tagged value of the 
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        //private static bool IsForcesTaggedValue(string value)//original
-            public static bool IsForcesTaggedValue(string value)//angor
-        {
-            return value.Split(':')[0].Equals("fv");
         }
 
         /*

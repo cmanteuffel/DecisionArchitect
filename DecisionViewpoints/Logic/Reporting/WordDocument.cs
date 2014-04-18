@@ -1,12 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
-using DecisionViewpoints.Logic.Reporting;
 using DecisionViewpointsCustomViews.Model;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Drawing;
@@ -15,39 +12,50 @@ using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 using EAFacade;
 using EAFacade.Model;
+using BlipFill = DocumentFormat.OpenXml.Drawing.Pictures.BlipFill;
 using BottomBorder = DocumentFormat.OpenXml.Wordprocessing.BottomBorder;
+using Color = DocumentFormat.OpenXml.Wordprocessing.Color;
 using InsideHorizontalBorder = DocumentFormat.OpenXml.Wordprocessing.InsideHorizontalBorder;
 using InsideVerticalBorder = DocumentFormat.OpenXml.Wordprocessing.InsideVerticalBorder;
 using LeftBorder = DocumentFormat.OpenXml.Wordprocessing.LeftBorder;
+using NonVisualDrawingProperties = DocumentFormat.OpenXml.Drawing.Pictures.NonVisualDrawingProperties;
 using NonVisualGraphicFrameDrawingProperties = DocumentFormat.OpenXml.Drawing.Wordprocessing.NonVisualGraphicFrameDrawingProperties;
+using NonVisualPictureDrawingProperties = DocumentFormat.OpenXml.Drawing.Pictures.NonVisualPictureDrawingProperties;
+using NonVisualPictureProperties = DocumentFormat.OpenXml.Drawing.Pictures.NonVisualPictureProperties;
 using Paragraph = DocumentFormat.OpenXml.Wordprocessing.Paragraph;
 using Path = System.IO.Path;
+using Picture = DocumentFormat.OpenXml.Drawing.Pictures.Picture;
 using RightBorder = DocumentFormat.OpenXml.Wordprocessing.RightBorder;
 using Run = DocumentFormat.OpenXml.Wordprocessing.Run;
+using RunProperties = DocumentFormat.OpenXml.Wordprocessing.RunProperties;
+using ShapeProperties = DocumentFormat.OpenXml.Drawing.Pictures.ShapeProperties;
 using Table = DocumentFormat.OpenXml.Wordprocessing.Table;
 using TableCell = DocumentFormat.OpenXml.Wordprocessing.TableCell;
+using TableCellProperties = DocumentFormat.OpenXml.Wordprocessing.TableCellProperties;
 using TableProperties = DocumentFormat.OpenXml.Wordprocessing.TableProperties;
 using TableRow = DocumentFormat.OpenXml.Wordprocessing.TableRow;
 using Text = DocumentFormat.OpenXml.Wordprocessing.Text;
 using TopBorder = DocumentFormat.OpenXml.Wordprocessing.TopBorder;
 
-namespace DecisionViewpoints.Model.Reporting
+namespace DecisionViewpoints.Logic.Reporting
 {
     public class WordDocument : IReportDocument
     {
-        private WordprocessingDocument _wordDoc;
-        private MainDocumentPart _mainPart;
-        private Body _body;
         private readonly string _filename;
+        private Body _body;
+        private int _decisionCounter;
 
-        private int _diagmarCounter = 0;
-        private int _topicCounter = 0;
-        private int _decisionCounter = 0;
+        private int _diagmarCounter;
+        private MainDocumentPart _mainPart;
+        private int _topicCounter;
+        private WordprocessingDocument _wordDoc;
 
         public WordDocument(string filename)
         {
             _filename = filename;
-            using (var wordDoc = WordprocessingDocument.Create(_filename, WordprocessingDocumentType.Document))
+            using (
+                WordprocessingDocument wordDoc = WordprocessingDocument.Create(_filename,
+                                                                               WordprocessingDocumentType.Document))
             {
                 _mainPart = wordDoc.AddMainDocumentPart();
                 _mainPart.Document = new Document();
@@ -57,7 +65,7 @@ namespace DecisionViewpoints.Model.Reporting
 
                 Paragraph para = _body.AppendChild(new Paragraph());
                 Run run = para.AppendChild(new Run());
-                DocumentFormat.OpenXml.Wordprocessing.RunProperties runProperties = getHeading1(run);
+                RunProperties runProperties = getHeading1(run);
                 run.AppendChild(new Text("Decision Report [" + saveNow + "]"));
                 //_body.Append(new Paragraph(new Run(new Text("Decision Report [" + saveNow + "]"))));
                 _body.AppendChild(new Paragraph());
@@ -68,12 +76,12 @@ namespace DecisionViewpoints.Model.Reporting
         {
             Paragraph para = _body.AppendChild(new Paragraph());
             Run run = para.AppendChild(new Run());
-            DocumentFormat.OpenXml.Wordprocessing.RunProperties runProperties = getHeading3(run);
+            RunProperties runProperties = getHeading3(run);
             run.AppendChild(new Text(_diagmarCounter + "." + (++_topicCounter) + ". " + topic.Name));
             //_body.AppendChild(new Paragraph(new Run(new Text(_diagmarCounter + "." + (++_topicCounter) + ". " + topic.Name)))); //Topic Name
             if (topic.Description != "")
             {
-                _body.AppendChild(new Paragraph(new Run(new Text(topic.Description))));//Topic Desc
+                _body.AppendChild(new Paragraph(new Run(new Text(topic.Description)))); //Topic Desc
             }
             _body.AppendChild(new Paragraph());
         }
@@ -82,7 +90,7 @@ namespace DecisionViewpoints.Model.Reporting
         {
             Paragraph para = _body.AppendChild(new Paragraph());
             Run run = para.AppendChild(new Run());
-            DocumentFormat.OpenXml.Wordprocessing.RunProperties runProperties = getHeading2(run);
+            RunProperties runProperties = getHeading2(run);
             run.AppendChild(new Text(++_diagmarCounter + ". Decisions without topic"));
             //_body.AppendChild(new Paragraph(new Run(new Text("Decisions not included in a topic:"))));
             _body.AppendChild(new Paragraph());
@@ -92,12 +100,12 @@ namespace DecisionViewpoints.Model.Reporting
         {
             Paragraph para = _body.AppendChild(new Paragraph());
             Run run = para.AppendChild(new Run());
-            DocumentFormat.OpenXml.Wordprocessing.RunProperties runProperties = getHeading2(run);
+            RunProperties runProperties = getHeading2(run);
             run.AppendChild(new Text(++_diagmarCounter + ". Decision Detail View"));
-               // _body.AppendChild(new Paragraph(new Run(new Text(++_diagmarCounter + ". Decision Detail View"))));
+            // _body.AppendChild(new Paragraph(new Run(new Text(++_diagmarCounter + ". Decision Detail View"))));
             _body.AppendChild(new Paragraph());
         }
-       
+
 
         public void InsertDecisionTable(IDecision decision)
         {
@@ -143,15 +151,14 @@ namespace DecisionViewpoints.Model.Reporting
                             Width = "5000",
                             Type = TableWidthUnitValues.Pct
                         }
-                   ),
-                    new TableCaption
+                    ),
+                new TableCaption
                     {
                         Val = new StringValue("My Caption Val") // Does not work..
-                        
                     });
 
             table.AppendChild(props);
-   
+
             var relatedDecisions = new StringBuilder();
             var alternativeDecisions = new StringBuilder();
             foreach (EAConnector connector in decision.GetConnectors().Where(connector => connector.IsRelationship()))
@@ -160,25 +167,29 @@ namespace DecisionViewpoints.Model.Reporting
                 if (!connector.Stereotype.Equals("alternative for"))
                 {
                     relatedDecisions.AppendLine(connector.ClientId == decision.ID
-                        ? "<<this>> " + decision.Name +" - "+ connector.Stereotype + " - " + connector.GetSupplier().Name
-                        :  connector.GetClient().Name + " - " + connector.Stereotype + " - <<this>> " + decision.Name);
+                                                    ? "<<this>> " + decision.Name + " - " + connector.Stereotype + " - " +
+                                                      connector.GetSupplier().Name
+                                                    : connector.GetClient().Name + " - " + connector.Stereotype +
+                                                      " - <<this>> " + decision.Name);
                 }
-                // Alternative Decisions
+                    // Alternative Decisions
                 else if (connector.Stereotype.Equals("alternative for"))
                 {
                     alternativeDecisions.AppendLine(connector.ClientId == decision.ID
-                        ? "<<this>> " + decision.Name + " - " + connector.Stereotype + " - " + connector.GetSupplier().Name
-                        : connector.GetClient().Name + " - " + connector.Stereotype + " - <<this>> " + decision.Name);
+                                                        ? "<<this>> " + decision.Name + " - " + connector.Stereotype +
+                                                          " - " + connector.GetSupplier().Name
+                                                        : connector.GetClient().Name + " - " + connector.Stereotype +
+                                                          " - <<this>> " + decision.Name);
                 }
             }
 
             // Related Requirements
             var relatedRequirements = new StringBuilder();
-            var forces = decision.GetForces();
-            foreach (var rating in forces)
+            IEnumerable<Rating> forces = decision.GetForces();
+            foreach (Rating rating in forces)
             {
-                var req = EARepository.Instance.GetElementByGUID(rating.RequirementGUID);
-                var concern = EARepository.Instance.GetElementByGUID(rating.ConcernGUID);
+                EAElement req = EARepository.Instance.GetElementByGUID(rating.RequirementGUID);
+                EAElement concern = EARepository.Instance.GetElementByGUID(rating.ConcernGUID);
                 relatedRequirements.AppendLine(req.Name + " - " + req.Notes);
             }
 
@@ -194,43 +205,48 @@ namespace DecisionViewpoints.Model.Reporting
                     {"Related Requirements", relatedRequirements.ToString()}
                 };
 
-            for (var i = 0; i <= data.GetUpperBound(0); i++)
+            for (int i = 0; i <= data.GetUpperBound(0); i++)
             {
                 var tr = new TableRow();
-                for (var j = 0; j <= data.GetUpperBound(1); j++)
+                for (int j = 0; j <= data.GetUpperBound(1); j++)
                 {
                     var tc = new TableCell();
                     if (j == 0)
                     {
                         //Apply the same width at column 1 (0)
-                        tc.Append(new TableCellWidth() { Type = TableWidthUnitValues.Dxa, Width = "1821" });
-                        tc.Append(new DocumentFormat.OpenXml.Wordprocessing.TableCellProperties(new Shading() { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "##d3d4d6" }));
+                        tc.Append(new TableCellWidth {Type = TableWidthUnitValues.Dxa, Width = "1821"});
+                        tc.Append(
+                            new TableCellProperties(new Shading
+                                {
+                                    Val = ShadingPatternValues.Clear,
+                                    Color = "auto",
+                                    Fill = "##d3d4d6"
+                                }));
                         Paragraph para = tc.AppendChild(new Paragraph());
                         Run run = para.AppendChild(new Run());
-                        DocumentFormat.OpenXml.Wordprocessing.RunProperties runProperties = getBold(run);
+                        RunProperties runProperties = getBold(run);
                         run.AppendChild(new Text(data[i, j]));
                     }
                     else
                     {
                         tc.AppendChild(new Paragraph(new Run(new Text(data[i, j]))));
                     }
-                    
+
                     tr.AppendChild(tc);
                 }
                 if (data[i, 1] != "")
                     table.AppendChild(tr);
             }
-            
+
             _body.AppendChild(table);
             _body.AppendChild(new Paragraph());
-
         }
 
         public void InsertForcesTable(IForcesModel forces)
         {
             Paragraph para = _body.AppendChild(new Paragraph());
             Run run = para.AppendChild(new Run());
-            DocumentFormat.OpenXml.Wordprocessing.RunProperties runProperties = getHeading2(run);
+            RunProperties runProperties = getHeading2(run);
             run.AppendChild(new Text(++_diagmarCounter + ". Decision Forces Viewpoint: " + forces.Name));
             //_body.AppendChild(new Paragraph(new Run(new Text(++_diagmarCounter + ". Decision Forces Viewpoint"))));
             _body.AppendChild(new Paragraph(new Run(new Text())));
@@ -273,7 +289,7 @@ namespace DecisionViewpoints.Model.Reporting
             table.AppendChild(props);
 
             var emptyCell = new TableCell();
-   
+
             // insert an empty cell in tol left of forces table
             var decRow = new TableRow();
             decRow.AppendChild(emptyCell);
@@ -284,22 +300,21 @@ namespace DecisionViewpoints.Model.Reporting
 
             decRow.AppendChild(concCellHeader);
             foreach (
-                var decCell in
+                TableCell decCell in
                     forces.GetDecisions()
                           .Select(decision => new TableCell(new Paragraph(new Run(new Text(decision.Name))))))
-            {      
+            {
                 decRow.AppendChild(decCell);
             }
             table.AppendChild(decRow);
 
 
-
             foreach (var concernsPerRequirement in forces.GetConcernsPerRequirement())
             {
-                var requirement = concernsPerRequirement.Key;
-                var concerns = concernsPerRequirement.Value;
+                EAElement requirement = concernsPerRequirement.Key;
+                List<EAElement> concerns = concernsPerRequirement.Value;
 
-                foreach (var concern in concerns)
+                foreach (EAElement concern in concerns)
                 {
                     var reqRow = new TableRow();
                     var reqCell = new TableCell(new Paragraph(new Run(new Text(requirement.Name))));
@@ -323,7 +338,7 @@ namespace DecisionViewpoints.Model.Reporting
                 }
             }
 
-           
+
             _body.AppendChild(table);
             _body.AppendChild(new Paragraph());
         }
@@ -334,7 +349,7 @@ namespace DecisionViewpoints.Model.Reporting
             {
                 Paragraph para = _body.AppendChild(new Paragraph());
                 Run run = para.AppendChild(new Run());
-                DocumentFormat.OpenXml.Wordprocessing.RunProperties runProperties = getHeading2(run);
+                RunProperties runProperties = getHeading2(run);
                 run.AppendChild(new Text(++_diagmarCounter + ". Relationship Viewpoint: " + diagram.Name));
                 //_body.AppendChild(new Paragraph(new Run(new Text(++_diagmarCounter + ". Relationship Viewpoint"))));
             }
@@ -342,22 +357,23 @@ namespace DecisionViewpoints.Model.Reporting
             {
                 Paragraph para = _body.AppendChild(new Paragraph());
                 Run run = para.AppendChild(new Run());
-                DocumentFormat.OpenXml.Wordprocessing.RunProperties runProperties = getHeading2(run);
-                run.AppendChild(new Text(++_diagmarCounter + ". Decision Stakeholder Involvement Viewpoint: " + diagram.Name));
+                RunProperties runProperties = getHeading2(run);
+                run.AppendChild(
+                    new Text(++_diagmarCounter + ". Decision Stakeholder Involvement Viewpoint: " + diagram.Name));
                 //_body.AppendChild(new Paragraph(new Run(new Text(++_diagmarCounter + ". Decision Stakeholder Involvement Viewpoint"))));
             }
             else if (diagram.IsChronologicalView())
             {
                 Paragraph para = _body.AppendChild(new Paragraph());
                 Run run = para.AppendChild(new Run());
-                DocumentFormat.OpenXml.Wordprocessing.RunProperties runProperties = getHeading2(run);
+                RunProperties runProperties = getHeading2(run);
                 run.AppendChild(new Text(++_diagmarCounter + ". Decision Chronological Viewpoint: " + diagram.Name));
                 //_body.AppendChild(new Paragraph(new Run(new Text(++_diagmarCounter + ". Decision Chronological Viewpoint"))));
             }
-            
-             _body.AppendChild(new Paragraph(new Run(new Text())));
 
-            var imagePart = _mainPart.AddImagePart(ImagePartType.Emf);
+            _body.AppendChild(new Paragraph(new Run(new Text())));
+
+            ImagePart imagePart = _mainPart.AddImagePart(ImagePartType.Emf);
             FileStream fs = diagram.DiagramToStream();
             imagePart.FeedData(fs);
 
@@ -372,7 +388,7 @@ namespace DecisionViewpoints.Model.Reporting
 
         public void Open()
         {
-            var filepath = Path.Combine(Directory.GetCurrentDirectory(), _filename);
+            string filepath = Path.Combine(Directory.GetCurrentDirectory(), _filename);
             _wordDoc = WordprocessingDocument.Open(filepath, true);
             _mainPart = _wordDoc.MainDocumentPart;
             _body = _mainPart.Document.Body;
@@ -406,15 +422,15 @@ namespace DecisionViewpoints.Model.Reporting
                             new GraphicFrameLocks {NoChangeAspect = true}),
                         new Graphic(
                             new GraphicData(
-                                new DocumentFormat.OpenXml.Drawing.Pictures.Picture(
-                                    new DocumentFormat.OpenXml.Drawing.Pictures.NonVisualPictureProperties(
-                                        new DocumentFormat.OpenXml.Drawing.Pictures.NonVisualDrawingProperties
+                                new Picture(
+                                    new NonVisualPictureProperties(
+                                        new NonVisualDrawingProperties
                                             {
                                                 Id = (UInt32Value) 0U,
                                                 Name = "New Bitmap Image.jpg"
                                             },
-                                        new DocumentFormat.OpenXml.Drawing.Pictures.NonVisualPictureDrawingProperties()),
-                                    new DocumentFormat.OpenXml.Drawing.Pictures.BlipFill(
+                                        new NonVisualPictureDrawingProperties()),
+                                    new BlipFill(
                                         new Blip(
                                             new BlipExtensionList(
                                                 new BlipExtension
@@ -429,7 +445,7 @@ namespace DecisionViewpoints.Model.Reporting
                                             },
                                         new Stretch(
                                             new FillRectangle())),
-                                    new DocumentFormat.OpenXml.Drawing.Pictures.ShapeProperties(
+                                    new ShapeProperties(
                                         new Transform2D(
                                             new Offset {X = 0L, Y = 0L},
                                             new Extents {Cx = size[0], Cy = size[1]}),
@@ -451,24 +467,24 @@ namespace DecisionViewpoints.Model.Reporting
         }
 
         // Add the bold style at a Run object used by a Paragraph in order to insert text in a Document.
-        public DocumentFormat.OpenXml.Wordprocessing.RunProperties getBold(Run run)
+        public RunProperties getBold(Run run)
         {
-            DocumentFormat.OpenXml.Wordprocessing.RunProperties runProperties = run.AppendChild(new DocumentFormat.OpenXml.Wordprocessing.RunProperties());
-            Bold bold = new Bold();
+            RunProperties runProperties = run.AppendChild(new RunProperties());
+            var bold = new Bold();
             bold.Val = OnOffValue.FromBoolean(true);
             runProperties.AppendChild(bold);
             return runProperties;
         }
 
         // Add properties with a stykle similar to Heading 1 style at a Run object used by a Paragraph in order to insert text in a Document.
-        public DocumentFormat.OpenXml.Wordprocessing.RunProperties getHeading1(Run run)
+        public RunProperties getHeading1(Run run)
         {
-            DocumentFormat.OpenXml.Wordprocessing.RunProperties runProperties = run.AppendChild(new DocumentFormat.OpenXml.Wordprocessing.RunProperties());
-            Bold bold = new Bold();
+            RunProperties runProperties = run.AppendChild(new RunProperties());
+            var bold = new Bold();
             bold.Val = OnOffValue.FromBoolean(true);
-            DocumentFormat.OpenXml.Wordprocessing.Color color = new DocumentFormat.OpenXml.Wordprocessing.Color() { Val = "365F91", ThemeColor = ThemeColorValues.Accent1, ThemeShade = "BF" };
-            FontSize size = new FontSize() { Val = new StringValue("33")};
-            
+            var color = new Color {Val = "365F91", ThemeColor = ThemeColorValues.Accent1, ThemeShade = "BF"};
+            var size = new FontSize {Val = new StringValue("33")};
+
             runProperties.AppendChild(bold);
             runProperties.AppendChild(color);
             runProperties.AppendChild(size);
@@ -476,13 +492,13 @@ namespace DecisionViewpoints.Model.Reporting
         }
 
         // Add properties with a stykle similar to Heading 2 style at a Run object used by a Paragraph in order to insert text in a Document.
-        public DocumentFormat.OpenXml.Wordprocessing.RunProperties getHeading2(Run run)
+        public RunProperties getHeading2(Run run)
         {
-            DocumentFormat.OpenXml.Wordprocessing.RunProperties runProperties = run.AppendChild(new DocumentFormat.OpenXml.Wordprocessing.RunProperties());
-            Bold bold = new Bold();
+            RunProperties runProperties = run.AppendChild(new RunProperties());
+            var bold = new Bold();
             bold.Val = OnOffValue.FromBoolean(true);
-            DocumentFormat.OpenXml.Wordprocessing.Color color = new DocumentFormat.OpenXml.Wordprocessing.Color() { Val = "365F91", ThemeColor = ThemeColorValues.Accent1, ThemeShade = "BF" };
-            FontSize size = new FontSize() { Val = new StringValue("29") };
+            var color = new Color {Val = "365F91", ThemeColor = ThemeColorValues.Accent1, ThemeShade = "BF"};
+            var size = new FontSize {Val = new StringValue("29")};
 
             runProperties.AppendChild(bold);
             runProperties.AppendChild(color);
@@ -491,13 +507,13 @@ namespace DecisionViewpoints.Model.Reporting
         }
 
         // Add properties with a stykle similar to Heading 3 style at a Run object used by a Paragraph in order to insert text in a Document.
-        public DocumentFormat.OpenXml.Wordprocessing.RunProperties getHeading3(Run run)
+        public RunProperties getHeading3(Run run)
         {
-            DocumentFormat.OpenXml.Wordprocessing.RunProperties runProperties = run.AppendChild(new DocumentFormat.OpenXml.Wordprocessing.RunProperties());
-            Bold bold = new Bold();
+            RunProperties runProperties = run.AppendChild(new RunProperties());
+            var bold = new Bold();
             bold.Val = OnOffValue.FromBoolean(true);
-            DocumentFormat.OpenXml.Wordprocessing.Color color = new DocumentFormat.OpenXml.Wordprocessing.Color() { Val = "365F91", ThemeColor = ThemeColorValues.Accent1, ThemeShade = "BF" };
-            FontSize size = new FontSize() { Val = new StringValue("25") };
+            var color = new Color {Val = "365F91", ThemeColor = ThemeColorValues.Accent1, ThemeShade = "BF"};
+            var size = new FontSize {Val = new StringValue("25")};
 
             runProperties.AppendChild(bold);
             runProperties.AppendChild(color);
@@ -505,7 +521,4 @@ namespace DecisionViewpoints.Model.Reporting
             return runProperties;
         }
     }
-
-   
-
 }

@@ -116,12 +116,12 @@ namespace DecisionViewpointsCustomViews.Model
         public IEnumerable<Rating> GetForces()
         {
             var forces = from taggedValue in _element.TaggedValues
-                where ForcesModel.IsForcesTaggedValue(taggedValue.Name)
+                where Rating.IsForcesTaggedValue(taggedValue.Name)
                 select new Rating
                 {
                     DecisionGUID = _element.GUID,
-                    RequirementGUID = ForcesModel.GetReqGUIDFromTaggedValue(taggedValue.Name),
-                    ConcernGUID = ForcesModel.GetConcernGUIDFromTaggedValue(taggedValue.Name),
+                    RequirementGUID = Rating.GetReqGUIDFromTaggedValue(taggedValue.Name),
+                    ConcernGUID = Rating.GetConcernGUIDFromTaggedValue(taggedValue.Name),
                     Value = taggedValue.Value
                 };
             return forces;

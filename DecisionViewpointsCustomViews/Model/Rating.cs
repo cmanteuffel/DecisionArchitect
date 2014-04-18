@@ -30,5 +30,43 @@ namespace DecisionViewpointsCustomViews.Model
                 _value = "";
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string ConstructForcesTaggedValue(string requirementGUID, string concernGUID)
+        {
+            return String.Format("DV.Forces:{0}:{1}", requirementGUID, concernGUID);
+        }
+
+        /// <summary>
+        /// Returns just the GUID from the requirement GUID tagged value.
+        /// The format of the requirement GUID tagged value is r:{GUID}.
+        /// </summary>
+        /// <param name="value">The taggged value name.</param>
+        /// <returns></returns>
+        //private static string GetReqGUIDFromTaggedValue(string value)//original
+        public static string GetReqGUIDFromTaggedValue(string value)//angor
+        {
+            return value.Split(':')[1];
+        }
+
+        public static string GetConcernGUIDFromTaggedValue(string value)//angor
+        {
+            return value.Split(':')[2];
+        }
+
+        /// <summary>
+        /// Checks if the tagged value of the 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        //private static bool IsForcesTaggedValue(string value)//original
+        public static bool IsForcesTaggedValue(string value)//angor
+        {
+            return value.Split(':')[0].Equals("DV.Forces");
+        }
     }
 }

@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.Windows.Forms;
 using DecisionViewpoints.Logic;
 using DecisionViewpoints.Logic.Chronological;
 using DecisionViewpoints.Logic.Detail;
 using DecisionViewpoints.Logic.Forces;
 using DecisionViewpoints.Logic.General;
-using DecisionViewpoints.Logic.Relationship;
 using DecisionViewpoints.Logic.StakeholderInvolvement;
 using DecisionViewpoints.Logic.Validation;
 using EA;
+using EAFacade;
 using EAFacade.Model;
 using EAFacade.Model.Events;
-using EAFacade;
-
 
 namespace DecisionViewpoints
 {
@@ -27,7 +26,7 @@ namespace DecisionViewpoints
             _listeners.Add(new ForcesHandler());
             _listeners.Add(new ModifedDateHandler());
             // _listeners.Add(new RelationshipHandler());        // Removed by Christian, potentially causes problems with layouting
-     
+
             _listeners.Add(new StakeholderInvolvementHandler());
             _listeners.Add(new DetailHandler());
         }
@@ -42,7 +41,7 @@ namespace DecisionViewpoints
         public override string EA_OnRetrieveModelTemplate(Repository repository, string location)
         {
             EARepository.UpdateRepository(repository);
-            var resource = "EAFacade." + location;
+            string resource = "EAFacade." + location;
             return Utilities.GetResourceContents(resource);
         }
     }

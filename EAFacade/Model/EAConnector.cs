@@ -1,5 +1,4 @@
-﻿using System.Windows.Forms;
-using EA;
+﻿using EA;
 
 namespace EAFacade.Model
 {
@@ -12,35 +11,10 @@ namespace EAFacade.Model
             _native = native;
         }
 
-        public string GUID
-        {
-            get { return _native.ConnectorGUID; }
-        }
-
-        public int ID
-        {
-            get { return _native.ConnectorID; }
-        }
-
-        
-        
-        public NativeType NativeType
-        {
-            get { return NativeType.Connector; }
-        }
-
         public string Type
         {
             get { return _native.Type; }
             set { _native.Type = value; }
-
-        }
-
-        public string Name
-        {
-            
-            get { return _native.Name; }
-            set { _native.Name = value; }
         }
 
         public string Stereotype
@@ -59,16 +33,38 @@ namespace EAFacade.Model
             get { return _native.ClientID; }
         }
 
-        public string Notes
-        {
-            get { return _native.Notes; }
-            set { _native.Notes = value; }
-        }
-
         public string MetaType
         {
             get { return _native.MetaType; }
             set { _native.MetaType = value; }
+        }
+
+        public string GUID
+        {
+            get { return _native.ConnectorGUID; }
+        }
+
+        public int ID
+        {
+            get { return _native.ConnectorID; }
+        }
+
+
+        public NativeType NativeType
+        {
+            get { return NativeType.Connector; }
+        }
+
+        public string Name
+        {
+            get { return _native.Name; }
+            set { _native.Name = value; }
+        }
+
+        public string Notes
+        {
+            get { return _native.Notes; }
+            set { _native.Notes = value; }
         }
 
         //[Obsolete("Do not use outside of model namespace or main app")]
