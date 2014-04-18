@@ -8,7 +8,7 @@ namespace DecisionViewpointsCustomViews.View
 {
     [ComVisible(true)]
     [Guid("D65970AD-12A7-402A-9F88-ED50D8C1DD82")]
-    [ProgId("DecisionViewpointsCustomViews.CustomViewControl")]
+    [ProgId("DecisionViewpointsCustomViews.ForcesView")]
     [ClassInterface(ClassInterfaceType.None)]
     [ComDefaultInterface(typeof (ICustomView))]
     public class ForcesView : UserControl, ICustomView
@@ -28,7 +28,7 @@ namespace DecisionViewpointsCustomViews.View
             this._btnSave = new System.Windows.Forms.Button();
             this._forcesTable = new System.Windows.Forms.DataGridView();
             this._btnConfigure = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this._forcesTable)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this._forcesTable)).BeginInit();
             this.SuspendLayout();
             // 
             // _btnSave
@@ -43,7 +43,8 @@ namespace DecisionViewpointsCustomViews.View
             // 
             // _forcesTable
             // 
-            this._forcesTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this._forcesTable.ColumnHeadersHeightSizeMode =
+                System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._forcesTable.Location = new System.Drawing.Point(35, 30);
             this._forcesTable.Name = "_forcesTable";
             this._forcesTable.RowTemplate.Height = 33;
@@ -67,9 +68,8 @@ namespace DecisionViewpointsCustomViews.View
             this.Controls.Add(this._btnSave);
             this.Name = "ForcesView";
             this.Size = new System.Drawing.Size(850, 696);
-            ((System.ComponentModel.ISupportInitialize)(this._forcesTable)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this._forcesTable)).EndInit();
             this.ResumeLayout(false);
-
         }
 
         private void _btnSave_Click(object sender, System.EventArgs e)
@@ -108,7 +108,6 @@ namespace DecisionViewpointsCustomViews.View
             }
 
             _forcesTable.DataSource = data;
-            _forcesTable.Refresh();
 
             if (data.Columns.Count <= 0) return;
 

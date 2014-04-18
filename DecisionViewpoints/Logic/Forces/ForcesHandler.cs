@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using DecisionViewpointsCustomViews.Controller;
 using DecisionViewpointsCustomViews.Model;
 using DecisionViewpointsCustomViews.View;
@@ -29,10 +30,14 @@ namespace DecisionViewpoints.Logic.Forces
                 repository.ActivateTab(forcesDiagramModel.Name);
                 return true;
             }
+
             ICustomView forcesView = repository.AddTab(forcesDiagramModel.Name,
-                                                       "DecisionViewpointsCustomViews.CustomViewControl");
+                                                       "DecisionViewpointsCustomViews.ForcesView");
             if (!_views.ContainsKey(forcesDiagramModel.DiagramGUID))
                 _views.Add(forcesDiagramModel.DiagramGUID, forcesView);
+            else
+                _views[forcesDiagramModel.DiagramGUID] = forcesView;
+
             var forcesController = new ForcesController(forcesView, forcesDiagramModel);
             forcesController.UpdateTable();
             return true;
