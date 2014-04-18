@@ -42,12 +42,12 @@ namespace DecisionViewpointsCustomViews.Model
             }
         }
 
-        public List<EAElement> GetDecisions()
+        public EAElement[] GetDecisions()
         {
             var repository = EARepository.Instance;
             return (from diagramObject in _diagram.GetElements()
                     select repository.GetElementByID(diagramObject.ElementID)
-                    into element where element.IsDecision() select element).ToList();
+                    into element where element.IsDecision() select element).ToArray();
         }
 
         public EAElement[] GetRequirements()
