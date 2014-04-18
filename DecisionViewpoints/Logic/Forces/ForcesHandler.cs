@@ -12,7 +12,7 @@ namespace DecisionViewpoints.Logic.Forces
     public class ForcesHandler : RepositoryAdapter
     {
         // hold referecnes to the created views so to respond to the changed events (might need to change)
-        private readonly Dictionary<string, ICustomView> _views = new Dictionary<string, ICustomView>();
+        private Dictionary<string, ICustomView> _views = new Dictionary<string, ICustomView>();
 
         public override bool OnContextItemDoubleClicked(string guid, NativeType type)
         {
@@ -27,6 +27,7 @@ namespace DecisionViewpoints.Logic.Forces
                 };
             if (repository.IsTabOpen(forcesDiagramModel.Name) > 0)
             {
+                // checking names is not optimal as tabs can have same names...
                 repository.ActivateTab(forcesDiagramModel.Name);
                 return true;
             }
@@ -37,7 +38,7 @@ namespace DecisionViewpoints.Logic.Forces
                 _views.Add(forcesDiagramModel.DiagramGUID, forcesView);
             else
                 _views[forcesDiagramModel.DiagramGUID] = forcesView;
-
+            
             var forcesController = new ForcesController(forcesView, forcesDiagramModel);
             forcesController.UpdateTable();
             return true;
@@ -109,6 +110,11 @@ namespace DecisionViewpoints.Logic.Forces
                     forcesController.RemoveRequirement(element);
             }
             return true;
+        }
+
+        public override void OnFileOpen()
+        {
+            _views.Clear();
         }
 
         private static string CreateForcesTabName(string diagramName)

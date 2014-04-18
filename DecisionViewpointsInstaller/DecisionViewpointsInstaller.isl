@@ -341,6 +341,8 @@
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
 		<row><td>DecisionViewpoints.Primary_output1</td><td>{61EEA843-2A63-460D-8271-E7B44EEA4A02}</td><td>INSTALLDIR</td><td>2</td><td/><td>decisionviewpoints.primary_o1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>DecisionViewpointsCustomViews.Primary_output</td><td>{FCCEE248-EE38-407D-A0D4-0CDEB1AAAE2D}</td><td>INSTALLDIR</td><td>2</td><td/><td>decisionviewpointscustomview</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>EAFacade.Primary_output</td><td>{71FD59E4-1CAB-44EE-9605-E0E6E267E098}</td><td>INSTALLDIR</td><td>2</td><td/><td>eafacade.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{7E7D0D85-0F5D-4897-966A-DECDF1BF53C2}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
@@ -1010,11 +1012,15 @@
 		<row><td>SetupCompleteError</td><td>Finish</td><td>DoAction</td><td>CleanUp</td><td>ISSCRIPTRUNNING="1"</td><td>1</td></row>
 		<row><td>SetupCompleteError</td><td>Finish</td><td>DoAction</td><td>ShowMsiLog</td><td>MsiLogFileLocation And (ISSHOWMSILOG="1")</td><td>3</td></row>
 		<row><td>SetupCompleteError</td><td>Finish</td><td>EndDialog</td><td>Exit</td><td>1</td><td>2</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>CleanUp</td><td>ISSCRIPTRUNNING="1"</td><td>5</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>Register_DLL_COM_Codebase</td><td>Not Installed And (DOTNETVERSION45FULL&gt;="#1")</td><td>3</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>ShowMsiLog</td><td>MsiLogFileLocation And (ISSHOWMSILOG="1") And NOT ISENABLEDWUSFINISHDIALOG</td><td>10</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>EndDialog</td><td>Exit</td><td>1</td><td>6</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>[Register_DLL_COM_Codebase]</td><td>Register_DLL_COM_Codebase</td><td>Not Installed</td><td>4</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>CleanUp</td><td>ISSCRIPTRUNNING="1"</td><td>9</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>ShowMsiLog</td><td>MsiLogFileLocation And (ISSHOWMSILOG="1") And NOT ISENABLEDWUSFINISHDIALOG</td><td>14</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>reg_customView</td><td>Not Installed</td><td>5</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>reg_eafacade</td><td>Not Installed And (DOTNETVERSION45FULL&gt;="#1")</td><td>3</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>reg_main</td><td>Not Installed And (DOTNETVERSION45FULL&gt;="#1")</td><td>7</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>EndDialog</td><td>Exit</td><td>1</td><td>10</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>[reg_customView]</td><td>reg_customView</td><td>Not Installed</td><td>6</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>[reg_eafacade]</td><td>reg_eafacade</td><td>Not Installed</td><td>4</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>[reg_main]</td><td>reg_main</td><td>Not Installed</td><td>8</td></row>
 		<row><td>SetupError</td><td>A</td><td>EndDialog</td><td>ErrorAbort</td><td>1</td><td>0</td></row>
 		<row><td>SetupError</td><td>C</td><td>EndDialog</td><td>ErrorCancel</td><td>1</td><td>0</td></row>
 		<row><td>SetupError</td><td>I</td><td>EndDialog</td><td>ErrorIgnore</td><td>1</td><td>0</td></row>
@@ -1069,10 +1075,12 @@
 		<row><td>ISSelfRegisterFiles</td><td>3073</td><td>ISSELFREG.DLL</td><td>ISSelfRegisterFiles</td><td/><td/></row>
 		<row><td>ISSelfRegisterFinalize</td><td>1</td><td>ISSELFREG.DLL</td><td>ISSelfRegisterFinalize</td><td/><td/></row>
 		<row><td>ISUnSelfRegisterFiles</td><td>3073</td><td>ISSELFREG.DLL</td><td>ISUnSelfRegisterFiles</td><td/><td/></row>
-		<row><td>Register_DLL_COM_Codebase</td><td>34</td><td>V4.0.303194</td><td>[V4.0.303194]regasm "[INSTALLDIR]\DecisionViewpoints.dll" /codebase</td><td/><td/></row>
 		<row><td>SetARPINSTALLLOCATION</td><td>51</td><td>ARPINSTALLLOCATION</td><td>[INSTALLDIR]</td><td/><td/></row>
 		<row><td>SetAllUsersProfileNT</td><td>51</td><td>ALLUSERSPROFILE</td><td>[%SystemRoot]\Profiles\All Users</td><td/><td/></row>
 		<row><td>ShowMsiLog</td><td>226</td><td>SystemFolder</td><td>[SystemFolder]notepad.exe "[MsiLogFileLocation]"</td><td/><td>Shows Property-driven MSI Log</td></row>
+		<row><td>reg_customView</td><td>34</td><td>V4.0.303194</td><td>[V4.0.303194]regasm "[INSTALLDIR]\DecisionViewpointsCustomViews.dll" /codebase</td><td/><td/></row>
+		<row><td>reg_eafacade</td><td>34</td><td>V4.0.303194</td><td>[V4.0.303194]regasm "[INSTALLDIR]\EAFacade.dll"</td><td/><td/></row>
+		<row><td>reg_main</td><td>34</td><td>V4.0.303194</td><td>[V4.0.303194]regasm "[INSTALLDIR]\DecisionViewpoints.dll" /codebase</td><td/><td/></row>
 		<row><td>setAllUsersProfile2K</td><td>51</td><td>ALLUSERSPROFILE</td><td>[%ALLUSERSPROFILE]</td><td/><td/></row>
 		<row><td>setUserProfileNT</td><td>51</td><td>USERPROFILE</td><td>[%USERPROFILE]</td><td/><td/></row>
 	</table>
@@ -1167,6 +1175,8 @@
 		<row><td>MyPicturesFolder</td><td>TARGETDIR</td><td>.:MyPict~1|MyPictures</td><td/><td>0</td><td/></row>
 		<row><td>NEW_DIRECTORY1</td><td>TARGETDIR</td><td>NEW_DIRECTORY1</td><td/><td>0</td><td/></row>
 		<row><td>NEW_DIRECTORY2</td><td>TARGETDIR</td><td>NEW_DIRECTORY2</td><td/><td>0</td><td/></row>
+		<row><td>NEW_DIRECTORY3</td><td>TARGETDIR</td><td>NEW_DIRECTORY3</td><td/><td>0</td><td/></row>
+		<row><td>NEW_DIRECTORY4</td><td>TARGETDIR</td><td>NEW_DIRECTORY4</td><td/><td>0</td><td/></row>
 		<row><td>NetHoodFolder</td><td>TARGETDIR</td><td>.:NetHood</td><td/><td>0</td><td/></row>
 		<row><td>PersonalFolder</td><td>TARGETDIR</td><td>.:Personal</td><td/><td>0</td><td/></row>
 		<row><td>PrimaryVolumePath</td><td>TARGETDIR</td><td>.:Primar~1|PrimaryVolumePath</td><td/><td>0</td><td/></row>
@@ -1886,6 +1896,8 @@
 		<col key="yes" def="s38">Feature_</col>
 		<col key="yes" def="s72">Component_</col>
 		<row><td>AlwaysInstall</td><td>DecisionViewpoints.Primary_output1</td></row>
+		<row><td>AlwaysInstall</td><td>DecisionViewpointsCustomViews.Primary_output</td></row>
+		<row><td>AlwaysInstall</td><td>EAFacade.Primary_output</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT1</td></row>
 	</table>
 
@@ -1902,6 +1914,8 @@
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
 		<row><td>decisionviewpoints.primary_o1</td><td>DecisionViewpoints.Primary_output1</td><td>DecisionViewpoints.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;DecisionViewpoints&gt;|Built</td><td>3</td><td/></row>
+		<row><td>decisionviewpointscustomview</td><td>DecisionViewpointsCustomViews.Primary_output</td><td>DecisionViewpointsCustomViews.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;DecisionViewpointsCustomViews&gt;|Built</td><td>3</td><td/></row>
+		<row><td>eafacade.primary_output</td><td>EAFacade.Primary_output</td><td>EAFacade.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;EAFacade&gt;|Built</td><td>3</td><td/></row>
 	</table>
 
 	<table name="FileSFPCatalog">
@@ -2160,6 +2174,8 @@
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
 		<row><td>DecisionViewpoints.Primary_output1</td><td/><td/><td>_58981E3A_4A50_4C7A_A48D_1ACBA4B99F5E_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>DecisionViewpointsCustomViews.Primary_output</td><td/><td/><td>_7EF01EEC_9DBA_40A6_9245_126A508B8F48_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>EAFacade.Primary_output</td><td/><td/><td>_A7CAD05D_2807_4A04_AC84_72B9D8F68DD0_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_D048FC65_A288_403C_81A5_7E8F6B4D2B00_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
@@ -2474,6 +2490,8 @@
 		<col def="i4">Type</col>
 		<row><td>CommonFilesFolder</td><td/><td/><td>1</td></row>
 		<row><td>DecisionViewpoints</td><td>DecisionViewpoints\DecisionViewpoints.csproj</td><td/><td>2</td></row>
+		<row><td>DecisionViewpointsCustomViews</td><td>DecisionViewpointsCustomViews\DecisionViewpointsCustomViews.csproj</td><td/><td>2</td></row>
+		<row><td>EAFacade</td><td>EAFacade\EAFacade.csproj</td><td/><td>2</td></row>
 		<row><td>ISPROJECTDIR</td><td/><td/><td>1</td></row>
 		<row><td>ISProductFolder</td><td/><td/><td>1</td></row>
 		<row><td>ISProjectDataFolder</td><td/><td/><td>1</td></row>
@@ -4134,7 +4152,7 @@ RABWAEQALQA1AAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{578FB7E8-677A-4949-B521-436B8C28887E}</td></row>
 		<row><td>ISUSSignature</td><td>{8813F9FF-399B-4583-B6CD-E0EF00AB5B05}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewObjects,viewRegistry,viewCustomActions,viewInstallScriptStd,viewSystemSearch,viewProject,viewUpgradePaths,viewAppFiles,viewShortcuts,viewRelease,viewSupportFiles,viewUpdateService,viewDependencies,viewIniFiles,viewTextFiles,viewFileExtensions,viewEnvironmentVariables,viewVRoots,viewSQLServer,viewComponentServices,viewUI,viewTextMessages,viewRealSetupDesign</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewObjects,viewRegistry,viewCustomActions,viewInstallScriptStd,viewSystemSearch,viewProject,viewUpgradePaths,viewAppFiles,viewShortcuts,viewRelease,viewSupportFiles,viewUpdateService,viewDependencies,viewIniFiles,viewTextFiles,viewFileExtensions,viewEnvironmentVariables,viewVRoots,viewSQLServer,viewComponentServices,viewUI,viewTextMessages,viewRealSetupDesign,viewDesignPatches</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>

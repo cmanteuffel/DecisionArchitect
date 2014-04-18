@@ -32,5 +32,13 @@
 			<Name>DecisionViewpoints</Name>
 			<Project>{778A9A09-5030-4CC1-85A3-C7DBB053CEA2}</Project>
 		</ProjectReference>
+		<ProjectReference Include="..\DecisionViewpointsCustomViews\DecisionViewpointsCustomViews.csproj">
+			<Name>DecisionViewpointsCustomViews</Name>
+			<Project>{ED9E141B-E0AB-4D04-BF9A-4C8C1E676731}</Project>
+		</ProjectReference>
+		<ProjectReference Include="..\EAFacade\EAFacade.csproj">
+			<Name>EAFacade</Name>
+			<Project>{1AF84AD5-279F-473C-A20F-C46DCBE0D087}</Project>
+		</ProjectReference>
 	</ItemGroup>
 </Project>

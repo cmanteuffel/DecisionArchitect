@@ -1,7 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using DecisionViewpointsCustomViews.Controller;
 using DecisionViewpointsCustomViews.Model;
-using EAFacade.Model;
 
 namespace DecisionViewpointsCustomViews.View
 {
