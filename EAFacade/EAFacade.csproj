@@ -40,7 +40,7 @@
       <HintPath>C:\Program Files\Open XML SDK\V2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
     <Reference Include="Interop.EA">
-      <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Sparx Systems\EA\Interop.EA.dll</HintPath>
+      <HintPath>C:\Program Files\Sparx Systems\EA\Interop.EA.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />
@@ -54,12 +54,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Baselines\Baseline.cs" />
-    <Compile Include="Model\Baselines\BaselineDiff.cs" />
-    <Compile Include="Model\Baselines\BaselineException.cs" />
-    <Compile Include="Model\Baselines\DiffItem.cs" />
-    <Compile Include="Model\Baselines\DiffProperty.cs" />
-    <Compile Include="Model\Baselines\DiffStatus.cs" />
     <Compile Include="Model\DVStereotypes.cs" />
     <Compile Include="Model\DVTaggedValueKeys.cs" />
     <Compile Include="Model\EAConnector.cs" />
