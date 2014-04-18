@@ -38,19 +38,21 @@ namespace DecisionViewpoints.Logic.Menu
 
         private void buttonOpenReport_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(this.filename);
+            Process.Start(this.filename);
+            Close();
         }
 
         private void buttonClose_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void buttonOpenFolder_Click(object sender, EventArgs e)
         {
-            var reportFolderpath = this.filename.Substring(0, this.filename.LastIndexOf("\\"));
+            var reportFolderpath = this.filename.Substring(0, filename.LastIndexOf("\\"));
             //MessageBox.Show("Report Folderpath:" + reportFolderpath);//DEBUG
             Process.Start(reportFolderpath);
+            Close();
         }
     }
 }
