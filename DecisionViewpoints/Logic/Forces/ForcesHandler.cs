@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using DecisionViewpointsCustomViews.Controller;
 using DecisionViewpointsCustomViews.Model;
 using DecisionViewpointsCustomViews.View;
-using EA;
-using EAWrapper.Model;
+using EAFacade.Model;
 
 namespace DecisionViewpoints.Logic.Forces
 {
@@ -14,7 +12,7 @@ namespace DecisionViewpoints.Logic.Forces
         // hold referecnes to the created views so to respond to the changed events (might need to change)
         private readonly Dictionary<string, ICustomView> _views = new Dictionary<string, ICustomView>();
 
-        public override bool OnContextItemDoubleClicked(string guid, ObjectType type)
+        public override bool OnContextItemDoubleClicked(string guid, NativeType type)
         {
             if (!IsForcesDiagram(guid, type)) return false;
             var repository = EARepository.Instance;
@@ -43,7 +41,7 @@ namespace DecisionViewpoints.Logic.Forces
             return true;
         }
 
-        public override void OnNotifyContextItemModified(string guid, ObjectType type)
+        public override void OnNotifyContextItemModified(string guid, NativeType type)
         {
             if (!IsForcesDiagram(guid, type)) return;
             var repository = EARepository.Instance;
@@ -69,9 +67,9 @@ namespace DecisionViewpoints.Logic.Forces
             return true;
         }
 
-        private static bool IsForcesDiagram(string guid, ObjectType type)
+        private static bool IsForcesDiagram(string guid, NativeType type)
         {
-            if (ObjectType.otDiagram != type) return false;
+            if (NativeType.Diagram != type) return false;
             var repository = EARepository.Instance;
             return repository.GetDiagramByGuid(guid).IsForces();
         }

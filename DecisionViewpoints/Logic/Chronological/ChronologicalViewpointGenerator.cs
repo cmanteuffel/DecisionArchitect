@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using DecisionViewpoints.Properties;
-using EAWrapper.Model;
-using EAWrapper.Model.Baselines;
+using EAFacade.Model;
+using EAFacade.Model.Baselines;
 
 namespace DecisionViewpoints.Logic.Chronological
 {

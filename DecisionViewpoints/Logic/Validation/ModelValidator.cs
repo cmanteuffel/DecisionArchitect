@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using DecisionViewpoints.Logic.Rules;
 using EA;
-using EAWrapper.Model;
+using EAFacade.Model;
 
 namespace DecisionViewpoints.Logic.Validation
 {

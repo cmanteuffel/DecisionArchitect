@@ -1,6 +1,6 @@
 ﻿using DecisionViewpoints.Logic.Menu;
 using EA;
-using EAWrapper.Model;
+using EAFacade.Model;
 
 namespace DecisionViewpoints
 {

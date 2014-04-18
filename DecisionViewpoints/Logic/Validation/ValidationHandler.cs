@@ -1,7 +1,6 @@
 using System;
 using System.Windows.Forms;
-using EA;
-using EAWrapper.Model;
+using EAFacade.Model;
 
 namespace DecisionViewpoints.Logic.Validation
 {
@@ -58,13 +57,12 @@ namespace DecisionViewpoints.Logic.Validation
         }
 
 
-        public override void OnNotifyContextItemModified(string guid, ObjectType ot)
+        public override void OnNotifyContextItemModified(string guid, NativeType ot)
         {
             string message;
             switch (ot)
             {
-                case ObjectType.otElement:
-
+                case NativeType.Element:
 
                     EAElement element = EARepository.Instance.GetElementByGUID(guid);
 
@@ -88,7 +86,7 @@ namespace DecisionViewpoints.Logic.Validation
                     lastChange = element.Modified;
 
                     break;
-                case ObjectType.otConnector:
+                case NativeType.Connector:
                     EAConnectorWrapper connectorWrapper = EAConnectorWrapper.Wrap(guid);
 
                     //dirty hack that prevents that an modified event is fired after a connector has been created

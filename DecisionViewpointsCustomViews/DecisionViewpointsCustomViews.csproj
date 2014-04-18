@@ -64,9 +64,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EAWrapper\EAWrapper.csproj">
+    <ProjectReference Include="..\EAFacade\EAFacade.csproj">
       <Project>{1af84ad5-279f-473c-a20f-c46dcbe0d087}</Project>
-      <Name>EAWrapper</Name>
+      <Name>EAFacade</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

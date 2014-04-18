@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using EA;
-using EAWrapper.Model;
+using EAFacade.Model;
 
 namespace DecisionViewpointsTests.Model.EventProperties
 {

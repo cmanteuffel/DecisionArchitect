@@ -3,8 +3,9 @@ using DecisionViewpoints.Logic;
 using DecisionViewpoints.Logic.Chronological;
 using DecisionViewpoints.Logic.Forces;
 using EA;
-using EAWrapper.Model;
-using EAWrapper.Model.Events;
+using EAFacade.Model;
+using EAFacade.Model.Events;
+using EAFacade;
 
 namespace DecisionViewpoints
 {

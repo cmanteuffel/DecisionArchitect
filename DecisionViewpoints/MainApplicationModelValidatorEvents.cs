@@ -1,6 +1,6 @@
 ﻿using DecisionViewpoints.Logic.Validation;
 using EA;
-using EAWrapper.Model;
+using EAFacade.Model;
 
 namespace DecisionViewpoints
 {

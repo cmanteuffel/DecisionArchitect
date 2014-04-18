@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using EAWrapper.Model;
+using EAFacade.Model;
 
 namespace DecisionViewpointsCustomViews.Model
 {

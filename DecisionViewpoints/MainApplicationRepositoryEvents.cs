@@ -1,7 +1,8 @@
 ﻿using System.Linq;
 using DecisionViewpoints.Logic;
 using EA;
-using EAWrapper.Model;
+using EAFacade;
+using EAFacade.Model;
 
 namespace DecisionViewpoints
 {
@@ -42,7 +43,7 @@ namespace DecisionViewpoints
             EARepository.UpdateRepository(repository);
             foreach (IRepositoryListener l in _listeners)
             {
-                l.OnContextItemChanged(guid, ot);
+                l.OnContextItemChanged(guid, Utilities.Translate(ot));
             }
         }
 
@@ -51,7 +52,7 @@ namespace DecisionViewpoints
             EARepository.UpdateRepository(repository);
             foreach (IRepositoryListener l in _listeners)
             {
-                if (l.OnContextItemDoubleClicked(guid, ot))
+                if (l.OnContextItemDoubleClicked(guid, Utilities.Translate(ot)))
                 {
                     return true;
                 }
@@ -64,7 +65,7 @@ namespace DecisionViewpoints
             EARepository.UpdateRepository(repository);
             foreach (IRepositoryListener l in _listeners)
             {
-                l.OnNotifyContextItemModified(guid, ot);
+                l.OnNotifyContextItemModified(guid, Utilities.Translate(ot));
             }
         }
 

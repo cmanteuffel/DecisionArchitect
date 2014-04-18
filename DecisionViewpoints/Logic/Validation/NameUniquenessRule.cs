@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using EAWrapper.Model;
+using EAFacade.Model;
 
 namespace DecisionViewpoints.Logic.Validation
 {

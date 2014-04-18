@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using DecisionViewpoints.Properties;
-using EA;
-using EAWrapper.Model;
-using EAWrapper.Model.Baselines;
+using EAFacade.Model;
+using EAFacade.Model.Baselines;
 
 namespace DecisionViewpoints.Logic.Chronological
 {
@@ -30,11 +29,11 @@ namespace DecisionViewpoints.Logic.Chronological
             }
         }
 
-        public override void OnNotifyContextItemModified(string guid, ObjectType type)
+        public override void OnNotifyContextItemModified(string guid, NativeType type)
         {
             switch (type)
             {
-                case ObjectType.otElement:
+                case NativeType.Element:
                     EAElement element = EARepository.Instance.GetElementByGUID(guid);
 
                     if (element==null) throw new Exception("element is null");

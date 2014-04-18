@@ -1,4 +1,4 @@
-﻿using EAWrapper.Model;
+﻿using EAFacade.Model;
 
 namespace DecisionViewpointsCustomViews.Controller
 {

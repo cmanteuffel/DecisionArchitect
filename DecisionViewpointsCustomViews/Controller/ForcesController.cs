@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using DecisionViewpointsCustomViews.Model;
 using DecisionViewpointsCustomViews.View;
-using EAWrapper.Model;
+using EAFacade.Model;
 
 namespace DecisionViewpointsCustomViews.Controller
 {

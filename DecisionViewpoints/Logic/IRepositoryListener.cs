@@ -1,5 +1,4 @@
-﻿using EA;
-using EAWrapper.Model;
+﻿using EAFacade.Model;
 
 namespace DecisionViewpoints.Logic
 {
@@ -35,11 +34,11 @@ namespace DecisionViewpoints.Logic
 
         bool OnPostNewPackage(EAPackage package);
 
-        void OnContextItemChanged(string guid, ObjectType type);
+        void OnContextItemChanged(string guid, NativeType type);
 
-        bool OnContextItemDoubleClicked(string guid, ObjectType type);
+        bool OnContextItemDoubleClicked(string guid, NativeType type);
 
-        void OnNotifyContextItemModified(string guid, ObjectType type);
+        void OnNotifyContextItemModified(string guid, NativeType type);
 
         void OnFileOpen();
 

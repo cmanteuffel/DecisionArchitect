@@ -82,9 +82,9 @@
       <Project>{778a9a09-5030-4cc1-85a3-c7dbb053cea2}</Project>
       <Name>DecisionViewpoints</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EAWrapper\EAWrapper.csproj">
+    <ProjectReference Include="..\EAFacade\EAFacade.csproj">
       <Project>{1af84ad5-279f-473c-a20f-c46dcbe0d087}</Project>
-      <Name>EAWrapper</Name>
+      <Name>EAFacade</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

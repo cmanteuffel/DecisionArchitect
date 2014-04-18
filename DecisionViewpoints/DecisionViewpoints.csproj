@@ -99,7 +99,6 @@
     <Compile Include="SelectDiagram.Designer.cs">
       <DependentUpon>SelectDiagram.cs</DependentUpon>
     </Compile>
-    <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -141,9 +140,9 @@
       <Project>{ed9e141b-e0ab-4d04-bf9a-4c8c1e676731}</Project>
       <Name>DecisionViewpointsCustomViews</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EAWrapper\EAWrapper.csproj">
+    <ProjectReference Include="..\EAFacade\EAFacade.csproj">
       <Project>{1af84ad5-279f-473c-a20f-c46dcbe0d087}</Project>
-      <Name>EAWrapper</Name>
+      <Name>EAFacade</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

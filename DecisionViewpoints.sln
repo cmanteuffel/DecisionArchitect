@@ -12,7 +12,7 @@ Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "DecisionViewpointsInstaller
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DecisionViewpointsCustomViews", "DecisionViewpointsCustomViews\DecisionViewpointsCustomViews.csproj", "{ED9E141B-E0AB-4D04-BF9A-4C8C1E676731}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EAWrapper", "EAWrapper\EAWrapper.csproj", "{1AF84AD5-279F-473C-A20F-C46DCBE0D087}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EAFacade", "EAFacade\EAFacade.csproj", "{1AF84AD5-279F-473C-A20F-C46DCBE0D087}"
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
@@ -32,9 +32,9 @@ Global
 		SccProjectUniqueName4 = DecisionViewpointsCustomViews\\DecisionViewpointsCustomViews.csproj
 		SccProjectName4 = DecisionViewpointsCustomViews
 		SccLocalPath4 = DecisionViewpointsCustomViews
-		SccProjectUniqueName5 = EAWrapper\\EAWrapper.csproj
-		SccProjectName5 = EAWrapper
-		SccLocalPath5 = EAWrapper
+		SccProjectUniqueName5 = EAFacade\\EAFacade.csproj
+		SccProjectName5 = EAFacade
+		SccLocalPath5 = EAFacade
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CD_ROM|Any CPU = CD_ROM|Any CPU

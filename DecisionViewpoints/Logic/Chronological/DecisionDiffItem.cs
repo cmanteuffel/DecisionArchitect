@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
-using EAWrapper.Model;
-using EAWrapper.Model.Baselines;
+using EAFacade.Model;
+using EAFacade.Model.Baselines;
 
 namespace DecisionViewpoints.Logic.Chronological
 {

@@ -1,5 +1,4 @@
-﻿using EA;
-using EAWrapper.Model;
+﻿using EAFacade.Model;
 
 namespace DecisionViewpoints.Logic
 {
@@ -69,16 +68,16 @@ namespace DecisionViewpoints.Logic
             return true;
         }
 
-        public virtual void OnContextItemChanged(string guid, ObjectType type)
+        public virtual void OnContextItemChanged(string guid, NativeType type)
         {
         }
 
-        public virtual bool OnContextItemDoubleClicked(string guid, ObjectType type)
+        public virtual bool OnContextItemDoubleClicked(string guid, NativeType type)
         {
             return false;
         }
 
-        public virtual void OnNotifyContextItemModified(string guid, ObjectType type)
+        public virtual void OnNotifyContextItemModified(string guid, NativeType type)
         {
         }
 
