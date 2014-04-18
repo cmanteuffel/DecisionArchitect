@@ -110,7 +110,6 @@ namespace EAFacade.Model
             return _native;
         }
 
-        [Obsolete]
         public EAPackage CreatePackage(string name, string stereotype = "")
         {
             Package newPackage = _native.Packages.AddNew(name, "");
@@ -227,6 +226,20 @@ namespace EAFacade.Model
         public IEnumerable<EADiagram> GetDiagrams()
         {
             return _native.Diagrams.Cast<Diagram>().Select(EADiagram.Wrap).ToList();
+        }
+
+        public string GetProjectPath()
+        {
+            EAPackage current = ParentPackage;
+            string path = current.Name;
+
+            while (!current.IsModelRoot())
+            {
+                current = current.ParentPackage;
+                path = current.Name + "/" + path;
+            }
+            path = "//" + path;
+            return path;
         }
     }
 }

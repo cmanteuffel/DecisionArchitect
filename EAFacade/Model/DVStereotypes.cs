@@ -12,7 +12,8 @@ namespace EAFacade.Model
         public const string DiagramMetaTypeChronological = "Decision Viewpoints::Chronological";
         public const string DiagramMetaTypeRelationship = "Decision Viewpoints::Relationship";
         public const string DiagramMetaTypeStakeholder = "Decision Viewpoints::Stakeholder Involvement";
-        public const string TopicMetaType = "Topic";//angor task189
+
+        public const string TopicStereoType = "Topic";
 
         public const string StateIdea = "idea";
         public const string StateTentative = "tentative";
@@ -32,6 +33,9 @@ namespace EAFacade.Model
         public const string RelationFollowedBy = "followed by";
 
         public const string ActionMetaType = "Action";
+        public const string ActivityMetaType = "Activity";
+        public const string AbstractionMetaType = "Abstraction";
+        public const string TraceStereotype = "trace";
 
         public static readonly HashSet<string> Relationships = new HashSet<string>
             {

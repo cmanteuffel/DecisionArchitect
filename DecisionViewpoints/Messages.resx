@@ -237,4 +237,16 @@
     <value>&amp;New Topic</value>
     <comment>angor</comment>
   </data>
+  <data name="ErrorNoNameForDecision" xml:space="preserve">
+    <value>Please supply a name for the decision.</value>
+  </data>
+  <data name="ErrorSelectDecisionViewPackage" xml:space="preserve">
+    <value>Please select a decicion view package.</value>
+  </data>
+  <data name="NameSuggestionDecision" xml:space="preserve">
+    <value>{0} Decision</value>
+  </data>
+  <data name="NameSuggestionTopic" xml:space="preserve">
+    <value>{0} Topic</value>
+  </data>
 </root>

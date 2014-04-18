@@ -251,13 +251,6 @@ namespace EAFacade.Model
             return DVStereotypes.DecisionMetaType.Equals(MetaType);
         }
 
-        //angor task189 START
-        public bool IsTopic()
-        {
-            return DVStereotypes.TopicMetaType.Equals(MetaType);
-        }
-        //angor task189 END
-
         //angor task191 START
         public bool HasTopic()
         {

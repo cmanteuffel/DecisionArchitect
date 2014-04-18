@@ -106,6 +106,24 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please supply a name for the decision..
+        /// </summary>
+        internal static string ErrorNoNameForDecision {
+            get {
+                return ResourceManager.GetString("ErrorNoNameForDecision", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a decicion view package..
+        /// </summary>
+        internal static string ErrorSelectDecisionViewPackage {
+            get {
+                return ResourceManager.GetString("ErrorSelectDecisionViewPackage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Excluded by-relationships should not point to idea, tentative, discarded or rejected decisions..
         /// </summary>
         internal static string ExcludedByNotPointTo {
@@ -318,6 +336,24 @@ namespace DecisionViewpoints {
         internal static string ModelValidationElementMessage {
             get {
                 return ResourceManager.GetString("ModelValidationElementMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} Decision.
+        /// </summary>
+        internal static string NameSuggestionDecision {
+            get {
+                return ResourceManager.GetString("NameSuggestionDecision", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} Topic.
+        /// </summary>
+        internal static string NameSuggestionTopic {
+            get {
+                return ResourceManager.GetString("NameSuggestionTopic", resourceCulture);
             }
         }
         

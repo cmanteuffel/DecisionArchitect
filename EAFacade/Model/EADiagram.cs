@@ -95,6 +95,20 @@ namespace EAFacade.Model
             EARepository.Instance.Native.ShowInProjectView(_native);
         }
 
+        public string GetProjectPath()
+        {
+            EAPackage current = ParentPackage;
+            string path = current.Name;
+
+            while (!current.IsModelRoot())
+            {
+                current = current.ParentPackage;
+                path = current.Name + "/" + path;
+            }
+            path = "//" + path;
+            return path;
+        }
+
         internal static EADiagram Wrap(Diagram native)
         {
             return new EADiagram(native);
@@ -185,5 +199,6 @@ namespace EAFacade.Model
             return new FileStream(filename, FileMode.Open);
         }
 
+        
     }
 }

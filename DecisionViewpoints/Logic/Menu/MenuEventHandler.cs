@@ -19,35 +19,35 @@ namespace DecisionViewpoints.Logic.Menu
         static MenuEventHandler()
         {
             var createTraces = new Model.Menu.Menu(Messages.MenuCreateTraces);
-            var createAndTraceDecision = new MenuItem(Messages.MenuTraceToNewDecision, CreateAndTraceDecision)
+            var createAndTraceDecision = new MenuItem(Messages.MenuTraceToNewDecision, CreateTraceMenu.CreateAndTraceDecision)
             {
                     UpdateDelegate = menuItem =>
                         {
                             if (NativeType.Element == EARepository.Instance.GetContextItemType())
                             {
                                 var eaelement = EARepository.Instance.GetContextObject<EAElement>();
-                                menuItem.IsEnabled = (eaelement != null && !eaelement.IsDecision());
+                                menuItem.IsEnabled = (eaelement != null && !eaelement.IsDecision() &&!eaelement.IsTopic());
                                 return;
                             }
                             menuItem.IsEnabled = false;
                         }
                 };
 
-            //angor task191 START
-            var createAndTraceTopic = new MenuItem(Messages.MenuTraceToNewTopic, CreateAndTraceTopic)
+            
+            var createAndTraceTopic = new MenuItem(Messages.MenuTraceToNewTopic, CreateTraceMenu.CreateAndTraceTopic)
             {
                 UpdateDelegate = menuItem =>
                 {
                     if (NativeType.Element == EARepository.Instance.GetContextItemType())
                     {
                         var eaelement = EARepository.Instance.GetContextObject<EAElement>();
-                        menuItem.IsEnabled = (eaelement != null && !eaelement.IsDecision());
+                        menuItem.IsEnabled = (eaelement != null && !eaelement.IsDecision() && !eaelement.IsTopic());
                         return;
                     }
                     menuItem.IsEnabled = false;
                 }
             };
-            //angor task191 END
+            
 
             var baselinesOptions = new Model.Menu.Menu(Messages.MenuBaselineOptions);
             var baselineManually = new MenuItem(Messages.MenuBaselineManually)
@@ -231,67 +231,7 @@ namespace DecisionViewpoints.Logic.Menu
             }
         }
 
-        private static void CreateAndTraceDecision()
-        {
-            EARepository repository = EARepository.Instance;
-            if (repository.GetContextItemType() == NativeType.Element)
-            {
-                var eaelement = EARepository.Instance.GetContextObject<EAElement>();
-                if (eaelement != null && !eaelement.IsDecision())
-                {
-                    var createDecisionView = new CreateDecision(eaelement.Name + " Decision");
-                    if (createDecisionView.ShowDialog() == DialogResult.OK)
-                    {
-                        EAPackage dvPackage = repository.GetPackageFromRootByName("Decision Views");
-
-                        EAElement decision = dvPackage.AddElement(createDecisionView.GetName(), "Action");
-                        decision.Stereotype = createDecisionView.GetState();
-                        decision.MetaType = DVStereotypes.DecisionMetaType;
-
-
-                        eaelement.ConnectTo(decision, "Abstraction", "trace");
-                        decision.Update();
-
-                        dvPackage.RefreshElements();
-                        repository.RefreshModelView(dvPackage.ID);
-                        decision.ShowInProjectView();
-                    }
-                }
-                else
-                {
-                    //MessageBox.Show("Element is not a decision."); //angor
-                }
-            }
-        }
-
-        //angor task191 START
-        private static void CreateAndTraceTopic()
-        {
-            MessageBox.Show("Create and trace Topic");
-            EARepository repository = EARepository.Instance;
-            if (repository.GetContextItemType() == NativeType.Element)
-            {
-                var eaelement = EARepository.Instance.GetContextObject<EAElement>();
-                if (eaelement != null && !eaelement.IsDecision())
-                {
-                    var createTopicView = new CreateTopic(eaelement.Name + " Topic");
-                    if (createTopicView.ShowDialog() == DialogResult.OK)
-                    {
-                        EAPackage dvPackage = repository.GetPackageFromRootByName("Decision Views");
-
-                        EAElement topic = dvPackage.AddElement(createTopicView.GetName(), "Activity");
-                        topic.MetaType = DVStereotypes.TopicMetaType;
-
-                        eaelement.ConnectTo(topic, "Abstarction", "trace");
-                        topic.Update();
-
-                        dvPackage.RefreshElements();
-                        repository.RefreshModelView(dvPackage.ID);
-                        topic.ShowInProjectView();
-                    }
-                }
-            }
-        }
+        
         //angor task191 END
 
         private static void ManualDecisionSnapshot()

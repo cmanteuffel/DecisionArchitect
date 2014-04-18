@@ -30,7 +30,7 @@ namespace DecisionViewpoints.Logic.Reporting
                         break;
                 }
             }
-            catch (System.IO.IOException ex)
+            catch (System.IO.IOException)
             {
                 return null;
             }

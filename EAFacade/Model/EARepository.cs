@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using EA;
 
 namespace EAFacade.Model
@@ -34,11 +35,11 @@ namespace EAFacade.Model
 
         public IEnumerable<EAPackage> GetAllDecisionViewPackages()
         {
-            return
-                Root.Packages.Cast<Package>()
+            return Native.Models.Cast<Package>().SelectMany(
+                root => root.Packages.Cast<Package>()
                     .Select(EAPackage.Wrap)
                     .Where(eapackage => eapackage.IsDecisionViewPackage())
-                    .ToList();
+                    ).ToList();
         }
 
         public EAPackage GetPackageFromRootByName(string name)

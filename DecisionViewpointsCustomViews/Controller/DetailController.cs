@@ -97,7 +97,8 @@ namespace DecisionViewpointsCustomViews.Controller
             //update topic
             if (EARepository.Instance.GetElementByID(_decision.ID).HasTopic())
             {
-                var topic = EARepository.Instance.GetElementByID(_decision.ID).ParentElement;
+                var nativeElement = EARepository.Instance.GetElementByID(_decision.ID).ParentElement;
+                var topic = new Topic(nativeElement);
                 _view.AddTopic(topic.Name, "", true);
             }
 

@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using EAFacade.Model;
 
@@ -19,6 +14,19 @@ namespace DecisionViewpoints
             comboState.DataSource = DVStereotypes.States.ToList();
             comboState.SelectedItem = DVStereotypes.StateDecided;
             textName.Text = nameProposal;
+            comboBox1.DataSource = EARepository.Instance.GetAllDecisionViewPackages();
+            comboBox1.DisplayMember = "Name";
+            comboBox1.ValueMember = "GUID";
+            if (comboBox1.Items.Count == 0)
+            {
+                errorProvider1.SetError(comboBox1, Messages.ErrorSelectDecisionViewPackage);
+                createButton.Enabled = false;
+            }
+        }
+
+        public EAPackage GetDecisionViewPackage()
+        {
+            return (EAPackage)comboBox1.SelectedItem;
         }
 
         public String GetState()
@@ -31,15 +39,25 @@ namespace DecisionViewpoints
             return textName.Text;
         }
 
-        private void validating(object sender, EventArgs e)
+      
+        private void ValidatingView(object sender, CancelEventArgs e)
         {
-
+            bool error = false;
             if (textName.Text.Length < 1)
             {
-                errorProvider1.SetError(textName, "Name of a decision must be supplied.");
+                errorProvider1.SetError(textName, Messages.ErrorNoNameForDecision);
                 createButton.Enabled = false;
+                error = true;
             }
-            else
+
+            if (comboBox1.SelectedValue == null)
+            {
+                errorProvider1.SetError(comboBox1, Messages.ErrorSelectDecisionViewPackage);
+                createButton.Enabled = false;
+                error = true;
+            }
+
+            if (!error)
             {
                 errorProvider1.Clear();
                 createButton.Enabled = true;

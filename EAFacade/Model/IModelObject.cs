@@ -10,5 +10,8 @@ namespace EAFacade.Model
         EAPackage ParentPackage { get; set; }
 
         void ShowInProjectView();
+
+        string GetProjectPath();
+
     }
 }
