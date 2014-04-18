@@ -42,21 +42,24 @@ namespace DecisionViewpointsCustomViews.View
         {
             this._forcesTable = new System.Windows.Forms.DataGridView();
             this._btnConfigure = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this._forcesTable)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this._forcesTable)).BeginInit();
             this.SuspendLayout();
             // 
             // _forcesTable
             // 
             this._forcesTable.AllowUserToAddRows = false;
             this._forcesTable.AllowUserToDeleteRows = false;
-            this._forcesTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this._forcesTable.ColumnHeadersHeightSizeMode =
+                System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._forcesTable.Location = new System.Drawing.Point(35, 30);
             this._forcesTable.Name = "_forcesTable";
-            this._forcesTable.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
+            this._forcesTable.RowHeadersWidthSizeMode =
+                System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this._forcesTable.RowTemplate.Height = 33;
             this._forcesTable.Size = new System.Drawing.Size(762, 582);
             this._forcesTable.TabIndex = 2;
-            this._forcesTable.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this._forcesTable_CellValueChanged);
+            this._forcesTable.CellValueChanged +=
+                new System.Windows.Forms.DataGridViewCellEventHandler(this._forcesTable_CellValueChanged);
             // 
             // _btnConfigure
             // 
@@ -74,9 +77,8 @@ namespace DecisionViewpointsCustomViews.View
             this.Controls.Add(this._forcesTable);
             this.Name = "ForcesView";
             this.Size = new System.Drawing.Size(850, 696);
-            ((System.ComponentModel.ISupportInitialize)(this._forcesTable)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this._forcesTable)).EndInit();
             this.ResumeLayout(false);
-
         }
 
         private void _btnConfigure_Click(object sender, System.EventArgs e)
@@ -218,7 +220,7 @@ namespace DecisionViewpointsCustomViews.View
         {
         }
 
-        public List<string> RequirementGuids
+        public string[] RequirementGuids
         {
             get
             {
@@ -226,29 +228,29 @@ namespace DecisionViewpointsCustomViews.View
                     _forcesTable.Rows.Cast<DataGridViewRow>()
                                 .Select(row => row.Cells[RequirementGUIDColumnIndex].Value.ToString())
                                 .Where(value => !value.Equals(EmptyCellValue))
-                                .ToList();
+                                .ToArray();
             }
         }
 
-        public List<string> ConcernGuids
+        public string[] ConcernGuids
         {
             get
             {
                 return _forcesTable.Rows.Cast<DataGridViewRow>()
                                    .Select(row => row.Cells[ConcernGUIDColumnIndex].Value.ToString())
                                    .Where(value => !value.Equals(EmptyCellValue))
-                                   .ToList();
+                                   .ToArray();
             }
         }
 
-        public List<string> DecisionGuids
+        public string[] DecisionGuids
         {
             get
             {
                 return _forcesTable.Rows[_forcesTable.Rows.Count - 1].Cells.Cast<DataGridViewCell>()
                                                                      .Select(cell => cell.Value.ToString())
                                                                      .Where(value => !value.Equals(EmptyCellValue))
-                                                                     .ToList();
+                                                                     .ToArray();// ToList();
             }
         }
 
@@ -259,8 +261,9 @@ namespace DecisionViewpointsCustomViews.View
 
         private void HideDecisionGUIDRow()
         {
-            _forcesTable.CurrentCell = null;    // we need this to hide the last row for when the table has no rows
-                                                // and it is visible as a tab and the user adds new elements
+            // we need this to hide the last row for when the table has no rows
+            // and it is visible as a tab and the user adds new elements
+            _forcesTable.CurrentCell = null;
             _forcesTable.Rows[_forcesTable.Rows.Count - 1].Visible = false;
         }
 
