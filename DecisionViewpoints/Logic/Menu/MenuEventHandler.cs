@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
 using DecisionViewpoints.Logic.Chronological;
-using DecisionViewpoints.Model;
 using DecisionViewpoints.Properties;
+using EAWrapper.Model;
 
 namespace DecisionViewpoints.Logic.Menu
 {

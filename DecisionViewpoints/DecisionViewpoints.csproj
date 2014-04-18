@@ -66,9 +66,6 @@
     <Compile Include="MainApplicationMenuEvents.cs" />
     <Compile Include="MainApplicationModelValidatorEvents.cs" />
     <Compile Include="MainApplicationRepositoryEvents.cs" />
-    <Compile Include="Model\EAVolatileConnector.cs" />
-    <Compile Include="Model\EAVolatileDiagram.cs" />
-    <Compile Include="Model\EAVolatilePackage.cs" />
     <Compile Include="Logic\Menu\FollowTraceMenu.cs" />
     <Compile Include="Logic\Menu\Menu.cs" />
     <Compile Include="Logic\Menu\IMenu.cs" />
@@ -79,15 +76,6 @@
     <Compile Include="Logic\Validation\ModelValidator.cs" />
     <Compile Include="Logic\Validation\NameUniquenessRule.cs" />
     <Compile Include="Logic\Validation\RuleType.cs" />
-    <Compile Include="Model\Baselines\Baseline.cs" />
-    <Compile Include="Model\Baselines\BaselineDiff.cs" />
-    <Compile Include="Model\Baselines\BaselineException.cs" />
-    <Compile Include="Model\Baselines\DiffItem.cs" />
-    <Compile Include="Model\Baselines\DiffProperty.cs" />
-    <Compile Include="Model\Baselines\DiffStatus.cs" />
-    <Compile Include="Model\DVTaggedValueKeys.cs" />
-    <Compile Include="Model\EADiagram.cs" />
-    <Compile Include="Model\EAElement.cs" />
     <Compile Include="Logic\Validation\AbstractRule.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Messages.Designer.cs">
@@ -95,23 +83,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
-    <Compile Include="Model\EAPackage.cs" />
-    <Compile Include="Model\EARepository.cs" />
-    <Compile Include="Model\EAVolatileElement.cs" />
-    <Compile Include="Model\IEAObject.cs" />
-    <Compile Include="Model\Events\EAEventAdapter.cs" />
-    <Compile Include="Model\Events\IEAAddInEvents.cs" />
-    <Compile Include="Model\Events\IEABroadcastEvents.cs" />
-    <Compile Include="Model\EAEventPropertyKeys.cs" />
     <Compile Include="Logic\Validation\ExclusionRule.cs" />
-    <Compile Include="Model\EAConnectorWrapper.cs" />
     <Compile Include="Logic\Validation\ConnectorRule.cs" />
     <Compile Include="Logic\Validation\NoLoopRule.cs" />
     <Compile Include="Logic\Validation\RuleManager.cs" />
-    <Compile Include="Model\DVStereotypes.cs" />
-    <Compile Include="Model\IModelItem.cs" />
-    <Compile Include="Model\IModelObject.cs" />
-    <Compile Include="Model\NativeType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings2.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -165,6 +140,10 @@
     <ProjectReference Include="..\DecisionViewpointsCustomViews\DecisionViewpointsCustomViews.csproj">
       <Project>{ed9e141b-e0ab-4d04-bf9a-4c8c1e676731}</Project>
       <Name>DecisionViewpointsCustomViews</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EAWrapper\EAWrapper.csproj">
+      <Project>{1af84ad5-279f-473c-a20f-c46dcbe0d087}</Project>
+      <Name>EAWrapper</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

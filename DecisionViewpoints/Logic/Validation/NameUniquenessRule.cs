@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using DecisionViewpoints.Model;
+using EAWrapper.Model;
 
 namespace DecisionViewpoints.Logic.Validation
 {

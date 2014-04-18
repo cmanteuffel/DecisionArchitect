@@ -1,7 +1,7 @@
 using System;
 using System.Windows.Forms;
-using DecisionViewpoints.Model;
 using EA;
+using EAWrapper.Model;
 
 namespace DecisionViewpoints.Logic.Validation
 {

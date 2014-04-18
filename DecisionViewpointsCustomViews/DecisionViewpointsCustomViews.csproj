@@ -48,13 +48,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\ForcesController.cs" />
-    <Compile Include="Events\CustomViewListener.cs" />
+    <Compile Include="Controller\ICustomViewController.cs" />
+    <Compile Include="Model\ICustomViewModel.cs" />
+    <Compile Include="Model\ICustomViewModelListener.cs" />
     <Compile Include="View\ForcesView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Model\ForcesModel.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Model\ForcesDiagramModel.cs" />
     <Compile Include="View\ICustomView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -62,6 +62,12 @@
     <EmbeddedResource Include="View\ForcesView.resx">
       <DependentUpon>ForcesView.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EAWrapper\EAWrapper.csproj">
+      <Project>{1af84ad5-279f-473c-a20f-c46dcbe0d087}</Project>
+      <Name>EAWrapper</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

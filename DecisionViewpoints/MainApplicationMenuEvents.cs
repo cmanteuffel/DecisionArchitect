@@ -1,14 +1,11 @@
 ﻿using DecisionViewpoints.Logic.Menu;
-using DecisionViewpoints.Model;
-using DecisionViewpoints.Model.Events;
 using EA;
+using EAWrapper.Model;
 
 namespace DecisionViewpoints
 {
-    public partial class MainApplication : EAEventAdapter
+    public partial class MainApplication
     {
-        
-
         public override object EA_GetMenuItems(Repository repository, string location, string menuName)
         {
             EARepository.UpdateRepository(repository);

@@ -2,12 +2,13 @@
 using DecisionViewpoints.Logic;
 using DecisionViewpoints.Logic.Chronological;
 using DecisionViewpoints.Logic.Forces;
-using DecisionViewpoints.Model;
 using EA;
+using EAWrapper.Model;
+using EAWrapper.Model.Events;
 
 namespace DecisionViewpoints
 {
-    public partial class MainApplication
+    public partial class MainApplication : EAEventAdapter
     {
         private readonly IList<IRepositoryListener> _listeners = new List<IRepositoryListener>();
 
@@ -22,14 +23,14 @@ namespace DecisionViewpoints
         public override object EA_OnInitializeTechnologies(Repository repository)
         {
             EARepository.UpdateRepository(repository);
-            string resource = "DecisionViewpoints." + "DecisionViewpoints.xml";
+            const string resource = "DecisionViewpoints." + "DecisionViewpoints.xml";
             return Utilities.GetResourceContents(resource);
         }
 
         public override string EA_OnRetrieveModelTemplate(Repository repository, string location)
         {
             EARepository.UpdateRepository(repository);
-            string resource = "DecisionViewpoints." + location;
+            var resource = "DecisionViewpoints." + location;
             return Utilities.GetResourceContents(resource);
         }
     }

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 using DecisionViewpoints.Logic.Validation;
-using DecisionViewpoints.Model;
 using DecisionViewpointsTests.Logic;
 using DecisionViewpointsTests.Model.EventProperties;
 using EA;
+using EAWrapper.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DecisionViewpointsTests

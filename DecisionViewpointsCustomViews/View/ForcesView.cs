@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System.Data;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using DecisionViewpointsCustomViews.Controller;
-using DecisionViewpointsCustomViews.Events;
 using DecisionViewpointsCustomViews.Model;
 
 namespace DecisionViewpointsCustomViews.View
@@ -11,17 +10,15 @@ namespace DecisionViewpointsCustomViews.View
     [Guid("D65970AD-12A7-402A-9F88-ED50D8C1DD82")]
     [ProgId("DecisionViewpointsCustomViews.CustomViewControl")]
     [ClassInterface(ClassInterfaceType.None)]
-    [ComDefaultInterface(typeof(ICustomView))]
+    [ComDefaultInterface(typeof (ICustomView))]
     public class ForcesView : UserControl, ICustomView
     {
         private Button _btnSave;
         private DataGridView _forcesTable;
-        private ForcesController _controller;
         private Button _btnConfigure;
         private Label _diagramGUID;
-        private Button _btnUpdate;
-        private readonly IList<ICustomViewListener> _listeners = new List<ICustomViewListener>();
-        
+        private ICustomViewController _controller;
+
         public ForcesView()
         {
             InitializeComponent();
@@ -33,7 +30,6 @@ namespace DecisionViewpointsCustomViews.View
             this._forcesTable = new System.Windows.Forms.DataGridView();
             this._btnConfigure = new System.Windows.Forms.Button();
             this._diagramGUID = new System.Windows.Forms.Label();
-            this._btnUpdate = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this._forcesTable)).BeginInit();
             this.SuspendLayout();
             // 
@@ -41,7 +37,7 @@ namespace DecisionViewpointsCustomViews.View
             // 
             this._btnSave.Location = new System.Drawing.Point(35, 644);
             this._btnSave.Name = "_btnSave";
-            this._btnSave.Size = new System.Drawing.Size(91, 26);
+            this._btnSave.Size = new System.Drawing.Size(75, 23);
             this._btnSave.TabIndex = 1;
             this._btnSave.Text = "Save";
             this._btnSave.UseVisualStyleBackColor = true;
@@ -76,24 +72,13 @@ namespace DecisionViewpointsCustomViews.View
             this._diagramGUID.Text = "label1";
             this._diagramGUID.Visible = false;
             // 
-            // _btnUpdate
+            // ForcesView
             // 
-            this._btnUpdate.Location = new System.Drawing.Point(256, 644);
-            this._btnUpdate.Name = "_btnUpdate";
-            this._btnUpdate.Size = new System.Drawing.Size(75, 23);
-            this._btnUpdate.TabIndex = 5;
-            this._btnUpdate.Text = "Update";
-            this._btnUpdate.UseVisualStyleBackColor = true;
-            this._btnUpdate.Click += new System.EventHandler(this._btnUpdate_Click);
-            // 
-            // CustomViewControl
-            // 
-            this.Controls.Add(this._btnUpdate);
             this.Controls.Add(this._diagramGUID);
             this.Controls.Add(this._btnConfigure);
             this.Controls.Add(this._forcesTable);
             this.Controls.Add(this._btnSave);
-            this.Name = "CustomViewControl";
+            this.Name = "ForcesView";
             this.Size = new System.Drawing.Size(850, 696);
             ((System.ComponentModel.ISupportInitialize)(this._forcesTable)).EndInit();
             this.ResumeLayout(false);
@@ -103,56 +88,47 @@ namespace DecisionViewpointsCustomViews.View
 
         private void _btnSave_Click(object sender, System.EventArgs e)
         {
-            foreach (var listener in _listeners)
-            {
-                listener.Save(this);
-            }
+            _controller.SaveRatings();
         }
 
         private void _btnConfigure_Click(object sender, System.EventArgs e)
         {
-            foreach (var listener in _listeners)
-            {
-                listener.Configure(this);
-            }
+            _controller.Configure();
         }
 
-        private void _btnUpdate_Click(object sender, System.EventArgs e)
-        {
-            foreach (var listener in _listeners)
-            {
-                listener.Update(this);
-            }
-        }
-
-        public void SetController(ForcesController controller)
+        public void SetController(ICustomViewController controller)
         {
             _controller = controller;
         }
 
-        public void AddListener(ICustomViewListener l)
+        public void Update(ICustomViewModel model)
         {
-            _listeners.Add(l);
+            UpdateTable(model);
         }
 
-        public void UpdateTable(ForcesModel forcesModel)
+        public void UpdateTable(ICustomViewModel model)
         {
-            _forcesTable.DataSource = forcesModel;
+            var data = new DataTable();
 
-            if (forcesModel.Columns.Count <= 0) return;
+            data.Columns.Add("Concerns");
 
-            for (var index = 0; index < forcesModel.Rows.Count; index++ )
+            foreach (var decision in model.GetDecisions())
             {
-                _forcesTable.Rows[index].HeaderCell.Value = forcesModel.Requirements[index].Name;
+                data.Columns.Add(decision);
+            }
+            for (var index = 0; index < model.GetRequirements().Count; index++)
+            {
+                data.Rows.Add();
+            }
+
+            _forcesTable.DataSource = data;
+
+            if (data.Columns.Count <= 0) return;
+
+            for (var index = 0; index < model.GetRequirements().Count; index++)
+            {
+                _forcesTable.Rows[index].HeaderCell.Value = model.GetRequirements()[index];
             }
         }
-
-        public string DiagramGUID
-        {
-            get { return _diagramGUID.Text; }
-            set { _diagramGUID.Text = value; }
-        }
-
-        
     }
 }

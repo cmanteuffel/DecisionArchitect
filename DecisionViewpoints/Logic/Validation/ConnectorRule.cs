@@ -1,5 +1,5 @@
 using DecisionViewpoints.Logic.Validation;
-using DecisionViewpoints.Model;
+using EAWrapper.Model;
 
 namespace DecisionViewpoints.Logic.Rules
 {

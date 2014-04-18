@@ -1,8 +1,6 @@
-﻿using System.Windows.Forms;
-using DecisionViewpoints.Logic;
-using DecisionViewpoints.Model;
-using DecisionViewpoints.Model.Events;
+﻿using DecisionViewpoints.Logic;
 using EA;
+using EAWrapper.Model;
 
 namespace DecisionViewpoints
 {

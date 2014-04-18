@@ -1,14 +1,10 @@
-﻿using DecisionViewpoints.Logic;
-using DecisionViewpoints.Logic.Rules;
-using DecisionViewpoints.Logic.Validation;
-using DecisionViewpoints.Model;
-using DecisionViewpoints.Model.Events;
+﻿using DecisionViewpoints.Logic.Validation;
 using EA;
+using EAWrapper.Model;
 
 namespace DecisionViewpoints
 {
-    public partial class MainApplication : EAEventAdapter
-
+    public partial class MainApplication
     {
         private ModelValidator _modelValidator;
 

@@ -1,5 +1,5 @@
-﻿using DecisionViewpoints.Model;
-using EA;
+﻿using EA;
+using EAWrapper.Model;
 
 namespace DecisionViewpoints.Logic
 {

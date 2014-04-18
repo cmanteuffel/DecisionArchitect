@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using DecisionViewpoints.Logic.Rules;
-using DecisionViewpoints.Model;
+using EAWrapper.Model;
 
 namespace DecisionViewpoints.Logic.Validation
 {
