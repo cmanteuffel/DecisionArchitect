@@ -23,5 +23,8 @@
     <Setting Name="BaselineIdentifier" Type="System.String" Scope="User">
       <Value Profile="(Default)">Decision History</Value>
     </Setting>
+    <Setting Name="ForcesElementMetatype" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Forces</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -2,7 +2,6 @@
 using DecisionViewpoints.Logic.Chronological;
 using DecisionViewpoints.Model;
 using DecisionViewpoints.Properties;
-using DecisionViewpointsCustomViews;
 
 namespace DecisionViewpoints.Logic.Menu
 {

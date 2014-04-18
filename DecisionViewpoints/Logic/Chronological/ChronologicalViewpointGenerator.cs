@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using DecisionViewpoints.Model;
 using DecisionViewpoints.Model.Baselines;
 using DecisionViewpoints.Properties;
-using EA;
 
 namespace DecisionViewpoints.Logic.Chronological
 {

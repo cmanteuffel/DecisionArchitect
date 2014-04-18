@@ -106,5 +106,17 @@ namespace DecisionViewpoints.Properties {
                 this["BaselineIdentifier"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Forces")]
+        public string ForcesElementMetatype {
+            get {
+                return ((string)(this["ForcesElementMetatype"]));
+            }
+            set {
+                this["ForcesElementMetatype"] = value;
+            }
+        }
     }
 }
