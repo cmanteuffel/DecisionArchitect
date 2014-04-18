@@ -3,6 +3,7 @@ using DecisionViewpoints.Logic;
 using DecisionViewpoints.Logic.Chronological;
 using DecisionViewpoints.Logic.Forces;
 using DecisionViewpoints.Logic.Relationship;
+using DecisionViewpoints.Logic.StakeholderInvolvement;
 using EA;
 using EAFacade.Model;
 using EAFacade.Model.Events;
@@ -22,6 +23,7 @@ namespace DecisionViewpoints
             _listeners.Add(new ForcesHandler());
             _listeners.Add(new DecisionStateModifedDateHandler());
             _listeners.Add(new RelationshipHandler());
+            _listeners.Add(new StakeholderInvolvementHandler());
         }
 
         public override object EA_OnInitializeTechnologies(Repository repository)

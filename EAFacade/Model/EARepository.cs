@@ -101,6 +101,16 @@ namespace EAFacade.Model
             Native.RefreshModelView(packageID);
         }
 
+        public void RefreshOpenDiagrams(bool fullReload)
+        {
+            Native.RefreshOpenDiagrams(fullReload);
+        }
+
+        public void AdviseElementChanged(int elementID)
+        {
+            Native.AdviseElementChange(elementID);
+        }
+
         public NativeType GetContextItemType()
         {
             ObjectType nativeOt = Native.GetContextItemType();

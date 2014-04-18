@@ -204,7 +204,7 @@ namespace EAFacade.Model
             foreach (XmlNode diagramID in diagramIDs)
             {
                 var id = Utilities.ParseToInt32(diagramID.InnerText, -1);
-                if (id != -1)
+                if (id > 0)
                 {
                     diagrams.Add(repository.GetDiagramByID(id));
                 }
@@ -247,6 +247,11 @@ namespace EAFacade.Model
         public bool Update()
         {
             return _native.Update();
+        }
+
+        public void Refresh()
+        {
+            _native.Refresh();
         }
 
         public string GetTaggedValue(string dvDecisionviewpackage)
