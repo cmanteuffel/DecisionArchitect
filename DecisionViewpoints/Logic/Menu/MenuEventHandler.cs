@@ -4,9 +4,6 @@ using System.Windows.Forms;
 using DecisionViewpoints.Logic.Chronological;
 using DecisionViewpoints.Logic.Reporting;
 using DecisionViewpointsCustomViews.Model;
-using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Wordprocessing;
 using EAFacade.Model;
 using Settings = DecisionViewpoints.Properties.Settings;
 
@@ -19,16 +16,18 @@ namespace DecisionViewpoints.Logic.Menu
         static MenuEventHandler()
         {
             var createTraces = new Menu(Messages.MenuCreateTraces);
-            var createAndTraceDecision = new MenuItem(Messages.MenuTraceToNewDecision, CreateAndTraceDecision);
-            createAndTraceDecision.UpdateDelegate = menuItem =>
+            var createAndTraceDecision = new MenuItem(Messages.MenuTraceToNewDecision, CreateAndTraceDecision)
                 {
-                    if (NativeType.Element == EARepository.Instance.GetContextItemType())
-                    {
-                        var eaelement = EARepository.Instance.GetContextObject<EAElement>();
-                        menuItem.IsEnabled = (eaelement != null && !eaelement.IsDecision());
-                        return;
-                    }
-                    menuItem.IsEnabled = false;
+                    UpdateDelegate = menuItem =>
+                        {
+                            if (NativeType.Element == EARepository.Instance.GetContextItemType())
+                            {
+                                var eaelement = EARepository.Instance.GetContextObject<EAElement>();
+                                menuItem.IsEnabled = (eaelement != null && !eaelement.IsDecision());
+                                return;
+                            }
+                            menuItem.IsEnabled = false;
+                        }
                 };
 
 
@@ -101,7 +100,7 @@ namespace DecisionViewpoints.Logic.Menu
             RootMenu.Add(createTraces);
             createTraces.Add(createAndTraceDecision);
             createTraces.Add(new MenuItem(Messages.MenuTraceToExistingElement,
-                                          (delegate { MessageBox.Show("To be implemented"); })));
+                                          (() => MessageBox.Show("To be implemented"))));
             RootMenu.Add(new FollowTraceMenu());
             RootMenu.Add(MenuItem.Separator);
             RootMenu.Add(baselinesOptions);
@@ -193,7 +192,6 @@ namespace DecisionViewpoints.Logic.Menu
             var eadiagram = EARepository.Instance.GetContextObject<EADiagram>();
             if (eadiagram != null && eadiagram.IsChronologicalView())
             {
-                EARepository repository = EARepository.Instance;
                 EADiagram chronologicalView = eadiagram;
 
 
@@ -210,11 +208,9 @@ namespace DecisionViewpoints.Logic.Menu
                 }
 
                 EAPackage viewPackage = package;
-                EAPackage historyPackage = viewPackage.GetSubpackageByName("History data for " + chronologicalView.Name);
-                if (historyPackage == null)
-                {
-                    historyPackage = viewPackage.CreatePackage("History data for " + chronologicalView.Name, "generated");
-                }
+                EAPackage historyPackage =
+                    viewPackage.GetSubpackageByName("History data for " + chronologicalView.Name) ??
+                    viewPackage.CreatePackage("History data for " + chronologicalView.Name, "generated");
 
                 var generator = new ChronologicalViewpointGenerator(viewPackage, historyPackage,
                                                                     chronologicalView);
@@ -246,7 +242,7 @@ namespace DecisionViewpoints.Logic.Menu
             }
             foreach (var diagram in diagrams.Where(diagram => diagram.IsForcesView()))
             {
-                report.InsertForcesTable(new ForcesModel { DiagramModel = diagram});
+                report.InsertForcesTable(new ForcesModel {DiagramModel = diagram});
             }
             report.Close();
         }

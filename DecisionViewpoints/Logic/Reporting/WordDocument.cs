@@ -40,35 +40,35 @@ namespace DecisionViewpoints.Logic.Reporting
             var props = new TableProperties(
                 new TableBorders(
                     new TopBorder
-                    {
-                        Val = new EnumValue<BorderValues>(BorderValues.Single),
-                        Size = 11
-                    },
+                        {
+                            Val = new EnumValue<BorderValues>(BorderValues.Single),
+                            Size = 11
+                        },
                     new BottomBorder
-                    {
-                        Val = new EnumValue<BorderValues>(BorderValues.Single),
-                        Size = 11
-                    },
+                        {
+                            Val = new EnumValue<BorderValues>(BorderValues.Single),
+                            Size = 11
+                        },
                     new LeftBorder
-                    {
-                        Val = new EnumValue<BorderValues>(BorderValues.Single),
-                        Size = 11
-                    },
+                        {
+                            Val = new EnumValue<BorderValues>(BorderValues.Single),
+                            Size = 11
+                        },
                     new RightBorder
-                    {
-                        Val = new EnumValue<BorderValues>(BorderValues.Single),
-                        Size = 11
-                    },
+                        {
+                            Val = new EnumValue<BorderValues>(BorderValues.Single),
+                            Size = 11
+                        },
                     new InsideHorizontalBorder
-                    {
-                        Val = new EnumValue<BorderValues>(BorderValues.Single),
-                        Size = 11
-                    },
+                        {
+                            Val = new EnumValue<BorderValues>(BorderValues.Single),
+                            Size = 11
+                        },
                     new InsideVerticalBorder
-                    {
-                        Val = new EnumValue<BorderValues>(BorderValues.Single),
-                        Size = 11
-                    }));
+                        {
+                            Val = new EnumValue<BorderValues>(BorderValues.Single),
+                            Size = 11
+                        }));
 
             table.AppendChild(props);
 
@@ -106,35 +106,35 @@ namespace DecisionViewpoints.Logic.Reporting
             var props = new TableProperties(
                 new TableBorders(
                     new TopBorder
-                    {
-                        Val = new EnumValue<BorderValues>(BorderValues.Single),
-                        Size = 11
-                    },
+                        {
+                            Val = new EnumValue<BorderValues>(BorderValues.Single),
+                            Size = 11
+                        },
                     new BottomBorder
-                    {
-                        Val = new EnumValue<BorderValues>(BorderValues.Single),
-                        Size = 11
-                    },
+                        {
+                            Val = new EnumValue<BorderValues>(BorderValues.Single),
+                            Size = 11
+                        },
                     new LeftBorder
-                    {
-                        Val = new EnumValue<BorderValues>(BorderValues.Single),
-                        Size = 11
-                    },
+                        {
+                            Val = new EnumValue<BorderValues>(BorderValues.Single),
+                            Size = 11
+                        },
                     new RightBorder
-                    {
-                        Val = new EnumValue<BorderValues>(BorderValues.Single),
-                        Size = 11
-                    },
+                        {
+                            Val = new EnumValue<BorderValues>(BorderValues.Single),
+                            Size = 11
+                        },
                     new InsideHorizontalBorder
-                    {
-                        Val = new EnumValue<BorderValues>(BorderValues.Single),
-                        Size = 11
-                    },
+                        {
+                            Val = new EnumValue<BorderValues>(BorderValues.Single),
+                            Size = 11
+                        },
                     new InsideVerticalBorder
-                    {
-                        Val = new EnumValue<BorderValues>(BorderValues.Single),
-                        Size = 11
-                    }));
+                        {
+                            Val = new EnumValue<BorderValues>(BorderValues.Single),
+                            Size = 11
+                        }));
 
             table.AppendChild(props);
 
@@ -234,61 +234,61 @@ namespace DecisionViewpoints.Logic.Reporting
             var element =
                 new Drawing(
                     new DocumentFormat.OpenXml.Drawing.Wordprocessing.Inline(
-                        new DocumentFormat.OpenXml.Drawing.Wordprocessing.Extent { Cx = size[0], Cy = size[1] },
+                        new DocumentFormat.OpenXml.Drawing.Wordprocessing.Extent {Cx = size[0], Cy = size[1]},
                         new DocumentFormat.OpenXml.Drawing.Wordprocessing.EffectExtent
-                        {
-                            LeftEdge = 0L,
-                            TopEdge = 0L,
-                            RightEdge = 0L,
-                            BottomEdge = 0L
-                        },
+                            {
+                                LeftEdge = 0L,
+                                TopEdge = 0L,
+                                RightEdge = 0L,
+                                BottomEdge = 0L
+                            },
                         new DocumentFormat.OpenXml.Drawing.Wordprocessing.DocProperties
-                        {
-                            Id = (UInt32Value)1U,
-                            Name = "Picture 1"
-                        },
+                            {
+                                Id = (UInt32Value) 1U,
+                                Name = "Picture 1"
+                            },
                         new DocumentFormat.OpenXml.Drawing.Wordprocessing.NonVisualGraphicFrameDrawingProperties(
-                            new DocumentFormat.OpenXml.Drawing.GraphicFrameLocks { NoChangeAspect = true }),
+                            new DocumentFormat.OpenXml.Drawing.GraphicFrameLocks {NoChangeAspect = true}),
                         new DocumentFormat.OpenXml.Drawing.Graphic(
                             new DocumentFormat.OpenXml.Drawing.GraphicData(
                                 new DocumentFormat.OpenXml.Drawing.Pictures.Picture(
                                     new DocumentFormat.OpenXml.Drawing.Pictures.NonVisualPictureProperties(
                                         new DocumentFormat.OpenXml.Drawing.Pictures.NonVisualDrawingProperties
-                                        {
-                                            Id = (UInt32Value)0U,
-                                            Name = "New Bitmap Image.jpg"
-                                        },
+                                            {
+                                                Id = (UInt32Value) 0U,
+                                                Name = "New Bitmap Image.jpg"
+                                            },
                                         new DocumentFormat.OpenXml.Drawing.Pictures.NonVisualPictureDrawingProperties()),
                                     new DocumentFormat.OpenXml.Drawing.Pictures.BlipFill(
                                         new DocumentFormat.OpenXml.Drawing.Blip(
                                             new DocumentFormat.OpenXml.Drawing.BlipExtensionList(
                                                 new DocumentFormat.OpenXml.Drawing.BlipExtension
-                                                {
-                                                    Uri = Guid.NewGuid().ToString()
-                                                })
+                                                    {
+                                                        Uri = Guid.NewGuid().ToString()
+                                                    })
                                             )
-                                        {
-                                            Embed = relationshipId,
-                                            CompressionState =
-                                                DocumentFormat.OpenXml.Drawing.BlipCompressionValues.Print
-                                        },
+                                            {
+                                                Embed = relationshipId,
+                                                CompressionState =
+                                                    DocumentFormat.OpenXml.Drawing.BlipCompressionValues.Print
+                                            },
                                         new DocumentFormat.OpenXml.Drawing.Stretch(
                                             new DocumentFormat.OpenXml.Drawing.FillRectangle())),
                                     new DocumentFormat.OpenXml.Drawing.Pictures.ShapeProperties(
                                         new DocumentFormat.OpenXml.Drawing.Transform2D(
-                                            new DocumentFormat.OpenXml.Drawing.Offset { X = 0L, Y = 0L },
-                                            new DocumentFormat.OpenXml.Drawing.Extents { Cx = size[0], Cy = size[1] }),
+                                            new DocumentFormat.OpenXml.Drawing.Offset {X = 0L, Y = 0L},
+                                            new DocumentFormat.OpenXml.Drawing.Extents {Cx = size[0], Cy = size[1]}),
                                         new DocumentFormat.OpenXml.Drawing.PresetGeometry(
                                             new DocumentFormat.OpenXml.Drawing.AdjustValueList()
-                                            ) { Preset = DocumentFormat.OpenXml.Drawing.ShapeTypeValues.Rectangle }))
-                                ) { Uri = "http://schemas.openxmlformats.org/drawingml/2006/picture" })
+                                            ) {Preset = DocumentFormat.OpenXml.Drawing.ShapeTypeValues.Rectangle}))
+                                ) {Uri = "http://schemas.openxmlformats.org/drawingml/2006/picture"})
                         )
-                    {
-                        DistanceFromTop = (UInt32Value)0U,
-                        DistanceFromBottom = (UInt32Value)0U,
-                        DistanceFromLeft = (UInt32Value)0U,
-                        DistanceFromRight = (UInt32Value)0U,
-                    });
+                        {
+                            DistanceFromTop = (UInt32Value) 0U,
+                            DistanceFromBottom = (UInt32Value) 0U,
+                            DistanceFromLeft = (UInt32Value) 0U,
+                            DistanceFromRight = (UInt32Value) 0U,
+                        });
 
             // Append the reference to body, the element should be in a Run.
             _body.AppendChild(new Paragraph(new Run(element)));

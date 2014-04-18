@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using DecisionViewpointsCustomViews.Model;
@@ -22,7 +22,7 @@ namespace DecisionViewpoints.Logic.Reporting
         public PowerPointDocument(string filename)
         {
             using (
-                var ppDoc = PresentationDocument.Create(filename, PresentationDocumentType.Presentation)
+                PresentationDocument ppDoc = PresentationDocument.Create(filename, PresentationDocumentType.Presentation)
                 )
             {
                 var pp = new PowerPoint();
@@ -33,7 +33,7 @@ namespace DecisionViewpoints.Logic.Reporting
 
         public void Open()
         {
-            var filepath = string.Format("{0}/{1}", Directory.GetCurrentDirectory(), _filename);
+            string filepath = string.Format("{0}/{1}", Directory.GetCurrentDirectory(), _filename);
             _doc = PresentationDocument.Open(filepath, true);
             _slideTemplate = _doc.PresentationPart.GetPartById(TemplateSlideId) as SlidePart;
         }
@@ -62,11 +62,11 @@ namespace DecisionViewpoints.Logic.Reporting
 
             //need to assign an id to the new slide and add it to the slideIdList
             //first figure out the largest existing id
-            var slideIdList = _doc.PresentationPart.Presentation.SlideIdList;
+            SlideIdList slideIdList = _doc.PresentationPart.Presentation.SlideIdList;
             uint[] maxSlideId = {1};
 
             foreach (
-                var slideId in
+                SlideId slideId in
                     slideIdList.ChildElements.Cast<SlideId>().Where(slideId => slideId.Id > maxSlideId[0]))
             {
                 maxSlideId[0] = slideId.Id;
@@ -102,18 +102,18 @@ namespace DecisionViewpoints.Logic.Reporting
 
         private static void SetPlaceholder(SlidePart slidePart, string placeholder, string value)
         {
-            var textList =
+            List<A.Text> textList =
                 slidePart.Slide.Descendants<A.Text>().Where(t => t.Text.Equals(placeholder)).ToList();
-            foreach (var text in textList) text.Text = value;
+            foreach (A.Text text in textList) text.Text = value;
         }
 
         private void DeleteTemplateSlide()
         {
             //delete the template slide and any references
-            var slideIdList = _doc.PresentationPart.Presentation.SlideIdList;
+            SlideIdList slideIdList = _doc.PresentationPart.Presentation.SlideIdList;
 
             foreach (
-                var slideId in
+                SlideId slideId in
                     slideIdList.ChildElements.Cast<SlideId>()
                                .Where(slideId => slideId.RelationshipId.Value.Equals(TemplateSlideId)))
             {
