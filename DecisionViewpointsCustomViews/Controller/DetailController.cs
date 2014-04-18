@@ -85,12 +85,18 @@ namespace DecisionViewpointsCustomViews.Controller
             }
             //angor END task159
 
-            // Update History field
+            // Update Stakeholder field
             foreach (var connector in _decision.GetConnectors().Where(connector => connector.IsAction()))
             {
                 if (connector.ClientId == _decision.ID) continue;
                 var stakeholder = connector.GetClient();
-                _view.AddHistoryEntry(stakeholder.Name, stakeholder.Stereotype, connector.Stereotype, _decision.State, stakeholder.GUID);
+                _view.AddStakeholderEntry(stakeholder.Name, stakeholder.Stereotype, connector.Stereotype, _decision.State, stakeholder.GUID);
+            }
+
+            // Update History field
+            foreach (var entry in _decision.GetHistory())
+            {
+                _view.AddHistoryEntry(entry.Key, entry.Value);
             }
 
             _view.DecisionRelatedRequirements = _decision.RelatedRequirements;

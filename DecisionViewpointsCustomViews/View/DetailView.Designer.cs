@@ -58,13 +58,8 @@
             this.traceUid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.HistoryTb = new System.Windows.Forms.TabPage();
-            this.dgvHistory = new System.Windows.Forms.DataGridView();
-            this.stakeholderuid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Stakeholder = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Action = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Iteration = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StakeholderTb = new System.Windows.Forms.TabPage();
+            this.dgvStakeholder = new System.Windows.Forms.DataGridView();
             this.btnunderline = new System.Windows.Forms.Button();
             this.btnItalics = new System.Windows.Forms.Button();
             this.btnBold = new System.Windows.Forms.Button();
@@ -84,6 +79,13 @@
             this.ArgumentsTab = new System.Windows.Forms.TabPage();
             this.txtArguments = new System.Windows.Forms.RichTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.HistoryTb = new System.Windows.Forms.TabPage();
+            this.stakeholderuid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Stakeholder = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Action = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dvgHistory = new System.Windows.Forms.DataGridView();
+            this.StateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCntrlUnodifiable.SuspendLayout();
             this.AlternativeTb.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAlternatives)).BeginInit();
@@ -93,12 +95,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvRelatedRequirements)).BeginInit();
             this.TracesTb.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTraces)).BeginInit();
-            this.HistoryTb.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvHistory)).BeginInit();
+            this.StakeholderTb.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStakeholder)).BeginInit();
             this.tbCnrtlModifiable.SuspendLayout();
             this.ProblemTab.SuspendLayout();
             this.DescriptionTab.SuspendLayout();
             this.ArgumentsTab.SuspendLayout();
+            this.HistoryTb.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dvgHistory)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -123,6 +127,7 @@
             this.tbCntrlUnodifiable.Controls.Add(this.RelatedDecisionsTb);
             this.tbCntrlUnodifiable.Controls.Add(this.RelatedRequirementsTb);
             this.tbCntrlUnodifiable.Controls.Add(this.TracesTb);
+            this.tbCntrlUnodifiable.Controls.Add(this.StakeholderTb);
             this.tbCntrlUnodifiable.Controls.Add(this.HistoryTb);
             this.tbCntrlUnodifiable.Name = "tbCntrlUnodifiable";
             this.tbCntrlUnodifiable.SelectedIndex = 0;
@@ -149,6 +154,7 @@
             this.dgvAlternatives.Name = "dgvAlternatives";
             this.dgvAlternatives.ReadOnly = true;
             this.dgvAlternatives.RowHeadersVisible = false;
+            this.dgvAlternatives.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAlternatives_CellContentClick);
             this.dgvAlternatives.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAlternatives_CellContentDoubleClick);
             // 
             // decisionUid
@@ -335,64 +341,28 @@
             this.Type.Name = "Type";
             this.Type.ReadOnly = true;
             // 
-            // HistoryTb
+            // StakeholderTb
             // 
-            this.HistoryTb.BackColor = System.Drawing.SystemColors.Control;
-            this.HistoryTb.Controls.Add(this.dgvHistory);
-            resources.ApplyResources(this.HistoryTb, "HistoryTb");
-            this.HistoryTb.Name = "HistoryTb";
+            this.StakeholderTb.BackColor = System.Drawing.SystemColors.Control;
+            this.StakeholderTb.Controls.Add(this.dgvStakeholder);
+            resources.ApplyResources(this.StakeholderTb, "StakeholderTb");
+            this.StakeholderTb.Name = "StakeholderTb";
             // 
-            // dgvHistory
+            // dgvStakeholder
             // 
-            this.dgvHistory.AllowUserToAddRows = false;
-            this.dgvHistory.AllowUserToDeleteRows = false;
-            this.dgvHistory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvHistory.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvStakeholder.AllowUserToAddRows = false;
+            this.dgvStakeholder.AllowUserToDeleteRows = false;
+            this.dgvStakeholder.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvStakeholder.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvStakeholder.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.stakeholderuid,
             this.Stakeholder,
-            this.Action,
-            this.Status,
-            this.Iteration});
-            resources.ApplyResources(this.dgvHistory, "dgvHistory");
-            this.dgvHistory.Name = "dgvHistory";
-            this.dgvHistory.ReadOnly = true;
-            this.dgvHistory.RowHeadersVisible = false;
-            this.dgvHistory.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvHistory_CellContentClick);
-            // 
-            // stakeholderuid
-            // 
-            resources.ApplyResources(this.stakeholderuid, "stakeholderuid");
-            this.stakeholderuid.Name = "stakeholderuid";
-            this.stakeholderuid.ReadOnly = true;
-            // 
-            // Stakeholder
-            // 
-            this.Stakeholder.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            resources.ApplyResources(this.Stakeholder, "Stakeholder");
-            this.Stakeholder.Name = "Stakeholder";
-            this.Stakeholder.ReadOnly = true;
-            // 
-            // Action
-            // 
-            this.Action.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            resources.ApplyResources(this.Action, "Action");
-            this.Action.Name = "Action";
-            this.Action.ReadOnly = true;
-            // 
-            // Status
-            // 
-            this.Status.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            resources.ApplyResources(this.Status, "Status");
-            this.Status.Name = "Status";
-            this.Status.ReadOnly = true;
-            // 
-            // Iteration
-            // 
-            this.Iteration.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            resources.ApplyResources(this.Iteration, "Iteration");
-            this.Iteration.Name = "Iteration";
-            this.Iteration.ReadOnly = true;
+            this.Action});
+            resources.ApplyResources(this.dgvStakeholder, "dgvStakeholder");
+            this.dgvStakeholder.Name = "dgvStakeholder";
+            this.dgvStakeholder.ReadOnly = true;
+            this.dgvStakeholder.RowHeadersVisible = false;
+            this.dgvStakeholder.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStakeholder_CellContentClick);
             // 
             // btnunderline
             // 
@@ -469,9 +439,9 @@
             // tbCnrtlModifiable
             // 
             resources.ApplyResources(this.tbCnrtlModifiable, "tbCnrtlModifiable");
-            this.tbCnrtlModifiable.Controls.Add(this.ProblemTab);
             this.tbCnrtlModifiable.Controls.Add(this.DescriptionTab);
             this.tbCnrtlModifiable.Controls.Add(this.ArgumentsTab);
+            this.tbCnrtlModifiable.Controls.Add(this.ProblemTab);
             this.tbCnrtlModifiable.Name = "tbCnrtlModifiable";
             this.tbCnrtlModifiable.SelectedIndex = 0;
             // 
@@ -518,6 +488,59 @@
             // 
             resources.ApplyResources(this.notifyIcon1, "notifyIcon1");
             // 
+            // HistoryTb
+            // 
+            this.HistoryTb.Controls.Add(this.dvgHistory);
+            resources.ApplyResources(this.HistoryTb, "HistoryTb");
+            this.HistoryTb.Name = "HistoryTb";
+            this.HistoryTb.UseVisualStyleBackColor = true;
+            // 
+            // stakeholderuid
+            // 
+            resources.ApplyResources(this.stakeholderuid, "stakeholderuid");
+            this.stakeholderuid.Name = "stakeholderuid";
+            this.stakeholderuid.ReadOnly = true;
+            // 
+            // Stakeholder
+            // 
+            this.Stakeholder.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            resources.ApplyResources(this.Stakeholder, "Stakeholder");
+            this.Stakeholder.Name = "Stakeholder";
+            this.Stakeholder.ReadOnly = true;
+            // 
+            // Action
+            // 
+            this.Action.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            resources.ApplyResources(this.Action, "Action");
+            this.Action.Name = "Action";
+            this.Action.ReadOnly = true;
+            // 
+            // dvgHistory
+            // 
+            this.dvgHistory.AllowUserToAddRows = false;
+            this.dvgHistory.AllowUserToDeleteRows = false;
+            this.dvgHistory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dvgHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dvgHistory.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.StateColumn,
+            this.DateColumn});
+            resources.ApplyResources(this.dvgHistory, "dvgHistory");
+            this.dvgHistory.Name = "dvgHistory";
+            this.dvgHistory.ReadOnly = true;
+            this.dvgHistory.RowHeadersVisible = false;
+            // 
+            // StateColumn
+            // 
+            resources.ApplyResources(this.StateColumn, "StateColumn");
+            this.StateColumn.Name = "StateColumn";
+            this.StateColumn.ReadOnly = true;
+            // 
+            // DateColumn
+            // 
+            resources.ApplyResources(this.DateColumn, "DateColumn");
+            this.DateColumn.Name = "DateColumn";
+            this.DateColumn.ReadOnly = true;
+            // 
             // DetailView
             // 
             resources.ApplyResources(this, "$this");
@@ -553,12 +576,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvRelatedRequirements)).EndInit();
             this.TracesTb.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTraces)).EndInit();
-            this.HistoryTb.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvHistory)).EndInit();
+            this.StakeholderTb.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStakeholder)).EndInit();
             this.tbCnrtlModifiable.ResumeLayout(false);
             this.ProblemTab.ResumeLayout(false);
             this.DescriptionTab.ResumeLayout(false);
             this.ArgumentsTab.ResumeLayout(false);
+            this.HistoryTb.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dvgHistory)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -594,13 +619,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn traceUid;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Type;
-        private System.Windows.Forms.TabPage HistoryTb;
-        private System.Windows.Forms.DataGridView dgvHistory;
-        private System.Windows.Forms.DataGridViewTextBoxColumn stakeholderuid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Stakeholder;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Action;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Status;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Iteration;
+        private System.Windows.Forms.TabPage StakeholderTb;
+        private System.Windows.Forms.DataGridView dgvStakeholder;
         private System.Windows.Forms.Button btnunderline;
         private System.Windows.Forms.Button btnItalics;
         private System.Windows.Forms.Button btnBold;
@@ -620,5 +640,12 @@
         private System.Windows.Forms.TabPage ArgumentsTab;
         private System.Windows.Forms.RichTextBox txtArguments;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn stakeholderuid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Stakeholder;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Action;
+        private System.Windows.Forms.TabPage HistoryTb;
+        private System.Windows.Forms.DataGridView dvgHistory;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StateColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DateColumn;
     }
 }

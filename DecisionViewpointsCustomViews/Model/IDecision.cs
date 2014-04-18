@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using EAFacade.Model;
 
 namespace DecisionViewpointsCustomViews.Model
@@ -24,5 +25,6 @@ namespace DecisionViewpointsCustomViews.Model
         EAElement GetTopic();
         IEnumerable<EAElement> GetTraces();
         IEnumerable<Rating> GetForces();
+        IDictionary<string, DateTime> GetHistory();
     }
 }

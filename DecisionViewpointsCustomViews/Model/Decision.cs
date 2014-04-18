@@ -137,6 +137,19 @@ namespace DecisionViewpointsCustomViews.Model
                 };
             return forces;
         }
+
+        public IDictionary<string, DateTime> GetHistory()
+        {
+            var history = new Dictionary<string, DateTime>();
+            var values = _element.TaggedValues.Where(tv => IsHistoryTag(tv.Name)).Select(tv => tv.Value);
+            foreach (var value in values)
+            {
+               history.Add(GetStateFromTaggedValue(value),GetDateModifiedFromTaggedValue(value));
+            }
+
+            return history;
+        }
+
         //angor END task159
 
         public IEnumerable<EAElement> GetTraces()
@@ -147,6 +160,21 @@ namespace DecisionViewpointsCustomViews.Model
         public EAElement GetElement()
         {
             return _element;
+        }
+
+        private static String GetStateFromTaggedValue(string value)
+        {
+            return value.Split('|')[0];
+        }
+
+        private static DateTime GetDateModifiedFromTaggedValue(string value)
+        {
+            return DateTime.Parse(value.Split('|')[1]);
+        }
+
+        private static bool IsHistoryTag(string name)
+        {
+            return name.StartsWith(DVTaggedValueKeys.DecisionStateChange);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using DecisionViewpointsCustomViews.Controller;
@@ -125,10 +126,15 @@ namespace DecisionViewpointsCustomViews.View
                 : new object[] { decisionuid, name, relationship, "<<this>> " + txtName.Text, relateduid });
         }
 
-        public void AddHistoryEntry(string name, string stereotype, string s, string state, string stakeholderuid)
+        public void AddStakeholderEntry(string name, string stereotype, string s, string state, string stakeholderuid)
         {
             var stakeholderText = string.Format("{0}\n<<{1}>>", name, stereotype);
-            dgvHistory.Rows.Add(new object[] {stakeholderuid, stakeholderText, s, state });
+            dgvStakeholder.Rows.Add(new object[] {stakeholderuid, stakeholderText, s, state });
+        }
+
+        public void AddHistoryEntry(string state, DateTime dateModfied)
+        {
+            dvgHistory.Rows.Add(new object[] { state, dateModfied.ToString(CultureInfo.CurrentUICulture)});
         }
 
         public void AddAlternativeDecision(string relationship, string name, bool isClient, string decisionUid, string alternativeuid)
@@ -357,20 +363,20 @@ namespace DecisionViewpointsCustomViews.View
             }
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void dgvHistory_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvStakeholder_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex != 1)
                 return;
             else
             {
-                var elementGUID = dgvHistory[0, e.RowIndex].Value.ToString();
+                var elementGUID = dgvStakeholder[0, e.RowIndex].Value.ToString();
                 showDiagramsForEAElement(elementGUID);
             }
+        }
+
+        private void dgvAlternatives_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

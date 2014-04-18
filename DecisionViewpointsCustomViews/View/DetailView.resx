@@ -127,19 +127,16 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonOk.Location" type="System.Drawing.Point, System.Drawing">
-    <value>800, 896</value>
-  </data>
-  <data name="buttonOk.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>382, 432</value>
   </data>
   <data name="buttonOk.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>72, 44</value>
+    <value>36, 23</value>
   </data>
   <data name="buttonOk.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>72, 44</value>
+    <value>36, 23</value>
   </data>
   <data name="buttonOk.Size" type="System.Drawing.Size, System.Drawing">
-    <value>72, 44</value>
+    <value>36, 23</value>
   </data>
   <data name="buttonOk.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -166,19 +163,16 @@
     <value>True</value>
   </data>
   <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>884, 896</value>
-  </data>
-  <data name="buttonCancel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>424, 432</value>
   </data>
   <data name="buttonCancel.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>114, 44</value>
+    <value>57, 23</value>
   </data>
   <data name="buttonCancel.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>114, 44</value>
+    <value>57, 23</value>
   </data>
   <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>114, 44</value>
+    <value>57, 23</value>
   </data>
   <data name="buttonCancel.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -235,13 +229,10 @@
     <value>Fill</value>
   </data>
   <data name="dgvAlternatives.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
-  </data>
-  <data name="dgvAlternatives.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>3, 3</value>
   </data>
   <data name="dgvAlternatives.Size" type="System.Drawing.Size, System.Drawing">
-    <value>960, 290</value>
+    <value>477, 118</value>
   </data>
   <data name="dgvAlternatives.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
@@ -259,16 +250,13 @@
     <value>0</value>
   </data>
   <data name="AlternativeTb.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 34</value>
-  </data>
-  <data name="AlternativeTb.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>4, 22</value>
   </data>
   <data name="AlternativeTb.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>3, 3, 3, 3</value>
   </data>
   <data name="AlternativeTb.Size" type="System.Drawing.Size, System.Drawing">
-    <value>972, 302</value>
+    <value>483, 124</value>
   </data>
   <data name="AlternativeTb.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -328,13 +316,10 @@
     <value>Fill</value>
   </data>
   <data name="dgvRelatedDecisions.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
-  </data>
-  <data name="dgvRelatedDecisions.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>3, 3</value>
   </data>
   <data name="dgvRelatedDecisions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>960, 290</value>
+    <value>477, 112</value>
   </data>
   <data name="dgvRelatedDecisions.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
@@ -352,16 +337,13 @@
     <value>0</value>
   </data>
   <data name="RelatedDecisionsTb.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 34</value>
-  </data>
-  <data name="RelatedDecisionsTb.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>4, 22</value>
   </data>
   <data name="RelatedDecisionsTb.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>3, 3, 3, 3</value>
   </data>
   <data name="RelatedDecisionsTb.Size" type="System.Drawing.Size, System.Drawing">
-    <value>972, 302</value>
+    <value>483, 118</value>
   </data>
   <data name="RelatedDecisionsTb.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -420,11 +402,8 @@
   <data name="dgvRelatedRequirements.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="dgvRelatedRequirements.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
   <data name="dgvRelatedRequirements.Size" type="System.Drawing.Size, System.Drawing">
-    <value>972, 302</value>
+    <value>483, 118</value>
   </data>
   <data name="dgvRelatedRequirements.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
@@ -442,13 +421,10 @@
     <value>0</value>
   </data>
   <data name="RelatedRequirementsTb.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 34</value>
-  </data>
-  <data name="RelatedRequirementsTb.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>4, 22</value>
   </data>
   <data name="RelatedRequirementsTb.Size" type="System.Drawing.Size, System.Drawing">
-    <value>972, 302</value>
+    <value>483, 118</value>
   </data>
   <data name="RelatedRequirementsTb.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -495,11 +471,8 @@
   <data name="dgvTraces.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="dgvTraces.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
   <data name="dgvTraces.Size" type="System.Drawing.Size, System.Drawing">
-    <value>972, 302</value>
+    <value>483, 118</value>
   </data>
   <data name="dgvTraces.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
@@ -517,13 +490,10 @@
     <value>0</value>
   </data>
   <data name="TracesTb.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 34</value>
-  </data>
-  <data name="TracesTb.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>4, 22</value>
   </data>
   <data name="TracesTb.Size" type="System.Drawing.Size, System.Drawing">
-    <value>972, 302</value>
+    <value>483, 118</value>
   </data>
   <data name="TracesTb.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -564,59 +534,98 @@
   <data name="Action.HeaderText" xml:space="preserve">
     <value>Action</value>
   </data>
-  <metadata name="Status.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="Status.HeaderText" xml:space="preserve">
-    <value>Status</value>
-  </data>
-  <metadata name="Iteration.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="Iteration.HeaderText" xml:space="preserve">
-    <value>Iteration</value>
-  </data>
-  <data name="dgvHistory.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="dgvStakeholder.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="dgvHistory.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="dgvStakeholder.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="dgvHistory.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+  <data name="dgvStakeholder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>483, 118</value>
   </data>
-  <data name="dgvHistory.Size" type="System.Drawing.Size, System.Drawing">
-    <value>972, 302</value>
-  </data>
-  <data name="dgvHistory.TabIndex" type="System.Int32, mscorlib">
+  <data name="dgvStakeholder.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
   </data>
-  <data name="&gt;&gt;dgvHistory.Name" xml:space="preserve">
-    <value>dgvHistory</value>
+  <data name="&gt;&gt;dgvStakeholder.Name" xml:space="preserve">
+    <value>dgvStakeholder</value>
   </data>
-  <data name="&gt;&gt;dgvHistory.Type" xml:space="preserve">
+  <data name="&gt;&gt;dgvStakeholder.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;dgvHistory.Parent" xml:space="preserve">
+  <data name="&gt;&gt;dgvStakeholder.Parent" xml:space="preserve">
+    <value>StakeholderTb</value>
+  </data>
+  <data name="&gt;&gt;dgvStakeholder.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="StakeholderTb.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="StakeholderTb.Size" type="System.Drawing.Size, System.Drawing">
+    <value>483, 118</value>
+  </data>
+  <data name="StakeholderTb.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="StakeholderTb.Text" xml:space="preserve">
+    <value>Stakeholder</value>
+  </data>
+  <data name="&gt;&gt;StakeholderTb.Name" xml:space="preserve">
+    <value>StakeholderTb</value>
+  </data>
+  <data name="&gt;&gt;StakeholderTb.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StakeholderTb.Parent" xml:space="preserve">
+    <value>tbCntrlUnodifiable</value>
+  </data>
+  <data name="&gt;&gt;StakeholderTb.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <metadata name="StateColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="StateColumn.HeaderText" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <metadata name="DateColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="DateColumn.HeaderText" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="dvgHistory.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="dvgHistory.Size" type="System.Drawing.Size, System.Drawing">
+    <value>483, 118</value>
+  </data>
+  <data name="dvgHistory.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;dvgHistory.Name" xml:space="preserve">
+    <value>dvgHistory</value>
+  </data>
+  <data name="&gt;&gt;dvgHistory.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dvgHistory.Parent" xml:space="preserve">
     <value>HistoryTb</value>
   </data>
-  <data name="&gt;&gt;dgvHistory.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;dvgHistory.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="HistoryTb.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 34</value>
-  </data>
-  <data name="HistoryTb.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>4, 22</value>
   </data>
   <data name="HistoryTb.Size" type="System.Drawing.Size, System.Drawing">
-    <value>972, 302</value>
+    <value>461, 118</value>
   </data>
   <data name="HistoryTb.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="HistoryTb.Text" xml:space="preserve">
-    <value>Stakeholder</value>
+    <value>History</value>
   </data>
   <data name="&gt;&gt;HistoryTb.Name" xml:space="preserve">
     <value>HistoryTb</value>
@@ -628,16 +637,13 @@
     <value>tbCntrlUnodifiable</value>
   </data>
   <data name="&gt;&gt;HistoryTb.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="tbCntrlUnodifiable.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 544</value>
-  </data>
-  <data name="tbCntrlUnodifiable.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>13, 282</value>
   </data>
   <data name="tbCntrlUnodifiable.Size" type="System.Drawing.Size, System.Drawing">
-    <value>980, 340</value>
+    <value>469, 144</value>
   </data>
   <data name="tbCntrlUnodifiable.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
@@ -667,13 +673,10 @@
     <value>NoControl</value>
   </data>
   <data name="btnunderline.Location" type="System.Drawing.Point, System.Drawing">
-    <value>948, 433</value>
-  </data>
-  <data name="btnunderline.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>453, 225</value>
   </data>
   <data name="btnunderline.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 48</value>
+    <value>29, 25</value>
   </data>
   <data name="btnunderline.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -709,13 +712,10 @@
     <value>NoControl</value>
   </data>
   <data name="btnItalics.Location" type="System.Drawing.Point, System.Drawing">
-    <value>948, 373</value>
-  </data>
-  <data name="btnItalics.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>453, 194</value>
   </data>
   <data name="btnItalics.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 48</value>
+    <value>29, 25</value>
   </data>
   <data name="btnItalics.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -754,13 +754,10 @@
     <value>NoControl</value>
   </data>
   <data name="btnBold.Location" type="System.Drawing.Point, System.Drawing">
-    <value>948, 315</value>
-  </data>
-  <data name="btnBold.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>453, 164</value>
   </data>
   <data name="btnBold.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 46</value>
+    <value>29, 24</value>
   </data>
   <data name="btnBold.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -808,13 +805,10 @@
     <value>rejected</value>
   </data>
   <data name="cbxState.Location" type="System.Drawing.Point, System.Drawing">
-    <value>166, 65</value>
-  </data>
-  <data name="cbxState.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>83, 34</value>
   </data>
   <data name="cbxState.Size" type="System.Drawing.Size, System.Drawing">
-    <value>828, 33</value>
+    <value>395, 21</value>
   </data>
   <data name="cbxState.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -835,13 +829,10 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="txtGroup.Location" type="System.Drawing.Point, System.Drawing">
-    <value>166, 117</value>
-  </data>
-  <data name="txtGroup.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>83, 61</value>
   </data>
   <data name="txtGroup.Size" type="System.Drawing.Size, System.Drawing">
-    <value>828, 31</value>
+    <value>395, 20</value>
   </data>
   <data name="txtGroup.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -862,13 +853,10 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="txtName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>166, 15</value>
-  </data>
-  <data name="txtName.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>83, 8</value>
   </data>
   <data name="txtName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>828, 31</value>
+    <value>395, 20</value>
   </data>
   <data name="txtName.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -895,13 +883,10 @@
     <value>NoControl</value>
   </data>
   <data name="NameLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>34, 19</value>
-  </data>
-  <data name="NameLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 0, 6, 0</value>
+    <value>17, 10</value>
   </data>
   <data name="NameLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>77, 26</value>
+    <value>38, 13</value>
   </data>
   <data name="NameLabel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -925,16 +910,13 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="txtTopicDescription.Location" type="System.Drawing.Point, System.Drawing">
-    <value>166, 167</value>
-  </data>
-  <data name="txtTopicDescription.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>83, 87</value>
   </data>
   <data name="txtTopicDescription.Multiline" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="txtTopicDescription.Size" type="System.Drawing.Size, System.Drawing">
-    <value>828, 81</value>
+    <value>395, 44</value>
   </data>
   <data name="txtTopicDescription.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
@@ -961,13 +943,10 @@
     <value>NoControl</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>34, 71</value>
-  </data>
-  <data name="label1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 0, 6, 0</value>
+    <value>17, 37</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 26</value>
+    <value>35, 13</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -997,13 +976,10 @@
     <value>NoControl</value>
   </data>
   <data name="lblTopicDescription.Location" type="System.Drawing.Point, System.Drawing">
-    <value>34, 173</value>
-  </data>
-  <data name="lblTopicDescription.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 0, 6, 0</value>
+    <value>17, 90</value>
   </data>
   <data name="lblTopicDescription.Size" type="System.Drawing.Size, System.Drawing">
-    <value>127, 26</value>
+    <value>63, 13</value>
   </data>
   <data name="lblTopicDescription.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -1033,13 +1009,10 @@
     <value>NoControl</value>
   </data>
   <data name="lblTopicName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>34, 117</value>
-  </data>
-  <data name="lblTopicName.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 0, 6, 0</value>
+    <value>17, 61</value>
   </data>
   <data name="lblTopicName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>70, 26</value>
+    <value>37, 13</value>
   </data>
   <data name="lblTopicName.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -1062,77 +1035,17 @@
   <data name="tbCnrtlModifiable.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="txtIssue.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="txtIssue.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
-  </data>
-  <data name="txtIssue.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="txtIssue.Size" type="System.Drawing.Size, System.Drawing">
-    <value>958, 219</value>
-  </data>
-  <data name="txtIssue.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="txtIssue.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;txtIssue.Name" xml:space="preserve">
-    <value>txtIssue</value>
-  </data>
-  <data name="&gt;&gt;txtIssue.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;txtIssue.Parent" xml:space="preserve">
-    <value>ProblemTab</value>
-  </data>
-  <data name="&gt;&gt;txtIssue.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="ProblemTab.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 34</value>
-  </data>
-  <data name="ProblemTab.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
-  <data name="ProblemTab.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
-  <data name="ProblemTab.Size" type="System.Drawing.Size, System.Drawing">
-    <value>970, 231</value>
-  </data>
-  <data name="ProblemTab.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="ProblemTab.Text" xml:space="preserve">
-    <value>Problem</value>
-  </data>
-  <data name="&gt;&gt;ProblemTab.Name" xml:space="preserve">
-    <value>ProblemTab</value>
-  </data>
-  <data name="&gt;&gt;ProblemTab.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ProblemTab.Parent" xml:space="preserve">
-    <value>tbCnrtlModifiable</value>
-  </data>
-  <data name="&gt;&gt;ProblemTab.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="txtDecision.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
   <data name="txtDecision.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
+    <value>3, 3</value>
   </data>
   <data name="txtDecision.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>2, 2, 2, 2</value>
   </data>
   <data name="txtDecision.Size" type="System.Drawing.Size, System.Drawing">
-    <value>958, 219</value>
+    <value>454, 108</value>
   </data>
   <data name="txtDecision.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1153,16 +1066,13 @@
     <value>0</value>
   </data>
   <data name="DescriptionTab.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 34</value>
-  </data>
-  <data name="DescriptionTab.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>4, 22</value>
   </data>
   <data name="DescriptionTab.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>3, 3, 3, 3</value>
   </data>
   <data name="DescriptionTab.Size" type="System.Drawing.Size, System.Drawing">
-    <value>970, 231</value>
+    <value>460, 114</value>
   </data>
   <data name="DescriptionTab.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1180,7 +1090,7 @@
     <value>tbCnrtlModifiable</value>
   </data>
   <data name="&gt;&gt;DescriptionTab.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="txtArguments.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -1189,10 +1099,10 @@
     <value>0, 0</value>
   </data>
   <data name="txtArguments.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>2, 2, 2, 2</value>
   </data>
   <data name="txtArguments.Size" type="System.Drawing.Size, System.Drawing">
-    <value>970, 231</value>
+    <value>482, 114</value>
   </data>
   <data name="txtArguments.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1213,13 +1123,10 @@
     <value>0</value>
   </data>
   <data name="ArgumentsTab.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 34</value>
-  </data>
-  <data name="ArgumentsTab.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>4, 22</value>
   </data>
   <data name="ArgumentsTab.Size" type="System.Drawing.Size, System.Drawing">
-    <value>970, 231</value>
+    <value>482, 114</value>
   </data>
   <data name="ArgumentsTab.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1237,19 +1144,73 @@
     <value>tbCnrtlModifiable</value>
   </data>
   <data name="&gt;&gt;ArgumentsTab.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="txtIssue.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="txtIssue.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="txtIssue.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="txtIssue.Size" type="System.Drawing.Size, System.Drawing">
+    <value>476, 108</value>
+  </data>
+  <data name="txtIssue.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="txtIssue.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;txtIssue.Name" xml:space="preserve">
+    <value>txtIssue</value>
+  </data>
+  <data name="&gt;&gt;txtIssue.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtIssue.Parent" xml:space="preserve">
+    <value>ProblemTab</value>
+  </data>
+  <data name="&gt;&gt;txtIssue.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="ProblemTab.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="ProblemTab.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="ProblemTab.Size" type="System.Drawing.Size, System.Drawing">
+    <value>482, 114</value>
+  </data>
+  <data name="ProblemTab.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="ProblemTab.Text" xml:space="preserve">
+    <value>Problem</value>
+  </data>
+  <data name="&gt;&gt;ProblemTab.Name" xml:space="preserve">
+    <value>ProblemTab</value>
+  </data>
+  <data name="&gt;&gt;ProblemTab.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ProblemTab.Parent" xml:space="preserve">
+    <value>tbCnrtlModifiable</value>
+  </data>
+  <data name="&gt;&gt;ProblemTab.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
   <data name="tbCnrtlModifiable.Location" type="System.Drawing.Point, System.Drawing">
-    <value>28, 262</value>
-  </data>
-  <data name="tbCnrtlModifiable.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>14, 136</value>
   </data>
   <data name="tbCnrtlModifiable.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>200, 192</value>
+    <value>100, 100</value>
   </data>
   <data name="tbCnrtlModifiable.Size" type="System.Drawing.Size, System.Drawing">
-    <value>978, 269</value>
+    <value>468, 140</value>
   </data>
   <data name="tbCnrtlModifiable.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -1278,17 +1239,17 @@
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>25</value>
+  </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>12, 25</value>
+    <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>1028, 956</value>
-  </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+    <value>493, 467</value>
   </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>574, 898</value>
+    <value>295, 412</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>
@@ -1398,6 +1359,12 @@
   <data name="&gt;&gt;Type.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;notifyIcon1.Name" xml:space="preserve">
+    <value>notifyIcon1</value>
+  </data>
+  <data name="&gt;&gt;notifyIcon1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NotifyIcon, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;stakeholderuid.Name" xml:space="preserve">
     <value>stakeholderuid</value>
   </data>
@@ -1416,23 +1383,17 @@
   <data name="&gt;&gt;Action.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;Status.Name" xml:space="preserve">
-    <value>Status</value>
+  <data name="&gt;&gt;StateColumn.Name" xml:space="preserve">
+    <value>StateColumn</value>
   </data>
-  <data name="&gt;&gt;Status.Type" xml:space="preserve">
+  <data name="&gt;&gt;StateColumn.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;Iteration.Name" xml:space="preserve">
-    <value>Iteration</value>
+  <data name="&gt;&gt;DateColumn.Name" xml:space="preserve">
+    <value>DateColumn</value>
   </data>
-  <data name="&gt;&gt;Iteration.Type" xml:space="preserve">
+  <data name="&gt;&gt;DateColumn.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;notifyIcon1.Name" xml:space="preserve">
-    <value>notifyIcon1</value>
-  </data>
-  <data name="&gt;&gt;notifyIcon1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NotifyIcon, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>DetailView</value>
