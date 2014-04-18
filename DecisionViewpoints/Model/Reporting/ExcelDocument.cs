@@ -37,18 +37,21 @@ namespace DecisionViewpoints.Model.Reporting
         public void InsertForcesTable(IForcesModel forces)
         {
             WorksheetPart worksheetPart = InsertWorksheet(forces.Name);
+            const string forcesTableTopLeftColumn = "F";
+            const uint forcesTopLeftRow = 4;
 
-            InsertText(worksheetPart, "B", 1, "Concern");
+            InsertText(worksheetPart, forcesTableTopLeftColumn, forcesTopLeftRow, "");
+            InsertText(worksheetPart, forcesTopLeftRow, "Concern");
 
             foreach (EAElement decision in forces.GetDecisions())
             {
-                InsertText(worksheetPart, 1, decision.Name);
+                InsertText(worksheetPart, forcesTopLeftRow, decision.Name);
             }
 
-            uint rowIndex = 2;
+            uint rowIndex = forcesTopLeftRow + 1;
             foreach (EAElement requirement in forces.GetRequirements())
             {
-                InsertText(worksheetPart, "A", rowIndex, requirement.Name);
+                InsertText(worksheetPart, forcesTableTopLeftColumn, rowIndex, requirement.Name);
 
                 var concCellText = new StringBuilder();
                 foreach (var concern in forces.GetConcerns())
@@ -161,6 +164,7 @@ namespace DecisionViewpoints.Model.Reporting
             Cell cell = InsertCellAfter(worksheetPart, rowIndex);
 
             // Set the value of cell A1.
+            if (cell == null) return;
             cell.CellValue = new CellValue(index.ToString(CultureInfo.InvariantCulture));
             cell.DataType = new EnumValue<CellValues>(CellValues.SharedString);
         }
