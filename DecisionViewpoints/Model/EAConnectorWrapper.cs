@@ -3,6 +3,7 @@ using EA;
 
 namespace DecisionViewpoints.Model
 {
+    [Obsolete("Needed to be split up in EAConnector and VolatileConnector")]
     public class EAConnectorWrapper : IEAObject
     {
         private readonly int _clientId;  

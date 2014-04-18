@@ -97,7 +97,6 @@ namespace DecisionViewpoints.Model
         {
         }
 
-        [Obsolete]
         public void AddToDiagram(EAElement newElement)
         {
             DiagramObject diaObj = _native.DiagramObjects.AddNew("l=10;r=110;t=-20;b=-80", "");

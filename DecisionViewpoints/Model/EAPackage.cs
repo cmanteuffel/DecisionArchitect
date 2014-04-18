@@ -127,13 +127,6 @@ namespace DecisionViewpoints.Model
             return Wrap(newPackage);
         }
 
-        [Obsolete]
-        public void DeletePackage(short pos, bool refresh)
-        {
-            _native.Packages.DeleteAt(pos, refresh);
-        }
-
-        [Obsolete]
         public EAElement CreateElement(string name, string stereotype, string type)
         {
             Element newElement = _native.Elements.AddNew(name, type);
