@@ -1,4 +1,6 @@
-﻿using System.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -19,6 +21,8 @@ namespace DecisionViewpointsCustomViews.View
         private DataGridView _forcesTable;
         private Button _btnConfigure;
         private ICustomViewController _controller;
+
+        private const string EmptyCellValue = "-";
 
         private const int RequirementGUIDColumnIndex = 0;
         private const int RequirementGUIDRowIndex = 0;
@@ -135,7 +139,7 @@ namespace DecisionViewpointsCustomViews.View
             }
 
             // insert the decision guids in the table
-            data.Rows.Add(new object[] { "-", "-", "-" });
+            data.Rows.Add(new object[] {EmptyCellValue, EmptyCellValue, EmptyCellValue});
             var decisionIndex = 0;
             foreach (var decision in model.GetDecisions())
             {
@@ -160,6 +164,25 @@ namespace DecisionViewpointsCustomViews.View
                 }
                 data.Rows.Find(reqConcerns.Key.GUID)[ConcernColumnIndex] = concerns;
                 data.Rows.Find(reqConcerns.Key.GUID)[ConcernGUIDColumnIndex] = concernsGUID;
+            }
+
+            // insert the ratings in the table
+            foreach (var decision in model.GetRatings())
+            {
+                var decisionColumnIndex = 3;
+                for (var index = 0; index != data.Columns.Count -3; index++)
+                {
+                    if (!data.Rows[data.Rows.Count - 1][index + 3].ToString().Equals(decision.Key)) continue;
+                    decisionColumnIndex += index;
+                    break;
+                }
+                foreach (var reqConc in decision.Value)
+                {
+                    var requirementGUID = reqConc.Key.Split(':')[1];
+                    var row = data.Rows.Find(requirementGUID);
+                    if (row == null) continue;
+                    row[decisionColumnIndex] = reqConc.Value;
+                }
             }
 
             _forcesTable.DataSource = data;
@@ -199,7 +222,7 @@ namespace DecisionViewpointsCustomViews.View
         {
             var columnIndex =
                 _forcesTable.Rows[_forcesTable.Rows.Count - 1].Cells.Cast<DataGridViewCell>()
-                                                       .Count(cell => !cell.Value.ToString().Equals(guid));
+                                                              .Count(cell => !cell.Value.ToString().Equals(guid));
             _forcesTable.Columns.RemoveAt(columnIndex);
         }
 
@@ -212,6 +235,49 @@ namespace DecisionViewpointsCustomViews.View
             {
                 _forcesTable.Rows.Remove(row);
             }
+        }
+
+        public void RemoveConcern(string guid)
+        {
+        }
+
+        public List<string> RequirementGUID
+        {
+            get
+            {
+                return
+                    _forcesTable.Rows.Cast<DataGridViewRow>()
+                                .Select(row => row.Cells[RequirementGUIDColumnIndex].Value.ToString())
+                                .Where(value => !value.Equals(EmptyCellValue))
+                                .ToList();
+            }
+        }
+
+        public List<string> ConcernGUID
+        {
+            get
+            {
+                return _forcesTable.Rows.Cast<DataGridViewRow>()
+                                   .Select(row => row.Cells[ConcernGUIDColumnIndex].Value.ToString())
+                                   .Where(value => !value.Equals(EmptyCellValue))
+                                   .ToList();
+            }
+        }
+
+        public List<string> DecisionGUID
+        {
+            get
+            {
+                return _forcesTable.Rows[_forcesTable.Rows.Count - 1].Cells.Cast<DataGridViewCell>()
+                                                                     .Select(cell => cell.Value.ToString())
+                                                                     .Where(value => !value.Equals(EmptyCellValue))
+                                                                     .ToList();
+            }
+        }
+
+        public string GetRating(int row, int column)
+        {
+            return _forcesTable[column, row].Value.ToString();
         }
     }
 }

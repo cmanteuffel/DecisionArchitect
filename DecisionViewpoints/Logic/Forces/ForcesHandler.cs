@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using DecisionViewpointsCustomViews.Controller;
 using DecisionViewpointsCustomViews.Model;
 using DecisionViewpointsCustomViews.View;
@@ -94,7 +95,7 @@ namespace DecisionViewpoints.Logic.Forces
 
         public override bool OnPreDeleteElement(EAElement element)
         {
-            if (!element.IsDecision() && !element.IsConcern() && !element.MetaType.Equals("Requirement")) return true;
+            if (!element.IsDecision() && !element.IsConcern() && !element.IsRequirement()) return true;
             var diagrams = new List<EADiagram>();
             diagrams.AddRange(element.GetDiagrams().Where(eaDiagram => eaDiagram.IsForces()));
             if (diagrams.Count == 0) return true;
@@ -109,7 +110,9 @@ namespace DecisionViewpoints.Logic.Forces
                 // after the deletion event is successful
                 if (element.IsDecision())
                     forcesController.RemoveDecision(element);
-                if (element.MetaType.Equals("Requirement"))
+                else if (element.IsConcern())
+                    forcesController.RemoveConcern(element);
+                else if (element.IsRequirement())
                     forcesController.RemoveRequirement(element);
             }
             return true;

@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using DecisionViewpointsCustomViews.Controller;
 using DecisionViewpointsCustomViews.Model;
 
@@ -9,9 +10,15 @@ namespace DecisionViewpointsCustomViews.View
     [InterfaceType(ComInterfaceType.InterfaceIsDual)]
     public interface ICustomView : ICustomViewModelObserver
     {
+        List<string> RequirementGUID { get; }
+        List<string> ConcernGUID { get; }
+        List<string> DecisionGUID { get; }
+
         void SetController(ICustomViewController controller);
         void UpdateTable(ICustomViewModel model);
-        void RemoveDecision(string name);
-        void RemoveRequirement(string name);
+        string GetRating(int row, int column);
+        void RemoveDecision(string guid);
+        void RemoveRequirement(string guid);
+        void RemoveConcern(string guid);
     }
 }

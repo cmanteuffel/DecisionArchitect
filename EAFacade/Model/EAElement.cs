@@ -104,6 +104,15 @@ namespace EAFacade.Model
             set { _native.Version = value; }
         }
 
+        public List<EATaggedValue> TaggedValues
+        {
+            get
+            {
+                return _native.TaggedValues.Cast<TaggedValue>()
+                              .Select(taggedValue => EATaggedValue.Wrap(taggedValue)).ToList();
+            }
+        }
+
         public EAPackage ParentPackage
         {
             get
@@ -223,12 +232,17 @@ namespace EAFacade.Model
 
         public bool IsDecision()
         {
-            return (DVStereotypes.DecisionMetaType.Equals(MetaType));
+            return DVStereotypes.DecisionMetaType.Equals(MetaType);
         }
 
         public bool IsConcern()
         {
-            return (DVStereotypes.ConcernMetaType.Equals(MetaType));
+            return DVStereotypes.ConcernMetaType.Equals(MetaType);
+        }
+
+        public bool IsRequirement()
+        {
+            return DVStereotypes.RequirementMetaType.Equals(MetaType);
         }
 
         public bool Update()

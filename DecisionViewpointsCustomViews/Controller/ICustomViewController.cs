@@ -14,5 +14,6 @@ namespace DecisionViewpointsCustomViews.Controller
         void SetDiagramModel(EADiagram diagram);
         void RemoveDecision(EAElement element);
         void RemoveRequirement(EAElement element);
+        void RemoveConcern(EAElement element);
     }
 }

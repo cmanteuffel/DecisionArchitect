@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using EAFacade.Model;
 
 namespace DecisionViewpointsCustomViews.Model
@@ -55,7 +57,7 @@ namespace DecisionViewpointsCustomViews.Model
             var repository = EARepository.Instance;
             return (from diagramObject in _diagram.GetElements()
                     select repository.GetElementByID(diagramObject.ElementID)
-                    into element where element.Type.Equals("Requirement") select element).ToList();
+                    into element where element.IsRequirement() select element).ToList();
         }
 
         public Dictionary<EAElement, List<EAElement>> GetConcerns()
@@ -77,17 +79,47 @@ namespace DecisionViewpointsCustomViews.Model
                     }
                     else
                     {
-                        requirementsConcerns.Add(connectedRequirement, new List<EAElement> {concern});
+                        if (connectedRequirement.IsRequirement())
+                            requirementsConcerns.Add(connectedRequirement, new List<EAElement> {concern});
                     }
                 }
             }
             return requirementsConcerns;
         }
 
-        public void SaveRatings()
+        public Dictionary<string, Dictionary<string, string>> GetRatings()
         {
-            // validate the ratings (++, +, blank, -, --, X, ?)
+            var repository = EARepository.Instance;
+            var data = new Dictionary<string, Dictionary<string, string>>();
+            foreach (var diagramObject in _diagram.GetElements())
+            {
+                var element = repository.GetElementByID(diagramObject.ElementID);
+                var reqConcRating = new Dictionary<string, string>();
+                foreach (var taggedValue in element.TaggedValues)
+                {
+                    if (!taggedValue.Name.Split(':')[0].Equals("r")) continue;
+                    reqConcRating.Add(taggedValue.Name, taggedValue.Value);
+                }
+                data.Add(element.GUID, reqConcRating);
+            }
+            return data;
+        }
 
+        public void SaveRatings(Dictionary<string, Dictionary<string, string>> data)
+        {
+            // validate the ratings (++, +, blank, -, --, X, ?) ???
+            var repository = EARepository.Instance;
+            foreach (var decision in data)
+            {
+                var element = repository.GetElementByGUID(decision.Key);
+                foreach (var reqConcRating in decision.Value)
+                {
+                    if (element.GetTaggedValue(reqConcRating.Key) != null)
+                        element.UpdateTaggedValue(reqConcRating.Key, reqConcRating.Value);
+                    else
+                        element.AddTaggedValue(reqConcRating.Key, reqConcRating.Value);
+                }
+            }
         }
     }
 }

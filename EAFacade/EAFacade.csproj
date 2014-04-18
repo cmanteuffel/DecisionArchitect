@@ -64,6 +64,7 @@
     <Compile Include="Model\EAEventPropertyKeys.cs" />
     <Compile Include="Model\EAPackage.cs" />
     <Compile Include="Model\EARepository.cs" />
+    <Compile Include="Model\EATaggedValue.cs" />
     <Compile Include="Model\EAVolatileConnector.cs" />
     <Compile Include="Model\EAVolatileDiagram.cs" />
     <Compile Include="Model\EAVolatileDiagramObject.cs" />
