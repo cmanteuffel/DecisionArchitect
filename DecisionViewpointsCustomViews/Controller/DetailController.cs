@@ -36,15 +36,11 @@ namespace DecisionViewpointsCustomViews.Controller
             {
                 if (!connector.Stereotype.Equals("alternative for"))//angor task 158
                 {
-                    if (connector.ClientId == _decision.ID)
-                        
+                    if (connector.ClientId == _decision.ID)   
                         _view.AddRelatedDecision(connector.Stereotype, connector.GetSupplier().Name, true);
                     else
-                    {
                         _view.AddRelatedDecision(connector.Stereotype, connector.GetClient().Name, false);        
-                    }
                 }
-
             }
 
            
@@ -54,26 +50,16 @@ namespace DecisionViewpointsCustomViews.Controller
             {
                 if (connector.Stereotype.Equals("alternative for"))
                 {
-
                     if (connector.ClientId != _decision.ID)
-                    {
-                        /*  DEBUG
-                    MessageBox.Show("[2] Stereotype: " + connector.Stereotype + "\nSupplier: " + connector.GetSupplier().Name
-                        + "\nClient: " + connector.GetClient().Name);
-                     * */ //DEBUG
                         _view.AddAlternativeDecision(connector.Stereotype, connector.GetClient().Name,false);
-                    }
                     else
-                    {
                         _view.AddAlternativeDecision(connector.Stereotype, connector.GetSupplier().Name,true);
-                    }
-
                 }
             }
             //angor END task156
             
             //angor START task157
-            //MessageBox.Show("Stereotype: " + connector.Stereotype);
+            // Update Traces
             var traces = from EAConnector trace in _decision.GetConnectors()
                 where trace.Stereotype.Equals("trace")
                              select (trace.SupplierId == _decision.ID
@@ -82,47 +68,19 @@ namespace DecisionViewpointsCustomViews.Controller
                                    );
             foreach (EAElement tracedElement in traces)
             {
-                /*  DEBUG
-                MessageBox.Show("Traced element: "+tracedElement.Name
-                    + "\nStereotype: " + tracedElement.Stereotype
-                    + "\nID: " + tracedElement.ID
-                    + "\nType: " + tracedElement.Type
-                    + "\nNativeType: " + tracedElement.NativeType);
-                 *///DEBUG
                 _view.AddTrace(tracedElement.Name, tracedElement.Type);
             }
             //angor END task157
 
-            //angor START task159
-            //MessageBox.Show(_view.DecisionRelatedRequirements);
-            /*
-            var repositoryElements = EARepository.Instance.GetAllElements();
-            foreach (EAElement repElement in repositoryElements)
+            //angor END task159       
+            // Update Related Requirements
+            var forces =_decision.GetForces();
+            foreach (var rating in forces)
             {
-
-                //var connReq = repElement.GetConnectedRequirements();
-                //MessageBox.Show("Element type: " + repElement.MetaType + repElement.GetConnectedRequirements());
-                var diags = repElement.GetDiagrams();
-                foreach (EADiagram d in diags)
-                {
-                    //MessageBox.Show("Diagram: " + d.Metatype);
-                    if (d.IsForcesView())
-                    {
-                        var elems = d.GetElements();
-                        foreach (var eaDiagramObject in elems)
-                        {
-                            MessageBox.Show("Element: " + eaDiagramObject.GetType()
-                                + "\nid: " + eaDiagramObject.ElementID);
-                        }
-                        
-                    }
-                }
-                
+                var req = EARepository.Instance.GetElementByGUID(rating.RequirementGUID);
+                _view.AddRelatedRequirement(req.Name, rating.Value, req.Notes); 
             }
-            //repository.
             //angor END task159
-            */
-            
 
             // Update History field
             foreach (var connector in _decision.GetConnectors().Where(connector => connector.IsAction()))

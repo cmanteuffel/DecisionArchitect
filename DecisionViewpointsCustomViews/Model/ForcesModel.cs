@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using EAFacade.Model;
 
 namespace DecisionViewpointsCustomViews.Model
@@ -166,5 +167,19 @@ namespace DecisionViewpointsCustomViews.Model
         {
             return value.Split(':')[0].Equals("r");
         }
+
+        /*
+        //angor START task159
+        public static void PrintRequirementInfo(String value)
+        {
+            var key = value.Split(':')[2];
+            var obj =EARepository.Instance.GetElementByGUID(key);
+            MessageBox.Show("Value: " + key + 
+                "\nWhat is it? (Type): " + obj.Type
+                +"\nMetatype: " +obj.MetaType
+                +"\nName: " + obj.Name);
+        }
+        //angor END task159
+         */
     }
 }

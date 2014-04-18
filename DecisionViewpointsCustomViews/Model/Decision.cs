@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using DocumentFormat.OpenXml.Drawing.Diagrams;
 using EAFacade.Model;
 
 
@@ -111,8 +112,8 @@ namespace DecisionViewpointsCustomViews.Model
             return last > first ? rtf.Text.Substring(first, last - first) : "";
         }
 
-        //angor START
-        public void getForces()
+        //angor START task159
+        public IEnumerable<Rating> GetForces()
         {
             var forces = from taggedValue in _element.TaggedValues
                 where ForcesModel.IsReqGUIDTaggedValue(taggedValue.Name)
@@ -122,7 +123,9 @@ namespace DecisionViewpointsCustomViews.Model
                     RequirementGUID = ForcesModel.GetReqGUIDFromTaggedValue(taggedValue.Name),
                     Value = taggedValue.Value
                 };
-            
+            return forces;
         }
+        //angor END task159
+
     }
 }

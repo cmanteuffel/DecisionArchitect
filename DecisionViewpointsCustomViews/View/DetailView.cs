@@ -79,6 +79,15 @@ namespace DecisionViewpointsCustomViews.View
         }
         //angor END task157
 
+        //angor START task159
+        //IMPORTANT!!! --> added a related Requirements listBox on top of the old textbox..
+        public void AddRelatedRequirement(string name, string rating, string description)
+        {
+            lbxRelatedRequirements.Items.Add(name + " : " /*+ rating + " : "*/ + description);
+        }
+        //angor END task159
+
+
         public void AddHistoryEntry(string name, string stereotype, string s, string state)
         {
             var stakeholderText = string.Format("{0}\n<<{1}>>", name, stereotype);
@@ -108,6 +117,11 @@ namespace DecisionViewpointsCustomViews.View
         private void rtf_LinkClicked(object sender, LinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start(e.LinkText);
+        }
+
+        private void DetailView_Load(object sender, System.EventArgs e)
+        {
+
         }
     }
 }

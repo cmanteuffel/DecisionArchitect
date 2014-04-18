@@ -28,7 +28,7 @@ namespace DecisionViewpointsCustomViews.View
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cbxState = new System.Windows.Forms.ComboBox();
@@ -59,6 +59,7 @@ namespace DecisionViewpointsCustomViews.View
             this.lbxAlternativesDecision = new System.Windows.Forms.ListBox();
             this.label11 = new System.Windows.Forms.Label();
             this.lbxTraces = new System.Windows.Forms.ListBox();
+            this.lbxRelatedRequirements = new System.Windows.Forms.ListBox();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHistory)).BeginInit();
             this.SuspendLayout();
@@ -279,10 +280,10 @@ namespace DecisionViewpointsCustomViews.View
             this.txtRelatedRequirements.AcceptsTab = true;
             this.txtRelatedRequirements.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRelatedRequirements.Location = new System.Drawing.Point(126, 372);
+            this.txtRelatedRequirements.Location = new System.Drawing.Point(208, 388);
             this.txtRelatedRequirements.Margin = new System.Windows.Forms.Padding(2);
             this.txtRelatedRequirements.Name = "txtRelatedRequirements";
-            this.txtRelatedRequirements.Size = new System.Drawing.Size(403, 52);
+            this.txtRelatedRequirements.Size = new System.Drawing.Size(243, 21);
             this.txtRelatedRequirements.TabIndex = 17;
             this.txtRelatedRequirements.Text = "";
             // 
@@ -310,14 +311,14 @@ namespace DecisionViewpointsCustomViews.View
             this.ActionColumn,
             this.StatusColumn,
             this.IterationColumn});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.916231F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvHistory.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.916231F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvHistory.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvHistory.Location = new System.Drawing.Point(126, 488);
             this.dgvHistory.Margin = new System.Windows.Forms.Padding(2);
             this.dgvHistory.Name = "dgvHistory";
@@ -390,6 +391,15 @@ namespace DecisionViewpointsCustomViews.View
             this.lbxTraces.Size = new System.Drawing.Size(403, 56);
             this.lbxTraces.TabIndex = 23;
             // 
+            // lbxRelatedRequirements
+            // 
+            this.lbxRelatedRequirements.FormattingEnabled = true;
+            this.lbxRelatedRequirements.HorizontalScrollbar = true;
+            this.lbxRelatedRequirements.Location = new System.Drawing.Point(126, 370);
+            this.lbxRelatedRequirements.Name = "lbxRelatedRequirements";
+            this.lbxRelatedRequirements.Size = new System.Drawing.Size(403, 56);
+            this.lbxRelatedRequirements.TabIndex = 24;
+            // 
             // DetailView
             // 
             this.AcceptButton = this.buttonOk;
@@ -397,6 +407,7 @@ namespace DecisionViewpointsCustomViews.View
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(540, 638);
+            this.Controls.Add(this.lbxRelatedRequirements);
             this.Controls.Add(this.lbxTraces);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.lbxAlternativesDecision);
@@ -427,6 +438,7 @@ namespace DecisionViewpointsCustomViews.View
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Detail View";
+            this.Load += new System.EventHandler(this.DetailView_Load);
             this.flowLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvHistory)).EndInit();
             this.ResumeLayout(false);
@@ -466,5 +478,6 @@ namespace DecisionViewpointsCustomViews.View
         private System.Windows.Forms.ListBox lbxAlternativesDecision;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ListBox lbxTraces;
+        private System.Windows.Forms.ListBox lbxRelatedRequirements;
     }
 }

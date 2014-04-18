@@ -19,5 +19,6 @@ namespace DecisionViewpointsCustomViews.View
         void AddHistoryEntry(string name, string stereotype, string s, string state);
         void AddAlternativeDecision(string relationship, string name, bool isClient);//angor task 158
         void AddTrace(string name, string type);//angor task 157
+        void AddRelatedRequirement(string name, string rating, string description);//angor task159
     }
 }
