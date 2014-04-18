@@ -94,8 +94,6 @@ namespace DecisionViewpointsCustomViews.View
 
         private void _btnSave_Click(object sender, System.EventArgs e)
         {
-            // create the data and pass them to the controller to pass them to the model
-
             _controller.SaveRatings();
         }
 
