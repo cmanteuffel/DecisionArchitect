@@ -280,7 +280,8 @@ namespace EAFacade.Model
 
         public bool IsDecision()
         {
-            return DVStereotypes.DecisionMetaType.Equals(MetaType);
+            return DVStereotypes.DecisionMetaType.Equals(MetaType.Trim());
+            //return DVStereotypes.DecisionMetaType.Equals(MetaType);
         }
 
         //angor task191 START

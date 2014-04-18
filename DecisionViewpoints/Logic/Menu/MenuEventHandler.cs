@@ -345,100 +345,67 @@ namespace DecisionViewpoints.Logic.Menu
 
         private static void GenerateSelectedDecisionsReport(string filename, ReportType reportType)
         {
-            //EARepository.Instance.GetSelectedItems();
-
             EARepository repository = EARepository.Instance;
 
             var selectedDecisionsRepository = EARepository.Instance.GetSelectedItems();
-
-            /*
-            List<Decision> decisions =
-                (from EAElement element in repository.GetAllElements()
-                 where element.IsDecision()
-                 where !element.IsHistoryDecision()
-                 select new Decision(element)).ToList();
-            */
             List<Decision> selectedDecisions =
                 (from EAElement element in selectedDecisionsRepository
                  where element.IsDecision()
                  where !element.IsHistoryDecision()
                  select new Decision(element)).ToList();
 
-            
-            //ensure that all decisions from a selected topic are include in the list of decisions
-            HashSet<EADiagram> setSelectedDiagrams = new HashSet<EADiagram>();
+            var selRepositoryList = selectedDecisionsRepository.ToList(); 
 
-
-            foreach (EAElement d in selectedDecisionsRepository.ToList())
+            for (int j = 0; j < selRepositoryList.Count; j++)
             {
-
-                //TODO: replace isDecisionGroup with isTopic, as groups are gone
+                var d = selRepositoryList[j];
                 if (d.IsTopic())
                 {
                     //TODO: this does not consider yet elements which are groups themselves - this needs to be treated separately
 
                     //TODO: also add the diagrams for the topic, as there can be topics with no underlying alternative
-                    List<EAElement> e = d.GetElements().ToList();
-                    foreach (var i in e)
+                    List<EAElement> elementList = d.GetElements().ToList();
+
+                    for (int i = 0; i < elementList.Count; i++)
                     {
-                        if (i.IsDecision())
+                        if (elementList[i].IsDecision())
                         {
-                            selectedDecisions.Add(new Decision(i));
-
-                            setSelectedDiagrams.UnionWith(i.GetDiagrams());
-
+                            selectedDecisions.Add(new Decision(elementList[i]));
+                            //setSelectedDiagrams.UnionWith(i.GetDiagrams());
                         }
                     }
                 }
             }
 
+            List<Decision> decisions =
+                (from EAElement element in repository.GetAllElements()
+                 where element.IsDecision()
+                 where !element.IsHistoryDecision()
+                 select new Decision(element)).ToList();
 
-            
-
-
-            
-            
             List<EADiagram> diagrams =
                 (from EAPackage package in repository.GetAllDecisionViewPackages()
                  from EADiagram diagram in package.GetDiagrams()
                  select diagram).ToList();
 
-            List<EADiagram> tryDiagrams = 
+            List<EADiagram> selectedDiagrams =
                 (from EADiagram diagram in diagrams
                  from Decision dec in selectedDecisions
                  where diagram.Contains(dec.GetElement())
                  select diagram).Distinct().ToList();
 
-
-            //discard diagrams which don't include decisions?
             IReportDocument report = null;
-
-            //get the diagrams which contain selectedDecisions, and discard diagrams which don't
-            List<EADiagram> selectedDiagrams = new List<EADiagram>();
-            foreach (var eaDiagram in diagrams)
-            {
-                foreach (var selDec in selectedDecisions)
-                {
-                    if (eaDiagram.Contains(selDec.GetElement()))
-                    {
-                        selectedDiagrams.Add(eaDiagram);
-                        break;
-                    }
-
-                }
-            }
-
-            //this is the actual set of diagrams to be used in the reports
             var finalSetOfDiagrams = selectedDiagrams;
+            var finalRepositoryOfElements = selectedDecisionsRepository;
+            var finalSelectedDecisions = selectedDecisions;
             
 
             try
             {
-                string filenameExtension = filename.Substring(filename.IndexOf('.'));
-                var saveFileDialog1 = new SaveFileDialog();
+                var filenameExtension = filename.Substring(filename.IndexOf('.'));
+                var saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
                 saveFileDialog1.Title = Messages.SaveReportAs;
-                saveFileDialog1.Filter = "Microsoft " + reportType.ToString() + " (*" + filenameExtension + ")|*" +
-                                         filenameExtension;
+                saveFileDialog1.Filter = "Microsoft " + reportType.ToString() + " (*" + filenameExtension + ")|*" + filenameExtension;
                 saveFileDialog1.FilterIndex = 0;
 
                 if (saveFileDialog1.ShowDialog() != DialogResult.OK)
@@ -447,7 +414,7 @@ namespace DecisionViewpoints.Logic.Menu
                 }
                 saveFileDialog1.CheckFileExists = true;
                 saveFileDialog1.CheckPathExists = true;
-                string reportFilename = saveFileDialog1.FileName;
+                var reportFilename = saveFileDialog1.FileName;
                 report = ReportFactory.Create(reportType, reportFilename);
                 //if the report cannot be created because is already used by another program a message will appear
                 if (report == null)
@@ -460,26 +427,32 @@ namespace DecisionViewpoints.Logic.Menu
                 }
                 report.Open();
 
+
                 //Insert Decision Relationship Viewpoint
-                foreach (EADiagram diagram in finalSetOfDiagrams.Where(diagram => diagram.IsRelationshipView()))
+                //foreach (EADiagram diagram in finalSetOfDiagrams.Where(diagram => diagram.IsRelationshipView()))
+                var relationshipDiagrams = finalSetOfDiagrams.Where(diagram => diagram.IsRelationshipView()).ToList();
+                for (int i = 0; i < relationshipDiagrams.Count(); i++)
                 {
+                    var diagram = relationshipDiagrams[i];
                     report.InsertDiagramImage(diagram);
                 }
 
                 //Retrieve Topics
-                List<Topic> topics = (from EAElement element in selectedDecisionsRepository
+                List<Topic> topics = (from EAElement element in finalRepositoryOfElements
                                       where element.IsTopic()
                                       select new Topic(element)).ToList();
 
                 report.InsertDecisionDetailViewMessage();
 
                 // Insert Decisions that have a Topic
-                foreach (Topic topic in topics)
+                for (int i = 0; i < topics.Count; i++)
                 {
+                    Topic topic = topics[i];
                     report.InsertTopicTable(topic);
                     //Insert Decisions with parent element the current Topic
-                    foreach (Decision decision in selectedDecisions)
+                    for (int j = 0; j < finalSelectedDecisions.Count; j++)
                     {
+                        Decision decision = finalSelectedDecisions[j];
                         var parent = EARepository.Instance.GetElementByID(decision.ID).ParentElement;
                         if (parent != null && parent.IsTopic())
                         {
@@ -493,7 +466,7 @@ namespace DecisionViewpoints.Logic.Menu
                 report.InsertDecisionWithoutTopicMessage();
 
                 // Insert decisions without a Topic
-                foreach (Decision decision in selectedDecisions)
+                foreach (Decision decision in finalSelectedDecisions)
                 {
                     var parent = EARepository.Instance.GetElementByID(decision.ID).ParentElement;
                     if (parent == null || !parent.IsTopic())
@@ -519,6 +492,7 @@ namespace DecisionViewpoints.Logic.Menu
                 if (report != null)
                     report.Close();
             }
+            
         }
     }
 }

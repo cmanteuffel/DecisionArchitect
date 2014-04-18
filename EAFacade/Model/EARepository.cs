@@ -97,9 +97,10 @@ namespace EAFacade.Model
             return EADiagram.Wrap(Native.GetCurrentDiagram());
         }
 
-        public IEnumerable<object> GetSelectedItems()
+        public IEnumerable<EAElement> GetSelectedItems()
         {
-            throw new NotImplementedException();
+            Collection elements = Native.GetTreeSelectedElements();
+            return (from object element in elements select EAElement.Wrap((Element)element)).ToList();
         }
 
         public IEnumerable<EAElement> GetAllElements()
