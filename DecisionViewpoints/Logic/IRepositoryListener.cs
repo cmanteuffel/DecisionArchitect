@@ -13,7 +13,7 @@ namespace DecisionViewpoints.Logic
 
         bool OnPreDeleteConnector(EAConnectorWrapper connector);
 
-        bool OnPreDeleteDiagram(EADiagram diagram);
+        bool OnPreDeleteDiagram(EAVolatileDiagram volatileDiagram);
 
         bool OnPreDeletePackage(EAPackage pacakge);
 

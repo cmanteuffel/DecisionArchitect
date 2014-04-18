@@ -1,4 +1,5 @@
-﻿using DecisionViewpoints.Logic;
+﻿using System.Linq;
+using DecisionViewpoints.Logic;
 using EA;
 using EAWrapper.Model;
 
@@ -93,6 +94,13 @@ namespace DecisionViewpoints
             {
                 l.OnFileNew();
             }
+        }
+
+        public override bool EA_OnPreDeleteDiagram(Repository repository, EventProperties properties)
+        {
+            EARepository.UpdateRepository(repository);
+            var diagramWrapper = EAVolatileDiagram.Wrap(properties);
+            return _listeners.All(l => l.OnPreDeleteDiagram(diagramWrapper));
         }
     }
 }

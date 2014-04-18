@@ -59,13 +59,21 @@ namespace DecisionViewpoints.Logic.Forces
             forcesController.UpdateTable();
         }
 
+        public override bool OnPreDeleteDiagram(EAVolatileDiagram volatileDiagram)
+        {
+            var repository = EARepository.Instance;
+            var diagram = repository.GetDiagramByID(volatileDiagram.DiagramID);
+            if (!diagram.IsForces()) return true;
+            if (_views.ContainsKey(diagram.GUID))
+                _views.Remove(diagram.GUID);
+            return true;
+        }
+
         private static bool IsForcesDiagram(string guid, ObjectType type)
         {
             if (ObjectType.otDiagram != type) return false;
             var repository = EARepository.Instance;
             return repository.GetDiagramByGuid(guid).IsForces();
         }
-
-        // TODO: when a diagram a deleted, we need to delete the viwe associated with it in the _views
     }
 }

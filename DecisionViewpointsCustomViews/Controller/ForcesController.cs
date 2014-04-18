@@ -1,4 +1,6 @@
-﻿using DecisionViewpointsCustomViews.Model;
+﻿using System;
+using System.Windows.Forms;
+using DecisionViewpointsCustomViews.Model;
 using DecisionViewpointsCustomViews.View;
 using EAWrapper.Model;
 
@@ -30,8 +32,15 @@ namespace DecisionViewpointsCustomViews.Controller
         public void Configure()
         {
             var repository = EARepository.Instance;
-            var diagram = repository.GetDiagramByGuid(_model.DiagramGUID);
-            repository.OpenDiagram(diagram.ID);
+            try
+            {
+                var diagram = repository.GetDiagramByGuid(_model.DiagramGUID);
+                repository.OpenDiagram(diagram.ID);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("no diagram");
+            }
         }
 
         public void SetDiagramModel(EADiagram diagram)

@@ -24,7 +24,7 @@ namespace DecisionViewpoints.Logic
             return true;
         }
 
-        public virtual bool OnPreDeleteDiagram(EADiagram diagram)
+        public virtual bool OnPreDeleteDiagram(EAVolatileDiagram volatileDiagram)
         {
             return true;
         }
