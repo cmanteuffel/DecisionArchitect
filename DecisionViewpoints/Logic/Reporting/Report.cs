@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Windows.Forms;
+using DecisionViewpoints.Model.Reporting;
 using DecisionViewpointsCustomViews.Model;
 using Word = Microsoft.Office.Interop.Word;
 
@@ -9,7 +10,6 @@ namespace DecisionViewpoints.Logic.Reporting
 {
     public class Report
     {
-        private static Report _instance;
         // create MS-Word application 
         private readonly Word.Application _msWord = new Word.Application();
         // create Word document reference
@@ -18,11 +18,6 @@ namespace DecisionViewpoints.Logic.Reporting
         private object _objMiss = Missing.Value;
         // Create end of document object
         private object _endofdoc = "\\endofdoc";
-
-        public static Report Instance
-        {
-            get { return _instance ?? (_instance = new Report()); }
-        }
 
         public void CreateWord(IEnumerable<Decision> decisions)
         {
@@ -35,7 +30,9 @@ namespace DecisionViewpoints.Logic.Reporting
                 // create decision tables
                 foreach (var decision in decisions)
                 {
-                    CreateDecisionTable(decision);
+                    ITable decisionTable = new DecisionTable(decision, _doc, _objMiss, _endofdoc);
+                    decisionTable.Create();
+                    ChangeParagraph();
                 }
             }
             catch (Exception ex)
@@ -44,38 +41,8 @@ namespace DecisionViewpoints.Logic.Reporting
             }
         }
 
-        private void CreateDecisionTable(Decision decision)
+        private void ChangeParagraph()
         {
-            const int rows = 8;
-            const int columns = 2;
-            // calculate the range of endofdocu
-            var objRange = _doc.Bookmarks.get_Item(ref _endofdoc).Range;
-            // add table with document with number of row and column
-            var objTable = _doc.Content.Tables.Add(objRange, rows, columns, ref _objMiss, ref _objMiss);
-            // set border visibility true by input 1 and false by input 0
-            objTable.Borders.Enable = 1;
-            // set text in each cell of table
-            objTable.Cell(1, 1).Range.Text = "Name";
-            objTable.Cell(1, 2).Range.Text = decision.Name;
-
-            objTable.Cell(2, 1).Range.Text = "Current State";
-            objTable.Cell(2, 2).Range.Text = decision.State;
-
-            objTable.Cell(3, 1).Range.Text = "Group";
-            objTable.Cell(2, 1).Range.Text = decision.Group;
-
-            objTable.Cell(4, 1).Range.Text = "Problem/Issue";
-            objTable.Cell(4, 2).Range.Text = decision.Issue;
-
-            objTable.Cell(5, 1).Range.Text = "Decision";
-            objTable.Cell(5, 2).Range.Text = decision.DecisionText;
-
-            objTable.Cell(6, 1).Range.Text = "Alternatives";
-            objTable.Cell(6, 2).Range.Text = decision.Alternatives;
-
-            objTable.Cell(7, 1).Range.Text = "Arguments";
-            objTable.Cell(7, 2).Range.Text = decision.Arguments;
-
             object objRangePara = _doc.Bookmarks.get_Item(ref _endofdoc).Range;
             var objParagraph = _doc.Content.Paragraphs.Add(ref objRangePara);
             objParagraph.Range.Text = Environment.NewLine;

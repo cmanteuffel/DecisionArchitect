@@ -225,7 +225,8 @@ namespace DecisionViewpoints.Logic.Menu
                 (from EAElement element in EARepository.Instance.GetAllElements()
                  where element.IsDecision()
                  select new Decision(element)).ToList();
-            Report.Instance.CreateWord(decisions);
+            var report = new Report();
+            report.CreateWord(decisions);
         }
     }
 }

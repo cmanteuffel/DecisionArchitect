@@ -63,7 +63,7 @@
     <Compile Include="View\ForcesView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Model\ForcesDiagramModel.cs" />
+    <Compile Include="Model\ForcesModel.cs" />
     <Compile Include="View\ICustomView.cs" />
     <Compile Include="View\IForcesView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

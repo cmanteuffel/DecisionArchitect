@@ -4,7 +4,7 @@ using EAFacade.Model;
 
 namespace DecisionViewpointsCustomViews.Model
 {
-    public class ForcesDiagramModel : ICustomViewModel
+    public class ForcesModel : ICustomViewModel
     {
         private readonly List<ICustomViewModelObserver> _observers = new List<ICustomViewModelObserver>();
         private EADiagram _diagram;

@@ -93,6 +93,8 @@
     <Compile Include="Logic\Validation\ConnectorRule.cs" />
     <Compile Include="Logic\Validation\NoLoopRule.cs" />
     <Compile Include="Logic\Validation\RuleManager.cs" />
+    <Compile Include="Model\Reporting\DecisionTable.cs" />
+    <Compile Include="Model\Reporting\ITable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings2.Designer.cs">
       <AutoGen>True</AutoGen>

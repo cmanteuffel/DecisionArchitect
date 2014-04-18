@@ -20,7 +20,7 @@ namespace DecisionViewpoints.Logic.Forces
             var repository = EARepository.Instance;
             var diagram = repository.GetDiagramByGuid(guid);
             if (!diagram.IsForcesView()) return false;
-            var forcesDiagramModel = new ForcesDiagramModel
+            var forcesDiagramModel = new ForcesModel
                 {
                     DiagramModel = diagram,
                     Name = CreateForcesTabName(diagram.Name)
