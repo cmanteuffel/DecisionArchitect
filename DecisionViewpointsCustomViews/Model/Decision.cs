@@ -144,5 +144,9 @@ namespace DecisionViewpointsCustomViews.Model
             return _element.GetTracedElements();
         } 
 
+        public EAElement GetElement()
+        {
+            return _element;
+        }
     }
 }
