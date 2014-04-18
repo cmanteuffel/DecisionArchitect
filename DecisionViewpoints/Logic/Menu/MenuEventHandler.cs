@@ -3,9 +3,12 @@ using System.Linq;
 using System.Windows.Forms;
 using DecisionViewpoints.Logic.Chronological;
 using DecisionViewpoints.Logic.Reporting;
-using DecisionViewpoints.Properties;
 using DecisionViewpointsCustomViews.Model;
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Wordprocessing;
 using EAFacade.Model;
+using Settings = DecisionViewpoints.Properties.Settings;
 
 namespace DecisionViewpoints.Logic.Menu
 {
@@ -221,13 +224,27 @@ namespace DecisionViewpoints.Logic.Menu
 
         private static void GenerateReport()
         {
+            var repository = EARepository.Instance;
             var decisions =
-                (from EAElement element in EARepository.Instance.GetAllElements()
+                (from EAElement element in repository.GetAllElements()
                  where element.IsDecision()
                  where !element.IsHistoryDecision()
                  select new Decision(element)).ToList();
-            var report = new Report();
-            report.CreateWord(decisions);
+            var diagrams =
+                (from EAPackage package in repository.GetAllDecisionViewPackages()
+                 from EADiagram diagram in package.GetDiagrams()
+                 where !diagram.IsForcesView()
+                 select diagram).ToList();
+            var report = new Report("Report.docx");
+            foreach (var decision in decisions)
+            {
+                report.AddDecisionTable(decision);
+            }
+            foreach (var diagram in diagrams)
+            {
+                report.AddDiagramImage(diagram);
+            }
+            report.Close();
         }
     }
 }

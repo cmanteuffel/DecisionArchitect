@@ -172,5 +172,11 @@ namespace EAFacade.Model
                  select repository.GetElementByID(diagramObject.ElementID)).Any(
                      diagramElement => diagramElement.GUID == element.GUID);
         }
+
+        public void CopyToClipboard()
+        {
+            var project = EARepository.Instance.Native.GetProjectInterface();
+            project.PutDiagramImageOnClipboard(GUID, 1);
+        }
     }
 }

@@ -223,5 +223,10 @@ namespace EAFacade.Model
             string value = underlyingElement.GetTaggedValue(DVTaggedValueKeys.DecisionViewPackage);
             return (value != null && value.Equals("true"));
         }
+
+        public IEnumerable<EADiagram> GetDiagrams()
+        {
+            return _native.Diagrams.Cast<Diagram>().Select(EADiagram.Wrap).ToList();
+        }
     }
 }

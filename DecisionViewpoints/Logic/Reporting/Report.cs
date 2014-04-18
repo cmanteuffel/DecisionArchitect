@@ -1,25 +1,253 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
+﻿using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Windows.Forms;
-using DecisionViewpoints.Model.Reporting;
 using DecisionViewpointsCustomViews.Model;
-using Word = Microsoft.Office.Interop.Word;
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Wordprocessing;
+using EAFacade.Model;
+using A = DocumentFormat.OpenXml.Drawing;
+using DW = DocumentFormat.OpenXml.Drawing.Wordprocessing;
+using PIC = DocumentFormat.OpenXml.Drawing.Pictures;
 
 namespace DecisionViewpoints.Logic.Reporting
 {
     public class Report
     {
-        // create MS-Word application 
+        private readonly WordprocessingDocument _wordDoc;
+        private readonly MainDocumentPart _mainPart;
+        private readonly Body _body;
+
+        public Report(string filename)
+        {
+            _wordDoc = WordprocessingDocument.Create(filename, WordprocessingDocumentType.Document);
+            _mainPart = _wordDoc.AddMainDocumentPart();
+            _mainPart.Document = new Document();
+            _body = _mainPart.Document.AppendChild(new Body());
+        }
+
+        public void Create()
+        {
+            var para = _body.AppendChild(new Paragraph());
+            var run = para.AppendChild(new Run());
+            run.AppendChild(new Text("Hello World!"));
+        }
+
+        public void AddDecisionTable(IDecision decision)
+        {
+            var table = new Table();
+
+            var props = new TableProperties(
+                new TableBorders(
+                    new TopBorder
+                        {
+                            Val = new EnumValue<BorderValues>(BorderValues.Single),
+                            Size = 12
+                        },
+                    new BottomBorder
+                        {
+                            Val = new EnumValue<BorderValues>(BorderValues.Single),
+                            Size = 12
+                        },
+                    new LeftBorder
+                        {
+                            Val = new EnumValue<BorderValues>(BorderValues.Single),
+                            Size = 12
+                        },
+                    new RightBorder
+                        {
+                            Val = new EnumValue<BorderValues>(BorderValues.Single),
+                            Size = 12
+                        },
+                    new InsideHorizontalBorder
+                        {
+                            Val = new EnumValue<BorderValues>(BorderValues.Single),
+                            Size = 12
+                        },
+                    new InsideVerticalBorder
+                        {
+                            Val = new EnumValue<BorderValues>(BorderValues.Single),
+                            Size = 12
+                        }));
+
+            table.AppendChild(props);
+
+            var data = new[,]
+                {
+                    {"Name", decision.Name},
+                    {"State", decision.State},
+                    {"Group", decision.Group},
+                    {"Issue", decision.Issue},
+                    {"Decision", decision.DecisionText},
+                    {"Alternatives", decision.Alternatives},
+                    {"Arguments", decision.Arguments}
+                };
+
+            for (var i = 0; i <= data.GetUpperBound(0); i++)
+            {
+                var tr = new TableRow();
+                for (var j = 0; j <= data.GetUpperBound(1); j++)
+                {
+                    var tc = new TableCell();
+                    tc.AppendChild(new Paragraph(new Run(new Text(data[i, j]))));
+
+                    // Assume you want columns that are automatically sized.
+                    /*tc.Append(new TableCellProperties(
+                                  new TableCellWidth {Type = TableWidthUnitValues.Auto}));*/
+
+                    tr.AppendChild(tc);
+                }
+                table.AppendChild(tr);
+            }
+            _body.AppendChild(table);
+            _body.AppendChild(new Paragraph());
+        }
+
+        public void AddDiagramImage(EADiagram diagram)
+        {
+            diagram.CopyToClipboard();
+
+            var imagePart = _mainPart.AddImagePart(ImagePartType.Jpeg);
+
+            Image image = null;
+            if (Clipboard.ContainsImage())
+            {
+                image = Clipboard.GetImage();
+            }
+            imagePart.FeedData(ToStream(image, ImageFormat.Jpeg));
+
+            AddImageToBody(_mainPart.GetIdOfPart(imagePart), GetImageSize(image));
+        }
+
+        public void Close()
+        {
+            _wordDoc.Close();
+        }
+
+        private static Stream ToStream(Image image, ImageFormat format)
+        {
+            var stream = new MemoryStream();
+            image.Save(stream, format);
+            stream.Position = 0;
+            return stream;
+        }
+
+        private void AddImageToBody(string relationshipId, IList<long> size)
+        {
+            // Define the reference of the image.
+            var element =
+                 new Drawing(
+                     new DW.Inline(
+                         new DW.Extent() { Cx = size[0], Cy = size[1] },
+                         new DW.EffectExtent()
+                         {
+                             LeftEdge = 0L,
+                             TopEdge = 0L,
+                             RightEdge = 0L,
+                             BottomEdge = 0L
+                         },
+                         new DW.DocProperties()
+                         {
+                             Id = (UInt32Value)1U,
+                             Name = "Picture 1"
+                         },
+                         new DW.NonVisualGraphicFrameDrawingProperties(
+                             new A.GraphicFrameLocks() { NoChangeAspect = true }),
+                         new A.Graphic(
+                             new A.GraphicData(
+                                 new PIC.Picture(
+                                     new PIC.NonVisualPictureProperties(
+                                         new PIC.NonVisualDrawingProperties()
+                                         {
+                                             Id = (UInt32Value)0U,
+                                             Name = "New Bitmap Image.jpg"
+                                         },
+                                         new PIC.NonVisualPictureDrawingProperties()),
+                                     new PIC.BlipFill(
+                                         new A.Blip(
+                                             new A.BlipExtensionList(
+                                                 new A.BlipExtension()
+                                                 {
+                                                     Uri =
+                                                       "{28A0092B-C50C-407E-A947-70E740481C1C}"
+                                                 })
+                                         )
+                                         {
+                                             Embed = relationshipId,
+                                             CompressionState =
+                                             A.BlipCompressionValues.Print
+                                         },
+                                         new A.Stretch(
+                                             new A.FillRectangle())),
+                                     new PIC.ShapeProperties(
+                                         new A.Transform2D(
+                                             new A.Offset() { X = 0L, Y = 0L },
+                                             new A.Extents() { Cx = size[0], Cy = size[1] }),
+                                         new A.PresetGeometry(
+                                             new A.AdjustValueList()
+                                         ) { Preset = A.ShapeTypeValues.Rectangle }))
+                             ) { Uri = "http://schemas.openxmlformats.org/drawingml/2006/picture" })
+                     )
+                     {
+                         DistanceFromTop = (UInt32Value)0U,
+                         DistanceFromBottom = (UInt32Value)0U,
+                         DistanceFromLeft = (UInt32Value)0U,
+                         DistanceFromRight = (UInt32Value)0U,
+                         EditId = "50D07946"
+                     });
+
+            // Append the reference to body, the element should be in a Run.
+            _body.AppendChild(new Paragraph(new Run(element)));
+        }
+
+        private static long[] GetImageSize(Image img)
+        {
+            var size = new long[2];
+            var widthPx = img.Size.Width;
+            var heightPx = img.Size.Height;
+            var horzRezDpi = img.HorizontalResolution;
+            var vertRezDpi = img.VerticalResolution;
+            const int emusPerInch = 914400;
+            const int emusPerCm = 360000;
+            var widthEmus = (long)(widthPx / horzRezDpi * emusPerInch);
+            var heightEmus = (long)(heightPx / vertRezDpi * emusPerInch);
+            var maxWidthEmus = (long)(4 * emusPerCm);
+            if (widthEmus <= maxWidthEmus) return size;
+            var ratio = (heightEmus * 1.0m) / widthEmus;
+            size[0] = maxWidthEmus; //widthEmus
+            size[1] = (long)(widthEmus * ratio); //heightEmus
+            return size;
+        }
+
+        // THIS CODE USE THE WORD API WHICH, KINDLY SPEAKING, SUCKS
+
+        /*// Create MS-Word application 
         private readonly Word.Application _msWord = new Word.Application();
-        // create Word document reference
+        // Create Word document reference
         private Word.Document _doc;
         // Create misssing value object
         private object _objMiss = Missing.Value;
         // Create end of document object
-        private object _endofdoc = "\\endofdoc";
+        private object _endofdoc = "\\endofdoc";*/
 
-        public void CreateWord(IEnumerable<Decision> decisions)
+        // Create a document by supplying the filepath. 
+        /*using (WordprocessingDocument wordDocument =
+                WordprocessingDocument.Create("Report.docx", WordprocessingDocumentType.Document))
+            {
+                // Add a main document part. 
+                MainDocumentPart mainPart = wordDocument.AddMainDocumentPart();
+
+                // Create the document structure and add some text.
+                mainPart.Document = new Document();
+                Body body = mainPart.Document.AppendChild(new Body());
+                Paragraph para = body.AppendChild(new Paragraph());
+                Run run = para.AppendChild(new Run());
+                run.AppendChild(new Text("Create text in body - CreateWordprocessingDocument - Copy"));
+            }*/
+
+        /*public void CreateWord(IEnumerable<Decision> decisions)
         {
             try
             {
@@ -34,6 +262,8 @@ namespace DecisionViewpoints.Logic.Reporting
                     decisionTable.Create();
                     ChangeParagraph();
                 }
+
+                
             }
             catch (Exception ex)
             {
@@ -46,7 +276,7 @@ namespace DecisionViewpoints.Logic.Reporting
             object objRangePara = _doc.Bookmarks.get_Item(ref _endofdoc).Range;
             var objParagraph = _doc.Content.Paragraphs.Add(ref objRangePara);
             objParagraph.Range.Text = Environment.NewLine;
-        }
+        }*/
 
         /*public static void GenerateDoc(Decision decision)
         {
