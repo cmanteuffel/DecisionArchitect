@@ -96,11 +96,11 @@ namespace DecisionViewpointsCustomViews.Model
                             .Where(element => element.IsDecision()))
             {
                 data.AddRange(from taggedValue in element.TaggedValues
-                              where taggedValue.Name.Split(':')[0].Equals("r")
+                              where IsReqGUIDTaggedValue(taggedValue.Name)
                               select new Rating
                                   {
                                       DecisionGUID = element.GUID,
-                                      RequirementGUID = taggedValue.Name,
+                                      RequirementGUID = GetReqGUIDFromTaggedValue(taggedValue.Name),
                                       Value = taggedValue.Value
                                   });
             }
@@ -114,11 +114,43 @@ namespace DecisionViewpointsCustomViews.Model
             {
                 var decision = repository.GetElementByGUID(rating.DecisionGUID);
                 if (decision == null) continue;
-                if (decision.GetTaggedValue(rating.RequirementGUID) != null)
-                    decision.UpdateTaggedValue(rating.RequirementGUID, rating.Value);
+                var reqTaggedValue = ConstructReqGUIDTaggedValue(rating.RequirementGUID);
+                if (decision.GetTaggedValue(reqTaggedValue) != null)
+                    decision.UpdateTaggedValue(reqTaggedValue, rating.Value);
                 else
-                    decision.AddTaggedValue(rating.RequirementGUID, rating.Value);
+                    decision.AddTaggedValue(reqTaggedValue, rating.Value);
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        private static string ConstructReqGUIDTaggedValue(string value)
+        {
+            return string.Format("r:{0}", value);
+        }
+
+        /// <summary>
+        /// Returns just the GUID from the requirement GUID tagged value.
+        /// The format of the requirement GUID tagged value is r:{GUID}.
+        /// </summary>
+        /// <param name="value">The taggged value name.</param>
+        /// <returns></returns>
+        private static string GetReqGUIDFromTaggedValue(string value)
+        {
+            return value.Split(':')[1];
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        private static bool IsReqGUIDTaggedValue(string value)
+        {
+            return value.Split(':')[0].Equals("r");
         }
     }
 }

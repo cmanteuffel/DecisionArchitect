@@ -153,19 +153,16 @@ namespace DecisionViewpointsCustomViews.View
         public void UpdateDecision(EAElement element)
         {
             var columnIndex = 0;
-            var found = false;
             foreach (DataGridViewCell cell in _forcesTable.Rows[_forcesTable.Rows.Count - 1].Cells)
             {
                 if (cell.Value.ToString().Equals(element.GUID))
                 {
-                    found = true;
+                    _forcesTable.Columns[columnIndex].HeaderText = String.Format("<<{0}>>\n{1}", element.Stereotype,
+                                                                             element.Name);
                     break;
                 }
                 columnIndex++;
             }
-            if (found)
-                _forcesTable.Columns[columnIndex].HeaderText = String.Format("<<{0}>>\n{1}", element.Stereotype,
-                                                                             element.Name);
         }
 
         public void UpdateRequirement(EAElement element)
@@ -259,7 +256,7 @@ namespace DecisionViewpointsCustomViews.View
                     break;
                 }
                 if (decisionColumnIndex == 0) continue;
-                var row = data.Rows.Find(rating.RequirementGUID.Split(':')[1]);
+                var row = data.Rows.Find(rating.RequirementGUID);
                 if (row == null) continue;
                 row[decisionColumnIndex] = rating.Value;
             }
