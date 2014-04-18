@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using EA;
 
 namespace DecisionViewpoints.Model
@@ -51,6 +53,11 @@ namespace DecisionViewpoints.Model
         {
             get { return _native.Notes; }
             set { _native.Notes = value; }
+        }
+
+        public string Metatype
+        {
+            get { return _native.MetaType; }
         }
 
         public DateTime Created
@@ -118,6 +125,12 @@ namespace DecisionViewpoints.Model
             }
             _native.SelectedObjects.AddNew(element.ID.ToString(), element.Type);
             repository.ActivateDiagram(_native.DiagramID);
+        }
+
+        public List<DiagramObject> GetElements()
+        {
+            // TODO: should we wrap DiagramObject?
+            return _native.DiagramObjects.Cast<object>().Cast<DiagramObject>().ToList();
         }
     }
 }

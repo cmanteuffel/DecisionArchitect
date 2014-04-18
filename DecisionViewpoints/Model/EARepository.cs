@@ -83,6 +83,11 @@ namespace DecisionViewpoints.Model
             return EADiagram.Wrap(Native.GetDiagramByID(id));
         }
 
+        public EADiagram GetDiagramByGuid(string guid)
+        {
+            return EADiagram.Wrap(Native.GetDiagramByGuid(guid));
+        }
+
         public EAElement GetElementByGUID(string guid)
         {
             return EAElement.Wrap(Native.GetElementByGuid(guid));

@@ -211,5 +211,14 @@ namespace DecisionViewpoints.Model
             }
             return value.Value;
         }
+
+        public void UpdateTaggedValue(string name, string data)
+        {
+            TaggedValue taggedValue = _native.TaggedValues.GetByName(name);
+            taggedValue.Value = data;
+            taggedValue.Update();
+            _native.TaggedValues.Refresh();
+            Update();
+        }
     }
 }

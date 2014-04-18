@@ -109,13 +109,13 @@ namespace DecisionViewpoints.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Forces")]
-        public string ForcesElementMetatype {
+        [global::System.Configuration.DefaultSettingValueAttribute("Decision Viewpoints::Forces")]
+        public string ForcesDiagramMetatype {
             get {
-                return ((string)(this["ForcesElementMetatype"]));
+                return ((string)(this["ForcesDiagramMetatype"]));
             }
             set {
-                this["ForcesElementMetatype"] = value;
+                this["ForcesDiagramMetatype"] = value;
             }
         }
     }

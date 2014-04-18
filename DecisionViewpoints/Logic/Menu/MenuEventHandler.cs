@@ -87,7 +87,7 @@ namespace DecisionViewpoints.Logic.Menu
             RootMenu.Add(MenuItem.Separator);
             RootMenu.Add(new MenuItem(Messages.MenuGenerateChronologicalVP, Generate));
             RootMenu.Add(MenuItem.Separator);
-            RootMenu.Add(new MenuItem("Create Forces", CreateForces));
+            RootMenu.Add(new MenuItem("Forces Table", GenerateForcesTable));
         }
 
         public static object GetMenuItems(string location, string menuName)
@@ -180,13 +180,12 @@ namespace DecisionViewpoints.Logic.Menu
             generator.GenerateViewpoint();
         }
 
-        private static void CreateForces()
+        private static void GenerateForcesTable()
         {
             var repository = EARepository.Instance;
-            if (NativeType.Package != repository.GetContextItemType()) return;
-            var eapackage = repository.GetContextObject<EAPackage>();
-            //if (eapackage == null || !eapackage.IsDecisionViewPackge()) return;
-            eapackage.CreateElement("Forces1", "Forces", "Class");
+            if (NativeType.Diagram != repository.GetContextItemType()) return;
+            var eadiagram = repository.GetContextObject<EADiagram>();
+            MessageBox.Show(eadiagram.Name);
         }
     }
 }
