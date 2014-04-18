@@ -45,7 +45,7 @@ namespace DecisionViewpoints.Logic.Reporting
             const string forcesTableTopLeftColumn = "A";
             const uint forcesTopLeftRow = 1;
 
-            InsertText(worksheetPart, forcesTableTopLeftColumn, forcesTopLeftRow, "");
+            InsertText(worksheetPart, forcesTableTopLeftColumn, forcesTopLeftRow, "Requirement");
             InsertText(worksheetPart, forcesTopLeftRow, "Concern");
 
             foreach (EAElement decision in forces.GetDecisions())
@@ -54,38 +54,28 @@ namespace DecisionViewpoints.Logic.Reporting
             }
 
             uint rowIndex = forcesTopLeftRow + 1;
-            foreach (EAElement requirement in forces.GetRequirements())
+            foreach (var concernsPerRequirement in forces.GetConcernsPerRequirement())
             {
-                InsertText(worksheetPart, forcesTableTopLeftColumn, rowIndex, requirement.Name);
+                var requirement = concernsPerRequirement.Key;
+                var concerns = concernsPerRequirement.Value;
 
-                var concCellText = new StringBuilder();
-                foreach (var concern in forces.GetConcerns())
+                foreach (var concern in concerns)
                 {
-                    if (concern.Key.GUID != requirement.GUID) continue;
-                    int concernIndex = 0;
-                    foreach (EAElement concernText in concern.Value)
+                    InsertText(worksheetPart, forcesTableTopLeftColumn, rowIndex, requirement.Name);
+                    InsertText(worksheetPart, rowIndex, concern.Name);
+                    foreach (Rating rating in forces.GetRatings())
                     {
-                        if (concernIndex++ > 0)
+                        if (rating.RequirementGUID != requirement.GUID || rating.ConcernGUID != concern.GUID) continue;
+                        if (forces.GetDecisions().Any(decision => rating.DecisionGUID == decision.GUID))
                         {
-                            concCellText.Append(", ");
+                            InsertText(worksheetPart, rowIndex, rating.Value);
                         }
-                        concCellText.Append(concernText.Name);
                     }
-                    break;
+                    rowIndex++;
                 }
-                InsertText(worksheetPart, rowIndex, concCellText.ToString());
-
-                foreach (Rating rating in forces.GetRatings())
-                {
-                    if (rating.RequirementGUID != requirement.GUID) continue;
-                    if (forces.GetDecisions().Any(decision => rating.DecisionGUID == decision.GUID))
-                    {
-                        InsertText(worksheetPart, rowIndex, rating.Value);
-                    }
-                }
-
-                rowIndex++;
             }
+
+
 
             worksheetPart.Worksheet.Save();
         }

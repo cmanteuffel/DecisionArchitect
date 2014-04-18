@@ -80,7 +80,8 @@ namespace DecisionViewpointsCustomViews.Controller
             foreach (var rating in forces)
             {
                 var req = EARepository.Instance.GetElementByGUID(rating.RequirementGUID);
-                _view.AddRelatedRequirement(req.Name, rating.Value, req.Notes, rating.RequirementGUID); 
+                var concern = EARepository.Instance.GetElementByGUID(rating.ConcernGUID);
+                _view.AddRelatedRequirement(req.Name, rating.Value, req.Notes, rating.RequirementGUID, concern.Name); 
             }
             //angor END task159
 

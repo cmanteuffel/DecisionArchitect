@@ -188,44 +188,38 @@ namespace DecisionViewpoints.Model.Reporting
             }
             table.AppendChild(decRow);
 
-            // insert the requirement name, concern(s), and ratings
-            foreach (var requirement in forces.GetRequirements())
+
+
+            foreach (var concernsPerRequirement in forces.GetConcernsPerRequirement())
             {
-                var reqRow = new TableRow();
-                var reqCell = new TableCell(new Paragraph(new Run(new Text(requirement.Name))));
-                reqRow.AppendChild(reqCell);
-                // insert concern(s)
-                var concCell = new TableCell();
-                var concCellText = new StringBuilder();
-                foreach (var concern in forces.GetConcerns())
+                var requirement = concernsPerRequirement.Key;
+                var concerns = concernsPerRequirement.Value;
+
+                foreach (var concern in concerns)
                 {
-                    if (concern.Key.GUID != requirement.GUID) continue;
-                    var concernIndex = 0;
-                    foreach (var concernText in concern.Value)
+                    var reqRow = new TableRow();
+                    var reqCell = new TableCell(new Paragraph(new Run(new Text(requirement.Name))));
+                    reqRow.AppendChild(reqCell);
+                    var concCell = new TableCell();
+                    concCell.AppendChild(new Paragraph(new Run(new Text(concern.Name))));
+                    reqRow.AppendChild(concCell);
+
+                    // insert ratings
+                    foreach (Rating rating in forces.GetRatings())
                     {
-                        if (concernIndex++ > 0)
+                        if (rating.RequirementGUID != requirement.GUID || rating.ConcernGUID != concern.GUID) continue;
+                        if (forces.GetDecisions().Any(decision => rating.DecisionGUID == decision.GUID))
                         {
-                            concCellText.Append(", ");
+                            var ratCell = new TableCell();
+                            ratCell.AppendChild(new Paragraph(new Run(new Text(rating.Value))));
+                            reqRow.AppendChild(ratCell);
                         }
-                        concCellText.Append(concernText.Name);
                     }
-                    break;
+                    table.AppendChild(reqRow);
                 }
-                concCell.AppendChild(new Paragraph(new Run(new Text(concCellText.ToString()))));
-                reqRow.AppendChild(concCell);
-                // insert ratings
-                foreach (var rating in forces.GetRatings())
-                {
-                    if (rating.RequirementGUID != requirement.GUID) continue;
-                    var ratCell = new TableCell();
-                    if (forces.GetDecisions().Any(decision => rating.DecisionGUID == decision.GUID))
-                    {
-                        ratCell.AppendChild(new Paragraph(new Run(new Text(rating.Value))));
-                    }
-                    reqRow.AppendChild(ratCell);
-                }
-                table.AppendChild(reqRow);
             }
+
+           
 
             _body.AppendChild(table);
             _body.AppendChild(new Paragraph());

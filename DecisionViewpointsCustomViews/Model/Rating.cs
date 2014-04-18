@@ -9,6 +9,7 @@ namespace DecisionViewpointsCustomViews.Model
         private string _value;
 
         public string DecisionGUID { get; set; }
+        public string ConcernGUID { get; set; }
         public string RequirementGUID { get; set; }
 
         public string Value
@@ -21,10 +22,11 @@ namespace DecisionViewpointsCustomViews.Model
                 var repository = EARepository.Instance;
                 var decision = repository.GetElementByGUID(DecisionGUID);
                 var requirement = repository.GetElementByGUID(RequirementGUID);
+                var concern = repository.GetElementByGUID(ConcernGUID);
                 MessageBox.Show(
                     String.Format(
-                        "The length of rating '{0}' that belongs to decision '{1}' and requirement '{2}' is too large. It must be less than 256 characters.",
-                        _value, decision.Name, requirement.Name));
+                        "The length of rating '{0}' that belongs to decision '{1}' and requirement '{2}' classified by '{3}' is too large. It must be less than 256 characters.",
+                        _value, decision.Name, requirement.Name, concern.Name));
                 _value = "";
             }
         }

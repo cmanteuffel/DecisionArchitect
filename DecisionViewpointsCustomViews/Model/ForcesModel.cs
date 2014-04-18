@@ -80,6 +80,18 @@ namespace DecisionViewpointsCustomViews.Model
                     into element where element.IsRequirement() select element).ToArray();
         }
 
+        public Dictionary<EAElement, List<EAElement>> GetConcernsPerRequirement()
+        {
+            var requirementConcernDictionary = new Dictionary<EAElement, List<EAElement>>();
+            foreach (var requirement in GetRequirements())
+            {
+                var concerns = requirement.GetConnectedConcerns().Where(concern => _diagram.Contains(concern)).ToList();
+                requirementConcernDictionary.Add(requirement, concerns);
+            }
+            return requirementConcernDictionary;
+        }
+
+        [Obsolete("use reqPerConc", true)]
         public Dictionary<EAElement, List<EAElement>> GetConcerns()
         {
             var repository = EARepository.Instance;
@@ -88,8 +100,7 @@ namespace DecisionViewpointsCustomViews.Model
             {
                 var concern = repository.GetElementByID(diagramObject.ElementID);
                 if (!concern.IsConcern()) continue;
-                foreach (
-                    var connectedRequirement in
+                foreach (var connectedRequirement in 
                         concern.GetConnectedRequirements()
                                .Where(connectedRequirement => _diagram.Contains(connectedRequirement)))
                 {
@@ -118,11 +129,12 @@ namespace DecisionViewpointsCustomViews.Model
                             .Where(element => element.IsDecision()))
             {
                 data.AddRange(from taggedValue in element.TaggedValues
-                              where IsReqGUIDTaggedValue(taggedValue.Name)
+                              where IsForcesTaggedValue(taggedValue.Name)
                               select new Rating
                                   {
                                       DecisionGUID = element.GUID,
                                       RequirementGUID = GetReqGUIDFromTaggedValue(taggedValue.Name),
+                                      ConcernGUID = GetConcernGUIDFromTaggedValue(taggedValue.Name),
                                       Value = taggedValue.Value
                                   });
             }
@@ -136,11 +148,11 @@ namespace DecisionViewpointsCustomViews.Model
             {
                 var decision = repository.GetElementByGUID(rating.DecisionGUID);
                 if (decision == null) continue;
-                var reqTaggedValue = ConstructReqGUIDTaggedValue(rating.RequirementGUID);
-                if (decision.GetTaggedValue(reqTaggedValue) != null)
-                    decision.UpdateTaggedValue(reqTaggedValue, rating.Value);
+                var forcesTaggedValue = ConstructForcesTaggedValue(rating.RequirementGUID, rating.ConcernGUID);
+                if (decision.GetTaggedValue(forcesTaggedValue) != null)
+                    decision.UpdateTaggedValue(forcesTaggedValue, rating.Value);
                 else
-                    decision.AddTaggedValue(reqTaggedValue, rating.Value);
+                    decision.AddTaggedValue(forcesTaggedValue, rating.Value);
             }
         }
 
@@ -154,9 +166,9 @@ namespace DecisionViewpointsCustomViews.Model
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        private static string ConstructReqGUIDTaggedValue(string value)
+        private static string ConstructForcesTaggedValue(string requirementGUID, string concernGUID)
         {
-            return string.Format("r:{0}", value);
+            return string.Format("fv:{0}:{1}", requirementGUID,concernGUID);
         }
 
         /// <summary>
@@ -166,9 +178,14 @@ namespace DecisionViewpointsCustomViews.Model
         /// <param name="value">The taggged value name.</param>
         /// <returns></returns>
         //private static string GetReqGUIDFromTaggedValue(string value)//original
-            public static string GetReqGUIDFromTaggedValue(string value)//angor
+        public static string GetReqGUIDFromTaggedValue(string value)//angor
         {
             return value.Split(':')[1];
+        }
+
+        public static string GetConcernGUIDFromTaggedValue(string value)//angor
+        {
+            return value.Split(':')[2];
         }
 
         /// <summary>
@@ -176,10 +193,10 @@ namespace DecisionViewpointsCustomViews.Model
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        //private static bool IsReqGUIDTaggedValue(string value)//original
-            public static bool IsReqGUIDTaggedValue(string value)//angor
+        //private static bool IsForcesTaggedValue(string value)//original
+            public static bool IsForcesTaggedValue(string value)//angor
         {
-            return value.Split(':')[0].Equals("r");
+            return value.Split(':')[0].Equals("fv");
         }
 
         /*

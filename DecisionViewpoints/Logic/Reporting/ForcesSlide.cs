@@ -41,39 +41,30 @@ namespace DecisionViewpoints.Logic.Reporting
                 decRow.AppendChild(decCell);
             }
 
-            // insert the requirement name, concern(s), and ratings
-            foreach (EAElement requirement in _forces.GetRequirements())
+            foreach (var concernsPerRequirement in _forces.GetConcernsPerRequirement())
             {
-                var reqRow = new TableRow {Height = 370840L};
-                reqRow.AppendChild(CreateTextCell(requirement.Name));
-                // insert concern(s)
-                var concCellText = new StringBuilder();
-                foreach (var concern in _forces.GetConcerns())
+                var requirement = concernsPerRequirement.Key;
+                var concerns = concernsPerRequirement.Value;
+
+                foreach (var concern in concerns)
                 {
-                    if (concern.Key.GUID != requirement.GUID) continue;
-                    int concernIndex = 0;
-                    foreach (EAElement concernText in concern.Value)
+                    var reqRow = new TableRow { Height = 370840L };
+                    reqRow.AppendChild(CreateTextCell(requirement.Name));
+                    reqRow.AppendChild(CreateTextCell(concern.Name));
+
+                    // insert ratings
+                    foreach (Rating rating in _forces.GetRatings())
                     {
-                        if (concernIndex++ > 0)
+                        if (rating.RequirementGUID != requirement.GUID || rating.ConcernGUID != concern.GUID) continue;
+                        if (_forces.GetDecisions().Any(decision => rating.DecisionGUID == decision.GUID))
                         {
-                            concCellText.Append(", ");
+                            reqRow.AppendChild(CreateTextCell(rating.Value));
                         }
-                        concCellText.Append(concernText.Name);
                     }
-                    break;
+                    tbl.AppendChild(reqRow);
                 }
-                reqRow.AppendChild(CreateTextCell(concCellText.ToString()));
-                // insert ratings
-                foreach (Rating rating in _forces.GetRatings())
-                {
-                    if (rating.RequirementGUID != requirement.GUID) continue;
-                    if (_forces.GetDecisions().Any(decision => rating.DecisionGUID == decision.GUID))
-                    {
-                        reqRow.AppendChild(CreateTextCell(rating.Value));
-                    }
-                }
-                tbl.AppendChild(reqRow);
             }
+
         }
 
         private static TableCell CreateTextCell(string text)

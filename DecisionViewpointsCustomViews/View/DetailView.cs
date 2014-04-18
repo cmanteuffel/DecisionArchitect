@@ -106,22 +106,10 @@ namespace DecisionViewpointsCustomViews.View
         }
 
         public string DecisionRelatedRequirements { get; set; }
-        /*  not implemented in this DetailView
-        public string DecisionRelatedRequirements
-        {
-            get { return txtRelatedRequirements.Text.Trim(' '); }
-            set { txtRelatedRequirements.Text = value; }
-        }
-         */
+        
 
         public string DecisionAlternatives { get; set; }
-        /*  not implemented in this DetailView
-        public string DecisionAlternatives
-        {
-            get { return txtAlternatives.Text.Trim(' '); }
-            set { txtAlternatives.Text = value; }
-        }
-         */
+       
 
         public void ShowAsDialog()
         {
@@ -158,9 +146,9 @@ namespace DecisionViewpointsCustomViews.View
             dgvTraces.Rows.Add(new object[] {uid, name, type});
         }
 
-        public void AddRelatedRequirement(string name, string rating, string description, string uid)
+        public void AddRelatedRequirement(string name, string rating, string description, string uid, string concern)
         {
-            dgvRelatedRequirements.Rows.Add(new object[] {uid, name, "", "", description});
+            dgvRelatedRequirements.Rows.Add(new object[] {uid, name, concern, rating, description});
         }
 
         public void AddTopic(string name, string description, bool hasTopic)

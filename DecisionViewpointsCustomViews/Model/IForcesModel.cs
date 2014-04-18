@@ -14,6 +14,7 @@ namespace DecisionViewpointsCustomViews.Model
         EAElement[] GetRequirements();
         Dictionary<EAElement, List<EAElement>> GetConcerns();
         List<Rating> GetRatings();
+        Dictionary<EAElement, List<EAElement>> GetConcernsPerRequirement();
 
         void AddObserver(IForcesModelObserver observer);
         void RemoveObserver(IForcesModelObserver observer);

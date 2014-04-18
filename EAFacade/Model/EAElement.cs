@@ -178,6 +178,21 @@ namespace EAFacade.Model
              return from EAElement e in GetElements() where e.IsDecision() select e;
          }
 
+         public IEnumerable<EAElement> GetConnectedConcerns()
+         {
+             if (_native == null)
+             {
+                 return new EAElement[0];
+             }
+             IList<EAConnector> connectors = (from Connector c in _native.Connectors select EAConnector.Wrap(c)).ToList();
+
+             var connectedConcerns = from EAConnector connector in connectors
+                                         where connector.Stereotype.Equals("classified by")
+                                         select (connector.GetSupplier());
+
+             return connectedConcerns;
+         }
+
         public IEnumerable<EAElement> GetConnectedRequirements()
         {
             if (_native == null)

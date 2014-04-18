@@ -26,7 +26,7 @@ namespace DecisionViewpointsCustomViews.View
         //void AddTrace(string name, string type);//angor task 157
         void AddTrace(string name, string type, string uid);//angor task 161
        // void AddRelatedRequirement(string name, string rating, string description);//angor task159
-        void AddRelatedRequirement(string name, string rating, string description, string uid);//angor task161
+        void AddRelatedRequirement(string name, string rating, string description, string uid, string concern);//angor task161
         void AddTopic(string name, string description, bool hasTopic);//angor task191
     }
 }

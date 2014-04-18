@@ -47,7 +47,7 @@ namespace DecisionViewpointsCustomViews.Controller
 
         public void Save()
         {
-            var data = new List<Rating>();
+            var ratings = new List<Rating>();
             var decisionColumnIndex = 3;
             foreach (var decisionGUID in _view.DecisionGuids)
             {
@@ -55,17 +55,19 @@ namespace DecisionViewpointsCustomViews.Controller
                 foreach (var requirementGUID in _view.RequirementGuids)
                 {
                     var rating = _view.GetRating(requirementRowIndex, decisionColumnIndex);
-                    data.Add(new Rating
+                    var concernGUID = _view.GetRating(requirementRowIndex, 2);
+                    ratings.Add(new Rating
                         {
                             DecisionGUID = decisionGUID,
                             RequirementGUID = requirementGUID,
+                            ConcernGUID = concernGUID,
                             Value = rating
                         });
                     requirementRowIndex++;
                 }
                 decisionColumnIndex++;
             }
-            _model.SaveRatings(data);
+            _model.SaveRatings(ratings);
         }
 
         public void Configure()

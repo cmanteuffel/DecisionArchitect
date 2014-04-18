@@ -59,9 +59,6 @@
             this.RelatedTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RelatedRequirementsTb = new System.Windows.Forms.TabPage();
             this.dgvRelatedRequirements = new System.Windows.Forms.DataGridView();
-            this.reqUid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TracesTb = new System.Windows.Forms.TabPage();
             this.dgvTraces = new System.Windows.Forms.DataGridView();
             this.traceUid = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -78,6 +75,11 @@
             this.lblTopicDescription = new System.Windows.Forms.Label();
             this.txtTopicDescription = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.reqUid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.concern = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rating = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCnrtlModifiable.SuspendLayout();
             this.ProblemTab.SuspendLayout();
             this.DescriptionTab.SuspendLayout();
@@ -326,32 +328,14 @@
             this.dgvRelatedRequirements.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.reqUid,
             this.dataGridViewTextBoxColumn2,
+            this.concern,
+            this.rating,
             this.dataGridViewTextBoxColumn3});
             resources.ApplyResources(this.dgvRelatedRequirements, "dgvRelatedRequirements");
             this.dgvRelatedRequirements.Name = "dgvRelatedRequirements";
             this.dgvRelatedRequirements.ReadOnly = true;
             this.dgvRelatedRequirements.RowHeadersVisible = false;
             this.dgvRelatedRequirements.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRelatedRequirements_CellContentClick);
-            // 
-            // reqUid
-            // 
-            resources.ApplyResources(this.reqUid, "reqUid");
-            this.reqUid.Name = "reqUid";
-            this.reqUid.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            resources.ApplyResources(this.dataGridViewTextBoxColumn3, "dataGridViewTextBoxColumn3");
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
             // 
             // TracesTb
             // 
@@ -492,7 +476,39 @@
             this.panel1.Name = "panel1";
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
-            // DetailViewNew
+            // reqUid
+            // 
+            resources.ApplyResources(this.reqUid, "reqUid");
+            this.reqUid.Name = "reqUid";
+            this.reqUid.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // concern
+            // 
+            resources.ApplyResources(this.concern, "concern");
+            this.concern.Name = "concern";
+            this.concern.ReadOnly = true;
+            // 
+            // rating
+            // 
+            resources.ApplyResources(this.rating, "rating");
+            this.rating.Name = "rating";
+            this.rating.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            resources.ApplyResources(this.dataGridViewTextBoxColumn3, "dataGridViewTextBoxColumn3");
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
+            // DetailView
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -502,7 +518,7 @@
             this.Controls.Add(this.buttonCancel);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "DetailViewNew";
+            this.Name = "DetailView";
             this.ShowIcon = false;
             this.TopMost = true;
             this.Load += new System.EventHandler(this.DetailViewNew_Load);
@@ -566,9 +582,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn uid;
         private System.Windows.Forms.DataGridViewTextBoxColumn AlternativeName;
         private System.Windows.Forms.DataGridViewTextBoxColumn AlternativeFor;
-        private System.Windows.Forms.DataGridViewTextBoxColumn reqUid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn traceUid;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Type;
@@ -579,5 +592,10 @@
         private System.Windows.Forms.Label lblTopicDescription;
         private System.Windows.Forms.TextBox txtTopicDescription;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn reqUid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn concern;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rating;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
     }
 }
