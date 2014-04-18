@@ -82,6 +82,7 @@ namespace DecisionViewpoints.Model.Reporting
                     new BodyProperties(),
                     new Paragraph(
                         new Run(
+                            new RunProperties {FontSize = 1200},
                             new Text(text)))),
                 new TableCellProperties());
             return tc;

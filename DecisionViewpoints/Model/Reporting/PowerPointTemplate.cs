@@ -8717,10 +8717,8 @@ namespace DecisionViewpoints.Model.Reporting
 
             run82.Append(runProperties106);
             run82.Append(text106);
-            A.EndParagraphRunProperties endParagraphRunProperties79 = new A.EndParagraphRunProperties() { Language = "en-US", Dirty = false };
 
             paragraph120.Append(run82);
-            paragraph120.Append(endParagraphRunProperties79);
 
             textBody84.Append(bodyProperties84);
             textBody84.Append(listStyle84);
@@ -8746,7 +8744,7 @@ namespace DecisionViewpoints.Model.Reporting
 
             ApplicationNonVisualDrawingPropertiesExtension applicationNonVisualDrawingPropertiesExtension2 = new ApplicationNonVisualDrawingPropertiesExtension() { Uri = "{D42A27DB-BD31-4B8C-83A1-F6EECF244321}" };
 
-            P14.ModificationId modificationId2 = new P14.ModificationId() { Val = (UInt32Value)1170981647U };
+            P14.ModificationId modificationId2 = new P14.ModificationId() { Val = (UInt32Value)2079796323U };
             modificationId2.AddNamespaceDeclaration("p14", "http://schemas.microsoft.com/office/powerpoint/2010/main");
 
             applicationNonVisualDrawingPropertiesExtension2.Append(modificationId2);
@@ -8761,7 +8759,7 @@ namespace DecisionViewpoints.Model.Reporting
 
             Transform transform2 = new Transform();
             A.Offset offset42 = new A.Offset() { X = 304800L, Y = 1600200L };
-            A.Extents extents42 = new A.Extents() { Cx = 3505200L, Cy = 370840L };
+            A.Extents extents42 = new A.Extents() { Cx = 3124200L, Cy = 274320L };
 
             transform2.Append(offset42);
             transform2.Append(extents42);
@@ -8779,13 +8777,13 @@ namespace DecisionViewpoints.Model.Reporting
             tableProperties2.Append(tableStyleId2);
 
             A.TableGrid tableGrid2 = new A.TableGrid();
-            A.GridColumn gridColumn3 = new A.GridColumn() { Width = 1752600L };
-            A.GridColumn gridColumn4 = new A.GridColumn() { Width = 1752600L };
+            A.GridColumn gridColumn3 = new A.GridColumn() { Width = 1562100L };
+            A.GridColumn gridColumn4 = new A.GridColumn() { Width = 1562100L };
 
             tableGrid2.Append(gridColumn3);
             tableGrid2.Append(gridColumn4);
 
-            A.TableRow tableRow10 = new A.TableRow() { Height = 370840L };
+            A.TableRow tableRow10 = new A.TableRow() { Height = 228600L };
 
             A.TableCell tableCell19 = new A.TableCell();
 
@@ -8794,9 +8792,9 @@ namespace DecisionViewpoints.Model.Reporting
             A.ListStyle listStyle85 = new A.ListStyle();
 
             A.Paragraph paragraph121 = new A.Paragraph();
-            A.EndParagraphRunProperties endParagraphRunProperties80 = new A.EndParagraphRunProperties() { Language = "en-US", FontSize = 1200, Dirty = false };
+            A.EndParagraphRunProperties endParagraphRunProperties79 = new A.EndParagraphRunProperties() { Language = "en-US", FontSize = 1200, Dirty = false };
 
-            paragraph121.Append(endParagraphRunProperties80);
+            paragraph121.Append(endParagraphRunProperties79);
 
             textBody85.Append(bodyProperties85);
             textBody85.Append(listStyle85);
@@ -8816,17 +8814,17 @@ namespace DecisionViewpoints.Model.Reporting
 
             A.Run run83 = new A.Run();
 
-            A.RunProperties runProperties107 = new A.RunProperties() { Language = "en-US", Dirty = false };
+            A.RunProperties runProperties107 = new A.RunProperties() { Language = "en-US", FontSize = 1200, Dirty = false };
             runProperties107.SetAttribute(new OpenXmlAttribute("", "smtClean", "", "0"));
             A.Text text107 = new A.Text();
             text107.Text = "Concerns";
 
             run83.Append(runProperties107);
             run83.Append(text107);
-            A.EndParagraphRunProperties endParagraphRunProperties81 = new A.EndParagraphRunProperties() { Language = "en-US", Dirty = false };
+            A.EndParagraphRunProperties endParagraphRunProperties80 = new A.EndParagraphRunProperties() { Language = "en-US", FontSize = 1200, Dirty = false };
 
             paragraph122.Append(run83);
-            paragraph122.Append(endParagraphRunProperties81);
+            paragraph122.Append(endParagraphRunProperties80);
 
             textBody86.Append(bodyProperties86);
             textBody86.Append(listStyle86);
@@ -8993,9 +8991,9 @@ namespace DecisionViewpoints.Model.Reporting
         {
             document.PackageProperties.Creator = "Spyros";
             document.PackageProperties.Title = "PowerPoint Presentation";
-            document.PackageProperties.Revision = "28";
+            document.PackageProperties.Revision = "29";
             document.PackageProperties.Created = System.Xml.XmlConvert.ToDateTime("2013-07-27T17:27:29Z", System.Xml.XmlDateTimeSerializationMode.RoundtripKind);
-            document.PackageProperties.Modified = System.Xml.XmlConvert.ToDateTime("2013-07-28T13:29:52Z", System.Xml.XmlDateTimeSerializationMode.RoundtripKind);
+            document.PackageProperties.Modified = System.Xml.XmlConvert.ToDateTime("2013-07-28T17:10:02Z", System.Xml.XmlDateTimeSerializationMode.RoundtripKind);
             document.PackageProperties.LastModifiedBy = "Spyros";
         }
 

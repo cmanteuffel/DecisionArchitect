@@ -11,10 +11,10 @@ namespace DecisionViewpoints.Model.Reporting
 {
     public class ImageSlide : AbstractSlide
     {
-        private readonly EADiagram _diagram;
         private const string NewImageName = "newImage";
         private static int _imgId;
-        
+        private readonly EADiagram _diagram;
+
         public ImageSlide(PresentationDocument document, SlidePart templateSlide, EADiagram diagram)
             : base(document, templateSlide)
         {

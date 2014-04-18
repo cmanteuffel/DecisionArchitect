@@ -217,7 +217,7 @@ namespace DecisionViewpoints.Model.Reporting
 
         public void Open()
         {
-            var filepath = string.Format("{0}/{1}", Directory.GetCurrentDirectory(), _filename);
+            var filepath = Path.Combine(Directory.GetCurrentDirectory(), _filename);
             _wordDoc = WordprocessingDocument.Open(filepath, true);
             _mainPart = _wordDoc.MainDocumentPart;
             _body = _mainPart.Document.Body;

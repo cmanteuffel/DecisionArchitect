@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using DecisionViewpoints.Logic.Chronological;
 using DecisionViewpoints.Logic.Reporting;
 using DecisionViewpoints.Model.Menu;
+using DecisionViewpoints.Model.Reporting;
+using DecisionViewpoints.Properties;
 using DecisionViewpointsCustomViews.Model;
 using EAFacade.Model;
 using MenuItem = DecisionViewpoints.Model.Menu.MenuItem;
-using Settings = DecisionViewpoints.Properties.Settings;
 
 namespace DecisionViewpoints.Logic.Menu
 {
@@ -222,29 +224,29 @@ namespace DecisionViewpoints.Logic.Menu
 
         private static void GenerateReport()
         {
-            var repository = EARepository.Instance;
-            var decisions =
+            EARepository repository = EARepository.Instance;
+            List<Decision> decisions =
                 (from EAElement element in repository.GetAllElements()
                  where element.IsDecision()
                  where !element.IsHistoryDecision()
                  select new Decision(element)).ToList();
-            var diagrams =
+            List<EADiagram> diagrams =
                 (from EAPackage package in repository.GetAllDecisionViewPackages()
                  from EADiagram diagram in package.GetDiagrams()
                  select diagram).ToList();
-            var report = ReportFactory.Create(ReportType.PowerPoint, "Presentation.pptx");
+            IReportDocument report = ReportFactory.Create(ReportType.Excel, "Report.xlsx");
             report.Open();
             try
             {
-                foreach (var decision in decisions)
+                foreach (Decision decision in decisions)
                 {
                     report.InsertDecisionTable(decision);
                 }
-                foreach (var diagram in diagrams.Where(diagram => !diagram.IsForcesView()))
+                foreach (EADiagram diagram in diagrams.Where(diagram => !diagram.IsForcesView()))
                 {
                     report.InsertDiagramImage(diagram);
                 }
-                foreach (var diagram in diagrams.Where(diagram => diagram.IsForcesView()))
+                foreach (EADiagram diagram in diagrams.Where(diagram => diagram.IsForcesView()))
                 {
                     report.InsertForcesTable(new ForcesModel(diagram));
                 }

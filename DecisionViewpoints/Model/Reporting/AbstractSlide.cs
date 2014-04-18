@@ -8,13 +8,13 @@ using Text = DocumentFormat.OpenXml.Drawing.Text;
 
 namespace DecisionViewpoints.Model.Reporting
 {
-    public abstract class AbstractSlide :ISlide
+    public abstract class AbstractSlide : ISlide
     {
+        private const string NewSlideName = "newSlide";
+        private static int _slideId;
         private readonly PresentationDocument _doc;
         private readonly SlidePart _teplateSlide;
         protected SlidePart NewSlidePart;
-        private const string NewSlideName = "newSlide";
-        private static int _slideId;
 
         protected AbstractSlide(PresentationDocument document, SlidePart templateSlide)
         {
@@ -46,7 +46,7 @@ namespace DecisionViewpoints.Model.Reporting
             //need to assign an id to the new slide and add it to the slideIdList
             //first figure out the largest existing id
             SlideIdList slideIdList = _doc.PresentationPart.Presentation.SlideIdList;
-            uint[] maxSlideId = { 1 };
+            uint[] maxSlideId = {1};
 
             foreach (
                 SlideId slideId in
@@ -57,10 +57,10 @@ namespace DecisionViewpoints.Model.Reporting
 
             //assign an id and add the new slide at the end of the list
             var newSlideId = new SlideId
-            {
-                Id = ++maxSlideId[0],
-                RelationshipId = _doc.PresentationPart.GetIdOfPart(NewSlidePart)
-            };
+                {
+                    Id = ++maxSlideId[0],
+                    RelationshipId = _doc.PresentationPart.GetIdOfPart(NewSlidePart)
+                };
             slideIdList.AppendChild(newSlideId);
         }
 
