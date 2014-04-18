@@ -47,7 +47,7 @@ namespace EAFacade
                     //FIX: model returns for some reason otNone, translated to otModel. Might cause problems. 
                     return NativeType.Model;
                 default:
-                    MessageBox.Show("" + nativeOt);
+                    //MessageBox.Show("" + nativeOt);
                     return NativeType.Unspecified;
             }
         }
