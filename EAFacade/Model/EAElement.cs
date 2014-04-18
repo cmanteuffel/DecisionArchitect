@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Xml;
 using EA;
@@ -150,8 +151,12 @@ namespace EAFacade.Model
 
         public static int CompareByStateDateModified(EAElement x, EAElement y)
         {
-            DateTime xModified = DateTime.Parse(x.GetTaggedValue(DVTaggedValueKeys.DecisionStateModifiedDate));
-            DateTime yModified = DateTime.Parse(y.GetTaggedValue(DVTaggedValueKeys.DecisionStateModifiedDate));
+            var oldestDateString =DateTime.MinValue.ToString(CultureInfo.InvariantCulture);
+            var xDateString = x.GetTaggedValue(DVTaggedValueKeys.DecisionStateModifiedDate) ?? oldestDateString;
+            var yDateString = y.GetTaggedValue(DVTaggedValueKeys.DecisionStateModifiedDate) ?? oldestDateString;
+
+            DateTime xModified = DateTime.Parse(xDateString);
+            DateTime yModified = DateTime.Parse(yDateString);
             return DateTime.Compare(xModified, yModified);
         }
 
