@@ -31,7 +31,8 @@ namespace DecisionViewpoints.Logic.Forces
             }
             ICustomView forcesView = repository.AddTab(forcesDiagramModel.Name,
                                                        "DecisionViewpointsCustomViews.CustomViewControl");
-            _views.Add(forcesDiagramModel.Name, forcesView);
+            if (!_views.ContainsKey(forcesDiagramModel.DiagramGUID))
+                _views.Add(forcesDiagramModel.DiagramGUID, forcesView);
             var forcesController = new ForcesController(forcesView, forcesDiagramModel);
             forcesController.UpdateTable();
             return true;
@@ -43,12 +44,13 @@ namespace DecisionViewpoints.Logic.Forces
             var repository = EARepository.Instance;
             var diagram = repository.GetDiagramByGuid(guid);
             var modelName = String.Format("{0} (Forces)", diagram.Name);
-            var forcesModel = new ForcesDiagramModel
+            var forcesDiagramModel = new ForcesDiagramModel
                 {
                     DiagramModel = diagram,
                     Name = modelName
                 };
-            var forcesController = new ForcesController(_views[modelName], forcesModel);
+            if (repository.IsTabOpen(forcesDiagramModel.Name) <= 0) return;
+            var forcesController = new ForcesController(_views[forcesDiagramModel.DiagramGUID], forcesDiagramModel);
             forcesController.UpdateTable();
         }
 
@@ -58,5 +60,7 @@ namespace DecisionViewpoints.Logic.Forces
             var repository = EARepository.Instance;
             return repository.GetDiagramByGuid(guid).IsForces();
         }
+
+        // TODO: when a diagram a deleted, we need to delete the viwe associated with it in the _views
     }
 }

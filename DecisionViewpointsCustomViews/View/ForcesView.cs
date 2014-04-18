@@ -16,7 +16,6 @@ namespace DecisionViewpointsCustomViews.View
         private Button _btnSave;
         private DataGridView _forcesTable;
         private Button _btnConfigure;
-        private Label _diagramGUID;
         private ICustomViewController _controller;
 
         public ForcesView()
@@ -29,7 +28,6 @@ namespace DecisionViewpointsCustomViews.View
             this._btnSave = new System.Windows.Forms.Button();
             this._forcesTable = new System.Windows.Forms.DataGridView();
             this._btnConfigure = new System.Windows.Forms.Button();
-            this._diagramGUID = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this._forcesTable)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,19 +60,8 @@ namespace DecisionViewpointsCustomViews.View
             this._btnConfigure.UseVisualStyleBackColor = true;
             this._btnConfigure.Click += new System.EventHandler(this._btnConfigure_Click);
             // 
-            // _diagramGUID
-            // 
-            this._diagramGUID.AutoSize = true;
-            this._diagramGUID.Location = new System.Drawing.Point(516, 641);
-            this._diagramGUID.Name = "_diagramGUID";
-            this._diagramGUID.Size = new System.Drawing.Size(70, 26);
-            this._diagramGUID.TabIndex = 4;
-            this._diagramGUID.Text = "label1";
-            this._diagramGUID.Visible = false;
-            // 
             // ForcesView
             // 
-            this.Controls.Add(this._diagramGUID);
             this.Controls.Add(this._btnConfigure);
             this.Controls.Add(this._forcesTable);
             this.Controls.Add(this._btnSave);
@@ -82,7 +69,6 @@ namespace DecisionViewpointsCustomViews.View
             this.Size = new System.Drawing.Size(850, 696);
             ((System.ComponentModel.ISupportInitialize)(this._forcesTable)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -122,6 +108,7 @@ namespace DecisionViewpointsCustomViews.View
             }
 
             _forcesTable.DataSource = data;
+            _forcesTable.Refresh();
 
             if (data.Columns.Count <= 0) return;
 
