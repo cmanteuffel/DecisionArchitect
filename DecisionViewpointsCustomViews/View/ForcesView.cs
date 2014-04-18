@@ -20,6 +20,13 @@ namespace DecisionViewpointsCustomViews.View
         private Button _btnConfigure;
         private ICustomViewController _controller;
 
+        private const int DecisionColumnIndex = 2;
+        private const int ConcernColumnIndex = 1;
+
+        private const string ConcernHeader = "Concern";
+        private const string RequirementGUIDHeader = "RequirementGUID";
+        private const string DecisionGUIDHeader = "DecisionGUID";
+
         public ForcesView()
         {
             InitializeComponent();
@@ -49,13 +56,15 @@ namespace DecisionViewpointsCustomViews.View
                 System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._forcesTable.Location = new System.Drawing.Point(35, 30);
             this._forcesTable.Name = "_forcesTable";
+            this._forcesTable.RowHeadersWidthSizeMode =
+                System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this._forcesTable.RowTemplate.Height = 33;
             this._forcesTable.Size = new System.Drawing.Size(762, 582);
             this._forcesTable.TabIndex = 2;
             // 
             // _btnConfigure
             // 
-            this._btnConfigure.Location = new System.Drawing.Point(146, 644);
+            this._btnConfigure.Location = new System.Drawing.Point(116, 644);
             this._btnConfigure.Name = "_btnConfigure";
             this._btnConfigure.Size = new System.Drawing.Size(75, 23);
             this._btnConfigure.TabIndex = 3;
@@ -98,29 +107,37 @@ namespace DecisionViewpointsCustomViews.View
         {
             var data = new DataTable();
 
-            data.Columns.Add("Concerns");
+            data.Columns.Add(RequirementGUIDHeader);
+            data.PrimaryKey = new[] {data.Columns[RequirementGUIDHeader]};
+            data.Columns.Add(ConcernHeader);
 
             foreach (var decision in model.GetDecisions())
             {
                 data.Columns.Add(decision.Name);
             }
-            for (var index = 0; index < model.GetRequirements().Count; index++)
+            foreach (var requirement in model.GetRequirements())
             {
-                data.Rows.Add();
+                data.Rows.Add(new object[] {requirement.GUID});
             }
+            data.Rows.Add(new object[] {0});
 
-            var rowIndex = 0;
             foreach (var reqConcerns in model.GetConcerns())
             {
                 var concerns = new StringBuilder();
-                var concIndex = 0;
+                var concernIndex = 0;
                 foreach (var concern in reqConcerns.Value)
                 {
-                    if (concIndex++ > 0)
+                    if (concernIndex++ > 0)
                         concerns.Append(", ");
                     concerns.Append(concern.Name);
                 }
-                data.Rows[rowIndex++][0] = concerns;
+                data.Rows.Find(reqConcerns.Key.GUID)[ConcernColumnIndex] = concerns;
+            }
+
+            var decisionIndex = 0;
+            foreach (var decision in model.GetDecisions())
+            {
+                data.Rows[data.Rows.Count - 1][decisionIndex++ + DecisionColumnIndex] = decision.GUID;
             }
 
             _forcesTable.DataSource = data;
@@ -131,8 +148,18 @@ namespace DecisionViewpointsCustomViews.View
             {
                 _forcesTable.Rows[index].HeaderCell.Value = model.GetRequirements()[index].Name;
             }
+            _forcesTable.Rows[_forcesTable.Rows.Count - DecisionColumnIndex].HeaderCell.Value = DecisionGUIDHeader;
+
+            var requirementGUIDColumn = _forcesTable.Columns[RequirementGUIDHeader];
+            if (requirementGUIDColumn != null)
+                requirementGUIDColumn.Visible = false;
+
+            _forcesTable.Rows[_forcesTable.Rows.Count - DecisionColumnIndex].Visible = false;
 
             _forcesTable.AutoResizeRowHeadersWidth(DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders);
+            // TODO: deactivate the concern column, and row and column headers
+            // TODO: permit only certain symbols for ratings
+            // TODO: bug when deleting element from project browser
         }
 
         public void RemoveDecision(string name)
