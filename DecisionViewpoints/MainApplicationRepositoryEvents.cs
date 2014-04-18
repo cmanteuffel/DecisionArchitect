@@ -121,10 +121,9 @@ namespace DecisionViewpoints
         public override bool EA_OnPostNewDiagramObject(Repository repository, EventProperties properties)
         {
             EARepository.UpdateRepository(repository);
-            var diagramObject = EADiagramObject.Wrap(properties);
             foreach (var l in _listeners)
             {
-                if (!l.OnPostNewDiagramObject(diagramObject))
+                if (!l.OnPostNewDiagramObject())
                 {
                     return false;
                 }

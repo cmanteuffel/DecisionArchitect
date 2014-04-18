@@ -86,6 +86,11 @@ namespace EAFacade.Model
             return EAElement.Wrap(Native.GetElementByGuid(guid));
         }
 
+        public EADiagram GetCurrentDiagram()
+        {
+            return EADiagram.Wrap(Native.GetCurrentDiagram());
+        }
+
         public IEnumerable<EAElement> GetAllElements()
         {
             var elements = Native.GetElementSet(null, 0);

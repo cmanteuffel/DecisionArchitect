@@ -1,4 +1,5 @@
-﻿using EAFacade.Model;
+﻿using System.Windows.Forms;
+using EAFacade.Model;
 
 namespace DecisionViewpoints.Logic.Relationship
 {
@@ -13,15 +14,19 @@ namespace DecisionViewpoints.Logic.Relationship
                 });
         }
 
-        public override bool OnPostNewDiagramObject(EADiagramObject diagramObject)
+        public override void OnNotifyContextItemModified(string guid, NativeType type)
         {
-            var diagram = diagramObject.Diagram;
-            if (!diagram.IsRelationshipView()) return true;
-            diagram.HideConnectors(new[]
+            if (NativeType.Diagram.Equals(type))
+            {
+                var diagram = EARepository.Instance.GetDiagramByGuid(guid);
+                if (!diagram.IsRelationshipView()) return;
+                diagram.HideConnectors(new[]
                 {
                     DVStereotypes.RelationFollowedBy
                 });
-            return base.OnPostNewDiagramObject(diagramObject);
+                
+            }
         }
+
     }
 }

@@ -33,6 +33,16 @@ namespace DecisionViewpoints.Logic.Chronological
         {
             switch (type)
             {
+                case NativeType.Diagram:
+                    EADiagram diagram = EARepository.Instance.GetDiagramByGuid(guid);
+                    if (!diagram.IsChronologicalView()) break;
+                    diagram.HideConnectors(new[]
+                        {
+                            DVStereotypes.RelationAlternativeFor, DVStereotypes.RelationCausedBy,
+                            DVStereotypes.RelationDependsOn,
+                            DVStereotypes.RelationExcludedBy, DVStereotypes.RelationReplaces
+                        });
+                    break;
                 case NativeType.Element:
                     EAElement element = EARepository.Instance.GetElementByGUID(guid);
 
@@ -74,6 +84,7 @@ namespace DecisionViewpoints.Logic.Chronological
                     DVStereotypes.RelationExcludedBy, DVStereotypes.RelationReplaces
                 });
         }
+
 
         public override void OnFileClose()
         {

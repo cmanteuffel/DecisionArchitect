@@ -10,6 +10,6 @@ namespace EAFacade.Model
         public const string Subtype = "subtype";
         public const string ParentId = "ParentID";
         public const string ElementId = "ElementID";
-        public const string ObjectId = "ObjectID";
+        public const string DiagramObjectId = "ID"; //According to documentation this key is called ObjectID, however in practice it is just called ID
     }
 }

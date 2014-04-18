@@ -30,7 +30,8 @@ namespace DecisionViewpoints.Logic
 
         bool OnPostNewConnector(EAConnector connector);
 
-        bool OnPostNewDiagramObject(EADiagramObject diagramObject);
+        //cm: does not return a diagram object because of an issue within the EA API
+        bool OnPostNewDiagramObject();
 
         bool OnPostNewPackage(EAPackage package);
 

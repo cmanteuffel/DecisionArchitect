@@ -67,7 +67,7 @@ namespace DecisionViewpoints.Logic
             return true;
         }
 
-        public virtual bool OnPostNewDiagramObject(EADiagramObject diagramObject)
+        public virtual bool OnPostNewDiagramObject()
         {
             return true;
         }
