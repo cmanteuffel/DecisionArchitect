@@ -299,7 +299,7 @@ namespace DecisionViewpoints.Logic.Menu
             IReportDocument report = null;
             try
             {
-                //angor start
+                //angor START
                 var filenameExtension = filename.Substring(filename.IndexOf('.'));
                 //MessageBox.Show("filename ext: "+filenameExtension); //DEBUG
                 var saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
@@ -315,7 +315,7 @@ namespace DecisionViewpoints.Logic.Menu
                 saveFileDialog1.CheckPathExists = true;
                 var reportFilename = saveFileDialog1.FileName;// + filenameExtension;
                 //MessageBox.Show("report filename: "+reportFilename + "\nOriginal filename: " + filename); //DEBUG
-                //angor end
+                //angor END
 
                 //report = ReportFactory.Create(reportType,filename);// original
                 report = ReportFactory.Create(reportType, reportFilename); // angor
@@ -332,9 +332,11 @@ namespace DecisionViewpoints.Logic.Menu
                 {
                     report.InsertForcesTable(new ForcesModel(diagram));
                 }
+                //angor START
                 //MessageBox.Show(reportType.ToString() + " " + Messages.SuccesfulReportCreation); //DEBUG //angor
                 var customMessage = new ExportReportsCustomMessageBox(reportType.ToString(), reportFilename);
                 customMessage.Show();
+                //angor END
             }
                 finally
                 {
@@ -351,13 +353,36 @@ namespace DecisionViewpoints.Logic.Menu
             IReportDocument report = null;
             try
             {
-                report = ReportFactory.Create(ReportType.Excel, filename);
+                //angor START
+                var filenameExtension = filename.Substring(filename.IndexOf('.'));
+                //MessageBox.Show("filename ext: "+filenameExtension); //DEBUG
+                var saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+                saveFileDialog1.Title = "Save report as..";
+                saveFileDialog1.Filter = "Microsoft Excel (*" + filenameExtension + ")|*" + filenameExtension;
+                saveFileDialog1.FilterIndex = 0;
+
+                if (saveFileDialog1.ShowDialog() != DialogResult.OK)
+                {
+                    return;
+                }
+                saveFileDialog1.CheckFileExists = true;
+                saveFileDialog1.CheckPathExists = true;
+                var reportFilename = saveFileDialog1.FileName;// + filenameExtension;
+                //MessageBox.Show("report filename: "+reportFilename + "\nOriginal filename: " + filename); //DEBUG
+                //angor END
+
+                //report = ReportFactory.Create(ReportType.Excel, filename); //original
+                report = ReportFactory.Create(ReportType.Excel, reportFilename); //angor
                 report.Open();
                 if (diagram.IsForcesView())
                 {
                     report.InsertForcesTable(new ForcesModel(diagram));
                 }
-                MessageBox.Show(ReportType.Excel.ToString() + " " + Messages.SuccesfulForcesReportCreation);   //angor 17/9/2013
+                //angor START
+                //MessageBox.Show(ReportType.Excel.ToString() + " " + Messages.SuccesfulForcesReportCreation);   //angor DEBUG
+                var customMessage = new ExportReportsCustomMessageBox("Excel", reportFilename);
+                customMessage.Show();
+                //angor END
             }
             finally
             {

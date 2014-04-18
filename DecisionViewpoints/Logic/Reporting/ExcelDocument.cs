@@ -24,7 +24,7 @@ namespace DecisionViewpoints.Logic.Reporting
         {
             //_filename = String.Format("{0}\\{1}", Utilities.GetDocumentsDirectory(), filename);//original
             _filename = filename;//angor
-            MessageBox.Show("Document filename: " + _filename);//DEBUG
+            //MessageBox.Show("Document filename: " + _filename);// angor DEBUG
             using (SpreadsheetDocument excelDoc = SpreadsheetDocument.Create(_filename, SpreadsheetDocumentType.Workbook)
                 )
             {

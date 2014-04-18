@@ -92,7 +92,7 @@ namespace DecisionViewpointsCustomViews.View
             "discarded",
             "rejected"});
             this.cbxState.Location = new System.Drawing.Point(126, 29);
-            this.cbxState.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbxState.Margin = new System.Windows.Forms.Padding(2);
             this.cbxState.Name = "cbxState";
             this.cbxState.Size = new System.Drawing.Size(120, 21);
             this.cbxState.TabIndex = 3;
@@ -100,7 +100,7 @@ namespace DecisionViewpointsCustomViews.View
             // txtName
             // 
             this.txtName.Location = new System.Drawing.Point(126, 6);
-            this.txtName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtName.Margin = new System.Windows.Forms.Padding(2);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(403, 20);
             this.txtName.TabIndex = 1;
@@ -109,7 +109,7 @@ namespace DecisionViewpointsCustomViews.View
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Location = new System.Drawing.Point(59, 2);
-            this.buttonCancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(2);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(62, 20);
             this.buttonCancel.TabIndex = 1;
@@ -120,7 +120,7 @@ namespace DecisionViewpointsCustomViews.View
             // 
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.Location = new System.Drawing.Point(2, 2);
-            this.buttonOk.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonOk.Margin = new System.Windows.Forms.Padding(2);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(53, 20);
             this.buttonOk.TabIndex = 0;
@@ -153,17 +153,18 @@ namespace DecisionViewpointsCustomViews.View
             this.flowLayoutPanel1.Controls.Add(this.buttonOk);
             this.flowLayoutPanel1.Controls.Add(this.buttonCancel);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(406, 539);
-            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(123, 27);
             this.flowLayoutPanel1.TabIndex = 20;
             // 
             // txtIssue
             // 
+            this.txtIssue.AcceptsTab = true;
             this.txtIssue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtIssue.Location = new System.Drawing.Point(126, 88);
-            this.txtIssue.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtIssue.Margin = new System.Windows.Forms.Padding(2);
             this.txtIssue.Name = "txtIssue";
             this.txtIssue.Size = new System.Drawing.Size(403, 52);
             this.txtIssue.TabIndex = 7;
@@ -171,10 +172,11 @@ namespace DecisionViewpointsCustomViews.View
             // 
             // txtDecision
             // 
+            this.txtDecision.AcceptsTab = true;
             this.txtDecision.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDecision.Location = new System.Drawing.Point(126, 144);
-            this.txtDecision.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtDecision.Margin = new System.Windows.Forms.Padding(2);
             this.txtDecision.Name = "txtDecision";
             this.txtDecision.Size = new System.Drawing.Size(403, 52);
             this.txtDecision.TabIndex = 9;
@@ -193,10 +195,11 @@ namespace DecisionViewpointsCustomViews.View
             // 
             // txtAlternatives
             // 
+            this.txtAlternatives.AcceptsTab = true;
             this.txtAlternatives.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtAlternatives.Location = new System.Drawing.Point(126, 200);
-            this.txtAlternatives.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtAlternatives.Margin = new System.Windows.Forms.Padding(2);
             this.txtAlternatives.Name = "txtAlternatives";
             this.txtAlternatives.Size = new System.Drawing.Size(403, 52);
             this.txtAlternatives.TabIndex = 11;
@@ -215,10 +218,11 @@ namespace DecisionViewpointsCustomViews.View
             // 
             // txtArguments
             // 
+            this.txtArguments.AcceptsTab = true;
             this.txtArguments.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtArguments.Location = new System.Drawing.Point(126, 256);
-            this.txtArguments.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtArguments.Margin = new System.Windows.Forms.Padding(2);
             this.txtArguments.Name = "txtArguments";
             this.txtArguments.Size = new System.Drawing.Size(403, 52);
             this.txtArguments.TabIndex = 13;
@@ -241,7 +245,7 @@ namespace DecisionViewpointsCustomViews.View
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtGroup.BackColor = System.Drawing.SystemColors.Window;
             this.txtGroup.Location = new System.Drawing.Point(126, 54);
-            this.txtGroup.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtGroup.Margin = new System.Windows.Forms.Padding(2);
             this.txtGroup.Name = "txtGroup";
             this.txtGroup.ReadOnly = true;
             this.txtGroup.Size = new System.Drawing.Size(403, 20);
@@ -269,10 +273,11 @@ namespace DecisionViewpointsCustomViews.View
             // 
             // txtRelatedRequirements
             // 
+            this.txtRelatedRequirements.AcceptsTab = true;
             this.txtRelatedRequirements.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRelatedRequirements.Location = new System.Drawing.Point(126, 372);
-            this.txtRelatedRequirements.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtRelatedRequirements.Margin = new System.Windows.Forms.Padding(2);
             this.txtRelatedRequirements.Name = "txtRelatedRequirements";
             this.txtRelatedRequirements.Size = new System.Drawing.Size(403, 52);
             this.txtRelatedRequirements.TabIndex = 17;
@@ -284,7 +289,7 @@ namespace DecisionViewpointsCustomViews.View
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbxRelatedDecisions.FormattingEnabled = true;
             this.lbxRelatedDecisions.Location = new System.Drawing.Point(126, 312);
-            this.lbxRelatedDecisions.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lbxRelatedDecisions.Margin = new System.Windows.Forms.Padding(2);
             this.lbxRelatedDecisions.Name = "lbxRelatedDecisions";
             this.lbxRelatedDecisions.SelectionMode = System.Windows.Forms.SelectionMode.None;
             this.lbxRelatedDecisions.Size = new System.Drawing.Size(403, 56);
@@ -311,7 +316,7 @@ namespace DecisionViewpointsCustomViews.View
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvHistory.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvHistory.Location = new System.Drawing.Point(126, 428);
-            this.dgvHistory.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvHistory.Margin = new System.Windows.Forms.Padding(2);
             this.dgvHistory.Name = "dgvHistory";
             this.dgvHistory.ReadOnly = true;
             this.dgvHistory.RowHeadersVisible = false;
@@ -381,7 +386,7 @@ namespace DecisionViewpointsCustomViews.View
             this.Controls.Add(this.cbxState);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimumSize = new System.Drawing.Size(408, 504);
             this.Name = "DetailView";
             this.ShowIcon = false;
