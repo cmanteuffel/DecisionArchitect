@@ -60,6 +60,11 @@ namespace DecisionViewpointsCustomViews.View
             }
         }
 
+        public string DecisionIssuePlainText
+        {
+            get { return txtIssue.Text; }
+        }
+
         public string DecisionText
         {
             /*  //original for not formatted Text

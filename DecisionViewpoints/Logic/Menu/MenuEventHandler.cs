@@ -322,7 +322,21 @@ namespace DecisionViewpoints.Logic.Menu
                 //angor END
 
                 //report = ReportFactory.Create(reportType,filename);// original
-                report = ReportFactory.Create(reportType, reportFilename); // angor
+
+                //angor START
+                report = ReportFactory.Create(reportType, reportFilename); //angor
+                //if the report cannot be created because is already used by another program a message will appear
+                //angor task165 START 
+                if (report == null)
+                {
+                    MessageBox.Show("Check if another program is using this file.",
+                        "Fail to create report",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                    return;
+                }
+                //angor task165 END
+                //angor END
                 report.Open();
                 foreach (Decision decision in decisions)
                 {

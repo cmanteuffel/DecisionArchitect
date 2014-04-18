@@ -13,6 +13,8 @@ namespace DecisionViewpointsCustomViews.View
         string DecisionArguments { get; set; }
         string DecisionRelatedRequirements { get; set; }
 
+        //string DecisionIssuePlainText { get; }//angor
+
         void ShowAsDialog();
         void SetController(IDetailViewController controller);
         void AddRelatedDecision(string relationship, string name, bool isClient);
