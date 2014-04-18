@@ -66,6 +66,7 @@
     <Compile Include="Logic\IRepositoryListener.cs" />
     <Compile Include="Logic\StakeholderInvolvement\StakeholderInvolvementHandler.cs" />
     <Compile Include="Logic\Validation\ValidationHandler.cs" />
+    <Compile Include="MainApplicationFileEvents.cs" />
     <Compile Include="MainApplicationMenuEvents.cs" />
     <Compile Include="MainApplicationModelValidatorEvents.cs" />
     <Compile Include="MainApplicationRepositoryEvents.cs" />
