@@ -106,7 +106,7 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This is only an old version of a decision, only the state and date of modfication were captured. Do you want to open the latest version of the decision instead?.
+        ///   Looks up a localized string similar to This is only a copy of the orginal decision. No modifiactions will be stored in this element. Do you want to open the original version of the decision instead?.
         /// </summary>
         internal static string DialogOpenLatestDecision {
             get {
