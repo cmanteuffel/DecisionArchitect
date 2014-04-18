@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using EA;
 
@@ -93,7 +94,6 @@ namespace EAFacade.Model
             EARepository.Instance.Native.ShowInProjectView(_native);
         }
 
-        [Obsolete("Do not use outside of model namespace or main app")]
         internal static EADiagram Wrap(Diagram native)
         {
             return new EADiagram(native);
@@ -118,7 +118,7 @@ namespace EAFacade.Model
             {
                 _native.SelectedObjects.Delete(i);
             }
-            _native.SelectedObjects.AddNew(element.ID.ToString(), element.Type);
+            _native.SelectedObjects.AddNew(element.ID.ToString(CultureInfo.InvariantCulture), element.Type);
             repository.ActivateDiagram(_native.DiagramID);
         }
 
@@ -133,9 +133,9 @@ namespace EAFacade.Model
         {
             var repository = EARepository.Instance;
             foreach (var diagramLink in from DiagramLink diagramLink in _native.DiagramLinks
-                                                let connector = repository.GetConnectorByID(diagramLink.ConnectorID)
-                                                where stereotypes.Contains(connector.Stereotype)
-                                                select diagramLink)
+                                        let connector = repository.GetConnectorByID(diagramLink.ConnectorID)
+                                        where stereotypes.Contains(connector.Stereotype)
+                                        select diagramLink)
             {
                 diagramLink.IsHidden = true;
                 diagramLink.Update();
@@ -167,13 +167,10 @@ namespace EAFacade.Model
         public bool Contains(EAElement element)
         {
             var repository = EARepository.Instance;
-            foreach (DiagramObject diagramObject in _native.DiagramObjects)
-            {
-                var diagramElement = repository.GetElementByID(diagramObject.ElementID);
-                if (diagramElement.GUID == element.GUID)
-                    return true;
-            }
-            return false;
+            return
+                (from DiagramObject diagramObject in _native.DiagramObjects
+                 select repository.GetElementByID(diagramObject.ElementID)).Any(
+                     diagramElement => diagramElement.GUID == element.GUID);
         }
     }
 }

@@ -40,6 +40,8 @@ namespace DecisionViewpointsCustomViews.Model
             set { _element.StereotypeList = value; }
         }
 
+        public string Group { get; set; }
+
         public string Issue
         {
             get { return GetSubstring(DecisionDataTags.Issue); }

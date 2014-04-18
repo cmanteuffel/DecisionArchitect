@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 using DecisionViewpoints.Logic.Chronological;
+using DecisionViewpoints.Logic.Reporting;
 using DecisionViewpoints.Properties;
+using DecisionViewpointsCustomViews.Model;
 using EAFacade.Model;
 
 namespace DecisionViewpoints.Logic.Menu
@@ -90,6 +93,8 @@ namespace DecisionViewpoints.Logic.Menu
                         }
                 };
 
+            var generateReport = new MenuItem("Generate Report", GenerateReport);
+
             RootMenu.Add(createTraces);
             createTraces.Add(createAndTraceDecision);
             createTraces.Add(new MenuItem(Messages.MenuTraceToExistingElement,
@@ -104,6 +109,7 @@ namespace DecisionViewpoints.Logic.Menu
             RootMenu.Add(MenuItem.Separator);
             RootMenu.Add(generateChronologicalView);
             RootMenu.Add(MenuItem.Separator);
+            RootMenu.Add(generateReport);
         }
 
         public static object GetMenuItems(string location, string menuName)
@@ -211,6 +217,15 @@ namespace DecisionViewpoints.Logic.Menu
                                                                     chronologicalView);
                 generator.GenerateViewpoint();
             }
+        }
+
+        private static void GenerateReport()
+        {
+            var decisions =
+                (from EAElement element in EARepository.Instance.GetAllElements()
+                 where element.IsDecision()
+                 select new Decision(element)).ToList();
+            Report.Instance.CreateWord(decisions);
         }
     }
 }

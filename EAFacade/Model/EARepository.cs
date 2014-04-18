@@ -1,6 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using EA;
 
 namespace EAFacade.Model
@@ -34,16 +34,11 @@ namespace EAFacade.Model
 
         public IEnumerable<EAPackage> GetAllDecisionViewPackages()
         {
-            ICollection<EAPackage> decisionViewPackages = new List<EAPackage>();
-            foreach (Package package in Root.Packages)
-            {
-                var eapackage = EAPackage.Wrap(package);
-                if (eapackage.IsDecisionViewPackage())
-                {
-                    decisionViewPackages.Add(eapackage);
-                }
-            }
-            return decisionViewPackages;
+            return
+                Root.Packages.Cast<Package>()
+                    .Select(EAPackage.Wrap)
+                    .Where(eapackage => eapackage.IsDecisionViewPackage())
+                    .ToList();
         }
 
         public EAPackage GetPackageFromRootByName(string name)
@@ -91,9 +86,10 @@ namespace EAFacade.Model
             return EAElement.Wrap(Native.GetElementByGuid(guid));
         }
 
-        public IEnumerable GetAllElements()
+        public IEnumerable<EAElement> GetAllElements()
         {
-            return Native.GetElementSet(null, 0);
+            var elements = Native.GetElementSet(null, 0);
+            return (from object element in elements select EAElement.Wrap((Element) element)).ToList();
         }
 
         public void RefreshModelView(int packageID)
@@ -183,7 +179,7 @@ namespace EAFacade.Model
                 }
                 return default(T);
             }
-            if (typeT == typeof(EADiagram))
+            if (typeT == typeof (EADiagram))
             {
                 var nativeDiagram = obj as Diagram;
                 if (nativeDiagram != null)

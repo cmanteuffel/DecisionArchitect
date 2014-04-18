@@ -134,7 +134,6 @@ namespace EAFacade.Model
             EARepository.Instance.Native.ShowInProjectView(_native);
         }
 
-        [Obsolete("Do not use outside of model namespace or main app")]
         public static EAElement Wrap(Element native)
         {
             return new EAElement(native);
