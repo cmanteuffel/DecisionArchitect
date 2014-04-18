@@ -7,10 +7,10 @@ namespace DecisionViewpointsCustomViews.Model
     {
         string Name { get; }
         string DiagramGUID { get; }
-        EADiagram DiagramModel { get; set; }
+        EADiagram DiagramModel { set; }
 
-        void AddListener(ICustomViewModelListener listener);
-        void RemoveListener(ICustomViewModelListener listener);
+        void AddObserver(ICustomViewModelObserver observer);
+        void RemoveObserver(ICustomViewModelObserver observer);
         void SaveRatings();
         List<string> GetDecisions();
         List<string> GetRequirements();

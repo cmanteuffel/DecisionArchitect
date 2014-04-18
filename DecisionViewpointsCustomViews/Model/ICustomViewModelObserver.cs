@@ -1,6 +1,6 @@
 ﻿namespace DecisionViewpointsCustomViews.Model
 {
-    public interface ICustomViewModelListener
+    public interface ICustomViewModelObserver
     {
         void Update(ICustomViewModel model);
     }

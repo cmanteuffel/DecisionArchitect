@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using DecisionViewpointsCustomViews.Controller;
 using DecisionViewpointsCustomViews.Model;
 using DecisionViewpointsCustomViews.View;
@@ -9,18 +10,19 @@ namespace DecisionViewpoints.Logic.Forces
 {
     public class ForcesHandler : RepositoryAdapter
     {
-        // hold a referecne to the created controller so to respond to the changed events (might need to change)
-        private ICustomViewController _forcesController;
+        // hold referecnes to the created views so to respond to the changed events (might need to change)
+        private readonly Dictionary<string, ICustomView> _views = new Dictionary<string, ICustomView>();
 
         public override bool OnContextItemDoubleClicked(string guid, ObjectType type)
         {
             if (!IsForcesDiagram(guid, type)) return false;
             var repository = EARepository.Instance;
             var diagram = repository.GetDiagramByGuid(guid);
+            var modelName = String.Format("{0} (Forces)", diagram.Name);
             var forcesDiagramModel = new ForcesDiagramModel
                 {
                     DiagramModel = diagram,
-                    Name = String.Format("{0} (Forces)", diagram.Name)
+                    Name = modelName
                 };
             if (repository.IsTabOpen(forcesDiagramModel.Name) > 0)
             {
@@ -29,8 +31,9 @@ namespace DecisionViewpoints.Logic.Forces
             }
             ICustomView forcesView = repository.AddTab(forcesDiagramModel.Name,
                                                        "DecisionViewpointsCustomViews.CustomViewControl");
-            _forcesController = new ForcesController(forcesView, forcesDiagramModel);
-            _forcesController.UpdateTable();
+            _views.Add(forcesDiagramModel.Name, forcesView);
+            var forcesController = new ForcesController(forcesView, forcesDiagramModel);
+            forcesController.UpdateTable();
             return true;
         }
 
@@ -39,8 +42,14 @@ namespace DecisionViewpoints.Logic.Forces
             if (!IsForcesDiagram(guid, type)) return;
             var repository = EARepository.Instance;
             var diagram = repository.GetDiagramByGuid(guid);
-            if (_forcesController == null) return;
-            _forcesController.SetDiagramModel(diagram);
+            var modelName = String.Format("{0} (Forces)", diagram.Name);
+            var forcesModel = new ForcesDiagramModel
+                {
+                    DiagramModel = diagram,
+                    Name = modelName
+                };
+            var forcesController = new ForcesController(_views[modelName], forcesModel);
+            forcesController.UpdateTable();
         }
 
         private static bool IsForcesDiagram(string guid, ObjectType type)

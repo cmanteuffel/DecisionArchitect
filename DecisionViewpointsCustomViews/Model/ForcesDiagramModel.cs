@@ -7,7 +7,8 @@ namespace DecisionViewpointsCustomViews.Model
 {
     public class ForcesDiagramModel : ICustomViewModel
     {
-        private readonly List<ICustomViewModelListener> _listeners = new List<ICustomViewModelListener>();
+        private readonly List<ICustomViewModelObserver> _observers = new List<ICustomViewModelObserver>();
+        private EADiagram _diagram;
         public string Name { get; set; }
 
         public string DiagramGUID
@@ -15,11 +16,8 @@ namespace DecisionViewpointsCustomViews.Model
             get { return _diagram.GUID; }
         }
 
-        private EADiagram _diagram;
-
         public EADiagram DiagramModel
         {
-            get { return _diagram; }
             set
             {
                 _diagram = value;
@@ -27,21 +25,21 @@ namespace DecisionViewpointsCustomViews.Model
             }
         }
 
-        public void AddListener(ICustomViewModelListener listener)
+        public void AddObserver(ICustomViewModelObserver observer)
         {
-            _listeners.Add(listener);
+            _observers.Add(observer);
         }
 
-        public void RemoveListener(ICustomViewModelListener listener)
+        public void RemoveObserver(ICustomViewModelObserver observer)
         {
-            _listeners.Remove(listener);
+            _observers.Remove(observer);
         }
 
         public void Notify()
         {
-            foreach (var listener in _listeners)
+            foreach (var observer in _observers)
             {
-                listener.Update(this);
+                observer.Update(this);
             }
         }
 
