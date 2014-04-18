@@ -16,8 +16,7 @@ namespace DecisionViewpoints.Logic.Detail
             if (!element.IsDecision() && !element.IsTopic()) return false;
             if (element.IsDecision() && !element.IsHistoryDecision())
             {
-                //var detailController = new DetailController(new Decision(element), new DetailView());//original
-                var detailController = new DetailController(new Decision(element), new DetailView()); //angor
+                var detailController = new DetailController(new Decision(element), new DetailView());
                 detailController.ShowDetailView();
             }
             else if (element.IsDecision() && element.IsHistoryDecision())
@@ -39,27 +38,12 @@ namespace DecisionViewpoints.Logic.Detail
             }
             else if (element.IsTopic())
             {
-                //MessageBox.Show("Topic: OnContextItemDoubleClicked");
                 var topicDetailController = new TopicDetailController(new Topic(element), new TopicDetailView());
                 topicDetailController.ShowDetailView();
             }
             return true;
         }
 
-        //angor task189 END
-
-        /*
-        public override bool OnPostNewElement(EAElement element)
-        {
-            if (!element.IsDecision()) return false;
-            EARepository.Instance.SuppressDefaultDialogs(true);
-            //var detailController = new DetailController(new Decision(element), new DetailView());//original
-            var detailController = new DetailController(new Decision(element), new DetailViewNew());//angor
-            detailController.ShowDetailView();
-            return false;
-        }
-         */
-        //angor task189 START
         public override bool OnPostNewElement(EAElement element)
         {
             if (!element.IsDecision() && !element.IsTopic()) return false;
@@ -72,13 +56,10 @@ namespace DecisionViewpoints.Logic.Detail
             }
             else if (element.IsTopic())
             {
-                //MessageBox.Show("Topic: OnPostNewElement");
                 var topicDetailController = new TopicDetailController(new Topic(element), new TopicDetailView());
                 topicDetailController.ShowDetailView();
             }
             return false;
         }
-
-        //angor task189 END
     }
 }

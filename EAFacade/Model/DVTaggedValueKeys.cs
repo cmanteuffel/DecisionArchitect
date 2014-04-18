@@ -8,7 +8,6 @@ namespace EAFacade.Model
         public const string DecisionHistoryState = "DV.DecisionHistoryState";
         public const string IsHistoryDecision = "DV.IsHistory";
         public const string DecisionStateChange = "DV.StateChange";
-
         public const string OriginalDecisionGuid = "DV.OriginalDecisionGuid";
     }
 }

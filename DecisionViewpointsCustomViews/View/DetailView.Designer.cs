@@ -33,38 +33,38 @@
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.tbCntrlUnodifiable = new System.Windows.Forms.TabControl();
-            this.HistoryTb = new System.Windows.Forms.TabPage();
-            this.dgvHistory = new System.Windows.Forms.DataGridView();
-            this.Iteration = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Action = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Stakeholder = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.stakeholderuid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TracesTb = new System.Windows.Forms.TabPage();
-            this.dgvTraces = new System.Windows.Forms.DataGridView();
-            this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.traceUid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RelatedRequirementsTb = new System.Windows.Forms.TabPage();
-            this.dgvRelatedRequirements = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rating = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.concern = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.reqUid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RelatedDecisionsTb = new System.Windows.Forms.TabPage();
-            this.dgvRelatedDecisions = new System.Windows.Forms.DataGridView();
-            this.relatedUid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RelatedTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Relation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RelatedName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AlternativeTb = new System.Windows.Forms.TabPage();
             this.dgvAlternatives = new System.Windows.Forms.DataGridView();
-            this.AlternativeFor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AlternativeUid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AlternativeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.decisionUid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AlternativeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AlternativeUid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AlternativeFor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RelatedDecisionsTb = new System.Windows.Forms.TabPage();
+            this.dgvRelatedDecisions = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RelatedName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Relation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RelatedTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.relatedUid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RelatedRequirementsTb = new System.Windows.Forms.TabPage();
+            this.dgvRelatedRequirements = new System.Windows.Forms.DataGridView();
+            this.reqUid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.concern = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rating = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TracesTb = new System.Windows.Forms.TabPage();
+            this.dgvTraces = new System.Windows.Forms.DataGridView();
+            this.traceUid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HistoryTb = new System.Windows.Forms.TabPage();
+            this.dgvHistory = new System.Windows.Forms.DataGridView();
+            this.stakeholderuid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Stakeholder = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Action = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Iteration = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnunderline = new System.Windows.Forms.Button();
             this.btnItalics = new System.Windows.Forms.Button();
             this.btnBold = new System.Windows.Forms.Button();
@@ -77,28 +77,28 @@
             this.lblTopicDescription = new System.Windows.Forms.Label();
             this.lblTopicName = new System.Windows.Forms.Label();
             this.tbCnrtlModifiable = new System.Windows.Forms.TabControl();
-            this.ArgumentsTab = new System.Windows.Forms.TabPage();
-            this.txtArguments = new System.Windows.Forms.RichTextBox();
-            this.DescriptionTab = new System.Windows.Forms.TabPage();
-            this.txtDecision = new System.Windows.Forms.RichTextBox();
             this.ProblemTab = new System.Windows.Forms.TabPage();
             this.txtIssue = new System.Windows.Forms.RichTextBox();
+            this.DescriptionTab = new System.Windows.Forms.TabPage();
+            this.txtDecision = new System.Windows.Forms.RichTextBox();
+            this.ArgumentsTab = new System.Windows.Forms.TabPage();
+            this.txtArguments = new System.Windows.Forms.RichTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.tbCntrlUnodifiable.SuspendLayout();
-            this.HistoryTb.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvHistory)).BeginInit();
-            this.TracesTb.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTraces)).BeginInit();
-            this.RelatedRequirementsTb.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRelatedRequirements)).BeginInit();
-            this.RelatedDecisionsTb.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRelatedDecisions)).BeginInit();
             this.AlternativeTb.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAlternatives)).BeginInit();
+            this.RelatedDecisionsTb.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRelatedDecisions)).BeginInit();
+            this.RelatedRequirementsTb.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRelatedRequirements)).BeginInit();
+            this.TracesTb.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTraces)).BeginInit();
+            this.HistoryTb.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvHistory)).BeginInit();
             this.tbCnrtlModifiable.SuspendLayout();
-            this.ArgumentsTab.SuspendLayout();
-            this.DescriptionTab.SuspendLayout();
             this.ProblemTab.SuspendLayout();
+            this.DescriptionTab.SuspendLayout();
+            this.ArgumentsTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -127,164 +127,55 @@
             this.tbCntrlUnodifiable.Name = "tbCntrlUnodifiable";
             this.tbCntrlUnodifiable.SelectedIndex = 0;
             // 
-            // HistoryTb
+            // AlternativeTb
             // 
-            this.HistoryTb.BackColor = System.Drawing.SystemColors.Control;
-            this.HistoryTb.Controls.Add(this.dgvHistory);
-            resources.ApplyResources(this.HistoryTb, "HistoryTb");
-            this.HistoryTb.Name = "HistoryTb";
+            this.AlternativeTb.BackColor = System.Drawing.SystemColors.Control;
+            this.AlternativeTb.Controls.Add(this.dgvAlternatives);
+            resources.ApplyResources(this.AlternativeTb, "AlternativeTb");
+            this.AlternativeTb.Name = "AlternativeTb";
             // 
-            // dgvHistory
+            // dgvAlternatives
             // 
-            this.dgvHistory.AllowUserToAddRows = false;
-            this.dgvHistory.AllowUserToDeleteRows = false;
-            this.dgvHistory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvHistory.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.stakeholderuid,
-            this.Stakeholder,
-            this.Action,
-            this.Status,
-            this.Iteration});
-            resources.ApplyResources(this.dgvHistory, "dgvHistory");
-            this.dgvHistory.Name = "dgvHistory";
-            this.dgvHistory.ReadOnly = true;
-            this.dgvHistory.RowHeadersVisible = false;
-            this.dgvHistory.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvHistory_CellContentClick);
+            this.dgvAlternatives.AllowUserToAddRows = false;
+            this.dgvAlternatives.AllowUserToDeleteRows = false;
+            this.dgvAlternatives.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvAlternatives.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAlternatives.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.decisionUid,
+            this.AlternativeName,
+            this.AlternativeUid,
+            this.AlternativeFor});
+            resources.ApplyResources(this.dgvAlternatives, "dgvAlternatives");
+            this.dgvAlternatives.Name = "dgvAlternatives";
+            this.dgvAlternatives.ReadOnly = true;
+            this.dgvAlternatives.RowHeadersVisible = false;
+            this.dgvAlternatives.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAlternatives_CellContentDoubleClick);
             // 
-            // Iteration
+            // decisionUid
             // 
-            this.Iteration.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            resources.ApplyResources(this.Iteration, "Iteration");
-            this.Iteration.Name = "Iteration";
-            this.Iteration.ReadOnly = true;
+            resources.ApplyResources(this.decisionUid, "decisionUid");
+            this.decisionUid.Name = "decisionUid";
+            this.decisionUid.ReadOnly = true;
             // 
-            // Status
+            // AlternativeName
             // 
-            this.Status.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            resources.ApplyResources(this.Status, "Status");
-            this.Status.Name = "Status";
-            this.Status.ReadOnly = true;
+            this.AlternativeName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            resources.ApplyResources(this.AlternativeName, "AlternativeName");
+            this.AlternativeName.Name = "AlternativeName";
+            this.AlternativeName.ReadOnly = true;
             // 
-            // Action
+            // AlternativeUid
             // 
-            this.Action.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            resources.ApplyResources(this.Action, "Action");
-            this.Action.Name = "Action";
-            this.Action.ReadOnly = true;
+            resources.ApplyResources(this.AlternativeUid, "AlternativeUid");
+            this.AlternativeUid.Name = "AlternativeUid";
+            this.AlternativeUid.ReadOnly = true;
             // 
-            // Stakeholder
+            // AlternativeFor
             // 
-            this.Stakeholder.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            resources.ApplyResources(this.Stakeholder, "Stakeholder");
-            this.Stakeholder.Name = "Stakeholder";
-            this.Stakeholder.ReadOnly = true;
-            // 
-            // stakeholderuid
-            // 
-            resources.ApplyResources(this.stakeholderuid, "stakeholderuid");
-            this.stakeholderuid.Name = "stakeholderuid";
-            this.stakeholderuid.ReadOnly = true;
-            // 
-            // TracesTb
-            // 
-            this.TracesTb.BackColor = System.Drawing.SystemColors.Control;
-            this.TracesTb.Controls.Add(this.dgvTraces);
-            resources.ApplyResources(this.TracesTb, "TracesTb");
-            this.TracesTb.Name = "TracesTb";
-            // 
-            // dgvTraces
-            // 
-            this.dgvTraces.AllowUserToAddRows = false;
-            this.dgvTraces.AllowUserToDeleteRows = false;
-            this.dgvTraces.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvTraces.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvTraces.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.traceUid,
-            this.dataGridViewTextBoxColumn4,
-            this.Type});
-            resources.ApplyResources(this.dgvTraces, "dgvTraces");
-            this.dgvTraces.Name = "dgvTraces";
-            this.dgvTraces.ReadOnly = true;
-            this.dgvTraces.RowHeadersVisible = false;
-            this.dgvTraces.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTraces_CellContentClick);
-            // 
-            // Type
-            // 
-            this.Type.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            resources.ApplyResources(this.Type, "Type");
-            this.Type.Name = "Type";
-            this.Type.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            resources.ApplyResources(this.dataGridViewTextBoxColumn4, "dataGridViewTextBoxColumn4");
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            // 
-            // traceUid
-            // 
-            resources.ApplyResources(this.traceUid, "traceUid");
-            this.traceUid.Name = "traceUid";
-            this.traceUid.ReadOnly = true;
-            // 
-            // RelatedRequirementsTb
-            // 
-            this.RelatedRequirementsTb.BackColor = System.Drawing.SystemColors.Control;
-            this.RelatedRequirementsTb.Controls.Add(this.dgvRelatedRequirements);
-            resources.ApplyResources(this.RelatedRequirementsTb, "RelatedRequirementsTb");
-            this.RelatedRequirementsTb.Name = "RelatedRequirementsTb";
-            // 
-            // dgvRelatedRequirements
-            // 
-            this.dgvRelatedRequirements.AllowUserToAddRows = false;
-            this.dgvRelatedRequirements.AllowUserToDeleteRows = false;
-            this.dgvRelatedRequirements.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvRelatedRequirements.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRelatedRequirements.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.reqUid,
-            this.dataGridViewTextBoxColumn2,
-            this.concern,
-            this.rating,
-            this.dataGridViewTextBoxColumn3});
-            resources.ApplyResources(this.dgvRelatedRequirements, "dgvRelatedRequirements");
-            this.dgvRelatedRequirements.Name = "dgvRelatedRequirements";
-            this.dgvRelatedRequirements.ReadOnly = true;
-            this.dgvRelatedRequirements.RowHeadersVisible = false;
-            this.dgvRelatedRequirements.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRelatedRequirements_CellContentClick);
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            resources.ApplyResources(this.dataGridViewTextBoxColumn3, "dataGridViewTextBoxColumn3");
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            // 
-            // rating
-            // 
-            resources.ApplyResources(this.rating, "rating");
-            this.rating.Name = "rating";
-            this.rating.ReadOnly = true;
-            // 
-            // concern
-            // 
-            resources.ApplyResources(this.concern, "concern");
-            this.concern.Name = "concern";
-            this.concern.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            // 
-            // reqUid
-            // 
-            resources.ApplyResources(this.reqUid, "reqUid");
-            this.reqUid.Name = "reqUid";
-            this.reqUid.ReadOnly = true;
+            this.AlternativeFor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            resources.ApplyResources(this.AlternativeFor, "AlternativeFor");
+            this.AlternativeFor.Name = "AlternativeFor";
+            this.AlternativeFor.ReadOnly = true;
             // 
             // RelatedDecisionsTb
             // 
@@ -311,25 +202,11 @@
             this.dgvRelatedDecisions.RowHeadersVisible = false;
             this.dgvRelatedDecisions.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRelatedDecisions_CellContentClick);
             // 
-            // relatedUid
+            // dataGridViewTextBoxColumn1
             // 
-            resources.ApplyResources(this.relatedUid, "relatedUid");
-            this.relatedUid.Name = "relatedUid";
-            this.relatedUid.ReadOnly = true;
-            // 
-            // RelatedTo
-            // 
-            this.RelatedTo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            resources.ApplyResources(this.RelatedTo, "RelatedTo");
-            this.RelatedTo.Name = "RelatedTo";
-            this.RelatedTo.ReadOnly = true;
-            // 
-            // Relation
-            // 
-            this.Relation.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            resources.ApplyResources(this.Relation, "Relation");
-            this.Relation.Name = "Relation";
-            this.Relation.ReadOnly = true;
+            resources.ApplyResources(this.dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
             // 
             // RelatedName
             // 
@@ -338,61 +215,184 @@
             this.RelatedName.Name = "RelatedName";
             this.RelatedName.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn1
+            // Relation
             // 
-            resources.ApplyResources(this.dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.Relation.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            resources.ApplyResources(this.Relation, "Relation");
+            this.Relation.Name = "Relation";
+            this.Relation.ReadOnly = true;
             // 
-            // AlternativeTb
+            // RelatedTo
             // 
-            this.AlternativeTb.BackColor = System.Drawing.SystemColors.Control;
-            this.AlternativeTb.Controls.Add(this.dgvAlternatives);
-            resources.ApplyResources(this.AlternativeTb, "AlternativeTb");
-            this.AlternativeTb.Name = "AlternativeTb";
+            this.RelatedTo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            resources.ApplyResources(this.RelatedTo, "RelatedTo");
+            this.RelatedTo.Name = "RelatedTo";
+            this.RelatedTo.ReadOnly = true;
             // 
-            // dgvAlternatives
+            // relatedUid
             // 
-            this.dgvAlternatives.AllowUserToAddRows = false;
-            this.dgvAlternatives.AllowUserToDeleteRows = false;
-            this.dgvAlternatives.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvAlternatives.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvAlternatives.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.decisionUid,
-            this.AlternativeName,
-            this.AlternativeUid,
-            this.AlternativeFor});
-            resources.ApplyResources(this.dgvAlternatives, "dgvAlternatives");
-            this.dgvAlternatives.Name = "dgvAlternatives";
-            this.dgvAlternatives.ReadOnly = true;
-            this.dgvAlternatives.RowHeadersVisible = false;
-            this.dgvAlternatives.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAlternatives_CellContentDoubleClick);
+            resources.ApplyResources(this.relatedUid, "relatedUid");
+            this.relatedUid.Name = "relatedUid";
+            this.relatedUid.ReadOnly = true;
             // 
-            // AlternativeFor
+            // RelatedRequirementsTb
             // 
-            this.AlternativeFor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            resources.ApplyResources(this.AlternativeFor, "AlternativeFor");
-            this.AlternativeFor.Name = "AlternativeFor";
-            this.AlternativeFor.ReadOnly = true;
+            this.RelatedRequirementsTb.BackColor = System.Drawing.SystemColors.Control;
+            this.RelatedRequirementsTb.Controls.Add(this.dgvRelatedRequirements);
+            resources.ApplyResources(this.RelatedRequirementsTb, "RelatedRequirementsTb");
+            this.RelatedRequirementsTb.Name = "RelatedRequirementsTb";
             // 
-            // AlternativeUid
+            // dgvRelatedRequirements
             // 
-            resources.ApplyResources(this.AlternativeUid, "AlternativeUid");
-            this.AlternativeUid.Name = "AlternativeUid";
-            this.AlternativeUid.ReadOnly = true;
+            this.dgvRelatedRequirements.AllowUserToAddRows = false;
+            this.dgvRelatedRequirements.AllowUserToDeleteRows = false;
+            this.dgvRelatedRequirements.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvRelatedRequirements.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvRelatedRequirements.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.reqUid,
+            this.dataGridViewTextBoxColumn2,
+            this.concern,
+            this.rating,
+            this.dataGridViewTextBoxColumn3});
+            resources.ApplyResources(this.dgvRelatedRequirements, "dgvRelatedRequirements");
+            this.dgvRelatedRequirements.Name = "dgvRelatedRequirements";
+            this.dgvRelatedRequirements.ReadOnly = true;
+            this.dgvRelatedRequirements.RowHeadersVisible = false;
+            this.dgvRelatedRequirements.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRelatedRequirements_CellContentClick);
             // 
-            // AlternativeName
+            // reqUid
             // 
-            this.AlternativeName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            resources.ApplyResources(this.AlternativeName, "AlternativeName");
-            this.AlternativeName.Name = "AlternativeName";
-            this.AlternativeName.ReadOnly = true;
+            resources.ApplyResources(this.reqUid, "reqUid");
+            this.reqUid.Name = "reqUid";
+            this.reqUid.ReadOnly = true;
             // 
-            // decisionUid
+            // dataGridViewTextBoxColumn2
             // 
-            resources.ApplyResources(this.decisionUid, "decisionUid");
-            this.decisionUid.Name = "decisionUid";
-            this.decisionUid.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // concern
+            // 
+            resources.ApplyResources(this.concern, "concern");
+            this.concern.Name = "concern";
+            this.concern.ReadOnly = true;
+            // 
+            // rating
+            // 
+            resources.ApplyResources(this.rating, "rating");
+            this.rating.Name = "rating";
+            this.rating.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            resources.ApplyResources(this.dataGridViewTextBoxColumn3, "dataGridViewTextBoxColumn3");
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
+            // TracesTb
+            // 
+            this.TracesTb.BackColor = System.Drawing.SystemColors.Control;
+            this.TracesTb.Controls.Add(this.dgvTraces);
+            resources.ApplyResources(this.TracesTb, "TracesTb");
+            this.TracesTb.Name = "TracesTb";
+            // 
+            // dgvTraces
+            // 
+            this.dgvTraces.AllowUserToAddRows = false;
+            this.dgvTraces.AllowUserToDeleteRows = false;
+            this.dgvTraces.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvTraces.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTraces.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.traceUid,
+            this.dataGridViewTextBoxColumn4,
+            this.Type});
+            resources.ApplyResources(this.dgvTraces, "dgvTraces");
+            this.dgvTraces.Name = "dgvTraces";
+            this.dgvTraces.ReadOnly = true;
+            this.dgvTraces.RowHeadersVisible = false;
+            this.dgvTraces.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTraces_CellContentClick);
+            // 
+            // traceUid
+            // 
+            resources.ApplyResources(this.traceUid, "traceUid");
+            this.traceUid.Name = "traceUid";
+            this.traceUid.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            resources.ApplyResources(this.dataGridViewTextBoxColumn4, "dataGridViewTextBoxColumn4");
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            // 
+            // Type
+            // 
+            this.Type.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            resources.ApplyResources(this.Type, "Type");
+            this.Type.Name = "Type";
+            this.Type.ReadOnly = true;
+            // 
+            // HistoryTb
+            // 
+            this.HistoryTb.BackColor = System.Drawing.SystemColors.Control;
+            this.HistoryTb.Controls.Add(this.dgvHistory);
+            resources.ApplyResources(this.HistoryTb, "HistoryTb");
+            this.HistoryTb.Name = "HistoryTb";
+            // 
+            // dgvHistory
+            // 
+            this.dgvHistory.AllowUserToAddRows = false;
+            this.dgvHistory.AllowUserToDeleteRows = false;
+            this.dgvHistory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvHistory.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.stakeholderuid,
+            this.Stakeholder,
+            this.Action,
+            this.Status,
+            this.Iteration});
+            resources.ApplyResources(this.dgvHistory, "dgvHistory");
+            this.dgvHistory.Name = "dgvHistory";
+            this.dgvHistory.ReadOnly = true;
+            this.dgvHistory.RowHeadersVisible = false;
+            this.dgvHistory.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvHistory_CellContentClick);
+            // 
+            // stakeholderuid
+            // 
+            resources.ApplyResources(this.stakeholderuid, "stakeholderuid");
+            this.stakeholderuid.Name = "stakeholderuid";
+            this.stakeholderuid.ReadOnly = true;
+            // 
+            // Stakeholder
+            // 
+            this.Stakeholder.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            resources.ApplyResources(this.Stakeholder, "Stakeholder");
+            this.Stakeholder.Name = "Stakeholder";
+            this.Stakeholder.ReadOnly = true;
+            // 
+            // Action
+            // 
+            this.Action.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            resources.ApplyResources(this.Action, "Action");
+            this.Action.Name = "Action";
+            this.Action.ReadOnly = true;
+            // 
+            // Status
+            // 
+            this.Status.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            resources.ApplyResources(this.Status, "Status");
+            this.Status.Name = "Status";
+            this.Status.ReadOnly = true;
+            // 
+            // Iteration
+            // 
+            this.Iteration.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            resources.ApplyResources(this.Iteration, "Iteration");
+            this.Iteration.Name = "Iteration";
+            this.Iteration.ReadOnly = true;
             // 
             // btnunderline
             // 
@@ -475,18 +475,18 @@
             this.tbCnrtlModifiable.Name = "tbCnrtlModifiable";
             this.tbCnrtlModifiable.SelectedIndex = 0;
             // 
-            // ArgumentsTab
+            // ProblemTab
             // 
-            this.ArgumentsTab.Controls.Add(this.txtArguments);
-            resources.ApplyResources(this.ArgumentsTab, "ArgumentsTab");
-            this.ArgumentsTab.Name = "ArgumentsTab";
-            this.ArgumentsTab.UseVisualStyleBackColor = true;
+            this.ProblemTab.Controls.Add(this.txtIssue);
+            resources.ApplyResources(this.ProblemTab, "ProblemTab");
+            this.ProblemTab.Name = "ProblemTab";
+            this.ProblemTab.UseVisualStyleBackColor = true;
             // 
-            // txtArguments
+            // txtIssue
             // 
-            resources.ApplyResources(this.txtArguments, "txtArguments");
-            this.txtArguments.Name = "txtArguments";
-            this.txtArguments.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.txtArguments_LinkClicked);
+            resources.ApplyResources(this.txtIssue, "txtIssue");
+            this.txtIssue.Name = "txtIssue";
+            this.txtIssue.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.txtIssue_LinkClicked);
             // 
             // DescriptionTab
             // 
@@ -501,18 +501,18 @@
             this.txtDecision.Name = "txtDecision";
             this.txtDecision.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.txtDecision_LinkClicked);
             // 
-            // ProblemTab
+            // ArgumentsTab
             // 
-            this.ProblemTab.Controls.Add(this.txtIssue);
-            resources.ApplyResources(this.ProblemTab, "ProblemTab");
-            this.ProblemTab.Name = "ProblemTab";
-            this.ProblemTab.UseVisualStyleBackColor = true;
+            this.ArgumentsTab.Controls.Add(this.txtArguments);
+            resources.ApplyResources(this.ArgumentsTab, "ArgumentsTab");
+            this.ArgumentsTab.Name = "ArgumentsTab";
+            this.ArgumentsTab.UseVisualStyleBackColor = true;
             // 
-            // txtIssue
+            // txtArguments
             // 
-            resources.ApplyResources(this.txtIssue, "txtIssue");
-            this.txtIssue.Name = "txtIssue";
-            this.txtIssue.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.txtIssue_LinkClicked);
+            resources.ApplyResources(this.txtArguments, "txtArguments");
+            this.txtArguments.Name = "txtArguments";
+            this.txtArguments.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.txtArguments_LinkClicked);
             // 
             // notifyIcon1
             // 
@@ -545,20 +545,20 @@
             this.TopMost = true;
             this.Load += new System.EventHandler(this.DetailViewNew_Load);
             this.tbCntrlUnodifiable.ResumeLayout(false);
-            this.HistoryTb.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvHistory)).EndInit();
-            this.TracesTb.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTraces)).EndInit();
-            this.RelatedRequirementsTb.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRelatedRequirements)).EndInit();
-            this.RelatedDecisionsTb.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRelatedDecisions)).EndInit();
             this.AlternativeTb.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAlternatives)).EndInit();
+            this.RelatedDecisionsTb.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRelatedDecisions)).EndInit();
+            this.RelatedRequirementsTb.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRelatedRequirements)).EndInit();
+            this.TracesTb.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTraces)).EndInit();
+            this.HistoryTb.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvHistory)).EndInit();
             this.tbCnrtlModifiable.ResumeLayout(false);
-            this.ArgumentsTab.ResumeLayout(false);
-            this.DescriptionTab.ResumeLayout(false);
             this.ProblemTab.ResumeLayout(false);
+            this.DescriptionTab.ResumeLayout(false);
+            this.ArgumentsTab.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

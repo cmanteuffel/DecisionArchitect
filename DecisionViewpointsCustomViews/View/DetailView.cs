@@ -38,23 +38,20 @@ namespace DecisionViewpointsCustomViews.View
             set { cbxState.Text = value; }
         }
 
-        //angor task191 START
         public string DecisionGroup
         {
             get { return txtGroup.Text.Trim(' '); }
             set { txtGroup.Text = value;  }    
         }
-        //angor task191 END
 
         public string DecisionIssue
         {
-            /*  //original for not formatted Text
             get { return txtIssue.Text.Trim(' '); }
             set { txtIssue.Text = value; }
-             */
-
+             
             //Get-Set for formatted Test.
             //Non-formatted text is first converted to Rtf format
+            /*
             get { return txtIssue.Rtf.Trim(' '); }
             set
             {
@@ -62,6 +59,7 @@ namespace DecisionViewpointsCustomViews.View
                     ? value
                     : PlaintextToRtf(value);
             }
+             */
         }
 
         public string DecisionIssuePlainText
@@ -71,13 +69,12 @@ namespace DecisionViewpointsCustomViews.View
 
         public string DecisionText
         {
-            /*  //original for not formatted Text
-             //get { return txtDecision.Text.Trim(' '); }
-             //set { txtDecision.Text = value; }
-             */
+             get { return txtDecision.Text.Trim(' '); }
+             set { txtDecision.Text = value; }
 
-            //Get-Set for formatted Test. 
+            //Get-Set for formatted Text. 
             //Non-formatted text is first converted to Rtf format
+            /*
             get { return txtDecision.Rtf.Trim(' '); }
             set
             {
@@ -85,16 +82,16 @@ namespace DecisionViewpointsCustomViews.View
                     ? value
                     : PlaintextToRtf(value);
             }
+             */ 
         }
         public string DecisionArguments
         {
-            /*  //original for not formatted Text
             get { return txtArguments.Text.Trim(' '); }
             set { txtArguments.Text = value; }
-             */
 
             //Get-Set for formatted Test. 
             //Non-formatted text is first converted to Rtf format
+            /*
             get { return txtArguments.Rtf.Trim(' '); }
             set
             {
@@ -102,6 +99,7 @@ namespace DecisionViewpointsCustomViews.View
                     ? value
                     : PlaintextToRtf(value);
             }
+             */ 
         }
 
         public string DecisionRelatedRequirements { get; set; }
@@ -252,19 +250,17 @@ namespace DecisionViewpointsCustomViews.View
             }
         }
 
-        // This method needs improvement! Too many unecessary variables.. 
+        /* Tranfors unformatted text to RTF.
+         * This method is usable with the format buttons of the DetailView (current hidden)
+         */ 
         public static String PlaintextToRtf(string plainText)
         {
             if (string.IsNullOrEmpty(plainText))
                 return "";
 
             string escapedPlainText = plainText.Replace(@"\", @"\\").Replace("{", @"\{").Replace("}", @"\}");
-            // escapedPlainText = EncodeCharacters(escapedPlainText);
-
-            //string rtf = @"{\rtf1\ansi\ansicpg1250\deff0{\fonttbl\f0\fswiss Helvetica;}\f0\pard ";//original
             string rtf = @"{\rtf1\ansi\ansicpg1253\deff0\deflang1032{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}
                             {\f1\fnil\fcharset161 Microsoft Sans Serif;}}\viewkind4\uc1\pard\lang1033\f0\fs17 ";
-            //rtf += escapedPlainText.Replace(Environment.NewLine, "\\par\r\n ");//original
             rtf += escapedPlainText.Replace(Environment.NewLine, "\\lang1032\\f1\\par");
             rtf += " }";
             return rtf;
@@ -285,7 +281,6 @@ namespace DecisionViewpointsCustomViews.View
             Process.Start("IExplore.exe", e.LinkText);
         }
 
-        //angor task161 START--------------------------------------------------------------------------------
         private void showDiagramsForEAElement(string elementGUID)
         {
             var element = EARepository.Instance.GetElementByGUID(elementGUID);
