@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using DecisionViewpointsCustomViews.Controller;
 using DecisionViewpointsCustomViews.Model;
@@ -45,33 +46,31 @@ namespace DecisionViewpoints.Logic.Forces
         public override void OnNotifyContextItemModified(string guid, NativeType type)
         {
             var repository = EARepository.Instance;
-            EADiagram diagram = null;
+            var diagrams = new List<EADiagram>();
             switch (type)
             {
                 case NativeType.Diagram:
-                    diagram = repository.GetDiagramByGuid(guid);
+                    var diagram = repository.GetDiagramByGuid(guid);
                     if (!diagram.IsForces()) return;
+                    diagrams.Add(diagram);
                     break;
                 case NativeType.Element:
                     var element = repository.GetElementByGUID(guid);
-                    foreach (var eaDiagram in element.GetDiagrams())
-                    {
-                        // what if it appears in many diagrams?
-                        if (!eaDiagram.IsForces()) continue;
-                        diagram = eaDiagram;
-                        break;
-                    }
+                    diagrams.AddRange(element.GetDiagrams().Where(eaDiagram => eaDiagram.IsForces()));
                     break;
             }
-            if (diagram == null) return;
-            var forcesDiagramModel = new ForcesDiagramModel
-                {
-                    DiagramModel = diagram,
-                    Name = CreateForcesTabName(diagram.Name)
-                };
-            if (repository.IsTabOpen(forcesDiagramModel.Name) <= 0) return;
-            var forcesController = new ForcesController(_views[forcesDiagramModel.DiagramGUID], forcesDiagramModel);
-            forcesController.UpdateTable();
+            if (diagrams.Count == 0) return;
+            foreach (var diagram in diagrams)
+            {
+                var forcesDiagramModel = new ForcesDiagramModel
+                    {
+                        DiagramModel = diagram,
+                        Name = CreateForcesTabName(diagram.Name)
+                    };
+                if (repository.IsTabOpen(forcesDiagramModel.Name) <= 0) return;
+                var forcesController = new ForcesController(_views[forcesDiagramModel.DiagramGUID], forcesDiagramModel);
+                forcesController.UpdateTable();
+            }
         }
 
         public override bool OnPreDeleteDiagram(EAVolatileDiagram volatileDiagram)
