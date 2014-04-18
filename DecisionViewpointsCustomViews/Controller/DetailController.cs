@@ -38,9 +38,9 @@ namespace DecisionViewpointsCustomViews.Controller
                 if (!connector.Stereotype.Equals("alternative for"))//angor task 158
                 {
                     if (connector.ClientId == _decision.ID)
-                        _view.AddRelatedDecision(connector.Stereotype, connector.GetSupplier().Name, true, connector.GetSupplier().GUID);
+                        _view.AddRelatedDecision(connector.Stereotype, connector.GetSupplier().Name, true, connector.GetSupplier().GUID, connector.GetClient().GUID);
                     else
-                        _view.AddRelatedDecision(connector.Stereotype, connector.GetClient().Name, false, connector.GetClient().GUID);        
+                        _view.AddRelatedDecision(connector.Stereotype, connector.GetClient().Name, false, connector.GetClient().GUID, connector.GetSupplier().GUID);        
                 }
             }
 
@@ -52,9 +52,9 @@ namespace DecisionViewpointsCustomViews.Controller
                 if (connector.Stereotype.Equals("alternative for"))
                 {
                     if (connector.ClientId != _decision.ID)
-                        _view.AddAlternativeDecision(connector.Stereotype, connector.GetClient().Name,false, connector.GetClient().GUID);
+                        _view.AddAlternativeDecision(connector.Stereotype, connector.GetClient().Name, false, connector.GetSupplier().GUID, connector.GetClient().GUID);
                     else
-                        _view.AddAlternativeDecision(connector.Stereotype, connector.GetSupplier().Name,true, connector.GetSupplier().GUID);
+                        _view.AddAlternativeDecision(connector.Stereotype, connector.GetSupplier().Name, true, connector.GetSupplier().GUID, connector.GetClient().GUID);
                 }
             }
             //angor END task156
@@ -90,7 +90,7 @@ namespace DecisionViewpointsCustomViews.Controller
             {
                 if (connector.ClientId == _decision.ID) continue;
                 var stakeholder = connector.GetClient();
-                _view.AddHistoryEntry(stakeholder.Name, stakeholder.Stereotype, connector.Stereotype, _decision.State);
+                _view.AddHistoryEntry(stakeholder.Name, stakeholder.Stereotype, connector.Stereotype, _decision.State, stakeholder.GUID);
             }
 
             _view.DecisionRelatedRequirements = _decision.RelatedRequirements;

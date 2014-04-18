@@ -86,7 +86,6 @@ namespace DecisionViewpointsCustomViews.View
                     : PlaintextToRtf(value);
             }
         }
-
         public string DecisionArguments
         {
             /*  //original for not formatted Text
@@ -121,24 +120,24 @@ namespace DecisionViewpointsCustomViews.View
             _controller = controller;
         }
 
-        public void AddRelatedDecision(string relationship, string name, bool isClient,string uid)
+        public void AddRelatedDecision(string relationship, string name, bool isClient,string decisionuid, string relateduid)
         {
             dgvRelatedDecisions.Rows.Add(isClient
-                ? new object[] {uid,"<<this>> " + txtName.Text, relationship, name}
-                : new object[] {uid,name, relationship, "<<this>> " + txtName.Text});
+                ? new object[] { relateduid, "<<this>> " + txtName.Text, relationship, name, decisionuid }
+                : new object[] { decisionuid, name, relationship, "<<this>> " + txtName.Text, relateduid });
         }
 
-        public void AddHistoryEntry(string name, string stereotype, string s, string state)
+        public void AddHistoryEntry(string name, string stereotype, string s, string state, string stakeholderuid)
         {
             var stakeholderText = string.Format("{0}\n<<{1}>>", name, stereotype);
-            dgvHistory.Rows.Add(new object[] {stakeholderText, s, state});
+            dgvHistory.Rows.Add(new object[] {stakeholderuid, stakeholderText, s, state });
         }
 
-        public void AddAlternativeDecision(string relationship, string name, bool isClient, string uid)
+        public void AddAlternativeDecision(string relationship, string name, bool isClient, string decisionUid, string alternativeuid)
         {
             dgvAlternatives.Rows.Add(isClient
-                ? new object[] {uid, "<<this>> " + txtName.Text, name}
-                : new object[] {uid, name, "<<this>> " + txtName.Text});
+                ? new object[] { decisionUid, "<<this>> " + txtName.Text, alternativeuid, name }
+                : new object[] { alternativeuid, name, decisionUid, "<<this>> " + txtName.Text });
         }
 
         public void AddTrace(string name, string type, string uid)
@@ -306,17 +305,10 @@ namespace DecisionViewpointsCustomViews.View
             }
             else if (diagrams.Count() >= 2)
             {
-                /*
-                var selectForm = new SelectDiagram(diagrams);
-                if (element.IsDecision())
-                    selectForm = new SelectDiagram(diagrams,true);
-                else
-                 */ 
                     var selectForm = new SelectDiagram(diagrams);
                 if (selectForm.ShowDialog() == DialogResult.OK)
                 {
                     var diagram = selectForm.GetSelectedDiagram();
-                    //MessageBox.Show("showing diagram with id: " + diagram.ID);
                     diagram.OpenAndSelectElement(element);
                 }
             }
@@ -326,11 +318,16 @@ namespace DecisionViewpointsCustomViews.View
         private void dgvAlternatives_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
 
-            if (e.ColumnIndex != 1)
+            if (e.ColumnIndex != 1 && e.ColumnIndex !=3)
                 return;
-            else
+            if (e.ColumnIndex == 1)
             {
                 var elementGUID = dgvAlternatives[0, e.RowIndex].Value.ToString();
+                showDiagramsForEAElement(elementGUID);
+            }
+            else if (e.ColumnIndex == 3)
+            {
+                var elementGUID = dgvAlternatives[2, e.RowIndex].Value.ToString();
                 showDiagramsForEAElement(elementGUID);
             }
                 
@@ -338,10 +335,15 @@ namespace DecisionViewpointsCustomViews.View
 
         private void dgvRelatedDecisions_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex != 3) return;
-            else
+            if (e.ColumnIndex != 1 && e.ColumnIndex != 3 ) return;
+            if (e.ColumnIndex == 1)
             {
                 var elementGUID = dgvRelatedDecisions[0, e.RowIndex].Value.ToString();
+                showDiagramsForEAElement(elementGUID);
+            }
+            else if (e.ColumnIndex == 3)
+            {
+                var elementGUID = dgvRelatedDecisions[4, e.RowIndex].Value.ToString();
                 showDiagramsForEAElement(elementGUID);
             }
         }
@@ -372,30 +374,16 @@ namespace DecisionViewpointsCustomViews.View
         {
 
         }
-       
-        //angor task161 END--------------------------------------------------------------------------------
 
-        /*
-        private void AddHyperlinkText(string linkURL, string linkName,
-              TextPointer start)
+        private void dgvHistory_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
-            txtArguments.IsDocumentEnabled = true;
-            Hyperlink link = new Hyperlink();
-            TextRange tr = null;
-            string URI = tr.Text;
-
-            if (tbCnrtlModifiable.SelectedTab == ArgumentsTab)
+            if (e.ColumnIndex != 1)
+                return;
+            else
             {
+                var elementGUID = dgvHistory[0, e.RowIndex].Value.ToString();
+                showDiagramsForEAElement(elementGUID);
             }
-            
         }
-         * */
     }
 }
-
-
-/*
-* angor ->  TO DO
-*  hyperlink button functionality
-*/
