@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using DocumentFormat.OpenXml.Packaging;
@@ -31,10 +30,7 @@ namespace DecisionViewpoints.Model.Reporting
                                  _teplateSlide.GetIdOfPart(_teplateSlide.SlideLayoutPart));
         }
 
-        public virtual void FillContent()
-        {
-            throw new NotImplementedException();
-        }
+        public abstract void FillContent();
 
         public void Save()
         {

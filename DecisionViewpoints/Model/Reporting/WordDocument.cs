@@ -72,6 +72,16 @@ namespace DecisionViewpoints.Model.Reporting
 
             table.AppendChild(props);
 
+            var relatedDecisions = new StringBuilder();
+            foreach (EAConnector connector in decision.GetConnectors().Where(connector => connector.IsRelationship()))
+            {
+                relatedDecisions.AppendLine(connector.ClientId == decision.ID
+                                                      ? string.Format("This <<{1}>> {0}", connector.GetSupplier().Name,
+                                                                      connector.Stereotype)
+                                                      : string.Format("{0} <<{1}>> This", connector.GetClient().Name,
+                                                                      connector.Stereotype));
+            }
+
             var data = new[,]
                 {
                     {"Name", decision.Name},
@@ -80,7 +90,9 @@ namespace DecisionViewpoints.Model.Reporting
                     {"Issue", decision.Issue},
                     {"Decision", decision.DecisionText},
                     {"Alternatives", decision.Alternatives},
-                    {"Arguments", decision.Arguments}
+                    {"Arguments", decision.Arguments},
+                    {"Related Decision", relatedDecisions.ToString()},
+                    {"Related Requirements", decision.RelatedRequirements}
                 };
 
             for (var i = 0; i <= data.GetUpperBound(0); i++)
@@ -95,6 +107,7 @@ namespace DecisionViewpoints.Model.Reporting
                 }
                 table.AppendChild(tr);
             }
+
             _body.AppendChild(table);
             _body.AppendChild(new Paragraph());
         }

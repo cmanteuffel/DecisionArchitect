@@ -36,7 +36,7 @@ namespace DecisionViewpoints.Model.Reporting
 
         public void Open()
         {
-            string filepath = string.Format("{0}/{1}", Directory.GetCurrentDirectory(), _filename);
+            string filepath = Path.Combine(Directory.GetCurrentDirectory(), _filename);
             _doc = PresentationDocument.Open(filepath, true);
             _detailSlideTemplate = (SlidePart) _doc.PresentationPart.GetPartById(DetailTemplateSlideId);
             _imageSlideTemplate = (SlidePart) _doc.PresentationPart.GetPartById(ImageTemplateSlideId);
