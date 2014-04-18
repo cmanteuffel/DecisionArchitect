@@ -116,6 +116,12 @@ namespace EAFacade.Model
 
         public void AddToDiagram(EAElement newElement)
         {
+            //check if element already exists on diagram
+            if (null != GetElements().FirstOrDefault(dobj => dobj.ElementID.Equals(newElement.ID)))
+            {
+                return;
+            }
+
             DiagramObject diaObj = _native.DiagramObjects.AddNew("l=10;r=110;t=-20;b=-80", "");
             diaObj.ElementID = newElement.ID;
             diaObj.Update();

@@ -22,13 +22,23 @@ namespace EAFacade.Model
             get { return _native.ConnectorID; }
         }
 
+        
+        
         public NativeType NativeType
         {
-            get { return NativeType.Element; }
+            get { return NativeType.Connector; }
+        }
+
+        public string Type
+        {
+            get { return _native.Type; }
+            set { _native.Type = value; }
+
         }
 
         public string Name
         {
+            
             get { return _native.Name; }
             set { _native.Name = value; }
         }

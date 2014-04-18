@@ -26,29 +26,26 @@ namespace DecisionViewpoints.Logic.Chronological
 
         public bool GenerateViewpoint()
         {
-            IEnumerable<DecisionStateChange> items = GetHistory();
-            IEnumerable<EAElement> decisionElements = CreateDecisions(items);
+            
+            IEnumerable < EAElement > decisionElements = GetHistory();
             IList<EAElement> connectedElements = ConnectDecisions(decisionElements);
             GenerateDiagram(_chronologicalViewpoint, connectedElements);
 
             return false;
         }
 
-        private IEnumerable<DecisionStateChange> GetHistory()
+        private IEnumerable<EAElement> GetHistory()
         {
             IEnumerable<EAElement> allDecisionsInPackage =
                 _viewPackage.GetAllDecisions();
 
-            return allDecisionsInPackage.SelectMany(DecisionStateChange.GetHistory);
-        }
-
-        private IEnumerable<EAElement> CreateDecisions(IEnumerable<DecisionStateChange> items)
-        {
+            var history =  allDecisionsInPackage.SelectMany(DecisionStateChange.GetHistory);
+        
             IEnumerable<EAElement> exisitingHistoryDecisions = _historyPackage.Elements.Where(e => e.IsDecision());
 
             //create non existing and update existing (name)
             var pastDecisions = new List<EAElement>();
-            foreach (DecisionStateChange item in items.ToList())
+            foreach (DecisionStateChange item in history.ToList())
             {
 
                 string name = item.Element.Name;
@@ -75,8 +72,20 @@ namespace DecisionViewpoints.Logic.Chronological
                 pastDecisions.Add(pastDecision);
             }
 
-            //combine decisions and created or updated elements
-            return pastDecisions; //.Union(decisions.Values);
+            //add topics
+            HashSet<EAElement> topics = new HashSet<EAElement>();
+            foreach (EAElement decision in allDecisionsInPackage)
+            {
+                if (decision.HasTopic())
+                {
+                    var topic = decision.GetTopic();
+                    if (!topics.Contains(topic)) {
+                    topics.Add(topic);
+                    }
+                }
+            }
+
+            return pastDecisions.Union(topics);
         }
 
         private IList<EAElement> ConnectDecisions(IEnumerable<EAElement> elements)

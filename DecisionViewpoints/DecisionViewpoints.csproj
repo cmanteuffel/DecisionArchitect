@@ -71,7 +71,7 @@
     <Compile Include="Logic\Chronological\DecisionStateChange.cs" />
     <Compile Include="Logic\Forces\ForcesHandler.cs" />
     <Compile Include="Logic\Detail\DetailHandler.cs" />
-    <Compile Include="Logic\General\DecisionStateModifedDateHandler.cs" />
+    <Compile Include="Logic\Chronological\ModifedDateHandler.cs" />
     <Compile Include="Logic\Menu\CreateTraceMenu.cs" />
     <Compile Include="Logic\Menu\ExportReportsCustomMessageBox.cs">
       <SubType>Form</SubType>
@@ -165,6 +165,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Logic\General\" />
     <Folder Include="Model\Reporting\" />
   </ItemGroup>
   <ItemGroup>

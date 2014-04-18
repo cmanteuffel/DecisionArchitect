@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using EA;
 
 namespace EAFacade.Model
@@ -120,6 +121,22 @@ namespace EAFacade.Model
             newPackage.Packages.Refresh();
             EARepository.Instance.RefreshModelView(_native.PackageID);
             return Wrap(newPackage);
+        }
+
+        public void DeletePackage(EAPackage package)
+        {
+            short index = 0;
+            foreach (Package p in  _native.Packages.Cast<Package>())
+            {
+                
+                if (p.PackageGUID.Equals(package.GUID))
+                {
+                    _native.Packages.DeleteAt(index, true);
+                    EARepository.Instance.RefreshModelView(_native.PackageID);
+                    return;
+                }
+                index++;
+            }
         }
 
         public EAElement CreateElement(string name, string stereotype, string type)

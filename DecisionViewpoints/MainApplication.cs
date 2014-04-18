@@ -25,7 +25,7 @@ namespace DecisionViewpoints
             _listeners.Add(new ValidationHandler());
             _listeners.Add(new ChronologicalViewpointHandler());
             _listeners.Add(new ForcesHandler());
-            _listeners.Add(new DecisionStateModifedDateHandler());
+            _listeners.Add(new ModifedDateHandler());
             // _listeners.Add(new RelationshipHandler());        // Removed by Christian, potentially causes problems with layouting
      
             _listeners.Add(new StakeholderInvolvementHandler());
