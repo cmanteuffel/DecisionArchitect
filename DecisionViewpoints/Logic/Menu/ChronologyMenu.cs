@@ -16,27 +16,22 @@ namespace DecisionViewpoints.Logic.Menu
             if (eadiagram != null && eadiagram.IsChronologicalView())
             {
                 EADiagram chronologicalView = eadiagram;
-                EAPackage package = chronologicalView.ParentPackage;
-                if (package == null) throw new Exception("package is null");
-                while (!(package.IsModelRoot() || package.IsDecisionViewPackage()))
-                {
-                    package = package.ParentPackage;
-                }
-                if (package == null || !package.IsDecisionViewPackage())
+                EAPackage parentPackage = chronologicalView.ParentPackage;
+                EAPackage decisionViewPackage = parentPackage.FindDecisionViewPackage();
+                if (decisionViewPackage == null || !decisionViewPackage.IsDecisionViewPackage())
                 {
                     return;
                 }
 
-                EAPackage viewPackage = package;
                 EAPackage historyPackage =
-                    viewPackage.GetSubpackageByName("History data for " + chronologicalView.Name);
+                    parentPackage.GetSubpackageByName("History data for " + chronologicalView.Name);
                 if (historyPackage != null)
                 {
                     historyPackage.ParentPackage.DeletePackage(historyPackage);
                 }
-                historyPackage = viewPackage.CreatePackage("History data for " + chronologicalView.Name, "generated");
+                historyPackage = parentPackage.CreatePackage("History data for " + chronologicalView.Name, "generated");
 
-                var generator = new ChronologicalViewpointGenerator(viewPackage, historyPackage,
+                var generator = new ChronologicalViewpointGenerator(decisionViewPackage, historyPackage,
                                                                     chronologicalView);
                 generator.GenerateViewpoint();
             }

@@ -9,19 +9,13 @@ namespace DecisionViewpoints.Logic.Menu
 {
     internal class ReportMenu
     {
-        public static void GenerateReport(string filename, ReportType reportType)
+        public static void GenerateReport(EAPackage decisionViewPackage, string filename, ReportType reportType)
         {
             EARepository repository = EARepository.Instance;
-
             List<Decision> decisions =
-                (from EAElement element in repository.GetAllElements()
-                 where element.IsDecision()
-                 where !element.IsHistoryDecision()
-                 select new Decision(element)).ToList();
-            List<EADiagram> diagrams =
-                (from EAPackage package in repository.GetAllDecisionViewPackages()
-                 from EADiagram diagram in package.GetDiagrams()
-                 select diagram).ToList();
+                decisionViewPackage.GetAllDecisions().Select(element => new Decision(element)).ToList();
+            List<EADiagram> diagrams = decisionViewPackage.GetAllDiagrams().ToList();
+                
             IReportDocument report = null;
             try
             {
@@ -316,7 +310,7 @@ namespace DecisionViewpoints.Logic.Menu
                  select new Decision(element)).ToList();
             List<EADiagram> diagrams =
                 (from EAPackage package in repository.GetAllDecisionViewPackages()
-                 from EADiagram diagram in package.GetDiagrams()
+                 from EADiagram diagram in package.GetAllDiagrams()
                  select diagram).ToList();
 
             //Retrieve Topics

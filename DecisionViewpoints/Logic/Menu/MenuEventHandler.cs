@@ -1,4 +1,6 @@
-﻿using DecisionViewpoints.Logic.Reporting;
+﻿using System;
+using System.Linq;
+using DecisionViewpoints.Logic.Reporting;
 using DecisionViewpoints.Model.Menu;
 using EAFacade.Model;
 
@@ -59,14 +61,20 @@ namespace DecisionViewpoints.Logic.Menu
             var reportMenu = new Model.Menu.Menu(Messages.MenuExport);
             var generateWordReport = new MenuItem(Messages.MenuExportWord)
                 {
-                    ClickDelegate = () => ReportMenu.GenerateReport("Report.docx", ReportType.Word),
-                    UpdateDelegate = self => { }
-                };
+                    ClickDelegate = () => ReportMenu.GenerateReport(SelectedDecisionViewPackage(),"Report.docx", ReportType.Word),
+                    UpdateDelegate = self =>
+                        {
+                            self.IsEnabled = ContextItemIsDecisionViewPackage();
+                        }
+            };
 
             var generateExcelAllReport = new MenuItem(Messages.MenuExportExcelForcesAll)
                 {
-                    ClickDelegate = () => ReportMenu.GenerateReport("AllForcesReport.xlsx", ReportType.Excel),
-                    UpdateDelegate = self => { }
+                    ClickDelegate = () => ReportMenu.GenerateReport(SelectedDecisionViewPackage(),"AllForcesReport.xlsx", ReportType.Excel),
+                    UpdateDelegate = self =>
+                        {
+                            self.IsEnabled = ContextItemIsDecisionViewPackage();
+                        }
                 };
 
             var generateExcelReport = new MenuItem(Messages.MenuExportExcelForces)
@@ -94,21 +102,24 @@ namespace DecisionViewpoints.Logic.Menu
             var generateSelectedDecisionsWordReport = new MenuItem(Messages.MenuExportSelectedDecisionsWord)
                 {
                     ClickDelegate = () => ReportMenu.GenerateSelectedDecisionsReport("Report.docx", ReportType.Word),
-                    UpdateDelegate = self => { }
+                    UpdateDelegate = self => { self.IsEnabled = ContextItemAreDecisions(); }
                 };
 
             var generatePowerpointReport = new MenuItem(Messages.MenuExportPowerPoint)
                 {
                     ClickDelegate = () =>
-                                    ReportMenu.GenerateReport("Report.pptx", ReportType.PowerPoint),
-                    UpdateDelegate = self => { }
+                                    ReportMenu.GenerateReport(SelectedDecisionViewPackage(),"Report.pptx", ReportType.PowerPoint),
+                    UpdateDelegate = self =>
+                        {
+                            self.IsEnabled = ContextItemIsDecisionViewPackage();
+                        }
                 };
 
             var generateSelectedDecisionsPowerpointReport = new MenuItem(Messages.MenuExportSelectedDecisionsPowerPoint)
                 {
                     ClickDelegate = () =>
                                     ReportMenu.GenerateSelectedDecisionsReport("Report.pptx", ReportType.PowerPoint),
-                    UpdateDelegate = self => { }
+                    UpdateDelegate = self => { self.IsEnabled = ContextItemAreDecisions();  }
                 };
 
             RootMenu.Add(createTraces);
@@ -127,6 +138,41 @@ namespace DecisionViewpoints.Logic.Menu
             reportMenu.Add(generateSelectedDecisionsWordReport);
             reportMenu.Add(generateSelectedDecisionsPowerpointReport);
             reportMenu.Add(generateExcelReport);
+        }
+
+        private static EAPackage SelectedDecisionViewPackage()
+        {
+            if (NativeType.Package == EARepository.Instance.GetContextItemType())
+            {
+                var package = EARepository.Instance.GetContextObject<EAPackage>();
+                if ((package != null) && package.IsDecisionViewPackage())
+                {
+                    return package;
+                }
+            }
+
+            throw new Exception("No Decision View Package");
+        }
+
+        private static bool ContextItemIsDecisionViewPackage()
+        {
+            bool enabled = false;
+            if (NativeType.Package == EARepository.Instance.GetContextItemType())
+            {
+                var package = EARepository.Instance.GetContextObject<EAPackage>();
+                enabled = ((package != null) && package.IsDecisionViewPackage());
+            }
+            return enabled;
+        }
+
+        private static bool ContextItemAreDecisions()
+        {
+
+            var selectedTopicsAndDecisions = (from EAElement element in EARepository.Instance.GetSelectedItems()
+                 where (element.IsDecision() || element.IsTopic()) && !element.IsHistoryDecision()
+                 select element);
+            return selectedTopicsAndDecisions.Any();
+           
         }
 
         public static object GetMenuItems(string location, string menuName)

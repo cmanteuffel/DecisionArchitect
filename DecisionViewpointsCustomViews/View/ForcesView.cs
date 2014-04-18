@@ -74,12 +74,10 @@ namespace DecisionViewpointsCustomViews.View
 
             // insert the requirement guids, requirements, concerns and concerns guids
 
-            
 
             _forcesTable.DataSource = data;
             InsertRequirementsAndConcerns(model, data);
 
-            
 
             // insert the decision guids in the table
             data.Rows.Add(new object[] {EmptyCellValue, EmptyCellValue, EmptyCellValue});
@@ -103,6 +101,8 @@ namespace DecisionViewpointsCustomViews.View
             // insert the ratings in the table
             InsertRatings(model, data);
             //activate cell value listener
+            _forcesTable.Columns[0].Frozen = true;
+            _forcesTable.Columns[1].Frozen = true;
             _forcesTable.CellValueChanged += _forcesTable_CellValueChanged;
         }
 
@@ -218,55 +218,46 @@ namespace DecisionViewpointsCustomViews.View
 
         private void InitializeComponent()
         {
-            _forcesTable = new DataGridView();
-            _btnConfigure = new Button();
-            ((ISupportInitialize) (_forcesTable)).BeginInit();
-            SuspendLayout();
+            this._forcesTable = new System.Windows.Forms.DataGridView();
+            this._btnConfigure = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this._forcesTable)).BeginInit();
+            this.SuspendLayout();
             // 
             // _forcesTable
             // 
-            _forcesTable.AllowUserToAddRows = false;
-            _forcesTable.AllowUserToDeleteRows = false;
-            _forcesTable.Anchor = ((AnchorStyles.Top | AnchorStyles.Bottom)
-                                   | AnchorStyles.Left)
-                                  | AnchorStyles.Right;
-            _forcesTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            _forcesTable.Location = new Point(35, 30);
-            _forcesTable.Name = "_forcesTable";
-            _forcesTable.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
-            _forcesTable.RowTemplate.Height = 33;
-            _forcesTable.Size = new Size(762, 582);
-            _forcesTable.TabIndex = 2;
-            _forcesTable.CellValueChanged += _forcesTable_CellValueChanged;
-            _forcesTable.ColumnHeaderMouseClick += _forcesTable_ColumnHeaderMouseClick;
-            _forcesTable.ColumnHeaderMouseDoubleClick += _forcesTable_ColumnHeaderMouseDoubleClick;
+            this._forcesTable.AllowUserToAddRows = false;
+            this._forcesTable.AllowUserToDeleteRows = false;
+            this._forcesTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this._forcesTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this._forcesTable.Location = new System.Drawing.Point(0, 28);
+            this._forcesTable.Name = "_forcesTable";
+            this._forcesTable.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
+            this._forcesTable.RowTemplate.Height = 33;
+            this._forcesTable.Size = new System.Drawing.Size(850, 665);
+            this._forcesTable.TabIndex = 2;
             // 
             // _btnConfigure
             // 
-            _btnConfigure.Anchor = (((AnchorStyles.Bottom | AnchorStyles.Left)));
-            _btnConfigure.Location = new Point(35, 644);
-            _btnConfigure.Name = "_btnConfigure";
-            _btnConfigure.Size = new Size(75, 23);
-            _btnConfigure.TabIndex = 3;
-            _btnConfigure.Text = "Configure";
-            _btnConfigure.UseVisualStyleBackColor = true;
-            _btnConfigure.Click += _btnConfigure_Click;
+            this._btnConfigure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this._btnConfigure.Location = new System.Drawing.Point(772, 2);
+            this._btnConfigure.Name = "_btnConfigure";
+            this._btnConfigure.Size = new System.Drawing.Size(75, 23);
+            this._btnConfigure.TabIndex = 3;
+            this._btnConfigure.Text = "Configure";
+            this._btnConfigure.UseVisualStyleBackColor = true;
+            this._btnConfigure.Click += new System.EventHandler(this._btnConfigure_Click_1);
             // 
             // ForcesView
             // 
-            Controls.Add(_btnConfigure);
-            Controls.Add(_forcesTable);
-            Name = "ForcesView";
-            Size = new Size(850, 696);
-            ((ISupportInitialize) (_forcesTable)).EndInit();
-            ResumeLayout(false);
+            this.Controls.Add(this._btnConfigure);
+            this.Controls.Add(this._forcesTable);
+            this.Name = "ForcesView";
+            this.Size = new System.Drawing.Size(850, 696);
+            ((System.ComponentModel.ISupportInitialize)(this._forcesTable)).EndInit();
+            this.ResumeLayout(false);
 
-            //angor task 149
-        }
-
-        private void _btnConfigure_Click(object sender, EventArgs e)
-        {
-            _controller.Configure();
         }
 
         private void ReadOnlyColumn(string header)
@@ -408,6 +399,11 @@ namespace DecisionViewpointsCustomViews.View
                 };
                  * */
             }
+        }
+
+        private void _btnConfigure_Click_1(object sender, EventArgs e)
+        {
+            _controller.Configure();
         }
     }
 }

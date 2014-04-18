@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 using EA;
 
 namespace EAFacade.Model
@@ -9,7 +8,6 @@ namespace EAFacade.Model
     public class EAPackage : IModelObject
     {
         private readonly Package _native;
-
 
         private EAPackage(Package native)
         {
@@ -29,6 +27,14 @@ namespace EAFacade.Model
             }
         }
 
+        public IList<EAPackage> Packages
+        {
+            get
+            {
+                EAPackage package = EARepository.Instance.GetPackageByID(ID);
+                return package._native.Packages.Cast<Package>().Select(Wrap).ToList();
+            }
+        }
 
         public string GUID
         {
@@ -98,6 +104,20 @@ namespace EAFacade.Model
             EARepository.Instance.Native.ShowInProjectView(_native);
         }
 
+        public string GetProjectPath()
+        {
+            EAPackage current = ParentPackage;
+            string path = current.Name;
+
+            while (!current.IsModelRoot())
+            {
+                current = current.ParentPackage;
+                path = current.Name + "/" + path;
+            }
+            path = "//" + path;
+            return path;
+        }
+
         public bool IsModelRoot()
         {
             return (this == ParentPackage);
@@ -128,7 +148,6 @@ namespace EAFacade.Model
             short index = 0;
             foreach (Package p in  _native.Packages.Cast<Package>())
             {
-                
                 if (p.PackageGUID.Equals(package.GUID))
                 {
                     _native.Packages.DeleteAt(index, true);
@@ -169,54 +188,61 @@ namespace EAFacade.Model
             return EAElement.Wrap(_native.Elements.AddNew(name, type));
         }
 
-        public IEnumerable<EAElement> GetAllDecisions()
+        public IEnumerable<EAElement> GetAllElementsOfSubTree()
         {
-            var decisions = new List<EAElement>();
+            var elements = new List<EAElement>();
+            var packagesStack = new Stack<EAPackage>();
             var elementsStack = new Stack<EAElement>();
-            _native.Elements.Cast<Element>().ToList().ForEach(e => elementsStack.Push(EAElement.Wrap(e)));
-
+            packagesStack.Push(this);
+            while (packagesStack.Count > 0)
+            {
+                EAPackage package = packagesStack.Pop();
+                package.Elements.ToList().ForEach(elementsStack.Push);
+                package.Packages.ToList().ForEach(packagesStack.Push);
+            }
             while (elementsStack.Count > 0)
             {
-                var element = elementsStack.Pop(); 
+                EAElement element = elementsStack.Pop();
                 element.GetElements().ForEach(elementsStack.Push);
-                if (element.IsDecision())
-                {
-                    decisions.Add(element);
-                }
+                elements.Add(element);
             }
+            return elements;
+        } 
 
-            return decisions;
+        public IEnumerable<EAElement> GetAllDecisions()
+        {
+            return GetAllElementsOfSubTree().Where(e => e.IsDecision() && !e.IsHistoryDecision());
         }
 
         public IEnumerable<EAElement> GetAllTopics()
         {
-            var topics = new List<EAElement>();
-            var elementsStack = new Stack<EAElement>();
-            _native.Elements.Cast<Element>().ToList().ForEach(e => elementsStack.Push(EAElement.Wrap(e)));
+            return GetAllElementsOfSubTree().Where(e => e.IsTopic());
+        }
 
-            while (elementsStack.Count > 0)
+        public IEnumerable<EADiagram> GetAllDiagrams()
+        {
+            var diagrams = new List<EADiagram>();
+            var packagesStack = new Stack<EAPackage>();
+            packagesStack.Push(this);
+            while (packagesStack.Count > 0)
             {
-                var element = elementsStack.Pop();
-                element.GetElements().ForEach(elementsStack.Push);
-                if (element.IsTopic())
-                {
-                    topics.Add(element);
-                }
+                EAPackage package = packagesStack.Pop();
+                package.GetDiagrams().ToList().ForEach(diagrams.Add);
+                package.Packages.ToList().ForEach(packagesStack.Push);
             }
-
-            return topics;
-        } 
+            return diagrams;
+        }
 
 
         public EAPackage GetSubpackageByName(string data)
         {
-            IEnumerable<Package> packages = _native.Packages.Cast<Package>();
+            var packages = Packages;
             if (packages.Any())
             {
-                Package foundPackage = packages.FirstOrDefault(e => e.Name.Equals(data));
+                var foundPackage = packages.FirstOrDefault(e => e.Name.Equals(data));
                 if (foundPackage != null)
                 {
-                    return Wrap(foundPackage);
+                    return foundPackage;
                 }
             }
             return null;
@@ -229,23 +255,20 @@ namespace EAFacade.Model
             return (value != null && value.Equals("true"));
         }
 
+        public EAPackage FindDecisionViewPackage()
+        {
+            EAPackage package = this;
+            if (package == null) throw new Exception("package is null");
+            while (!(package.IsModelRoot() || package.IsDecisionViewPackage()))
+            {
+                package = package.ParentPackage;
+            }
+            return package;
+        }
+
         public IEnumerable<EADiagram> GetDiagrams()
         {
             return _native.Diagrams.Cast<Diagram>().Select(EADiagram.Wrap).ToList();
-        }
-
-        public string GetProjectPath()
-        {
-            EAPackage current = ParentPackage;
-            string path = current.Name;
-
-            while (!current.IsModelRoot())
-            {
-                current = current.ParentPackage;
-                path = current.Name + "/" + path;
-            }
-            path = "//" + path;
-            return path;
         }
     }
 }

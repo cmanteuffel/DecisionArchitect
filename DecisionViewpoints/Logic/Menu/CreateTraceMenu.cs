@@ -1,4 +1,6 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Globalization;
+using System.Windows.Forms;
 using EAFacade.Model;
 
 namespace DecisionViewpoints.Logic.Menu
@@ -23,7 +25,7 @@ namespace DecisionViewpoints.Logic.Menu
                         var dvPackage = createDecisionView.GetDecisionViewPackage();
                         var decision = dvPackage.CreateElement(createDecisionView.GetName(), createDecisionView.GetState(), DVStereotypes.ActionMetaType);
                         decision.MetaType = DVStereotypes.DecisionMetaType;
-
+                        decision.AddTaggedValue(DVTaggedValueKeys.DecisionStateModifiedDate, DateTime.Now.ToString(CultureInfo.InvariantCulture));
                         eaelement.ConnectTo(decision, DVStereotypes.AbstractionMetaType, DVStereotypes.TraceStereotype);
                         decision.Update();
 
@@ -50,7 +52,7 @@ namespace DecisionViewpoints.Logic.Menu
                         var dvPackage = createTopicView.GetDecisionViewPackage();
                         var topic = dvPackage.CreateElement(createTopicView.GetName(), DVStereotypes.TopicStereoType, DVStereotypes.ActivityMetaType);
                         topic.MetaType = DVStereotypes.TopicMetaType;
-
+                        topic.AddTaggedValue(DVTaggedValueKeys.DecisionStateModifiedDate, DateTime.Now.ToString(CultureInfo.InvariantCulture));
                         eaelement.ConnectTo(topic, DVStereotypes.AbstractionMetaType, DVStereotypes.TraceStereotype);
                         topic.Update();
 

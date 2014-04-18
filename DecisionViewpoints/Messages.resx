@@ -217,20 +217,20 @@
     <value>Generate PowerPoint</value>
   </data>
   <data name="MenuExportSelectedDecisionsPowerPoint" xml:space="preserve">
-    <value>Generate PowerPoint (Selected Decisions)</value>
+    <value>Generate PowerPoint (Selected Decisions/Topics)</value>
   </data>
   <data name="MenuExportWord" xml:space="preserve">
     <value>Generate Word</value>
   </data>
   <data name="MenuExportSelectedDecisionsWord" xml:space="preserve">
-    <value>Generate Word  (Selected Decisions)</value>
+    <value>Generate Word  (Selected Decisions/Topics)</value>
   </data>
   <data name="SuccesfulForcesReportCreation" xml:space="preserve">
-    <value>forces report created succesfuly.</value>
+    <value>Forces report was created succesfuly.</value>
     <comment>angor</comment>
   </data>
   <data name="SuccesfulReportCreation" xml:space="preserve">
-    <value>report created succesfuly.</value>
+    <value>Report was created succesfuly.</value>
     <comment>angor</comment>
   </data>
   <data name="ReportSuccessful" xml:space="preserve">

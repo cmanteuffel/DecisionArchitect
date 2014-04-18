@@ -25,16 +25,18 @@ namespace DecisionViewpoints.Logic.General
         {
             if (type != NativeType.Element) return;
             EAElement element = EARepository.Instance.GetElementByGUID(guid);
-            if (!element.IsDecision()) return;
-            string oldState = element.GetTaggedValue(DVTaggedValueKeys.DecisionState);
-            if (oldState == null || element.Stereotype.Equals(oldState)) return;
-            // TODO: create tagged value with old state
-            string name = string.Format("{0}:{1}", DVTaggedValueKeys.DecisionHistoryState, Guid.NewGuid());
-            string data = string.Format("{0}:{1}", oldState, element.Modified.ToString(CultureInfo.InvariantCulture));
-            element.AddTaggedValue(name, data);
-            element.UpdateTaggedValue(DVTaggedValueKeys.DecisionStateModifiedDate,
-                                      element.Modified.ToString(CultureInfo.InvariantCulture));
-            element.UpdateTaggedValue(DVTaggedValueKeys.DecisionState, element.Stereotype);
+            if (element.IsDecision())
+            {
+                string oldState = element.GetTaggedValue(DVTaggedValueKeys.DecisionState);
+                if (oldState == null || element.Stereotype.Equals(oldState)) return;
+                // TODO: create tagged value with old state
+                string name = string.Format("{0}:{1}", DVTaggedValueKeys.DecisionHistoryState, Guid.NewGuid());
+                string data = string.Format("{0}:{1}", oldState, element.Modified.ToString(CultureInfo.InvariantCulture));
+                element.AddTaggedValue(name, data);
+                element.UpdateTaggedValue(DVTaggedValueKeys.DecisionStateModifiedDate,
+                                          element.Modified.ToString(CultureInfo.InvariantCulture));
+                element.UpdateTaggedValue(DVTaggedValueKeys.DecisionState, element.Stereotype);
+            }
         }
     }
 }

@@ -72,20 +72,9 @@ namespace DecisionViewpoints.Logic.Chronological
                 pastDecisions.Add(pastDecision);
             }
 
-            //add topics
-            HashSet<EAElement> topics = new HashSet<EAElement>();
-            foreach (EAElement decision in allDecisionsInPackage)
-            {
-                if (decision.HasTopic())
-                {
-                    var topic = decision.GetTopic();
-                    if (!topics.Contains(topic)) {
-                    topics.Add(topic);
-                    }
-                }
-            }
+            //add topics           
 
-            return pastDecisions.Union(topics);
+            return pastDecisions.Union( _viewPackage.GetAllTopics());
         }
 
         private IList<EAElement> ConnectDecisions(IEnumerable<EAElement> elements)

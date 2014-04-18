@@ -6,7 +6,6 @@ namespace DecisionViewpoints.Logic.Chronological
 {
     internal class ChronologicalViewpointHandler : RepositoryAdapter
     {
-
         public override void OnNotifyContextItemModified(string guid, NativeType type)
         {
             switch (type)

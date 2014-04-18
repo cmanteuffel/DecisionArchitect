@@ -268,7 +268,7 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Generate PowerPoint (Selected Decisions).
+        ///   Looks up a localized string similar to Generate PowerPoint (Selected Decisions/Topics).
         /// </summary>
         internal static string MenuExportSelectedDecisionsPowerPoint {
             get {
@@ -277,7 +277,7 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Generate Word  (Selected Decisions).
+        ///   Looks up a localized string similar to Generate Word  (Selected Decisions/Topics).
         /// </summary>
         internal static string MenuExportSelectedDecisionsWord {
             get {
@@ -457,7 +457,7 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to forces report created succesfuly..
+        ///   Looks up a localized string similar to Forces report was created succesfuly..
         /// </summary>
         internal static string SuccesfulForcesReportCreation {
             get {
@@ -466,7 +466,7 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to report created succesfuly..
+        ///   Looks up a localized string similar to Report was created succesfuly..
         /// </summary>
         internal static string SuccesfulReportCreation {
             get {
