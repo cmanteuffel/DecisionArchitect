@@ -123,5 +123,10 @@ namespace DecisionViewpointsCustomViews.View
         {
 
         }
+
+        private void buttonCancel_Click(object sender, System.EventArgs e)
+        {
+
+        }
     }
 }

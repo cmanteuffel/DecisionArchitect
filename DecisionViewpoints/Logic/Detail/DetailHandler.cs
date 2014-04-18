@@ -13,7 +13,8 @@ namespace DecisionViewpoints.Logic.Detail
             var repository = EARepository.Instance;
             var element = repository.GetElementByGUID(guid);
             if (!element.IsDecision()) return false;
-            var detailController = new DetailController(new Decision(element), new DetailView());
+            //var detailController = new DetailController(new Decision(element), new DetailView());//original
+            var detailController = new DetailController(new Decision(element), new DetailViewNew());//angor
             detailController.ShowDetailView();
             return true;
         }
@@ -22,7 +23,8 @@ namespace DecisionViewpoints.Logic.Detail
         {
             if (!element.IsDecision()) return false;
             EARepository.Instance.SuppressDefaultDialogs(true);
-            var detailController = new DetailController(new Decision(element), new DetailView());
+            //var detailController = new DetailController(new Decision(element), new DetailView());//original
+            var detailController = new DetailController(new Decision(element), new DetailViewNew());//angor
             detailController.ShowDetailView();
             return false;
         }

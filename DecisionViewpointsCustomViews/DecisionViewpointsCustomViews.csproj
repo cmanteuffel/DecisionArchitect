@@ -63,11 +63,22 @@
     <Compile Include="Model\IDecision.cs" />
     <Compile Include="Model\IForcesModel.cs" />
     <Compile Include="Model\Rating.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="View\DetailView.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="View\DetailView.Designer.cs">
       <DependentUpon>DetailView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\DetailViewNew.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\DetailViewNew.Designer.cs">
+      <DependentUpon>DetailViewNew.cs</DependentUpon>
     </Compile>
     <Compile Include="View\ForcesView.cs">
       <SubType>UserControl</SubType>
@@ -79,8 +90,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\DetailView.resx">
       <DependentUpon>DetailView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\DetailViewNew.resx">
+      <DependentUpon>DetailViewNew.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\ForcesView.resx">
       <DependentUpon>ForcesView.cs</DependentUpon>
