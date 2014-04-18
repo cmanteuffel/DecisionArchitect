@@ -201,7 +201,7 @@
             this.DescriptionTab.Padding = new System.Windows.Forms.Padding(3);
             this.DescriptionTab.Size = new System.Drawing.Size(504, 184);
             this.DescriptionTab.TabIndex = 1;
-            this.DescriptionTab.Text = "Description";
+            this.DescriptionTab.Text = "Decision";
             this.DescriptionTab.UseVisualStyleBackColor = true;
             // 
             // txtDecision
@@ -617,7 +617,7 @@
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.NameLabel);
             this.MinimumSize = new System.Drawing.Size(240, 520);
-            //this.Name = "DetailViewNew";
+            this.Name = "DetailViewNew";
             this.ShowIcon = false;
             this.Text = "DetailViewNew";
             this.Load += new System.EventHandler(this.DetailViewNew_Load);
