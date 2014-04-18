@@ -93,15 +93,10 @@ namespace EAFacade.Model
             EARepository.Instance.Native.ShowInProjectView(_native);
         }
 
-        //[Obsolete("Do not use outside of model namespace or main app")]
+        [Obsolete("Do not use outside of model namespace or main app")]
         internal static EADiagram Wrap(Diagram native)
         {
             return new EADiagram(native);
-        }
-
-        [Obsolete("", true)]
-        public void CreateConnector(EAElement lastModified, EAElement newElement)
-        {
         }
 
         public void AddToDiagram(EAElement newElement)
@@ -136,7 +131,12 @@ namespace EAFacade.Model
 
         public bool IsForces()
         {
-            return (DVStereotypes.DiagramMetaType.Equals(Metatype));
+            return (DVStereotypes.DiagramMetaTypeForces.Equals(Metatype));
+        }
+
+        public bool IsChronologicalView()
+        {
+            return Metatype.Equals(DVStereotypes.DiagramMetaTypeChronological);
         }
     }
 }

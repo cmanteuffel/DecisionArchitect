@@ -168,6 +168,16 @@ namespace EAFacade.Model
                 }
                 return default(T);
             }
+            if (typeT == typeof(EADiagram))
+            {
+                var nativeDiagram = obj as Diagram;
+                if (nativeDiagram != null)
+                {
+                    dynamic element = EADiagram.Wrap(nativeDiagram);
+                    return element;
+                }
+                return default(T);
+            }
 
             throw new NotSupportedException("Type (" + typeT.Name + ") not supported by GetContextObject()");
         }

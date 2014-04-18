@@ -2,15 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="DecisionViewpoints.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="RelationshipDiagramMetaType" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Decision Viewpoints::Relationship</Value>
-    </Setting>
-    <Setting Name="ChronologicalDiagramMetaType" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Decision Viewpoints::Chronological</Value>
-    </Setting>
-    <Setting Name="StakeholderInvolvementDiagramMetaType" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Decision Viewpoints::Stakeholder Involvement</Value>
-    </Setting>
     <Setting Name="BaselineOptionOnFileClose" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>

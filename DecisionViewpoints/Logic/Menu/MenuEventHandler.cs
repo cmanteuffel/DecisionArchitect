@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using DecisionViewpoints.Logic.Chronological;
 using DecisionViewpoints.Properties;
 using EAFacade.Model;
@@ -36,6 +37,7 @@ namespace DecisionViewpoints.Logic.Menu
                         },
                     UpdateDelegate = self => { self.IsChecked = Settings.Default.BaselineOptionManually; }
                 };
+
             var baselineOnFileClose = new MenuItem(Messages.MenuBaselineOnClose)
                 {
                     ClickDelegate = () =>
@@ -46,6 +48,7 @@ namespace DecisionViewpoints.Logic.Menu
                         },
                     UpdateDelegate = self => { self.IsChecked = Settings.Default.BaselineOptionOnFileClose; }
                 };
+
             var baselineOnModification = new MenuItem(Messages.MenuBaselineOnModify)
                 {
                     ClickDelegate = () =>
@@ -73,6 +76,20 @@ namespace DecisionViewpoints.Logic.Menu
                         }
                 };
 
+            var generateChronologicalView = new MenuItem(Messages.MenuGenerateChronologicalVP, Generate)
+                {
+                    UpdateDelegate = self =>
+                        {
+                            if (NativeType.Diagram == EARepository.Instance.GetContextItemType())
+                            {
+                                var eadiagram = EARepository.Instance.GetContextObject<EADiagram>();
+                                self.IsEnabled = (eadiagram != null && eadiagram.IsChronologicalView());
+                                return;
+                            }
+                            self.IsEnabled = false;
+                        }
+                };
+
             RootMenu.Add(createTraces);
             createTraces.Add(createAndTraceDecision);
             createTraces.Add(new MenuItem(Messages.MenuTraceToExistingElement,
@@ -85,7 +102,7 @@ namespace DecisionViewpoints.Logic.Menu
             baselinesOptions.Add(baselineOnModification);
             RootMenu.Add(createBaseline);
             RootMenu.Add(MenuItem.Separator);
-            RootMenu.Add(new MenuItem(Messages.MenuGenerateChronologicalVP, Generate));
+            RootMenu.Add(generateChronologicalView);
             RootMenu.Add(MenuItem.Separator);
         }
 
@@ -164,19 +181,36 @@ namespace DecisionViewpoints.Logic.Menu
 
         private static void Generate()
         {
-            EARepository repository = EARepository.Instance;
-            EAPackage viewPackage = repository.GetPackageFromRootByName("Decision Views");
-            EADiagram chronologicalView = viewPackage.GetDiagram("Chronological");
-            var historyPackage = viewPackage.GetSubpackageByName("Data");
-
-            if (historyPackage == null)
+            var eadiagram = EARepository.Instance.GetContextObject<EADiagram>();
+            if (eadiagram != null && eadiagram.IsChronologicalView())
             {
-                historyPackage = viewPackage.CreatePackage("Data", "generated");
-            }
+                EARepository repository = EARepository.Instance;
+                EADiagram chronologicalView = eadiagram;
 
-            ChronologicalViewpointGenerator generator = new ChronologicalViewpointGenerator(viewPackage, historyPackage,
-                                                                                            chronologicalView);
-            generator.GenerateViewpoint();
+
+                EAPackage package = chronologicalView.ParentPackage;
+                if (package == null) throw new Exception("package is null");
+                while (!(package.IsModelRoot() || package.IsDecisionViewPackage()))
+                {
+                    package = package.ParentPackage;
+                }
+
+                if (package == null || !package.IsDecisionViewPackage())
+                {
+                    return;
+                }
+
+                EAPackage viewPackage = package;
+                EAPackage historyPackage = viewPackage.GetSubpackageByName("History data for " + chronologicalView.Name);
+                if (historyPackage == null)
+                {
+                    historyPackage = viewPackage.CreatePackage("History data for " + chronologicalView.Name, "generated");
+                }
+
+                var generator = new ChronologicalViewpointGenerator(viewPackage, historyPackage,
+                                                                    chronologicalView);
+                generator.GenerateViewpoint();
+            }
         }
     }
 }
