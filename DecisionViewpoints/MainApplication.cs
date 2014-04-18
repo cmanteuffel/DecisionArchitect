@@ -31,7 +31,7 @@ namespace DecisionViewpoints
         public override string EA_OnRetrieveModelTemplate(Repository repository, string location)
         {
             EARepository.UpdateRepository(repository);
-            var resource = "DecisionViewpoints." + location;
+            var resource = "EAFacade." + location;
             return Utilities.GetResourceContents(resource);
         }
     }

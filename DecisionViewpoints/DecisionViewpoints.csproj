@@ -121,16 +121,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="EmptyDecisionViewTemplate.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="DefaultDecisionViewTemplate.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\DecisionViewpointsCustomViews\DecisionViewpointsCustomViews.csproj">
       <Project>{ed9e141b-e0ab-4d04-bf9a-4c8c1e676731}</Project>
       <Name>DecisionViewpointsCustomViews</Name>
