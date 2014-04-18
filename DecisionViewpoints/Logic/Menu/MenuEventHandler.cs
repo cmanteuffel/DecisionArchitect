@@ -119,6 +119,7 @@ namespace DecisionViewpoints.Logic.Menu
             var reportMenu = new Model.Menu.Menu(Messages.MenuExport);
             var generateWordReport = new MenuItem(Messages.MenuExportWord)
                 {
+                    
                     ClickDelegate = () => GenerateReport("Report.docx",ReportType.Word),
                     
                     UpdateDelegate = self => {}
@@ -277,6 +278,9 @@ namespace DecisionViewpoints.Logic.Menu
 
         private static void GenerateReport(string filename, ReportType reportType)
         {
+
+            //EARepository.Instance.GetSelectedItems();
+            
             EARepository repository = EARepository.Instance;
             List<Decision> decisions =
                 (from EAElement element in repository.GetAllElements()
