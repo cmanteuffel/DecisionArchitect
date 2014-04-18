@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 using EAFacade.Model;
 
 namespace DecisionViewpointsCustomViews.Model
@@ -94,30 +92,26 @@ namespace DecisionViewpointsCustomViews.Model
             foreach (var diagramObject in _diagram.GetElements())
             {
                 var element = repository.GetElementByID(diagramObject.ElementID);
-                var reqConcRating = new Dictionary<string, string>();
-                foreach (var taggedValue in element.TaggedValues)
-                {
-                    if (!taggedValue.Name.Split(':')[0].Equals("r")) continue;
-                    reqConcRating.Add(taggedValue.Name, taggedValue.Value);
-                }
-                data.Add(element.GUID, reqConcRating);
+                var requirementRating =
+                    element.TaggedValues.Where(taggedValue => taggedValue.Name.Split(':')[0].Equals("r"))
+                           .ToDictionary(taggedValue => taggedValue.Name, taggedValue => taggedValue.Value);
+                data.Add(element.GUID, requirementRating);
             }
             return data;
         }
 
         public void SaveRatings(Dictionary<string, Dictionary<string, string>> data)
         {
-            // validate the ratings (++, +, blank, -, --, X, ?) ???
             var repository = EARepository.Instance;
             foreach (var decision in data)
             {
                 var element = repository.GetElementByGUID(decision.Key);
-                foreach (var reqConcRating in decision.Value)
+                foreach (var requirementRating in decision.Value)
                 {
-                    if (element.GetTaggedValue(reqConcRating.Key) != null)
-                        element.UpdateTaggedValue(reqConcRating.Key, reqConcRating.Value);
+                    if (element.GetTaggedValue(requirementRating.Key) != null)
+                        element.UpdateTaggedValue(requirementRating.Key, requirementRating.Value);
                     else
-                        element.AddTaggedValue(reqConcRating.Key, reqConcRating.Value);
+                        element.AddTaggedValue(requirementRating.Key, requirementRating.Value);
                 }
             }
         }

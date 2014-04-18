@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -169,11 +168,12 @@ namespace DecisionViewpointsCustomViews.View
             // insert the ratings in the table
             foreach (var decision in model.GetRatings())
             {
-                var decisionColumnIndex = 3;
-                for (var index = 0; index != data.Columns.Count -3; index++)
+                var decisionColumnIndex = 0;
+                for (var index = DecisionColumnIndex; index != data.Columns.Count; index++)
                 {
-                    if (!data.Rows[data.Rows.Count - 1][index + 3].ToString().Equals(decision.Key)) continue;
-                    decisionColumnIndex += index;
+                    if (!data.Rows[data.Rows.Count - 1][index].ToString().Equals(decision.Key))
+                        continue;
+                    decisionColumnIndex = index;
                     break;
                 }
                 foreach (var reqConc in decision.Value)
@@ -197,7 +197,7 @@ namespace DecisionViewpointsCustomViews.View
             _forcesTable.Rows[_forcesTable.Rows.Count - 1].HeaderCell.Value = DecisionGUIDHeader;
 
             // hide the columns which contain the guids of the elements
-            var requirementGUIDColumn = _forcesTable.Columns[RequirementGUIDHeader];    
+            var requirementGUIDColumn = _forcesTable.Columns[RequirementGUIDHeader];
             if (requirementGUIDColumn != null)
                 requirementGUIDColumn.Visible = false;
 
@@ -214,8 +214,6 @@ namespace DecisionViewpointsCustomViews.View
             {
                 column.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
-
-            // TODO: permit only certain symbols for ratings
         }
 
         public void RemoveDecision(string guid)

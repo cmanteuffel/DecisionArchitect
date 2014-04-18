@@ -39,22 +39,20 @@ namespace DecisionViewpointsCustomViews.Controller
 
         public void SaveRatings()
         {
-            // Data structure: <decisionGUID, <r:requirementGUID:concernGUID, rating>>
+            // Data structure: <decisionGUID, <r:requirementGUID, rating>>
             var data = new Dictionary<string, Dictionary<string, string>>();
             var decisionColumnIndex = 3;
             foreach (var decisionGUID in _view.DecisionGUID)
             {
                 var requirementRowIndex = 0;
-                var reqConcRating = new Dictionary<string, string>();
+                var requirementsRatings = new Dictionary<string, string>();
                 foreach (var requirementGUID in _view.RequirementGUID)
                 {
-                    var concernGUID = _view.ConcernGUID[requirementRowIndex];
                     var rating = _view.GetRating(requirementRowIndex, decisionColumnIndex);
-                    var reqConcKey = String.Format("r:{0}:{1}", requirementGUID, concernGUID);
-                    reqConcRating.Add(reqConcKey, rating);
+                    requirementsRatings.Add(String.Format("r:{0}", requirementGUID), rating);
                     requirementRowIndex++;
                 }
-                data.Add(decisionGUID, reqConcRating);
+                data.Add(decisionGUID, requirementsRatings);
                 decisionColumnIndex++;
             }
             _model.SaveRatings(data);
