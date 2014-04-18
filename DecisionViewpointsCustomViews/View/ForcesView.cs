@@ -8,6 +8,8 @@ using DecisionViewpointsCustomViews.Controller;
 using DecisionViewpointsCustomViews.Model;
 using EAFacade;
 using EAFacade.Model;
+using System.Drawing;
+//using MenuItem = DecisionViewpointsCustomViews.Model.Menu.MenuItem; //angor task 149
 
 namespace DecisionViewpointsCustomViews.View
 {
@@ -34,6 +36,9 @@ namespace DecisionViewpointsCustomViews.View
         private const string ConcernGUIDHeader = "ConcernGUID";
         private const string RequirementGUIDHeader = "RequirementGUID";
         private const string DecisionGUIDHeader = "DecisionGUID";
+
+        //angor task149 ContextMenu
+        private ToolTip datagridToolTip = new ToolTip();
 
         public ForcesView()
         {
@@ -62,6 +67,7 @@ namespace DecisionViewpointsCustomViews.View
             this._forcesTable.Size = new System.Drawing.Size(762, 582);
             this._forcesTable.TabIndex = 2;
             this._forcesTable.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this._forcesTable_CellValueChanged);
+            this._forcesTable.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this._forcesTable_ColumnHeaderMouseClick);
             this._forcesTable.ColumnHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this._forcesTable_ColumnHeaderMouseDoubleClick);
             // 
             // _btnConfigure
@@ -84,6 +90,8 @@ namespace DecisionViewpointsCustomViews.View
             ((System.ComponentModel.ISupportInitialize)(this._forcesTable)).EndInit();
             this.ResumeLayout(false);
 
+            //angor task 149
+            
         }
 
         private void _btnConfigure_Click(object sender, EventArgs e)
@@ -364,6 +372,7 @@ namespace DecisionViewpointsCustomViews.View
         private void _forcesTable_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.ColumnIndex < DecisionColumnIndex) return;
+            
             var elementGUID = _forcesTable.Rows[_forcesTable.Rows.Count - 1].Cells[e.ColumnIndex].Value.ToString();
             var element = EARepository.Instance.GetElementByGUID(elementGUID);
             var diagrams = element.GetDiagrams();
@@ -382,6 +391,39 @@ namespace DecisionViewpointsCustomViews.View
                 }
             }
             element.ShowInProjectView();
+             
+            
         }
+
+        private void _forcesTable_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.ColumnIndex < DecisionColumnIndex) return;
+            if (e.Button == MouseButtons.Right)
+            {
+                var elementGUID = _forcesTable.Rows[_forcesTable.Rows.Count - 1].Cells[e.ColumnIndex].Value.ToString();
+                var decision = EARepository.Instance.GetElementByGUID(elementGUID);
+                var detailController = new DetailController(new Decision(decision), new DetailViewNew());//angor
+                Point pos = this.PointToClient(Cursor.Position);
+
+                detailController.ShowDetailView();
+
+              // ContextMenu menu = new ContextMenu();
+                /*
+                var details = new Model.Menu.Menu("Details View")
+                {
+                    ClickDelegate = () =>
+                        {
+                            MessageBox.Show("It works");
+                        }
+                };
+                 * */
+                
+                
+                
+
+
+            }
+        }
+
     }
 }
