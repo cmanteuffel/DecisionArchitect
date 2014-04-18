@@ -240,6 +240,10 @@ namespace DecisionViewpoints.Logic.Menu
                         decision.ShowInProjectView();
                     }
                 }
+                else
+                {
+                    MessageBox.Show("Here I am"); //angor
+                }
             }
         }
 

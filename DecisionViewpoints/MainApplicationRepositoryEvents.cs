@@ -132,5 +132,13 @@ namespace DecisionViewpoints
             return true;
 
         }
+
+        //angor task179 START
+        public override void EA_OnPostCloseDiagram(Repository repository, int diagramId)
+        {
+            EARepository.UpdateRepository(repository);
+            //System.Windows.Forms.MessageBox.Show("Event OnPostCloseDiagram"); //angor
+        }
+        //angor task179 END
     }
 }

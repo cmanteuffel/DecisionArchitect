@@ -44,7 +44,6 @@
             this.btnBold = new System.Windows.Forms.Button();
             this.btnItalics = new System.Windows.Forms.Button();
             this.btnunderline = new System.Windows.Forms.Button();
-            this.btnHyperlink = new System.Windows.Forms.Button();
             this.tbCntrlUnodifiable = new System.Windows.Forms.TabControl();
             this.AlternativeTb = new System.Windows.Forms.TabPage();
             this.dgvAlternatives = new System.Windows.Forms.DataGridView();
@@ -55,14 +54,8 @@
             this.RelatedName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Relation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RelatedTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RelatedFilesTb = new System.Windows.Forms.TabPage();
-            this.dgvRelatedFiles = new System.Windows.Forms.DataGridView();
             this.RelatedRequirementsTb = new System.Windows.Forms.TabPage();
             this.dgvRelatedRequirements = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Concern = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Rating = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TracesTb = new System.Windows.Forms.TabPage();
             this.dgvTraces = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -75,6 +68,8 @@
             this.Iteration = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCnrtlModifiable.SuspendLayout();
             this.ProblemTab.SuspendLayout();
             this.DescriptionTab.SuspendLayout();
@@ -84,8 +79,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvAlternatives)).BeginInit();
             this.RelatedDecisionsTb.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRelatedDecisions)).BeginInit();
-            this.RelatedFilesTb.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRelatedFiles)).BeginInit();
             this.RelatedRequirementsTb.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRelatedRequirements)).BeginInit();
             this.TracesTb.SuspendLayout();
@@ -216,6 +209,7 @@
             this.txtDecision.Size = new System.Drawing.Size(500, 180);
             this.txtDecision.TabIndex = 0;
             this.txtDecision.Text = "";
+            this.txtDecision.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.txtDecision_LinkClicked);
             // 
             // ArgumentsTab
             // 
@@ -238,6 +232,7 @@
             this.txtArguments.Size = new System.Drawing.Size(500, 180);
             this.txtArguments.TabIndex = 0;
             this.txtArguments.Text = "";
+            this.txtArguments.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.txtArguments_LinkClicked);
             // 
             // btnBold
             // 
@@ -279,24 +274,12 @@
             this.btnunderline.UseVisualStyleBackColor = true;
             this.btnunderline.Click += new System.EventHandler(this.btnunderline_Click);
             // 
-            // btnHyperlink
-            // 
-            this.btnHyperlink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnHyperlink.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHyperlink.Location = new System.Drawing.Point(530, 210);
-            this.btnHyperlink.Name = "btnHyperlink";
-            this.btnHyperlink.Size = new System.Drawing.Size(29, 24);
-            this.btnHyperlink.TabIndex = 11;
-            this.btnHyperlink.Text = "h";
-            this.btnHyperlink.UseVisualStyleBackColor = true;
-            // 
             // tbCntrlUnodifiable
             // 
             this.tbCntrlUnodifiable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbCntrlUnodifiable.Controls.Add(this.AlternativeTb);
             this.tbCntrlUnodifiable.Controls.Add(this.RelatedDecisionsTb);
-            this.tbCntrlUnodifiable.Controls.Add(this.RelatedFilesTb);
             this.tbCntrlUnodifiable.Controls.Add(this.RelatedRequirementsTb);
             this.tbCntrlUnodifiable.Controls.Add(this.TracesTb);
             this.tbCntrlUnodifiable.Controls.Add(this.HistoryTb);
@@ -398,30 +381,6 @@
             this.RelatedTo.Name = "RelatedTo";
             this.RelatedTo.ReadOnly = true;
             // 
-            // RelatedFilesTb
-            // 
-            this.RelatedFilesTb.BackColor = System.Drawing.SystemColors.Control;
-            this.RelatedFilesTb.Controls.Add(this.dgvRelatedFiles);
-            this.RelatedFilesTb.Location = new System.Drawing.Point(4, 22);
-            this.RelatedFilesTb.Name = "RelatedFilesTb";
-            this.RelatedFilesTb.Size = new System.Drawing.Size(533, 184);
-            this.RelatedFilesTb.TabIndex = 2;
-            this.RelatedFilesTb.Text = "Related Files";
-            // 
-            // dgvRelatedFiles
-            // 
-            this.dgvRelatedFiles.AllowUserToAddRows = false;
-            this.dgvRelatedFiles.AllowUserToDeleteRows = false;
-            this.dgvRelatedFiles.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvRelatedFiles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRelatedFiles.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvRelatedFiles.Location = new System.Drawing.Point(0, 0);
-            this.dgvRelatedFiles.Name = "dgvRelatedFiles";
-            this.dgvRelatedFiles.ReadOnly = true;
-            this.dgvRelatedFiles.RowHeadersVisible = false;
-            this.dgvRelatedFiles.Size = new System.Drawing.Size(533, 184);
-            this.dgvRelatedFiles.TabIndex = 19;
-            // 
             // RelatedRequirementsTb
             // 
             this.RelatedRequirementsTb.BackColor = System.Drawing.SystemColors.Control;
@@ -440,8 +399,6 @@
             this.dgvRelatedRequirements.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvRelatedRequirements.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn2,
-            this.Concern,
-            this.Rating,
             this.dataGridViewTextBoxColumn3});
             this.dgvRelatedRequirements.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvRelatedRequirements.Location = new System.Drawing.Point(0, 0);
@@ -450,34 +407,6 @@
             this.dgvRelatedRequirements.RowHeadersVisible = false;
             this.dgvRelatedRequirements.Size = new System.Drawing.Size(533, 184);
             this.dgvRelatedRequirements.TabIndex = 19;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn2.HeaderText = "Requirement Name";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            // 
-            // Concern
-            // 
-            this.Concern.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Concern.HeaderText = "Concern";
-            this.Concern.Name = "Concern";
-            this.Concern.ReadOnly = true;
-            // 
-            // Rating
-            // 
-            this.Rating.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Rating.HeaderText = "Rating";
-            this.Rating.Name = "Rating";
-            this.Rating.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn3.HeaderText = "Description";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
             // 
             // TracesTb
             // 
@@ -599,6 +528,20 @@
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Requirement Name";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn3.HeaderText = "Description";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
             // DetailViewNew
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -607,7 +550,6 @@
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.tbCntrlUnodifiable);
-            this.Controls.Add(this.btnHyperlink);
             this.Controls.Add(this.btnunderline);
             this.Controls.Add(this.btnItalics);
             this.Controls.Add(this.btnBold);
@@ -632,8 +574,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvAlternatives)).EndInit();
             this.RelatedDecisionsTb.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRelatedDecisions)).EndInit();
-            this.RelatedFilesTb.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRelatedFiles)).EndInit();
             this.RelatedRequirementsTb.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRelatedRequirements)).EndInit();
             this.TracesTb.ResumeLayout(false);
@@ -663,19 +603,16 @@
         private System.Windows.Forms.Button btnBold;
         private System.Windows.Forms.Button btnItalics;
         private System.Windows.Forms.Button btnunderline;
-        private System.Windows.Forms.Button btnHyperlink;
         private System.Windows.Forms.TabControl tbCntrlUnodifiable;
         private System.Windows.Forms.TabPage AlternativeTb;
         private System.Windows.Forms.TabPage RelatedDecisionsTb;
         private System.Windows.Forms.Button buttonOk;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.TabPage RelatedFilesTb;
         private System.Windows.Forms.TabPage RelatedRequirementsTb;
         private System.Windows.Forms.TabPage TracesTb;
         private System.Windows.Forms.TabPage HistoryTb;
         private System.Windows.Forms.DataGridView dgvAlternatives;
         private System.Windows.Forms.DataGridView dgvRelatedDecisions;
-        private System.Windows.Forms.DataGridView dgvRelatedFiles;
         private System.Windows.Forms.DataGridView dgvRelatedRequirements;
         private System.Windows.Forms.DataGridView dgvTraces;
         private System.Windows.Forms.DataGridView dgvHistory;
@@ -685,14 +622,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Action;
         private System.Windows.Forms.DataGridViewTextBoxColumn Status;
         private System.Windows.Forms.DataGridViewTextBoxColumn Iteration;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Concern;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Rating;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn AlternativeName;
         private System.Windows.Forms.DataGridViewTextBoxColumn AlternativeFor;
         private System.Windows.Forms.DataGridViewTextBoxColumn RelatedName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Relation;
         private System.Windows.Forms.DataGridViewTextBoxColumn RelatedTo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
     }
 }

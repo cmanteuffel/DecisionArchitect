@@ -269,6 +269,16 @@ namespace DecisionViewpointsCustomViews.View
 
         private void txtIssue_LinkClicked(object sender, LinkClickedEventArgs e)
         {
+            Process.Start(e.LinkText);
+        }
+
+        private void txtDecision_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
+            Process.Start("IExplore.exe", e.LinkText);
+        }
+
+        private void txtArguments_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
             Process.Start("IExplore.exe", e.LinkText);
         }
 
