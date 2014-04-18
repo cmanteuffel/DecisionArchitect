@@ -12,6 +12,7 @@ using EAFacade.Model;
 using EAFacade.Model.Events;
 using EAFacade;
 
+
 namespace DecisionViewpoints
 {
     public partial class MainApplication : EAEventAdapter

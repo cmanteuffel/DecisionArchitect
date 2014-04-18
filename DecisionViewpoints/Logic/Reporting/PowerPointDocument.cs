@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using DecisionViewpoints.Logic.Reporting;
 using DecisionViewpointsCustomViews.Model;
 using DocumentFormat.OpenXml;
@@ -27,7 +28,9 @@ namespace DecisionViewpoints.Model.Reporting
 
         public PowerPointDocument(string filename)
         {
-            _filename = String.Format("{0}\\{1}", Utilities.GetDocumentsDirectory(), filename);
+            //_filename = String.Format("{0}\\{1}", Utilities.GetDocumentsDirectory(), filename);//original
+            _filename = filename;//angor
+            MessageBox.Show("Document filename: " + _filename);//DEBUG
             using (
                 PresentationDocument ppDoc = PresentationDocument.Create(_filename, PresentationDocumentType.Presentation)
                 )

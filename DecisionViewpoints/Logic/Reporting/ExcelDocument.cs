@@ -3,6 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using DecisionViewpoints.Model.Reporting;
 using DecisionViewpointsCustomViews.Model;
 using DocumentFormat.OpenXml;
@@ -21,7 +22,9 @@ namespace DecisionViewpoints.Logic.Reporting
 
         public ExcelDocument(string filename)
         {
-            _filename = String.Format("{0}\\{1}", Utilities.GetDocumentsDirectory(), filename);
+            //_filename = String.Format("{0}\\{1}", Utilities.GetDocumentsDirectory(), filename);//original
+            _filename = filename;//angor
+            MessageBox.Show("Document filename: " + _filename);//DEBUG
             using (SpreadsheetDocument excelDoc = SpreadsheetDocument.Create(_filename, SpreadsheetDocumentType.Workbook)
                 )
             {

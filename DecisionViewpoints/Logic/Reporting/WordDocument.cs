@@ -42,7 +42,9 @@ namespace DecisionViewpoints.Model.Reporting
 
         public WordDocument(string filename)
         {
-            _filename = String.Format("{0}\\{1}", Utilities.GetDocumentsDirectory(), filename);
+            //_filename = String.Format("{0}\\{1}", Utilities.GetDocumentsDirectory(), filename);// original
+            _filename = filename; //angor
+            //MessageBox.Show("Document filename: " + filename); //DEBUG
             using (var wordDoc = WordprocessingDocument.Create(_filename, WordprocessingDocumentType.Document))
             {
                 _mainPart = wordDoc.AddMainDocumentPart();

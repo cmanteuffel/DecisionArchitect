@@ -106,13 +106,15 @@ namespace DecisionViewpoints.Logic.Menu
             var generateWordReport = new MenuItem(Messages.MenuExportWord)
                 {
                     ClickDelegate = () => GenerateReport("Report.docx",ReportType.Word),
+                    
                     UpdateDelegate = self => {}
-
+                    
                 };
 
             var generateExecelAllReport = new MenuItem(Messages.MenuExportExcelForcesAll)
             {
-                ClickDelegate = () => GenerateReport("AllForcesReport.docx", ReportType.Excel),
+                //ClickDelegate = () => GenerateReport("AllForcesReport.docx", ReportType.Excel),//original
+                ClickDelegate = () => GenerateReport("AllForcesReport.xlsx", ReportType.Excel),//angor
                 UpdateDelegate = self => { }
 
             };
@@ -140,10 +142,18 @@ namespace DecisionViewpoints.Logic.Menu
                     }
 
             };
-
+/* Original
             var generatePowerpointReport = new MenuItem(Messages.MenuExportPowerPoint)
             {
                 ClickDelegate = () => GenerateReport("Report.pptx", ReportType.PowerPoint),
+                UpdateDelegate = self => { }
+            };
+*/
+            //angor 17/9/2013
+            var generatePowerpointReport = new MenuItem(Messages.MenuExportPowerPoint)
+            {
+                ClickDelegate = () => 
+                    GenerateReport("Report.pptx", ReportType.PowerPoint),
                 UpdateDelegate = self => { }
 
             };
@@ -289,7 +299,26 @@ namespace DecisionViewpoints.Logic.Menu
             IReportDocument report = null;
             try
             {
-                report = ReportFactory.Create(reportType,filename);
+                //angor start
+                var filenameExtension = filename.Substring(filename.IndexOf('.'));
+                //MessageBox.Show("filename ext: "+filenameExtension); //DEBUG
+                var saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+                saveFileDialog1.Title = "Save report as..";
+                saveFileDialog1.Filter = "Microsoft " + reportType.ToString() + " (*"+ filenameExtension + ")|*" + filenameExtension;
+                saveFileDialog1.FilterIndex = 0;
+                
+                if (saveFileDialog1.ShowDialog() != DialogResult.OK)
+                {
+                    return;
+                }
+                saveFileDialog1.CheckFileExists = true;
+                saveFileDialog1.CheckPathExists = true;
+                var reportFilename = saveFileDialog1.FileName;// + filenameExtension;
+                //MessageBox.Show("report filename: "+reportFilename + "\nOriginal filename: " + filename); //DEBUG
+                //angor end
+
+                //report = ReportFactory.Create(reportType,filename);// original
+                report = ReportFactory.Create(reportType, reportFilename); // angor
                 report.Open();
                 foreach (Decision decision in decisions)
                 {
@@ -303,12 +332,17 @@ namespace DecisionViewpoints.Logic.Menu
                 {
                     report.InsertForcesTable(new ForcesModel(diagram));
                 }
+                //MessageBox.Show(reportType.ToString() + " " + Messages.SuccesfulReportCreation); //DEBUG //angor
+                var customMessage = new ExportReportsCustomMessageBox(reportType.ToString(), reportFilename);
+                customMessage.Show();
             }
-            finally
-            {
-                if (report != null)
-                    report.Close();
-            }
+                finally
+                {
+                    if (report != null)
+                        report.Close();
+                }
+            
+
         }
 
         private static void GenerateForcesReport(string filename, EADiagram diagram)
@@ -323,6 +357,7 @@ namespace DecisionViewpoints.Logic.Menu
                 {
                     report.InsertForcesTable(new ForcesModel(diagram));
                 }
+                MessageBox.Show(ReportType.Excel.ToString() + " " + Messages.SuccesfulForcesReportCreation);   //angor 17/9/2013
             }
             finally
             {

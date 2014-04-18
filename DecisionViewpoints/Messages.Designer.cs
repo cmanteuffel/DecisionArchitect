@@ -358,6 +358,24 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to forces report created succesfuly..
+        /// </summary>
+        internal static string SuccesfulForcesReportCreation {
+            get {
+                return ResourceManager.GetString("SuccesfulForcesReportCreation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to report created succesfuly..
+        /// </summary>
+        internal static string SuccesfulReportCreation {
+            get {
+                return ResourceManager.GetString("SuccesfulReportCreation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Warning.
         /// </summary>
         internal static string WarningCreateRelation {
