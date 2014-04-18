@@ -20,7 +20,7 @@ namespace DecisionViewpointsCustomViews.Controller
             _model.AddObserver(_view);
         }
 
-        public ICustomViewModel Model 
+        public ICustomViewModel Model
         {
             get { return _model; }
             set
@@ -50,13 +50,25 @@ namespace DecisionViewpointsCustomViews.Controller
             // Data structure: <decisionGUID, <r:requirementGUID, rating>>
             var data = new Dictionary<string, Dictionary<string, string>>();
             var decisionColumnIndex = 3;
-            foreach (var decisionGUID in _view.DecisionGUID)
+            foreach (var decisionGUID in _view.DecisionGuids)
             {
                 var requirementRowIndex = 0;
                 var requirementsRatings = new Dictionary<string, string>();
-                foreach (var requirementGUID in _view.RequirementGUID)
+                foreach (var requirementGUID in _view.RequirementGuids)
                 {
                     var rating = _view.GetRating(requirementRowIndex, decisionColumnIndex);
+                    if (rating.Length > 255)
+                    {
+                        var repository = EARepository.Instance;
+                        var decision = repository.GetElementByGUID(decisionGUID);
+                        var requirement = repository.GetElementByGUID(requirementGUID);
+                        MessageBox.Show(
+                            String.Format(
+                                "The length  of the rating '{0}' of decision '{1}' and requirement '{2}' is too large. It must be less than 256 characters.",
+                                rating, decision.Name, requirement.Name));
+                        requirementRowIndex++;
+                        continue;
+                    }
                     requirementsRatings.Add(String.Format("r:{0}", requirementGUID), rating);
                     requirementRowIndex++;
                 }

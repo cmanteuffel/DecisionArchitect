@@ -21,10 +21,13 @@ namespace EAFacade.Model
                     Stereotype = info.Get(EAEventPropertyKeys.Stereotype).Value
                 };
 
-            var parentElementID = Utilities.ParseToInt32(info.Get(EAEventPropertyKeys.ParentId).Value, -1);
-            if (parentElementID > 0)
+            if (volatileElement.Type.Equals("Element"))
             {
-                volatileElement.ParentElement = EARepository.Instance.GetElementByID(parentElementID);
+                var parentElementID = Utilities.ParseToInt32(info.Get(EAEventPropertyKeys.ParentId).Value, -1);
+                if (parentElementID > 0)
+                {
+                    volatileElement.ParentElement = EARepository.Instance.GetElementByID(parentElementID);
+                }
             }
 
             var diagramID = Utilities.ParseToInt32(info.Get(EAEventPropertyKeys.DiagramId).Value, -1);

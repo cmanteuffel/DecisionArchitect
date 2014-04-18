@@ -239,7 +239,7 @@ namespace DecisionViewpointsCustomViews.View
         {
         }
 
-        public List<string> RequirementGUID
+        public List<string> RequirementGuids
         {
             get
             {
@@ -251,7 +251,7 @@ namespace DecisionViewpointsCustomViews.View
             }
         }
 
-        public List<string> ConcernGUID
+        public List<string> ConcernGuids
         {
             get
             {
@@ -262,7 +262,7 @@ namespace DecisionViewpointsCustomViews.View
             }
         }
 
-        public List<string> DecisionGUID
+        public List<string> DecisionGuids
         {
             get
             {

@@ -10,9 +10,9 @@ namespace DecisionViewpointsCustomViews.View
     [InterfaceType(ComInterfaceType.InterfaceIsDual)]
     public interface ICustomView : ICustomViewModelObserver
     {
-        List<string> RequirementGUID { get; }
-        List<string> ConcernGUID { get; }
-        List<string> DecisionGUID { get; }
+        List<string> RequirementGuids { get; }
+        List<string> ConcernGuids { get; }
+        List<string> DecisionGuids { get; }
 
         void SetController(ICustomViewController controller);
         void UpdateTable(ICustomViewModel model);
