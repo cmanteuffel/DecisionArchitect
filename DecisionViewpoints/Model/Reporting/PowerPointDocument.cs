@@ -26,7 +26,7 @@ namespace DecisionViewpoints.Model.Reporting
 
         public PowerPointDocument(string filename)
         {
-            _filename = String.Format("{0}\\{1}", Utilities.GetHomeDirectory(), filename);
+            _filename = String.Format("{0}\\{1}", Utilities.GetDocumentsDirectory(), filename);
             using (
                 PresentationDocument ppDoc = PresentationDocument.Create(_filename, PresentationDocumentType.Presentation)
                 )

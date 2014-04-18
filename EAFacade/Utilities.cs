@@ -93,9 +93,10 @@ namespace EAFacade
             return size;
         }
 
-        public static string GetHomeDirectory()
+        public static string GetDocumentsDirectory()
         {
-            return Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
+            return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            //String.Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
             // (Environment.OSVersion.Platform == PlatformID.Unix ||
             //        Environment.OSVersion.Platform == PlatformID.MacOSX)
             //           ? Environment.GetEnvironmentVariable("HOME")
