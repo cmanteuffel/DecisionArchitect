@@ -17,10 +17,14 @@ namespace DecisionViewpointsCustomViews.View
 
         void ShowAsDialog();
         void SetController(IDetailViewController controller);
-        void AddRelatedDecision(string relationship, string name, bool isClient);
+        //void AddRelatedDecision(string relationship, string name, bool isClient);//original
+        void AddRelatedDecision(string relationship, string name, bool isClient, string uid);//angor task161
         void AddHistoryEntry(string name, string stereotype, string s, string state);
-        void AddAlternativeDecision(string relationship, string name, bool isClient);//angor task 158
-        void AddTrace(string name, string type);//angor task 157
-        void AddRelatedRequirement(string name, string rating, string description);//angor task159
+       //void AddAlternativeDecision(string relationship, string name, bool isClient);//angor task 158
+        void AddAlternativeDecision(string relationship, string name, bool isClient, string uid);//angor task161
+        //void AddTrace(string name, string type);//angor task 157
+        void AddTrace(string name, string type, string uid);//angor task 161
+       // void AddRelatedRequirement(string name, string rating, string description);//angor task159
+        void AddRelatedRequirement(string name, string rating, string description, string uid);//angor task161
     }
 }

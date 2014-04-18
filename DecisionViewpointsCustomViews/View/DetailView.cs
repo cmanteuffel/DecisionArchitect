@@ -55,7 +55,7 @@ namespace DecisionViewpointsCustomViews.View
             set { txtRelatedRequirements.Text = value; }
         }
 
-        public void AddRelatedDecision(string relationship, string name, bool isClient)
+        public void AddRelatedDecision(string relationship, string name, bool isClient, string uid)
         {
             lbxRelatedDecisions.Items.Add(isClient
                                               ? string.Format("This <<{1}>> {0}", name, relationship)
@@ -64,7 +64,7 @@ namespace DecisionViewpointsCustomViews.View
 
         //angor START task156
         //IMPORTANT!!! --> added a Alternative Decisions listbox on top of the old textbox..
-        public void AddAlternativeDecision(string relationship, string name,bool isClient)
+        public void AddAlternativeDecision(string relationship, string name,bool isClient, string uid)
         {
             lbxAlternativesDecision.Items.Add(isClient
                 ? string.Format("This <<{1}>> {0}", name, relationship)
@@ -73,7 +73,7 @@ namespace DecisionViewpointsCustomViews.View
         //angor END task156
 
         //angor START task157
-        public void AddTrace(string name, string type)
+        public void AddTrace(string name, string type, string uid)
         {
             lbxTraces.Items.Add(name + " (" + type + ")");
         }
@@ -81,7 +81,7 @@ namespace DecisionViewpointsCustomViews.View
 
         //angor START task159
         //IMPORTANT!!! --> added a related Requirements listBox on top of the old textbox..
-        public void AddRelatedRequirement(string name, string rating, string description)
+        public void AddRelatedRequirement(string name, string rating, string description, string uid)
         {
             lbxRelatedRequirements.Items.Add(name + " : " /*+ rating + " : "*/ + description);
         }

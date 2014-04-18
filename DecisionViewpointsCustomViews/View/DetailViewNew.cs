@@ -11,6 +11,8 @@ using System.Windows.Forms;
 using DecisionViewpointsCustomViews.Controller;
 using DecisionViewpointsCustomViews.Model;
 using EAFacade.Model.Events;
+using EAFacade;
+using EAFacade.Model;
 using Hyperlink = DocumentFormat.OpenXml.Drawing.Hyperlink;
 
 namespace DecisionViewpointsCustomViews.View
@@ -129,11 +131,11 @@ namespace DecisionViewpointsCustomViews.View
             _controller = controller;
         }
 
-        public void AddRelatedDecision(string relationship, string name, bool isClient)
+        public void AddRelatedDecision(string relationship, string name, bool isClient,string uid)
         {
             dgvRelatedDecisions.Rows.Add(isClient
-                ? new object[] {"<<this>> " + txtName.Text, relationship, name}
-                : new object[] {name, relationship, "<<this>> " + txtName.Text});
+                ? new object[] {uid,"<<this>> " + txtName.Text, relationship, name}
+                : new object[] {uid,name, relationship, "<<this>> " + txtName.Text});
         }
 
         public void AddHistoryEntry(string name, string stereotype, string s, string state)
@@ -142,21 +144,21 @@ namespace DecisionViewpointsCustomViews.View
             dgvHistory.Rows.Add(new object[] {stakeholderText, s, state});
         }
 
-        public void AddAlternativeDecision(string relationship, string name, bool isClient)
+        public void AddAlternativeDecision(string relationship, string name, bool isClient, string uid)
         {
             dgvAlternatives.Rows.Add(isClient
-                ? new object[] {"<<this>> " + txtName.Text, name}
-                : new object[] {name, "<<this>> " + txtName.Text});
+                ? new object[] {uid, "<<this>> " + txtName.Text, name}
+                : new object[] {uid, name, "<<this>> " + txtName.Text});
         }
 
-        public void AddTrace(string name, string type)
+        public void AddTrace(string name, string type, string uid)
         {
-            dgvTraces.Rows.Add(new object[] {name, type});
+            dgvTraces.Rows.Add(new object[] {uid, name, type});
         }
 
-        public void AddRelatedRequirement(string name, string rating, string description)
+        public void AddRelatedRequirement(string name, string rating, string description, string uid)
         {
-            dgvRelatedRequirements.Rows.Add(new object[] {name, "", "", description});
+            dgvRelatedRequirements.Rows.Add(new object[] {uid, name, "", "", description});
         }
 
 
@@ -286,6 +288,74 @@ namespace DecisionViewpointsCustomViews.View
         {
             Process.Start("IExplore.exe", e.LinkText);
         }
+
+        //angor task161 START--------------------------------------------------------------------------------
+        private void showDiagramsForEAElement(string elementGUID)
+        {
+            var element = EARepository.Instance.GetElementByGUID(elementGUID);
+            var diagrams = element.GetDiagrams();
+            if (diagrams.Count() == 1)
+            {
+                var diagram = diagrams[0];
+                diagram.OpenAndSelectElement(element);
+            }
+            else if (diagrams.Count() >= 2)
+            {
+                var selectForm = new SelectDiagram(diagrams);
+                if (selectForm.ShowDialog() == DialogResult.OK)
+                {
+                    var diagram = selectForm.GetSelectedDiagram();
+                    diagram.OpenAndSelectElement(element);
+                }
+            }
+            element.ShowInProjectView();
+        }
+
+        private void dgvAlternatives_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            if (e.ColumnIndex != 1)
+                return;
+            else
+            {
+                var elementGUID = dgvAlternatives[0, e.RowIndex].Value.ToString();
+                showDiagramsForEAElement(elementGUID);
+            }
+                
+        }
+
+        private void dgvRelatedDecisions_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex != 3) return;
+            else
+            {
+                var elementGUID = dgvRelatedDecisions[0, e.RowIndex].Value.ToString();
+                showDiagramsForEAElement(elementGUID);
+            }
+        }
+
+        private void dgvRelatedRequirements_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex != 1)
+                return;
+            else
+            {
+                var elementGUID = dgvRelatedRequirements[0, e.RowIndex].Value.ToString();
+                showDiagramsForEAElement(elementGUID);
+            }
+        }
+
+        private void dgvTraces_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex != 1)
+                return;
+            else
+            {
+                var elementGUID = dgvTraces[0, e.RowIndex].Value.ToString();
+                showDiagramsForEAElement(elementGUID);
+            }
+        }
+        //angor task161 END--------------------------------------------------------------------------------
 
         /*
         private void AddHyperlinkText(string linkURL, string linkName,

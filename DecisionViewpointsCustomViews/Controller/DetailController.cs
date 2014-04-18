@@ -36,10 +36,10 @@ namespace DecisionViewpointsCustomViews.Controller
             {
                 if (!connector.Stereotype.Equals("alternative for"))//angor task 158
                 {
-                    if (connector.ClientId == _decision.ID)   
-                        _view.AddRelatedDecision(connector.Stereotype, connector.GetSupplier().Name, true);
+                    if (connector.ClientId == _decision.ID)
+                        _view.AddRelatedDecision(connector.Stereotype, connector.GetSupplier().Name, true, connector.GetSupplier().GUID);
                     else
-                        _view.AddRelatedDecision(connector.Stereotype, connector.GetClient().Name, false);        
+                        _view.AddRelatedDecision(connector.Stereotype, connector.GetClient().Name, false, connector.GetClient().GUID);        
                 }
             }
 
@@ -51,9 +51,9 @@ namespace DecisionViewpointsCustomViews.Controller
                 if (connector.Stereotype.Equals("alternative for"))
                 {
                     if (connector.ClientId != _decision.ID)
-                        _view.AddAlternativeDecision(connector.Stereotype, connector.GetClient().Name,false);
+                        _view.AddAlternativeDecision(connector.Stereotype, connector.GetClient().Name,false, connector.GetClient().GUID);
                     else
-                        _view.AddAlternativeDecision(connector.Stereotype, connector.GetSupplier().Name,true);
+                        _view.AddAlternativeDecision(connector.Stereotype, connector.GetSupplier().Name,true, connector.GetSupplier().GUID);
                 }
             }
             //angor END task156
@@ -68,7 +68,8 @@ namespace DecisionViewpointsCustomViews.Controller
                                    );
             foreach (EAElement tracedElement in traces)
             {
-                _view.AddTrace(tracedElement.Name, tracedElement.Type);
+                _view.AddTrace(tracedElement.Name, tracedElement.Type, tracedElement.GUID);
+               // MessageBox.Show("Traced element: " + tracedElement.Name + "\nuid: " + tracedElement.GUID);
             }
             //angor END task157
 
@@ -78,7 +79,7 @@ namespace DecisionViewpointsCustomViews.Controller
             foreach (var rating in forces)
             {
                 var req = EARepository.Instance.GetElementByGUID(rating.RequirementGUID);
-                _view.AddRelatedRequirement(req.Name, rating.Value, req.Notes); 
+                _view.AddRelatedRequirement(req.Name, rating.Value, req.Notes, rating.RequirementGUID); 
             }
             //angor END task159
 

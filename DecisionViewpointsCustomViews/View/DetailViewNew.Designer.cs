@@ -47,19 +47,12 @@
             this.tbCntrlUnodifiable = new System.Windows.Forms.TabControl();
             this.AlternativeTb = new System.Windows.Forms.TabPage();
             this.dgvAlternatives = new System.Windows.Forms.DataGridView();
-            this.AlternativeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AlternativeFor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RelatedDecisionsTb = new System.Windows.Forms.TabPage();
             this.dgvRelatedDecisions = new System.Windows.Forms.DataGridView();
-            this.RelatedName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Relation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RelatedTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RelatedRequirementsTb = new System.Windows.Forms.TabPage();
             this.dgvRelatedRequirements = new System.Windows.Forms.DataGridView();
             this.TracesTb = new System.Windows.Forms.TabPage();
             this.dgvTraces = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HistoryTb = new System.Windows.Forms.TabPage();
             this.dgvHistory = new System.Windows.Forms.DataGridView();
             this.Stakeholder = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -68,8 +61,19 @@
             this.Iteration = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.uid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AlternativeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AlternativeFor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.reqUid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.traceUid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RelatedName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Relation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RelatedTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCnrtlModifiable.SuspendLayout();
             this.ProblemTab.SuspendLayout();
             this.DescriptionTab.SuspendLayout();
@@ -307,6 +311,7 @@
             this.dgvAlternatives.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvAlternatives.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAlternatives.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.uid,
             this.AlternativeName,
             this.AlternativeFor});
             this.dgvAlternatives.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -316,20 +321,7 @@
             this.dgvAlternatives.RowHeadersVisible = false;
             this.dgvAlternatives.Size = new System.Drawing.Size(527, 178);
             this.dgvAlternatives.TabIndex = 19;
-            // 
-            // AlternativeName
-            // 
-            this.AlternativeName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.AlternativeName.HeaderText = "Decision Name";
-            this.AlternativeName.Name = "AlternativeName";
-            this.AlternativeName.ReadOnly = true;
-            // 
-            // AlternativeFor
-            // 
-            this.AlternativeFor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.AlternativeFor.HeaderText = "Alternative for";
-            this.AlternativeFor.Name = "AlternativeFor";
-            this.AlternativeFor.ReadOnly = true;
+            this.dgvAlternatives.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAlternatives_CellContentDoubleClick);
             // 
             // RelatedDecisionsTb
             // 
@@ -349,6 +341,7 @@
             this.dgvRelatedDecisions.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvRelatedDecisions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvRelatedDecisions.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
             this.RelatedName,
             this.Relation,
             this.RelatedTo});
@@ -359,27 +352,7 @@
             this.dgvRelatedDecisions.RowHeadersVisible = false;
             this.dgvRelatedDecisions.Size = new System.Drawing.Size(527, 178);
             this.dgvRelatedDecisions.TabIndex = 19;
-            // 
-            // RelatedName
-            // 
-            this.RelatedName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.RelatedName.HeaderText = "Decision Name";
-            this.RelatedName.Name = "RelatedName";
-            this.RelatedName.ReadOnly = true;
-            // 
-            // Relation
-            // 
-            this.Relation.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Relation.HeaderText = "Relation";
-            this.Relation.Name = "Relation";
-            this.Relation.ReadOnly = true;
-            // 
-            // RelatedTo
-            // 
-            this.RelatedTo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.RelatedTo.HeaderText = "Related to";
-            this.RelatedTo.Name = "RelatedTo";
-            this.RelatedTo.ReadOnly = true;
+            this.dgvRelatedDecisions.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRelatedDecisions_CellContentClick);
             // 
             // RelatedRequirementsTb
             // 
@@ -398,6 +371,7 @@
             this.dgvRelatedRequirements.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvRelatedRequirements.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvRelatedRequirements.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.reqUid,
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3});
             this.dgvRelatedRequirements.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -407,6 +381,7 @@
             this.dgvRelatedRequirements.RowHeadersVisible = false;
             this.dgvRelatedRequirements.Size = new System.Drawing.Size(533, 184);
             this.dgvRelatedRequirements.TabIndex = 19;
+            this.dgvRelatedRequirements.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRelatedRequirements_CellContentClick);
             // 
             // TracesTb
             // 
@@ -425,6 +400,7 @@
             this.dgvTraces.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvTraces.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTraces.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.traceUid,
             this.dataGridViewTextBoxColumn4,
             this.Type});
             this.dgvTraces.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -434,20 +410,7 @@
             this.dgvTraces.RowHeadersVisible = false;
             this.dgvTraces.Size = new System.Drawing.Size(533, 184);
             this.dgvTraces.TabIndex = 19;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn4.HeaderText = "Trace Name";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            // 
-            // Type
-            // 
-            this.Type.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Type.HeaderText = "Type";
-            this.Type.Name = "Type";
-            this.Type.ReadOnly = true;
+            this.dgvTraces.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTraces_CellContentClick);
             // 
             // HistoryTb
             // 
@@ -528,6 +491,34 @@
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
+            // uid
+            // 
+            this.uid.HeaderText = "uid";
+            this.uid.Name = "uid";
+            this.uid.ReadOnly = true;
+            this.uid.Visible = false;
+            // 
+            // AlternativeName
+            // 
+            this.AlternativeName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.AlternativeName.HeaderText = "Decision Name";
+            this.AlternativeName.Name = "AlternativeName";
+            this.AlternativeName.ReadOnly = true;
+            // 
+            // AlternativeFor
+            // 
+            this.AlternativeFor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.AlternativeFor.HeaderText = "Alternative for";
+            this.AlternativeFor.Name = "AlternativeFor";
+            this.AlternativeFor.ReadOnly = true;
+            // 
+            // reqUid
+            // 
+            this.reqUid.HeaderText = "reqUid";
+            this.reqUid.Name = "reqUid";
+            this.reqUid.ReadOnly = true;
+            this.reqUid.Visible = false;
+            // 
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
@@ -541,6 +532,55 @@
             this.dataGridViewTextBoxColumn3.HeaderText = "Description";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
+            // traceUid
+            // 
+            this.traceUid.HeaderText = "traceUid";
+            this.traceUid.Name = "traceUid";
+            this.traceUid.ReadOnly = true;
+            this.traceUid.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn4.HeaderText = "Trace Name";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            // 
+            // Type
+            // 
+            this.Type.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Type.HeaderText = "Type";
+            this.Type.Name = "Type";
+            this.Type.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "uid";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Visible = false;
+            // 
+            // RelatedName
+            // 
+            this.RelatedName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.RelatedName.HeaderText = "Decision Name";
+            this.RelatedName.Name = "RelatedName";
+            this.RelatedName.ReadOnly = true;
+            // 
+            // Relation
+            // 
+            this.Relation.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Relation.HeaderText = "Relation";
+            this.Relation.Name = "Relation";
+            this.Relation.ReadOnly = true;
+            // 
+            // RelatedTo
+            // 
+            this.RelatedTo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.RelatedTo.HeaderText = "Related to";
+            this.RelatedTo.Name = "RelatedTo";
+            this.RelatedTo.ReadOnly = true;
             // 
             // DetailViewNew
             // 
@@ -616,18 +656,22 @@
         private System.Windows.Forms.DataGridView dgvRelatedRequirements;
         private System.Windows.Forms.DataGridView dgvTraces;
         private System.Windows.Forms.DataGridView dgvHistory;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Type;
         private System.Windows.Forms.DataGridViewTextBoxColumn Stakeholder;
         private System.Windows.Forms.DataGridViewTextBoxColumn Action;
         private System.Windows.Forms.DataGridViewTextBoxColumn Status;
         private System.Windows.Forms.DataGridViewTextBoxColumn Iteration;
+        private System.Windows.Forms.DataGridViewTextBoxColumn uid;
         private System.Windows.Forms.DataGridViewTextBoxColumn AlternativeName;
         private System.Windows.Forms.DataGridViewTextBoxColumn AlternativeFor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn reqUid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn traceUid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Type;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn RelatedName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Relation;
         private System.Windows.Forms.DataGridViewTextBoxColumn RelatedTo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
     }
 }
