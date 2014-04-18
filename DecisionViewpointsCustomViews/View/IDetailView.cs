@@ -12,7 +12,7 @@ namespace DecisionViewpointsCustomViews.View
         string DecisionAlternatives { get; set; }
         string DecisionArguments { get; set; }
         string DecisionRelatedRequirements { get; set; }
-        string DecisionGroup { get; set; }//angor task191
+        //string DecisionGroup { get; set; }//angor task191
 
         //string DecisionIssuePlainText { get; }//angor
 

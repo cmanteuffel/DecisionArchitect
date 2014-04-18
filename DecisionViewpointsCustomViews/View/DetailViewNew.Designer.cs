@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DetailViewNew));
             this.NameLabel = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -76,6 +77,7 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.lblTopicDescription = new System.Windows.Forms.Label();
             this.txtTopicDescription = new System.Windows.Forms.TextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.tbCnrtlModifiable.SuspendLayout();
             this.ProblemTab.SuspendLayout();
             this.DescriptionTab.SuspendLayout();
@@ -91,259 +93,169 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvTraces)).BeginInit();
             this.HistoryTb.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHistory)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // NameLabel
             // 
-            this.NameLabel.AutoSize = true;
-            this.NameLabel.Location = new System.Drawing.Point(13, 13);
+            resources.ApplyResources(this.NameLabel, "NameLabel");
             this.NameLabel.Name = "NameLabel";
-            this.NameLabel.Size = new System.Drawing.Size(38, 13);
-            this.NameLabel.TabIndex = 0;
-            this.NameLabel.Text = "Name:";
             // 
             // txtName
             // 
-            this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtName.Location = new System.Drawing.Point(113, 10);
+            resources.ApplyResources(this.txtName, "txtName");
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(444, 20);
-            this.txtName.TabIndex = 1;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 39);
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "State:";
             // 
             // cbxState
             // 
+            resources.ApplyResources(this.cbxState, "cbxState");
             this.cbxState.FormattingEnabled = true;
             this.cbxState.Items.AddRange(new object[] {
-            "idea",
-            "tentative",
-            "decided",
-            "approved",
-            "challenged",
-            "discarded",
-            "rejected"});
-            this.cbxState.Location = new System.Drawing.Point(113, 36);
+            resources.GetString("cbxState.Items"),
+            resources.GetString("cbxState.Items1"),
+            resources.GetString("cbxState.Items2"),
+            resources.GetString("cbxState.Items3"),
+            resources.GetString("cbxState.Items4"),
+            resources.GetString("cbxState.Items5"),
+            resources.GetString("cbxState.Items6")});
             this.cbxState.Name = "cbxState";
-            this.cbxState.Size = new System.Drawing.Size(162, 21);
-            this.cbxState.TabIndex = 4;
             // 
             // lblTopicName
             // 
-            this.lblTopicName.AutoSize = true;
-            this.lblTopicName.Location = new System.Drawing.Point(13, 66);
+            resources.ApplyResources(this.lblTopicName, "lblTopicName");
             this.lblTopicName.Name = "lblTopicName";
-            this.lblTopicName.Size = new System.Drawing.Size(66, 13);
-            this.lblTopicName.TabIndex = 5;
-            this.lblTopicName.Text = "Topic name:";
             // 
             // txtGroup
             // 
-            this.txtGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtGroup.Location = new System.Drawing.Point(113, 63);
+            resources.ApplyResources(this.txtGroup, "txtGroup");
             this.txtGroup.Name = "txtGroup";
             this.txtGroup.ReadOnly = true;
-            this.txtGroup.Size = new System.Drawing.Size(444, 20);
-            this.txtGroup.TabIndex = 6;
             // 
             // tbCnrtlModifiable
             // 
-            this.tbCnrtlModifiable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.tbCnrtlModifiable, "tbCnrtlModifiable");
             this.tbCnrtlModifiable.Controls.Add(this.ProblemTab);
             this.tbCnrtlModifiable.Controls.Add(this.DescriptionTab);
             this.tbCnrtlModifiable.Controls.Add(this.ArgumentsTab);
-            this.tbCnrtlModifiable.Location = new System.Drawing.Point(16, 110);
-            this.tbCnrtlModifiable.MinimumSize = new System.Drawing.Size(0, 140);
             this.tbCnrtlModifiable.Name = "tbCnrtlModifiable";
             this.tbCnrtlModifiable.SelectedIndex = 0;
-            this.tbCnrtlModifiable.Size = new System.Drawing.Size(512, 227);
-            this.tbCnrtlModifiable.TabIndex = 7;
             // 
             // ProblemTab
             // 
             this.ProblemTab.Controls.Add(this.txtIssue);
-            this.ProblemTab.Location = new System.Drawing.Point(4, 22);
+            resources.ApplyResources(this.ProblemTab, "ProblemTab");
             this.ProblemTab.Name = "ProblemTab";
-            this.ProblemTab.Padding = new System.Windows.Forms.Padding(3);
-            this.ProblemTab.Size = new System.Drawing.Size(504, 201);
-            this.ProblemTab.TabIndex = 0;
-            this.ProblemTab.Text = "Problem";
             this.ProblemTab.UseVisualStyleBackColor = true;
             // 
             // txtIssue
             // 
-            this.txtIssue.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtIssue.Location = new System.Drawing.Point(2, 2);
-            this.txtIssue.Margin = new System.Windows.Forms.Padding(2);
+            resources.ApplyResources(this.txtIssue, "txtIssue");
             this.txtIssue.Name = "txtIssue";
-            this.txtIssue.Size = new System.Drawing.Size(500, 197);
-            this.txtIssue.TabIndex = 0;
-            this.txtIssue.Text = "";
             this.txtIssue.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.txtIssue_LinkClicked);
             // 
             // DescriptionTab
             // 
             this.DescriptionTab.Controls.Add(this.txtDecision);
-            this.DescriptionTab.Location = new System.Drawing.Point(4, 22);
+            resources.ApplyResources(this.DescriptionTab, "DescriptionTab");
             this.DescriptionTab.Name = "DescriptionTab";
-            this.DescriptionTab.Padding = new System.Windows.Forms.Padding(3);
-            this.DescriptionTab.Size = new System.Drawing.Size(504, 201);
-            this.DescriptionTab.TabIndex = 1;
-            this.DescriptionTab.Text = "Decision";
             this.DescriptionTab.UseVisualStyleBackColor = true;
             // 
             // txtDecision
             // 
-            this.txtDecision.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDecision.Location = new System.Drawing.Point(2, 2);
-            this.txtDecision.Margin = new System.Windows.Forms.Padding(2);
+            resources.ApplyResources(this.txtDecision, "txtDecision");
             this.txtDecision.Name = "txtDecision";
-            this.txtDecision.Size = new System.Drawing.Size(500, 180);
-            this.txtDecision.TabIndex = 0;
-            this.txtDecision.Text = "";
             this.txtDecision.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.txtDecision_LinkClicked);
             // 
             // ArgumentsTab
             // 
             this.ArgumentsTab.Controls.Add(this.txtArguments);
-            this.ArgumentsTab.Location = new System.Drawing.Point(4, 22);
+            resources.ApplyResources(this.ArgumentsTab, "ArgumentsTab");
             this.ArgumentsTab.Name = "ArgumentsTab";
-            this.ArgumentsTab.Size = new System.Drawing.Size(504, 201);
-            this.ArgumentsTab.TabIndex = 2;
-            this.ArgumentsTab.Text = "Arguments";
             this.ArgumentsTab.UseVisualStyleBackColor = true;
             // 
             // txtArguments
             // 
-            this.txtArguments.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtArguments.Location = new System.Drawing.Point(2, 2);
-            this.txtArguments.Margin = new System.Windows.Forms.Padding(2);
+            resources.ApplyResources(this.txtArguments, "txtArguments");
             this.txtArguments.Name = "txtArguments";
-            this.txtArguments.Size = new System.Drawing.Size(500, 180);
-            this.txtArguments.TabIndex = 0;
-            this.txtArguments.Text = "";
             this.txtArguments.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.txtArguments_LinkClicked);
             // 
             // btnBold
             // 
-            this.btnBold.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBold.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btnBold.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBold.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnBold.Location = new System.Drawing.Point(530, 136);
+            resources.ApplyResources(this.btnBold, "btnBold");
             this.btnBold.Name = "btnBold";
-            this.btnBold.Size = new System.Drawing.Size(29, 24);
-            this.btnBold.TabIndex = 8;
-            this.btnBold.Text = "B";
             this.btnBold.UseVisualStyleBackColor = true;
             this.btnBold.Click += new System.EventHandler(this.btnBold_Click);
             // 
             // btnItalics
             // 
-            this.btnItalics.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnItalics.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnItalics.Font = new System.Drawing.Font("Castellar", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnItalics.Location = new System.Drawing.Point(530, 165);
+            resources.ApplyResources(this.btnItalics, "btnItalics");
             this.btnItalics.Name = "btnItalics";
-            this.btnItalics.Size = new System.Drawing.Size(29, 25);
-            this.btnItalics.TabIndex = 9;
-            this.btnItalics.Text = "I";
             this.btnItalics.UseVisualStyleBackColor = true;
             this.btnItalics.Click += new System.EventHandler(this.btnItalics_Click);
             // 
             // btnunderline
             // 
-            this.btnunderline.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnunderline.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnunderline.Font = new System.Drawing.Font("Lucida Sans Unicode", 9F, System.Drawing.FontStyle.Underline);
-            this.btnunderline.Location = new System.Drawing.Point(530, 195);
+            resources.ApplyResources(this.btnunderline, "btnunderline");
             this.btnunderline.Name = "btnunderline";
-            this.btnunderline.Size = new System.Drawing.Size(29, 25);
-            this.btnunderline.TabIndex = 10;
-            this.btnunderline.Text = "U";
             this.btnunderline.UseVisualStyleBackColor = true;
             this.btnunderline.Click += new System.EventHandler(this.btnunderline_Click);
             // 
             // tbCntrlUnodifiable
             // 
-            this.tbCntrlUnodifiable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.tbCntrlUnodifiable, "tbCntrlUnodifiable");
             this.tbCntrlUnodifiable.Controls.Add(this.AlternativeTb);
             this.tbCntrlUnodifiable.Controls.Add(this.RelatedDecisionsTb);
             this.tbCntrlUnodifiable.Controls.Add(this.RelatedRequirementsTb);
             this.tbCntrlUnodifiable.Controls.Add(this.TracesTb);
             this.tbCntrlUnodifiable.Controls.Add(this.HistoryTb);
-            this.tbCntrlUnodifiable.Location = new System.Drawing.Point(16, 338);
             this.tbCntrlUnodifiable.Name = "tbCntrlUnodifiable";
             this.tbCntrlUnodifiable.SelectedIndex = 0;
-            this.tbCntrlUnodifiable.Size = new System.Drawing.Size(541, 210);
-            this.tbCntrlUnodifiable.TabIndex = 12;
             // 
             // AlternativeTb
             // 
             this.AlternativeTb.BackColor = System.Drawing.SystemColors.Control;
             this.AlternativeTb.Controls.Add(this.dgvAlternatives);
-            this.AlternativeTb.Location = new System.Drawing.Point(4, 22);
+            resources.ApplyResources(this.AlternativeTb, "AlternativeTb");
             this.AlternativeTb.Name = "AlternativeTb";
-            this.AlternativeTb.Padding = new System.Windows.Forms.Padding(3);
-            this.AlternativeTb.Size = new System.Drawing.Size(533, 184);
-            this.AlternativeTb.TabIndex = 0;
-            this.AlternativeTb.Text = "Alternatives";
             // 
             // dgvAlternatives
             // 
             this.dgvAlternatives.AllowUserToAddRows = false;
             this.dgvAlternatives.AllowUserToDeleteRows = false;
+            resources.ApplyResources(this.dgvAlternatives, "dgvAlternatives");
             this.dgvAlternatives.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvAlternatives.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAlternatives.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.uid,
             this.AlternativeName,
             this.AlternativeFor});
-            this.dgvAlternatives.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvAlternatives.Location = new System.Drawing.Point(3, 3);
             this.dgvAlternatives.Name = "dgvAlternatives";
             this.dgvAlternatives.ReadOnly = true;
             this.dgvAlternatives.RowHeadersVisible = false;
-            this.dgvAlternatives.Size = new System.Drawing.Size(527, 178);
-            this.dgvAlternatives.TabIndex = 19;
             this.dgvAlternatives.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAlternatives_CellContentDoubleClick);
             // 
             // uid
             // 
-            this.uid.HeaderText = "uid";
+            resources.ApplyResources(this.uid, "uid");
             this.uid.Name = "uid";
             this.uid.ReadOnly = true;
-            this.uid.Visible = false;
             // 
             // AlternativeName
             // 
             this.AlternativeName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.AlternativeName.HeaderText = "Decision Name";
+            resources.ApplyResources(this.AlternativeName, "AlternativeName");
             this.AlternativeName.Name = "AlternativeName";
             this.AlternativeName.ReadOnly = true;
             // 
             // AlternativeFor
             // 
             this.AlternativeFor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.AlternativeFor.HeaderText = "Alternative for";
+            resources.ApplyResources(this.AlternativeFor, "AlternativeFor");
             this.AlternativeFor.Name = "AlternativeFor";
             this.AlternativeFor.ReadOnly = true;
             // 
@@ -351,12 +263,8 @@
             // 
             this.RelatedDecisionsTb.BackColor = System.Drawing.SystemColors.Control;
             this.RelatedDecisionsTb.Controls.Add(this.dgvRelatedDecisions);
-            this.RelatedDecisionsTb.Location = new System.Drawing.Point(4, 22);
+            resources.ApplyResources(this.RelatedDecisionsTb, "RelatedDecisionsTb");
             this.RelatedDecisionsTb.Name = "RelatedDecisionsTb";
-            this.RelatedDecisionsTb.Padding = new System.Windows.Forms.Padding(3);
-            this.RelatedDecisionsTb.Size = new System.Drawing.Size(533, 184);
-            this.RelatedDecisionsTb.TabIndex = 1;
-            this.RelatedDecisionsTb.Text = "Related Decisions";
             // 
             // dgvRelatedDecisions
             // 
@@ -369,40 +277,36 @@
             this.RelatedName,
             this.Relation,
             this.RelatedTo});
-            this.dgvRelatedDecisions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvRelatedDecisions.Location = new System.Drawing.Point(3, 3);
+            resources.ApplyResources(this.dgvRelatedDecisions, "dgvRelatedDecisions");
             this.dgvRelatedDecisions.Name = "dgvRelatedDecisions";
             this.dgvRelatedDecisions.ReadOnly = true;
             this.dgvRelatedDecisions.RowHeadersVisible = false;
-            this.dgvRelatedDecisions.Size = new System.Drawing.Size(527, 178);
-            this.dgvRelatedDecisions.TabIndex = 19;
             this.dgvRelatedDecisions.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRelatedDecisions_CellContentClick);
             // 
             // dataGridViewTextBoxColumn1
             // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "uid";
+            resources.ApplyResources(this.dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Visible = false;
             // 
             // RelatedName
             // 
             this.RelatedName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.RelatedName.HeaderText = "Decision Name";
+            resources.ApplyResources(this.RelatedName, "RelatedName");
             this.RelatedName.Name = "RelatedName";
             this.RelatedName.ReadOnly = true;
             // 
             // Relation
             // 
             this.Relation.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Relation.HeaderText = "Relation";
+            resources.ApplyResources(this.Relation, "Relation");
             this.Relation.Name = "Relation";
             this.Relation.ReadOnly = true;
             // 
             // RelatedTo
             // 
             this.RelatedTo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.RelatedTo.HeaderText = "Related to";
+            resources.ApplyResources(this.RelatedTo, "RelatedTo");
             this.RelatedTo.Name = "RelatedTo";
             this.RelatedTo.ReadOnly = true;
             // 
@@ -410,11 +314,8 @@
             // 
             this.RelatedRequirementsTb.BackColor = System.Drawing.SystemColors.Control;
             this.RelatedRequirementsTb.Controls.Add(this.dgvRelatedRequirements);
-            this.RelatedRequirementsTb.Location = new System.Drawing.Point(4, 22);
+            resources.ApplyResources(this.RelatedRequirementsTb, "RelatedRequirementsTb");
             this.RelatedRequirementsTb.Name = "RelatedRequirementsTb";
-            this.RelatedRequirementsTb.Size = new System.Drawing.Size(533, 184);
-            this.RelatedRequirementsTb.TabIndex = 3;
-            this.RelatedRequirementsTb.Text = "Related Requirements";
             // 
             // dgvRelatedRequirements
             // 
@@ -426,33 +327,29 @@
             this.reqUid,
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3});
-            this.dgvRelatedRequirements.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvRelatedRequirements.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this.dgvRelatedRequirements, "dgvRelatedRequirements");
             this.dgvRelatedRequirements.Name = "dgvRelatedRequirements";
             this.dgvRelatedRequirements.ReadOnly = true;
             this.dgvRelatedRequirements.RowHeadersVisible = false;
-            this.dgvRelatedRequirements.Size = new System.Drawing.Size(533, 184);
-            this.dgvRelatedRequirements.TabIndex = 19;
             this.dgvRelatedRequirements.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRelatedRequirements_CellContentClick);
             // 
             // reqUid
             // 
-            this.reqUid.HeaderText = "reqUid";
+            resources.ApplyResources(this.reqUid, "reqUid");
             this.reqUid.Name = "reqUid";
             this.reqUid.ReadOnly = true;
-            this.reqUid.Visible = false;
             // 
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn2.HeaderText = "Requirement Name";
+            resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn3
             // 
             this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn3.HeaderText = "Description";
+            resources.ApplyResources(this.dataGridViewTextBoxColumn3, "dataGridViewTextBoxColumn3");
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
             // 
@@ -460,11 +357,8 @@
             // 
             this.TracesTb.BackColor = System.Drawing.SystemColors.Control;
             this.TracesTb.Controls.Add(this.dgvTraces);
-            this.TracesTb.Location = new System.Drawing.Point(4, 22);
+            resources.ApplyResources(this.TracesTb, "TracesTb");
             this.TracesTb.Name = "TracesTb";
-            this.TracesTb.Size = new System.Drawing.Size(533, 184);
-            this.TracesTb.TabIndex = 4;
-            this.TracesTb.Text = "Traces";
             // 
             // dgvTraces
             // 
@@ -476,33 +370,29 @@
             this.traceUid,
             this.dataGridViewTextBoxColumn4,
             this.Type});
-            this.dgvTraces.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvTraces.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this.dgvTraces, "dgvTraces");
             this.dgvTraces.Name = "dgvTraces";
             this.dgvTraces.ReadOnly = true;
             this.dgvTraces.RowHeadersVisible = false;
-            this.dgvTraces.Size = new System.Drawing.Size(533, 184);
-            this.dgvTraces.TabIndex = 19;
             this.dgvTraces.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTraces_CellContentClick);
             // 
             // traceUid
             // 
-            this.traceUid.HeaderText = "traceUid";
+            resources.ApplyResources(this.traceUid, "traceUid");
             this.traceUid.Name = "traceUid";
             this.traceUid.ReadOnly = true;
-            this.traceUid.Visible = false;
             // 
             // dataGridViewTextBoxColumn4
             // 
             this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn4.HeaderText = "Trace Name";
+            resources.ApplyResources(this.dataGridViewTextBoxColumn4, "dataGridViewTextBoxColumn4");
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
             // 
             // Type
             // 
             this.Type.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Type.HeaderText = "Type";
+            resources.ApplyResources(this.Type, "Type");
             this.Type.Name = "Type";
             this.Type.ReadOnly = true;
             // 
@@ -510,11 +400,8 @@
             // 
             this.HistoryTb.BackColor = System.Drawing.SystemColors.Control;
             this.HistoryTb.Controls.Add(this.dgvHistory);
-            this.HistoryTb.Location = new System.Drawing.Point(4, 22);
+            resources.ApplyResources(this.HistoryTb, "HistoryTb");
             this.HistoryTb.Name = "HistoryTb";
-            this.HistoryTb.Size = new System.Drawing.Size(533, 184);
-            this.HistoryTb.TabIndex = 5;
-            this.HistoryTb.Text = "History";
             // 
             // dgvHistory
             // 
@@ -527,108 +414,97 @@
             this.Action,
             this.Status,
             this.Iteration});
-            this.dgvHistory.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvHistory.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this.dgvHistory, "dgvHistory");
             this.dgvHistory.Name = "dgvHistory";
             this.dgvHistory.ReadOnly = true;
             this.dgvHistory.RowHeadersVisible = false;
-            this.dgvHistory.Size = new System.Drawing.Size(533, 184);
-            this.dgvHistory.TabIndex = 19;
             // 
             // Stakeholder
             // 
             this.Stakeholder.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Stakeholder.HeaderText = "Stakeholder";
+            resources.ApplyResources(this.Stakeholder, "Stakeholder");
             this.Stakeholder.Name = "Stakeholder";
             this.Stakeholder.ReadOnly = true;
             // 
             // Action
             // 
             this.Action.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Action.HeaderText = "Action";
+            resources.ApplyResources(this.Action, "Action");
             this.Action.Name = "Action";
             this.Action.ReadOnly = true;
             // 
             // Status
             // 
             this.Status.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Status.HeaderText = "Status";
+            resources.ApplyResources(this.Status, "Status");
             this.Status.Name = "Status";
             this.Status.ReadOnly = true;
             // 
             // Iteration
             // 
             this.Iteration.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Iteration.HeaderText = "Iteration";
+            resources.ApplyResources(this.Iteration, "Iteration");
             this.Iteration.Name = "Iteration";
             this.Iteration.ReadOnly = true;
             // 
             // buttonOk
             // 
-            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOk.Location = new System.Drawing.Point(454, 549);
+            resources.ApplyResources(this.buttonOk, "buttonOk");
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(36, 23);
-            this.buttonOk.TabIndex = 13;
-            this.buttonOk.Text = "Ok";
             this.buttonOk.UseVisualStyleBackColor = true;
             this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.Location = new System.Drawing.Point(496, 549);
+            resources.ApplyResources(this.buttonCancel, "buttonCancel");
+            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(57, 23);
-            this.buttonCancel.TabIndex = 14;
-            this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // lblTopicDescription
             // 
-            this.lblTopicDescription.AutoSize = true;
-            this.lblTopicDescription.Location = new System.Drawing.Point(13, 91);
+            resources.ApplyResources(this.lblTopicDescription, "lblTopicDescription");
             this.lblTopicDescription.Name = "lblTopicDescription";
-            this.lblTopicDescription.Size = new System.Drawing.Size(91, 13);
-            this.lblTopicDescription.TabIndex = 15;
-            this.lblTopicDescription.Text = "Topic description:";
-            this.lblTopicDescription.Visible = false;
-            this.lblTopicDescription.Click += new System.EventHandler(this.label3_Click);
             // 
             // txtTopicDescription
             // 
-            this.txtTopicDescription.Location = new System.Drawing.Point(113, 88);
+            resources.ApplyResources(this.txtTopicDescription, "txtTopicDescription");
             this.txtTopicDescription.Name = "txtTopicDescription";
             this.txtTopicDescription.ReadOnly = true;
-            this.txtTopicDescription.Size = new System.Drawing.Size(444, 20);
-            this.txtTopicDescription.TabIndex = 16;
-            this.txtTopicDescription.Visible = false;
+            // 
+            // panel1
+            // 
+            resources.ApplyResources(this.panel1, "panel1");
+            this.panel1.Controls.Add(this.tbCnrtlModifiable);
+            this.panel1.Controls.Add(this.lblTopicName);
+            this.panel1.Controls.Add(this.lblTopicDescription);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.txtTopicDescription);
+            this.panel1.Controls.Add(this.NameLabel);
+            this.panel1.Controls.Add(this.txtName);
+            this.panel1.Controls.Add(this.txtGroup);
+            this.panel1.Controls.Add(this.cbxState);
+            this.panel1.Controls.Add(this.btnBold);
+            this.panel1.Controls.Add(this.btnItalics);
+            this.panel1.Controls.Add(this.btnunderline);
+            this.panel1.Controls.Add(this.tbCntrlUnodifiable);
+            this.panel1.Name = "panel1";
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // DetailViewNew
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(569, 574);
-            this.Controls.Add(this.txtTopicDescription);
-            this.Controls.Add(this.lblTopicDescription);
-            this.Controls.Add(this.buttonCancel);
+            this.CancelButton = this.buttonCancel;
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.buttonOk);
-            this.Controls.Add(this.tbCntrlUnodifiable);
-            this.Controls.Add(this.btnunderline);
-            this.Controls.Add(this.btnItalics);
-            this.Controls.Add(this.btnBold);
-            this.Controls.Add(this.tbCnrtlModifiable);
-            this.Controls.Add(this.txtGroup);
-            this.Controls.Add(this.lblTopicName);
-            this.Controls.Add(this.cbxState);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.txtName);
-            this.Controls.Add(this.NameLabel);
-            this.MinimumSize = new System.Drawing.Size(240, 520);
+            this.Controls.Add(this.buttonCancel);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "DetailViewNew";
             this.ShowIcon = false;
-            this.Text = "DetailViewNew";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.DetailViewNew_Load);
             this.tbCnrtlModifiable.ResumeLayout(false);
             this.ProblemTab.ResumeLayout(false);
@@ -645,6 +521,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvTraces)).EndInit();
             this.HistoryTb.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvHistory)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -700,5 +578,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn RelatedTo;
         private System.Windows.Forms.Label lblTopicDescription;
         private System.Windows.Forms.TextBox txtTopicDescription;
+        private System.Windows.Forms.Panel panel1;
     }
 }

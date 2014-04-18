@@ -117,6 +117,720 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="NameLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="NameLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 27</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="NameLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 0, 6, 0</value>
+  </data>
+  <data name="NameLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>77, 26</value>
+  </data>
+  <data name="NameLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="NameLabel.Text" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="&gt;&gt;NameLabel.Name" xml:space="preserve">
+    <value>NameLabel</value>
+  </data>
+  <data name="&gt;&gt;NameLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NameLabel.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;NameLabel.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="txtName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="txtName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>148, 24</value>
+  </data>
+  <data name="txtName.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="txtName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>832, 31</value>
+  </data>
+  <data name="txtName.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;txtName.Name" xml:space="preserve">
+    <value>txtName</value>
+  </data>
+  <data name="&gt;&gt;txtName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtName.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;txtName.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 74</value>
+  </data>
+  <data name="label1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 0, 6, 0</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>69, 26</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>State:</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="cbxState.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="cbxState.Items" xml:space="preserve">
+    <value>idea</value>
+  </data>
+  <data name="cbxState.Items1" xml:space="preserve">
+    <value>tentative</value>
+  </data>
+  <data name="cbxState.Items2" xml:space="preserve">
+    <value>decided</value>
+  </data>
+  <data name="cbxState.Items3" xml:space="preserve">
+    <value>approved</value>
+  </data>
+  <data name="cbxState.Items4" xml:space="preserve">
+    <value>challenged</value>
+  </data>
+  <data name="cbxState.Items5" xml:space="preserve">
+    <value>discarded</value>
+  </data>
+  <data name="cbxState.Items6" xml:space="preserve">
+    <value>rejected</value>
+  </data>
+  <data name="cbxState.Location" type="System.Drawing.Point, System.Drawing">
+    <value>148, 67</value>
+  </data>
+  <data name="cbxState.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="cbxState.Size" type="System.Drawing.Size, System.Drawing">
+    <value>832, 33</value>
+  </data>
+  <data name="cbxState.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;cbxState.Name" xml:space="preserve">
+    <value>cbxState</value>
+  </data>
+  <data name="&gt;&gt;cbxState.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cbxState.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cbxState.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="lblTopicName.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblTopicName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 128</value>
+  </data>
+  <data name="lblTopicName.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 0, 6, 0</value>
+  </data>
+  <data name="lblTopicName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>70, 26</value>
+  </data>
+  <data name="lblTopicName.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="lblTopicName.Text" xml:space="preserve">
+    <value>Topic:</value>
+  </data>
+  <data name="&gt;&gt;lblTopicName.Name" xml:space="preserve">
+    <value>lblTopicName</value>
+  </data>
+  <data name="&gt;&gt;lblTopicName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblTopicName.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lblTopicName.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="txtGroup.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="txtGroup.Location" type="System.Drawing.Point, System.Drawing">
+    <value>148, 128</value>
+  </data>
+  <data name="txtGroup.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="txtGroup.Size" type="System.Drawing.Size, System.Drawing">
+    <value>832, 31</value>
+  </data>
+  <data name="txtGroup.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;txtGroup.Name" xml:space="preserve">
+    <value>txtGroup</value>
+  </data>
+  <data name="&gt;&gt;txtGroup.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtGroup.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;txtGroup.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="tbCnrtlModifiable.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;ProblemTab.Name" xml:space="preserve">
+    <value>ProblemTab</value>
+  </data>
+  <data name="&gt;&gt;ProblemTab.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ProblemTab.Parent" xml:space="preserve">
+    <value>tbCnrtlModifiable</value>
+  </data>
+  <data name="&gt;&gt;ProblemTab.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;DescriptionTab.Name" xml:space="preserve">
+    <value>DescriptionTab</value>
+  </data>
+  <data name="&gt;&gt;DescriptionTab.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DescriptionTab.Parent" xml:space="preserve">
+    <value>tbCnrtlModifiable</value>
+  </data>
+  <data name="&gt;&gt;DescriptionTab.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;ArgumentsTab.Name" xml:space="preserve">
+    <value>ArgumentsTab</value>
+  </data>
+  <data name="&gt;&gt;ArgumentsTab.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ArgumentsTab.Parent" xml:space="preserve">
+    <value>tbCnrtlModifiable</value>
+  </data>
+  <data name="&gt;&gt;ArgumentsTab.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="tbCnrtlModifiable.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 280</value>
+  </data>
+  <data name="tbCnrtlModifiable.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="tbCnrtlModifiable.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>0, 269</value>
+  </data>
+  <data name="tbCnrtlModifiable.Size" type="System.Drawing.Size, System.Drawing">
+    <value>964, 269</value>
+  </data>
+  <data name="tbCnrtlModifiable.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;tbCnrtlModifiable.Name" xml:space="preserve">
+    <value>tbCnrtlModifiable</value>
+  </data>
+  <data name="&gt;&gt;tbCnrtlModifiable.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbCnrtlModifiable.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;tbCnrtlModifiable.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;txtIssue.Name" xml:space="preserve">
+    <value>txtIssue</value>
+  </data>
+  <data name="&gt;&gt;txtIssue.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtIssue.Parent" xml:space="preserve">
+    <value>ProblemTab</value>
+  </data>
+  <data name="&gt;&gt;txtIssue.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="ProblemTab.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 34</value>
+  </data>
+  <data name="ProblemTab.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="ProblemTab.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="ProblemTab.Size" type="System.Drawing.Size, System.Drawing">
+    <value>956, 231</value>
+  </data>
+  <data name="ProblemTab.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="ProblemTab.Text" xml:space="preserve">
+    <value>Problem</value>
+  </data>
+  <data name="&gt;&gt;ProblemTab.Name" xml:space="preserve">
+    <value>ProblemTab</value>
+  </data>
+  <data name="&gt;&gt;ProblemTab.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ProblemTab.Parent" xml:space="preserve">
+    <value>tbCnrtlModifiable</value>
+  </data>
+  <data name="&gt;&gt;ProblemTab.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="txtIssue.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="txtIssue.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 4</value>
+  </data>
+  <data name="txtIssue.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="txtIssue.Size" type="System.Drawing.Size, System.Drawing">
+    <value>942, 227</value>
+  </data>
+  <data name="txtIssue.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="txtIssue.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;txtIssue.Name" xml:space="preserve">
+    <value>txtIssue</value>
+  </data>
+  <data name="&gt;&gt;txtIssue.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtIssue.Parent" xml:space="preserve">
+    <value>ProblemTab</value>
+  </data>
+  <data name="&gt;&gt;txtIssue.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;txtDecision.Name" xml:space="preserve">
+    <value>txtDecision</value>
+  </data>
+  <data name="&gt;&gt;txtDecision.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtDecision.Parent" xml:space="preserve">
+    <value>DescriptionTab</value>
+  </data>
+  <data name="&gt;&gt;txtDecision.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="DescriptionTab.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 34</value>
+  </data>
+  <data name="DescriptionTab.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="DescriptionTab.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="DescriptionTab.Size" type="System.Drawing.Size, System.Drawing">
+    <value>633, 231</value>
+  </data>
+  <data name="DescriptionTab.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="DescriptionTab.Text" xml:space="preserve">
+    <value>Decision</value>
+  </data>
+  <data name="&gt;&gt;DescriptionTab.Name" xml:space="preserve">
+    <value>DescriptionTab</value>
+  </data>
+  <data name="&gt;&gt;DescriptionTab.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DescriptionTab.Parent" xml:space="preserve">
+    <value>tbCnrtlModifiable</value>
+  </data>
+  <data name="&gt;&gt;DescriptionTab.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="txtDecision.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="txtDecision.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 4</value>
+  </data>
+  <data name="txtDecision.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="txtDecision.Size" type="System.Drawing.Size, System.Drawing">
+    <value>633, 309</value>
+  </data>
+  <data name="txtDecision.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="txtDecision.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;txtDecision.Name" xml:space="preserve">
+    <value>txtDecision</value>
+  </data>
+  <data name="&gt;&gt;txtDecision.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtDecision.Parent" xml:space="preserve">
+    <value>DescriptionTab</value>
+  </data>
+  <data name="&gt;&gt;txtDecision.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;txtArguments.Name" xml:space="preserve">
+    <value>txtArguments</value>
+  </data>
+  <data name="&gt;&gt;txtArguments.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtArguments.Parent" xml:space="preserve">
+    <value>ArgumentsTab</value>
+  </data>
+  <data name="&gt;&gt;txtArguments.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="ArgumentsTab.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 34</value>
+  </data>
+  <data name="ArgumentsTab.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="ArgumentsTab.Size" type="System.Drawing.Size, System.Drawing">
+    <value>633, 231</value>
+  </data>
+  <data name="ArgumentsTab.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="ArgumentsTab.Text" xml:space="preserve">
+    <value>Arguments</value>
+  </data>
+  <data name="&gt;&gt;ArgumentsTab.Name" xml:space="preserve">
+    <value>ArgumentsTab</value>
+  </data>
+  <data name="&gt;&gt;ArgumentsTab.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ArgumentsTab.Parent" xml:space="preserve">
+    <value>tbCnrtlModifiable</value>
+  </data>
+  <data name="&gt;&gt;ArgumentsTab.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="txtArguments.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="txtArguments.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 4</value>
+  </data>
+  <data name="txtArguments.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="txtArguments.Size" type="System.Drawing.Size, System.Drawing">
+    <value>745, 309</value>
+  </data>
+  <data name="txtArguments.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="txtArguments.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;txtArguments.Name" xml:space="preserve">
+    <value>txtArguments</value>
+  </data>
+  <data name="&gt;&gt;txtArguments.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtArguments.Parent" xml:space="preserve">
+    <value>ArgumentsTab</value>
+  </data>
+  <data name="&gt;&gt;txtArguments.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="btnBold.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="btnBold.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="btnBold.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btnBold.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
+  </data>
+  <data name="btnBold.Location" type="System.Drawing.Point, System.Drawing">
+    <value>982, 327</value>
+  </data>
+  <data name="btnBold.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="btnBold.Size" type="System.Drawing.Size, System.Drawing">
+    <value>58, 46</value>
+  </data>
+  <data name="btnBold.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="btnBold.Text" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="&gt;&gt;btnBold.Name" xml:space="preserve">
+    <value>btnBold</value>
+  </data>
+  <data name="&gt;&gt;btnBold.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnBold.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btnBold.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="btnItalics.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="btnItalics.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btnItalics.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Castellar, 9.75pt, style=Italic</value>
+  </data>
+  <data name="btnItalics.Location" type="System.Drawing.Point, System.Drawing">
+    <value>982, 385</value>
+  </data>
+  <data name="btnItalics.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="btnItalics.Size" type="System.Drawing.Size, System.Drawing">
+    <value>58, 48</value>
+  </data>
+  <data name="btnItalics.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="btnItalics.Text" xml:space="preserve">
+    <value>I</value>
+  </data>
+  <data name="&gt;&gt;btnItalics.Name" xml:space="preserve">
+    <value>btnItalics</value>
+  </data>
+  <data name="&gt;&gt;btnItalics.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnItalics.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btnItalics.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="btnunderline.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="btnunderline.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="btnunderline.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Lucida Sans Unicode, 9pt, style=Underline</value>
+  </data>
+  <data name="btnunderline.Location" type="System.Drawing.Point, System.Drawing">
+    <value>982, 445</value>
+  </data>
+  <data name="btnunderline.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="btnunderline.Size" type="System.Drawing.Size, System.Drawing">
+    <value>58, 48</value>
+  </data>
+  <data name="btnunderline.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="btnunderline.Text" xml:space="preserve">
+    <value>U</value>
+  </data>
+  <data name="&gt;&gt;btnunderline.Name" xml:space="preserve">
+    <value>btnunderline</value>
+  </data>
+  <data name="&gt;&gt;btnunderline.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnunderline.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;btnunderline.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="tbCntrlUnodifiable.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;AlternativeTb.Name" xml:space="preserve">
+    <value>AlternativeTb</value>
+  </data>
+  <data name="&gt;&gt;AlternativeTb.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AlternativeTb.Parent" xml:space="preserve">
+    <value>tbCntrlUnodifiable</value>
+  </data>
+  <data name="&gt;&gt;AlternativeTb.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;RelatedDecisionsTb.Name" xml:space="preserve">
+    <value>RelatedDecisionsTb</value>
+  </data>
+  <data name="&gt;&gt;RelatedDecisionsTb.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RelatedDecisionsTb.Parent" xml:space="preserve">
+    <value>tbCntrlUnodifiable</value>
+  </data>
+  <data name="&gt;&gt;RelatedDecisionsTb.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;RelatedRequirementsTb.Name" xml:space="preserve">
+    <value>RelatedRequirementsTb</value>
+  </data>
+  <data name="&gt;&gt;RelatedRequirementsTb.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RelatedRequirementsTb.Parent" xml:space="preserve">
+    <value>tbCntrlUnodifiable</value>
+  </data>
+  <data name="&gt;&gt;RelatedRequirementsTb.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;TracesTb.Name" xml:space="preserve">
+    <value>TracesTb</value>
+  </data>
+  <data name="&gt;&gt;TracesTb.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TracesTb.Parent" xml:space="preserve">
+    <value>tbCntrlUnodifiable</value>
+  </data>
+  <data name="&gt;&gt;TracesTb.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;HistoryTb.Name" xml:space="preserve">
+    <value>HistoryTb</value>
+  </data>
+  <data name="&gt;&gt;HistoryTb.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HistoryTb.Parent" xml:space="preserve">
+    <value>tbCntrlUnodifiable</value>
+  </data>
+  <data name="&gt;&gt;HistoryTb.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="tbCntrlUnodifiable.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 561</value>
+  </data>
+  <data name="tbCntrlUnodifiable.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="tbCntrlUnodifiable.Size" type="System.Drawing.Size, System.Drawing">
+    <value>965, 256</value>
+  </data>
+  <data name="tbCntrlUnodifiable.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;tbCntrlUnodifiable.Name" xml:space="preserve">
+    <value>tbCntrlUnodifiable</value>
+  </data>
+  <data name="&gt;&gt;tbCntrlUnodifiable.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbCntrlUnodifiable.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;tbCntrlUnodifiable.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;dgvAlternatives.Name" xml:space="preserve">
+    <value>dgvAlternatives</value>
+  </data>
+  <data name="&gt;&gt;dgvAlternatives.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dgvAlternatives.Parent" xml:space="preserve">
+    <value>AlternativeTb</value>
+  </data>
+  <data name="&gt;&gt;dgvAlternatives.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="AlternativeTb.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 34</value>
+  </data>
+  <data name="AlternativeTb.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="AlternativeTb.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="AlternativeTb.Size" type="System.Drawing.Size, System.Drawing">
+    <value>957, 218</value>
+  </data>
+  <data name="AlternativeTb.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="AlternativeTb.Text" xml:space="preserve">
+    <value>Alternatives</value>
+  </data>
+  <data name="&gt;&gt;AlternativeTb.Name" xml:space="preserve">
+    <value>AlternativeTb</value>
+  </data>
+  <data name="&gt;&gt;AlternativeTb.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AlternativeTb.Parent" xml:space="preserve">
+    <value>tbCntrlUnodifiable</value>
+  </data>
+  <data name="&gt;&gt;AlternativeTb.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <metadata name="uid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -126,6 +840,96 @@
   <metadata name="AlternativeFor.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="dgvAlternatives.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="dgvAlternatives.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
+  </data>
+  <data name="dgvAlternatives.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="dgvAlternatives.Size" type="System.Drawing.Size, System.Drawing">
+    <value>955, 216</value>
+  </data>
+  <data name="dgvAlternatives.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;dgvAlternatives.Name" xml:space="preserve">
+    <value>dgvAlternatives</value>
+  </data>
+  <data name="&gt;&gt;dgvAlternatives.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dgvAlternatives.Parent" xml:space="preserve">
+    <value>AlternativeTb</value>
+  </data>
+  <data name="&gt;&gt;dgvAlternatives.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="uid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="uid.HeaderText" xml:space="preserve">
+    <value>uid</value>
+  </data>
+  <data name="uid.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <metadata name="AlternativeName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="AlternativeName.HeaderText" xml:space="preserve">
+    <value>Decision Name</value>
+  </data>
+  <metadata name="AlternativeFor.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="AlternativeFor.HeaderText" xml:space="preserve">
+    <value>Alternative for</value>
+  </data>
+  <data name="&gt;&gt;dgvRelatedDecisions.Name" xml:space="preserve">
+    <value>dgvRelatedDecisions</value>
+  </data>
+  <data name="&gt;&gt;dgvRelatedDecisions.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dgvRelatedDecisions.Parent" xml:space="preserve">
+    <value>RelatedDecisionsTb</value>
+  </data>
+  <data name="&gt;&gt;dgvRelatedDecisions.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="RelatedDecisionsTb.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 34</value>
+  </data>
+  <data name="RelatedDecisionsTb.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="RelatedDecisionsTb.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="RelatedDecisionsTb.Size" type="System.Drawing.Size, System.Drawing">
+    <value>957, 218</value>
+  </data>
+  <data name="RelatedDecisionsTb.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="RelatedDecisionsTb.Text" xml:space="preserve">
+    <value>Related Decisions</value>
+  </data>
+  <data name="&gt;&gt;RelatedDecisionsTb.Name" xml:space="preserve">
+    <value>RelatedDecisionsTb</value>
+  </data>
+  <data name="&gt;&gt;RelatedDecisionsTb.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RelatedDecisionsTb.Parent" xml:space="preserve">
+    <value>tbCntrlUnodifiable</value>
+  </data>
+  <data name="&gt;&gt;RelatedDecisionsTb.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <metadata name="dataGridViewTextBoxColumn1.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -138,6 +942,99 @@
   <metadata name="RelatedTo.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="dgvRelatedDecisions.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="dgvRelatedDecisions.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
+  </data>
+  <data name="dgvRelatedDecisions.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="dgvRelatedDecisions.Size" type="System.Drawing.Size, System.Drawing">
+    <value>945, 206</value>
+  </data>
+  <data name="dgvRelatedDecisions.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;dgvRelatedDecisions.Name" xml:space="preserve">
+    <value>dgvRelatedDecisions</value>
+  </data>
+  <data name="&gt;&gt;dgvRelatedDecisions.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dgvRelatedDecisions.Parent" xml:space="preserve">
+    <value>RelatedDecisionsTb</value>
+  </data>
+  <data name="&gt;&gt;dgvRelatedDecisions.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="dataGridViewTextBoxColumn1.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
+    <value>uid</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn1.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <metadata name="RelatedName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="RelatedName.HeaderText" xml:space="preserve">
+    <value>Decision Name</value>
+  </data>
+  <metadata name="Relation.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="Relation.HeaderText" xml:space="preserve">
+    <value>Relation</value>
+  </data>
+  <metadata name="RelatedTo.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="RelatedTo.HeaderText" xml:space="preserve">
+    <value>Related to</value>
+  </data>
+  <data name="&gt;&gt;dgvRelatedRequirements.Name" xml:space="preserve">
+    <value>dgvRelatedRequirements</value>
+  </data>
+  <data name="&gt;&gt;dgvRelatedRequirements.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dgvRelatedRequirements.Parent" xml:space="preserve">
+    <value>RelatedRequirementsTb</value>
+  </data>
+  <data name="&gt;&gt;dgvRelatedRequirements.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="RelatedRequirementsTb.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 34</value>
+  </data>
+  <data name="RelatedRequirementsTb.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="RelatedRequirementsTb.Size" type="System.Drawing.Size, System.Drawing">
+    <value>957, 218</value>
+  </data>
+  <data name="RelatedRequirementsTb.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="RelatedRequirementsTb.Text" xml:space="preserve">
+    <value>Related Requirements</value>
+  </data>
+  <data name="&gt;&gt;RelatedRequirementsTb.Name" xml:space="preserve">
+    <value>RelatedRequirementsTb</value>
+  </data>
+  <data name="&gt;&gt;RelatedRequirementsTb.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RelatedRequirementsTb.Parent" xml:space="preserve">
+    <value>tbCntrlUnodifiable</value>
+  </data>
+  <data name="&gt;&gt;RelatedRequirementsTb.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <metadata name="reqUid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -147,6 +1044,93 @@
   <metadata name="dataGridViewTextBoxColumn3.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="dgvRelatedRequirements.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="dgvRelatedRequirements.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="dgvRelatedRequirements.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="dgvRelatedRequirements.Size" type="System.Drawing.Size, System.Drawing">
+    <value>957, 218</value>
+  </data>
+  <data name="dgvRelatedRequirements.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;dgvRelatedRequirements.Name" xml:space="preserve">
+    <value>dgvRelatedRequirements</value>
+  </data>
+  <data name="&gt;&gt;dgvRelatedRequirements.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dgvRelatedRequirements.Parent" xml:space="preserve">
+    <value>RelatedRequirementsTb</value>
+  </data>
+  <data name="&gt;&gt;dgvRelatedRequirements.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="reqUid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="reqUid.HeaderText" xml:space="preserve">
+    <value>reqUid</value>
+  </data>
+  <data name="reqUid.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <metadata name="dataGridViewTextBoxColumn2.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridViewTextBoxColumn2.HeaderText" xml:space="preserve">
+    <value>Requirement Name</value>
+  </data>
+  <metadata name="dataGridViewTextBoxColumn3.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridViewTextBoxColumn3.HeaderText" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="&gt;&gt;dgvTraces.Name" xml:space="preserve">
+    <value>dgvTraces</value>
+  </data>
+  <data name="&gt;&gt;dgvTraces.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dgvTraces.Parent" xml:space="preserve">
+    <value>TracesTb</value>
+  </data>
+  <data name="&gt;&gt;dgvTraces.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="TracesTb.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 34</value>
+  </data>
+  <data name="TracesTb.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="TracesTb.Size" type="System.Drawing.Size, System.Drawing">
+    <value>957, 218</value>
+  </data>
+  <data name="TracesTb.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="TracesTb.Text" xml:space="preserve">
+    <value>Traces</value>
+  </data>
+  <data name="&gt;&gt;TracesTb.Name" xml:space="preserve">
+    <value>TracesTb</value>
+  </data>
+  <data name="&gt;&gt;TracesTb.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TracesTb.Parent" xml:space="preserve">
+    <value>tbCntrlUnodifiable</value>
+  </data>
+  <data name="&gt;&gt;TracesTb.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
   <metadata name="traceUid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -156,6 +1140,93 @@
   <metadata name="Type.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="dgvTraces.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="dgvTraces.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="dgvTraces.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="dgvTraces.Size" type="System.Drawing.Size, System.Drawing">
+    <value>957, 218</value>
+  </data>
+  <data name="dgvTraces.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;dgvTraces.Name" xml:space="preserve">
+    <value>dgvTraces</value>
+  </data>
+  <data name="&gt;&gt;dgvTraces.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dgvTraces.Parent" xml:space="preserve">
+    <value>TracesTb</value>
+  </data>
+  <data name="&gt;&gt;dgvTraces.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="traceUid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="traceUid.HeaderText" xml:space="preserve">
+    <value>traceUid</value>
+  </data>
+  <data name="traceUid.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <metadata name="dataGridViewTextBoxColumn4.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridViewTextBoxColumn4.HeaderText" xml:space="preserve">
+    <value>Trace Name</value>
+  </data>
+  <metadata name="Type.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="Type.HeaderText" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="&gt;&gt;dgvHistory.Name" xml:space="preserve">
+    <value>dgvHistory</value>
+  </data>
+  <data name="&gt;&gt;dgvHistory.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dgvHistory.Parent" xml:space="preserve">
+    <value>HistoryTb</value>
+  </data>
+  <data name="&gt;&gt;dgvHistory.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="HistoryTb.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 34</value>
+  </data>
+  <data name="HistoryTb.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="HistoryTb.Size" type="System.Drawing.Size, System.Drawing">
+    <value>957, 218</value>
+  </data>
+  <data name="HistoryTb.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="HistoryTb.Text" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="&gt;&gt;HistoryTb.Name" xml:space="preserve">
+    <value>HistoryTb</value>
+  </data>
+  <data name="&gt;&gt;HistoryTb.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HistoryTb.Parent" xml:space="preserve">
+    <value>tbCntrlUnodifiable</value>
+  </data>
+  <data name="&gt;&gt;HistoryTb.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
   <metadata name="Stakeholder.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -168,4 +1239,352 @@
   <metadata name="Iteration.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="dgvHistory.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="dgvHistory.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="dgvHistory.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="dgvHistory.Size" type="System.Drawing.Size, System.Drawing">
+    <value>957, 218</value>
+  </data>
+  <data name="dgvHistory.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;dgvHistory.Name" xml:space="preserve">
+    <value>dgvHistory</value>
+  </data>
+  <data name="&gt;&gt;dgvHistory.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dgvHistory.Parent" xml:space="preserve">
+    <value>HistoryTb</value>
+  </data>
+  <data name="&gt;&gt;dgvHistory.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="Stakeholder.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="Stakeholder.HeaderText" xml:space="preserve">
+    <value>Stakeholder</value>
+  </data>
+  <metadata name="Action.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="Action.HeaderText" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <metadata name="Status.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="Status.HeaderText" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <metadata name="Iteration.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="Iteration.HeaderText" xml:space="preserve">
+    <value>Iteration</value>
+  </data>
+  <data name="buttonOk.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Right</value>
+  </data>
+  <data name="buttonOk.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="buttonOk.Location" type="System.Drawing.Point, System.Drawing">
+    <value>788, 844</value>
+  </data>
+  <data name="buttonOk.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="buttonOk.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>72, 44</value>
+  </data>
+  <data name="buttonOk.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>72, 44</value>
+  </data>
+  <data name="buttonOk.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 44</value>
+  </data>
+  <data name="buttonOk.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="buttonOk.Text" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="&gt;&gt;buttonOk.Name" xml:space="preserve">
+    <value>buttonOk</value>
+  </data>
+  <data name="&gt;&gt;buttonOk.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonOk.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonOk.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="buttonCancel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Right</value>
+  </data>
+  <data name="buttonCancel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>872, 844</value>
+  </data>
+  <data name="buttonCancel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="buttonCancel.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>114, 44</value>
+  </data>
+  <data name="buttonCancel.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>114, 44</value>
+  </data>
+  <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>114, 44</value>
+  </data>
+  <data name="buttonCancel.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.Name" xml:space="preserve">
+    <value>buttonCancel</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="lblTopicDescription.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblTopicDescription.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 176</value>
+  </data>
+  <data name="lblTopicDescription.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 0, 6, 0</value>
+  </data>
+  <data name="lblTopicDescription.Size" type="System.Drawing.Size, System.Drawing">
+    <value>127, 26</value>
+  </data>
+  <data name="lblTopicDescription.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="lblTopicDescription.Text" xml:space="preserve">
+    <value>Description:</value>
+  </data>
+  <data name="&gt;&gt;lblTopicDescription.Name" xml:space="preserve">
+    <value>lblTopicDescription</value>
+  </data>
+  <data name="&gt;&gt;lblTopicDescription.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblTopicDescription.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lblTopicDescription.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="txtTopicDescription.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="txtTopicDescription.Location" type="System.Drawing.Point, System.Drawing">
+    <value>148, 171</value>
+  </data>
+  <data name="txtTopicDescription.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="txtTopicDescription.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="txtTopicDescription.Size" type="System.Drawing.Size, System.Drawing">
+    <value>832, 81</value>
+  </data>
+  <data name="txtTopicDescription.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="&gt;&gt;txtTopicDescription.Name" xml:space="preserve">
+    <value>txtTopicDescription</value>
+  </data>
+  <data name="&gt;&gt;txtTopicDescription.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtTopicDescription.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;txtTopicDescription.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="panel1.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 12</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>1046, 823</value>
+  </data>
+  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>12, 25</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>1063, 907</value>
+  </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="$this.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>1089, 976</value>
+  </data>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>1089, 976</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterParent</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>DetailViewNew</value>
+  </data>
+  <data name="&gt;&gt;uid.Name" xml:space="preserve">
+    <value>uid</value>
+  </data>
+  <data name="&gt;&gt;uid.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AlternativeName.Name" xml:space="preserve">
+    <value>AlternativeName</value>
+  </data>
+  <data name="&gt;&gt;AlternativeName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AlternativeFor.Name" xml:space="preserve">
+    <value>AlternativeFor</value>
+  </data>
+  <data name="&gt;&gt;AlternativeFor.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn1.Name" xml:space="preserve">
+    <value>dataGridViewTextBoxColumn1</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RelatedName.Name" xml:space="preserve">
+    <value>RelatedName</value>
+  </data>
+  <data name="&gt;&gt;RelatedName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Relation.Name" xml:space="preserve">
+    <value>Relation</value>
+  </data>
+  <data name="&gt;&gt;Relation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RelatedTo.Name" xml:space="preserve">
+    <value>RelatedTo</value>
+  </data>
+  <data name="&gt;&gt;RelatedTo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;reqUid.Name" xml:space="preserve">
+    <value>reqUid</value>
+  </data>
+  <data name="&gt;&gt;reqUid.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn2.Name" xml:space="preserve">
+    <value>dataGridViewTextBoxColumn2</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn3.Name" xml:space="preserve">
+    <value>dataGridViewTextBoxColumn3</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;traceUid.Name" xml:space="preserve">
+    <value>traceUid</value>
+  </data>
+  <data name="&gt;&gt;traceUid.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn4.Name" xml:space="preserve">
+    <value>dataGridViewTextBoxColumn4</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Type.Name" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="&gt;&gt;Type.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Stakeholder.Name" xml:space="preserve">
+    <value>Stakeholder</value>
+  </data>
+  <data name="&gt;&gt;Stakeholder.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Action.Name" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="&gt;&gt;Action.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Status.Name" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="&gt;&gt;Status.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Iteration.Name" xml:space="preserve">
+    <value>Iteration</value>
+  </data>
+  <data name="&gt;&gt;Iteration.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>DetailViewNew</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

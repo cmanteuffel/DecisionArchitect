@@ -37,9 +37,10 @@
             // 
             // buttonOpenReport
             // 
-            this.buttonOpenReport.Location = new System.Drawing.Point(24, 58);
+            this.buttonOpenReport.Location = new System.Drawing.Point(48, 112);
+            this.buttonOpenReport.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.buttonOpenReport.Name = "buttonOpenReport";
-            this.buttonOpenReport.Size = new System.Drawing.Size(106, 23);
+            this.buttonOpenReport.Size = new System.Drawing.Size(212, 44);
             this.buttonOpenReport.TabIndex = 1;
             this.buttonOpenReport.Text = "Open Report";
             this.buttonOpenReport.UseVisualStyleBackColor = true;
@@ -47,9 +48,10 @@
             // 
             // buttonOpenFolder
             // 
-            this.buttonOpenFolder.Location = new System.Drawing.Point(136, 57);
+            this.buttonOpenFolder.Location = new System.Drawing.Point(272, 110);
+            this.buttonOpenFolder.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.buttonOpenFolder.Name = "buttonOpenFolder";
-            this.buttonOpenFolder.Size = new System.Drawing.Size(75, 23);
+            this.buttonOpenFolder.Size = new System.Drawing.Size(150, 44);
             this.buttonOpenFolder.TabIndex = 2;
             this.buttonOpenFolder.Text = "Open Folder";
             this.buttonOpenFolder.UseVisualStyleBackColor = true;
@@ -57,9 +59,10 @@
             // 
             // buttonClose
             // 
-            this.buttonClose.Location = new System.Drawing.Point(303, 58);
+            this.buttonClose.Location = new System.Drawing.Point(606, 112);
+            this.buttonClose.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(75, 23);
+            this.buttonClose.Size = new System.Drawing.Size(150, 44);
             this.buttonClose.TabIndex = 3;
             this.buttonClose.Text = "Close";
             this.buttonClose.UseVisualStyleBackColor = true;
@@ -68,33 +71,38 @@
             // labelReportDetails
             // 
             this.labelReportDetails.AutoSize = true;
-            this.labelReportDetails.Location = new System.Drawing.Point(21, 9);
+            this.labelReportDetails.Location = new System.Drawing.Point(42, 17);
+            this.labelReportDetails.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelReportDetails.Name = "labelReportDetails";
-            this.labelReportDetails.Size = new System.Drawing.Size(35, 13);
+            this.labelReportDetails.Size = new System.Drawing.Size(70, 26);
             this.labelReportDetails.TabIndex = 4;
             this.labelReportDetails.Text = "label1";
             // 
             // labelReportFolderDetails
             // 
             this.labelReportFolderDetails.AutoSize = true;
-            this.labelReportFolderDetails.Location = new System.Drawing.Point(21, 31);
+            this.labelReportFolderDetails.Location = new System.Drawing.Point(42, 60);
+            this.labelReportFolderDetails.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelReportFolderDetails.Name = "labelReportFolderDetails";
-            this.labelReportFolderDetails.Size = new System.Drawing.Size(35, 13);
+            this.labelReportFolderDetails.Size = new System.Drawing.Size(70, 26);
             this.labelReportFolderDetails.TabIndex = 5;
             this.labelReportFolderDetails.Text = "label2";
             // 
             // ExportReportsCustomMessageBox
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(402, 102);
+            this.ClientSize = new System.Drawing.Size(804, 196);
             this.Controls.Add(this.labelReportFolderDetails);
             this.Controls.Add(this.labelReportDetails);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.buttonOpenFolder);
             this.Controls.Add(this.buttonOpenReport);
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "ExportReportsCustomMessageBox";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ExportReportsCustomMessageBox";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.ExportReportsCustomMessageBox_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
