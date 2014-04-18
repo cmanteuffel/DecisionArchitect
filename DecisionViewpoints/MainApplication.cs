@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using DecisionViewpoints.Logic;
 using DecisionViewpoints.Logic.Chronological;
+using DecisionViewpoints.Logic.Forces;
 using DecisionViewpoints.Logic.Validation;
 using DecisionViewpoints.Model;
 using DecisionViewpoints.Model.Events;
@@ -18,6 +19,7 @@ namespace DecisionViewpoints
         {
             _listener.Add(new ValidationHandler());
             _listener.Add(new ChronologicalViewpointHandler());
+            _listener.Add(new ForcesHandler());
         }
 
         public override object EA_OnInitializeTechnologies(Repository repository)

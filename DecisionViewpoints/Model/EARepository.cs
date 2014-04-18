@@ -117,6 +117,21 @@ namespace DecisionViewpoints.Model
             }
         }
 
+        public int IsTabOpen(string name)
+        {
+            return Native.IsTabOpen(name);
+        }
+
+        public void ActivateTab(string name)
+        {
+            Native.ActivateTab(name);
+        }
+
+        public dynamic AddTab(string tabName, string controlID)
+        {
+            return Native.AddTab(tabName, controlID);
+        }
+
         public T GetContextObject<T>() where T : IModelItem
         {
             dynamic obj = Native.GetContextObject();

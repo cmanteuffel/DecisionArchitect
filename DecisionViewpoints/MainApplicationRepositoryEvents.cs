@@ -1,4 +1,5 @@
-﻿using DecisionViewpoints.Logic;
+﻿using System.Windows.Forms;
+using DecisionViewpoints.Logic;
 using DecisionViewpoints.Model;
 using DecisionViewpoints.Model.Events;
 using EA;
@@ -51,12 +52,12 @@ namespace DecisionViewpoints
             EARepository.UpdateRepository(repository);
             foreach (IRepositoryListener l in _listener)
             {
-                if (!l.OnContextItemDoubleClicked(guid, ot))
+                if (l.OnContextItemDoubleClicked(guid, ot))
                 {
-                    return false;
+                    return true;
                 }
             }
-            return true;
+            return false;
         }
 
         public override void EA_OnNotifyContextItemModified(Repository repository, string guid, ObjectType ot)
