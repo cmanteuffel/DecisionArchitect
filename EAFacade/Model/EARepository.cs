@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 using EA;
 
 namespace EAFacade.Model
@@ -37,9 +36,8 @@ namespace EAFacade.Model
         {
             return Native.Models.Cast<Package>().SelectMany(
                 root => root.Packages.Cast<Package>()
-                    .Select(EAPackage.Wrap)
-                    .Where(eapackage => eapackage.IsDecisionViewPackage())
-                    ).ToList();
+                            .Select(EAPackage.Wrap)
+                            .Where(eapackage => eapackage.IsDecisionViewPackage())).ToList();
         }
 
         public EAPackage GetPackageFromRootByName(string name)
@@ -94,7 +92,7 @@ namespace EAFacade.Model
 
         public IEnumerable<EAElement> GetAllElements()
         {
-            var elements = Native.GetElementSet(null, 0);
+            Collection elements = Native.GetElementSet(null, 0);
             return (from object element in elements select EAElement.Wrap((Element) element)).ToList();
         }
 

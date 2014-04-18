@@ -44,7 +44,7 @@
             // textName
             // 
             this.textName.Location = new System.Drawing.Point(124, 19);
-            this.textName.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.textName.Margin = new System.Windows.Forms.Padding(6);
             this.textName.Name = "textName";
             this.textName.Size = new System.Drawing.Size(416, 31);
             this.textName.TabIndex = 0;
@@ -74,7 +74,7 @@
             // 
             this.comboState.FormattingEnabled = true;
             this.comboState.Location = new System.Drawing.Point(124, 62);
-            this.comboState.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.comboState.Margin = new System.Windows.Forms.Padding(6);
             this.comboState.Name = "comboState";
             this.comboState.Size = new System.Drawing.Size(416, 33);
             this.comboState.TabIndex = 3;
@@ -83,7 +83,7 @@
             // 
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelButton.Location = new System.Drawing.Point(390, 180);
-            this.cancelButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(6);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(150, 44);
             this.cancelButton.TabIndex = 5;
@@ -94,7 +94,7 @@
             // 
             this.createButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.createButton.Location = new System.Drawing.Point(168, 180);
-            this.createButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.createButton.Margin = new System.Windows.Forms.Padding(6);
             this.createButton.Name = "createButton";
             this.createButton.Size = new System.Drawing.Size(210, 44);
             this.createButton.TabIndex = 4;
@@ -121,6 +121,7 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(416, 33);
             this.comboBox1.TabIndex = 7;
+            this.comboBox1.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.comboBox1_Format);
             this.comboBox1.Validating += new System.ComponentModel.CancelEventHandler(this.ValidatingView);
             // 
             // CreateDecision
@@ -137,7 +138,7 @@
             this.Controls.Add(this.labelName);
             this.Controls.Add(this.textName);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "CreateDecision";
             this.Text = "CreateDecision";
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();

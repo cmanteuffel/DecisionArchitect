@@ -63,5 +63,12 @@ namespace DecisionViewpoints
                 createButton.Enabled = true;
             }
         }
+
+        private void comboBox1_Format(object sender, ListControlConvertEventArgs e)
+        {
+            string name = ((EAPackage)e.ListItem).Name;
+            string path = ((EAPackage)e.ListItem).GetProjectPath();
+            e.Value = path + "/" + name;
+        }
     }
 }
