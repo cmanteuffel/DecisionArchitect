@@ -6,6 +6,7 @@ using DecisionViewpoints.Logic.Forces;
 using DecisionViewpoints.Logic.General;
 using DecisionViewpoints.Logic.Relationship;
 using DecisionViewpoints.Logic.StakeholderInvolvement;
+using DecisionViewpoints.Logic.Validation;
 using EA;
 using EAFacade.Model;
 using EAFacade.Model.Events;
@@ -20,7 +21,7 @@ namespace DecisionViewpoints
         //init repository listener
         public MainApplication()
         {
-          // _listeners.Add(new ValidationHandler());
+            _listeners.Add(new ValidationHandler());
             _listeners.Add(new ChronologicalViewpointHandler());
             _listeners.Add(new ForcesHandler());
             _listeners.Add(new DecisionStateModifedDateHandler());

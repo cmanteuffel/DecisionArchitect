@@ -44,30 +44,29 @@ namespace DecisionViewpointsCustomViews.View
         {
             this._forcesTable = new System.Windows.Forms.DataGridView();
             this._btnConfigure = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize) (this._forcesTable)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._forcesTable)).BeginInit();
             this.SuspendLayout();
             // 
             // _forcesTable
             // 
             this._forcesTable.AllowUserToAddRows = false;
             this._forcesTable.AllowUserToDeleteRows = false;
-            this._forcesTable.ColumnHeadersHeightSizeMode =
-                System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this._forcesTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this._forcesTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._forcesTable.Location = new System.Drawing.Point(35, 30);
             this._forcesTable.Name = "_forcesTable";
-            this._forcesTable.RowHeadersWidthSizeMode =
-                System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
+            this._forcesTable.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this._forcesTable.RowTemplate.Height = 33;
             this._forcesTable.Size = new System.Drawing.Size(762, 582);
             this._forcesTable.TabIndex = 2;
-            this._forcesTable.CellValueChanged +=
-                new System.Windows.Forms.DataGridViewCellEventHandler(this._forcesTable_CellValueChanged);
-            this._forcesTable.ColumnHeaderMouseDoubleClick +=
-                new System.Windows.Forms.DataGridViewCellMouseEventHandler(
-                    this._forcesTable_ColumnHeaderMouseDoubleClick);
+            this._forcesTable.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this._forcesTable_CellValueChanged);
+            this._forcesTable.ColumnHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this._forcesTable_ColumnHeaderMouseDoubleClick);
             // 
             // _btnConfigure
             // 
+            this._btnConfigure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this._btnConfigure.Location = new System.Drawing.Point(35, 644);
             this._btnConfigure.Name = "_btnConfigure";
             this._btnConfigure.Size = new System.Drawing.Size(75, 23);
@@ -82,8 +81,9 @@ namespace DecisionViewpointsCustomViews.View
             this.Controls.Add(this._forcesTable);
             this.Name = "ForcesView";
             this.Size = new System.Drawing.Size(850, 696);
-            ((System.ComponentModel.ISupportInitialize) (this._forcesTable)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._forcesTable)).EndInit();
             this.ResumeLayout(false);
+
         }
 
         private void _btnConfigure_Click(object sender, EventArgs e)

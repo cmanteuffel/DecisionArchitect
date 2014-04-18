@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using DecisionViewpoints.Logic.Rules;
 using EAFacade.Model;
 
 namespace DecisionViewpoints.Logic.Validation

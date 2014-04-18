@@ -91,7 +91,7 @@
     <Compile Include="Logic\Validation\ConnectorRule.cs" />
     <Compile Include="Logic\Validation\NoLoopRule.cs" />
     <Compile Include="Logic\Validation\RuleManager.cs" />
-    <Compile Include="Model\Menu\FollowTraceMenu.cs" />
+    <Compile Include="Logic\Menu\FollowTraceMenu.cs" />
     <Compile Include="Model\Menu\IMenu.cs" />
     <Compile Include="Model\Menu\Menu.cs" />
     <Compile Include="Model\Menu\MenuItem.cs" />

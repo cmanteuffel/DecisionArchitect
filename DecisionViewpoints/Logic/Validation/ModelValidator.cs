@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using DecisionViewpoints.Logic.Rules;
 using EA;
 using EAFacade.Model;
 

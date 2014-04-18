@@ -1,5 +1,4 @@
-﻿using DecisionViewpoints.Logic.Rules;
-using EAFacade.Model;
+﻿using EAFacade.Model;
 
 namespace DecisionViewpoints.Logic.Validation
 {

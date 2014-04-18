@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using DecisionViewpoints.Model.Menu;
 using EAFacade;
 using EAFacade.Model;
+using MenuItem = DecisionViewpoints.Model.Menu.MenuItem;
 
-namespace DecisionViewpoints.Model.Menu
+namespace DecisionViewpoints.Logic.Menu
 {
-    class FollowTraceMenu : Menu
+    class FollowTraceMenu : Model.Menu.Menu
     {
 
         public FollowTraceMenu()

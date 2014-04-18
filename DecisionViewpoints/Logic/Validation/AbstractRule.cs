@@ -1,7 +1,6 @@
-﻿using DecisionViewpoints.Logic.Validation;
-using EAFacade.Model;
+﻿using EAFacade.Model;
 
-namespace DecisionViewpoints.Logic.Rules
+namespace DecisionViewpoints.Logic.Validation
 {
     public abstract class AbstractRule
     {

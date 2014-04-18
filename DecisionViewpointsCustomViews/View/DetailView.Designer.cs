@@ -100,7 +100,7 @@ namespace DecisionViewpointsCustomViews.View
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtName.Location = new System.Drawing.Point(253, 12);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(561, 31);
+            this.txtName.Size = new System.Drawing.Size(642, 31);
             this.txtName.TabIndex = 1;
             // 
             // buttonCancel
@@ -144,10 +144,9 @@ namespace DecisionViewpointsCustomViews.View
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel1.Controls.Add(this.buttonOk);
             this.flowLayoutPanel1.Controls.Add(this.buttonCancel);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(588, 1176);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(253, 1145);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(266, 47);
             this.flowLayoutPanel1.TabIndex = 20;
@@ -158,7 +157,7 @@ namespace DecisionViewpointsCustomViews.View
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtIssue.Location = new System.Drawing.Point(253, 182);
             this.txtIssue.Name = "txtIssue";
-            this.txtIssue.Size = new System.Drawing.Size(529, 96);
+            this.txtIssue.Size = new System.Drawing.Size(610, 96);
             this.txtIssue.TabIndex = 7;
             this.txtIssue.Text = "";
             // 
@@ -168,7 +167,7 @@ namespace DecisionViewpointsCustomViews.View
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDecision.Location = new System.Drawing.Point(253, 303);
             this.txtDecision.Name = "txtDecision";
-            this.txtDecision.Size = new System.Drawing.Size(529, 96);
+            this.txtDecision.Size = new System.Drawing.Size(610, 96);
             this.txtDecision.TabIndex = 9;
             this.txtDecision.Text = "";
             this.txtDecision.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.rtf_LinkClicked);
@@ -188,7 +187,7 @@ namespace DecisionViewpointsCustomViews.View
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtAlternatives.Location = new System.Drawing.Point(253, 424);
             this.txtAlternatives.Name = "txtAlternatives";
-            this.txtAlternatives.Size = new System.Drawing.Size(529, 96);
+            this.txtAlternatives.Size = new System.Drawing.Size(610, 96);
             this.txtAlternatives.TabIndex = 11;
             this.txtAlternatives.Text = "";
             this.txtAlternatives.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.rtf_LinkClicked);
@@ -208,7 +207,7 @@ namespace DecisionViewpointsCustomViews.View
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtArguments.Location = new System.Drawing.Point(253, 545);
             this.txtArguments.Name = "txtArguments";
-            this.txtArguments.Size = new System.Drawing.Size(529, 96);
+            this.txtArguments.Size = new System.Drawing.Size(610, 96);
             this.txtArguments.TabIndex = 13;
             this.txtArguments.Text = "";
             this.txtArguments.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.rtf_LinkClicked);
@@ -230,7 +229,7 @@ namespace DecisionViewpointsCustomViews.View
             this.txtGroup.Location = new System.Drawing.Point(253, 126);
             this.txtGroup.Name = "txtGroup";
             this.txtGroup.ReadOnly = true;
-            this.txtGroup.Size = new System.Drawing.Size(529, 31);
+            this.txtGroup.Size = new System.Drawing.Size(610, 31);
             this.txtGroup.TabIndex = 5;
             // 
             // label8
@@ -257,7 +256,7 @@ namespace DecisionViewpointsCustomViews.View
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRelatedRequirements.Location = new System.Drawing.Point(253, 795);
             this.txtRelatedRequirements.Name = "txtRelatedRequirements";
-            this.txtRelatedRequirements.Size = new System.Drawing.Size(529, 96);
+            this.txtRelatedRequirements.Size = new System.Drawing.Size(610, 96);
             this.txtRelatedRequirements.TabIndex = 17;
             this.txtRelatedRequirements.Text = "";
             // 
@@ -270,7 +269,7 @@ namespace DecisionViewpointsCustomViews.View
             this.lbxRelatedDecisions.Location = new System.Drawing.Point(253, 666);
             this.lbxRelatedDecisions.Name = "lbxRelatedDecisions";
             this.lbxRelatedDecisions.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.lbxRelatedDecisions.Size = new System.Drawing.Size(529, 104);
+            this.lbxRelatedDecisions.Size = new System.Drawing.Size(610, 104);
             this.lbxRelatedDecisions.TabIndex = 15;
             // 
             // dgvHistory
@@ -298,7 +297,7 @@ namespace DecisionViewpointsCustomViews.View
             this.dgvHistory.ReadOnly = true;
             this.dgvHistory.RowHeadersVisible = false;
             this.dgvHistory.RowTemplate.Height = 33;
-            this.dgvHistory.Size = new System.Drawing.Size(529, 206);
+            this.dgvHistory.Size = new System.Drawing.Size(610, 206);
             this.dgvHistory.TabIndex = 19;
             // 
             // StakeholderColumn
@@ -340,7 +339,7 @@ namespace DecisionViewpointsCustomViews.View
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(866, 1235);
+            this.ClientSize = new System.Drawing.Size(947, 1210);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.dgvHistory);
             this.Controls.Add(this.lbxRelatedDecisions);
