@@ -268,6 +268,24 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Generate PowerPoint for selected decisions.
+        /// </summary>
+        internal static string MenuExportSelectedDecisionsPowerPoint {
+            get {
+                return ResourceManager.GetString("MenuExportSelectedDecisionsPowerPoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generate Word for selected decisions.
+        /// </summary>
+        internal static string MenuExportSelectedDecisionsWord {
+            get {
+                return ResourceManager.GetString("MenuExportSelectedDecisionsWord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Generate Word.
         /// </summary>
         internal static string MenuExportWord {

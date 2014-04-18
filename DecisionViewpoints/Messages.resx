@@ -216,8 +216,14 @@
   <data name="MenuExportPowerPoint" xml:space="preserve">
     <value>Generate PowerPoint</value>
   </data>
+  <data name="MenuExportSelectedDecisionsPowerPoint" xml:space="preserve">
+    <value>Generate PowerPoint for selected decisions</value>
+  </data>
   <data name="MenuExportWord" xml:space="preserve">
     <value>Generate Word</value>
+  </data>
+  <data name="MenuExportSelectedDecisionsWord" xml:space="preserve">
+    <value>Generate Word for selected decisions</value>
   </data>
   <data name="SuccesfulForcesReportCreation" xml:space="preserve">
     <value>forces report created succesfuly.</value>
