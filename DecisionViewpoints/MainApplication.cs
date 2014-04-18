@@ -4,6 +4,7 @@ using DecisionViewpoints.Logic.Chronological;
 using DecisionViewpoints.Logic.Validation;
 using DecisionViewpoints.Model;
 using DecisionViewpoints.Model.Events;
+using DecisionViewpointsCustomViews;
 using EA;
 
 namespace DecisionViewpoints

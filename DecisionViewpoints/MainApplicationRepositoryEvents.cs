@@ -46,13 +46,17 @@ namespace DecisionViewpoints
             }
         }
 
-        public override void EA_OnContextItemDoubleClicked(Repository repository, string guid, ObjectType ot)
+        public override bool EA_OnContextItemDoubleClicked(Repository repository, string guid, ObjectType ot)
         {
             EARepository.UpdateRepository(repository);
             foreach (IRepositoryListener l in _listener)
             {
-                l.OnContextItemDoubleClicked(guid, ot);
+                if (!l.OnContextItemDoubleClicked(guid, ot))
+                {
+                    return false;
+                }
             }
+            return true;
         }
 
         public override void EA_OnNotifyContextItemModified(Repository repository, string guid, ObjectType ot)

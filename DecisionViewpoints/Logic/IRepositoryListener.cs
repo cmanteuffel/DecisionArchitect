@@ -37,7 +37,7 @@ namespace DecisionViewpoints.Logic
 
         void OnContextItemChanged(string guid, ObjectType type);
 
-        void OnContextItemDoubleClicked(string guid, ObjectType type);
+        bool OnContextItemDoubleClicked(string guid, ObjectType type);
 
         void OnNotifyContextItemModified(string guid, ObjectType type);
 

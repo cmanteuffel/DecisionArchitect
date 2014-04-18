@@ -5,9 +5,8 @@ namespace DecisionViewpointsCustomViews
     [ComVisible(true)]
     [Guid("C325ED77-CD8C-4CC3-BAB1-974420531239")]
     [InterfaceType(ComInterfaceType.InterfaceIsDual)]
-    public interface IForces
+    public interface ICustomView
     {
-        void Init();
         string GetText();
     }
 }

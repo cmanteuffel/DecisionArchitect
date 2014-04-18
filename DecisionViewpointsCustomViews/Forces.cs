@@ -7,14 +7,14 @@ namespace DecisionViewpointsCustomViews
     [Guid("D65970AD-12A7-402A-9F88-ED50D8C1DD82")]
     [ProgId("DecisionViewpointsCustomViews.Forces")]
     [ClassInterface(ClassInterfaceType.None)]
-    [ComDefaultInterface(typeof(IForces))]
-    public class Forces : UserControl, IForces
+    [ComDefaultInterface(typeof(ICustomView))]
+    public class Forces : UserControl, ICustomView
     {
         private Button button1;
         private TextBox textBox1;
         private Label label1;
         
-        public void Init()
+        public Forces()
         {
             InitializeComponent();
         }

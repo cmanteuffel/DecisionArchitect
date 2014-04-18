@@ -182,8 +182,9 @@ namespace DecisionViewpoints.Model.Events
         {
         }
 
-        public virtual void EA_OnContextItemDoubleClicked(Repository repository, string guid, ObjectType type)
+        public virtual bool EA_OnContextItemDoubleClicked(Repository repository, string guid, ObjectType type)
         {
+            return false;
         }
 
         public virtual void EA_OnNotifyContextItemModified(Repository repository, string guid, ObjectType type)

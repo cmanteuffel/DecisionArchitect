@@ -49,7 +49,7 @@
     <Compile Include="Forces.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="IForces.cs" />
+    <Compile Include="ICustomView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
