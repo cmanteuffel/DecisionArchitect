@@ -108,7 +108,7 @@ namespace DecisionViewpointsCustomViews.View
             // add columns with the decisions names
             foreach (var decision in model.GetDecisions())
             {
-                data.Columns.Add(decision.Name);
+                data.Columns.Add(string.Format("<<{0}>>\n{1}", decision.Stereotype, decision.Name));
             }
 
             // insert the requirement guids in the table
