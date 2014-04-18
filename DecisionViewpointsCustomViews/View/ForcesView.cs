@@ -20,10 +20,12 @@ namespace DecisionViewpointsCustomViews.View
         private Button _btnConfigure;
         private ICustomViewController _controller;
 
-        private const int DecisionColumnIndex = 2;
         private const int ConcernColumnIndex = 1;
+        private const int ConcernGUIDColumnIndex = 2;
+        private const int DecisionColumnIndex = 3;
 
         private const string ConcernHeader = "Concern";
+        private const string ConcernGUIDHeader = "ConcernGUID";
         private const string RequirementGUIDHeader = "RequirementGUID";
         private const string DecisionGUIDHeader = "DecisionGUID";
 
@@ -37,7 +39,7 @@ namespace DecisionViewpointsCustomViews.View
             this._btnSave = new System.Windows.Forms.Button();
             this._forcesTable = new System.Windows.Forms.DataGridView();
             this._btnConfigure = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize) (this._forcesTable)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._forcesTable)).BeginInit();
             this.SuspendLayout();
             // 
             // _btnSave
@@ -52,12 +54,12 @@ namespace DecisionViewpointsCustomViews.View
             // 
             // _forcesTable
             // 
-            this._forcesTable.ColumnHeadersHeightSizeMode =
-                System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this._forcesTable.AllowUserToAddRows = false;
+            this._forcesTable.AllowUserToDeleteRows = false;
+            this._forcesTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._forcesTable.Location = new System.Drawing.Point(35, 30);
             this._forcesTable.Name = "_forcesTable";
-            this._forcesTable.RowHeadersWidthSizeMode =
-                System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
+            this._forcesTable.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this._forcesTable.RowTemplate.Height = 33;
             this._forcesTable.Size = new System.Drawing.Size(762, 582);
             this._forcesTable.TabIndex = 2;
@@ -79,8 +81,9 @@ namespace DecisionViewpointsCustomViews.View
             this.Controls.Add(this._btnSave);
             this.Name = "ForcesView";
             this.Size = new System.Drawing.Size(850, 696);
-            ((System.ComponentModel.ISupportInitialize) (this._forcesTable)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._forcesTable)).EndInit();
             this.ResumeLayout(false);
+
         }
 
         private void _btnSave_Click(object sender, System.EventArgs e)
@@ -107,39 +110,52 @@ namespace DecisionViewpointsCustomViews.View
         {
             var data = new DataTable();
 
+            // the first three rows are:
+            // RequirementGUID, Concern, ConcernGUID
             data.Columns.Add(RequirementGUIDHeader);
             data.PrimaryKey = new[] {data.Columns[RequirementGUIDHeader]};
             data.Columns.Add(ConcernHeader);
+            data.Columns.Add(ConcernGUIDHeader);
 
+            // add columns with the decisions names
             foreach (var decision in model.GetDecisions())
             {
                 data.Columns.Add(decision.Name);
             }
+            // insert the requirement guids in the table
             foreach (var requirement in model.GetRequirements())
             {
                 data.Rows.Add(new object[] {requirement.GUID});
             }
-            data.Rows.Add(new object[] {0});
+            data.Rows.Add(new object[] {"-", "-", "-"});
 
+            // insert the concenrs and concerns guids in the table
             foreach (var reqConcerns in model.GetConcerns())
             {
                 var concerns = new StringBuilder();
+                var concernsGUID = new StringBuilder();
                 var concernIndex = 0;
                 foreach (var concern in reqConcerns.Value)
                 {
                     if (concernIndex++ > 0)
+                    {
                         concerns.Append(", ");
+                        concernsGUID.Append(", ");
+                    }
                     concerns.Append(concern.Name);
+                    concernsGUID.Append(concern.GUID);
                 }
                 data.Rows.Find(reqConcerns.Key.GUID)[ConcernColumnIndex] = concerns;
+                data.Rows.Find(reqConcerns.Key.GUID)[ConcernGUIDColumnIndex] = concernsGUID;
             }
 
+            // insert the decision guids in the table
             var decisionIndex = 0;
             foreach (var decision in model.GetDecisions())
             {
                 data.Rows[data.Rows.Count - 1][decisionIndex++ + DecisionColumnIndex] = decision.GUID;
             }
-
+            
             _forcesTable.DataSource = data;
 
             if (data.Columns.Count <= 0) return;
@@ -148,18 +164,28 @@ namespace DecisionViewpointsCustomViews.View
             {
                 _forcesTable.Rows[index].HeaderCell.Value = model.GetRequirements()[index].Name;
             }
-            _forcesTable.Rows[_forcesTable.Rows.Count - DecisionColumnIndex].HeaderCell.Value = DecisionGUIDHeader;
+            _forcesTable.Rows[_forcesTable.Rows.Count - 1].HeaderCell.Value = DecisionGUIDHeader;
 
+            // hide the columns which contain the guids of the elements
             var requirementGUIDColumn = _forcesTable.Columns[RequirementGUIDHeader];
             if (requirementGUIDColumn != null)
                 requirementGUIDColumn.Visible = false;
 
-            _forcesTable.Rows[_forcesTable.Rows.Count - DecisionColumnIndex].Visible = false;
+            var concernGUIDColumn = _forcesTable.Columns[ConcernGUIDHeader];
+            if (concernGUIDColumn != null)
+                concernGUIDColumn.Visible = false;
 
-            _forcesTable.AutoResizeRowHeadersWidth(DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders);
-            // TODO: deactivate the concern column, and row and column headers
+            _forcesTable.Rows[_forcesTable.Rows.Count - 1].Visible = false;
+
+            var concernColumn = _forcesTable.Columns[ConcernHeader];
+            if (concernColumn != null) concernColumn.ReadOnly = true;
+
+            foreach (DataGridViewColumn column in _forcesTable.Columns)
+            {
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+
             // TODO: permit only certain symbols for ratings
-            // TODO: bug when deleting element from project browser
         }
 
         public void RemoveDecision(string name)
