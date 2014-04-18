@@ -2,7 +2,7 @@ using EA;
 
 namespace EAFacade.Model
 {
-    public class EAVolatileDiagram
+    public class EAVolatileDiagram : IEAObject
     {
         private EAVolatileDiagram()
         {

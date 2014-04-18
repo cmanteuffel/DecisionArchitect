@@ -116,5 +116,19 @@ namespace DecisionViewpointsCustomViews.View
                 _forcesTable.Rows[index].HeaderCell.Value = model.GetRequirements()[index];
             }
         }
+
+        public void RemoveDecision(string name)
+        {
+            _forcesTable.Columns.Remove(name);
+        }
+
+        public void RemoveRequirement(string name)
+        {
+            foreach (DataGridViewRow row in _forcesTable.Rows)
+            {
+                if (row.HeaderCell.Value.Equals(name))
+                    _forcesTable.Rows.Remove(row);
+            }
+        }
     }
 }

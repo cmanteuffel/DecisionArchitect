@@ -22,7 +22,7 @@ namespace DecisionViewpoints.Logic
 
         bool OnPreNewDiagram(EAVolatileDiagram diagram);
 
-        //bool OnPreNewDiagramObject(EventProperties properties);
+        bool OnPreNewDiagramObject(EAVolatileDiagramObject diagramObject);
 
         bool OnPreNewPackage(EAVolatilePackage package);
 
@@ -30,7 +30,7 @@ namespace DecisionViewpoints.Logic
 
         bool OnPostNewConnector(EAConnector connector);
 
-        //bool OnPostNewDiagramObject(EventProperties properties);
+        bool OnPostNewDiagramObject(EADiagramObject diagramObject);
 
         bool OnPostNewPackage(EAPackage package);
 

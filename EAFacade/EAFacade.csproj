@@ -66,6 +66,7 @@
     <Compile Include="Model\EARepository.cs" />
     <Compile Include="Model\EAVolatileConnector.cs" />
     <Compile Include="Model\EAVolatileDiagram.cs" />
+    <Compile Include="Model\EAVolatileDiagramObject.cs" />
     <Compile Include="Model\EAVolatileElement.cs" />
     <Compile Include="Model\EAVolatilePackage.cs" />
     <Compile Include="Model\Events\EAEventAdapter.cs" />

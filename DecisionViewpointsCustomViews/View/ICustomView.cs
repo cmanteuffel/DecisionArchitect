@@ -1,6 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using DecisionViewpointsCustomViews.Controller;
 using DecisionViewpointsCustomViews.Model;
+using EAFacade.Model;
 
 namespace DecisionViewpointsCustomViews.View
 {
@@ -11,5 +12,7 @@ namespace DecisionViewpointsCustomViews.View
     {
         void SetController(ICustomViewController controller);
         void UpdateTable(ICustomViewModel model);
+        void RemoveDecision(string name);
+        void RemoveRequirement(string name);
     }
 }

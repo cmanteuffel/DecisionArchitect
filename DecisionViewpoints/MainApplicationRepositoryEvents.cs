@@ -115,8 +115,23 @@ namespace DecisionViewpoints
         public override bool EA_OnPreDeleteDiagram(Repository repository, EventProperties properties)
         {
             EARepository.UpdateRepository(repository);
-            var diagramWrapper = EAVolatileDiagram.Wrap(properties);
-            return _listeners.All(l => l.OnPreDeleteDiagram(diagramWrapper));
+            var diagram = EAVolatileDiagram.Wrap(properties);
+            return _listeners.All(l => l.OnPreDeleteDiagram(diagram));
+        }
+
+        public override bool EA_OnPreDeleteElement(Repository repository, EventProperties properties)
+        {
+            EARepository.UpdateRepository(repository);
+            var element = EAElement.Wrap(properties);
+
+            foreach (IRepositoryListener l in _listeners)
+            {
+                if (!l.OnPreDeleteElement(element))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

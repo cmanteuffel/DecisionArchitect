@@ -67,7 +67,7 @@ namespace DecisionViewpoints.Logic.Forces
                         DiagramModel = diagram,
                         Name = CreateForcesTabName(diagram.Name)
                     };
-                if (repository.IsTabOpen(forcesDiagramModel.Name) <= 0) return;
+                if (repository.IsTabOpen(forcesDiagramModel.Name) <= 0) continue;
                 var forcesController = new ForcesController(_views[forcesDiagramModel.DiagramGUID], forcesDiagramModel);
                 forcesController.UpdateTable();
             }
@@ -87,11 +87,33 @@ namespace DecisionViewpoints.Logic.Forces
             return true;
         }
 
+        public override bool OnPreDeleteElement(EAElement element)
+        {
+            if (!element.IsDecision() && !element.IsConcern() && !element.MetaType.Equals("Requirement")) return true;
+            var diagrams = new List<EADiagram>();
+            diagrams.AddRange(element.GetDiagrams().Where(eaDiagram => eaDiagram.IsForces()));
+            if (diagrams.Count == 0) return true;
+            var repository = EARepository.Instance;
+            foreach (var diagram in diagrams)
+            {
+                var forcesDiagramModel = new ForcesDiagramModel
+                {
+                    DiagramModel = diagram,
+                    Name = CreateForcesTabName(diagram.Name)
+                };
+                if (repository.IsTabOpen(forcesDiagramModel.Name) <= 0) continue;
+                var forcesController = new ForcesController(_views[forcesDiagramModel.DiagramGUID], forcesDiagramModel);
+                if (element.IsDecision())
+                    forcesController.RemoveDecision(element);
+                if (element.MetaType.Equals("Requirement"))
+                    forcesController.RemoveRequirement(element);
+            }
+            return true;
+        }
+
         private static string CreateForcesTabName(string diagramName)
         {
             return String.Format("{0} (Forces)", diagramName);
         }
-
-        // TODO: if an element is deleted from the browser then we need to update the table
     }
 }

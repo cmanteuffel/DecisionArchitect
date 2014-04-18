@@ -47,5 +47,15 @@ namespace DecisionViewpointsCustomViews.Controller
         {
             _model.DiagramModel = diagram;
         }
+
+        public void RemoveDecision(EAElement element)
+        {
+            _view.RemoveDecision(element.Name);
+        }
+
+        public void RemoveRequirement(EAElement element)
+        {
+            _view.RemoveRequirement(element.Name);
+        }
     }
 }

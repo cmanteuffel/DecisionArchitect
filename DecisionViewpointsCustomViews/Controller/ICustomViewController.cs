@@ -8,5 +8,7 @@ namespace DecisionViewpointsCustomViews.Controller
         void SaveRatings();
         void Configure();
         void SetDiagramModel(EADiagram diagram);
+        void RemoveDecision(EAElement element);
+        void RemoveRequirement(EAElement element);
     }
 }

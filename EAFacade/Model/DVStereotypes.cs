@@ -5,6 +5,7 @@ namespace EAFacade.Model
     public static class DVStereotypes
     {
         public const string DecisionMetaType = "Decision";
+        public const string ConcernMetaType = "Concern";
         public const string DiagramMetaType = "Decision Viewpoints::Forces";
 
         public const string StateIdea = "idea";

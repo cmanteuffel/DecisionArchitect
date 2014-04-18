@@ -204,9 +204,14 @@ namespace EAFacade.Model
             suppliedElement._native.Connectors.Refresh();
         }
 
-        public  bool IsDecision()
+        public bool IsDecision()
         {
             return (DVStereotypes.DecisionMetaType.Equals(MetaType));
+        }
+
+        public bool IsConcern()
+        {
+            return (DVStereotypes.ConcernMetaType.Equals(MetaType));
         }
 
         public bool Update()

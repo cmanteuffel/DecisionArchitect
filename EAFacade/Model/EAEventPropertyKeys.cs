@@ -10,5 +10,6 @@ namespace EAFacade.Model
         public const string Subtype = "subtype";
         public const string ParentId = "ParentID";
         public const string ElementId = "ElementID";
+        public const string ObjectId = "ObjectID";
     }
 }

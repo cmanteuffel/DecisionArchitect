@@ -48,6 +48,11 @@ namespace DecisionViewpoints.Logic
             return true;
         }
 
+        public bool OnPreNewDiagramObject(EAVolatileDiagramObject diagramObject)
+        {
+            return true;
+        }
+
         public virtual bool OnPreNewPackage(EAVolatilePackage package)
         {
             return true;
@@ -59,6 +64,11 @@ namespace DecisionViewpoints.Logic
         }
 
         public virtual bool OnPostNewConnector(EAConnector connector)
+        {
+            return true;
+        }
+
+        public bool OnPostNewDiagramObject(EADiagramObject diagramObject)
         {
             return true;
         }
