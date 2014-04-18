@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using DecisionViewpoints.Model;
 using DecisionViewpoints.Model.Baselines;
 using DecisionViewpoints.Properties;
@@ -10,14 +11,23 @@ namespace DecisionViewpoints.Logic.Chronological
     {
         public static void CreateDecisionSnapshot(EAPackage eapackage)
         {
-            if (eapackage == null || eapackage.IsDecisionViewPackge())
+            if (eapackage == null || !eapackage.IsDecisionViewPackge())
             {
                 throw new BaselineException("Package needs to be a decision viewpoint packge");
             }
-
-
             string notes = String.Format(Settings.Default.BaselineIdentifier);
             eapackage.CreateBaseline(notes);
+        }
+
+        public static void CreateDecisionSnapshotForAllDecisionPackages()
+        {
+            EARepository rep = EARepository.Instance;
+            IEnumerable<EAPackage> packages = rep.GetAllDecisionViewPackages();
+
+            foreach (EAPackage p in packages)
+            {
+                CreateDecisionSnapshot(p);
+            }
         }
 
         public override void OnNotifyContextItemModified(string guid, ObjectType type)
@@ -26,28 +36,40 @@ namespace DecisionViewpoints.Logic.Chronological
             {
                 case ObjectType.otElement:
                     EAElement element = EARepository.Instance.GetElementByGUID(guid);
+
+                    if (element==null) throw new Exception("element is null");
+
                     // Create a baseline upon a modification of a decision
-                    if ((bool) Settings.Default["BaselineOptionOnModification"])
-                        if (element.MetaType.Equals("Decision"))
+                    if (Settings.Default.BaselineOptionOnModification) {
+                        if (element.IsDecision())
                         {
-                            EARepository rep = EARepository.Instance;
-                            EAPackage dvp = rep.GetPackageFromRootByName("Decision Views");
-                            CreateDecisionSnapshot(dvp);
+                            //find containing decision view package
+                            EAPackage package = element.ParentPackage;
+                            if (package==null) throw new Exception("package is null");
+                            
+                            while (!package.IsModelRoot() || !package.IsDecisionViewPackge())
+                            {
+                                package = package.ParentPackage;
+                            }
+
+                            if (package == null || !package.IsDecisionViewPackge())
+                            {
+                                throw new BaselineException("Elements needs to be in a decision viewpoint packge");
+                            }
+
+                            
+                            CreateDecisionSnapshot(package);
                         }
+                    }
                     break;
             }
         }
 
         public override void OnFileClose()
         {
-            if (!(bool) Settings.Default["BaselineOptionOnFileClose"]) return;
+            if (!Settings.Default.BaselineOptionOnFileClose) return;
 
-            throw new Exception("need to save baselines for ALL decision view packages");
-
-            EARepository rep = EARepository.Instance;
-
-            EAPackage dvp = rep.GetPackageFromRootByName("Decision Views");
-            CreateDecisionSnapshot(dvp);
+            CreateDecisionSnapshotForAllDecisionPackages();
         }
     }
 }

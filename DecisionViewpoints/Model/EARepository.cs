@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using EA;
 
@@ -30,6 +31,20 @@ namespace DecisionViewpoints.Model
         internal static void UpdateRepository(Repository r)
         {
             Instance.Native = r;
+        }
+
+        public IEnumerable<EAPackage> GetAllDecisionViewPackages()
+        {
+            ICollection<EAPackage> decisionViewPackages = new List<EAPackage>();
+            foreach (Package package in Root.Packages)
+            {
+                var eapackage = EAPackage.Wrap(package);
+                if (eapackage.IsDecisionViewPackge())
+                {
+                    decisionViewPackages.Add(eapackage);
+                }
+            }
+            return decisionViewPackages;
         }
 
         public EAPackage GetPackageFromRootByName(string name)
@@ -159,5 +174,7 @@ namespace DecisionViewpoints.Model
 
             throw new NotSupportedException("Type (" + typeT.Name + ") not supported by GetContextObject()");
         }
+
+        
     }
 }

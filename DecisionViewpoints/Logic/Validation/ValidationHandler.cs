@@ -15,7 +15,6 @@ namespace DecisionViewpoints.Logic.Validation
 
         public override bool OnPreNewElement(EAVolatileElement element)
         {
-            MessageBox.Show("On pre new element");
             string message;
             if (!RuleManager.Instance.ValidateElement(element, out message))
             {
@@ -37,7 +36,6 @@ namespace DecisionViewpoints.Logic.Validation
 
         public override bool OnPreNewConnector(EAConnectorWrapper connector)
         {
-            MessageBox.Show("On pre new connecotr");
             string message;
             if (!RuleManager.Instance.ValidateConnector(connector, out message))
             {

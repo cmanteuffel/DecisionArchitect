@@ -17,7 +17,7 @@ namespace DecisionViewpoints
         //init repository listener
         public MainApplication()
         {
-            _listener.Add(new ValidationHandler());
+          // _listener.Add(new ValidationHandler());
             _listener.Add(new ChronologicalViewpointHandler());
             _listener.Add(new ForcesHandler());
         }

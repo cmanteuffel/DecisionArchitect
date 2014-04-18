@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 using System.Xml;
 using DecisionViewpoints.Model.Baselines;
-using DecisionViewpoints.Properties;
 using EA;
 
 namespace DecisionViewpoints.Model
@@ -142,7 +140,7 @@ namespace DecisionViewpoints.Model
         {
             EARepository repository = EARepository.Instance;
             Diagram d = _native.Diagrams.AddNew(name, type);
-            
+
             d.Update();
             _native.Diagrams.Refresh();
             repository.Native.RefreshModelView(_native.PackageID);
@@ -176,7 +174,7 @@ namespace DecisionViewpoints.Model
                     select new Baseline(guid, version, notes)).ToList();
         }
 
-        public Baseline CreateBaseline(string notes, bool excludeSubPackages = false)
+        public void CreateBaseline(string notes, bool excludeSubPackages = false)
         {
             int flags = 0;
             if (excludeSubPackages)
@@ -185,13 +183,12 @@ namespace DecisionViewpoints.Model
             }
             string version = DateTime.Now.ToString("yyyyMMddHHmmssffff");
 
-            Project project = EARepository.Instance.Native.GetProjectInterface();             
+            Project project = EARepository.Instance.Native.GetProjectInterface();
             if (!project.CreateBaselineEx(GUID, version, notes, flags))
             {
                 throw new BaselineException("Baseline could not be created");
             }
 
-            return GetBaselines().First(bl => bl.Version.Equals(version) && bl.Notes.Equals(Notes));
         }
 
         public BaselineDiff CompareWithBaseline(Baseline baseline)
@@ -242,8 +239,8 @@ namespace DecisionViewpoints.Model
         public bool IsDecisionViewPackge()
         {
             EAElement underlyingElement = EAElement.Wrap(_native.Element);
-            string value = underlyingElement.GetTaggedValue("");
-            return (value!=null && value.Equals("true"));
+            string value = underlyingElement.GetTaggedValue(DVTaggedValueKeys.DecisionViewPackage);
+            return (value != null && value.Equals("true"));
         }
     }
 }
