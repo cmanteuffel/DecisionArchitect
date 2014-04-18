@@ -10,7 +10,7 @@ namespace DecisionViewpoints.Logic
 
         bool OnPreDeleteElement(EAElement element);
 
-        bool OnPreDeleteConnector(EAConnectorWrapper connector);
+        bool OnPreDeleteConnector(EAConnector connector);
 
         bool OnPreDeleteDiagram(EAVolatileDiagram volatileDiagram);
 
@@ -18,7 +18,7 @@ namespace DecisionViewpoints.Logic
 
         bool OnPreNewElement(EAVolatileElement element);
 
-        bool OnPreNewConnector(EAConnectorWrapper connector);
+        bool OnPreNewConnector(EAVolatileConnector connector);
 
         bool OnPreNewDiagram(EAVolatileDiagram diagram);
 
@@ -28,7 +28,7 @@ namespace DecisionViewpoints.Logic
 
         bool OnPostNewElement(EAElement element);
 
-        bool OnPostNewConnector(EAConnectorWrapper connector);
+        bool OnPostNewConnector(EAConnector connector);
 
         //bool OnPostNewDiagramObject(EventProperties properties);
 

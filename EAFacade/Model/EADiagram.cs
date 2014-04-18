@@ -93,7 +93,7 @@ namespace EAFacade.Model
             EARepository.Instance.Native.ShowInProjectView(_native);
         }
 
-        [Obsolete("Do not use outside of model namespace or main app")]
+        //[Obsolete("Do not use outside of model namespace or main app")]
         internal static EADiagram Wrap(Diagram native)
         {
             return new EADiagram(native);

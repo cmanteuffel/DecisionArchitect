@@ -53,7 +53,7 @@ namespace DecisionViewpoints.Logic.Validation
             }
         }
 
-        public void ValidateConectorUsingRuleID(Repository repository, string ruleID, EAConnectorWrapper connector)
+        public void ValidateConectorUsingRuleID(Repository repository, string ruleID, EAConnector connector)
         {
             Project project = repository.GetProjectInterface();
             AbstractRule rule = _lookup[ruleID];

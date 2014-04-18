@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using EA;
-using EAFacade;
 
 namespace EAFacade.Model
 {
@@ -40,7 +38,7 @@ namespace EAFacade.Model
             foreach (Package package in Root.Packages)
             {
                 var eapackage = EAPackage.Wrap(package);
-                if (eapackage.IsDecisionViewPackge())
+                if (eapackage.IsDecisionViewPackage())
                 {
                     decisionViewPackages.Add(eapackage);
                 }
@@ -63,16 +61,15 @@ namespace EAFacade.Model
             return EAElement.Wrap(Native.GetElementByID(elementID));
         }
 
-        public EAConnectorWrapper GetConnectorByID(int connectorId)
+        public EAConnector GetConnectorByID(int connectorId)
         {
-            return EAConnectorWrapper.Wrap(Native.GetConnectorByID(connectorId));
+            return EAConnector.Wrap(Native.GetConnectorByID(connectorId));
         }
 
-        public EAConnectorWrapper GetConnectorByGUID(string guid)
+        public EAConnector GetConnectorByGUID(string guid)
         {
-            return EAConnectorWrapper.Wrap(Native.GetConnectorByGuid(guid));
+            return EAConnector.Wrap(Native.GetConnectorByGuid(guid));
         }
-
 
         public string Query(string sql)
         {
@@ -122,19 +119,24 @@ namespace EAFacade.Model
             }
         }
 
-        public int IsTabOpen(string name)
+        public int IsTabOpen(string tabName)
         {
-            return Native.IsTabOpen(name);
+            return Native.IsTabOpen(tabName);
         }
 
-        public void ActivateTab(string name)
+        public void ActivateTab(string tabName)
         {
-            Native.ActivateTab(name);
+            Native.ActivateTab(tabName);
         }
 
         public dynamic AddTab(string tabName, string controlID)
         {
             return Native.AddTab(tabName, controlID);
+        }
+
+        public void RemoveTab(string tabName)
+        {
+            Native.RemoveTab(tabName);
         }
 
         public void OpenDiagram(int diagramID)

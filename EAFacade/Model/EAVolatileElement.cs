@@ -1,5 +1,4 @@
 using EA;
-using EAFacade;
 
 namespace EAFacade.Model
 {
@@ -16,18 +15,20 @@ namespace EAFacade.Model
 
         public static EAVolatileElement Wrap(EventProperties info)
         {
-            var volatileElement = new EAVolatileElement();
-            volatileElement.Type = info.Get(EAEventPropertyKeys.Type).Value;
-            volatileElement.Stereotype = info.Get(EAEventPropertyKeys.Stereotype).Value;
+            var volatileElement = new EAVolatileElement
+                {
+                    Type = info.Get(EAEventPropertyKeys.Type).Value,
+                    Stereotype = info.Get(EAEventPropertyKeys.Stereotype).Value
+                };
 
-            dynamic parentElementID = Utilities.ParseToInt32(info.Get(EAEventPropertyKeys.ParentId).Value, -1);
+            var parentElementID = Utilities.ParseToInt32(info.Get(EAEventPropertyKeys.ParentId).Value, -1);
             if (parentElementID > 0)
             {
                 volatileElement.ParentElement = EARepository.Instance.GetElementByID(parentElementID);
             }
 
-            dynamic diagramID = Utilities.ParseToInt32(info.Get(EAEventPropertyKeys.DiagramId).Value, -1);
-            if (diagramID != -1)
+            var diagramID = Utilities.ParseToInt32(info.Get(EAEventPropertyKeys.DiagramId).Value, -1);
+            if (diagramID > 0)
             {
                 volatileElement.Diagram = EARepository.Instance.GetDiagramByID(diagramID);
             }

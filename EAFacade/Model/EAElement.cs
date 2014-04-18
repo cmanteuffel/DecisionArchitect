@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 using EA;
-using EAFacade;
 
 namespace EAFacade.Model
 {
@@ -15,6 +14,7 @@ namespace EAFacade.Model
         {
             _native = native;
         }
+
         public static int CompareByDateModified(EAElement x, EAElement y)
         {
             return DateTime.Compare(x.Modified, y.Modified);
@@ -117,19 +117,30 @@ namespace EAFacade.Model
             return new EAElement(native);
         }
 
+        public static EAElement Wrap(EventProperties properties)
+        {
+            var elementId = Utilities.ParseToInt32(properties.Get(EAEventPropertyKeys.ElementId).Value, -1);
+            EAElement element = null;
+            if (elementId > 0)
+            {
+                element = EARepository.Instance.GetElementByID(elementId);
+            }
+            return element;
+        }
+
         public IEnumerable<EAElement> GetTracedElements()
         {
             if (_native == null)
             {
                 return new EAElement[0];
             }
-            IList<EAConnectorWrapper> connectors = new List<EAConnectorWrapper>();
+            IList<EAConnector> connectors = new List<EAConnector>();
             foreach (Connector c in _native.Connectors)
             {
-                connectors.Add(EAConnectorWrapper.Wrap(c));
+                connectors.Add(EAConnector.Wrap(c));
             }
 
-            IEnumerable<EAElement> traces = from EAConnectorWrapper trace in connectors
+            IEnumerable<EAElement> traces = from EAConnector trace in connectors
                                             where trace.Stereotype.Equals("trace")
                                             select (trace.SupplierId == ID
                                                         ? trace.GetClient()
@@ -205,12 +216,15 @@ namespace EAFacade.Model
 
         public string GetTaggedValue(string dvDecisionviewpackage)
         {
-            TaggedValue value = _native.TaggedValues.GetByName(dvDecisionviewpackage);
-            if (value == null)
+            try
+            {
+                TaggedValue value = _native.TaggedValues.GetByName(dvDecisionviewpackage);
+                return value.Value;
+            }
+            catch (Exception)
             {
                 return null;
             }
-            return value.Value;
         }
 
         public void UpdateTaggedValue(string name, string data)

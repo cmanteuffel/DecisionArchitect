@@ -296,7 +296,7 @@ namespace DecisionViewpointsTests
             const string type = "ControlFlow";
             var info = EAEventPropertiesHelper.GetInstance(type, "", relationshipStereotype, client.ElementID,
                                                            supplier.ElementID, diagram.DiagramID);
-            var connector = EAConnectorWrapper.Wrap(info);
+            var connector = EAVolatileConnector.Wrap(info);
             string message;
             return RuleManager.Instance.ValidateConnector(connector, out message);
         }

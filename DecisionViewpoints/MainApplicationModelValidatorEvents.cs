@@ -23,14 +23,14 @@ namespace DecisionViewpoints
         public override void EA_OnRunConnectorRule(Repository repository, string ruleId, int connectorId)
         {
             EARepository.UpdateRepository(repository);
-            EAConnectorWrapper connector = EAConnectorWrapper.Wrap(connectorId);
+            var connector = EARepository.Instance.GetConnectorByID(connectorId);
             _modelValidator.ValidateConectorUsingRuleID(repository, ruleId, connector);
         }
 
         public override void EA_OnRunElementRule(Repository repository, string ruleId, Element element)
         {
             EARepository.UpdateRepository(repository);
-            EAElement wrappedElement = EAElement.Wrap(element);
+            var wrappedElement = EAElement.Wrap(element);
             _modelValidator.ValidateElementUsingRuleID(repository, ruleId, wrappedElement);
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using DecisionViewpointsCustomViews.Controller;
 using DecisionViewpointsCustomViews.Model;
 using DecisionViewpointsCustomViews.View;
@@ -14,14 +15,14 @@ namespace DecisionViewpoints.Logic.Forces
 
         public override bool OnContextItemDoubleClicked(string guid, NativeType type)
         {
-            if (!IsForcesDiagram(guid, type)) return false;
+            if (NativeType.Diagram != type) return false;
             var repository = EARepository.Instance;
             var diagram = repository.GetDiagramByGuid(guid);
-            var modelName = String.Format("{0} (Forces)", diagram.Name);
+            if (!diagram.IsForces()) return false;
             var forcesDiagramModel = new ForcesDiagramModel
                 {
                     DiagramModel = diagram,
-                    Name = modelName
+                    Name = CreateForcesTabName(diagram.Name)
                 };
             if (repository.IsTabOpen(forcesDiagramModel.Name) > 0)
             {
@@ -43,14 +44,30 @@ namespace DecisionViewpoints.Logic.Forces
 
         public override void OnNotifyContextItemModified(string guid, NativeType type)
         {
-            if (!IsForcesDiagram(guid, type)) return;
             var repository = EARepository.Instance;
-            var diagram = repository.GetDiagramByGuid(guid);
-            var modelName = String.Format("{0} (Forces)", diagram.Name);
+            EADiagram diagram = null;
+            switch (type)
+            {
+                case NativeType.Diagram:
+                    diagram = repository.GetDiagramByGuid(guid);
+                    if (!diagram.IsForces()) return;
+                    break;
+                case NativeType.Element:
+                    var element = repository.GetElementByGUID(guid);
+                    foreach (var eaDiagram in element.GetDiagrams())
+                    {
+                        // what if it appears in many diagrams?
+                        if (!eaDiagram.IsForces()) continue;
+                        diagram = eaDiagram;
+                        break;
+                    }
+                    break;
+            }
+            if (diagram == null) return;
             var forcesDiagramModel = new ForcesDiagramModel
                 {
                     DiagramModel = diagram,
-                    Name = modelName
+                    Name = CreateForcesTabName(diagram.Name)
                 };
             if (repository.IsTabOpen(forcesDiagramModel.Name) <= 0) return;
             var forcesController = new ForcesController(_views[forcesDiagramModel.DiagramGUID], forcesDiagramModel);
@@ -63,15 +80,19 @@ namespace DecisionViewpoints.Logic.Forces
             var diagram = repository.GetDiagramByID(volatileDiagram.DiagramID);
             if (!diagram.IsForces()) return true;
             if (_views.ContainsKey(diagram.GUID))
+            {
+                if (repository.IsTabOpen(CreateForcesTabName(diagram.Name)) > 0)
+                    repository.RemoveTab(CreateForcesTabName(diagram.Name));
                 _views.Remove(diagram.GUID);
+            }
             return true;
         }
 
-        private static bool IsForcesDiagram(string guid, NativeType type)
+        private static string CreateForcesTabName(string diagramName)
         {
-            if (NativeType.Diagram != type) return false;
-            var repository = EARepository.Instance;
-            return repository.GetDiagramByGuid(guid).IsForces();
+            return String.Format("{0} (Forces)", diagramName);
         }
+
+        // TODO: if an element is deleted from the browser then we need to update the table
     }
 }

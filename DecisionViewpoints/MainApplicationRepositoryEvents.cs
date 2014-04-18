@@ -9,10 +9,10 @@ namespace DecisionViewpoints
     //TODO: Not all events are implemented
     public partial class MainApplication
     {
-        public override bool EA_OnPreNewElement(Repository repository, EventProperties info)
+        public override bool EA_OnPreNewElement(Repository repository, EventProperties properties)
         {
             EARepository.UpdateRepository(repository);
-            EAVolatileElement element = EAVolatileElement.Wrap(info);
+            var element = EAVolatileElement.Wrap(properties);
 
             foreach (IRepositoryListener l in _listeners)
             {
@@ -24,13 +24,28 @@ namespace DecisionViewpoints
             return true;
         }
 
+        public override bool EA_OnPostNewElement(Repository repository, EventProperties properties)
+        {
+            EARepository.UpdateRepository(repository);
+            var element = EAElement.Wrap(properties);
+
+            foreach (IRepositoryListener l in _listeners)
+            {
+                if (!l.OnPostNewElement(element))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         public override bool EA_OnPreNewConnector(Repository repository, EventProperties info)
         {
             EARepository.UpdateRepository(repository);
-            EAConnectorWrapper connectorWrapper = EAConnectorWrapper.Wrap(info);
-            foreach (IRepositoryListener l in _listeners)
+            var volatileConnector = EAVolatileConnector.Wrap(info);
+            foreach (var l in _listeners)
             {
-                if (!l.OnPreNewConnector(connectorWrapper))
+                if (!l.OnPreNewConnector(volatileConnector))
                 {
                     return false;
                 }

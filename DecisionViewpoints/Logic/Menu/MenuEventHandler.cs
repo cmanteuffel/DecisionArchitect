@@ -66,7 +66,7 @@ namespace DecisionViewpoints.Logic.Menu
                                 Settings.Default.BaselineOptionManually)
                             {
                                 var eapackage = EARepository.Instance.GetContextObject<EAPackage>();
-                                self.IsEnabled = (eapackage != null && eapackage.IsDecisionViewPackge());
+                                self.IsEnabled = (eapackage != null && eapackage.IsDecisionViewPackage());
                                 return;
                             }
                             self.IsEnabled = false;

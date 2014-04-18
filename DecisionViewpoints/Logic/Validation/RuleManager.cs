@@ -68,18 +68,37 @@ namespace DecisionViewpoints.Logic.Validation
             return true;
         }
 
-        public bool ValidateConnector(EAConnectorWrapper conector, out string message)
+        public bool ValidateConnector(EAConnector connector, out string message)
         {
             message = "";
 
-            if (!DVStereotypes.Relationships.Contains(conector.Stereotype))
+            if (!DVStereotypes.Relationships.Contains(connector.Stereotype))
             {
                 return true;
             }
 
             foreach (var rule in _rules.Where(r => r.GetRuleType() == RuleType.Connector))
             {
-                if (!rule.Validate(conector, out message))
+                if (!rule.Validate(connector, out message))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public bool ValidateConnector(EAVolatileConnector connector, out string message)
+        {
+            message = "";
+
+            if (!DVStereotypes.Relationships.Contains(connector.Stereotype))
+            {
+                return true;
+            }
+
+            foreach (var rule in _rules.Where(r => r.GetRuleType() == RuleType.Connector))
+            {
+                if (!rule.Validate(connector, out message))
                 {
                     return false;
                 }

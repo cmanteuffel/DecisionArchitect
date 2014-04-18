@@ -1,5 +1,4 @@
 using EA;
-using EAFacade;
 
 namespace EAFacade.Model
 {
@@ -15,7 +14,7 @@ namespace EAFacade.Model
         {
             var volatileDiagram = new EAVolatileDiagram();
             var diagramID = Utilities.ParseToInt32(info.Get(EAEventPropertyKeys.DiagramId).Value, -1);
-            if (diagramID != -1)
+            if (diagramID > 0)
                 volatileDiagram.DiagramID = diagramID;
 
             return volatileDiagram;

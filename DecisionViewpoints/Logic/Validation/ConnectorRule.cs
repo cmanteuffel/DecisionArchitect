@@ -1,7 +1,7 @@
-using DecisionViewpoints.Logic.Validation;
+using DecisionViewpoints.Logic.Rules;
 using EAFacade.Model;
 
-namespace DecisionViewpoints.Logic.Rules
+namespace DecisionViewpoints.Logic.Validation
 {
     public abstract class ConnectorRule : AbstractRule
     {
@@ -15,7 +15,7 @@ namespace DecisionViewpoints.Logic.Rules
             return RuleType.Connector;
         }
 
-        public new abstract bool ValidateConnector(EAConnectorWrapper element);
+        public new abstract bool ValidateConnector(EAConnector connector);
   
     }
 }

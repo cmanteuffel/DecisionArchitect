@@ -18,7 +18,7 @@ namespace DecisionViewpoints.Logic.Validation
             _supplierState.UnionWith(supplierStates);
         }
 
-        public override bool ValidateConnector(EAConnectorWrapper connector)
+        public override bool ValidateConnector(EAConnector connector)
         {
             if (_relationType.Count == 0 || _relationType.Contains(connector.Stereotype))
             {

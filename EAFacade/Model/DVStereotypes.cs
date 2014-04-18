@@ -20,6 +20,7 @@ namespace EAFacade.Model
         public const string RelationAlternativeFor = "alternative for";
         public const string RelationExcludedBy = "excluded by";
         public const string RelationReplaces = "replaces";
+        public const string RelationClassifiedBy = "classified by";
 
         public static readonly HashSet<string> Relationships = new HashSet<string>
             {

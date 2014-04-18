@@ -57,7 +57,7 @@
     <Compile Include="Model\Baselines\DiffStatus.cs" />
     <Compile Include="Model\DVStereotypes.cs" />
     <Compile Include="Model\DVTaggedValueKeys.cs" />
-    <Compile Include="Model\EAConnectorWrapper.cs" />
+    <Compile Include="Model\EAConnector.cs" />
     <Compile Include="Model\EADiagram.cs" />
     <Compile Include="Model\EADiagramObject.cs" />
     <Compile Include="Model\EAElement.cs" />

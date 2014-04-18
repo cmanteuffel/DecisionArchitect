@@ -22,7 +22,7 @@ namespace DecisionViewpoints.Logic.Rules
             bool validationResult = true;
             message = "";
 
-            var connector = obj as EAConnectorWrapper;
+            var connector = obj as EAConnector;
             if (connector != null)
             {
                 validationResult = ValidateConnector(connector);
@@ -58,7 +58,7 @@ namespace DecisionViewpoints.Logic.Rules
             return true;
         }
 
-        public virtual bool ValidateConnector(EAConnectorWrapper connector)
+        public virtual bool ValidateConnector(EAConnector connector)
         {
             return true;
         }

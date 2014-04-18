@@ -1,5 +1,4 @@
-﻿using System.IO;
-using DecisionViewpoints;
+﻿using DecisionViewpoints;
 using EA;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

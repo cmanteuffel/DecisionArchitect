@@ -236,7 +236,7 @@ namespace EAFacade.Model
             return null;
         }
 
-        public bool IsDecisionViewPackge()
+        public bool IsDecisionViewPackage()
         {
             EAElement underlyingElement = EAElement.Wrap(_native.Element);
             string value = underlyingElement.GetTaggedValue(DVTaggedValueKeys.DecisionViewPackage);

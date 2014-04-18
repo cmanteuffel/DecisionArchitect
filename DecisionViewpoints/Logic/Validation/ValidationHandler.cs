@@ -33,7 +33,7 @@ namespace DecisionViewpoints.Logic.Validation
             return true;
         }
 
-        public override bool OnPreNewConnector(EAConnectorWrapper connector)
+        public override bool OnPreNewConnector(EAVolatileConnector connector)
         {
             string message;
             if (!RuleManager.Instance.ValidateConnector(connector, out message))
@@ -72,7 +72,6 @@ namespace DecisionViewpoints.Logic.Validation
                         return;
                     }
 
-
                     if (!RuleManager.Instance.ValidateElement(element, out message))
                     {
                         MessageBox.Show(
@@ -87,7 +86,7 @@ namespace DecisionViewpoints.Logic.Validation
 
                     break;
                 case NativeType.Connector:
-                    EAConnectorWrapper connectorWrapper = EAConnectorWrapper.Wrap(guid);
+                    var connector = EARepository.Instance.GetConnectorByGUID(guid);
 
                     //dirty hack that prevents that an modified event is fired after a connector has been created
                     if (_preventConnectorModifiedEvent)
@@ -96,7 +95,7 @@ namespace DecisionViewpoints.Logic.Validation
                     }
                     else
                     {
-                        if (!RuleManager.Instance.ValidateConnector(connectorWrapper, out message))
+                        if (!RuleManager.Instance.ValidateConnector(connector, out message))
                         {
                             MessageBox.Show(
                                 message,

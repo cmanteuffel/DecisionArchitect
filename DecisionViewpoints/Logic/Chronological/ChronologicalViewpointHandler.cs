@@ -10,7 +10,7 @@ namespace DecisionViewpoints.Logic.Chronological
     {
         public static void CreateDecisionSnapshot(EAPackage eapackage)
         {
-            if (eapackage == null || !eapackage.IsDecisionViewPackge())
+            if (eapackage == null || !eapackage.IsDecisionViewPackage())
             {
                 throw new BaselineException("Package needs to be a decision viewpoint packge");
             }
@@ -46,16 +46,15 @@ namespace DecisionViewpoints.Logic.Chronological
                             EAPackage package = element.ParentPackage;
                             if (package==null) throw new Exception("package is null");
                             
-                            while (!package.IsModelRoot() || !package.IsDecisionViewPackge())
+                            while (!(package.IsModelRoot() || package.IsDecisionViewPackage()))
                             {
                                 package = package.ParentPackage;
                             }
 
-                            if (package == null || !package.IsDecisionViewPackge())
+                            if (package == null || !package.IsDecisionViewPackage())
                             {
                                 throw new BaselineException("Elements needs to be in a decision viewpoint packge");
                             }
-
                             
                             CreateDecisionSnapshot(package);
                         }

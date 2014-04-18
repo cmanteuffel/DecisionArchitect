@@ -18,7 +18,7 @@ namespace DecisionViewpoints.Logic
             return true;
         }
 
-        public virtual bool OnPreDeleteConnector(EAConnectorWrapper connector)
+        public virtual bool OnPreDeleteConnector(EAConnector connector)
         {
             return true;
         }
@@ -38,7 +38,7 @@ namespace DecisionViewpoints.Logic
             return true;
         }
 
-        public virtual bool OnPreNewConnector(EAConnectorWrapper connector)
+        public virtual bool OnPreNewConnector(EAVolatileConnector connector)
         {
             return true;
         }
@@ -58,7 +58,7 @@ namespace DecisionViewpoints.Logic
             return true;
         }
 
-        public virtual bool OnPostNewConnector(EAConnectorWrapper connector)
+        public virtual bool OnPostNewConnector(EAConnector connector)
         {
             return true;
         }
