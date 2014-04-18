@@ -96,9 +96,8 @@ namespace DecisionViewpoints.Logic.Chronological
                 EAElement pastDecision = _historyPackage.CreateElement(name, stereotype, type);
                 pastDecision.MetaType = metatype;
                 pastDecision.Modified = modified;
-
-                ;
-
+                pastDecision.AddTaggedValue(DVTaggedValueKeys.DecisionStateModifiedDate,modified.ToString());
+                pastDecision.AddTaggedValue(DVTaggedValueKeys.DecisionState,stereotype);
                 pastDecisions.Add(pastDecision);
             }
 
@@ -108,15 +107,9 @@ namespace DecisionViewpoints.Logic.Chronological
 
         private IList<EAElement> ConnectDecisions(IEnumerable<EAElement> elements)
         {
+            //determine order of decisions
             List<EAElement> sortedElements = elements.ToList();
-            sortedElements.Sort(EAElement.CompareByDateModified);
-
-            string itemString = "";
-            foreach (EAElement decisionDiffItem in sortedElements)
-            {
-                itemString += decisionDiffItem.Name + " <" + decisionDiffItem.Stereotype + "> @" +
-                              decisionDiffItem.Modified + "\n";
-            }
+            sortedElements.Sort(EAElement.CompareByStateDateModified);
 
             // connect subsequent elements
             for (int i = 1; i < sortedElements.Count(); i++)

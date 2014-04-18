@@ -59,6 +59,7 @@
     <Compile Include="Logic\Chronological\ChronologicalViewpointGenerator.cs" />
     <Compile Include="Logic\Chronological\ChronologicalViewpointHandler.cs" />
     <Compile Include="Logic\Chronological\DecisionDiffItem.cs" />
+    <Compile Include="Logic\Chronological\DecisionStateModifedDateHandler.cs" />
     <Compile Include="Logic\Forces\ForcesHandler.cs" />
     <Compile Include="Logic\RepositoryAdapter.cs" />
     <Compile Include="Logic\IRepositoryListener.cs" />

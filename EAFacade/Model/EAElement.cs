@@ -20,6 +20,13 @@ namespace EAFacade.Model
             return DateTime.Compare(x.Modified, y.Modified);
         }
 
+        public static int CompareByStateDateModified(EAElement x, EAElement y)
+        {
+           var xModified = DateTime.Parse(x.GetTaggedValue(DVTaggedValueKeys.DecisionStateModifiedDate));
+           var yModified = DateTime.Parse(y.GetTaggedValue(DVTaggedValueKeys.DecisionStateModifiedDate));
+            return DateTime.Compare(xModified, yModified);
+        }
+
         public string Type
         {
             get { return _native.Type; }
@@ -232,9 +239,22 @@ namespace EAFacade.Model
             }
         }
 
+        public void AddTaggedValue(string name, string data)
+        {
+            TaggedValue taggedValue = _native.TaggedValues.AddNew(name, "");
+            taggedValue.Value = data;
+            taggedValue.Update();
+            _native.TaggedValues.Refresh();
+            Update();
+        }
+
         public void UpdateTaggedValue(string name, string data)
         {
             TaggedValue taggedValue = _native.TaggedValues.GetByName(name);
+            if (taggedValue == null)
+            {
+                throw new Exception("TaggedValue " + name + " does not exist.");
+            }
             taggedValue.Value = data;
             taggedValue.Update();
             _native.TaggedValues.Refresh();

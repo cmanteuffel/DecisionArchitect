@@ -19,6 +19,7 @@ namespace DecisionViewpoints
           // _listeners.Add(new ValidationHandler());
             _listeners.Add(new ChronologicalViewpointHandler());
             _listeners.Add(new ForcesHandler());
+            _listeners.Add(new DecisionStateModifedDateHandler());
         }
 
         public override object EA_OnInitializeTechnologies(Repository repository)

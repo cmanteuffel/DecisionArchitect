@@ -135,25 +135,6 @@ namespace EAFacade.Model
             return EAElement.Wrap(newElement);
         }
 
-        [Obsolete]
-        public Diagram CreateDiagram(string name, string type)
-        {
-            EARepository repository = EARepository.Instance;
-            Diagram d = _native.Diagrams.AddNew(name, type);
-
-            d.Update();
-            _native.Diagrams.Refresh();
-            repository.Native.RefreshModelView(_native.PackageID);
-            return d;
-        }
-
-        [Obsolete]
-        public void DeleteDiagram(short pos, bool refresh)
-        {
-            _native.Diagrams.DeleteAt(pos, refresh);
-        }
-
-        [Obsolete]
         public EADiagram GetDiagram(string name)
         {
             return EADiagram.Wrap(_native.Diagrams.GetByName(name));
