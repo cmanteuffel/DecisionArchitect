@@ -11,12 +11,12 @@ using EAFacade.Model;
 namespace DecisionViewpointsCustomViews.View
 
 {
-    public partial class DetailViewNew : Form, IDetailView
+    public partial class DetailView : Form, IDetailView
     {
         private IDetailViewController _controller;
         private bool _hasTopic = false;
 
-        public DetailViewNew()
+        public DetailView()
         {
             InitializeComponent();
         }

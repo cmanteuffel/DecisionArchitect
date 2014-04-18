@@ -402,7 +402,7 @@ namespace DecisionViewpointsCustomViews.View
             {
                 var elementGUID = _forcesTable.Rows[_forcesTable.Rows.Count - 1].Cells[e.ColumnIndex].Value.ToString();
                 var decision = EARepository.Instance.GetElementByGUID(elementGUID);
-                var detailController = new DetailController(new Decision(decision), new DetailViewNew());//angor
+                var detailController = new DetailController(new Decision(decision), new DetailView());//angor
                 Point pos = this.PointToClient(Cursor.Position);
 
                 detailController.ShowDetailView();

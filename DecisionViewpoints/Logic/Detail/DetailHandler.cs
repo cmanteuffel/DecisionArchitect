@@ -31,7 +31,7 @@ namespace DecisionViewpoints.Logic.Detail
             if (element.IsDecision())
             {
                 //var detailController = new DetailController(new Decision(element), new DetailView());//original
-                var detailController = new DetailController(new Decision(element), new DetailViewNew());//angor
+                var detailController = new DetailController(new Decision(element), new DetailView());//angor
                 detailController.ShowDetailView();
             }
             else if (element.IsTopic())
@@ -64,7 +64,7 @@ namespace DecisionViewpoints.Logic.Detail
             EARepository.Instance.SuppressDefaultDialogs(true);
             if (element.IsDecision())
             {
-                var detailController = new DetailController(new Decision(element), new DetailViewNew());//angor
+                var detailController = new DetailController(new Decision(element), new DetailView());//angor
                 detailController.ShowDetailView();
             }
             else if(element.IsTopic())
