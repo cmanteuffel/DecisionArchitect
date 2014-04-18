@@ -65,7 +65,7 @@
     <Compile Include="Logic\Detail\DetailHandler.cs" />
     <Compile Include="Logic\General\DecisionStateModifedDateHandler.cs" />
     <Compile Include="Logic\Relationship\RelationshipHandler.cs" />
-    <Compile Include="Logic\Reporting\PowerPoint.cs" />
+    <Compile Include="Logic\Reporting\PowerPointTemplate.cs" />
     <Compile Include="Logic\Reporting\ExcelDocument.cs" />
     <Compile Include="Logic\Reporting\PowerPointDocument.cs" />
     <Compile Include="Logic\Reporting\ReportFactory.cs" />

@@ -232,19 +232,25 @@ namespace DecisionViewpoints.Logic.Menu
                  select diagram).ToList();
             var report = ReportFactory.Create(ReportType.PowerPoint, "Presentation.pptx");
             report.Open();
-            foreach (var decision in decisions)
+            try
             {
-                report.InsertDecisionTable(decision);
+                foreach (var decision in decisions)
+                {
+                    report.InsertDecisionTable(decision);
+                }
+                foreach (var diagram in diagrams.Where(diagram => !diagram.IsForcesView()))
+                {
+                    report.InsertDiagramImage(diagram);
+                }
+                foreach (var diagram in diagrams.Where(diagram => diagram.IsForcesView()))
+                {
+                    report.InsertForcesTable(new ForcesModel { DiagramModel = diagram });
+                }
             }
-            foreach (var diagram in diagrams.Where(diagram => !diagram.IsForcesView()))
+            finally
             {
-                report.InsertDiagramImage(diagram);
+                report.Close();
             }
-            foreach (var diagram in diagrams.Where(diagram => diagram.IsForcesView()))
-            {
-                report.InsertForcesTable(new ForcesModel {DiagramModel = diagram});
-            }
-            report.Close();
         }
     }
 }
