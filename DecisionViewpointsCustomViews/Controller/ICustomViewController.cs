@@ -1,8 +1,0 @@
-﻿namespace DecisionViewpointsCustomViews.Controller
-{
-    public interface ICustomViewController
-    {
-        void Update();
-        void Save();
-    }
-}
