@@ -160,10 +160,9 @@ namespace DecisionViewpoints.Model.Reporting
             // Insert the text into the SharedStringTablePart.
             int index = InsertSharedStringItem(text, shareStringPart);
 
-            // Insert cell A1 into the new worksheet.
+            // Insert cell into the new worksheet.
             Cell cell = InsertCellAfter(worksheetPart, rowIndex);
 
-            // Set the value of cell A1.
             if (cell == null) return;
             cell.CellValue = new CellValue(index.ToString(CultureInfo.InvariantCulture));
             cell.DataType = new EnumValue<CellValues>(CellValues.SharedString);

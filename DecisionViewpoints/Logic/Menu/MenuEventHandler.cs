@@ -234,10 +234,11 @@ namespace DecisionViewpoints.Logic.Menu
                 (from EAPackage package in repository.GetAllDecisionViewPackages()
                  from EADiagram diagram in package.GetDiagrams()
                  select diagram).ToList();
-            IReportDocument report = ReportFactory.Create(ReportType.Excel, "Report.xlsx");
-            report.Open();
+            IReportDocument report = null;
             try
             {
+                report = ReportFactory.Create(ReportType.Excel, "Report.xlsx");
+                report.Open();
                 foreach (Decision decision in decisions)
                 {
                     report.InsertDecisionTable(decision);
@@ -253,7 +254,8 @@ namespace DecisionViewpoints.Logic.Menu
             }
             finally
             {
-                report.Close();
+                if (report != null)
+                    report.Close();
             }
         }
     }
