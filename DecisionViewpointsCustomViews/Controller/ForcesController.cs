@@ -30,7 +30,7 @@ namespace DecisionViewpointsCustomViews.Controller
         public void Configure()
         {
             var repository = EARepository.Instance;
-            var diagram = repository.GetDiagramByGuid(_model.GUID);
+            var diagram = repository.GetDiagramByGuid(_model.DiagramGUID);
             repository.OpenDiagram(diagram.ID);
         }
 

@@ -10,7 +10,7 @@ namespace DecisionViewpointsCustomViews.Model
         private readonly List<ICustomViewModelListener> _listeners = new List<ICustomViewModelListener>();
         public string Name { get; set; }
 
-        public string GUID
+        public string DiagramGUID
         {
             get { return _diagram.GUID; }
         }

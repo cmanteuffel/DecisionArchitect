@@ -9,6 +9,7 @@ namespace DecisionViewpoints.Logic.Forces
 {
     public class ForcesHandler : RepositoryAdapter
     {
+        // hold a referecne to the created controller so to respond to the changed events (might need to change)
         private ICustomViewController _forcesController;
 
         public override bool OnContextItemDoubleClicked(string guid, ObjectType type)
