@@ -155,6 +155,11 @@ namespace EAFacade.Model
             Native.ReloadDiagram(diagramID);
         }
 
+        public void SuppressDefaultDialogs(bool flag)
+        {
+            Native.SuppressEADialogs = flag;
+        }
+
         public T GetContextObject<T>() where T : IModelItem
         {
             dynamic obj = Native.GetContextObject();

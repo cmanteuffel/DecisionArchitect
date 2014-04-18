@@ -17,5 +17,14 @@ namespace DecisionViewpoints.Logic.Detail
             detailController.ShowDetailView();
             return true;
         }
+
+        public override bool OnPostNewElement(EAElement element)
+        {
+            if (!element.IsDecision()) return false;
+            EARepository.Instance.SuppressDefaultDialogs(true);
+            var detailController = new DetailController(new Decision(element), new DetailView());
+            detailController.ShowDetailView();
+            return false;
+        }
     }
 }
