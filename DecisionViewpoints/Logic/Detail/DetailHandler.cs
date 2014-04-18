@@ -8,11 +8,11 @@ namespace DecisionViewpoints.Logic.Detail
 {
     public class DetailHandler : RepositoryAdapter
     {
-        public override bool OnContextItemDoubleClicked(string guid, NativeType type)
+        public override bool OnContextItemDoubleClicked(string guid, EANativeType type)
         {
-            if (type != NativeType.Element) return false;
-            EARepository repository = EARepository.Instance;
-            EAElement element = repository.GetElementByGUID(guid);
+            if (type != EANativeType.Element) return false;
+            IEARepository repository = EAFacade.EA.Repository;
+            IEAElement element = repository.GetElementByGUID(guid);
             if (!element.IsDecision() && !element.IsTopic()) return false;
             if (element.IsDecision() && !element.IsHistoryDecision())
             {
@@ -29,11 +29,10 @@ namespace DecisionViewpoints.Logic.Detail
                         MessageBoxIcon.Information);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    var originalguid = element.GetTaggedValue(DVTaggedValueKeys.OriginalDecisionGuid);
-                    var decision = EARepository.Instance.GetElementByGUID(originalguid);
+                    string originalguid = element.GetTaggedValue(EATaggedValueKeys.OriginalDecisionGuid);
+                    IEAElement decision = repository.GetElementByGUID(originalguid);
                     var detailController = new DetailController(new Decision(decision), new DetailView());
                     detailController.ShowDetailView();
-
                 }
             }
             else if (element.IsTopic())
@@ -44,11 +43,11 @@ namespace DecisionViewpoints.Logic.Detail
             return true;
         }
 
-        public override bool OnPostNewElement(EAElement element)
+        public override bool OnPostNewElement(IEAElement element)
         {
             if (!element.IsDecision() && !element.IsTopic()) return false;
 
-            EARepository.Instance.SuppressDefaultDialogs(true);
+            EAFacade.EA.Repository.SuppressDefaultDialogs(true);
             if (element.IsDecision())
             {
                 var detailController = new DetailController(new Decision(element), new DetailView()); //angor

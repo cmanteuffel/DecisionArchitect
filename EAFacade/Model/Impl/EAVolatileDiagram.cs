@@ -1,8 +1,8 @@
 using EA;
 
-namespace EAFacade.Model
+namespace EAFacade.Model.Impl
 {
-    public class EAVolatileDiagram : IEAObject
+    internal sealed class EAVolatileDiagram : IEAVolatileDiagram
     {
         private EAVolatileDiagram()
         {
@@ -10,7 +10,7 @@ namespace EAFacade.Model
 
         public int DiagramID { get; set; }
 
-        public static EAVolatileDiagram Wrap(EventProperties info)
+        public static IEAVolatileDiagram Wrap(EventProperties info)
         {
             var volatileDiagram = new EAVolatileDiagram();
             var diagramID = EAUtilities.ParseToInt32(info.Get(EAEventPropertyKeys.DiagramId).Value, -1);

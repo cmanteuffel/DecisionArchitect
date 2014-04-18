@@ -1,9 +1,8 @@
-﻿using System.Windows.Forms;
 using EA;
 
-namespace EAFacade.Model
+namespace EAFacade.Model.Impl
 {
-    public class EADiagramObject : IEAObject
+    internal sealed class EADiagramObject : IEADiagramObject
     {
         private readonly DiagramObject _native;
 
@@ -12,19 +11,18 @@ namespace EAFacade.Model
             _native = native;
         }
 
-        public static EADiagramObject Wrap(DiagramObject native)
+        public static IEADiagramObject Wrap(DiagramObject native)
         {
             return new EADiagramObject(native);
         }
 
         
-
         public int ElementID
         {
             get { return _native.ElementID; }
         }
 
-        public EADiagram Diagram
+        public IEADiagram Diagram
         {
             get
             {

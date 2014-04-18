@@ -1,8 +1,4 @@
 using System;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Reflection;
 using EA;
 using EAFacade.Model;
 
@@ -30,26 +26,26 @@ namespace EAFacade
             return number;
         }
 
-        public static NativeType Translate(ObjectType nativeOt)
+        public static EANativeType Translate(ObjectType nativeOt)
         {
             switch (nativeOt)
             {
                 case ObjectType.otElement:
-                    return NativeType.Element;
+                    return EANativeType.Element;
                 case ObjectType.otConnector:
-                    return NativeType.Connector;
+                    return EANativeType.Connector;
                 case ObjectType.otDiagram:
-                    return NativeType.Diagram;
+                    return EANativeType.Diagram;
                 case ObjectType.otPackage:
-                    return NativeType.Package;
+                    return EANativeType.Package;
                 case ObjectType.otRepository:
-                    return NativeType.Repository;
+                    return EANativeType.Repository;
                 case ObjectType.otNone:
                     //FIX: model returns for some reason otNone, translated to otModel. Might cause problems. 
-                    return NativeType.Model;
+                    return EANativeType.Model;
                 default:
                     //MessageBox.Show("" + nativeOt);
-                    return NativeType.Unspecified;
+                    return EANativeType.Unspecified;
             }
         }
     }

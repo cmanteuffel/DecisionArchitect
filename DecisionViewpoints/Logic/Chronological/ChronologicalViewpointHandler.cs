@@ -2,26 +2,27 @@
 using System.Linq;
 using EAFacade.Model;
 
+
 namespace DecisionViewpoints.Logic.Chronological
 {
     internal class ChronologicalViewpointHandler : RepositoryAdapter
     {
-        public override void OnNotifyContextItemModified(string guid, NativeType type)
+        public override void OnNotifyContextItemModified(string guid, EANativeType type)
         {
             switch (type)
             {
-                case NativeType.Diagram:
-                    EADiagram diagram = EARepository.Instance.GetDiagramByGuid(guid);
+                case EANativeType.Diagram:
+                    IEADiagram diagram = EAFacade.EA.Repository.GetDiagramByGuid(guid);
                     if (!diagram.IsChronologicalView()) break;
                     diagram.HideConnectors(new[]
                         {
-                            DVStereotypes.RelationAlternativeFor, DVStereotypes.RelationCausedBy,
-                            DVStereotypes.RelationDependsOn,
-                            DVStereotypes.RelationExcludedBy, DVStereotypes.RelationReplaces
+                            EAConstants.RelationAlternativeFor, EAConstants.RelationCausedBy,
+                            EAConstants.RelationDependsOn,
+                            EAConstants.RelationExcludedBy, EAConstants.RelationReplaces
                         });
                     break;
-                case NativeType.Element:
-                    EAElement element = EARepository.Instance.GetElementByGUID(guid);
+                case EANativeType.Element:
+                    IEAElement element = EAFacade.EA.Repository.GetElementByGUID(guid);
 
                     if (element == null) throw new Exception("element is null");
 
@@ -50,14 +51,14 @@ namespace DecisionViewpoints.Logic.Chronological
             }
         }
 
-        public override void OnPostOpenDiagram(EADiagram diagram)
+        public override void OnPostOpenDiagram(IEADiagram diagram)
         {
             if (!diagram.IsChronologicalView()) return;
             diagram.HideConnectors(new[]
                 {
-                    DVStereotypes.RelationAlternativeFor, DVStereotypes.RelationCausedBy,
-                    DVStereotypes.RelationDependsOn,
-                    DVStereotypes.RelationExcludedBy, DVStereotypes.RelationReplaces
+                    EAConstants.RelationAlternativeFor, EAConstants.RelationCausedBy,
+                    EAConstants.RelationDependsOn,
+                    EAConstants.RelationExcludedBy, EAConstants.RelationReplaces
                 });
         }
         

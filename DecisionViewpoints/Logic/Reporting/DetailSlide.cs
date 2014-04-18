@@ -6,6 +6,7 @@ using DecisionViewpoints.Model.Reporting;
 using DocumentFormat.OpenXml.Packaging;
 using EAFacade.Model;
 
+
 namespace DecisionViewpoints.Logic.Reporting
 {
     public class DetailSlide : AbstractSlide
@@ -22,7 +23,7 @@ namespace DecisionViewpoints.Logic.Reporting
         {
             var relatedDecisions = new StringBuilder();
             var alternativeDecisions = new StringBuilder();
-            foreach (EAConnector connector in _decision.GetConnectors().Where(connector => connector.IsRelationship()))
+            foreach (IEAConnector connector in _decision.Connectors.Where(connector => connector.IsRelationship()))
             {
                 // Related Decisions
                 if (!connector.Stereotype.Equals("alternative for"))
@@ -49,14 +50,14 @@ namespace DecisionViewpoints.Logic.Reporting
             IEnumerable<Rating> forces = _decision.GetForces();
             foreach (Rating rating in forces)
             {
-                EAElement req = EARepository.Instance.GetElementByGUID(rating.RequirementGUID);
-                EAElement concern = EARepository.Instance.GetElementByGUID(rating.ConcernGUID);
+                IEAElement req = EAFacade.EA.Repository.GetElementByGUID(rating.RequirementGUID);
+                IEAElement concern = EAFacade.EA.Repository.GetElementByGUID(rating.ConcernGUID);
                 relatedRequirements.AppendLine(req.Name + " - " + req.Notes);
             }
 
             //Traces Componenets
             var traces = new StringBuilder();
-            foreach (EAElement element in _decision.GetTraces())
+            foreach (IEAElement element in _decision.GetTraces())
             {
                 string trace = element.GetProjectPath() + "/" + element.Name;
                 traces.AppendLine(trace);
@@ -65,10 +66,10 @@ namespace DecisionViewpoints.Logic.Reporting
 
             SetPlaceholder(NewSlidePart, DecisionDataTags.Name, _decision.Name);
             SetPlaceholder(NewSlidePart, DecisionDataTags.State, _decision.State);
-            SetPlaceholder(NewSlidePart, DecisionDataTags.Topic, _decision.HasTopic() ? _decision.GetTopic().Name : "");
-            SetPlaceholder(NewSlidePart, DecisionDataTags.Issue, _decision.Issue);
-            SetPlaceholder(NewSlidePart, DecisionDataTags.DecisionText, _decision.DecisionText);
-            SetPlaceholder(NewSlidePart, DecisionDataTags.Arguments, _decision.Arguments);
+            SetPlaceholder(NewSlidePart, DecisionDataTags.Topic, _decision.HasTopic() ? _decision.Topic.Name : "");
+            SetPlaceholder(NewSlidePart, DecisionDataTags.Issue, _decision.Problem);
+            SetPlaceholder(NewSlidePart, DecisionDataTags.DecisionText, _decision.Solution);
+            SetPlaceholder(NewSlidePart, DecisionDataTags.Arguments, _decision.Argumentation);
             SetPlaceholder(NewSlidePart, DecisionDataTags.Alternatives, alternativeDecisions.ToString());
             SetPlaceholder(NewSlidePart, DecisionDataTags.RelatedDecisions, relatedDecisions.ToString());
             SetPlaceholder(NewSlidePart, DecisionDataTags.RelatedRequirements, relatedRequirements.ToString());

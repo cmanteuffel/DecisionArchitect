@@ -5,6 +5,7 @@ using DecisionViewpoints.View;
 using DecisionViewpoints.View.Controller;
 using EAFacade.Model;
 
+
 namespace DecisionViewpoints.Logic.Forces
 {
     public class ForcesHandler : RepositoryAdapter
@@ -13,10 +14,10 @@ namespace DecisionViewpoints.Logic.Forces
         private readonly Dictionary<string, IForcesController> _controllers =
             new Dictionary<string, IForcesController>();
 
-        public override bool OnContextItemDoubleClicked(string guid, NativeType type)
+        public override bool OnContextItemDoubleClicked(string guid, EANativeType type)
         {
-            if (NativeType.Diagram != type) return false;
-            var repository = EARepository.Instance;
+            if (EANativeType.Diagram != type) return false;
+            var repository = EAFacade.EA.Repository;
             var diagram = repository.GetDiagramByGuid(guid);
             if (!diagram.IsForcesView()) return false;
             var forcesDiagramModel = new ForcesModel(diagram);
@@ -48,14 +49,14 @@ namespace DecisionViewpoints.Logic.Forces
             return true;
         }
 
-        public override void OnNotifyContextItemModified(string guid, NativeType type)
+        public override void OnNotifyContextItemModified(string guid, EANativeType type)
         {
-            var repository = EARepository.Instance;
+            var repository = EAFacade.EA.Repository;
             IForcesController forcesController;
             switch (type)
             {
                 // the diagram is modified when we remove an element or a connector from it
-                case NativeType.Diagram:
+                case EANativeType.Diagram:
                     var diagram = repository.GetDiagramByGuid(guid);
                     if (!diagram.IsForcesView()) return;
                     // if the name of a diagram changed and the forces tab is open then close it to avoid conflicts
@@ -71,7 +72,7 @@ namespace DecisionViewpoints.Logic.Forces
                     forcesController = _controllers[diagram.GUID];
                     forcesController.SetDiagramModel(diagram);
                     break;
-                case NativeType.Element:
+                case EANativeType.Element:
                     var element = repository.GetElementByGUID(guid);
                     foreach (
                         var eaDiagram in
@@ -91,9 +92,9 @@ namespace DecisionViewpoints.Logic.Forces
             }
         }
 
-        public override bool OnPreDeleteDiagram(EAVolatileDiagram volatileDiagram)
+        public override bool OnPreDeleteDiagram(IEAVolatileDiagram volatileDiagram)
         {
-            var repository = EARepository.Instance;
+            var repository = EAFacade.EA.Repository;
             var diagram = repository.GetDiagramByID(volatileDiagram.DiagramID);
             if (!diagram.IsForcesView()) return true;
             if (_controllers.ContainsKey(diagram.GUID))
@@ -105,13 +106,13 @@ namespace DecisionViewpoints.Logic.Forces
             return true;
         }
 
-        public override bool OnPreDeleteElement(EAElement element)
+        public override bool OnPreDeleteElement(IEAElement element)
         {
             if (!element.IsDecision() && !element.IsConcern() && !element.IsRequirement()) return true;
-            var diagrams = new List<EADiagram>();
+            var diagrams = new List<IEADiagram>();
             diagrams.AddRange(element.GetDiagrams().Where(eaDiagram => eaDiagram.IsForcesView()));
             if (diagrams.Count == 0) return true;
-            var repository = EARepository.Instance;
+            var repository = EAFacade.EA.Repository;
             foreach (
                 var forcesController in
                     from diagram in diagrams
@@ -135,14 +136,14 @@ namespace DecisionViewpoints.Logic.Forces
             _controllers.Clear();
         }
 
-        public override void OnPostOpenDiagram(EADiagram diagram)
+        public override void OnPostOpenDiagram(IEADiagram diagram)
         {
             if (!diagram.IsForcesView()) return;
             diagram.HideConnectors(new[]
                 {
-                    DVStereotypes.RelationAlternativeFor, DVStereotypes.RelationCausedBy,
-                    DVStereotypes.RelationDependsOn,
-                    DVStereotypes.RelationExcludedBy, DVStereotypes.RelationReplaces, DVStereotypes.RelationFollowedBy
+                    EAConstants.RelationAlternativeFor, EAConstants.RelationCausedBy,
+                    EAConstants.RelationDependsOn,
+                    EAConstants.RelationExcludedBy, EAConstants.RelationReplaces, EAConstants.RelationFollowedBy
                 });
         }
     }

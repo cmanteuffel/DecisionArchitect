@@ -2,40 +2,40 @@ using System;
 using System.Globalization;
 using EAFacade.Model;
 
-namespace DecisionViewpoints.Logic.General
+namespace DecisionViewpoints.Logic.Chronological
 {
     internal class ModifedDateHandler : RepositoryAdapter
     {
-        public override bool OnPostNewElement(EAElement element)
+        public override bool OnPostNewElement(IEAElement element)
         {
             if (element.IsDecision())
             {
-                element.AddTaggedValue(DVTaggedValueKeys.DecisionState, element.Stereotype);
-                element.AddTaggedValue(DVTaggedValueKeys.IsHistoryDecision, false.ToString());
+                element.AddTaggedValue(EATaggedValueKeys.DecisionState, element.Stereotype);
+                element.AddTaggedValue(EATaggedValueKeys.IsHistoryDecision, false.ToString());
             }
             if (element.IsDecision() || element.IsTopic())
             {
-                element.AddTaggedValue(DVTaggedValueKeys.DecisionStateModifiedDate,
+                element.AddTaggedValue(EATaggedValueKeys.DecisionStateModifiedDate,
                                        element.Modified.ToString(CultureInfo.InvariantCulture));
             }
             return true;
         }
 
-        public override void OnNotifyContextItemModified(string guid, NativeType type)
+        public override void OnNotifyContextItemModified(string guid, EANativeType type)
         {
-            if (type != NativeType.Element) return;
-            EAElement element = EARepository.Instance.GetElementByGUID(guid);
+            if (type != EANativeType.Element) return;
+            IEAElement element = EAFacade.EA.Repository.GetElementByGUID(guid);
             if (element.IsDecision())
             {
-                string oldState = element.GetTaggedValue(DVTaggedValueKeys.DecisionState);
+                string oldState = element.GetTaggedValue(EATaggedValueKeys.DecisionState);
                 if (oldState == null || element.Stereotype.Equals(oldState)) return;
                 // TODO: create tagged value with old state
-                string name = string.Format("{0}:{1}", DVTaggedValueKeys.DecisionHistoryState, Guid.NewGuid());
+                string name = string.Format("{0}:{1}", EATaggedValueKeys.DecisionHistoryState, Guid.NewGuid());
                 string data = string.Format("{0}:{1}", oldState, element.Modified.ToString(CultureInfo.InvariantCulture));
                 element.AddTaggedValue(name, data);
-                element.UpdateTaggedValue(DVTaggedValueKeys.DecisionStateModifiedDate,
+                element.UpdateTaggedValue(EATaggedValueKeys.DecisionStateModifiedDate,
                                           element.Modified.ToString(CultureInfo.InvariantCulture));
-                element.UpdateTaggedValue(DVTaggedValueKeys.DecisionState, element.Stereotype);
+                element.UpdateTaggedValue(EATaggedValueKeys.DecisionState, element.Stereotype);
             }
         }
     }

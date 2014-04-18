@@ -54,6 +54,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\DataComparator.cs" />
     <Compile Include="Model\StakeholderInvolvement.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="View\Controller\DetailController.cs" />

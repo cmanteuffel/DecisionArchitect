@@ -11,7 +11,7 @@ namespace DecisionViewpoints
         {
             InitializeComponent();
             txtName.Text = nameproposal;
-            comboBox1.DataSource = EARepository.Instance.GetAllDecisionViewPackages();
+            comboBox1.DataSource = EAFacade.EA.Repository.GetAllDecisionViewPackages();
             comboBox1.DisplayMember = "Name";
             comboBox1.ValueMember = "GUID";
             if (comboBox1.Items.Count == 0)
@@ -26,15 +26,15 @@ namespace DecisionViewpoints
             return txtName.Text;
         }
 
-        public EAPackage GetDecisionViewPackage()
+        public IEAPackage GetDecisionViewPackage()
         {
-            return (EAPackage)comboBox1.SelectedItem;
+            return (IEAPackage)comboBox1.SelectedItem;
         }
 
         private void comboBox1_Format(object sender, ListControlConvertEventArgs e)
         {
-            string name = ((EAPackage)e.ListItem).Name;
-            string path = ((EAPackage)e.ListItem).GetProjectPath();
+            string name = ((IEAPackage)e.ListItem).Name;
+            string path = ((IEAPackage)e.ListItem).GetProjectPath();
             e.Value = path + "/" + name;
         }
 

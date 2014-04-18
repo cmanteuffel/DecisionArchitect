@@ -7,7 +7,7 @@ namespace EAFacade.Model
         DateTime Created { get; set; }
         DateTime Modified { get; set; }
         String Version { get; set; }
-        EAPackage ParentPackage { get; set; }
+        IEAPackage ParentPackage { get; set; }
 
         void ShowInProjectView();
 

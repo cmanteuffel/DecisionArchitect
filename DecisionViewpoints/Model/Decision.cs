@@ -1,8 +1,12 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 using EAFacade.Model;
+
 
 namespace DecisionViewpoints.Model
 {
@@ -22,11 +26,12 @@ namespace DecisionViewpoints.Model
 
     public class Decision : IDecision
     {
-        private readonly EAElement _element;
+        private readonly IEAElement _element;
 
-        public Decision(EAElement element)
+        public Decision(IEAElement element)
         {
             _element = element;
+            Load();
         }
 
         public int ID
@@ -46,71 +51,66 @@ namespace DecisionViewpoints.Model
             set { _element.StereotypeList = value; }
         }
 
-        public string Group { get; set; }
+        public string Problem { get; set; }
+        public string Solution { get; set; }
+        public string Argumentation { get; set; }
 
-        public string Issue
+
+        public Topic Topic
         {
-            get { return GetSubstring(DecisionDataTags.Issue); }
+            get
+            {
+                if (_element.ParentElement == null || !_element.ParentElement.IsTopic()) return null;
+                return new Topic(_element.ParentElement);
+            }
+            set { _element.ParentElement = value.GetElement(); }
         }
 
-        public string DecisionText
+        public List<IEAConnector> Connectors
         {
-            get { return GetSubstring(DecisionDataTags.DecisionText); }
+            get { return _element.GetConnectors(); }
         }
 
-        public string Alternatives
+        public void Save()
         {
-            get { return GetSubstring(DecisionDataTags.Alternatives); }
-        }
+            var extraData = new StringBuilder();
+            extraData.Append(string.Format("{0}{1}{2}", DecisionDataTags.Issue, Problem,
+                                           DecisionDataTags.Issue));
+            extraData.Append(string.Format("{0}{1}{2}", DecisionDataTags.DecisionText, Solution,
+                                           DecisionDataTags.DecisionText));
+            extraData.Append(string.Format("{0}{1}{2}", DecisionDataTags.Alternatives, "",
+                                           DecisionDataTags.Alternatives));
+            extraData.Append(string.Format("{0}{1}{2}", DecisionDataTags.Arguments, Argumentation,
+                                           DecisionDataTags.Arguments));
+            extraData.Append(string.Format("{0}{1}{2}", DecisionDataTags.RelatedRequirements,
+                                           "", DecisionDataTags.RelatedRequirements));
+            using (var tempFiles = new TempFileCollection())
+            {
+                string fileName = tempFiles.AddExtension("rtf");
+                using (var file = new StreamWriter(fileName))
+                {
+                    file.WriteLine(extraData.ToString());
+                }
+                LoadLinkedDocument(fileName);
+            }
 
-        public string Arguments
-        {
-            get { return GetSubstring(DecisionDataTags.Arguments); }
-        }
-
-        public string RelatedRequirements
-        {
-            get { return GetSubstring(DecisionDataTags.RelatedRequirements); }
-        }
-
-        public void Save(string extraData)
-        {
             _element.Update();
-            EARepository repository = EARepository.Instance;
+            IEARepository repository = EAFacade.EA.Repository;
             repository.AdviseElementChanged(_element.ID);
         }
 
-        public List<EAConnector> GetConnectors()
+        public void Reload()
         {
-            return _element.GetConnectors();
-        }
-
-        public void LoadLinkedDocument(string fileName)
-        {
-            _element.LoadLinkedDocument(fileName);
-        }
-
-        public void AddObserver(IDecisionObserver observer)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveObserver(IDecisionObserver observer)
-        {
-            throw new NotImplementedException();
+            Load();
         }
 
         public bool HasTopic()
         {
-            return _element.HasTopic();
+            if (_element.ParentElement == null) return false;
+            return _element.ParentElement.IsTopic();
         }
 
-        public EAElement GetTopic()
-        {
-            return _element.GetTopic();
-        }
 
-        
         public IEnumerable<Rating> GetForces()
         {
             IEnumerable<Rating> forces = from taggedValue in _element.TaggedValues
@@ -140,10 +140,10 @@ namespace DecisionViewpoints.Model
         public IEnumerable<StakeholderInvolvement> GetStakeholderInvolvements()
         {
             var stakeholders = new List<StakeholderInvolvement>();
-            foreach (var connector in _element.GetConnectors().Where(connector => connector.IsAction()))
+            foreach (IEAConnector connector in _element.GetConnectors().Where(connector => connector.IsAction()))
             {
                 if (connector.ClientId == _element.ID) continue;
-                var stakeholder = connector.GetClient();
+                IEAElement stakeholder = connector.GetClient();
 
                 stakeholders.Add(new StakeholderInvolvement
                     {
@@ -157,14 +157,24 @@ namespace DecisionViewpoints.Model
             return stakeholders;
         }
 
-        public IEnumerable<EAElement> GetTraces()
+        public IEnumerable<IEAElement> GetTraces()
         {
             return _element.GetTracedElements();
         }
 
-       
+        private void Load()
+        {
+            Problem = GetSubstring(DecisionDataTags.Issue);
+            Solution = GetSubstring(DecisionDataTags.DecisionText);
+            Argumentation = GetSubstring(DecisionDataTags.Arguments);
+        }
 
-        public EAElement GetElement()
+        private void LoadLinkedDocument(string fileName)
+        {
+            _element.LoadLinkedDocument(fileName);
+        }
+
+        public IEAElement GetElement()
         {
             return _element;
         }
@@ -181,12 +191,12 @@ namespace DecisionViewpoints.Model
 
         private static bool IsHistoryTag(string name)
         {
-            return name.StartsWith(DVTaggedValueKeys.DecisionStateChange);
+            return name.StartsWith(EATaggedValueKeys.DecisionStateChange);
         }
 
         private string GetSubstring(string tag)
         {
-            var rtf = new RichTextBox { Rtf = _element.GetLinkedDocument() };
+            var rtf = new RichTextBox {Rtf = _element.GetLinkedDocument()};
             /*var first = _element.Notes.IndexOf(tag, StringComparison.Ordinal) + tag.Length;
             var last = _element.Notes.LastIndexOf(tag, StringComparison.Ordinal);*/
             int first = rtf.Text.IndexOf(tag, StringComparison.Ordinal) + tag.Length;

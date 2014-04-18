@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using DecisionViewpoints.Model;
 using EAFacade.Model;
 
+
 namespace DecisionViewpoints.View.Controller
 {
     public class ForcesController : IForcesController
@@ -41,10 +42,10 @@ namespace DecisionViewpoints.View.Controller
 
         public void Configure()
         {
-            EARepository repository = EARepository.Instance;
+            IEARepository repository = EAFacade.EA.Repository;
             try
             {
-                EADiagram diagram = repository.GetDiagramByGuid(_model.DiagramGUID);
+                IEADiagram diagram = repository.GetDiagramByGuid(_model.DiagramGUID);
                 repository.OpenDiagram(diagram.ID);
             }
             catch (Exception)
@@ -53,37 +54,37 @@ namespace DecisionViewpoints.View.Controller
             }
         }
 
-        public void SetDiagramModel(EADiagram diagram)
+        public void SetDiagramModel(IEADiagram diagram)
         {
             _model.DiagramModel = diagram;
         }
 
-        public void UpdateDecision(EAElement element)
+        public void UpdateDecision(IEAElement element)
         {
             _view.UpdateDecision(element);
         }
 
-        public void UpdateRequirement(EAElement element)
+        public void UpdateRequirement(IEAElement element)
         {
             _view.UpdateRequirement(element);
         }
 
-        public void UpdateConcern(EAElement element)
+        public void UpdateConcern(IEAElement element)
         {
             _view.UpdateConcern(element);
         }
 
-        public void RemoveDecision(EAElement element)
+        public void RemoveDecision(IEAElement element)
         {
             _view.RemoveDecision(element);
         }
 
-        public void RemoveRequirement(EAElement element)
+        public void RemoveRequirement(IEAElement element)
         {
             _view.RemoveRequirement(element);
         }
 
-        public void RemoveConcern(EAElement element)
+        public void RemoveConcern(IEAElement element)
         {
             _view.RemoveConcern(element);
         }

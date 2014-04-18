@@ -7,7 +7,7 @@ namespace DecisionViewpoints
     {
         public override void EA_FileOpen(Repository repository)
         {
-            EARepository.UpdateRepository(repository);
+            EAFacade.EA.UpdateRepository(repository);
             foreach (var l in _listeners)
             {
                 l.OnFileOpen();
@@ -16,7 +16,7 @@ namespace DecisionViewpoints
 
         public override void EA_FileClose(Repository repository)
         {
-            EARepository.UpdateRepository(repository);
+            EAFacade.EA.UpdateRepository(repository);
             foreach (var l in _listeners)
             {
                 l.OnFileClose();
@@ -25,7 +25,7 @@ namespace DecisionViewpoints
 
         public override void EA_FileNew(Repository repository)
         {
-            EARepository.UpdateRepository(repository);
+            EAFacade.EA.UpdateRepository(repository);
             foreach (var l in _listeners)
             {
                 l.OnFileNew();

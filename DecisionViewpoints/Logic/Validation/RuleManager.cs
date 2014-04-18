@@ -2,6 +2,7 @@
 using System.Linq;
 using EAFacade.Model;
 
+
 namespace DecisionViewpoints.Logic.Validation
 {
     public sealed class RuleManager
@@ -27,11 +28,11 @@ namespace DecisionViewpoints.Logic.Validation
             get { return Singleton; }
         }
 
-        public bool ValidateElement(EAVolatileElement element, out string message)
+        public bool ValidateElement(IEAVolatileElement element, out string message)
         {
             message = "";
 
-            if (!DVStereotypes.States.Contains(element.Stereotype))
+            if (!EAConstants.States.Contains(element.Stereotype))
             {
                 return true;
             }
@@ -47,11 +48,11 @@ namespace DecisionViewpoints.Logic.Validation
             return true;
         }
 
-        public bool ValidateElement(EAElement element, out string message)
+        public bool ValidateElement(IEAElement element, out string message)
         {
             message = "";
 
-            if (!DVStereotypes.States.Contains(element.Stereotype))
+            if (!EAConstants.States.Contains(element.Stereotype))
             {
                 return true;
             }
@@ -67,11 +68,11 @@ namespace DecisionViewpoints.Logic.Validation
             return true;
         }
 
-        public bool ValidateConnector(EAConnector connector, out string message)
+        public bool ValidateConnector(IEAConnector connector, out string message)
         {
             message = "";
 
-            if (!DVStereotypes.Relationships.Contains(connector.Stereotype))
+            if (!EAConstants.Relationships.Contains(connector.Stereotype))
             {
                 return true;
             }
@@ -86,11 +87,11 @@ namespace DecisionViewpoints.Logic.Validation
             return true;
         }
 
-        public bool ValidateConnector(EAVolatileConnector connector, out string message)
+        public bool ValidateConnector(IEAVolatileConnector connector, out string message)
         {
             message = "";
 
-            if (!DVStereotypes.Relationships.Contains(connector.Stereotype))
+            if (!EAConstants.Relationships.Contains(connector.Stereotype))
             {
                 return true;
             }
@@ -114,66 +115,66 @@ namespace DecisionViewpoints.Logic.Validation
         private void CreateConnectorRules()
         {
             var notOriginateFromIdea = new ExclusionRule(Messages.NotOriginateFromIdea,
-                                                         new[] {DVStereotypes.StateIdea},
+                                                         new[] {EAConstants.StateIdea},
                                                          ExclusionRule.Any,
                                                          ExclusionRule.Any);
             var notPointToIdea = new ExclusionRule(Messages.NotPointToIdea, ExclusionRule.Any, ExclusionRule.Any,
-                                                   new[] {DVStereotypes.StateIdea}
+                                                   new[] {EAConstants.StateIdea}
                 );
             var causedByNotPointTo = new ExclusionRule(Messages.CausedByNotPointTo, ExclusionRule.Any,
-                                                       new[] {DVStereotypes.RelationCausedBy},
-                                                       new[] {DVStereotypes.StateDiscarded}
+                                                       new[] {EAConstants.RelationCausedBy},
+                                                       new[] {EAConstants.StateDiscarded}
                 );
             var dependsOnOnlyPointTo = new ExclusionRule(Messages.DependsOnOnlyPointTo,
                                                          ExclusionRule.Any,
-                                                         new[] {DVStereotypes.RelationDependsOn},
+                                                         new[] {EAConstants.RelationDependsOn},
                                                          new[]
-                                                             {DVStereotypes.StateDiscarded, DVStereotypes.StateRejected}
+                                                             {EAConstants.StateDiscarded, EAConstants.StateRejected}
                 );
             var excludedByNotPointTo = new ExclusionRule(Messages.ExcludedByNotPointTo,
                                                          ExclusionRule.Any,
-                                                         new[] {DVStereotypes.RelationExcludedBy},
+                                                         new[] {EAConstants.RelationExcludedBy},
                                                          new[]
                                                              {
-                                                                 DVStereotypes.StateTentative, DVStereotypes.StateDiscarded
-                                                                 , DVStereotypes.StateRejected
+                                                                 EAConstants.StateTentative, EAConstants.StateDiscarded
+                                                                 , EAConstants.StateRejected
                                                              }
                 );
             var excludedByOnlyOriginateFrom = new ExclusionRule(Messages.ExcludedOnlyOriginateFrom,
                                                                 new[]
                                                                     {
-                                                                        DVStereotypes.StateApproved,
-                                                                        DVStereotypes.StateDecided
+                                                                        EAConstants.StateApproved,
+                                                                        EAConstants.StateDecided
                                                                     },
-                                                                new[] {DVStereotypes.RelationExcludedBy},
+                                                                new[] {EAConstants.RelationExcludedBy},
                                                                 ExclusionRule.Any
                 );
             var replacesOnlyPointTo = new ExclusionRule(Messages.ReplacesOnlyPointTo,
                                                         ExclusionRule.Any,
-                                                        new[] {DVStereotypes.RelationReplaces},
+                                                        new[] {EAConstants.RelationReplaces},
                                                         new[]
                                                             {
-                                                                DVStereotypes.StateApproved, DVStereotypes.StateChallenged,
-                                                                DVStereotypes.StateDecided, DVStereotypes.StateDiscarded
-                                                                , DVStereotypes.StateTentative
+                                                                EAConstants.StateApproved, EAConstants.StateChallenged,
+                                                                EAConstants.StateDecided, EAConstants.StateDiscarded
+                                                                , EAConstants.StateTentative
                                                             }
                 );
             var alternativeForNotPointTo = new ExclusionRule(Messages.AlternativeForNotPointTo,
                                                              ExclusionRule.Any,
-                                                             new[] {DVStereotypes.RelationAlternativeFor},
-                                                             new[] {DVStereotypes.StateDiscarded}
+                                                             new[] {EAConstants.RelationAlternativeFor},
+                                                             new[] {EAConstants.StateDiscarded}
                 );
 
             var alternativeForOnlyOriginateFrom = new ExclusionRule(Messages.AlternativeForOnlyOriginateFrom,
                                                                     new[]
                                                                         {
-                                                                            DVStereotypes.StateApproved,
-                                                                            DVStereotypes.StateDecided,
-                                                                            DVStereotypes.StateChallenged,
-                                                                            DVStereotypes.StateRejected
+                                                                            EAConstants.StateApproved,
+                                                                            EAConstants.StateDecided,
+                                                                            EAConstants.StateChallenged,
+                                                                            EAConstants.StateRejected
                                                                         },
-                                                                    new[] {DVStereotypes.RelationAlternativeFor},
-                                                                    DVStereotypes.States);
+                                                                    new[] {EAConstants.RelationAlternativeFor},
+                                                                    EAConstants.States);
 
             var noLoop = new NoLoopRule(Messages.NoLoops);
 

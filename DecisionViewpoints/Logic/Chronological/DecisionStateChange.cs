@@ -5,11 +5,12 @@ using System.Linq;
 using DecisionViewpoints.Model;
 using EAFacade.Model;
 
+
 namespace DecisionViewpoints.Logic.Chronological
 {
     internal class DecisionStateChange
     {
-        public EAElement Element { get; set; }
+        public IEAElement Element { get; set; }
         public DateTime DateModified { get; set; }
         public String State { get; set; }
 
@@ -18,7 +19,7 @@ namespace DecisionViewpoints.Logic.Chronological
             return DateTime.Compare(x.DateModified, y.DateModified);
         }
 
-        public static IEnumerable<DecisionStateChange> GetHistory(EAElement element)
+        public static IEnumerable<DecisionStateChange> GetHistory(IEAElement element)
         {
             var decision = new Decision(element);
             IEnumerable<DecisionStateChange> history = decision.GetHistory().Select(entry => new DecisionStateChange
@@ -31,9 +32,9 @@ namespace DecisionViewpoints.Logic.Chronological
             return history;
         }
 
-        public static void SaveStateChange(EAElement element, String newState, DateTime dateModified)
+        public static void SaveStateChange(IEAElement element, String newState, DateTime dateModified)
         {
-            element.AddTaggedValue(DVTaggedValueKeys.DecisionStateChange,
+            element.AddTaggedValue(EATaggedValueKeys.DecisionStateChange,
                                    string.Format("{0}|{1}", newState,
                                                  DateTime.Now.ToString(CultureInfo.InvariantCulture)));
         }

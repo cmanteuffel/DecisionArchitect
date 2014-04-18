@@ -35,15 +35,15 @@ namespace DecisionViewpointsTests
         {
             _f.Reset();
             // Any State _ CausedBy _ {idea}
-            AnyToIdea(DVStereotypes.RelationCausedBy);
+            AnyToIdea(EAConstants.RelationCausedBy);
             // {idea} _ CausedBy _ Any State
-            IdeaToAny(DVStereotypes.RelationCausedBy);
+            IdeaToAny(EAConstants.RelationCausedBy);
             // Any State _ CausedBy _ {discarded}
-            foreach (var state in DVStereotypes.States.Where(state => state != DVStereotypes.StateIdea))
+            foreach (var state in EAConstants.States.Where(state => state != EAConstants.StateIdea))
             {
-                Assert.IsFalse(ValidateConnector(state, DVStereotypes.StateDiscarded, DVStereotypes.RelationCausedBy),
-                               AssertionFailedMessage(state, DVStereotypes.StateDiscarded,
-                                                      DVStereotypes.RelationCausedBy));
+                Assert.IsFalse(ValidateConnector(state, EAConstants.StateDiscarded, EAConstants.RelationCausedBy),
+                               AssertionFailedMessage(state, EAConstants.StateDiscarded,
+                                                      EAConstants.RelationCausedBy));
             }
             _f.Reset();
         }
@@ -55,18 +55,18 @@ namespace DecisionViewpointsTests
             // Any State _ CausedBy _ {tentative, decided, approved, challenged, rejected}
             var validTargetStates = new[]
                 {
-                    DVStereotypes.StateTentative, DVStereotypes.StateDecided,
-                    DVStereotypes.StateApproved, DVStereotypes.StateChallenged, DVStereotypes.StateRejected
+                    EAConstants.StateTentative, EAConstants.StateDecided,
+                    EAConstants.StateApproved, EAConstants.StateChallenged, EAConstants.StateRejected
                 };
             foreach (
                 var state in
-                    DVStereotypes.States.Where(state => state != DVStereotypes.StateIdea)
+                    EAConstants.States.Where(state => state != EAConstants.StateIdea)
                 )
             {
                 foreach (var targetState in validTargetStates)
                 {
-                    Assert.IsTrue(ValidateConnector(state, targetState, DVStereotypes.RelationCausedBy),
-                                  AssertionFailedMessage(state, targetState, DVStereotypes.RelationCausedBy));
+                    Assert.IsTrue(ValidateConnector(state, targetState, EAConstants.RelationCausedBy),
+                                  AssertionFailedMessage(state, targetState, EAConstants.RelationCausedBy));
                 }
             }
             _f.Reset();
@@ -81,20 +81,20 @@ namespace DecisionViewpointsTests
         {
             _f.Reset();
             // Any State _ DependsOn _ {idea}
-            AnyToIdea(DVStereotypes.RelationDependsOn);
+            AnyToIdea(EAConstants.RelationDependsOn);
             // {idea} _ DependsOn _ Any State
-            IdeaToAny(DVStereotypes.RelationDependsOn);
+            IdeaToAny(EAConstants.RelationDependsOn);
             // Any State _ DependsOn _ {discarded, rejected}
             var invalidTargetStates = new[]
                 {
-                    DVStereotypes.StateDiscarded, DVStereotypes.StateRejected
+                    EAConstants.StateDiscarded, EAConstants.StateRejected
                 };
-            foreach (var state in DVStereotypes.States.Where(state => state != DVStereotypes.StateIdea))
+            foreach (var state in EAConstants.States.Where(state => state != EAConstants.StateIdea))
             {
                 foreach (var targetState in invalidTargetStates)
                 {
-                    Assert.IsFalse(ValidateConnector(state, targetState, DVStereotypes.RelationDependsOn),
-                                   AssertionFailedMessage(state, targetState, DVStereotypes.RelationDependsOn));
+                    Assert.IsFalse(ValidateConnector(state, targetState, EAConstants.RelationDependsOn),
+                                   AssertionFailedMessage(state, targetState, EAConstants.RelationDependsOn));
                 }
             }
             _f.Reset();
@@ -107,17 +107,17 @@ namespace DecisionViewpointsTests
             // Any State _ DependsOn _ {tentative, decided, approved, challenged}
             var validTargetStates = new[]
                 {
-                    DVStereotypes.StateTentative, DVStereotypes.StateDecided, DVStereotypes.StateApproved,
-                    DVStereotypes.StateChallenged
+                    EAConstants.StateTentative, EAConstants.StateDecided, EAConstants.StateApproved,
+                    EAConstants.StateChallenged
                 };
             foreach (
                 var state in
-                    DVStereotypes.States.Where(s => s != DVStereotypes.StateIdea))
+                    EAConstants.States.Where(s => s != EAConstants.StateIdea))
             {
                 foreach (var targetState in validTargetStates)
                 {
-                    Assert.IsTrue(ValidateConnector(state, targetState, DVStereotypes.RelationDependsOn),
-                                  AssertionFailedMessage(state, targetState, DVStereotypes.RelationDependsOn));
+                    Assert.IsTrue(ValidateConnector(state, targetState, EAConstants.RelationDependsOn),
+                                  AssertionFailedMessage(state, targetState, EAConstants.RelationDependsOn));
                 }
             }
             _f.Reset();
@@ -132,23 +132,23 @@ namespace DecisionViewpointsTests
         {
             _f.Reset();
             // Any State _ExcludedBy _ {idea}
-            AnyToIdea(DVStereotypes.RelationExcludedBy);
+            AnyToIdea(EAConstants.RelationExcludedBy);
             // {idea} _ ExcludedBy _ Any State
-            IdeaToAny(DVStereotypes.RelationExcludedBy);
+            IdeaToAny(EAConstants.RelationExcludedBy);
             // Any State _ ExcludedBy _ {tentative, discarded, rejected}
             var invalidTargetStates = new[]
                 {
-                    DVStereotypes.StateTentative, DVStereotypes.StateDiscarded, DVStereotypes.StateRejected
+                    EAConstants.StateTentative, EAConstants.StateDiscarded, EAConstants.StateRejected
                 };
             foreach (
                 var state in
-                    DVStereotypes.States.Where(state => state != DVStereotypes.StateIdea)
+                    EAConstants.States.Where(state => state != EAConstants.StateIdea)
                 )
             {
                 foreach (var targetState in invalidTargetStates)
                 {
-                    Assert.IsFalse(ValidateConnector(state, targetState, DVStereotypes.RelationExcludedBy),
-                                   AssertionFailedMessage(state, targetState, DVStereotypes.RelationExcludedBy));
+                    Assert.IsFalse(ValidateConnector(state, targetState, EAConstants.RelationExcludedBy),
+                                   AssertionFailedMessage(state, targetState, EAConstants.RelationExcludedBy));
                 }
             }
             _f.Reset();
@@ -161,17 +161,17 @@ namespace DecisionViewpointsTests
             // {tentative, discarded, rejected} _ ExcludedBy _ Any State
             var validSourceStates = new[]
                 {
-                    DVStereotypes.StateTentative, DVStereotypes.StateDiscarded, DVStereotypes.StateRejected
+                    EAConstants.StateTentative, EAConstants.StateDiscarded, EAConstants.StateRejected
                 };
             foreach (
                 var state in
-                    DVStereotypes.States.Where(
-                        state => state != DVStereotypes.StateIdea && !(validSourceStates.Contains(state)))
+                    EAConstants.States.Where(
+                        state => state != EAConstants.StateIdea && !(validSourceStates.Contains(state)))
                 )
             {
                 foreach (var sourceState in validSourceStates)
-                    Assert.IsTrue(ValidateConnector(sourceState, state, DVStereotypes.RelationExcludedBy),
-                                  AssertionFailedMessage(sourceState, state, DVStereotypes.RelationExcludedBy));
+                    Assert.IsTrue(ValidateConnector(sourceState, state, EAConstants.RelationExcludedBy),
+                                  AssertionFailedMessage(sourceState, state, EAConstants.RelationExcludedBy));
             }
             _f.Reset();
         }
@@ -185,21 +185,21 @@ namespace DecisionViewpointsTests
         {
             _f.Reset();
             // Any State Replaces _ {idea}
-            AnyToIdea(DVStereotypes.RelationReplaces);
+            AnyToIdea(EAConstants.RelationReplaces);
             // {idea} _ Replaces _ Any State
-            IdeaToAny(DVStereotypes.RelationReplaces);
+            IdeaToAny(EAConstants.RelationReplaces);
             // Any State _ Replaces _ {tentative, discarded, decided, challenged, approved}
             var invalidTargetStates = new[]
                 {
-                    DVStereotypes.StateTentative, DVStereotypes.StateDiscarded, DVStereotypes.StateDecided,
-                    DVStereotypes.StateChallenged, DVStereotypes.StateApproved
+                    EAConstants.StateTentative, EAConstants.StateDiscarded, EAConstants.StateDecided,
+                    EAConstants.StateChallenged, EAConstants.StateApproved
                 };
-            foreach (var state in DVStereotypes.States.Where(state => state != DVStereotypes.StateIdea))
+            foreach (var state in EAConstants.States.Where(state => state != EAConstants.StateIdea))
             {
                 foreach (var targetState in invalidTargetStates)
                 {
-                    Assert.IsFalse(ValidateConnector(state, targetState, DVStereotypes.RelationReplaces),
-                                   AssertionFailedMessage(state, targetState, DVStereotypes.RelationReplaces));
+                    Assert.IsFalse(ValidateConnector(state, targetState, EAConstants.RelationReplaces),
+                                   AssertionFailedMessage(state, targetState, EAConstants.RelationReplaces));
                 }
             }
             _f.Reset();
@@ -210,10 +210,10 @@ namespace DecisionViewpointsTests
         {
             _f.Reset();
             // Any State _ Replaces _ {rejected}
-            foreach (var state in DVStereotypes.States.Where(state => state != DVStereotypes.StateIdea))
+            foreach (var state in EAConstants.States.Where(state => state != EAConstants.StateIdea))
             {
-                Assert.IsTrue(ValidateConnector(state, DVStereotypes.StateRejected, DVStereotypes.RelationReplaces),
-                              AssertionFailedMessage(state, DVStereotypes.StateRejected, DVStereotypes.RelationReplaces));
+                Assert.IsTrue(ValidateConnector(state, EAConstants.StateRejected, EAConstants.RelationReplaces),
+                              AssertionFailedMessage(state, EAConstants.StateRejected, EAConstants.RelationReplaces));
             }
             _f.Reset();
         }
@@ -227,15 +227,15 @@ namespace DecisionViewpointsTests
         {
             _f.Reset();
             // Any State _ AlternativeFor _ {idea}
-            AnyToIdea(DVStereotypes.RelationAlternativeFor);
+            AnyToIdea(EAConstants.RelationAlternativeFor);
             // {idea} _ AlternativeFor _ Any State
-            IdeaToAny(DVStereotypes.RelationAlternativeFor);
+            IdeaToAny(EAConstants.RelationAlternativeFor);
             // Any State _ AlternativeFor _ {discarded}
-            foreach (var state in DVStereotypes.States.Where(s => s != DVStereotypes.StateIdea))
+            foreach (var state in EAConstants.States.Where(s => s != EAConstants.StateIdea))
             {
                 Assert.IsFalse(
-                    ValidateConnector(state, DVStereotypes.StateDiscarded, DVStereotypes.RelationAlternativeFor),
-                    AssertionFailedMessage(state, DVStereotypes.StateDiscarded, DVStereotypes.RelationAlternativeFor));
+                    ValidateConnector(state, EAConstants.StateDiscarded, EAConstants.RelationAlternativeFor),
+                    AssertionFailedMessage(state, EAConstants.StateDiscarded, EAConstants.RelationAlternativeFor));
             }
             _f.Reset();
         }
@@ -247,17 +247,17 @@ namespace DecisionViewpointsTests
             // {tentative, discarded} _ AlternativeFor _ {tentative, decided, approved, challenged, rejected}
             var validSourceStates = new[]
                 {
-                    DVStereotypes.StateTentative, DVStereotypes.StateDiscarded
+                    EAConstants.StateTentative, EAConstants.StateDiscarded
                 };
             foreach (
                 var state in
-                    DVStereotypes.States.Where(
-                        state => state != DVStereotypes.StateIdea && state != DVStereotypes.StateDiscarded))
+                    EAConstants.States.Where(
+                        state => state != EAConstants.StateIdea && state != EAConstants.StateDiscarded))
             {
                 foreach (var sourceState in validSourceStates)
                 {
-                    Assert.IsTrue(ValidateConnector(sourceState, state, DVStereotypes.RelationAlternativeFor),
-                                  AssertionFailedMessage(sourceState, state, DVStereotypes.RelationAlternativeFor));
+                    Assert.IsTrue(ValidateConnector(sourceState, state, EAConstants.RelationAlternativeFor),
+                                  AssertionFailedMessage(sourceState, state, EAConstants.RelationAlternativeFor));
                 }
             }
             _f.Reset();
@@ -267,19 +267,19 @@ namespace DecisionViewpointsTests
 
         private void IdeaToAny(string relationship)
         {
-            foreach (var state in DVStereotypes.States)
+            foreach (var state in EAConstants.States)
             {
-                Assert.IsFalse(ValidateConnector(DVStereotypes.StateIdea, state, relationship),
-                               AssertionFailedMessage(DVStereotypes.StateIdea, state, relationship));
+                Assert.IsFalse(ValidateConnector(EAConstants.StateIdea, state, relationship),
+                               AssertionFailedMessage(EAConstants.StateIdea, state, relationship));
             }
         }
 
         private void AnyToIdea(string relationship)
         {
-            foreach (var state in DVStereotypes.States)
+            foreach (var state in EAConstants.States)
             {
-                Assert.IsFalse(ValidateConnector(state, DVStereotypes.StateIdea, relationship),
-                               AssertionFailedMessage(state, DVStereotypes.StateIdea, relationship));
+                Assert.IsFalse(ValidateConnector(state, EAConstants.StateIdea, relationship),
+                               AssertionFailedMessage(state, EAConstants.StateIdea, relationship));
             }
         }
 
@@ -296,7 +296,7 @@ namespace DecisionViewpointsTests
             const string type = "ControlFlow";
             var info = EAEventPropertiesHelper.GetInstance(type, "", relationshipStereotype, client.ElementID,
                                                            supplier.ElementID, diagram.DiagramID);
-            var connector = EAVolatileConnector.Wrap(info);
+            var connector = EAFacade.EA.WrapVolatileConnector(info);
             string message;
             return RuleManager.Instance.ValidateConnector(connector, out message);
         }

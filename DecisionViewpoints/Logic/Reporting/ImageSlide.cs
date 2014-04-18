@@ -17,10 +17,10 @@ namespace DecisionViewpoints.Logic.Reporting
     {
         private const string NewImageName = "newImage";
         private static int _imgId;
-        private readonly EADiagram _diagram;
+        private readonly IEADiagram _diagram;
 
 
-        public ImageSlide(PresentationDocument document, SlidePart templateSlide, EADiagram diagram)
+        public ImageSlide(PresentationDocument document, SlidePart templateSlide, IEADiagram diagram)
             : base(document, templateSlide)
         {
             _diagram = diagram;

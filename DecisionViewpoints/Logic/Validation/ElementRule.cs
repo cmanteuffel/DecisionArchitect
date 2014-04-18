@@ -14,6 +14,6 @@ namespace DecisionViewpoints.Logic.Validation
             return RuleType.Element;
         }
 
-        public new abstract bool ValidateElement(EAElement element);
+        public new abstract bool ValidateElement(IEAElement element);
     }
 }

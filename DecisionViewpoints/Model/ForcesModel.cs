@@ -8,9 +8,9 @@ namespace DecisionViewpoints.Model
     public class ForcesModel : IForcesModel
     {
         private readonly List<IForcesModelObserver> _observers = new List<IForcesModelObserver>();
-        private EADiagram _diagram;
+        private IEADiagram _diagram;
 
-        public ForcesModel(EADiagram diagramModel)
+        public ForcesModel(IEADiagram diagramModel)
         {
             DiagramModel = diagramModel;
             Name = CreateForcesTabName(diagramModel.Name);
@@ -25,7 +25,7 @@ namespace DecisionViewpoints.Model
             get { return _diagram.GUID; }
         }
 
-        public EADiagram DiagramModel
+        public IEADiagram DiagramModel
         {
             set
             {
@@ -45,21 +45,21 @@ namespace DecisionViewpoints.Model
         }
 
         // Get Decision from Diagram and Topics that are on the diagram
-        public EAElement[] GetDecisions()
+        public IEAElement[] GetDecisions()
         {
-            EARepository repository = EARepository.Instance;
-            EAElement[] topics = (from diagramObject in _diagram.GetElements()
+            IEARepository repository = EAFacade.EA.Repository;
+            IEAElement[] topics = (from diagramObject in _diagram.GetElements()
                                   select repository.GetElementByID(diagramObject.ElementID)
                                   into element
                                   where element.IsTopic()
                                   select element).ToArray();
 
 
-            IEnumerable<EAElement> decisionsFromTopic =
-                (from EAElement topic in topics select topic.GetDecisionsForTopic()).SelectMany(x => x);
+            IEnumerable<IEAElement> decisionsFromTopic =
+                (from IEAElement topic in topics select topic.GetDecisionsForTopic()).SelectMany(x => x);
 
 
-            IEnumerable<EAElement> decisionsDirectlyFromDiagram = (from diagramObject in _diagram.GetElements()
+            IEnumerable<IEAElement> decisionsDirectlyFromDiagram = (from diagramObject in _diagram.GetElements()
                                                                    select
                                                                        repository.GetElementByID(diagramObject.ElementID)
                                                                    into element where element.IsDecision()
@@ -68,20 +68,20 @@ namespace DecisionViewpoints.Model
             return decisionsFromTopic.Union(decisionsDirectlyFromDiagram).ToArray();
         }
 
-        public EAElement[] GetRequirements()
+        public IEAElement[] GetRequirements()
         {
-            EARepository repository = EARepository.Instance;
+            IEARepository repository = EAFacade.EA.Repository;
             return (from diagramObject in _diagram.GetElements()
                     select repository.GetElementByID(diagramObject.ElementID)
                     into element where element.IsRequirement() select element).ToArray();
         }
 
-        public Dictionary<EAElement, List<EAElement>> GetConcernsPerRequirement()
+        public Dictionary<IEAElement, List<IEAElement>> GetConcernsPerRequirement()
         {
-            var requirementConcernDictionary = new Dictionary<EAElement, List<EAElement>>();
-            foreach (EAElement requirement in GetRequirements())
+            var requirementConcernDictionary = new Dictionary<IEAElement, List<IEAElement>>();
+            foreach (IEAElement requirement in GetRequirements())
             {
-                List<EAElement> concerns =
+                List<IEAElement> concerns =
                     requirement.GetConnectedConcerns().Where(concern => _diagram.Contains(concern)).ToList();
                 requirementConcernDictionary.Add(requirement, concerns);
             }
@@ -89,15 +89,15 @@ namespace DecisionViewpoints.Model
         }
 
         [Obsolete("use reqPerConc", true)]
-        public Dictionary<EAElement, List<EAElement>> GetConcerns()
+        public Dictionary<IEAElement, List<IEAElement>> GetConcerns()
         {
-            EARepository repository = EARepository.Instance;
-            var requirementsConcerns = new Dictionary<EAElement, List<EAElement>>();
-            foreach (EADiagramObject diagramObject in _diagram.GetElements())
+            IEARepository repository = EAFacade.EA.Repository;
+            var requirementsConcerns = new Dictionary<IEAElement, List<IEAElement>>();
+            foreach (IEADiagramObject diagramObject in _diagram.GetElements())
             {
-                EAElement concern = repository.GetElementByID(diagramObject.ElementID);
+                IEAElement concern = repository.GetElementByID(diagramObject.ElementID);
                 if (!concern.IsConcern()) continue;
-                foreach (EAElement connectedRequirement in 
+                foreach (IEAElement connectedRequirement in 
                     concern.GetConnectedRequirements()
                            .Where(connectedRequirement => _diagram.Contains(connectedRequirement)))
                 {
@@ -108,7 +108,7 @@ namespace DecisionViewpoints.Model
                     else
                     {
                         if (connectedRequirement.IsRequirement())
-                            requirementsConcerns.Add(connectedRequirement, new List<EAElement> {concern});
+                            requirementsConcerns.Add(connectedRequirement, new List<IEAElement> {concern});
                     }
                 }
             }
@@ -119,7 +119,7 @@ namespace DecisionViewpoints.Model
         {
             var data = new List<Rating>();
             foreach (
-                EAElement element in
+                IEAElement element in
                     GetDecisions())
             {
                 data.AddRange(from taggedValue in element.TaggedValues
@@ -137,10 +137,10 @@ namespace DecisionViewpoints.Model
 
         public void SaveRatings(List<Rating> data)
         {
-            EARepository repository = EARepository.Instance;
+            IEARepository repository = EAFacade.EA.Repository;
             foreach (Rating rating in data)
             {
-                EAElement decision = repository.GetElementByGUID(rating.DecisionGUID);
+                IEAElement decision = repository.GetElementByGUID(rating.DecisionGUID);
                 if (decision == null) continue;
                 string forcesTaggedValue = Rating.ConstructForcesTaggedValue(rating.RequirementGUID, rating.ConcernGUID);
                 if (decision.GetTaggedValue(forcesTaggedValue) != null)
@@ -168,7 +168,7 @@ namespace DecisionViewpoints.Model
         public static void PrintRequirementInfo(String value)
         {
             var key = value.Split(':')[2];
-            var obj =EARepository.Instance.GetElementByGUID(key);
+            var obj =EAFacade.EA.Repository.GetElementByGUID(key);
             MessageBox.Show("Value: " + key + 
                 "\nWhat is it? (Type): " + obj.Type
                 +"\nMetatype: " +obj.MetaType

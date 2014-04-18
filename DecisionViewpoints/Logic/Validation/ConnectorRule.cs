@@ -14,7 +14,7 @@ namespace DecisionViewpoints.Logic.Validation
             return RuleType.Connector;
         }
 
-        public new abstract bool ValidateConnector(EAConnector connector);
+        public new abstract bool ValidateConnector(IEAConnector connector);
   
     }
 }

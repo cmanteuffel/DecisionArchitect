@@ -9,6 +9,7 @@ using DecisionViewpoints.View.Controller;
 using EAFacade;
 using EAFacade.Model;
 
+
 namespace DecisionViewpoints.View
 
 {
@@ -299,11 +300,11 @@ namespace DecisionViewpoints.View
 
         private void showDiagramsForEAElement(string elementGUID)
         {
-            EAElement element = EARepository.Instance.GetElementByGUID(elementGUID);
-            EADiagram[] diagrams = element.GetDiagrams();
+            IEAElement element = EAFacade.EA.Repository.GetElementByGUID(elementGUID);
+            IEADiagram[] diagrams = element.GetDiagrams();
             if (diagrams.Count() == 1)
             {
-                EADiagram diagram = diagrams[0];
+                IEADiagram diagram = diagrams[0];
                 diagram.OpenAndSelectElement(element);
             }
             else if (diagrams.Count() >= 2)
@@ -311,7 +312,7 @@ namespace DecisionViewpoints.View
                 var selectForm = new SelectDiagram(diagrams);
                 if (selectForm.ShowDialog() == DialogResult.OK)
                 {
-                    EADiagram diagram = selectForm.GetSelectedDiagram();
+                    IEADiagram diagram = selectForm.GetSelectedDiagram();
                     diagram.OpenAndSelectElement(element);
                 }
             }

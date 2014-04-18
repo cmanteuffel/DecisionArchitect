@@ -10,11 +10,11 @@ namespace DecisionViewpoints.Logic.Validation
         {
         }
 
-        public override bool ValidateElement(EAElement element)
+        public override bool ValidateElement(IEAElement element)
         {
-            var repository = EARepository.Instance;
-            return !(from EAElement e in repository.GetAllElements()
-                     where DVStereotypes.States.Contains(e.Stereotype)
+            var repository = EAFacade.EA.Repository;
+            return !(from IEAElement e in repository.GetAllElements()
+                     where EAConstants.States.Contains(e.Stereotype)
                      where (!e.GUID.Equals(element.GUID))
                      where element.Name.Equals(e.Name)
                      select e).Any();

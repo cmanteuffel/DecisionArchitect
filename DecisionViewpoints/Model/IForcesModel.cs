@@ -8,14 +8,14 @@ namespace DecisionViewpoints.Model
         string Name { get; }
         string DiagramName { get; }
         string DiagramGUID { get; }
-        EADiagram DiagramModel { set; }
+        IEADiagram DiagramModel { set; }
 
         void SaveRatings(List<Rating> data);
-        EAElement[] GetDecisions();
-        EAElement[] GetRequirements();
-        Dictionary<EAElement, List<EAElement>> GetConcerns();
+        IEAElement[] GetDecisions();
+        IEAElement[] GetRequirements();
+        Dictionary<IEAElement, List<IEAElement>> GetConcerns();
         List<Rating> GetRatings();
-        Dictionary<EAElement, List<EAElement>> GetConcernsPerRequirement();
+        Dictionary<IEAElement, List<IEAElement>> GetConcernsPerRequirement();
 
         void AddObserver(IForcesModelObserver observer);
         void RemoveObserver(IForcesModelObserver observer);

@@ -5,24 +5,24 @@ namespace DecisionViewpoints.Logic.Relationship
 {
     public class RelationshipHandler : RepositoryAdapter
     {
-        public override void OnPostOpenDiagram(EADiagram diagram)
+        public override void OnPostOpenDiagram(IEADiagram diagram)
         {
             if (!diagram.IsRelationshipView()) return;
             diagram.HideConnectors(new[]
                 {
-                    DVStereotypes.RelationFollowedBy
+                    EAConstants.RelationFollowedBy
                 });
         }
 
-        public override void OnNotifyContextItemModified(string guid, NativeType type)
+        public override void OnNotifyContextItemModified(string guid, EANativeType type)
         {
-            if (NativeType.Diagram.Equals(type))
+            if (EANativeType.Diagram.Equals(type))
             {
-                var diagram = EARepository.Instance.GetDiagramByGuid(guid);
+                var diagram = EAFacade.EA.Repository.GetDiagramByGuid(guid);
                 if (!diagram.IsRelationshipView()) return;
                 diagram.HideConnectors(new[]
                 {
-                    DVStereotypes.RelationFollowedBy
+                    EAConstants.RelationFollowedBy
                 });
                 
             }

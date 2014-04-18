@@ -10,7 +10,7 @@ namespace DecisionViewpoints.Logic.Reporting
         void InsertDecisionDetailViewMessage();
         void InsertDecisionTable(IDecision decision);
         void InsertForcesTable(IForcesModel forces);
-        void InsertDiagramImage(EADiagram diagram);
+        void InsertDiagramImage(IEADiagram diagram);
         void Open();
         void Close();
     }

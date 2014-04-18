@@ -1,6 +1,7 @@
 ﻿using DecisionViewpoints.Model;
 using EAFacade.Model;
 
+
 namespace DecisionViewpoints.View.Controller
 {
     public interface IForcesController : ICustomViewController
@@ -8,12 +9,12 @@ namespace DecisionViewpoints.View.Controller
         IForcesModel Model { get; set; }
         IForcesView View { get; set; }
         void Configure();
-        void SetDiagramModel(EADiagram diagram);
-        void UpdateDecision(EAElement element);
-        void UpdateRequirement(EAElement element);
-        void UpdateConcern(EAElement element);
-        void RemoveDecision(EAElement element);
-        void RemoveRequirement(EAElement element);
-        void RemoveConcern(EAElement element);
+        void SetDiagramModel(IEADiagram diagram);
+        void UpdateDecision(IEAElement element);
+        void UpdateRequirement(IEAElement element);
+        void UpdateConcern(IEAElement element);
+        void RemoveDecision(IEAElement element);
+        void RemoveRequirement(IEAElement element);
+        void RemoveConcern(IEAElement element);
     }
 }

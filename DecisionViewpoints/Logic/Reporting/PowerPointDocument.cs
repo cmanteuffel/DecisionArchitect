@@ -81,7 +81,7 @@ namespace DecisionViewpoints.Logic.Reporting
             forcesSlide.Add();
         }
 
-        public void InsertDiagramImage(EADiagram diagram)
+        public void InsertDiagramImage(IEADiagram diagram)
         {
             ISlide imageSlide = new ImageSlide(_doc, _imageSlideTemplate, diagram);
             imageSlide.Create();

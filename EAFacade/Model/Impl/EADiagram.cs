@@ -5,9 +5,9 @@ using System.IO;
 using System.Linq;
 using EA;
 
-namespace EAFacade.Model
+namespace EAFacade.Model.Impl
 {
-    public class EADiagram : IModelObject
+    internal sealed class EADiagram : IEADiagram
     {
         private readonly Diagram _native;
 
@@ -16,11 +16,11 @@ namespace EAFacade.Model
             _native = native;
         }
 
-        public EAElement ParentElement
+        public IEAElement ParentElement
         {
             get
             {
-                EAElement parentElmt = null;
+                IEAElement parentElmt = null;
                 if (_native.ParentID != 0)
                 {
                     parentElmt = EARepository.Instance.GetElementByID(_native.ParentID);
@@ -40,9 +40,9 @@ namespace EAFacade.Model
             get { return _native.DiagramID; }
         }
 
-        public NativeType NativeType
+        public EANativeType EANativeType
         {
-            get { return NativeType.Diagram; }
+            get { return EANativeType.Diagram; }
         }
 
         public string Name
@@ -80,11 +80,11 @@ namespace EAFacade.Model
             set { _native.Version = value; }
         }
 
-        public EAPackage ParentPackage
+        public IEAPackage ParentPackage
         {
             get
             {
-                EAPackage parentPkg = EARepository.Instance.GetPackageByID(_native.PackageID);
+                IEAPackage parentPkg = EARepository.Instance.GetPackageByID(_native.PackageID);
                 return parentPkg;
             }
             set { _native.PackageID = value.ID; }
@@ -97,7 +97,7 @@ namespace EAFacade.Model
 
         public string GetProjectPath()
         {
-            EAPackage current = ParentPackage;
+            IEAPackage current = ParentPackage;
             string path = current.Name;
 
             while (!current.IsModelRoot())
@@ -109,12 +109,12 @@ namespace EAFacade.Model
             return path;
         }
 
-        internal static EADiagram Wrap(Diagram native)
+        internal static IEADiagram Wrap(Diagram native)
         {
             return new EADiagram(native);
         }
 
-        public void AddToDiagram(EAElement newElement)
+        public void AddToDiagram(IEAElement newElement)
         {
             //check if element already exists on diagram
             if (null != GetElements().FirstOrDefault(dobj => dobj.ElementID.Equals(newElement.ID)))
@@ -130,7 +130,7 @@ namespace EAFacade.Model
             nativeRepository.SaveDiagram(_native.DiagramID);
         }
 
-        public void OpenAndSelectElement(EAElement element)
+        public void OpenAndSelectElement(IEAElement element)
         {
             Repository repository = EARepository.Instance.Native;
             repository.OpenDiagram(_native.DiagramID);
@@ -143,7 +143,7 @@ namespace EAFacade.Model
             repository.ActivateDiagram(_native.DiagramID);
         }
 
-        public List<EADiagramObject> GetElements()
+        public List<IEADiagramObject> GetElements()
         {
             return
                 (from DiagramObject diagramObject in _native.DiagramObjects select EADiagramObject.Wrap(diagramObject))
@@ -167,25 +167,25 @@ namespace EAFacade.Model
 
         public bool IsForcesView()
         {
-          return Metatype.Equals(DVStereotypes.DiagramMetaTypeForces);
+          return Metatype.Equals(EAConstants.DiagramMetaTypeForces);
         }
 
         public bool IsChronologicalView()
         {
-            return Metatype.Equals(DVStereotypes.DiagramMetaTypeChronological);
+            return Metatype.Equals(EAConstants.DiagramMetaTypeChronological);
         }
 
         public bool IsRelationshipView()
         {
-            return Metatype.Equals(DVStereotypes.DiagramMetaTypeRelationship);
+            return Metatype.Equals(EAConstants.DiagramMetaTypeRelationship);
         }
 
         public bool IsStakeholderInvolvementView()
         {
-            return Metatype.Equals(DVStereotypes.DiagramMetaTypeStakeholder);
+            return Metatype.Equals(EAConstants.DiagramMetaTypeStakeholder);
         }
 
-        public bool Contains(EAElement element)
+        public bool Contains(IEAElement element)
         {
             var repository = EARepository.Instance;
             return

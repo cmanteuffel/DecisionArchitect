@@ -12,9 +12,9 @@ namespace DecisionViewpoints.Model
 
     public class Topic : ITopic
     {
-        private readonly EAElement _element;
+        private readonly IEAElement _element;
 
-        public Topic(EAElement element)
+        public Topic(IEAElement element)
         {
             _element = element;
         }
@@ -38,7 +38,7 @@ namespace DecisionViewpoints.Model
         public void Save(string extraData)
         {
             _element.Update();
-            EARepository repository = EARepository.Instance;
+            IEARepository repository = EAFacade.EA.Repository;
             repository.AdviseElementChanged(_element.ID);
         }
 
@@ -57,7 +57,7 @@ namespace DecisionViewpoints.Model
             return last > first ? rtf.Text.Substring(first, last - first) : "";
         }
 
-        public EAElement GetElement()
+        public IEAElement GetElement()
         {
             return _element;
         }

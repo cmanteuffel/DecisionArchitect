@@ -1,6 +1,6 @@
-namespace EAFacade.Model
+namespace EAFacade
 {
-    public static class DVTaggedValueKeys
+    public static class EATaggedValueKeys
     {
         public const string DecisionViewPackage = "DV.DecisionViewPackage";
         public const string DecisionStateModifiedDate = "DV.StateModifiedDate";

@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using DecisionViewpoints.Model.Menu;
 using EAFacade;
 using EAFacade.Model;
+
 using MenuItem = DecisionViewpoints.Model.Menu.MenuItem;
 
 namespace DecisionViewpoints.Logic.Menu
@@ -19,10 +20,10 @@ namespace DecisionViewpoints.Logic.Menu
 
         private void OnNoTracesDefined(IMenu self)
         {
-            var repository = EARepository.Instance;
-            if (repository.GetContextItemType() == NativeType.Element)
+            var repository = EAFacade.EA.Repository;
+            if (repository.GetContextItemType() == EANativeType.Element)
             {
-                var element = repository.GetContextObject<EAElement>();
+                var element = repository.GetContextObject<IEAElement>();
                 if (element != null)
                 {
                     if (!element.GetTracedElements().Any())
@@ -42,14 +43,14 @@ namespace DecisionViewpoints.Logic.Menu
         {
             Clear();
             
-            var repository = EARepository.Instance;
-            if (repository.GetContextItemType() == NativeType.Element)
+            var repository = EAFacade.EA.Repository;
+            if (repository.GetContextItemType() == EANativeType.Element)
             {
-                var element = repository.GetContextObject<EAElement>();
+                var element = repository.GetContextObject<IEAElement>();
                 if (element != null)
                 {
                     var menuItemNames = new List<string>();
-                    foreach (EAElement tracedElement in element.GetTracedElements())
+                    foreach (IEAElement tracedElement in element.GetTracedElements())
                     {
 
                         string name = tracedElement.GetProjectPath() + "/" + tracedElement.Name;
@@ -83,13 +84,13 @@ namespace DecisionViewpoints.Logic.Menu
             return uniqueName;
         }
 
-        private static MenuItem CreateTraceMenuItem(string uniqueName, EAElement tracedElement)
+        private static MenuItem CreateTraceMenuItem(string uniqueName, IEAElement tracedElement)
         {
             var menuItem = new MenuItem(uniqueName);
             menuItem.Value = tracedElement;
             menuItem.ClickDelegate = delegate
                 {
-                    EADiagram[] diagrams = tracedElement.GetDiagrams();
+                    IEADiagram[] diagrams = tracedElement.GetDiagrams();
                     if (diagrams.Count() == 1)
                     {
                         var diagram = diagrams[0];
@@ -100,7 +101,7 @@ namespace DecisionViewpoints.Logic.Menu
                         var selectForm = new SelectDiagram(diagrams);
                         if (selectForm.ShowDialog() == DialogResult.OK)
                         {
-                            EADiagram diagram = selectForm.GetSelectedDiagram();
+                            IEADiagram diagram = selectForm.GetSelectedDiagram();
                             diagram.OpenAndSelectElement(tracedElement);
                         }
                     }

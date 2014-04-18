@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 
-namespace EAFacade.Model
+namespace EAFacade
 {
-    public static class DVStereotypes
+    public static class EAConstants
     {
         public const string DecisionMetaType = "Decision";
         public const string TopicMetaType = "Topic";
@@ -12,6 +12,9 @@ namespace EAFacade.Model
         public const string DiagramMetaTypeChronological = "Decision Viewpoints::Chronological";
         public const string DiagramMetaTypeRelationship = "Decision Viewpoints::Relationship";
         public const string DiagramMetaTypeStakeholder = "Decision Viewpoints::Stakeholder Involvement";
+
+        public const string EventPropertyTypeElement = "Element";
+
 
         public const string TopicStereoType = "Topic";
 
@@ -31,11 +34,12 @@ namespace EAFacade.Model
         public const string RelationReplaces = "replaces";
         public const string RelationClassifiedBy = "classified by";
         public const string RelationFollowedBy = "followed by";
+        public const string RelationTrace = "trace";
 
         public const string ActionMetaType = "Action";
         public const string ActivityMetaType = "Activity";
         public const string AbstractionMetaType = "Abstraction";
-        public const string TraceStereotype = "trace";
+        
 
         public static readonly HashSet<string> Relationships = new HashSet<string>
             {

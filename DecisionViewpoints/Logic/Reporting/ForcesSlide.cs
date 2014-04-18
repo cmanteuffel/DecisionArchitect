@@ -6,6 +6,7 @@ using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Packaging;
 using EAFacade.Model;
 
+
 namespace DecisionViewpoints.Logic.Reporting
 {
     public class ForcesSlide : AbstractSlide
@@ -43,10 +44,10 @@ namespace DecisionViewpoints.Logic.Reporting
 
             foreach (var concernsPerRequirement in _forces.GetConcernsPerRequirement())
             {
-                EAElement requirement = concernsPerRequirement.Key;
-                List<EAElement> concerns = concernsPerRequirement.Value;
+                IEAElement requirement = concernsPerRequirement.Key;
+                List<IEAElement> concerns = concernsPerRequirement.Value;
 
-                foreach (EAElement concern in concerns)
+                foreach (IEAElement concern in concerns)
                 {
                     var reqRow = new TableRow {Height = 370840L};
                     reqRow.AppendChild(CreateTextCell(requirement.Name));

@@ -12,18 +12,18 @@ namespace DecisionViewpoints.Logic.Menu
     {
         public static void Generate()
         {
-            var eadiagram = EARepository.Instance.GetContextObject<EADiagram>();
+            var eadiagram = EAFacade.EA.Repository.GetContextObject<IEADiagram>();
             if (eadiagram != null && eadiagram.IsChronologicalView())
             {
-                EADiagram chronologicalView = eadiagram;
-                EAPackage parentPackage = chronologicalView.ParentPackage;
-                EAPackage decisionViewPackage = parentPackage.FindDecisionViewPackage();
+                IEADiagram chronologicalView = eadiagram;
+                IEAPackage parentPackage = chronologicalView.ParentPackage;
+                IEAPackage decisionViewPackage = parentPackage.FindDecisionViewPackage();
                 if (decisionViewPackage == null || !decisionViewPackage.IsDecisionViewPackage())
                 {
                     return;
                 }
 
-                EAPackage historyPackage =
+                IEAPackage historyPackage =
                     parentPackage.GetSubpackageByName("History data for " + chronologicalView.Name);
                 if (historyPackage != null)
                 {

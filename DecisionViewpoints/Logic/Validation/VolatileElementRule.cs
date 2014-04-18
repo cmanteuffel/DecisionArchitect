@@ -13,6 +13,6 @@ namespace DecisionViewpoints.Logic.Validation
             return RuleType.VolatileElement;
         }
 
-        public new abstract bool ValidateElement(EAVolatileElement element);
+        public new abstract bool ValidateElement(IEAVolatileElement element);
     }
 }

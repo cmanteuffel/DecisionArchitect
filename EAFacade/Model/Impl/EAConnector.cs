@@ -1,8 +1,8 @@
 ﻿using EA;
 
-namespace EAFacade.Model
+namespace EAFacade.Model.Impl
 {
-    public class EAConnector : IModelItem
+    internal sealed class EAConnector : IEAConnector
     {
         private readonly Connector _native;
 
@@ -50,9 +50,9 @@ namespace EAFacade.Model
         }
 
 
-        public NativeType NativeType
+        public EANativeType EANativeType
         {
-            get { return NativeType.Connector; }
+            get { return EANativeType.Connector; }
         }
 
         public string Name
@@ -67,25 +67,24 @@ namespace EAFacade.Model
             set { _native.Notes = value; }
         }
 
-        //[Obsolete("Do not use outside of model namespace or main app")]
-        internal static EAConnector Wrap(Connector native)
+        internal static IEAConnector Wrap(Connector native)
         {
             return new EAConnector(native);
         }
 
-        public EAElement GetSupplier()
+        public IEAElement GetSupplier()
         {
             return EARepository.Instance.GetElementByID(_native.SupplierID);
         }
 
-        public EAElement GetClient()
+        public IEAElement GetClient()
         {
             return EARepository.Instance.GetElementByID(_native.ClientID);
         }
 
-        public EADiagram GetDiagram()
+        public IEADiagram GetDiagram()
         {
-            EADiagram diagram = null;
+            IEADiagram diagram = null;
             if (_native.DiagramID > 0)
                 diagram = EARepository.Instance.GetDiagramByID(_native.DiagramID);
             return diagram;
@@ -93,12 +92,12 @@ namespace EAFacade.Model
 
         public bool IsRelationship()
         {
-            return DVStereotypes.RelationMetaType.Equals(MetaType);
+            return EAConstants.RelationMetaType.Equals(MetaType);
         }
 
         public bool IsAction()
         {
-            return DVStereotypes.ActionMetaType.Equals(MetaType);
+            return EAConstants.ActionMetaType.Equals(MetaType);
         }
     }
 }

@@ -1,68 +1,69 @@
 ﻿using EAFacade.Model;
 
+
 namespace DecisionViewpoints.Logic
 {
     public abstract class RepositoryAdapter : IRepositoryListener
     {
-        public virtual void OnPostOpenDiagram(EADiagram diagram)
+        public virtual void OnPostOpenDiagram(IEADiagram diagram)
         {
         }
 
-        public virtual void OnPostCloseDiagram(EADiagram diagram)
+        public virtual void OnPostCloseDiagram(IEADiagram diagram)
         {
         }
 
-        public virtual bool OnPreDeleteElement(EAElement element)
-        {
-            return true;
-        }
-
-        public virtual bool OnPreDeleteConnector(EAConnector connector)
+        public virtual bool OnPreDeleteElement(IEAElement element)
         {
             return true;
         }
 
-        public virtual bool OnPreDeleteDiagram(EAVolatileDiagram volatileDiagram)
+        public virtual bool OnPreDeleteConnector(IEAConnector connector)
         {
             return true;
         }
 
-        public virtual bool OnPreDeletePackage(EAPackage pacakge)
+        public virtual bool OnPreDeleteDiagram(IEAVolatileDiagram volatileDiagram)
         {
             return true;
         }
 
-        public virtual bool OnPreNewElement(EAVolatileElement element)
+        public virtual bool OnPreDeletePackage(IEAPackage pacakge)
         {
             return true;
         }
 
-        public virtual bool OnPreNewConnector(EAVolatileConnector connector)
+        public virtual bool OnPreNewElement(IEAVolatileElement element)
         {
             return true;
         }
 
-        public virtual bool OnPreNewDiagram(EAVolatileDiagram diagram)
+        public virtual bool OnPreNewConnector(IEAVolatileConnector connector)
         {
             return true;
         }
 
-        public bool OnPreNewDiagramObject(EAVolatileDiagramObject diagramObject)
+        public virtual bool OnPreNewDiagram(IEAVolatileDiagram diagram)
         {
             return true;
         }
 
-        public virtual bool OnPreNewPackage(EAVolatilePackage package)
+        public bool OnPreNewDiagramObject(IEAVolatileDiagramObject diagramObject)
         {
             return true;
         }
 
-        public virtual bool OnPostNewElement(EAElement element)
+        public virtual bool OnPreNewPackage(IEAVolatilePackage package)
         {
             return true;
         }
 
-        public virtual bool OnPostNewConnector(EAConnector connector)
+        public virtual bool OnPostNewElement(IEAElement element)
+        {
+            return true;
+        }
+
+        public virtual bool OnPostNewConnector(IEAConnector connector)
         {
             return true;
         }
@@ -72,21 +73,21 @@ namespace DecisionViewpoints.Logic
             return true;
         }
 
-        public virtual bool OnPostNewPackage(EAPackage package)
+        public virtual bool OnPostNewPackage(IEAPackage package)
         {
             return true;
         }
 
-        public virtual void OnContextItemChanged(string guid, NativeType type)
+        public virtual void OnContextItemChanged(string guid, EANativeType type)
         {
         }
 
-        public virtual bool OnContextItemDoubleClicked(string guid, NativeType type)
+        public virtual bool OnContextItemDoubleClicked(string guid, EANativeType type)
         {
             return false;
         }
 
-        public virtual void OnNotifyContextItemModified(string guid, NativeType type)
+        public virtual void OnNotifyContextItemModified(string guid, EANativeType type)
         {
         }
 

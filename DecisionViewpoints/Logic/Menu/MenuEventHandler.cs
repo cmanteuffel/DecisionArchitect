@@ -4,6 +4,7 @@ using DecisionViewpoints.Logic.Reporting;
 using DecisionViewpoints.Model.Menu;
 using EAFacade.Model;
 
+
 namespace DecisionViewpoints.Logic.Menu
 {
     public static class MenuEventHandler
@@ -18,9 +19,9 @@ namespace DecisionViewpoints.Logic.Menu
                 {
                     UpdateDelegate = menuItem =>
                         {
-                            if (NativeType.Element == EARepository.Instance.GetContextItemType())
+                            if (EANativeType.Element == EAFacade.EA.Repository.GetContextItemType())
                             {
-                                var eaelement = EARepository.Instance.GetContextObject<EAElement>();
+                                var eaelement = EAFacade.EA.Repository.GetContextObject<IEAElement>();
                                 menuItem.IsEnabled = (eaelement != null && !eaelement.IsDecision() &&
                                                       !eaelement.IsTopic());
                                 return;
@@ -33,9 +34,9 @@ namespace DecisionViewpoints.Logic.Menu
                 {
                     UpdateDelegate = menuItem =>
                         {
-                            if (NativeType.Element == EARepository.Instance.GetContextItemType())
+                            if (EANativeType.Element == EAFacade.EA.Repository.GetContextItemType())
                             {
-                                var eaelement = EARepository.Instance.GetContextObject<EAElement>();
+                                var eaelement = EAFacade.EA.Repository.GetContextObject<IEAElement>();
                                 menuItem.IsEnabled = (eaelement != null && !eaelement.IsDecision() &&
                                                       !eaelement.IsTopic());
                                 return;
@@ -48,9 +49,9 @@ namespace DecisionViewpoints.Logic.Menu
                 {
                     UpdateDelegate = self =>
                         {
-                            if (NativeType.Diagram == EARepository.Instance.GetContextItemType())
+                            if (EANativeType.Diagram == EAFacade.EA.Repository.GetContextItemType())
                             {
-                                var eadiagram = EARepository.Instance.GetContextObject<EADiagram>();
+                                var eadiagram = EAFacade.EA.Repository.GetContextObject<IEADiagram>();
                                 self.IsEnabled = (eadiagram != null && eadiagram.IsChronologicalView());
                                 return;
                             }
@@ -81,17 +82,17 @@ namespace DecisionViewpoints.Logic.Menu
                 {
                     ClickDelegate = () =>
                         {
-                            if (NativeType.Diagram == EARepository.Instance.GetContextItemType())
+                            if (EANativeType.Diagram == EAFacade.EA.Repository.GetContextItemType())
                             {
-                                var eadiagram = EARepository.Instance.GetContextObject<EADiagram>();
+                                var eadiagram = EAFacade.EA.Repository.GetContextObject<IEADiagram>();
                                 ReportMenu.GenerateForcesReport(eadiagram.Name + "_Report.xlsx", eadiagram);
                             }
                         },
                     UpdateDelegate = self =>
                         {
-                            if (NativeType.Diagram == EARepository.Instance.GetContextItemType())
+                            if (EANativeType.Diagram == EAFacade.EA.Repository.GetContextItemType())
                             {
-                                var eadiagram = EARepository.Instance.GetContextObject<EADiagram>();
+                                var eadiagram = EAFacade.EA.Repository.GetContextObject<IEADiagram>();
                                 self.IsEnabled = ((eadiagram != null) && eadiagram.IsForcesView());
                                 return;
                             }
@@ -140,11 +141,11 @@ namespace DecisionViewpoints.Logic.Menu
             reportMenu.Add(generateExcelReport);
         }
 
-        private static EAPackage SelectedDecisionViewPackage()
+        private static IEAPackage SelectedDecisionViewPackage()
         {
-            if (NativeType.Package == EARepository.Instance.GetContextItemType())
+            if (EANativeType.Package == EAFacade.EA.Repository.GetContextItemType())
             {
-                var package = EARepository.Instance.GetContextObject<EAPackage>();
+                var package = EAFacade.EA.Repository.GetContextObject<IEAPackage>();
                 if ((package != null) && package.IsDecisionViewPackage())
                 {
                     return package;
@@ -157,9 +158,9 @@ namespace DecisionViewpoints.Logic.Menu
         private static bool ContextItemIsDecisionViewPackage()
         {
             bool enabled = false;
-            if (NativeType.Package == EARepository.Instance.GetContextItemType())
+            if (EANativeType.Package == EAFacade.EA.Repository.GetContextItemType())
             {
-                var package = EARepository.Instance.GetContextObject<EAPackage>();
+                var package = EAFacade.EA.Repository.GetContextObject<IEAPackage>();
                 enabled = ((package != null) && package.IsDecisionViewPackage());
             }
             return enabled;
@@ -168,7 +169,7 @@ namespace DecisionViewpoints.Logic.Menu
         private static bool ContextItemAreDecisions()
         {
 
-            var selectedTopicsAndDecisions = (from EAElement element in EARepository.Instance.GetSelectedItems()
+            var selectedTopicsAndDecisions = (from IEAElement element in EAFacade.EA.Repository.GetSelectedItems()
                  where (element.IsDecision() || element.IsTopic()) && !element.IsHistoryDecision()
                  select element);
             return selectedTopicsAndDecisions.Any();

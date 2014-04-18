@@ -2,6 +2,7 @@
 using EA;
 using EAFacade.Model;
 
+
 namespace DecisionViewpoints.Logic.Validation
 {
     internal class ModelValidator
@@ -34,7 +35,7 @@ namespace DecisionViewpoints.Logic.Validation
         {
         }
 
-        public void ValidateElementUsingRuleID(Repository repository, string ruleID, EAElement element)
+        public void ValidateElementUsingRuleID(Repository repository, string ruleID, IEAElement element)
         {
             Project project = repository.GetProjectInterface();
             AbstractRule rule = _lookup[ruleID];
@@ -52,7 +53,7 @@ namespace DecisionViewpoints.Logic.Validation
             }
         }
 
-        public void ValidateConectorUsingRuleID(Repository repository, string ruleID, EAConnector connector)
+        public void ValidateConectorUsingRuleID(Repository repository, string ruleID, IEAConnector connector)
         {
             Project project = repository.GetProjectInterface();
             AbstractRule rule = _lookup[ruleID];

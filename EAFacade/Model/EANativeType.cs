@@ -1,6 +1,6 @@
 namespace EAFacade.Model
 {
-    public enum NativeType
+    public enum EANativeType
     {
         Package,
         Diagram,

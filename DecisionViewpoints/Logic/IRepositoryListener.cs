@@ -1,45 +1,46 @@
 ﻿using EAFacade.Model;
 
+
 namespace DecisionViewpoints.Logic
 {
     interface IRepositoryListener
     {
-        void OnPostOpenDiagram(EADiagram diagram);
+        void OnPostOpenDiagram(IEADiagram diagram);
 
-        void OnPostCloseDiagram(EADiagram diagram);
+        void OnPostCloseDiagram(IEADiagram diagram);
 
-        bool OnPreDeleteElement(EAElement element);
+        bool OnPreDeleteElement(IEAElement element);
 
-        bool OnPreDeleteConnector(EAConnector connector);
+        bool OnPreDeleteConnector(IEAConnector connector);
 
-        bool OnPreDeleteDiagram(EAVolatileDiagram volatileDiagram);
+        bool OnPreDeleteDiagram(IEAVolatileDiagram volatileDiagram);
 
-        bool OnPreDeletePackage(EAPackage pacakge);
+        bool OnPreDeletePackage(IEAPackage pacakge);
 
-        bool OnPreNewElement(EAVolatileElement element);
+        bool OnPreNewElement(IEAVolatileElement element);
 
-        bool OnPreNewConnector(EAVolatileConnector connector);
+        bool OnPreNewConnector(IEAVolatileConnector connector);
 
-        bool OnPreNewDiagram(EAVolatileDiagram diagram);
+        bool OnPreNewDiagram(IEAVolatileDiagram diagram);
 
-        bool OnPreNewDiagramObject(EAVolatileDiagramObject diagramObject);
+        bool OnPreNewDiagramObject(IEAVolatileDiagramObject diagramObject);
 
-        bool OnPreNewPackage(EAVolatilePackage package);
+        bool OnPreNewPackage(IEAVolatilePackage package);
 
-        bool OnPostNewElement(EAElement element);
+        bool OnPostNewElement(IEAElement element);
 
-        bool OnPostNewConnector(EAConnector connector);
+        bool OnPostNewConnector(IEAConnector connector);
 
         //cm: does not return a diagram object because of an issue within the EA API
         bool OnPostNewDiagramObject();
 
-        bool OnPostNewPackage(EAPackage package);
+        bool OnPostNewPackage(IEAPackage package);
 
-        void OnContextItemChanged(string guid, NativeType type);
+        void OnContextItemChanged(string guid, EANativeType type);
 
-        bool OnContextItemDoubleClicked(string guid, NativeType type);
+        bool OnContextItemDoubleClicked(string guid, EANativeType type);
 
-        void OnNotifyContextItemModified(string guid, NativeType type);
+        void OnNotifyContextItemModified(string guid, EANativeType type);
 
         void OnFileOpen();
 

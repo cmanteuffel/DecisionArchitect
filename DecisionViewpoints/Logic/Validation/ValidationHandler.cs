@@ -12,7 +12,7 @@ namespace DecisionViewpoints.Logic.Validation
         private static bool _preventConnectorModifiedEvent;
 
 
-        public override bool OnPreNewElement(EAVolatileElement element)
+        public override bool OnPreNewElement(IEAVolatileElement element)
         {
             string message;
             if (!RuleManager.Instance.ValidateElement(element, out message))
@@ -33,7 +33,7 @@ namespace DecisionViewpoints.Logic.Validation
             return true;
         }
 
-        public override bool OnPreNewConnector(EAVolatileConnector connector)
+        public override bool OnPreNewConnector(IEAVolatileConnector connector)
         {
             string message;
             if (!RuleManager.Instance.ValidateConnector(connector, out message))
@@ -57,14 +57,14 @@ namespace DecisionViewpoints.Logic.Validation
         }
 
 
-        public override void OnNotifyContextItemModified(string guid, NativeType ot)
+        public override void OnNotifyContextItemModified(string guid, EANativeType ot)
         {
             string message;
             switch (ot)
             {
-                case NativeType.Element:
+                case EANativeType.Element:
 
-                    EAElement element = EARepository.Instance.GetElementByGUID(guid);
+                    IEAElement element = EAFacade.EA.Repository.GetElementByGUID(guid);
 
                     //dirty hack to prevent that the event is fired twice when an decision is modified
                     if (lastGUID.Equals(guid) && lastChange.Equals(element.Modified))
@@ -85,8 +85,8 @@ namespace DecisionViewpoints.Logic.Validation
                     lastChange = element.Modified;
 
                     break;
-                case NativeType.Connector:
-                    var connector = EARepository.Instance.GetConnectorByGUID(guid);
+                case EANativeType.Connector:
+                    var connector = EAFacade.EA.Repository.GetConnectorByGUID(guid);
 
                     //dirty hack that prevents that an modified event is fired after a connector has been created
                     if (_preventConnectorModifiedEvent)

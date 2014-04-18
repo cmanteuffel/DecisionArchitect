@@ -4,7 +4,7 @@ namespace EAFacade.Model
     {
         string GUID { get; }
         int ID { get; }
-        NativeType NativeType { get; }
+        EANativeType EANativeType { get; }
         string Name { get; set; }
         string Notes { get; set; }
     }

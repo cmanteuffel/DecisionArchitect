@@ -21,19 +21,19 @@ namespace DecisionViewpoints.Logic.Validation
             bool validationResult = true;
             message = "";
 
-            var connector = obj as EAConnector;
+            var connector = obj as IEAConnector;
             if (connector != null)
             {
                 validationResult = ValidateConnector(connector);
             }
 
-            var element = obj as EAElement;
+            var element = obj as IEAElement;
             if (element != null)
             {
                 validationResult = ValidateElement(element);
             }
 
-            var volatileElement = obj as EAVolatileElement;
+            var volatileElement = obj as IEAVolatileElement;
             if (volatileElement != null)
             {
                 validationResult = ValidateElement(volatileElement);
@@ -47,17 +47,17 @@ namespace DecisionViewpoints.Logic.Validation
             return validationResult;
         }
 
-        public virtual bool ValidateElement(EAVolatileElement element)
+        public virtual bool ValidateElement(IEAVolatileElement element)
         {
             return true;
         }
 
-        public virtual bool ValidateElement(EAElement element)
+        public virtual bool ValidateElement(IEAElement element)
         {
             return true;
         }
 
-        public virtual bool ValidateConnector(EAConnector connector)
+        public virtual bool ValidateConnector(IEAConnector connector)
         {
             return true;
         }

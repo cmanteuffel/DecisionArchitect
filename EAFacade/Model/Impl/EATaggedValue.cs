@@ -1,8 +1,8 @@
-﻿using EA;
+using EA;
 
-namespace EAFacade.Model
+namespace EAFacade.Model.Impl
 {
-    public class EATaggedValue :IModelItem
+    internal sealed class EATaggedValue : IEATaggedValue
     {
         private readonly TaggedValue _native;
 
@@ -21,9 +21,9 @@ namespace EAFacade.Model
             get { return _native.PropertyID; }
         }
 
-        public NativeType NativeType
+        public EANativeType EANativeType
         {
-            get { return NativeType.Property; }
+            get { return EANativeType.Property; }
         }
 
         public string Name
@@ -44,7 +44,7 @@ namespace EAFacade.Model
             set { _native.Value = value; }
         }
 
-        public static EATaggedValue Wrap(TaggedValue native)
+        public static IEATaggedValue Wrap(TaggedValue native)
         {
             return new EATaggedValue(native);
         }

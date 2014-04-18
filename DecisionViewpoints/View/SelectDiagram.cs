@@ -11,10 +11,10 @@ namespace EAFacade
         {
             public string Name { get; set; }
             public int ID { get; set; }
-            public EADiagram Diagram { get; set; }
+            public IEADiagram Diagram { get; set; }
         }
 
-        public SelectDiagram(IEnumerable<EADiagram> diagrams)
+        public SelectDiagram(IEnumerable<IEADiagram> diagrams)
         {
             InitializeComponent();
 
@@ -29,7 +29,7 @@ namespace EAFacade
 
         //angor START
         /*
-        public SelectDiagram(IEnumerable<EADiagram> diagrams, bool isDecision)
+        public SelectDiagram(IEnumerable<IEADiagram> diagrams, bool isDecision)
         {
             InitializeComponent();
 
@@ -44,7 +44,7 @@ namespace EAFacade
          */
         //angor END
 
-        public EADiagram GetSelectedDiagram()
+        public IEADiagram GetSelectedDiagram()
         {
             var item = listDiagrams.SelectedItem as DiagramListItem;
             if (item != null)

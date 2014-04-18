@@ -1,6 +1,6 @@
 namespace EAFacade.Model
 {
-    public class EAVolatilePackage
+    public interface IEAVolatilePackage
     {
     }
 }

@@ -1,19 +1,19 @@
 using EA;
 
-namespace EAFacade.Model
+namespace EAFacade.Model.Impl
 {
-    public class EAVolatileElement : IEAObject
+    internal sealed class EAVolatileElement : IEAVolatileElement
     {
         private EAVolatileElement()
         {
         }
 
-        public EADiagram Diagram { get; private set; }
+        public IEADiagram Diagram { get; private set; }
         public string Stereotype { get; private set; }
         public string Type { get; private set; }
-        public EAElement ParentElement { get; private set; }
+        public IEAElement ParentElement { get; private set; }
 
-        public static EAVolatileElement Wrap(EventProperties info)
+        public static IEAVolatileElement Wrap(EventProperties info)
         {
             var volatileElement = new EAVolatileElement
                 {
@@ -21,7 +21,7 @@ namespace EAFacade.Model
                     Stereotype = info.Get(EAEventPropertyKeys.Stereotype).Value
                 };
 
-            if (volatileElement.Type.Equals("Element"))
+            if (volatileElement.Type.Equals(EAConstants.EventPropertyTypeElement))
             {
                 var parentElementID = EAUtilities.ParseToInt32(info.Get(EAEventPropertyKeys.ParentId).Value, -1);
                 if (parentElementID > 0)

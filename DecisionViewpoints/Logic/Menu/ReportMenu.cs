@@ -5,16 +5,17 @@ using DecisionViewpoints.Logic.Reporting;
 using DecisionViewpoints.Model;
 using EAFacade.Model;
 
+
 namespace DecisionViewpoints.Logic.Menu
 {
     internal class ReportMenu
     {
-        public static void GenerateReport(EAPackage decisionViewPackage, string filename, ReportType reportType)
+        public static void GenerateReport(IEAPackage decisionViewPackage, string filename, ReportType reportType)
         {
-            EARepository repository = EARepository.Instance;
+            IEARepository repository = EAFacade.EA.Repository;
             List<Decision> decisions =
                 decisionViewPackage.GetAllDecisions().Select(element => new Decision(element)).ToList();
-            List<EADiagram> diagrams = decisionViewPackage.GetAllDiagrams().ToList();
+            List<IEADiagram> diagrams = decisionViewPackage.GetAllDiagrams().ToList();
 
             IReportDocument report = null;
             try
@@ -47,13 +48,13 @@ namespace DecisionViewpoints.Logic.Menu
 
 
                 //Insert Decision Relationship Viewpoint
-                foreach (EADiagram diagram in diagrams.Where(diagram => diagram.IsRelationshipView()))
+                foreach (IEADiagram diagram in diagrams.Where(diagram => diagram.IsRelationshipView()))
                 {
                     report.InsertDiagramImage(diagram);
                 }
 
                 //Retrieve Topics
-                List<Topic> topics = (from EAElement element in repository.GetAllElements()
+                List<Topic> topics = (from IEAElement element in repository.GetAllElements()
                                       where element.IsTopic()
                                       select new Topic(element)).ToList();
 
@@ -66,7 +67,7 @@ namespace DecisionViewpoints.Logic.Menu
                     //Insert Decisions with parent element the current Topic
                     foreach (Decision decision in decisions)
                     {
-                        EAElement parent = EARepository.Instance.GetElementByID(decision.ID).ParentElement;
+                        IEAElement parent = EAFacade.EA.Repository.GetElementByID(decision.ID).ParentElement;
                         if (parent != null && parent.IsTopic())
                         {
                             if (parent.ID.Equals(topic.ID))
@@ -81,21 +82,21 @@ namespace DecisionViewpoints.Logic.Menu
                 // Insert decisions without a Topic
                 foreach (Decision decision in decisions)
                 {
-                    EAElement parent = EARepository.Instance.GetElementByID(decision.ID).ParentElement;
+                    IEAElement parent = EAFacade.EA.Repository.GetElementByID(decision.ID).ParentElement;
                     if (parent == null || !parent.IsTopic())
                     {
-                        parent = EARepository.Instance.GetElementByID(decision.ID).ParentElement;
+                        parent = EAFacade.EA.Repository.GetElementByID(decision.ID).ParentElement;
                         report.InsertDecisionTable(decision);
                     }
                 }
 
                 foreach (
-                    EADiagram diagram in
+                    IEADiagram diagram in
                         diagrams.Where(diagram => !diagram.IsForcesView() && !diagram.IsRelationshipView()))
                 {
                     report.InsertDiagramImage(diagram);
                 }
-                foreach (EADiagram diagram in diagrams.Where(diagram => diagram.IsForcesView()))
+                foreach (IEADiagram diagram in diagrams.Where(diagram => diagram.IsForcesView()))
                 {
                     report.InsertForcesTable(new ForcesModel(diagram));
                 }
@@ -109,7 +110,7 @@ namespace DecisionViewpoints.Logic.Menu
             }
         }
 
-        public static void GenerateForcesReport(string filename, EADiagram diagram)
+        public static void GenerateForcesReport(string filename, IEADiagram diagram)
         {
             IReportDocument report = null;
             try
@@ -145,26 +146,26 @@ namespace DecisionViewpoints.Logic.Menu
 
         /* public static void GenerateSelectedDecisionsReport(string filename, ReportType reportType)
         {
-            EARepository repository = EARepository.Instance;
+            IEARepository repository = EAFacade.EA.Repository;
 
-            IEnumerable<EAElement> selectedDecisionsRepository = EARepository.Instance.GetSelectedItems();
+            IEnumerable<IEAElement> selectedDecisionsRepository = EAFacade.EA.Repository.GetSelectedItems();
             List<Decision> selectedDecisions =
-                (from EAElement element in selectedDecisionsRepository
+                (from IEAElement element in selectedDecisionsRepository
                  where element.IsDecision()
                  where !element.IsHistoryDecision()
                  select new Decision(element)).ToList();
 
-            List<EAElement> selRepositoryList = selectedDecisionsRepository.ToList();
+            List<IEAElement> selRepositoryList = selectedDecisionsRepository.ToList();
 
             for (int j = 0; j < selRepositoryList.Count; j++)
             {
-                EAElement d = selRepositoryList[j];
+                IEAElement d = selRepositoryList[j];
                 if (d.IsTopic())
                 {
                     //TODO: this does not consider yet elements which are groups themselves - this needs to be treated separately
 
                     //TODO: also add the diagrams for the topic, as there can be topics with no underlying alternative
-                    List<EAElement> elementList = d.GetElements().ToList();
+                    List<IEAElement> elementList = d.GetElements().ToList();
 
                     for (int i = 0; i < elementList.Count; i++)
                     {
@@ -178,25 +179,25 @@ namespace DecisionViewpoints.Logic.Menu
             }
 
             List<Decision> decisions =
-                (from EAElement element in repository.GetAllElements()
+                (from IEAElement element in repository.GetAllElements()
                  where element.IsDecision()
                  where !element.IsHistoryDecision()
                  select new Decision(element)).ToList();
 
-            List<EADiagram> diagrams =
-                (from EAPackage package in repository.GetAllDecisionViewPackages()
-                 from EADiagram diagram in package.GetDiagrams()
+            List<IEADiagram> diagrams =
+                (from IEAPackage package in repository.GetAllDecisionViewPackages()
+                 from IEADiagram diagram in package.GetDiagrams()
                  select diagram).ToList();
 
-            List<EADiagram> selectedDiagrams =
-                (from EADiagram diagram in diagrams
+            List<IEADiagram> selectedDiagrams =
+                (from IEADiagram diagram in diagrams
                  from Decision dec in selectedDecisions
                  where diagram.Contains(dec.GetElement())
                  select diagram).Distinct().ToList();
 
             IReportDocument report = null;
-            List<EADiagram> finalSetOfDiagrams = selectedDiagrams;
-            IEnumerable<EAElement> finalRepositoryOfElements = selectedDecisionsRepository;
+            List<IEADiagram> finalSetOfDiagrams = selectedDiagrams;
+            IEnumerable<IEAElement> finalRepositoryOfElements = selectedDecisionsRepository;
             List<Decision> finalSelectedDecisions = selectedDecisions;
 
 
@@ -230,17 +231,17 @@ namespace DecisionViewpoints.Logic.Menu
 
 
                 //Insert Decision Relationship Viewpoint
-                //foreach (EADiagram diagram in finalSetOfDiagrams.Where(diagram => diagram.IsRelationshipView()))
-                List<EADiagram> relationshipDiagrams =
+                //foreach (IEADiagram diagram in finalSetOfDiagrams.Where(diagram => diagram.IsRelationshipView()))
+                List<IEADiagram> relationshipDiagrams =
                     finalSetOfDiagrams.Where(diagram => diagram.IsRelationshipView()).ToList();
                 for (int i = 0; i < relationshipDiagrams.Count(); i++)
                 {
-                    EADiagram diagram = relationshipDiagrams[i];
+                    IEADiagram diagram = relationshipDiagrams[i];
                     report.InsertDiagramImage(diagram);
                 }
 
                 //Retrieve Topics
-                List<Topic> topics = (from EAElement element in finalRepositoryOfElements
+                List<Topic> topics = (from IEAElement element in finalRepositoryOfElements
                                       where element.IsTopic()
                                       select new Topic(element)).ToList();
 
@@ -255,7 +256,7 @@ namespace DecisionViewpoints.Logic.Menu
                     for (int j = 0; j < finalSelectedDecisions.Count; j++)
                     {
                         Decision decision = finalSelectedDecisions[j];
-                        EAElement parent = EARepository.Instance.GetElementByID(decision.ID).ParentElement;
+                        IEAElement parent = EAFacade.EA.Repository.GetElementByID(decision.ID).ParentElement;
                         if (parent != null && parent.IsTopic())
                         {
                             if (parent.ID.Equals(topic.ID))
@@ -270,21 +271,21 @@ namespace DecisionViewpoints.Logic.Menu
                 // Insert decisions without a Topic
                 foreach (Decision decision in finalSelectedDecisions)
                 {
-                    EAElement parent = EARepository.Instance.GetElementByID(decision.ID).ParentElement;
+                    IEAElement parent = EAFacade.EA.Repository.GetElementByID(decision.ID).ParentElement;
                     if (parent == null || !parent.IsTopic())
                     {
-                        parent = EARepository.Instance.GetElementByID(decision.ID).ParentElement;
+                        parent = EAFacade.EA.Repository.GetElementByID(decision.ID).ParentElement;
                         report.InsertDecisionTable(decision);
                     }
                 }
 
                 foreach (
-                    EADiagram diagram in
+                    IEADiagram diagram in
                         finalSetOfDiagrams.Where(diagram => !diagram.IsForcesView() && !diagram.IsRelationshipView()))
                 {
                     report.InsertDiagramImage(diagram);
                 }
-                foreach (EADiagram diagram in finalSetOfDiagrams.Where(diagram => diagram.IsForcesView()))
+                foreach (IEADiagram diagram in finalSetOfDiagrams.Where(diagram => diagram.IsForcesView()))
                 {
                     report.InsertForcesTable(new ForcesModel(diagram));
                 }
@@ -301,31 +302,31 @@ namespace DecisionViewpoints.Logic.Menu
 
         public static void GenerateSelectedDecisionsReport(string filename, ReportType reportType)
         {
-            EARepository repository = EARepository.Instance;
+            IEARepository repository = EAFacade.EA.Repository;
 
             List<Decision> decisions =
-                (from EAElement element in repository.GetAllElements()
+                (from IEAElement element in repository.GetAllElements()
                  where element.IsDecision()
                  where !element.IsHistoryDecision()
                  select new Decision(element)).ToList();
-            List<EADiagram> diagrams =
-                (from EAPackage package in repository.GetAllDecisionViewPackages()
-                 from EADiagram diagram in package.GetAllDiagrams()
+            List<IEADiagram> diagrams =
+                (from IEAPackage package in repository.GetAllDecisionViewPackages()
+                 from IEADiagram diagram in package.GetAllDiagrams()
                  select diagram).ToList();
 
             //Retrieve Topics
-            List<Topic> topics = (from EAElement element in repository.GetAllElements()
+            List<Topic> topics = (from IEAElement element in repository.GetAllElements()
                                   where element.IsTopic()
                                   select new Topic(element)).ToList();
 
             //remove unselected decisions 
-            IEnumerable<EAElement> selectedTopicsAndDecisions =
-                (from EAElement element in repository.GetSelectedItems()
+            IEnumerable<IEAElement> selectedTopicsAndDecisions =
+                (from IEAElement element in repository.GetSelectedItems()
                  where (element.IsDecision() || element.IsTopic()) && !element.IsHistoryDecision()
                  select element);
 
             var selectedDecisionIDs = new List<int>();
-            foreach (EAElement elem in selectedTopicsAndDecisions)
+            foreach (IEAElement elem in selectedTopicsAndDecisions)
             {
                 if (elem.IsTopic())
                 {
@@ -349,7 +350,7 @@ namespace DecisionViewpoints.Logic.Menu
             var topicIDs = new List<int>();
             foreach (Decision d in decisions)
             {
-                topicIDs.Add(d.GetTopic().ID);
+                topicIDs.Add(d.Topic.ID);
             }
             Topic[] topicsCopy = topics.ToArray();
             foreach (Topic t in topicsCopy)
@@ -360,14 +361,14 @@ namespace DecisionViewpoints.Logic.Menu
                 }
             }
 
-            EAElement[] allElements = decisions.Select(d => d.GetElement()).ToArray();
+            IEAElement[] allElements = decisions.Select(d => d.GetElement()).ToArray();
             allElements = allElements.Union(topics.Select(t => t.GetElement())).ToArray();
 
-            EADiagram[] diagramsCopy = diagrams.ToArray();
-            foreach (EADiagram d in diagramsCopy)
+            IEADiagram[] diagramsCopy = diagrams.ToArray();
+            foreach (IEADiagram d in diagramsCopy)
             {
                 bool remove = true;
-                foreach (EAElement element in allElements)
+                foreach (IEAElement element in allElements)
                 {
                     if (d.Contains(element))
                     {
@@ -412,7 +413,7 @@ namespace DecisionViewpoints.Logic.Menu
 
 
                 //Insert Decision Relationship Viewpoint
-                foreach (EADiagram diagram in diagrams.Where(diagram => diagram.IsRelationshipView()))
+                foreach (IEADiagram diagram in diagrams.Where(diagram => diagram.IsRelationshipView()))
                 {
                     report.InsertDiagramImage(diagram);
                 }
@@ -427,7 +428,7 @@ namespace DecisionViewpoints.Logic.Menu
                     //Insert Decisions with parent element the current Topic
                     foreach (Decision decision in decisions)
                     {
-                        EAElement parent = EARepository.Instance.GetElementByID(decision.ID).ParentElement;
+                        IEAElement parent = EAFacade.EA.Repository.GetElementByID(decision.ID).ParentElement;
                         if (parent != null && parent.IsTopic())
                         {
                             if (parent.ID.Equals(topic.ID))
@@ -442,21 +443,21 @@ namespace DecisionViewpoints.Logic.Menu
                 // Insert decisions without a Topic
                 foreach (Decision decision in decisions)
                 {
-                    EAElement parent = EARepository.Instance.GetElementByID(decision.ID).ParentElement;
+                    IEAElement parent = EAFacade.EA.Repository.GetElementByID(decision.ID).ParentElement;
                     if (parent == null || !parent.IsTopic())
                     {
-                        parent = EARepository.Instance.GetElementByID(decision.ID).ParentElement;
+                        parent = EAFacade.EA.Repository.GetElementByID(decision.ID).ParentElement;
                         report.InsertDecisionTable(decision);
                     }
                 }
 
                 foreach (
-                    EADiagram diagram in
+                    IEADiagram diagram in
                         diagrams.Where(diagram => !diagram.IsForcesView() && !diagram.IsRelationshipView()))
                 {
                     report.InsertDiagramImage(diagram);
                 }
-                foreach (EADiagram diagram in diagrams.Where(diagram => diagram.IsForcesView()))
+                foreach (IEADiagram diagram in diagrams.Where(diagram => diagram.IsForcesView()))
                 {
                     report.InsertForcesTable(new ForcesModel(diagram));
                 }

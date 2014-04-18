@@ -10,10 +10,10 @@ namespace DecisionViewpoints.Logic.Menu
 
         public static void CreateAndTraceDecision()
         {
-            EARepository repository = EARepository.Instance;
-            if (repository.GetContextItemType() == NativeType.Element)
+            IEARepository repository = EAFacade.EA.Repository;
+            if (repository.GetContextItemType() == EANativeType.Element)
             {
-                var eaelement = EARepository.Instance.GetContextObject<EAElement>();
+                var eaelement = repository.GetContextObject<IEAElement>();
                 if (eaelement != null && !eaelement.IsDecision() && !eaelement.IsTopic())
                 {
 
@@ -23,10 +23,10 @@ namespace DecisionViewpoints.Logic.Menu
                     {
 
                         var dvPackage = createDecisionView.GetDecisionViewPackage();
-                        var decision = dvPackage.CreateElement(createDecisionView.GetName(), createDecisionView.GetState(), DVStereotypes.ActionMetaType);
-                        decision.MetaType = DVStereotypes.DecisionMetaType;
-                        decision.AddTaggedValue(DVTaggedValueKeys.DecisionStateModifiedDate, DateTime.Now.ToString(CultureInfo.InvariantCulture));
-                        eaelement.ConnectTo(decision, DVStereotypes.AbstractionMetaType, DVStereotypes.TraceStereotype);
+                        var decision = dvPackage.CreateElement(createDecisionView.GetName(), createDecisionView.GetState(), EAConstants.ActionMetaType);
+                        decision.MetaType = EAConstants.DecisionMetaType;
+                        decision.AddTaggedValue(EATaggedValueKeys.DecisionStateModifiedDate, DateTime.Now.ToString(CultureInfo.InvariantCulture));
+                        eaelement.ConnectTo(decision, EAConstants.AbstractionMetaType, EAConstants.RelationTrace);
                         decision.Update();
 
                         dvPackage.RefreshElements();
@@ -39,10 +39,10 @@ namespace DecisionViewpoints.Logic.Menu
 
         public static void CreateAndTraceTopic()
         {
-            EARepository repository = EARepository.Instance;
-            if (repository.GetContextItemType() == NativeType.Element)
+            IEARepository repository = EAFacade.EA.Repository;
+            if (repository.GetContextItemType() == EANativeType.Element)
             {
-                var eaelement = EARepository.Instance.GetContextObject<EAElement>();
+                var eaelement = repository.GetContextObject<IEAElement>();
                 if (eaelement != null && !eaelement.IsDecision() && !eaelement.IsTopic())
                 {
                     var nameSuggestion = string.Format(Messages.NameSuggestionTopic, eaelement.Name);
@@ -50,10 +50,10 @@ namespace DecisionViewpoints.Logic.Menu
                     if (createTopicView.ShowDialog() == DialogResult.OK)
                     {
                         var dvPackage = createTopicView.GetDecisionViewPackage();
-                        var topic = dvPackage.CreateElement(createTopicView.GetName(), DVStereotypes.TopicStereoType, DVStereotypes.ActivityMetaType);
-                        topic.MetaType = DVStereotypes.TopicMetaType;
-                        topic.AddTaggedValue(DVTaggedValueKeys.DecisionStateModifiedDate, DateTime.Now.ToString(CultureInfo.InvariantCulture));
-                        eaelement.ConnectTo(topic, DVStereotypes.AbstractionMetaType, DVStereotypes.TraceStereotype);
+                        var topic = dvPackage.CreateElement(createTopicView.GetName(), EAConstants.TopicStereoType, EAConstants.ActivityMetaType);
+                        topic.MetaType = EAConstants.TopicMetaType;
+                        topic.AddTaggedValue(EATaggedValueKeys.DecisionStateModifiedDate, DateTime.Now.ToString(CultureInfo.InvariantCulture));
+                        eaelement.ConnectTo(topic, EAConstants.AbstractionMetaType, EAConstants.RelationTrace);
                         topic.Update();
 
                         dvPackage.RefreshElements();

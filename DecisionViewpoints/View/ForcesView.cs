@@ -11,6 +11,7 @@ using DecisionViewpoints.View.Controller;
 using EAFacade;
 using EAFacade.Model;
 
+
 //using MenuItem = DecisionViewpointsCustomViews.Model.Menu.MenuItem; //angor task 149
 
 namespace DecisionViewpoints.View
@@ -96,7 +97,7 @@ namespace DecisionViewpoints.View
             _forcesTable.CellValueChanged += _forcesTable_CellValueChanged;
         }
 
-        public void UpdateDecision(EAElement element)
+        public void UpdateDecision(IEAElement element)
         {
             int columnIndex = 0;
             foreach (DataGridViewCell cell in _forcesTable.Rows[_forcesTable.Rows.Count - 1].Cells)
@@ -111,7 +112,7 @@ namespace DecisionViewpoints.View
             }
         }
 
-        public void UpdateRequirement(EAElement element)
+        public void UpdateRequirement(IEAElement element)
         {
             foreach (
                 DataGridViewRow row in
@@ -123,7 +124,7 @@ namespace DecisionViewpoints.View
             }
         }
 
-        public void UpdateConcern(EAElement element)
+        public void UpdateConcern(IEAElement element)
         {
             foreach (
                 DataGridViewRow row in
@@ -134,7 +135,7 @@ namespace DecisionViewpoints.View
             }
         }
 
-        public void RemoveDecision(EAElement element)
+        public void RemoveDecision(IEAElement element)
         {
             int columnIndex =
                 _forcesTable.Rows[_forcesTable.Rows.Count - 1].Cells.Cast<DataGridViewCell>()
@@ -142,7 +143,7 @@ namespace DecisionViewpoints.View
             _forcesTable.Columns.RemoveAt(columnIndex);
         }
 
-        public void RemoveRequirement(EAElement element)
+        public void RemoveRequirement(IEAElement element)
         {
             foreach (
                 DataGridViewRow row in
@@ -156,7 +157,7 @@ namespace DecisionViewpoints.View
             }
         }
 
-        public void RemoveConcern(EAElement element)
+        public void RemoveConcern(IEAElement element)
         {
             foreach (
                 DataGridViewRow row in
@@ -305,11 +306,11 @@ namespace DecisionViewpoints.View
             int rowIndex = 0;
             foreach (var dictionary in model.GetConcernsPerRequirement())
             {
-                EAElement requirement = dictionary.Key;
-                List<EAElement> concerns = dictionary.Value;
+                IEAElement requirement = dictionary.Key;
+                List<IEAElement> concerns = dictionary.Value;
 
 
-                foreach (EAElement concern in concerns)
+                foreach (IEAElement concern in concerns)
                 {
                     //in first column add requirement and concern guid
                     var requirementConcernGUID = new object[] {requirement.GUID};
@@ -326,7 +327,7 @@ namespace DecisionViewpoints.View
         private static void InsertDecisionGuids(IForcesModel model, DataTable data)
         {
             int decisionIndex = 0;
-            foreach (EAElement decision in model.GetDecisions())
+            foreach (IEAElement decision in model.GetDecisions())
             {
                 data.Rows[data.Rows.Count - 1][decisionIndex++ + DecisionColumnIndex] = decision.GUID;
             }
@@ -334,7 +335,7 @@ namespace DecisionViewpoints.View
 
         private static void InsertDecisions(IForcesModel model, DataTable data)
         {
-            foreach (EAElement decision in model.GetDecisions())
+            foreach (IEAElement decision in model.GetDecisions())
             {
                 data.Columns.Add(string.Format("<<{0}>>\n{1}", decision.Stereotype, decision.Name));
             }
@@ -359,7 +360,7 @@ namespace DecisionViewpoints.View
 
             string elementGUID =
                 _forcesTable.Rows[_forcesTable.Rows.Count - 1].Cells[e.ColumnIndex].Value.ToString();
-            EAElement decision = EARepository.Instance.GetElementByGUID(elementGUID);
+            IEAElement decision = EAFacade.EA.Repository.GetElementByGUID(elementGUID);
             OpenInDetailView(new Decision(decision));
         }
 
@@ -369,16 +370,16 @@ namespace DecisionViewpoints.View
 
             string elementGUID =
                 _forcesTable.Rows[_forcesTable.Rows.Count - 1].Cells[e.ColumnIndex].Value.ToString();
-            EAElement decision = EARepository.Instance.GetElementByGUID(elementGUID);
+            IEAElement decision = EAFacade.EA.Repository.GetElementByGUID(elementGUID);
             if (e.Button == MouseButtons.Right)
             {
                 var menu = new ContextMenu();
                 menu.MenuItems.Add(Messages.ForcesViewOpenDecisionInDiagrams, (o, args) =>
                     {
-                        EADiagram[] diagrams = decision.GetDiagrams();
+                        IEADiagram[] diagrams = decision.GetDiagrams();
                         if (diagrams.Count() == 1)
                         {
-                            EADiagram diagram = diagrams[0];
+                            IEADiagram diagram = diagrams[0];
                             diagram.OpenAndSelectElement(decision);
                         }
                         else if (diagrams.Count() >= 2)
@@ -386,7 +387,7 @@ namespace DecisionViewpoints.View
                             var selectForm = new SelectDiagram(diagrams);
                             if (selectForm.ShowDialog() == DialogResult.OK)
                             {
-                                EADiagram diagram = selectForm.GetSelectedDiagram();
+                                IEADiagram diagram = selectForm.GetSelectedDiagram();
                                 diagram.OpenAndSelectElement(decision);
                             }
                         }

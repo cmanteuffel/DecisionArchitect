@@ -8,7 +8,7 @@ namespace DecisionViewpoints.Logic.Validation
         {
         }
 
-        public override bool ValidateConnector(EAConnector connector)
+        public override bool ValidateConnector(IEAConnector connector)
         {
             if (connector.SupplierId == connector.ClientId)
             {

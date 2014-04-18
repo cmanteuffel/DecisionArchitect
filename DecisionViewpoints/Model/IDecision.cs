@@ -9,21 +9,31 @@ namespace DecisionViewpoints.Model
         int ID { get; }
         string Name { get; set; }
         string State { get; set; }
-        string Group { get; set; }
-        string Issue { get; }
-        string DecisionText { get; }
-        string Alternatives { get; }
-        string Arguments { get; }
-        string RelatedRequirements { get; }
+        string Problem { get; set; }
+        string Solution { get; set; }
+        string Argumentation { get; set; }
+        Topic Topic { get; set; }
+        List<IEAConnector> Connectors { get; }
 
-        void Save(string extraData);
-        List<EAConnector> GetConnectors();
-        void LoadLinkedDocument(string fileName);
-        void AddObserver(IDecisionObserver observer);
-        void RemoveObserver(IDecisionObserver observer);
         bool HasTopic();
-        EAElement GetTopic();
-        IEnumerable<EAElement> GetTraces();
+        
+        void Reload();
+        void Save();
+        
+
+        
+        
+
+        /// <summary>
+        /// Returns a enumeration of elements that were traced to this decision with the trace connector.
+        /// </summary>
+        /// <returns>Enumeration of elements</returns>
+        IEnumerable<IEAElement> GetTraces();
+
+        /// <summary>
+        ///  Ratings are filled out in the Forces Views and stored in the tagged values of a decision.
+        /// </summary>
+        /// <returns>Returns a enumeration of Ratings.</returns>
         IEnumerable<Rating> GetForces();
         IEnumerable<StakeholderInvolvement> GetStakeholderInvolvements();
         IDictionary<string, DateTime> GetHistory();

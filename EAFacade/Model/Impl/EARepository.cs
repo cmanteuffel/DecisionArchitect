@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using EA;
 
-namespace EAFacade.Model
+namespace EAFacade.Model.Impl
 {
-    public class EARepository : IEAObject
+    internal sealed class EARepository : IEARepository
     {
         private static EARepository _instance;
 
@@ -32,7 +32,7 @@ namespace EAFacade.Model
             Instance.Native = r;
         }
 
-        public IEnumerable<EAPackage> GetAllDecisionViewPackages()
+        public IEnumerable<IEAPackage> GetAllDecisionViewPackages()
         {
             return Native.Models.Cast<Package>().SelectMany(
                 root => root.Packages.Cast<Package>()
@@ -40,34 +40,34 @@ namespace EAFacade.Model
                             .Where(eapackage => eapackage.IsDecisionViewPackage())).ToList();
         }
 
-        public EAPackage GetPackageFromRootByName(string name)
+        public IEAPackage GetPackageFromRootByName(string name)
         {
             return EAPackage.Wrap(Root.Packages.GetByName(name));
         }
 
-        public EAPackage GetPackageByID(int packageID)
+        public IEAPackage GetPackageByID(int packageID)
         {
             return EAPackage.Wrap(Native.GetPackageByID(packageID));
         }
 
         /*
-        public List<EAPackage> GetAllPackages()
+        public List<IEAPackage> GetAllPackages()
         {
-            return EAPackage.Wrap(Root.Packages);
+            return IEAPackage.Wrap(Root.Packages);
         }
          */
 
-        public EAElement GetElementByID(int elementID)
+        public IEAElement GetElementByID(int elementID)
         {
             return EAElement.Wrap(Native.GetElementByID(elementID));
         }
 
-        public EAConnector GetConnectorByID(int connectorId)
+        public IEAConnector GetConnectorByID(int connectorId)
         {
             return EAConnector.Wrap(Native.GetConnectorByID(connectorId));
         }
 
-        public EAConnector GetConnectorByGUID(string guid)
+        public IEAConnector GetConnectorByGUID(string guid)
         {
             return EAConnector.Wrap(Native.GetConnectorByGuid(guid));
         }
@@ -77,33 +77,33 @@ namespace EAFacade.Model
             return Native.SQLQuery(sql);
         }
 
-        public EADiagram GetDiagramByID(int id)
+        public IEADiagram GetDiagramByID(int id)
         {
             return EADiagram.Wrap(Native.GetDiagramByID(id));
         }
 
-        public EADiagram GetDiagramByGuid(string guid)
+        public IEADiagram GetDiagramByGuid(string guid)
         {
             return EADiagram.Wrap(Native.GetDiagramByGuid(guid));
         }
 
-        public EAElement GetElementByGUID(string guid)
+        public IEAElement GetElementByGUID(string guid)
         {
             return EAElement.Wrap(Native.GetElementByGuid(guid));
         }
 
-        public EADiagram GetCurrentDiagram()
+        public IEADiagram GetCurrentDiagram()
         {
             return EADiagram.Wrap(Native.GetCurrentDiagram());
         }
 
-        public IEnumerable<EAElement> GetSelectedItems()
+        public IEnumerable<IEAElement> GetSelectedItems()
         {
             Collection elements = Native.GetTreeSelectedElements();
             return (from object element in elements select EAElement.Wrap((Element)element)).ToList();
         }
 
-        public IEnumerable<EAElement> GetAllElements()
+        public IEnumerable<IEAElement> GetAllElements()
         {
             Collection elements = Native.GetElementSet(null, 0);
             return (from object element in elements select EAElement.Wrap((Element) element)).ToList();
@@ -124,7 +124,7 @@ namespace EAFacade.Model
             Native.AdviseElementChange(elementID);
         }
 
-        public NativeType GetContextItemType()
+        public EANativeType GetContextItemType()
         {
             ObjectType nativeOt = Native.GetContextItemType();
             return EAUtilities.Translate(nativeOt);
@@ -181,7 +181,7 @@ namespace EAFacade.Model
         {
             dynamic obj = Native.GetContextObject();
             Type typeT = typeof (T);
-            if (typeT == typeof (EAElement))
+            if (typeT == typeof (IEAElement))
             {
                 var nativeElement = obj as Element;
                 if (nativeElement != null)
@@ -191,7 +191,7 @@ namespace EAFacade.Model
                 }
                 return default(T);
             }
-            if (typeT == typeof (EAPackage))
+            if (typeT == typeof (IEAPackage))
             {
                 var nativePackage = obj as Package;
                 if (nativePackage != null)
@@ -201,7 +201,7 @@ namespace EAFacade.Model
                 }
                 return default(T);
             }
-            if (typeT == typeof (EADiagram))
+            if (typeT == typeof (IEADiagram))
             {
                 var nativeDiagram = obj as Diagram;
                 if (nativeDiagram != null)

@@ -9,6 +9,7 @@ using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using EAFacade.Model;
 
+
 namespace DecisionViewpoints.Logic.Reporting
 {
     public class ExcelDocument : IReportDocument
@@ -54,7 +55,7 @@ namespace DecisionViewpoints.Logic.Reporting
             InsertText(worksheetPart, forcesTableTopLeftColumn, forcesTopLeftRow, "Requirement");
             InsertText(worksheetPart, forcesTopLeftRow, "Concern");
 
-            foreach (EAElement decision in forces.GetDecisions())
+            foreach (IEAElement decision in forces.GetDecisions())
             {
                 InsertText(worksheetPart, forcesTopLeftRow, decision.Name);
             }
@@ -62,10 +63,10 @@ namespace DecisionViewpoints.Logic.Reporting
             uint rowIndex = forcesTopLeftRow + 1;
             foreach (var concernsPerRequirement in forces.GetConcernsPerRequirement())
             {
-                EAElement requirement = concernsPerRequirement.Key;
-                List<EAElement> concerns = concernsPerRequirement.Value;
+                IEAElement requirement = concernsPerRequirement.Key;
+                List<IEAElement> concerns = concernsPerRequirement.Value;
 
-                foreach (EAElement concern in concerns)
+                foreach (IEAElement concern in concerns)
                 {
                     InsertText(worksheetPart, forcesTableTopLeftColumn, rowIndex, requirement.Name);
                     InsertText(worksheetPart, rowIndex, concern.Name);
@@ -85,7 +86,7 @@ namespace DecisionViewpoints.Logic.Reporting
             worksheetPart.Worksheet.Save();
         }
 
-        public void InsertDiagramImage(EADiagram diagram)
+        public void InsertDiagramImage(IEADiagram diagram)
         {
             //throw new NotImplementedException();
         }

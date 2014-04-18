@@ -1,8 +1,8 @@
 using EA;
 
-namespace EAFacade.Model
+namespace EAFacade.Model.Impl
 {
-    public class EAVolatileConnector : IEAObject
+    internal sealed class EAVolatileConnector : IEAVolatileConnector
     {
         private EAVolatileConnector()
         {
@@ -11,11 +11,11 @@ namespace EAFacade.Model
         public string Type { get; private set; }
         public string Subtype { get; private set; }
         public string Stereotype { get; private set; }
-        public EAElement Supplier { get; private set; }
-        public EAElement Client { get; private set; }
-        public EADiagram Diagram { get; private set; }
+        public IEAElement Supplier { get; private set; }
+        public IEAElement Client { get; private set; }
+        public IEADiagram Diagram { get; private set; }
 
-        public static EAVolatileConnector Wrap(EventProperties properties)
+        public static IEAVolatileConnector Wrap(EventProperties properties)
         {
             var volatileConnector = new EAVolatileConnector
                 {

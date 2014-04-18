@@ -1,6 +1,6 @@
 using EA;
 
-namespace EAFacade.Model.Events
+namespace EAFacade.Events
 {
     internal interface IEAAddInEvents
     {

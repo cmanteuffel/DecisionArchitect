@@ -12,6 +12,7 @@ using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 using EAFacade;
 using EAFacade.Model;
+
 using BlipFill = DocumentFormat.OpenXml.Drawing.Pictures.BlipFill;
 using BottomBorder = DocumentFormat.OpenXml.Wordprocessing.BottomBorder;
 using Break = DocumentFormat.OpenXml.Wordprocessing.Break;
@@ -95,7 +96,7 @@ namespace DecisionViewpoints.Logic.Reporting
         }
 
 
-        public void InsertDiagramImage(EADiagram diagram)
+        public void InsertDiagramImage(IEADiagram diagram)
         {
             if (diagram.IsRelationshipView())
             {
@@ -170,9 +171,9 @@ namespace DecisionViewpoints.Logic.Reporting
             var dataDict = new Dictionary<String, IList<String>>();
             dataDict.Add("Name", new List<string>());
             dataDict.Add("State", new List<string>());
-            dataDict.Add("Issue", new List<string>());
+            dataDict.Add("Problem", new List<string>());
             dataDict.Add("Decision", new List<string>());
-            dataDict.Add("Arguments", new List<string>());
+            dataDict.Add("Argumentation", new List<string>());
             dataDict.Add("Alternatives", new List<string>());
             dataDict.Add("Related Decisions", new List<string>());
             dataDict.Add("Requirements", new List<string>());
@@ -183,9 +184,9 @@ namespace DecisionViewpoints.Logic.Reporting
 
             dataDict["Name"].Add(decision.Name);
             dataDict["State"].Add(decision.State);
-            dataDict["Issue"].Add(decision.Issue);
-            dataDict["Decision"].Add(decision.DecisionText);
-            dataDict["Arguments"].Add(decision.Arguments);
+            dataDict["Problem"].Add(decision.Problem);
+            dataDict["Decision"].Add(decision.Solution);
+            dataDict["Argumentation"].Add(decision.Argumentation);
 
             _decisionCounter++;
             //_body.AppendChild(new Paragraph(new Run(new Text("Decision " +_decisionCounter.ToString() +": " + decision.Name))));
@@ -237,9 +238,7 @@ namespace DecisionViewpoints.Logic.Reporting
 
             table.AppendChild(props);
 
-            var relatedDecisions = new StringBuilder();
-            var alternativeDecisions = new StringBuilder();
-            foreach (EAConnector connector in decision.GetConnectors().Where(connector => connector.IsRelationship()))
+            foreach (IEAConnector connector in decision.Connectors.Where(connector => connector.IsRelationship()))
             {
                 // Related Decisions
                 if (!connector.Stereotype.Equals("alternative for"))
@@ -267,13 +266,13 @@ namespace DecisionViewpoints.Logic.Reporting
             IEnumerable<Rating> forces = decision.GetForces();
             foreach (Rating rating in forces)
             {
-                EAElement req = EARepository.Instance.GetElementByGUID(rating.RequirementGUID);
-                EAElement concern = EARepository.Instance.GetElementByGUID(rating.ConcernGUID);
+                IEAElement req = EAFacade.EA.Repository.GetElementByGUID(rating.RequirementGUID);
+                IEAElement concern = EAFacade.EA.Repository.GetElementByGUID(rating.ConcernGUID);
                 dataDict["Requirements"].Add(req.Name + " - " + req.Notes);
             }
 
 
-            foreach (EAElement trace in decision.GetTraces())
+            foreach (IEAElement trace in decision.GetTraces())
             {
                 dataDict["Traces"].Add(trace.GetProjectPath() + "/" + trace.Name);
             }
@@ -432,10 +431,10 @@ namespace DecisionViewpoints.Logic.Reporting
 
             foreach (var concernsPerRequirement in forces.GetConcernsPerRequirement())
             {
-                EAElement requirement = concernsPerRequirement.Key;
-                List<EAElement> concerns = concernsPerRequirement.Value;
+                IEAElement requirement = concernsPerRequirement.Key;
+                List<IEAElement> concerns = concernsPerRequirement.Value;
 
-                foreach (EAElement concern in concerns)
+                foreach (IEAElement concern in concerns)
                 {
                     var reqRow = new TableRow();
                     var reqCell = new TableCell(new Paragraph(new Run(new Text(requirement.Name))));

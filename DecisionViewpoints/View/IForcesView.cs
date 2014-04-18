@@ -16,12 +16,12 @@ namespace DecisionViewpoints.View
 
         void SetController(IForcesController controller);
         void UpdateTable(IForcesModel model);
-        void UpdateDecision(EAElement element);
-        void UpdateRequirement(EAElement element);
-        void UpdateConcern(EAElement element);
-        void RemoveDecision(EAElement element);
-        void RemoveRequirement(EAElement element);
-        void RemoveConcern(EAElement element);
+        void UpdateDecision(IEAElement element);
+        void UpdateRequirement(IEAElement element);
+        void UpdateConcern(IEAElement element);
+        void RemoveDecision(IEAElement element);
+        void RemoveRequirement(IEAElement element);
+        void RemoveConcern(IEAElement element);
         string GetRating(int row, int column);
     }
 }

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using DecisionViewpoints.Model;
 using EAFacade.Model;
+
 
 namespace DecisionViewpoints.Logic.Chronological
 {
@@ -10,12 +12,12 @@ namespace DecisionViewpoints.Logic.Chronological
     {
         //private const string BaselineIdentifier = "Decision History";
 
-        private readonly EADiagram _chronologicalViewpoint;
-        private readonly EAPackage _historyPackage;
-        private readonly EAPackage _viewPackage;
+        private readonly IEADiagram _chronologicalViewpoint;
+        private readonly IEAPackage _historyPackage;
+        private readonly IEAPackage _viewPackage;
 
-        public ChronologicalViewpointGenerator(EAPackage viewPackage, EAPackage historyPackage,
-                                               EADiagram chronologicalViewpoint)
+        public ChronologicalViewpointGenerator(IEAPackage viewPackage, IEAPackage historyPackage,
+                                               IEADiagram chronologicalViewpoint)
         {
             _viewPackage = viewPackage;
             _chronologicalViewpoint = chronologicalViewpoint;
@@ -27,47 +29,47 @@ namespace DecisionViewpoints.Logic.Chronological
         public bool GenerateViewpoint()
         {
             
-            IEnumerable < EAElement > decisionElements = GetHistory();
-            IList<EAElement> connectedElements = ConnectDecisions(decisionElements);
+            IEnumerable < IEAElement > decisionElements = GetHistory();
+            IList<IEAElement> connectedElements = ConnectDecisions(decisionElements);
             GenerateDiagram(_chronologicalViewpoint, connectedElements);
 
             return false;
         }
 
-        private IEnumerable<EAElement> GetHistory()
+        private IEnumerable<IEAElement> GetHistory()
         {
-            IEnumerable<EAElement> allDecisionsInPackage =
+            IEnumerable<IEAElement> allDecisionsInPackage =
                 _viewPackage.GetAllDecisions();
 
             var history =  allDecisionsInPackage.SelectMany(DecisionStateChange.GetHistory);
         
-            IEnumerable<EAElement> exisitingHistoryDecisions = _historyPackage.Elements.Where(e => e.IsDecision());
+            IEnumerable<IEAElement> exisitingHistoryDecisions = _historyPackage.Elements.Where(e => e.IsDecision());
 
             //create non existing and update existing (name)
-            var pastDecisions = new List<EAElement>();
+            var pastDecisions = new List<IEAElement>();
             foreach (DecisionStateChange item in history.ToList())
             {
 
                 string name = string.Format(Messages.ChronologyDecisionName, item.Element.Name, item.DateModified.ToShortDateString());
                 string stereotype = item.State;
                 DateTime modified = item.DateModified;
-                var type = DVStereotypes.ActionMetaType;
+                var type = EAConstants.ActionMetaType;
                 string originalGUID = item.Element.GUID;
 
-                EAElement pastDecision = exisitingHistoryDecisions.FirstOrDefault(hd => originalGUID.Equals(hd.GetTaggedValue(DVTaggedValueKeys.OriginalDecisionGuid)) &&
+                IEAElement pastDecision = exisitingHistoryDecisions.FirstOrDefault(hd => originalGUID.Equals(hd.GetTaggedValue(EATaggedValueKeys.OriginalDecisionGuid)) &&
                                                                                        modified.ToString(CultureInfo.InvariantCulture)
-                                                                                               .Equals(hd.GetTaggedValue(DVTaggedValueKeys.DecisionStateModifiedDate)) &&
+                                                                                               .Equals(hd.GetTaggedValue(EATaggedValueKeys.DecisionStateModifiedDate)) &&
                                                                                        stereotype.Equals(hd.Stereotype));
                 if (pastDecision == null)
                 {
                     pastDecision = _historyPackage.CreateElement(name, stereotype, type);
                 }
-                pastDecision.MetaType = DVStereotypes.DecisionMetaType;
+                pastDecision.MetaType = EAConstants.DecisionMetaType;
                 pastDecision.Modified = modified;
-                pastDecision.AddTaggedValue(DVTaggedValueKeys.DecisionStateModifiedDate, modified.ToString(CultureInfo.InvariantCulture));
-                pastDecision.AddTaggedValue(DVTaggedValueKeys.DecisionState, stereotype);
-                pastDecision.AddTaggedValue(DVTaggedValueKeys.IsHistoryDecision, true.ToString());
-                pastDecision.AddTaggedValue(DVTaggedValueKeys.OriginalDecisionGuid, originalGUID);
+                pastDecision.AddTaggedValue(EATaggedValueKeys.DecisionStateModifiedDate, modified.ToString(CultureInfo.InvariantCulture));
+                pastDecision.AddTaggedValue(EATaggedValueKeys.DecisionState, stereotype);
+                pastDecision.AddTaggedValue(EATaggedValueKeys.IsHistoryDecision, true.ToString());
+                pastDecision.AddTaggedValue(EATaggedValueKeys.OriginalDecisionGuid, originalGUID);
 
                 pastDecisions.Add(pastDecision);
             }
@@ -77,11 +79,11 @@ namespace DecisionViewpoints.Logic.Chronological
             return pastDecisions.Union( _viewPackage.GetAllTopics());
         }
 
-        private IList<EAElement> ConnectDecisions(IEnumerable<EAElement> elements)
+        private IList<IEAElement> ConnectDecisions(IEnumerable<IEAElement> elements)
         {
             //determine order of decisions
-            List<EAElement> sortedElements = elements.ToList();
-            sortedElements.Sort(EAElement.CompareByStateDateModified);
+            List<IEAElement> sortedElements = elements.ToList();
+            sortedElements.Sort(DataComparator.CompareByStateDateModified);
 
             // connect subsequent elements
             for (int i = 1; i < sortedElements.Count(); i++)
@@ -93,9 +95,9 @@ namespace DecisionViewpoints.Logic.Chronological
         }
 
 
-        private void GenerateDiagram(EADiagram chronologicalViewpoint, IList<EAElement> elements)
+        private void GenerateDiagram(IEADiagram chronologicalViewpoint, IList<IEAElement> elements)
         {
-            foreach (EAElement element in elements)
+            foreach (IEAElement element in elements)
             {
                 chronologicalViewpoint.AddToDiagram(element);
             }

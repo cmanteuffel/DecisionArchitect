@@ -19,7 +19,7 @@ namespace DecisionViewpoints.Model
             {
                 _value = value;
                 if (_value.Length <= 255) return;
-                var repository = EARepository.Instance;
+                var repository = EAFacade.EA.Repository;
                 var decision = repository.GetElementByGUID(DecisionGUID);
                 var requirement = repository.GetElementByGUID(RequirementGUID);
                 var concern = repository.GetElementByGUID(ConcernGUID);

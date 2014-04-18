@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Xml;
 using EA;
 
-namespace EAFacade.Model
+namespace EAFacade.Model.Impl
 {
-    public class EAElement : IModelObject, IEquatable<EAElement>
+    internal sealed class EAElement : IEAElement
     {
         private readonly Element _native;
 
@@ -33,11 +32,11 @@ namespace EAFacade.Model
             set { _native.MetaType = value; }
         }
 
-        public EAElement ParentElement
+        public IEAElement ParentElement
         {
             get
             {
-                EAElement parentElmt = null;
+                IEAElement parentElmt = null;
                 if (_native.ParentID != 0)
                 {
                     parentElmt = EARepository.Instance.GetElementByID(_native.ParentID);
@@ -47,7 +46,7 @@ namespace EAFacade.Model
             set { _native.ParentID = value.ID; }
         }
 
-        public List<EATaggedValue> TaggedValues
+        public List<IEATaggedValue> TaggedValues
         {
             get
             {
@@ -62,7 +61,7 @@ namespace EAFacade.Model
             set { _native.StereotypeEx = value; }
         }
 
-        public bool Equals(EAElement element)
+        public bool Equals(IEAElement element)
         {
             if (element == null) return false;
             return _native.ElementGUID == element.GUID;
@@ -78,9 +77,9 @@ namespace EAFacade.Model
             get { return _native.ElementID; }
         }
 
-        public NativeType NativeType
+        public EANativeType EANativeType
         {
-            get { return NativeType.Element; }
+            get { return EANativeType.Element; }
         }
 
         public string Name
@@ -113,11 +112,11 @@ namespace EAFacade.Model
             set { _native.Version = value; }
         }
 
-        public EAPackage ParentPackage
+        public IEAPackage ParentPackage
         {
             get
             {
-                EAPackage parentPkg = EARepository.Instance.GetPackageByID(_native.PackageID);
+                IEAPackage parentPkg = EARepository.Instance.GetPackageByID(_native.PackageID);
                 return parentPkg;
             }
             set { _native.PackageID = value.ID; }
@@ -132,7 +131,7 @@ namespace EAFacade.Model
 
         public string GetProjectPath()
         {
-            EAPackage current = ParentPackage;
+            IEAPackage current = ParentPackage;
             string path = current.Name;
 
             while (!current.IsModelRoot())
@@ -144,106 +143,81 @@ namespace EAFacade.Model
             return path;
         }
 
-        public static int CompareByDateModified(EAElement x, EAElement y)
-        {
-            return DateTime.Compare(x.Modified, y.Modified);
-        }
 
-        public static int CompareByStateDateModified(EAElement x, EAElement y)
-        {
-            var oldestDateString =DateTime.MinValue.ToString(CultureInfo.InvariantCulture);
-            var xDateString = x.GetTaggedValue(DVTaggedValueKeys.DecisionStateModifiedDate) ?? oldestDateString;
-            var yDateString = y.GetTaggedValue(DVTaggedValueKeys.DecisionStateModifiedDate) ?? oldestDateString;
-
-            DateTime xModified = DateTime.Parse(xDateString);
-            DateTime yModified = DateTime.Parse(yDateString);
-            return DateTime.Compare(xModified, yModified);
-        }
-
-        public static EAElement Wrap(Element native)
-        {
-            return new EAElement(native);
-        }
-
-        public static EAElement Wrap(EventProperties properties)
-        {
-            dynamic elementId = EAUtilities.ParseToInt32(properties.Get(EAEventPropertyKeys.ElementId).Value, -1);
-            EAElement element = null;
-            if (elementId > 0)
-            {
-                element = EARepository.Instance.GetElementByID(elementId);
-            }
-            return element;
-        }
-
-        public IEnumerable<EAElement> GetTracedElements()
+        public IEnumerable<IEAElement> GetTracedElements()
         {
             if (_native == null)
             {
                 return new EAElement[0];
             }
-            IList<EAConnector> connectors = (from Connector c in _native.Connectors select EAConnector.Wrap(c)).ToList();
+            IList<IEAConnector> connectors =
+                (from Connector c in _native.Connectors select EAConnector.Wrap(c)).ToList();
 
-            IEnumerable<EAElement> traces = from EAConnector trace in connectors
-                                            where trace.Stereotype.Equals("trace")
-                                            select (trace.SupplierId == ID
-                                                        ? trace.GetClient()
-                                                        : trace.GetSupplier()
-                                                   );
+            IEnumerable<IEAElement> traces = from IEAConnector trace in connectors
+                                             where trace.Stereotype.Equals(EAConstants.RelationTrace)
+                                             select (trace.SupplierId == ID
+                                                         ? trace.GetClient()
+                                                         : trace.GetSupplier()
+                                                    );
             return traces;
         }
 
-        public IEnumerable<EAElement> GetDecisionsForTopic()
+        [Obsolete("Should be moved to topic", false)]
+        public IEnumerable<IEAElement> GetDecisionsForTopic()
         {
             if (!IsTopic())
             {
-                throw new Exception("EAElement is not a topic");
+                throw new Exception("EAElementImpl is not a topic");
             }
 
             return from EAElement e in GetElements() where e.IsDecision() select e;
         }
 
-        public IEnumerable<EAElement> GetConnectedConcerns()
+        [Obsolete("Should be moved to appropriate domain class", false)]
+        public IEnumerable<IEAElement> GetConnectedConcerns()
         {
             if (_native == null)
             {
                 return new EAElement[0];
             }
-            IList<EAConnector> connectors = (from Connector c in _native.Connectors select EAConnector.Wrap(c)).ToList();
+            IList<IEAConnector> connectors =
+                (from Connector c in _native.Connectors select EAConnector.Wrap(c)).ToList();
 
-            IEnumerable<EAElement> connectedConcerns = from EAConnector connector in connectors
-                                                       where connector.Stereotype.Equals("classified by")
-                                                       select (connector.GetSupplier());
+            IEnumerable<IEAElement> connectedConcerns = from IEAConnector connector in connectors
+                                                        where connector.Stereotype.Equals("classified by")
+                                                        select (connector.GetSupplier());
 
             return connectedConcerns;
         }
 
-        public IEnumerable<EAElement> GetConnectedRequirements()
+        [Obsolete("Should be moved to appropriate domain class", false)]
+        public IEnumerable<IEAElement> GetConnectedRequirements()
         {
             if (_native == null)
             {
                 return new EAElement[0];
             }
-            IList<EAConnector> connectors = (from Connector c in _native.Connectors select EAConnector.Wrap(c)).ToList();
+            IList<IEAConnector> connectors =
+                (from Connector c in _native.Connectors select EAConnector.Wrap(c)).ToList();
 
-            IEnumerable<EAElement> connectedRequirements = from EAConnector connector in connectors
-                                                           where connector.Stereotype.Equals("classified by")
-                                                           select (connector.GetClient());
+            IEnumerable<IEAElement> connectedRequirements = from IEAConnector connector in connectors
+                                                            where connector.Stereotype.Equals("classified by")
+                                                            select (connector.GetClient());
 
             return connectedRequirements;
         }
 
-        public EADiagram[] GetDiagrams()
+        public IEADiagram[] GetDiagrams()
         {
             string sql =
                 @"Select t_diagramobjects.Diagram_ID FROM t_diagramobjects WHERE t_diagramobjects.Object_ID = " + ID +
                 ";";
-            EARepository repository = EARepository.Instance;
+            IEARepository repository = EARepository.Instance;
             var document = new XmlDocument();
             document.LoadXml(repository.Query(sql));
             XmlNodeList diagramIDs = document.GetElementsByTagName(@"Diagram_ID");
 
-            var diagrams = new List<EADiagram>();
+            var diagrams = new List<IEADiagram>();
             foreach (XmlNode diagramID in diagramIDs)
             {
                 int id = EAUtilities.ParseToInt32(diagramID.InnerText, -1);
@@ -256,7 +230,7 @@ namespace EAFacade.Model
             return diagrams.ToArray();
         }
 
-        public IList<EAConnector> FindConnectors(EAElement suppliedElement, String type, String stereotype)
+        public IList<IEAConnector> FindConnectors(IEAElement suppliedElement, String type, String stereotype)
         {
             return GetConnectors().Where(c =>
                 {
@@ -266,7 +240,7 @@ namespace EAFacade.Model
                 }).ToList();
         }
 
-        public void ConnectTo(EAElement suppliedElement, String type, String stereotype)
+        public void ConnectTo(IEAElement suppliedElement, String type, String stereotype)
         {
             //check if two elements are already connected with this connector
             if (FindConnectors(suppliedElement, type, stereotype).Count > 0)
@@ -279,50 +253,34 @@ namespace EAFacade.Model
             connector.SupplierID = suppliedElement.ID;
             connector.Update();
             _native.Connectors.Refresh();
-            suppliedElement._native.Connectors.Refresh();
+            ((EAElement) suppliedElement)._native.Connectors.Refresh();
         }
 
 
         public bool IsDecision()
         {
-            return DVStereotypes.DecisionMetaType.Equals(MetaType.Trim());
-            //return DVStereotypes.DecisionMetaType.Equals(MetaType);
-        }
-
-        //angor task191 START
-        public bool HasTopic()
-        {
-            if (ParentElement == null) return false;
-            return ParentElement.IsTopic();
-        }
-
-        //angor task191 END
-
-        public EAElement GetTopic()
-        {
-            if (ParentElement == null || !ParentElement.IsTopic()) return null;
-
-            return ParentElement;
+            return EAConstants.DecisionMetaType.Equals(MetaType.Trim());
+            //return EAConstants.DecisionMetaType.Equals(MetaType);
         }
 
         public bool IsConcern()
         {
-            return DVStereotypes.ConcernMetaType.Equals(MetaType);
+            return EAConstants.ConcernMetaType.Equals(MetaType);
         }
 
         public bool IsRequirement()
         {
-            return DVStereotypes.RequirementMetaType.Equals(MetaType);
+            return EAConstants.RequirementMetaType.Equals(MetaType);
         }
 
         public bool IsTopic()
         {
-            return DVStereotypes.TopicMetaType.Equals(MetaType);
+            return EAConstants.TopicMetaType.Equals(MetaType);
         }
 
         public bool IsHistoryDecision()
         {
-            return true.ToString().Equals(GetTaggedValue(DVTaggedValueKeys.IsHistoryDecision));
+            return true.ToString().Equals(GetTaggedValue(EATaggedValueKeys.IsHistoryDecision));
         }
 
         public bool Update()
@@ -335,12 +293,12 @@ namespace EAFacade.Model
             _native.Refresh();
         }
 
-        public List<EAElement> GetElements()
+        public List<IEAElement> GetElements()
         {
             return _native.Elements.Cast<Element>().Select(Wrap).ToList();
         }
 
-        public List<EAConnector> GetConnectors()
+        public List<IEAConnector> GetConnectors()
         {
             return _native.Connectors.Cast<Connector>().Select(EAConnector.Wrap).ToList();
         }
@@ -388,6 +346,22 @@ namespace EAFacade.Model
             taggedValue.Update();
             _native.TaggedValues.Refresh();
             Update();
+        }
+
+        public static IEAElement Wrap(Element native)
+        {
+            return new EAElement(native);
+        }
+
+        public static IEAElement Wrap(EventProperties properties)
+        {
+            dynamic elementId = EAUtilities.ParseToInt32(properties.Get(EAEventPropertyKeys.ElementId).Value, -1);
+            EAElement element = null;
+            if (elementId > 0)
+            {
+                element = EARepository.Instance.GetElementByID(elementId);
+            }
+            return element;
         }
 
         public override bool Equals(object other)
