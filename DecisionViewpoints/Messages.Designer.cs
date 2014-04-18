@@ -286,6 +286,15 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &amp;New Topic.
+        /// </summary>
+        internal static string MenuTraceToNewTopic {
+            get {
+                return ResourceManager.GetString("MenuTraceToNewTopic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Decision Viewpoints.
         /// </summary>
         internal static string ModelValidationCategory {

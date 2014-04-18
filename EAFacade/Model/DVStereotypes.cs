@@ -12,6 +12,7 @@ namespace EAFacade.Model
         public const string DiagramMetaTypeChronological = "Decision Viewpoints::Chronological";
         public const string DiagramMetaTypeRelationship = "Decision Viewpoints::Relationship";
         public const string DiagramMetaTypeStakeholder = "Decision Viewpoints::Stakeholder Involvement";
+        public const string TopicMetaType = "Topic";//angor task189
 
         public const string StateIdea = "idea";
         public const string StateTentative = "tentative";

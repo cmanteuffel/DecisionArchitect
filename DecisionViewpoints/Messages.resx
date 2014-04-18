@@ -233,4 +233,8 @@
   <data name="SaveReportAs" xml:space="preserve">
     <value>Save report as...</value>
   </data>
+  <data name="MenuTraceToNewTopic" xml:space="preserve">
+    <value>&amp;New Topic</value>
+    <comment>angor</comment>
+  </data>
 </root>

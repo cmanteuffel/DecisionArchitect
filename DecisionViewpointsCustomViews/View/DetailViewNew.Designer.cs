@@ -32,7 +32,7 @@
             this.txtName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cbxState = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblTopicName = new System.Windows.Forms.Label();
             this.txtGroup = new System.Windows.Forms.TextBox();
             this.tbCnrtlModifiable = new System.Windows.Forms.TabControl();
             this.ProblemTab = new System.Windows.Forms.TabPage();
@@ -47,12 +47,25 @@
             this.tbCntrlUnodifiable = new System.Windows.Forms.TabControl();
             this.AlternativeTb = new System.Windows.Forms.TabPage();
             this.dgvAlternatives = new System.Windows.Forms.DataGridView();
+            this.uid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AlternativeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AlternativeFor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RelatedDecisionsTb = new System.Windows.Forms.TabPage();
             this.dgvRelatedDecisions = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RelatedName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Relation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RelatedTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RelatedRequirementsTb = new System.Windows.Forms.TabPage();
             this.dgvRelatedRequirements = new System.Windows.Forms.DataGridView();
+            this.reqUid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TracesTb = new System.Windows.Forms.TabPage();
             this.dgvTraces = new System.Windows.Forms.DataGridView();
+            this.traceUid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HistoryTb = new System.Windows.Forms.TabPage();
             this.dgvHistory = new System.Windows.Forms.DataGridView();
             this.Stakeholder = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -61,19 +74,8 @@
             this.Iteration = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.uid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AlternativeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AlternativeFor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.reqUid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.traceUid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RelatedName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Relation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RelatedTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblTopicDescription = new System.Windows.Forms.Label();
+            this.txtTopicDescription = new System.Windows.Forms.TextBox();
             this.tbCnrtlModifiable.SuspendLayout();
             this.ProblemTab.SuspendLayout();
             this.DescriptionTab.SuspendLayout();
@@ -104,9 +106,9 @@
             // 
             this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtName.Location = new System.Drawing.Point(55, 10);
+            this.txtName.Location = new System.Drawing.Point(113, 10);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(502, 20);
+            this.txtName.Size = new System.Drawing.Size(444, 20);
             this.txtName.TabIndex = 1;
             // 
             // label1
@@ -129,27 +131,28 @@
             "challenged",
             "discarded",
             "rejected"});
-            this.cbxState.Location = new System.Drawing.Point(55, 36);
+            this.cbxState.Location = new System.Drawing.Point(113, 36);
             this.cbxState.Name = "cbxState";
             this.cbxState.Size = new System.Drawing.Size(162, 21);
             this.cbxState.TabIndex = 4;
             // 
-            // label2
+            // lblTopicName
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 66);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(39, 13);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Group:";
+            this.lblTopicName.AutoSize = true;
+            this.lblTopicName.Location = new System.Drawing.Point(13, 66);
+            this.lblTopicName.Name = "lblTopicName";
+            this.lblTopicName.Size = new System.Drawing.Size(66, 13);
+            this.lblTopicName.TabIndex = 5;
+            this.lblTopicName.Text = "Topic name:";
             // 
             // txtGroup
             // 
             this.txtGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtGroup.Location = new System.Drawing.Point(55, 63);
+            this.txtGroup.Location = new System.Drawing.Point(113, 63);
             this.txtGroup.Name = "txtGroup";
-            this.txtGroup.Size = new System.Drawing.Size(502, 20);
+            this.txtGroup.ReadOnly = true;
+            this.txtGroup.Size = new System.Drawing.Size(444, 20);
             this.txtGroup.TabIndex = 6;
             // 
             // tbCnrtlModifiable
@@ -160,11 +163,11 @@
             this.tbCnrtlModifiable.Controls.Add(this.ProblemTab);
             this.tbCnrtlModifiable.Controls.Add(this.DescriptionTab);
             this.tbCnrtlModifiable.Controls.Add(this.ArgumentsTab);
-            this.tbCnrtlModifiable.Location = new System.Drawing.Point(16, 95);
+            this.tbCnrtlModifiable.Location = new System.Drawing.Point(16, 110);
             this.tbCnrtlModifiable.MinimumSize = new System.Drawing.Size(0, 140);
             this.tbCnrtlModifiable.Name = "tbCnrtlModifiable";
             this.tbCnrtlModifiable.SelectedIndex = 0;
-            this.tbCnrtlModifiable.Size = new System.Drawing.Size(512, 210);
+            this.tbCnrtlModifiable.Size = new System.Drawing.Size(512, 227);
             this.tbCnrtlModifiable.TabIndex = 7;
             // 
             // ProblemTab
@@ -173,7 +176,7 @@
             this.ProblemTab.Location = new System.Drawing.Point(4, 22);
             this.ProblemTab.Name = "ProblemTab";
             this.ProblemTab.Padding = new System.Windows.Forms.Padding(3);
-            this.ProblemTab.Size = new System.Drawing.Size(504, 184);
+            this.ProblemTab.Size = new System.Drawing.Size(504, 201);
             this.ProblemTab.TabIndex = 0;
             this.ProblemTab.Text = "Problem";
             this.ProblemTab.UseVisualStyleBackColor = true;
@@ -186,7 +189,7 @@
             this.txtIssue.Location = new System.Drawing.Point(2, 2);
             this.txtIssue.Margin = new System.Windows.Forms.Padding(2);
             this.txtIssue.Name = "txtIssue";
-            this.txtIssue.Size = new System.Drawing.Size(500, 180);
+            this.txtIssue.Size = new System.Drawing.Size(500, 197);
             this.txtIssue.TabIndex = 0;
             this.txtIssue.Text = "";
             this.txtIssue.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.txtIssue_LinkClicked);
@@ -197,7 +200,7 @@
             this.DescriptionTab.Location = new System.Drawing.Point(4, 22);
             this.DescriptionTab.Name = "DescriptionTab";
             this.DescriptionTab.Padding = new System.Windows.Forms.Padding(3);
-            this.DescriptionTab.Size = new System.Drawing.Size(504, 184);
+            this.DescriptionTab.Size = new System.Drawing.Size(504, 201);
             this.DescriptionTab.TabIndex = 1;
             this.DescriptionTab.Text = "Decision";
             this.DescriptionTab.UseVisualStyleBackColor = true;
@@ -220,7 +223,7 @@
             this.ArgumentsTab.Controls.Add(this.txtArguments);
             this.ArgumentsTab.Location = new System.Drawing.Point(4, 22);
             this.ArgumentsTab.Name = "ArgumentsTab";
-            this.ArgumentsTab.Size = new System.Drawing.Size(504, 184);
+            this.ArgumentsTab.Size = new System.Drawing.Size(504, 201);
             this.ArgumentsTab.TabIndex = 2;
             this.ArgumentsTab.Text = "Arguments";
             this.ArgumentsTab.UseVisualStyleBackColor = true;
@@ -244,7 +247,7 @@
             this.btnBold.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnBold.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBold.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.btnBold.Location = new System.Drawing.Point(530, 121);
+            this.btnBold.Location = new System.Drawing.Point(530, 136);
             this.btnBold.Name = "btnBold";
             this.btnBold.Size = new System.Drawing.Size(29, 24);
             this.btnBold.TabIndex = 8;
@@ -257,7 +260,7 @@
             this.btnItalics.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnItalics.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnItalics.Font = new System.Drawing.Font("Castellar", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnItalics.Location = new System.Drawing.Point(530, 150);
+            this.btnItalics.Location = new System.Drawing.Point(530, 165);
             this.btnItalics.Name = "btnItalics";
             this.btnItalics.Size = new System.Drawing.Size(29, 25);
             this.btnItalics.TabIndex = 9;
@@ -270,7 +273,7 @@
             this.btnunderline.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnunderline.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnunderline.Font = new System.Drawing.Font("Lucida Sans Unicode", 9F, System.Drawing.FontStyle.Underline);
-            this.btnunderline.Location = new System.Drawing.Point(530, 180);
+            this.btnunderline.Location = new System.Drawing.Point(530, 195);
             this.btnunderline.Name = "btnunderline";
             this.btnunderline.Size = new System.Drawing.Size(29, 25);
             this.btnunderline.TabIndex = 10;
@@ -287,7 +290,7 @@
             this.tbCntrlUnodifiable.Controls.Add(this.RelatedRequirementsTb);
             this.tbCntrlUnodifiable.Controls.Add(this.TracesTb);
             this.tbCntrlUnodifiable.Controls.Add(this.HistoryTb);
-            this.tbCntrlUnodifiable.Location = new System.Drawing.Point(16, 311);
+            this.tbCntrlUnodifiable.Location = new System.Drawing.Point(16, 338);
             this.tbCntrlUnodifiable.Name = "tbCntrlUnodifiable";
             this.tbCntrlUnodifiable.SelectedIndex = 0;
             this.tbCntrlUnodifiable.Size = new System.Drawing.Size(541, 210);
@@ -323,6 +326,27 @@
             this.dgvAlternatives.TabIndex = 19;
             this.dgvAlternatives.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAlternatives_CellContentDoubleClick);
             // 
+            // uid
+            // 
+            this.uid.HeaderText = "uid";
+            this.uid.Name = "uid";
+            this.uid.ReadOnly = true;
+            this.uid.Visible = false;
+            // 
+            // AlternativeName
+            // 
+            this.AlternativeName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.AlternativeName.HeaderText = "Decision Name";
+            this.AlternativeName.Name = "AlternativeName";
+            this.AlternativeName.ReadOnly = true;
+            // 
+            // AlternativeFor
+            // 
+            this.AlternativeFor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.AlternativeFor.HeaderText = "Alternative for";
+            this.AlternativeFor.Name = "AlternativeFor";
+            this.AlternativeFor.ReadOnly = true;
+            // 
             // RelatedDecisionsTb
             // 
             this.RelatedDecisionsTb.BackColor = System.Drawing.SystemColors.Control;
@@ -354,6 +378,34 @@
             this.dgvRelatedDecisions.TabIndex = 19;
             this.dgvRelatedDecisions.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRelatedDecisions_CellContentClick);
             // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "uid";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Visible = false;
+            // 
+            // RelatedName
+            // 
+            this.RelatedName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.RelatedName.HeaderText = "Decision Name";
+            this.RelatedName.Name = "RelatedName";
+            this.RelatedName.ReadOnly = true;
+            // 
+            // Relation
+            // 
+            this.Relation.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Relation.HeaderText = "Relation";
+            this.Relation.Name = "Relation";
+            this.Relation.ReadOnly = true;
+            // 
+            // RelatedTo
+            // 
+            this.RelatedTo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.RelatedTo.HeaderText = "Related to";
+            this.RelatedTo.Name = "RelatedTo";
+            this.RelatedTo.ReadOnly = true;
+            // 
             // RelatedRequirementsTb
             // 
             this.RelatedRequirementsTb.BackColor = System.Drawing.SystemColors.Control;
@@ -383,6 +435,27 @@
             this.dgvRelatedRequirements.TabIndex = 19;
             this.dgvRelatedRequirements.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRelatedRequirements_CellContentClick);
             // 
+            // reqUid
+            // 
+            this.reqUid.HeaderText = "reqUid";
+            this.reqUid.Name = "reqUid";
+            this.reqUid.ReadOnly = true;
+            this.reqUid.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Requirement Name";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn3.HeaderText = "Description";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
             // TracesTb
             // 
             this.TracesTb.BackColor = System.Drawing.SystemColors.Control;
@@ -411,6 +484,27 @@
             this.dgvTraces.Size = new System.Drawing.Size(533, 184);
             this.dgvTraces.TabIndex = 19;
             this.dgvTraces.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTraces_CellContentClick);
+            // 
+            // traceUid
+            // 
+            this.traceUid.HeaderText = "traceUid";
+            this.traceUid.Name = "traceUid";
+            this.traceUid.ReadOnly = true;
+            this.traceUid.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn4.HeaderText = "Trace Name";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            // 
+            // Type
+            // 
+            this.Type.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Type.HeaderText = "Type";
+            this.Type.Name = "Type";
+            this.Type.ReadOnly = true;
             // 
             // HistoryTb
             // 
@@ -472,7 +566,7 @@
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOk.Location = new System.Drawing.Point(454, 525);
+            this.buttonOk.Location = new System.Drawing.Point(454, 549);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(36, 23);
             this.buttonOk.TabIndex = 13;
@@ -483,7 +577,7 @@
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.Location = new System.Drawing.Point(496, 525);
+            this.buttonCancel.Location = new System.Drawing.Point(496, 549);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(57, 23);
             this.buttonCancel.TabIndex = 14;
@@ -491,102 +585,33 @@
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
-            // uid
+            // lblTopicDescription
             // 
-            this.uid.HeaderText = "uid";
-            this.uid.Name = "uid";
-            this.uid.ReadOnly = true;
-            this.uid.Visible = false;
+            this.lblTopicDescription.AutoSize = true;
+            this.lblTopicDescription.Location = new System.Drawing.Point(13, 91);
+            this.lblTopicDescription.Name = "lblTopicDescription";
+            this.lblTopicDescription.Size = new System.Drawing.Size(91, 13);
+            this.lblTopicDescription.TabIndex = 15;
+            this.lblTopicDescription.Text = "Topic description:";
+            this.lblTopicDescription.Visible = false;
+            this.lblTopicDescription.Click += new System.EventHandler(this.label3_Click);
             // 
-            // AlternativeName
+            // txtTopicDescription
             // 
-            this.AlternativeName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.AlternativeName.HeaderText = "Decision Name";
-            this.AlternativeName.Name = "AlternativeName";
-            this.AlternativeName.ReadOnly = true;
-            // 
-            // AlternativeFor
-            // 
-            this.AlternativeFor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.AlternativeFor.HeaderText = "Alternative for";
-            this.AlternativeFor.Name = "AlternativeFor";
-            this.AlternativeFor.ReadOnly = true;
-            // 
-            // reqUid
-            // 
-            this.reqUid.HeaderText = "reqUid";
-            this.reqUid.Name = "reqUid";
-            this.reqUid.ReadOnly = true;
-            this.reqUid.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn2.HeaderText = "Requirement Name";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn3.HeaderText = "Description";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            // 
-            // traceUid
-            // 
-            this.traceUid.HeaderText = "traceUid";
-            this.traceUid.Name = "traceUid";
-            this.traceUid.ReadOnly = true;
-            this.traceUid.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn4.HeaderText = "Trace Name";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            // 
-            // Type
-            // 
-            this.Type.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Type.HeaderText = "Type";
-            this.Type.Name = "Type";
-            this.Type.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "uid";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Visible = false;
-            // 
-            // RelatedName
-            // 
-            this.RelatedName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.RelatedName.HeaderText = "Decision Name";
-            this.RelatedName.Name = "RelatedName";
-            this.RelatedName.ReadOnly = true;
-            // 
-            // Relation
-            // 
-            this.Relation.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Relation.HeaderText = "Relation";
-            this.Relation.Name = "Relation";
-            this.Relation.ReadOnly = true;
-            // 
-            // RelatedTo
-            // 
-            this.RelatedTo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.RelatedTo.HeaderText = "Related to";
-            this.RelatedTo.Name = "RelatedTo";
-            this.RelatedTo.ReadOnly = true;
+            this.txtTopicDescription.Location = new System.Drawing.Point(113, 88);
+            this.txtTopicDescription.Name = "txtTopicDescription";
+            this.txtTopicDescription.ReadOnly = true;
+            this.txtTopicDescription.Size = new System.Drawing.Size(444, 20);
+            this.txtTopicDescription.TabIndex = 16;
+            this.txtTopicDescription.Visible = false;
             // 
             // DetailViewNew
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(569, 557);
+            this.ClientSize = new System.Drawing.Size(569, 574);
+            this.Controls.Add(this.txtTopicDescription);
+            this.Controls.Add(this.lblTopicDescription);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.tbCntrlUnodifiable);
@@ -595,7 +620,7 @@
             this.Controls.Add(this.btnBold);
             this.Controls.Add(this.tbCnrtlModifiable);
             this.Controls.Add(this.txtGroup);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lblTopicName);
             this.Controls.Add(this.cbxState);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtName);
@@ -631,7 +656,7 @@
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cbxState;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblTopicName;
         private System.Windows.Forms.TextBox txtGroup;
         private System.Windows.Forms.TabControl tbCnrtlModifiable;
         private System.Windows.Forms.TabPage ProblemTab;
@@ -673,5 +698,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn RelatedName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Relation;
         private System.Windows.Forms.DataGridViewTextBoxColumn RelatedTo;
+        private System.Windows.Forms.Label lblTopicDescription;
+        private System.Windows.Forms.TextBox txtTopicDescription;
     }
 }

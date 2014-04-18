@@ -30,6 +30,7 @@ namespace DecisionViewpointsCustomViews.Controller
             _view.DecisionText = _decision.DecisionText;
             _view.DecisionAlternatives = _decision.Alternatives;
             _view.DecisionArguments = _decision.Arguments;
+            _view.DecisionGroup = _decision.Group; //angor task191
 
             // Update Related Decisions field
             foreach (var connector in _decision.GetConnectors().Where(connector => connector.IsRelationship()))
@@ -92,6 +93,14 @@ namespace DecisionViewpointsCustomViews.Controller
             }
 
             _view.DecisionRelatedRequirements = _decision.RelatedRequirements;
+
+            //update topic
+            if (EARepository.Instance.GetElementByID(_decision.ID).HasTopic())
+            {
+                var topic = EARepository.Instance.GetElementByID(_decision.ID).ParentElement;
+                _view.AddTopic(topic.Name, "", true);
+            }
+
         }
 
         public void ShowDetailView()
@@ -104,6 +113,7 @@ namespace DecisionViewpointsCustomViews.Controller
         {
             _decision.Name = _view.DecisionName;
             _decision.State = _view.DecisionState;
+            _decision.Group = _view.DecisionGroup;//angor task191
             var extraData = new StringBuilder();
             extraData.Append(string.Format("{0}{1}{2}", DecisionDataTags.Issue, _view.DecisionIssue,
                                            DecisionDataTags.Issue));

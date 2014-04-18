@@ -20,7 +20,6 @@ namespace DecisionViewpoints.Logic.Menu
         {
             var createTraces = new Model.Menu.Menu(Messages.MenuCreateTraces);
             var createAndTraceDecision = new MenuItem(Messages.MenuTraceToNewDecision, CreateAndTraceDecision)
-         
             {
                     UpdateDelegate = menuItem =>
                         {
@@ -34,6 +33,21 @@ namespace DecisionViewpoints.Logic.Menu
                         }
                 };
 
+            //angor task191 START
+            var createAndTraceTopic = new MenuItem(Messages.MenuTraceToNewTopic, CreateAndTraceTopic)
+            {
+                UpdateDelegate = menuItem =>
+                {
+                    if (NativeType.Element == EARepository.Instance.GetContextItemType())
+                    {
+                        var eaelement = EARepository.Instance.GetContextObject<EAElement>();
+                        menuItem.IsEnabled = (eaelement != null && !eaelement.IsDecision());
+                        return;
+                    }
+                    menuItem.IsEnabled = false;
+                }
+            };
+            //angor task191 END
 
             var baselinesOptions = new Model.Menu.Menu(Messages.MenuBaselineOptions);
             var baselineManually = new MenuItem(Messages.MenuBaselineManually)
@@ -160,8 +174,11 @@ namespace DecisionViewpoints.Logic.Menu
 
             RootMenu.Add(createTraces);
             createTraces.Add(createAndTraceDecision);
+            createTraces.Add(createAndTraceTopic);
+            /*
             createTraces.Add(new MenuItem(Messages.MenuTraceToExistingElement,
                                           (() => MessageBox.Show("To be implemented"))));
+             */ //angor 
             RootMenu.Add(new FollowTraceMenu());
             RootMenu.Add(MenuItem.Separator);
             RootMenu.Add(baselinesOptions);
@@ -242,10 +259,40 @@ namespace DecisionViewpoints.Logic.Menu
                 }
                 else
                 {
-                    MessageBox.Show("Here I am"); //angor
+                    //MessageBox.Show("Element is not a decision."); //angor
                 }
             }
         }
+
+        //angor task191 START
+        private static void CreateAndTraceTopic()
+        {
+            MessageBox.Show("Create and trace Topic");
+            EARepository repository = EARepository.Instance;
+            if (repository.GetContextItemType() == NativeType.Element)
+            {
+                var eaelement = EARepository.Instance.GetContextObject<EAElement>();
+                if (eaelement != null && !eaelement.IsDecision())
+                {
+                    var createTopicView = new CreateTopic(eaelement.Name + " Topic");
+                    if (createTopicView.ShowDialog() == DialogResult.OK)
+                    {
+                        EAPackage dvPackage = repository.GetPackageFromRootByName("Decision Views");
+
+                        EAElement topic = dvPackage.AddElement(createTopicView.GetName(), "Activity");
+                        topic.MetaType = DVStereotypes.TopicMetaType;
+
+                        eaelement.ConnectTo(topic, "Abstarction", "trace");
+                        topic.Update();
+
+                        dvPackage.RefreshElements();
+                        repository.RefreshModelView(dvPackage.ID);
+                        topic.ShowInProjectView();
+                    }
+                }
+            }
+        }
+        //angor task191 END
 
         private static void ManualDecisionSnapshot()
         {

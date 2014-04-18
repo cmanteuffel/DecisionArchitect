@@ -25,6 +25,15 @@ namespace DecisionViewpointsCustomViews.View
             set { cbxState.Text = value; }
         }
 
+        //angor task191 START
+        public string DecisionGroup
+        {
+            get { return txtGroup.Text.Trim(' '); }
+            set { txtGroup.Text = value; }
+        }
+        //angor task191 END
+
+
         public string DecisionIssue
         {
             get { return txtIssue.Text.Trim(' '); }
@@ -125,6 +134,11 @@ namespace DecisionViewpointsCustomViews.View
         }
 
         private void buttonCancel_Click(object sender, System.EventArgs e)
+        {
+
+        }
+
+        public void AddTopic(string name, string description, bool hasTopic)
         {
 
         }

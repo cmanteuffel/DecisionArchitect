@@ -60,6 +60,12 @@
     <Compile Include="CreateDecision.Designer.cs">
       <DependentUpon>CreateDecision.cs</DependentUpon>
     </Compile>
+    <Compile Include="CreateTopic.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateTopic.Designer.cs">
+      <DependentUpon>CreateTopic.cs</DependentUpon>
+    </Compile>
     <Compile Include="Logic\Chronological\ChronologicalViewpointGenerator.cs" />
     <Compile Include="Logic\Chronological\ChronologicalViewpointHandler.cs" />
     <Compile Include="Logic\Chronological\DecisionDiffItem.cs" />
@@ -127,6 +133,9 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Settings2.Designer.cs</LastGenOutput>
     </None>
+    <EmbeddedResource Include="CreateTopic.resx">
+      <DependentUpon>CreateTopic.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Logic\Menu\ExportReportsCustomMessageBox.resx">
       <DependentUpon>ExportReportsCustomMessageBox.cs</DependentUpon>
     </EmbeddedResource>

@@ -14,4 +14,13 @@
     {
         void Update(IDecision model);
     }
+
+    //angor task189 START
+    /*
+    public interface ITopicObserver : ICustomViewModelObserver
+    {
+        void Update(ITopic model);
+    }
+     */ 
+    //angor task189 END
 }

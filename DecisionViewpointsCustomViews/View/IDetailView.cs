@@ -12,6 +12,7 @@ namespace DecisionViewpointsCustomViews.View
         string DecisionAlternatives { get; set; }
         string DecisionArguments { get; set; }
         string DecisionRelatedRequirements { get; set; }
+        string DecisionGroup { get; set; }//angor task191
 
         //string DecisionIssuePlainText { get; }//angor
 
@@ -26,5 +27,6 @@ namespace DecisionViewpointsCustomViews.View
         void AddTrace(string name, string type, string uid);//angor task 161
        // void AddRelatedRequirement(string name, string rating, string description);//angor task159
         void AddRelatedRequirement(string name, string rating, string description, string uid);//angor task161
+        void AddTopic(string name, string description, bool hasTopic);//angor task191
     }
 }

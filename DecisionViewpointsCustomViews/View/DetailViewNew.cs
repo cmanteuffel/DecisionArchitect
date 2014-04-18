@@ -21,6 +21,7 @@ namespace DecisionViewpointsCustomViews.View
     public partial class DetailViewNew : Form, IDetailView
     {
         private IDetailViewController _controller;
+        private bool _hasTopic = false;
 
         public DetailViewNew()
         {
@@ -43,6 +44,14 @@ namespace DecisionViewpointsCustomViews.View
             get { return cbxState.Text.Trim(' '); }
             set { cbxState.Text = value; }
         }
+
+        //angor task191 START
+        public string DecisionGroup
+        {
+            get { return txtGroup.Text.Trim(' '); }
+            set { txtGroup.Text = value;  }    
+        }
+        //angor task191 END
 
         public string DecisionIssue
         {
@@ -161,6 +170,13 @@ namespace DecisionViewpointsCustomViews.View
             dgvRelatedRequirements.Rows.Add(new object[] {uid, name, "", "", description});
         }
 
+        public void AddTopic(string name, string description, bool hasTopic)
+        {
+            _hasTopic = hasTopic;
+            txtGroup.Text = name;
+            txtTopicDescription.Text = description;
+        }
+        
 
         /* not implemented in this DetailView
         public void rtf_LinkClicked(object sender, LinkClickedEventArgs e)
@@ -180,6 +196,14 @@ namespace DecisionViewpointsCustomViews.View
                 Text = txtName.Text + " (" + cbxState.Text + ")";
             else
                 Text = txtName.Text.Substring(0, 40) + "... (" + cbxState.Text + ")";
+
+            if (!_hasTopic)
+            {
+                lblTopicName.Visible = false;
+                txtGroup.Visible = false;
+                lblTopicDescription.Visible = false;
+                txtTopicDescription.Visible = false;
+            }
 
         }
 
@@ -301,10 +325,17 @@ namespace DecisionViewpointsCustomViews.View
             }
             else if (diagrams.Count() >= 2)
             {
+                /*
                 var selectForm = new SelectDiagram(diagrams);
+                if (element.IsDecision())
+                    selectForm = new SelectDiagram(diagrams,true);
+                else
+                 */ 
+                    var selectForm = new SelectDiagram(diagrams);
                 if (selectForm.ShowDialog() == DialogResult.OK)
                 {
                     var diagram = selectForm.GetSelectedDiagram();
+                    //MessageBox.Show("showing diagram with id: " + diagram.ID);
                     diagram.OpenAndSelectElement(element);
                 }
             }
@@ -354,6 +385,11 @@ namespace DecisionViewpointsCustomViews.View
                 var elementGUID = dgvTraces[0, e.RowIndex].Value.ToString();
                 showDiagramsForEAElement(elementGUID);
             }
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
         //angor task161 END--------------------------------------------------------------------------------
 
