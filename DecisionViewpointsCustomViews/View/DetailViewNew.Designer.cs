@@ -617,7 +617,6 @@
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.NameLabel);
             this.MinimumSize = new System.Drawing.Size(240, 520);
-            this.Name = "DetailViewNew";
             this.ShowIcon = false;
             this.Text = "DetailViewNew";
             this.Load += new System.EventHandler(this.DetailViewNew_Load);
