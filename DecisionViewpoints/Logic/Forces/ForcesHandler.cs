@@ -56,35 +56,43 @@ namespace DecisionViewpoints.Logic.Forces
         public override void OnNotifyContextItemModified(string guid, NativeType type)
         {
             var repository = EARepository.Instance;
-            var diagrams = new List<EADiagram>();
+            ICustomViewController forcesController;
             switch (type)
             {
                 case NativeType.Diagram:
+                    // the diagram is modified when we remove an element or a connector from it
                     var diagram = repository.GetDiagramByGuid(guid);
                     if (!diagram.IsForces()) return;
-                    diagrams.Add(diagram);
+                    // if the name of a diagram changed and the forces tab is open then close it to avoid conflicts
+                    if (repository.IsTabOpen(CreateForcesTabName(diagram.Name)) <= 0)
+                    {
+                        if (!_controllers.ContainsKey(diagram.GUID)) break;
+                        forcesController = _controllers[diagram.GUID];
+                        if (repository.IsTabOpen(forcesController.Model.Name) > 0)
+                            repository.RemoveTab(forcesController.Model.Name);
+                        break;
+                    }
+                    if (!_controllers.ContainsKey(diagram.GUID)) break;
+                    forcesController = _controllers[diagram.GUID];
+                    forcesController.SetDiagramModel(diagram);
                     break;
                 case NativeType.Element:
                     var element = repository.GetElementByGUID(guid);
-                    diagrams.AddRange(element.GetDiagrams().Where(eaDiagram => eaDiagram.IsForces()));
+                    foreach (
+                        var eaDiagram in
+                            element.GetDiagrams()
+                                   .Where(eaDiagram => eaDiagram.IsForces())
+                                   .Where(eaDiagram => _controllers.ContainsKey(eaDiagram.GUID)))
+                    {
+                        forcesController = _controllers[eaDiagram.GUID];
+                        if (element.IsDecision())
+                            forcesController.UpdateDecision(element);
+                        else if (element.IsConcern())
+                            forcesController.UpdateConcern(element);
+                        else if (element.IsRequirement())
+                            forcesController.UpdateRequirement(element);
+                    }
                     break;
-            }
-            if (diagrams.Count == 0) return;
-            foreach (var diagram in diagrams)
-            {
-                ICustomViewController forcesController;
-                if (repository.IsTabOpen(CreateForcesTabName(diagram.Name)) <= 0)
-                {
-                    // if the name of a diagram changed and the forces tab is open then close it to avoid conflicts
-                    if (!_controllers.ContainsKey(diagram.GUID)) continue;
-                    forcesController = _controllers[diagram.GUID];
-                    if (repository.IsTabOpen(forcesController.Model.Name) > 0)
-                        repository.RemoveTab(forcesController.Model.Name);
-                    continue;
-                }
-                if (!_controllers.ContainsKey(diagram.GUID)) continue;
-                forcesController = _controllers[diagram.GUID];
-                forcesController.SetDiagramModel(diagram);
             }
         }
 

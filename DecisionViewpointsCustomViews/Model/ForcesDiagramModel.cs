@@ -50,12 +50,12 @@ namespace DecisionViewpointsCustomViews.Model
                     into element where element.IsDecision() select element).ToList();
         }
 
-        public List<EAElement> GetRequirements()
+        public EAElement[] GetRequirements()
         {
             var repository = EARepository.Instance;
             return (from diagramObject in _diagram.GetElements()
                     select repository.GetElementByID(diagramObject.ElementID)
-                    into element where element.IsRequirement() select element).ToList();
+                    into element where element.IsRequirement() select element).ToArray();
         }
 
         public Dictionary<EAElement, List<EAElement>> GetConcerns()

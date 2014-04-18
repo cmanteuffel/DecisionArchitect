@@ -87,19 +87,34 @@ namespace DecisionViewpointsCustomViews.Controller
             _model.DiagramModel = diagram;
         }
 
+        public void UpdateDecision(EAElement element)
+        {
+            _view.UpdateDecision(element);
+        }
+
+        public void UpdateRequirement(EAElement element)
+        {
+            _view.UpdateRequirement(element);
+        }
+
+        public void UpdateConcern(EAElement element)
+        {
+            _view.UpdateConcern(element);
+        }
+
         public void RemoveDecision(EAElement element)
         {
-            _view.RemoveDecision(element.GUID);
+            _view.RemoveDecision(element);
         }
 
         public void RemoveRequirement(EAElement element)
         {
-            _view.RemoveRequirement(element.GUID);
+            _view.RemoveRequirement(element);
         }
 
         public void RemoveConcern(EAElement element)
         {
-            _view.RemoveConcern(element.GUID);
+            _view.RemoveConcern(element);
         }
     }
 }

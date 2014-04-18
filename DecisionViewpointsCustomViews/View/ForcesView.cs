@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -43,22 +44,27 @@ namespace DecisionViewpointsCustomViews.View
         {
             this._forcesTable = new System.Windows.Forms.DataGridView();
             this._btnConfigure = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this._forcesTable)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this._forcesTable)).BeginInit();
             this.SuspendLayout();
             // 
             // _forcesTable
             // 
             this._forcesTable.AllowUserToAddRows = false;
             this._forcesTable.AllowUserToDeleteRows = false;
-            this._forcesTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this._forcesTable.ColumnHeadersHeightSizeMode =
+                System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._forcesTable.Location = new System.Drawing.Point(35, 30);
             this._forcesTable.Name = "_forcesTable";
-            this._forcesTable.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
+            this._forcesTable.RowHeadersWidthSizeMode =
+                System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this._forcesTable.RowTemplate.Height = 33;
             this._forcesTable.Size = new System.Drawing.Size(762, 582);
             this._forcesTable.TabIndex = 2;
-            this._forcesTable.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this._forcesTable_CellValueChanged);
-            this._forcesTable.ColumnHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this._forcesTable_ColumnHeaderMouseDoubleClick);
+            this._forcesTable.CellValueChanged +=
+                new System.Windows.Forms.DataGridViewCellEventHandler(this._forcesTable_CellValueChanged);
+            this._forcesTable.ColumnHeaderMouseDoubleClick +=
+                new System.Windows.Forms.DataGridViewCellMouseEventHandler(
+                    this._forcesTable_ColumnHeaderMouseDoubleClick);
             // 
             // _btnConfigure
             // 
@@ -76,9 +82,8 @@ namespace DecisionViewpointsCustomViews.View
             this.Controls.Add(this._forcesTable);
             this.Name = "ForcesView";
             this.Size = new System.Drawing.Size(850, 696);
-            ((System.ComponentModel.ISupportInitialize)(this._forcesTable)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this._forcesTable)).EndInit();
             this.ResumeLayout(false);
-
         }
 
         private void _btnConfigure_Click(object sender, System.EventArgs e)
@@ -106,7 +111,7 @@ namespace DecisionViewpointsCustomViews.View
             data.PrimaryKey = new[] {data.Columns[RequirementGUIDHeader]};
             data.Columns.Add(ConcernHeader);
             data.Columns.Add(ConcernGUIDHeader);
-            
+
             // insert the decisions names as new columns in the table
             InsertDecisions(model, data);
 
@@ -145,6 +150,80 @@ namespace DecisionViewpointsCustomViews.View
             }
         }
 
+        public void UpdateDecision(EAElement element)
+        {
+            var columnIndex = 0;
+            var found = false;
+            foreach (DataGridViewCell cell in _forcesTable.Rows[_forcesTable.Rows.Count - 1].Cells)
+            {
+                if (cell.Value.ToString().Equals(element.GUID))
+                {
+                    found = true;
+                    break;
+                }
+                columnIndex++;
+            }
+            if (found)
+                _forcesTable.Columns[columnIndex].HeaderText = String.Format("<<{0}>>\n{1}", element.Stereotype,
+                                                                             element.Name);
+        }
+
+        public void UpdateRequirement(EAElement element)
+        {
+            foreach (
+                var row in
+                    _forcesTable.Rows.Cast<DataGridViewRow>()
+                                .Where(
+                                    row => row.Cells[RequirementGUIDColumnIndex].Value.ToString().Equals(element.GUID)))
+            {
+                row.HeaderCell.Value = element.Name;
+            }
+        }
+
+        public void UpdateConcern(EAElement element)
+        {
+            foreach (
+                var row in
+                    _forcesTable.Rows.Cast<DataGridViewRow>()
+                                .Where(row => row.Cells[ConcernGUIDColumnIndex].Value.ToString().Equals(element.GUID)))
+            {
+                row.Cells[ConcernColumnIndex].Value = element.Name;
+            }
+        }
+
+        public void RemoveDecision(EAElement element)
+        {
+            var columnIndex =
+                _forcesTable.Rows[_forcesTable.Rows.Count - 1].Cells.Cast<DataGridViewCell>()
+                                                              .Count(cell => !cell.Value.ToString().Equals(element.GUID));
+            _forcesTable.Columns.RemoveAt(columnIndex);
+        }
+
+        public void RemoveRequirement(EAElement element)
+        {
+            foreach (
+                var row in
+                    _forcesTable.Rows.Cast<DataGridViewRow>()
+                                .Where(
+                                    row => row.Cells[RequirementGUIDColumnIndex].Value.ToString().Equals(element.GUID)))
+            {
+                _forcesTable.Rows.Remove(row);
+                HideRow(_forcesTable.Rows.Count - 1);
+                break;
+            }
+        }
+
+        public void RemoveConcern(EAElement element)
+        {
+            foreach (
+                var row in
+                    _forcesTable.Rows.Cast<DataGridViewRow>()
+                                .Where(row => row.Cells[ConcernGUIDColumnIndex].Value.ToString().Equals(element.GUID)))
+            {
+                row.Cells[ConcernColumnIndex].Value = "";
+            }
+        }
+
         private void ReadOnlyColumn(string header)
         {
             var column = _forcesTable.Columns[header];
@@ -160,10 +239,10 @@ namespace DecisionViewpointsCustomViews.View
 
         private void InsertRequirements(ICustomViewModel model)
         {
-            for (var index = 0; index < model.GetRequirements().Count; index++)
+            var index = RequirementGUIDRowIndex;
+            foreach (var requirement in model.GetRequirements())
             {
-                _forcesTable.Rows[RequirementGUIDRowIndex + index].HeaderCell.Value =
-                    model.GetRequirements()[index].Name;
+                _forcesTable.Rows[index++].HeaderCell.Value = requirement.Name;
             }
         }
 
@@ -231,31 +310,6 @@ namespace DecisionViewpointsCustomViews.View
             {
                 data.Columns.Add(string.Format("<<{0}>>\n{1}", decision.Stereotype, decision.Name));
             }
-        }
-
-        public void RemoveDecision(string guid)
-        {
-            var columnIndex =
-                _forcesTable.Rows[_forcesTable.Rows.Count - 1].Cells.Cast<DataGridViewCell>()
-                                                              .Count(cell => !cell.Value.ToString().Equals(guid));
-            _forcesTable.Columns.RemoveAt(columnIndex);
-        }
-
-        public void RemoveRequirement(string guid)
-        {
-            foreach (
-                var row in
-                    _forcesTable.Rows.Cast<DataGridViewRow>()
-                                .Where(row => row.Cells[RequirementGUIDColumnIndex].Value.ToString().Equals(guid)))
-            {
-                _forcesTable.Rows.Remove(row);
-                HideRow(_forcesTable.Rows.Count - 1);
-                break;
-            }
-        }
-
-        public void RemoveConcern(string guid)
-        {
         }
 
         public string[] RequirementGuids

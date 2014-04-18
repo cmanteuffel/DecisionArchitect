@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using DecisionViewpointsCustomViews.Controller;
 using DecisionViewpointsCustomViews.Model;
+using EAFacade.Model;
 
 namespace DecisionViewpointsCustomViews.View
 {
@@ -16,9 +16,12 @@ namespace DecisionViewpointsCustomViews.View
 
         void SetController(ICustomViewController controller);
         void UpdateTable(ICustomViewModel model);
+        void UpdateDecision(EAElement element);
+        void UpdateRequirement(EAElement element);
+        void UpdateConcern(EAElement element);
+        void RemoveDecision(EAElement element);
+        void RemoveRequirement(EAElement element);
+        void RemoveConcern(EAElement element);
         string GetRating(int row, int column);
-        void RemoveDecision(string guid);
-        void RemoveRequirement(string guid);
-        void RemoveConcern(string guid);
     }
 }

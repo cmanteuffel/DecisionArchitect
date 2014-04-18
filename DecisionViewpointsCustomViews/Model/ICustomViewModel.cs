@@ -13,7 +13,7 @@ namespace DecisionViewpointsCustomViews.Model
         void RemoveObserver(ICustomViewModelObserver observer);
         void SaveRatings(List<Rating> data);
         List<EAElement> GetDecisions();
-        List<EAElement> GetRequirements();
+        EAElement[] GetRequirements();
         Dictionary<EAElement, List<EAElement>> GetConcerns();
         List<Rating> GetRatings();
     }
