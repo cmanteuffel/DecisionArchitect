@@ -234,18 +234,17 @@ namespace DecisionViewpoints.Model.Reporting
 
         public void InsertDiagramImage(EADiagram diagram)
         {
-            diagram.CopyToClipboard();
+            var imagePart = _mainPart.AddImagePart(ImagePartType.Emf);
+            FileStream fs = diagram.DiagramToStream();
+            imagePart.FeedData(fs);
 
-            var imagePart = _mainPart.AddImagePart(ImagePartType.Jpeg);
-
-            Image image = null;
-            if (Clipboard.ContainsImage())
-            {
-                image = Clipboard.GetImage();
-            }
-            imagePart.FeedData(Utilities.ImageToStream(image, ImageFormat.Jpeg));
-
+            Image image = Image.FromFile(fs.Name);
             AddImageToBody(_mainPart.GetIdOfPart(imagePart), Utilities.GetImageSize(image));
+
+            //cleanup:
+            fs.Close();
+            image.Dispose();
+            File.Delete(fs.Name);
         }
 
         public void Open()

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using EA;
 
@@ -173,10 +174,16 @@ namespace EAFacade.Model
                      diagramElement => diagramElement.GUID == element.GUID);
         }
 
-        public void CopyToClipboard()
+        public FileStream DiagramToStream()
         {
             var project = EARepository.Instance.Native.GetProjectInterface();
-            project.PutDiagramImageOnClipboard(GUID, 1);
+            var path = Path.GetTempPath();
+            var fileName = Guid.NewGuid().ToString() + ".emf";
+            string filename = Path.Combine(path, fileName);
+
+            project.SaveDiagramImageToFile(filename);
+            return new FileStream(filename, FileMode.Open);
         }
+
     }
 }

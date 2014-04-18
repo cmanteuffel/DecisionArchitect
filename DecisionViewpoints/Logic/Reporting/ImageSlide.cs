@@ -1,7 +1,10 @@
 ﻿using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using System;
+using System.Runtime.InteropServices;
 using DecisionViewpoints.Model.Reporting;
 using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Packaging;
@@ -16,6 +19,7 @@ namespace DecisionViewpoints.Logic.Reporting
         private static int _imgId;
         private readonly EADiagram _diagram;
 
+
         public ImageSlide(PresentationDocument document, SlidePart templateSlide, EADiagram diagram)
             : base(document, templateSlide)
         {
@@ -24,16 +28,16 @@ namespace DecisionViewpoints.Logic.Reporting
 
         public override void FillContent()
         {
-            ImagePart imagePart = NewSlidePart.AddImagePart(ImagePartType.Jpeg, NewImageName + _imgId++);
-            _diagram.CopyToClipboard();
-            Image image = null;
-            if (Clipboard.ContainsImage())
-            {
-                image = Clipboard.GetImage();
-            }
-            imagePart.FeedData(Utilities.ImageToStream(image, ImageFormat.Jpeg));
+            ImagePart imagePart = NewSlidePart.AddImagePart(ImagePartType.Emf, NewImageName + _imgId++);
+            FileStream fs = _diagram.DiagramToStream();
+
+            imagePart.FeedData(fs);
             SwapPhoto(NewSlidePart, NewSlidePart.GetIdOfPart(imagePart));
             SetPlaceholder(NewSlidePart, "{title}", _diagram.Name);
+
+            //cleanup:
+            fs.Close();
+            File.Delete(fs.Name);
         }
 
         private static void SwapPhoto(SlidePart slidePart, string imgId)

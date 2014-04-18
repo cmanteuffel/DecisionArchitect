@@ -68,13 +68,6 @@ namespace EAFacade
             return technology;
         }
 
-        public static Stream ImageToStream(Image image, ImageFormat format)
-        {
-            var stream = new MemoryStream();
-            image.Save(stream, format);
-            stream.Position = 0;
-            return stream;
-        }
 
         public static long[] GetImageSize(Image img)
         {
