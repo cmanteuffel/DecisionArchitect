@@ -16,7 +16,6 @@ namespace DecisionViewpointsCustomViews.View
     [ComDefaultInterface(typeof (ICustomView))]
     public class ForcesView : UserControl, ICustomView
     {
-        private Button _btnSave;
         private DataGridView _forcesTable;
         private Button _btnConfigure;
         private ICustomViewController _controller;
@@ -41,39 +40,27 @@ namespace DecisionViewpointsCustomViews.View
 
         private void InitializeComponent()
         {
-            this._btnSave = new System.Windows.Forms.Button();
             this._forcesTable = new System.Windows.Forms.DataGridView();
             this._btnConfigure = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize) (this._forcesTable)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._forcesTable)).BeginInit();
             this.SuspendLayout();
-            // 
-            // _btnSave
-            // 
-            this._btnSave.Location = new System.Drawing.Point(35, 644);
-            this._btnSave.Name = "_btnSave";
-            this._btnSave.Size = new System.Drawing.Size(75, 23);
-            this._btnSave.TabIndex = 1;
-            this._btnSave.Text = "Save";
-            this._btnSave.UseVisualStyleBackColor = true;
-            this._btnSave.Click += new System.EventHandler(this._btnSave_Click);
             // 
             // _forcesTable
             // 
             this._forcesTable.AllowUserToAddRows = false;
             this._forcesTable.AllowUserToDeleteRows = false;
-            this._forcesTable.ColumnHeadersHeightSizeMode =
-                System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this._forcesTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._forcesTable.Location = new System.Drawing.Point(35, 30);
             this._forcesTable.Name = "_forcesTable";
-            this._forcesTable.RowHeadersWidthSizeMode =
-                System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
+            this._forcesTable.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this._forcesTable.RowTemplate.Height = 33;
             this._forcesTable.Size = new System.Drawing.Size(762, 582);
             this._forcesTable.TabIndex = 2;
+            this._forcesTable.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this._forcesTable_CellValueChanged);
             // 
             // _btnConfigure
             // 
-            this._btnConfigure.Location = new System.Drawing.Point(116, 644);
+            this._btnConfigure.Location = new System.Drawing.Point(35, 644);
             this._btnConfigure.Name = "_btnConfigure";
             this._btnConfigure.Size = new System.Drawing.Size(75, 23);
             this._btnConfigure.TabIndex = 3;
@@ -85,16 +72,11 @@ namespace DecisionViewpointsCustomViews.View
             // 
             this.Controls.Add(this._btnConfigure);
             this.Controls.Add(this._forcesTable);
-            this.Controls.Add(this._btnSave);
             this.Name = "ForcesView";
             this.Size = new System.Drawing.Size(850, 696);
-            ((System.ComponentModel.ISupportInitialize) (this._forcesTable)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._forcesTable)).EndInit();
             this.ResumeLayout(false);
-        }
 
-        private void _btnSave_Click(object sender, System.EventArgs e)
-        {
-            _controller.SaveRatings();
         }
 
         private void _btnConfigure_Click(object sender, System.EventArgs e)
@@ -280,6 +262,11 @@ namespace DecisionViewpointsCustomViews.View
             _forcesTable.CurrentCell = null;    // we need this to hide the last row for when the table has no rows
                                                 // and it is visible as a tab and the user adds new elements
             _forcesTable.Rows[_forcesTable.Rows.Count - 1].Visible = false;
+        }
+
+        private void _forcesTable_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            _controller.SaveRatings();
         }
     }
 }

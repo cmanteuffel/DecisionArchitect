@@ -15,6 +15,6 @@ namespace DecisionViewpointsCustomViews.Model
         List<EAElement> GetDecisions();
         List<EAElement> GetRequirements();
         Dictionary<EAElement, List<EAElement>> GetConcerns();
-        List<Rating> GetRatings(); //Dictionary<string, Dictionary<string, string>>
+        List<Rating> GetRatings();
     }
 }
