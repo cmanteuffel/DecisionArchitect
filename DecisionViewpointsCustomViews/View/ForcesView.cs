@@ -203,7 +203,7 @@ namespace DecisionViewpointsCustomViews.View
             if (concernGUIDColumn != null)
                 concernGUIDColumn.Visible = false;
 
-            _forcesTable.Rows[_forcesTable.Rows.Count - 1].Visible = false;
+            HideDecisionGUIDRow();
 
             var concernColumn = _forcesTable.Columns[ConcernHeader];
             if (concernColumn != null) concernColumn.ReadOnly = true;
@@ -230,6 +230,8 @@ namespace DecisionViewpointsCustomViews.View
                                 .Where(row => row.Cells[RequirementGUIDColumnIndex].Value.ToString().Equals(guid)))
             {
                 _forcesTable.Rows.Remove(row);
+                HideDecisionGUIDRow();
+                break;
             }
         }
 
@@ -274,6 +276,13 @@ namespace DecisionViewpointsCustomViews.View
         public string GetRating(int row, int column)
         {
             return _forcesTable[column, row].Value.ToString();
+        }
+
+        private void HideDecisionGUIDRow()
+        {
+            _forcesTable.CurrentCell = null;    // we need this to hide the last row for when the table has no rows
+                                                // and it is visible as a tab and the user adds new elements
+            _forcesTable.Rows[_forcesTable.Rows.Count - 1].Visible = false;
         }
     }
 }
