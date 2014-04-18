@@ -14,7 +14,7 @@ namespace DecisionViewpoints.Logic.Detail
             var element = repository.GetElementByGUID(guid);
             if (!element.IsDecision()) return false;
             var detailController = new DetailController(new Decision(element), new DetailView());
-            detailController.UpdateView();
+            detailController.ShowDetailView();
             return true;
         }
     }

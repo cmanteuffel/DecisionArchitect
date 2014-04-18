@@ -75,5 +75,11 @@ namespace DecisionViewpointsCustomViews.View
         {
             System.Diagnostics.Process.Start(e.LinkText);
         }
+
+        public void AddHistoryEntry(string name, string stereotype, string s, string state)
+        {
+            var stakeholderText = string.Format("{0}\n<<{1}>>", name, stereotype);
+            dgvHistory.Rows.Add(new object[] {stakeholderText, s, state});
+        }
     }
 }

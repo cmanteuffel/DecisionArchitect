@@ -20,7 +20,7 @@ namespace EAFacade.Model
         public const string StateDiscarded = "discarded";
         public const string StateRejected = "rejected";
 
-        public const string RelationMetatype = "Relationship";
+        public const string RelationMetaType = "Relationship";
         public const string RelationDependsOn = "depends on";
         public const string RelationCausedBy = "caused by";
         public const string RelationAlternativeFor = "alternative for";
@@ -28,6 +28,8 @@ namespace EAFacade.Model
         public const string RelationReplaces = "replaces";
         public const string RelationClassifiedBy = "classified by";
         public const string RelationFollowedBy = "followed by";
+
+        public const string ActionMetaType = "Action";
 
         public static readonly HashSet<string> Relationships = new HashSet<string>
             {

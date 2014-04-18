@@ -3,6 +3,7 @@ using DecisionViewpoints.Logic;
 using DecisionViewpoints.Logic.Chronological;
 using DecisionViewpoints.Logic.Detail;
 using DecisionViewpoints.Logic.Forces;
+using DecisionViewpoints.Logic.General;
 using DecisionViewpoints.Logic.Relationship;
 using DecisionViewpoints.Logic.StakeholderInvolvement;
 using EA;

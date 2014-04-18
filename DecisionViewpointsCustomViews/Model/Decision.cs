@@ -68,6 +68,8 @@ namespace DecisionViewpointsCustomViews.Model
         public void Save(string extraData)
         {
             _element.Update();
+            var repository = EARepository.Instance;
+            repository.AdviseElementChanged(_element.ID);
         }
 
         public List<EAConnector> GetConnectors()

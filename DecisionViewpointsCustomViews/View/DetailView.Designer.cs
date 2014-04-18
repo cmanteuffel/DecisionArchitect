@@ -28,6 +28,7 @@ namespace DecisionViewpointsCustomViews.View
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cbxState = new System.Windows.Forms.ComboBox();
@@ -49,14 +50,14 @@ namespace DecisionViewpointsCustomViews.View
             this.label9 = new System.Windows.Forms.Label();
             this.txtRelatedRequirements = new System.Windows.Forms.RichTextBox();
             this.lbxRelatedDecisions = new System.Windows.Forms.ListBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvHistory = new System.Windows.Forms.DataGridView();
             this.StakeholderColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ActionColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StatusColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IterationColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label10 = new System.Windows.Forms.Label();
             this.flowLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvHistory)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -272,44 +273,57 @@ namespace DecisionViewpointsCustomViews.View
             this.lbxRelatedDecisions.Size = new System.Drawing.Size(529, 104);
             this.lbxRelatedDecisions.TabIndex = 15;
             // 
-            // dataGridView1
+            // dgvHistory
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.dgvHistory.AllowUserToAddRows = false;
+            this.dgvHistory.AllowUserToDeleteRows = false;
+            this.dgvHistory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvHistory.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.StakeholderColumn,
             this.ActionColumn,
             this.StatusColumn,
             this.IterationColumn});
-            this.dataGridView1.Location = new System.Drawing.Point(253, 916);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.RowTemplate.Height = 33;
-            this.dataGridView1.Size = new System.Drawing.Size(529, 206);
-            this.dataGridView1.TabIndex = 19;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.916231F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvHistory.DefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvHistory.Location = new System.Drawing.Point(253, 916);
+            this.dgvHistory.Name = "dgvHistory";
+            this.dgvHistory.ReadOnly = true;
+            this.dgvHistory.RowHeadersVisible = false;
+            this.dgvHistory.RowTemplate.Height = 33;
+            this.dgvHistory.Size = new System.Drawing.Size(529, 206);
+            this.dgvHistory.TabIndex = 19;
             // 
             // StakeholderColumn
             // 
             this.StakeholderColumn.HeaderText = "Stakeholder";
             this.StakeholderColumn.Name = "StakeholderColumn";
+            this.StakeholderColumn.ReadOnly = true;
             // 
             // ActionColumn
             // 
             this.ActionColumn.HeaderText = "Action";
             this.ActionColumn.Name = "ActionColumn";
+            this.ActionColumn.ReadOnly = true;
             // 
             // StatusColumn
             // 
             this.StatusColumn.HeaderText = "Status";
             this.StatusColumn.Name = "StatusColumn";
+            this.StatusColumn.ReadOnly = true;
             // 
             // IterationColumn
             // 
             this.IterationColumn.HeaderText = "Iteration";
             this.IterationColumn.Name = "IterationColumn";
+            this.IterationColumn.ReadOnly = true;
             // 
             // label10
             // 
@@ -328,7 +342,7 @@ namespace DecisionViewpointsCustomViews.View
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(866, 1235);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgvHistory);
             this.Controls.Add(this.lbxRelatedDecisions);
             this.Controls.Add(this.txtRelatedRequirements);
             this.Controls.Add(this.label9);
@@ -354,7 +368,7 @@ namespace DecisionViewpointsCustomViews.View
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Detail View";
             this.flowLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvHistory)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -383,7 +397,7 @@ namespace DecisionViewpointsCustomViews.View
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.RichTextBox txtRelatedRequirements;
         private System.Windows.Forms.ListBox lbxRelatedDecisions;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvHistory;
         private System.Windows.Forms.DataGridViewTextBoxColumn StakeholderColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn ActionColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn StatusColumn;

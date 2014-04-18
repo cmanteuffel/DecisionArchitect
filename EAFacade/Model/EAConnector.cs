@@ -87,7 +87,12 @@ namespace EAFacade.Model
 
         public bool IsRelationship()
         {
-            return DVStereotypes.RelationMetatype.Equals(MetaType);
+            return DVStereotypes.RelationMetaType.Equals(MetaType);
+        }
+
+        public bool IsAction()
+        {
+            return DVStereotypes.ActionMetaType.Equals(MetaType);
         }
     }
 }
