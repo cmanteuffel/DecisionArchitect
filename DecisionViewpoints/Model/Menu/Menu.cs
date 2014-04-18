@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Windows.Forms;
+using System.Collections.Generic;
 
-namespace DecisionViewpoints.Logic.Menu
+namespace DecisionViewpoints.Model.Menu
 {
     public class Menu : IMenu
     {

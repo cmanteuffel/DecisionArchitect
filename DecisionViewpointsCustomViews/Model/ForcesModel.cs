@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using EAFacade.Model;
 
@@ -9,6 +10,12 @@ namespace DecisionViewpointsCustomViews.Model
         private readonly List<IForcesModelObserver> _observers = new List<IForcesModelObserver>();
         private EADiagram _diagram;
         public string Name { get; set; }
+
+        public ForcesModel(EADiagram diagramModel)
+        {
+            DiagramModel = diagramModel;
+            Name = CreateForcesTabName(diagramModel.Name);
+        }
 
         public string DiagramGUID
         {
@@ -122,6 +129,11 @@ namespace DecisionViewpointsCustomViews.Model
             }
         }
 
+        public static string CreateForcesTabName(string diagramName)
+        {
+            return String.Format("{0} (Forces)", diagramName);
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -144,7 +156,7 @@ namespace DecisionViewpointsCustomViews.Model
         }
 
         /// <summary>
-        /// 
+        /// Checks if the tagged value of the 
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>

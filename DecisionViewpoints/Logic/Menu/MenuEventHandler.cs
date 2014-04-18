@@ -3,19 +3,21 @@ using System.Linq;
 using System.Windows.Forms;
 using DecisionViewpoints.Logic.Chronological;
 using DecisionViewpoints.Logic.Reporting;
+using DecisionViewpoints.Model.Menu;
 using DecisionViewpointsCustomViews.Model;
 using EAFacade.Model;
+using MenuItem = DecisionViewpoints.Model.Menu.MenuItem;
 using Settings = DecisionViewpoints.Properties.Settings;
 
 namespace DecisionViewpoints.Logic.Menu
 {
     public static class MenuEventHandler
     {
-        private static readonly Menu RootMenu = new Menu(Messages.MenuAddIn);
+        private static readonly Model.Menu.Menu RootMenu = new Model.Menu.Menu(Messages.MenuAddIn);
 
         static MenuEventHandler()
         {
-            var createTraces = new Menu(Messages.MenuCreateTraces);
+            var createTraces = new Model.Menu.Menu(Messages.MenuCreateTraces);
             var createAndTraceDecision = new MenuItem(Messages.MenuTraceToNewDecision, CreateAndTraceDecision)
                 {
                     UpdateDelegate = menuItem =>
@@ -31,7 +33,7 @@ namespace DecisionViewpoints.Logic.Menu
                 };
 
 
-            var baselinesOptions = new Menu(Messages.MenuBaselineOptions);
+            var baselinesOptions = new Model.Menu.Menu(Messages.MenuBaselineOptions);
             var baselineManually = new MenuItem(Messages.MenuBaselineManually)
                 {
                     ClickDelegate = () =>
@@ -244,7 +246,7 @@ namespace DecisionViewpoints.Logic.Menu
                 }
                 foreach (var diagram in diagrams.Where(diagram => diagram.IsForcesView()))
                 {
-                    report.InsertForcesTable(new ForcesModel { DiagramModel = diagram });
+                    report.InsertForcesTable(new ForcesModel(diagram));
                 }
             }
             finally

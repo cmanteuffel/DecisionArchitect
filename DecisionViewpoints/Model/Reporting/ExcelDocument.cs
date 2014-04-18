@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using DecisionViewpointsCustomViews.Model;
 using EAFacade.Model;
 
-namespace DecisionViewpoints.Logic.Reporting
+namespace DecisionViewpoints.Model.Reporting
 {
     public class ExcelDocument : IReportDocument
     {

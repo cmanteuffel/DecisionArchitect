@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using DecisionViewpointsCustomViews.Controller;
 using DecisionViewpointsCustomViews.Model;
@@ -20,11 +19,7 @@ namespace DecisionViewpoints.Logic.Forces
             var repository = EARepository.Instance;
             var diagram = repository.GetDiagramByGuid(guid);
             if (!diagram.IsForcesView()) return false;
-            var forcesDiagramModel = new ForcesModel
-                {
-                    DiagramModel = diagram,
-                    Name = CreateForcesTabName(diagram.Name)
-                };
+            var forcesDiagramModel = new ForcesModel(diagram);
             if (repository.IsTabOpen(forcesDiagramModel.Name) > 0)
             {
                 // naming is not optimal as tabs can have same names... need to find a solution that we can
@@ -64,7 +59,7 @@ namespace DecisionViewpoints.Logic.Forces
                     var diagram = repository.GetDiagramByGuid(guid);
                     if (!diagram.IsForcesView()) return;
                     // if the name of a diagram changed and the forces tab is open then close it to avoid conflicts
-                    if (repository.IsTabOpen(CreateForcesTabName(diagram.Name)) <= 0)
+                    if (repository.IsTabOpen(ForcesModel.CreateForcesTabName(diagram.Name)) <= 0)
                     {
                         if (!_controllers.ContainsKey(diagram.GUID)) break;
                         forcesController = _controllers[diagram.GUID];
@@ -103,8 +98,8 @@ namespace DecisionViewpoints.Logic.Forces
             if (!diagram.IsForcesView()) return true;
             if (_controllers.ContainsKey(diagram.GUID))
             {
-                if (repository.IsTabOpen(CreateForcesTabName(diagram.Name)) > 0)
-                    repository.RemoveTab(CreateForcesTabName(diagram.Name));
+                if (repository.IsTabOpen(ForcesModel.CreateForcesTabName(diagram.Name)) > 0)
+                    repository.RemoveTab(ForcesModel.CreateForcesTabName(diagram.Name));
                 _controllers.Remove(diagram.GUID);
             }
             return true;
@@ -120,7 +115,7 @@ namespace DecisionViewpoints.Logic.Forces
             foreach (
                 var forcesController in
                     from diagram in diagrams
-                    where repository.IsTabOpen(CreateForcesTabName(diagram.Name)) > 0
+                    where repository.IsTabOpen(ForcesModel.CreateForcesTabName(diagram.Name)) > 0
                     select _controllers[diagram.GUID])
             {
                 // we cannot update the view with a new diagram model here, as the diagram changes are applied
@@ -149,11 +144,6 @@ namespace DecisionViewpoints.Logic.Forces
                     DVStereotypes.RelationDependsOn,
                     DVStereotypes.RelationExcludedBy, DVStereotypes.RelationReplaces, DVStereotypes.RelationFollowedBy
                 });
-        }
-
-        private static string CreateForcesTabName(string diagramName)
-        {
-            return String.Format("{0} (Forces)", diagramName);
         }
     }
 }

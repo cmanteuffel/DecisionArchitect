@@ -1,10 +1,10 @@
-ï»¿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using EAFacade;
 using EAFacade.Model;
 
-namespace DecisionViewpoints.Logic.Menu
+namespace DecisionViewpoints.Model.Menu
 {
     class FollowTraceMenu : Menu
     {
@@ -53,7 +53,7 @@ namespace DecisionViewpoints.Logic.Menu
                         string name = tracedElement.GetProjectPath() + "/" + tracedElement.Name;
                         if (!"".Equals(tracedElement.Stereotype))
                         {
-                            name += " Â«" + tracedElement.Stereotype + "Â»";
+                            name += " «" + tracedElement.Stereotype + "»";
                         }
 
                         var uniqueName = GetUniqueName(name, menuItemNames);

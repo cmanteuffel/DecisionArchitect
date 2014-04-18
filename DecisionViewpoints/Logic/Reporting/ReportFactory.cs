@@ -1,4 +1,6 @@
-﻿namespace DecisionViewpoints.Logic.Reporting
+﻿using DecisionViewpoints.Model.Reporting;
+
+namespace DecisionViewpoints.Logic.Reporting
 {
     public enum ReportType
     {

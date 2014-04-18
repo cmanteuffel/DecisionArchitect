@@ -1,4 +1,4 @@
-﻿namespace DecisionViewpoints.Logic.Menu
+namespace DecisionViewpoints.Model.Menu
 {
     public delegate void ClickDelegate();
     public delegate void UpdateDelegate(IMenu self);

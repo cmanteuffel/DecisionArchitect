@@ -1,4 +1,4 @@
-﻿namespace DecisionViewpoints.Logic.Menu
+namespace DecisionViewpoints.Model.Menu
 {
     public class MenuItem : IMenu
     {

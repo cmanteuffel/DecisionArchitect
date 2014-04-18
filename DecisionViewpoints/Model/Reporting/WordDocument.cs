@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -13,7 +13,7 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using EAFacade;
 using EAFacade.Model;
 
-namespace DecisionViewpoints.Logic.Reporting
+namespace DecisionViewpoints.Model.Reporting
 {
     public class WordDocument : IReportDocument
     {
