@@ -20,6 +20,7 @@ namespace EAFacade.Model
         public const string StateDiscarded = "discarded";
         public const string StateRejected = "rejected";
 
+        public const string RelationMetatype = "Relationship";
         public const string RelationDependsOn = "depends on";
         public const string RelationCausedBy = "caused by";
         public const string RelationAlternativeFor = "alternative for";

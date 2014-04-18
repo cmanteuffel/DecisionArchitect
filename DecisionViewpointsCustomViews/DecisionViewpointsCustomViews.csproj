@@ -47,11 +47,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\DetailController.cs" />
     <Compile Include="Controller\ForcesController.cs" />
     <Compile Include="Controller\ICustomViewController.cs" />
+    <Compile Include="Model\Decision.cs" />
     <Compile Include="Model\ICustomViewModel.cs" />
     <Compile Include="Model\ICustomViewModelObserver.cs" />
     <Compile Include="Model\Rating.cs" />
+    <Compile Include="View\DetailView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\DetailView.Designer.cs">
+      <DependentUpon>DetailView.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\ForcesView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -61,6 +69,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="View\DetailView.resx">
+      <DependentUpon>DetailView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\ForcesView.resx">
       <DependentUpon>ForcesView.cs</DependentUpon>
     </EmbeddedResource>

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using EA;
 
 namespace EAFacade.Model
@@ -56,6 +55,12 @@ namespace EAFacade.Model
             set { _native.Notes = value; }
         }
 
+        public string MetaType
+        {
+            get { return _native.MetaType; }
+            set { _native.MetaType = value; }
+        }
+
         //[Obsolete("Do not use outside of model namespace or main app")]
         internal static EAConnector Wrap(Connector native)
         {
@@ -82,7 +87,7 @@ namespace EAFacade.Model
 
         public bool IsRelationship()
         {
-            return DVStereotypes.RelationClassifiedBy.Equals(Stereotype);
+            return DVStereotypes.RelationMetatype.Equals(MetaType);
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using System.Xml;
 using EA;
 
@@ -307,5 +308,25 @@ namespace EAFacade.Model
         {
             return 0;
         }
+
+        public List<EAConnector> GetConnectors()
+        {
+            return _native.Connectors.Cast<Connector>().Select(EAConnector.Wrap).ToList();
+        }
+
+        /*public string GetLastError()
+        {
+            return _native.GetLastError();
+        }
+
+        public string GetLinkedDocument()
+        {
+            return _native.GetLinkedDocument();
+        }
+
+        public void LoadLinkedDocument(string fileName)
+        {
+            _native.LoadLinkedDocument(fileName);
+        }*/
     }
 }

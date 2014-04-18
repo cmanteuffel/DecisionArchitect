@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using DecisionViewpoints.Logic;
 using DecisionViewpoints.Logic.Chronological;
+using DecisionViewpoints.Logic.Detail;
 using DecisionViewpoints.Logic.Forces;
 using DecisionViewpoints.Logic.Relationship;
 using DecisionViewpoints.Logic.StakeholderInvolvement;
@@ -24,6 +25,7 @@ namespace DecisionViewpoints
             _listeners.Add(new DecisionStateModifedDateHandler());
             _listeners.Add(new RelationshipHandler());
             _listeners.Add(new StakeholderInvolvementHandler());
+            _listeners.Add(new DetailHandler());
         }
 
         public override object EA_OnInitializeTechnologies(Repository repository)
