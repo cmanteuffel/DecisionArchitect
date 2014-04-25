@@ -142,7 +142,7 @@
     <value>13</value>
   </data>
   <data name="buttonOk.Text" xml:space="preserve">
-    <value>OK</value>
+    <value>Ok</value>
   </data>
   <data name="&gt;&gt;buttonOk.Name" xml:space="preserve">
     <value>buttonOk</value>
@@ -232,7 +232,7 @@
     <value>3, 3</value>
   </data>
   <data name="dgvAlternatives.Size" type="System.Drawing.Size, System.Drawing">
-    <value>477, 118</value>
+    <value>455, 112</value>
   </data>
   <data name="dgvAlternatives.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
@@ -256,7 +256,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="AlternativeTb.Size" type="System.Drawing.Size, System.Drawing">
-    <value>483, 124</value>
+    <value>461, 118</value>
   </data>
   <data name="AlternativeTb.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -319,7 +319,7 @@
     <value>3, 3</value>
   </data>
   <data name="dgvRelatedDecisions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>477, 112</value>
+    <value>455, 112</value>
   </data>
   <data name="dgvRelatedDecisions.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
@@ -343,7 +343,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="RelatedDecisionsTb.Size" type="System.Drawing.Size, System.Drawing">
-    <value>483, 118</value>
+    <value>461, 118</value>
   </data>
   <data name="RelatedDecisionsTb.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -403,7 +403,7 @@
     <value>0, 0</value>
   </data>
   <data name="dgvRelatedRequirements.Size" type="System.Drawing.Size, System.Drawing">
-    <value>483, 118</value>
+    <value>461, 118</value>
   </data>
   <data name="dgvRelatedRequirements.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
@@ -424,7 +424,7 @@
     <value>4, 22</value>
   </data>
   <data name="RelatedRequirementsTb.Size" type="System.Drawing.Size, System.Drawing">
-    <value>483, 118</value>
+    <value>461, 118</value>
   </data>
   <data name="RelatedRequirementsTb.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -472,7 +472,7 @@
     <value>0, 0</value>
   </data>
   <data name="dgvTraces.Size" type="System.Drawing.Size, System.Drawing">
-    <value>483, 118</value>
+    <value>461, 118</value>
   </data>
   <data name="dgvTraces.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
@@ -493,7 +493,7 @@
     <value>4, 22</value>
   </data>
   <data name="TracesTb.Size" type="System.Drawing.Size, System.Drawing">
-    <value>483, 118</value>
+    <value>461, 118</value>
   </data>
   <data name="TracesTb.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -541,7 +541,7 @@
     <value>0, 0</value>
   </data>
   <data name="dgvStakeholder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>483, 118</value>
+    <value>461, 118</value>
   </data>
   <data name="dgvStakeholder.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
@@ -562,7 +562,7 @@
     <value>4, 22</value>
   </data>
   <data name="StakeholderTb.Size" type="System.Drawing.Size, System.Drawing">
-    <value>483, 118</value>
+    <value>461, 118</value>
   </data>
   <data name="StakeholderTb.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -706,7 +706,7 @@
     <value>Flat</value>
   </data>
   <data name="btnItalics.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Castellar, 9.75pt, style=Italic</value>
+    <value>Microsoft Sans Serif, 9.75pt, style=Italic</value>
   </data>
   <data name="btnItalics.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1102,7 +1102,7 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="txtArguments.Size" type="System.Drawing.Size, System.Drawing">
-    <value>482, 114</value>
+    <value>460, 114</value>
   </data>
   <data name="txtArguments.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1126,7 +1126,7 @@
     <value>4, 22</value>
   </data>
   <data name="ArgumentsTab.Size" type="System.Drawing.Size, System.Drawing">
-    <value>482, 114</value>
+    <value>460, 114</value>
   </data>
   <data name="ArgumentsTab.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1156,7 +1156,7 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="txtIssue.Size" type="System.Drawing.Size, System.Drawing">
-    <value>476, 108</value>
+    <value>454, 108</value>
   </data>
   <data name="txtIssue.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1183,7 +1183,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="ProblemTab.Size" type="System.Drawing.Size, System.Drawing">
-    <value>482, 114</value>
+    <value>460, 114</value>
   </data>
   <data name="ProblemTab.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1359,12 +1359,6 @@
   <data name="&gt;&gt;Type.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;notifyIcon1.Name" xml:space="preserve">
-    <value>notifyIcon1</value>
-  </data>
-  <data name="&gt;&gt;notifyIcon1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NotifyIcon, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;stakeholderuid.Name" xml:space="preserve">
     <value>stakeholderuid</value>
   </data>
@@ -1394,6 +1388,12 @@
   </data>
   <data name="&gt;&gt;DateColumn.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;notifyIcon1.Name" xml:space="preserve">
+    <value>notifyIcon1</value>
+  </data>
+  <data name="&gt;&gt;notifyIcon1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NotifyIcon, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>DetailView</value>

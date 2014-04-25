@@ -1,4 +1,16 @@
-﻿namespace DecisionViewpoints.View
+/*
+ Copyright (c) 2014 ABB Group
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License v1.0
+ which accompanies this distribution, and is available at
+ http://www.eclipse.org/legal/epl-v10.html
+ 
+ Contributors:
+    Christian Manteuffel (University of Groningen)
+    Spyros Ioakeimidis (University of Groningen)
+*/
+
+namespace DecisionViewpoints.View
 {
     partial class DetailView
     {
@@ -60,6 +72,13 @@
             this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StakeholderTb = new System.Windows.Forms.TabPage();
             this.dgvStakeholder = new System.Windows.Forms.DataGridView();
+            this.stakeholderuid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Stakeholder = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Action = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HistoryTb = new System.Windows.Forms.TabPage();
+            this.dvgHistory = new System.Windows.Forms.DataGridView();
+            this.StateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnunderline = new System.Windows.Forms.Button();
             this.btnItalics = new System.Windows.Forms.Button();
             this.btnBold = new System.Windows.Forms.Button();
@@ -72,20 +91,13 @@
             this.lblTopicDescription = new System.Windows.Forms.Label();
             this.lblTopicName = new System.Windows.Forms.Label();
             this.tbCnrtlModifiable = new System.Windows.Forms.TabControl();
-            this.ProblemTab = new System.Windows.Forms.TabPage();
-            this.txtIssue = new System.Windows.Forms.RichTextBox();
             this.DescriptionTab = new System.Windows.Forms.TabPage();
             this.txtDecision = new System.Windows.Forms.RichTextBox();
             this.ArgumentsTab = new System.Windows.Forms.TabPage();
             this.txtArguments = new System.Windows.Forms.RichTextBox();
+            this.ProblemTab = new System.Windows.Forms.TabPage();
+            this.txtIssue = new System.Windows.Forms.RichTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.HistoryTb = new System.Windows.Forms.TabPage();
-            this.stakeholderuid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Stakeholder = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Action = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dvgHistory = new System.Windows.Forms.DataGridView();
-            this.StateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCntrlUnodifiable.SuspendLayout();
             this.AlternativeTb.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAlternatives)).BeginInit();
@@ -97,12 +109,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvTraces)).BeginInit();
             this.StakeholderTb.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStakeholder)).BeginInit();
-            this.tbCnrtlModifiable.SuspendLayout();
-            this.ProblemTab.SuspendLayout();
-            this.DescriptionTab.SuspendLayout();
-            this.ArgumentsTab.SuspendLayout();
             this.HistoryTb.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dvgHistory)).BeginInit();
+            this.tbCnrtlModifiable.SuspendLayout();
+            this.DescriptionTab.SuspendLayout();
+            this.ArgumentsTab.SuspendLayout();
+            this.ProblemTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -364,6 +376,59 @@
             this.dgvStakeholder.RowHeadersVisible = false;
             this.dgvStakeholder.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStakeholder_CellContentClick);
             // 
+            // stakeholderuid
+            // 
+            resources.ApplyResources(this.stakeholderuid, "stakeholderuid");
+            this.stakeholderuid.Name = "stakeholderuid";
+            this.stakeholderuid.ReadOnly = true;
+            // 
+            // Stakeholder
+            // 
+            this.Stakeholder.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            resources.ApplyResources(this.Stakeholder, "Stakeholder");
+            this.Stakeholder.Name = "Stakeholder";
+            this.Stakeholder.ReadOnly = true;
+            // 
+            // Action
+            // 
+            this.Action.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            resources.ApplyResources(this.Action, "Action");
+            this.Action.Name = "Action";
+            this.Action.ReadOnly = true;
+            // 
+            // HistoryTb
+            // 
+            this.HistoryTb.Controls.Add(this.dvgHistory);
+            resources.ApplyResources(this.HistoryTb, "HistoryTb");
+            this.HistoryTb.Name = "HistoryTb";
+            this.HistoryTb.UseVisualStyleBackColor = true;
+            // 
+            // dvgHistory
+            // 
+            this.dvgHistory.AllowUserToAddRows = false;
+            this.dvgHistory.AllowUserToDeleteRows = false;
+            this.dvgHistory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dvgHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dvgHistory.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.StateColumn,
+            this.DateColumn});
+            resources.ApplyResources(this.dvgHistory, "dvgHistory");
+            this.dvgHistory.Name = "dvgHistory";
+            this.dvgHistory.ReadOnly = true;
+            this.dvgHistory.RowHeadersVisible = false;
+            // 
+            // StateColumn
+            // 
+            resources.ApplyResources(this.StateColumn, "StateColumn");
+            this.StateColumn.Name = "StateColumn";
+            this.StateColumn.ReadOnly = true;
+            // 
+            // DateColumn
+            // 
+            resources.ApplyResources(this.DateColumn, "DateColumn");
+            this.DateColumn.Name = "DateColumn";
+            this.DateColumn.ReadOnly = true;
+            // 
             // btnunderline
             // 
             resources.ApplyResources(this.btnunderline, "btnunderline");
@@ -445,19 +510,6 @@
             this.tbCnrtlModifiable.Name = "tbCnrtlModifiable";
             this.tbCnrtlModifiable.SelectedIndex = 0;
             // 
-            // ProblemTab
-            // 
-            this.ProblemTab.Controls.Add(this.txtIssue);
-            resources.ApplyResources(this.ProblemTab, "ProblemTab");
-            this.ProblemTab.Name = "ProblemTab";
-            this.ProblemTab.UseVisualStyleBackColor = true;
-            // 
-            // txtIssue
-            // 
-            resources.ApplyResources(this.txtIssue, "txtIssue");
-            this.txtIssue.Name = "txtIssue";
-            this.txtIssue.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.txtIssue_LinkClicked);
-            // 
             // DescriptionTab
             // 
             this.DescriptionTab.Controls.Add(this.txtDecision);
@@ -484,62 +536,22 @@
             this.txtArguments.Name = "txtArguments";
             this.txtArguments.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.txtArguments_LinkClicked);
             // 
+            // ProblemTab
+            // 
+            this.ProblemTab.Controls.Add(this.txtIssue);
+            resources.ApplyResources(this.ProblemTab, "ProblemTab");
+            this.ProblemTab.Name = "ProblemTab";
+            this.ProblemTab.UseVisualStyleBackColor = true;
+            // 
+            // txtIssue
+            // 
+            resources.ApplyResources(this.txtIssue, "txtIssue");
+            this.txtIssue.Name = "txtIssue";
+            this.txtIssue.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.txtIssue_LinkClicked);
+            // 
             // notifyIcon1
             // 
             resources.ApplyResources(this.notifyIcon1, "notifyIcon1");
-            // 
-            // HistoryTb
-            // 
-            this.HistoryTb.Controls.Add(this.dvgHistory);
-            resources.ApplyResources(this.HistoryTb, "HistoryTb");
-            this.HistoryTb.Name = "HistoryTb";
-            this.HistoryTb.UseVisualStyleBackColor = true;
-            // 
-            // stakeholderuid
-            // 
-            resources.ApplyResources(this.stakeholderuid, "stakeholderuid");
-            this.stakeholderuid.Name = "stakeholderuid";
-            this.stakeholderuid.ReadOnly = true;
-            // 
-            // Stakeholder
-            // 
-            this.Stakeholder.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            resources.ApplyResources(this.Stakeholder, "Stakeholder");
-            this.Stakeholder.Name = "Stakeholder";
-            this.Stakeholder.ReadOnly = true;
-            // 
-            // Action
-            // 
-            this.Action.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            resources.ApplyResources(this.Action, "Action");
-            this.Action.Name = "Action";
-            this.Action.ReadOnly = true;
-            // 
-            // dvgHistory
-            // 
-            this.dvgHistory.AllowUserToAddRows = false;
-            this.dvgHistory.AllowUserToDeleteRows = false;
-            this.dvgHistory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dvgHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dvgHistory.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.StateColumn,
-            this.DateColumn});
-            resources.ApplyResources(this.dvgHistory, "dvgHistory");
-            this.dvgHistory.Name = "dvgHistory";
-            this.dvgHistory.ReadOnly = true;
-            this.dvgHistory.RowHeadersVisible = false;
-            // 
-            // StateColumn
-            // 
-            resources.ApplyResources(this.StateColumn, "StateColumn");
-            this.StateColumn.Name = "StateColumn";
-            this.StateColumn.ReadOnly = true;
-            // 
-            // DateColumn
-            // 
-            resources.ApplyResources(this.DateColumn, "DateColumn");
-            this.DateColumn.Name = "DateColumn";
-            this.DateColumn.ReadOnly = true;
             // 
             // DetailView
             // 
@@ -578,12 +590,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvTraces)).EndInit();
             this.StakeholderTb.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvStakeholder)).EndInit();
-            this.tbCnrtlModifiable.ResumeLayout(false);
-            this.ProblemTab.ResumeLayout(false);
-            this.DescriptionTab.ResumeLayout(false);
-            this.ArgumentsTab.ResumeLayout(false);
             this.HistoryTb.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dvgHistory)).EndInit();
+            this.tbCnrtlModifiable.ResumeLayout(false);
+            this.DescriptionTab.ResumeLayout(false);
+            this.ArgumentsTab.ResumeLayout(false);
+            this.ProblemTab.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
