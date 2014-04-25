@@ -8,6 +8,7 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    Antonis Gkortzis (University of Groningen)
 */
 
 using System;
@@ -33,8 +34,8 @@ namespace DecisionViewpoints.Logic.Reporting
         public ExcelDocument(string filename)
         {
             //_filename = String.Format("{0}\\{1}", EAUtilities.GetDocumentsDirectory(), filename);//original
-            _filename = filename; //angor
-            //MessageBox.Show("Document filename: " + _filename);// angor DEBUG
+            _filename = filename;
+            //MessageBox.Show("Document filename: " + _filename);// DEBUG
             using (
                 SpreadsheetDocument excelDoc = SpreadsheetDocument.Create(_filename, SpreadsheetDocumentType.Workbook)
                 )

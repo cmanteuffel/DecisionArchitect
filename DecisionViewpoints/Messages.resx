@@ -227,11 +227,9 @@
   </data>
   <data name="SuccesfulForcesReportCreation" xml:space="preserve">
     <value>Forces report was created succesfuly.</value>
-    <comment>angor</comment>
   </data>
   <data name="SuccesfulReportCreation" xml:space="preserve">
     <value>Report was created succesfuly.</value>
-    <comment>angor</comment>
   </data>
   <data name="ReportSuccessful" xml:space="preserve">
     <value>{0} report succesfully exported.</value>
@@ -241,7 +239,6 @@
   </data>
   <data name="MenuTraceToNewTopic" xml:space="preserve">
     <value>&amp;New Topic</value>
-    <comment>angor</comment>
   </data>
   <data name="ErrorNoNameForDecision" xml:space="preserve">
     <value>Please supply a name for the decision.</value>

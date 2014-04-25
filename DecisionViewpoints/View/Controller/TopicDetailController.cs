@@ -8,6 +8,7 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    Antonis Gkortzis (University of Groningen)    
 */
 
 using System.CodeDom.Compiler;
@@ -15,7 +16,6 @@ using System.IO;
 using System.Text;
 using DecisionViewpoints.Model;
 
-//angor task157
 
 namespace DecisionViewpoints.View.Controller
 {

@@ -8,13 +8,13 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    Antonis Gkortzis (University of Groningen)    
 */
 
 using System.Linq;
 using DecisionViewpoints.Model;
 using EAFacade.Model;
 
-//angor task157
 
 namespace DecisionViewpoints.View.Controller
 {
@@ -41,7 +41,7 @@ namespace DecisionViewpoints.View.Controller
             // Update Related Decisions field
             foreach (var connector in _decision.Connectors.Where(connector => connector.IsRelationship()))
             {
-                if (!connector.Stereotype.Equals("alternative for")) //angor task 158
+                if (!connector.Stereotype.Equals("alternative for"))
                 {
                     if (connector.ClientId == _decision.ID)
                         _view.AddRelatedDecision(connector.Stereotype, connector.GetSupplier().Name, true,
@@ -53,7 +53,6 @@ namespace DecisionViewpoints.View.Controller
             }
 
 
-            //angor START task156
             // Update Alternative Decisions field
             foreach (var connector in _decision.Connectors.Where(connector => connector.IsRelationship()))
             {
@@ -67,9 +66,7 @@ namespace DecisionViewpoints.View.Controller
                                                      connector.GetSupplier().GUID, connector.GetClient().GUID);
                 }
             }
-            //angor END task156
 
-            //angor START task157
             // Update Traces
             var traces = from IEAConnector trace in _decision.Connectors
                          where trace.Stereotype.Equals("trace")
@@ -82,9 +79,7 @@ namespace DecisionViewpoints.View.Controller
                 _view.AddTrace(tracedElement.Name, tracedElement.Type, tracedElement.GUID);
                 // MessageBox.Show("Traced element: " + tracedElement.Name + "\nuid: " + tracedElement.GUID);
             }
-            //angor END task157
 
-            //angor END task159       
             // Update Related Requirements
             var forces = _decision.GetForces();
             foreach (var rating in forces)
@@ -93,7 +88,6 @@ namespace DecisionViewpoints.View.Controller
                 IEAElement concern = EAFacade.EA.Repository.GetElementByGUID(rating.ConcernGUID);
                 _view.AddRelatedRequirement(req.Name, rating.Value, req.Notes, rating.RequirementGUID, concern.Name);
             }
-            //angor END task159
 
             // Update Stakeholder field
             foreach (var connector in _decision.Connectors.Where(connector => connector.IsAction()))

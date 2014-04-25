@@ -8,6 +8,7 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    Antonis Gkortzis (University of Groningen)
 */
 
 using System.Linq;
@@ -118,7 +119,6 @@ namespace DecisionViewpoints
             return true;
         }
 
-        //angor moved from MainApplication
         public override void EA_OnPostOpenDiagram(Repository repository, int diagramId)
         {
             EAFacade.EA.UpdateRepository(repository);
@@ -129,7 +129,6 @@ namespace DecisionViewpoints
             }
         }
 
-        //angor
         public override bool EA_OnPostNewDiagramObject(Repository repository, EventProperties properties)
         {
             EAFacade.EA.UpdateRepository(repository);
@@ -143,13 +142,11 @@ namespace DecisionViewpoints
             return true;
         }
 
-        //angor task179 START
         public override void EA_OnPostCloseDiagram(Repository repository, int diagramId)
         {
             EAFacade.EA.UpdateRepository(repository);
-            //System.Windows.Forms.MessageBox.Show("Event OnPostCloseDiagram"); //angor
+            //System.Windows.Forms.MessageBox.Show("Event OnPostCloseDiagram");
         }
 
-        //angor task179 END
     }
 }

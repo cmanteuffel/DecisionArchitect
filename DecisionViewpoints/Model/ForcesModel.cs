@@ -8,6 +8,7 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    Antonis Gkortzis (University of Groningen)
 */
 
 using System;
@@ -176,7 +177,6 @@ namespace DecisionViewpoints.Model
         }
 
         /*
-        //angor START task159
         public static void PrintRequirementInfo(String value)
         {
             var key = value.Split(':')[2];
@@ -186,7 +186,6 @@ namespace DecisionViewpoints.Model
                 +"\nMetatype: " +obj.MetaType
                 +"\nName: " + obj.Name);
         }
-        //angor END task159
          */
     }
 }

@@ -8,6 +8,7 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    Antonis Gkortzis (University of Groningen)    
 */
 
 using System;
@@ -59,12 +60,12 @@ namespace DecisionViewpoints.Model
         /// <param name="value">The taggged value name.</param>
         /// <returns></returns>
         //private static string GetReqGUIDFromTaggedValue(string value)//original
-        public static string GetReqGUIDFromTaggedValue(string value)//angor
+        public static string GetReqGUIDFromTaggedValue(string value)
         {
             return value.Split(':')[1];
         }
 
-        public static string GetConcernGUIDFromTaggedValue(string value)//angor
+        public static string GetConcernGUIDFromTaggedValue(string value)
         {
             return value.Split(':')[2];
         }
@@ -75,7 +76,7 @@ namespace DecisionViewpoints.Model
         /// <param name="value"></param>
         /// <returns></returns>
         //private static bool IsForcesTaggedValue(string value)//original
-        public static bool IsForcesTaggedValue(string value)//angor
+        public static bool IsForcesTaggedValue(string value)
         {
             return value.Split(':')[0].Equals("DV.Forces");
         }

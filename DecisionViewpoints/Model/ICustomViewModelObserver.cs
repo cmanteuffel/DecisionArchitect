@@ -8,6 +8,7 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    Antonis Gkortzis (University of Groningen)
 */
 
 namespace DecisionViewpoints.Model
@@ -27,12 +28,10 @@ namespace DecisionViewpoints.Model
         void Update(IDecision model);
     }
 
-    //angor task189 START
     /*
     public interface ITopicObserver : ICustomViewModelObserver
     {
         void Update(ITopic model);
     }
      */ 
-    //angor task189 END
 }

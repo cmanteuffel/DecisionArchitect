@@ -8,6 +8,7 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    Antonis Gkortzis (University of Groningen)
 */
 
 using System.Windows.Forms;
@@ -63,7 +64,7 @@ namespace DecisionViewpoints.Logic.Detail
             EAFacade.EA.Repository.SuppressDefaultDialogs(true);
             if (element.IsDecision())
             {
-                var detailController = new DetailController(new Decision(element), new DetailView()); //angor
+                var detailController = new DetailController(new Decision(element), new DetailView());
                 detailController.ShowDetailView();
             }
             else if (element.IsTopic())

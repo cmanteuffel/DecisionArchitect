@@ -8,6 +8,7 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    Antonis Gkortzis (University of Groningen)   
 */
 
 using System;
@@ -24,7 +25,7 @@ using EAFacade;
 using EAFacade.Model;
 
 
-//using MenuItem = DecisionViewpointsCustomViews.Model.Menu.MenuItem; //angor task 149
+//using MenuItem = DecisionViewpointsCustomViews.Model.Menu.MenuItem;
 
 namespace DecisionViewpoints.View
 {
@@ -51,7 +52,6 @@ namespace DecisionViewpoints.View
         private IForcesController _controller;
         private DataGridView _forcesTable;
 
-        //angor task149 ContextMenu
         private ToolTip datagridToolTip = new ToolTip();
 
         public ForcesView()

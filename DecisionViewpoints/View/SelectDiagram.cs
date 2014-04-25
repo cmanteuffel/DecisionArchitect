@@ -8,6 +8,7 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    Antonis Gkortzis (University of Groningen)    
 */
 
 using System.Collections.Generic;
@@ -34,12 +35,12 @@ namespace EAFacade
             diagrams.ToList().ForEach(x => datasource.Add(new DiagramListItem { Name = x.Name, ID = x.ID, Diagram = x }));
             listDiagrams.ValueMember = "ID";
             listDiagrams.DisplayMember = "Name";
-            //datasource.Add(new DiagramListItem { Name = "Open DetailView", ID = 999, Diagram = null }); //angor
+            //datasource.Add(new DiagramListItem { Name = "Open DetailView", ID = 999, Diagram = null });
             listDiagrams.DataSource = datasource;
 
         }
 
-        //angor START
+
         /*
         public SelectDiagram(IEnumerable<IEADiagram> diagrams, bool isDecision)
         {
@@ -49,12 +50,11 @@ namespace EAFacade
             diagrams.ToList().ForEach(x => datasource.Add(new DiagramListItem { Name = x.Name, ID = x.ID, Diagram = x }));
             listDiagrams.ValueMember = "ID";
             listDiagrams.DisplayMember = "Name";
-            datasource.Add(new DiagramListItem { Name = "Open DetailView", ID = 999, Diagram = null }); //angor
+            datasource.Add(new DiagramListItem { Name = "Open DetailView", ID = 999, Diagram = null });
             listDiagrams.DataSource = datasource;
 
         }
          */
-        //angor END
 
         public IEADiagram GetSelectedDiagram()
         {
