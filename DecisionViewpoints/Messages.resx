@@ -226,13 +226,13 @@
     <value>Generate Word  (Selected Decisions/Topics)</value>
   </data>
   <data name="SuccesfulForcesReportCreation" xml:space="preserve">
-    <value>Forces report was created succesfuly.</value>
+    <value>Forces report was created successfully.</value>
   </data>
   <data name="SuccesfulReportCreation" xml:space="preserve">
-    <value>Report was created succesfuly.</value>
+    <value>Report was created successfully.</value>
   </data>
   <data name="ReportSuccessful" xml:space="preserve">
-    <value>{0} report succesfully exported.</value>
+    <value>{0} report successfully exported.</value>
   </data>
   <data name="SaveReportAs" xml:space="preserve">
     <value>Save report as...</value>
@@ -253,7 +253,7 @@
     <value>{0} Topic</value>
   </data>
   <data name="DialogOpenLatestDecision" xml:space="preserve">
-    <value>This is only a copy of the orginal decision. No modifiactions will be stored in this element. Do you want to open the original version of the decision instead?</value>
+    <value>This is only a copy of the orginal decision. No modifications will be stored in this element. Do you want to open the original version of the decision instead?</value>
   </data>
   <data name="DialogOpenLatestDecisionTitle" xml:space="preserve">
     <value>Open latest version of the decision</value>
