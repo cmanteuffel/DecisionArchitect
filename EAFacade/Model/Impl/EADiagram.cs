@@ -8,6 +8,7 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    Mark Hoekstra (University of Groningen)
 */
 
 using System;
@@ -126,20 +127,44 @@ namespace EAFacade.Model.Impl
             return new EADiagram(native);
         }
 
-        public void AddToDiagram(IEAElement newElement)
+        /// <summary>
+        /// Adds an element to the diagram
+        /// </summary>
+        /// <param name="element">Element to be added</param>
+        public void AddToDiagram(IEAElement element)
         {
             //check if element already exists on diagram
-            if (null != GetElements().FirstOrDefault(dobj => dobj.ElementID.Equals(newElement.ID)))
+            if (null != GetElements().FirstOrDefault(dobj => dobj.ElementID.Equals(element.ID)))
             {
                 return;
             }
 
             DiagramObject diaObj = _native.DiagramObjects.AddNew("l=10;r=110;t=-20;b=-80", "");
-            diaObj.ElementID = newElement.ID;
+            diaObj.ElementID = element.ID;
             diaObj.Update();
             var nativeRepository = EARepository.Instance.Native;
             nativeRepository.ReloadDiagram(_native.DiagramID);
             nativeRepository.SaveDiagram(_native.DiagramID);
+        }
+        
+        /// <summary>
+        /// Removes an element from the diagram
+        /// </summary>
+        /// <param name="element">element to be removed</param>
+        public void RemoveFromDiagram(IEAElement element)
+        {
+            for (short i = 0; i < _native.DiagramObjects.Count; i++)
+            {
+                DiagramObject obj = _native.DiagramObjects.GetAt(i);
+                if (obj.ElementID.Equals(element.ID))
+                {
+                    _native.DiagramObjects.DeleteAt(i,true);
+                    var nativeRepository = EARepository.Instance.Native;
+                    nativeRepository.ReloadDiagram(_native.DiagramID);
+                    nativeRepository.SaveDiagram(_native.DiagramID);
+                    break;
+                }
+            }
         }
 
         public void OpenAndSelectElement(IEAElement element)

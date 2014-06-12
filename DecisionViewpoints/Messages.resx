@@ -267,6 +267,9 @@
   <data name="ForcesViewOpenDecisionInDetailView" xml:space="preserve">
     <value>Open Decision Detail View</value>
   </data>
+  <data name="ForcesViewRemoveDecision" xml:space="preserve">
+    <value>Remove Decision</value>
+  </data>
   <data name="ChronologyDecisionName" xml:space="preserve">
     <value>{0}
 [{1}]</value>

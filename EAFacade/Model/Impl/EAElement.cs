@@ -8,6 +8,7 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    Mark Hoekstra (University of Groningen)
 */
 
 using System;
@@ -327,15 +328,8 @@ namespace EAFacade.Model.Impl
 
         public string GetTaggedValue(string dvDecisionviewpackage)
         {
-            try
-            {
-                TaggedValue value = _native.TaggedValues.GetByName(dvDecisionviewpackage);
-                return value.Value;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+            TaggedValue value = _native.TaggedValues.GetByName(dvDecisionviewpackage);
+            return value == null ? null : value.Value;
         }
 
         public void AddTaggedValue(string name, string data)

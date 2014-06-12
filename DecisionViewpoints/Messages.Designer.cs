@@ -116,7 +116,7 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This is only a copy of the orginal decision. No modifiactions will be stored in this element. Do you want to open the original version of the decision instead?.
+        ///   Looks up a localized string similar to This is only a copy of the orginal decision. No modifications will be stored in this element. Do you want to open the original version of the decision instead?.
         /// </summary>
         internal static string DialogOpenLatestDecision {
             get {
@@ -193,6 +193,15 @@ namespace DecisionViewpoints {
         internal static string ForcesViewOpenDecisionInDiagrams {
             get {
                 return ResourceManager.GetString("ForcesViewOpenDecisionInDiagrams", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove Decision.
+        /// </summary>
+        internal static string ForcesViewRemoveDecision {
+            get {
+                return ResourceManager.GetString("ForcesViewRemoveDecision", resourceCulture);
             }
         }
         
@@ -485,7 +494,7 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} report succesfully exported..
+        ///   Looks up a localized string similar to {0} report successfully exported..
         /// </summary>
         internal static string ReportSuccessful {
             get {
@@ -503,7 +512,7 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Forces report was created succesfuly..
+        ///   Looks up a localized string similar to Forces report was created successfully..
         /// </summary>
         internal static string SuccesfulForcesReportCreation {
             get {
@@ -512,7 +521,7 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Report was created succesfuly..
+        ///   Looks up a localized string similar to Report was created successfully..
         /// </summary>
         internal static string SuccesfulReportCreation {
             get {

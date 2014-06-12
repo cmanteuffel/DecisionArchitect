@@ -8,6 +8,7 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    Mark Hoekstra (University of Groningen)
 */
 
 using System.Collections.Generic;
@@ -15,11 +16,12 @@ using System.IO;
 
 namespace EAFacade.Model
 {
-    public interface IEADiagram : IModelObject
+    public interface IEADiagram: IModelObject
     {
         IEAElement ParentElement { get; set; }
         string Metatype { get; }
         void AddToDiagram(IEAElement newElement);
+        void RemoveFromDiagram(IEAElement element);
         void OpenAndSelectElement(IEAElement element);
         List<IEADiagramObject> GetElements();
         void HideConnectors(string[] stereotypes);
