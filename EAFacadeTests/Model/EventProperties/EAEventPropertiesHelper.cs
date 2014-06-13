@@ -16,7 +16,7 @@ using System.Globalization;
 using EA;
 using EAFacade.Model;
 
-namespace DecisionViewpointsTests.Model.EventProperties
+namespace EAFacadeTests.Model.EventProperties
 {
     public sealed class EAEventPropertiesHelper : EA.EventProperties
     {
@@ -32,11 +32,13 @@ namespace DecisionViewpointsTests.Model.EventProperties
                     {EAEventPropertyKeys.ClientId, null},
                     {EAEventPropertyKeys.SupplierId, null},
                     {EAEventPropertyKeys.DiagramId, null},
+                    {EAEventPropertyKeys.ElementId, null},
+                    {EAEventPropertyKeys.ParentId, null},
                 };
         }
 
         public static EAEventPropertiesHelper GetInstance(string type, string subtype, string stereotype, int clientid,
-                                                          int supplierid, int diagramid)
+                                                          int supplierid, int diagramid, int elementid, int parentid)
         {
             var instance = new EAEventPropertiesHelper();
             instance.Set(EAEventPropertyKeys.Type, type);
@@ -45,6 +47,8 @@ namespace DecisionViewpointsTests.Model.EventProperties
             instance.Set(EAEventPropertyKeys.ClientId, clientid.ToString(CultureInfo.InvariantCulture));
             instance.Set(EAEventPropertyKeys.SupplierId, supplierid.ToString(CultureInfo.InvariantCulture));
             instance.Set(EAEventPropertyKeys.DiagramId, diagramid.ToString(CultureInfo.InvariantCulture));
+            instance.Set(EAEventPropertyKeys.ElementId, elementid.ToString(CultureInfo.InvariantCulture));
+            instance.Set(EAEventPropertyKeys.ParentId, parentid.ToString(CultureInfo.InvariantCulture));
             return instance;
         }
 

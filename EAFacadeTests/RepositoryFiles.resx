@@ -117,13 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BasicStructure" xml:space="preserve">
-    <value>\EATestFiles\UnitTestBasicStructure.eap</value>
-  </data>
-  <data name="Empty" xml:space="preserve">
-    <value>\EATestFiles\UnitTestEmpty.eap</value>
-  </data>
-  <data name="Relationships" xml:space="preserve">
-    <value>\EATestFiles\UnitTestRelationships.eap</value>
+  <data name="Example" xml:space="preserve">
+    <value>\EATestFiles\UnitTestExample.eap</value>
   </data>
 </root>

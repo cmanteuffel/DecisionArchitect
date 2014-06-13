@@ -8,14 +8,18 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    K. Eric Harper (ABB Corporate Research)
 */
 
-namespace DecisionViewpointsTests.Model.RepositoryFile
+using EA;
+
+namespace EAFacadeTests.Model.EventProperties
 {
-    interface IRepositoryFile
+    public class EAEventPropertyHelper : EventProperty
     {
-        void Open();
-        void Reset();
-        void Close();
+        public object Value { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public ObjectType ObjectType { get; set; }
     }
 }

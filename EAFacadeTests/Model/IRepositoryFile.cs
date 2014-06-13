@@ -8,22 +8,15 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    K. Eric Harper (ABB Corporate Research)
 */
 
-using DecisionViewpointsTests.Model.RepositoryFile;
-using EA;
-
-namespace DecisionViewpointsTests.Logic
+namespace EAFacadeTests.Model.RepositoryFile
 {
-    class BasicStructureRepositoryFile : RepositoryFile
+    interface IRepositoryFile
     {
-        public BasicStructureRepositoryFile(Repository repo) : base(repo)
-        {
-        }
-
-        public override void Open()
-        {
-            Repo.OpenFile(GetDirectory() + RepositoryFiles.BasicStructure);
-        }
+        void Open();
+        void Reset();
+        void Close();
     }
 }

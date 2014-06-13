@@ -8,17 +8,24 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    K. Eric Harper (ABB Corporate Research)
 */
 
+using EAFacadeTests;
+using EAFacadeTests.Model.RepositoryFile;
 using EA;
 
-namespace DecisionViewpointsTests.Model.EventProperties
+namespace EAFacadeTests.Logic
 {
-    public class EAEventPropertyHelper : EventProperty
+    class ExampleRepositoryFile : RepositoryFile
     {
-        public object Value { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public ObjectType ObjectType { get; set; }
+        public ExampleRepositoryFile(Repository repo) : base(repo)
+        {
+        }
+
+        public override void Open()
+        {
+            Repo.OpenFile(GetDirectory() + RepositoryFiles.Example);
+        }
     }
 }
