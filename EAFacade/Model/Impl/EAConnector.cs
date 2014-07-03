@@ -8,8 +8,11 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    Mark Hoekstra (University of Groningen)
 */
 
+using System.Collections.Generic;
+using System.Linq;
 using EA;
 
 namespace EAFacade.Model.Impl
@@ -49,6 +52,15 @@ namespace EAFacade.Model.Impl
         {
             get { return _native.MetaType; }
             set { _native.MetaType = value; }
+        }
+
+        public List<IEAConnectorTag> TaggedValues
+        {
+            get
+            {
+                return _native.TaggedValues.Cast<ConnectorTag>()
+                              .Select(EAConnectorTag.Wrap).ToList();
+            }
         }
 
         public string GUID
@@ -110,6 +122,57 @@ namespace EAFacade.Model.Impl
         public bool IsAction()
         {
             return EAConstants.ActionMetaType.Equals(MetaType);
+        }
+
+        /// <summary>
+        /// Implements IEAConnector.TaggedValueExists(string name)
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public bool TaggedValueExists(string name)
+        {
+            return _native.TaggedValues.Cast<ConnectorTag>().Any(tv => tv.Name.Equals(name));
+        }
+
+        /// <summary>
+        /// Implements IEAConnector.TaggedValueExists(string name, string data)
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public bool TaggedValueExists(string name, string data)
+        {
+            return _native.TaggedValues.Cast<ConnectorTag>().Any(tv => tv.Name.Equals(name) && tv.Value.Equals(data));
+        }
+
+        public void AddTaggedValue(string name, string data)
+        {
+            ConnectorTag taggedValue = _native.TaggedValues.AddNew(name, "");
+            taggedValue.Value = data;
+            taggedValue.Update();
+            _native.TaggedValues.Refresh();
+            _native.Update();
+        }
+
+        /// <summary>
+        /// Implements IEAConnector.RemoveTaggedValue(string name, string data)
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="data"></param>
+        public void RemoveTaggedValue(string name, string data)
+        {
+            for (short i = 0; i < TaggedValues.Count; i++)
+            {
+                IEAConnectorTag tv = TaggedValues[i];
+
+                if (tv.Name.Equals(name) && tv.Value.Equals(data))
+                {
+                    _native.TaggedValues.Delete(i);
+                    _native.TaggedValues.Refresh();
+                    _native.Update();
+                    return; // Only delete one ConnectorTag
+                }
+            }
         }
     }
 }

@@ -9,11 +9,13 @@
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
     Antonis Gkortzis (University of Groningen)
+    Mark Hoekstra (University of Groningen)
 */
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EAFacade;
 using EAFacade.Model;
 
 namespace DecisionViewpoints.Model
@@ -57,14 +59,17 @@ namespace DecisionViewpoints.Model
             _observers.Remove(observer);
         }
 
-        // Get Decision from Diagram and Topics that are on the diagram
+        /// <summary>
+        /// Implements IForcesModel.GetDecisions()
+        /// </summary>
+        /// <returns></returns>
         public IEAElement[] GetDecisions()
         {
             IEARepository repository = EAFacade.EA.Repository;
             IEAElement[] topics = (from diagramObject in _diagram.GetElements()
                                   select repository.GetElementByID(diagramObject.ElementID)
                                   into element
-                                  where element.IsTopic()
+                                  where element.IsTopic() && !element.TaggedValueExists(EATaggedValueKeys.IsForceElement, _diagram.GUID)
                                   select element).ToArray();
 
 
@@ -73,59 +78,42 @@ namespace DecisionViewpoints.Model
 
 
             IEnumerable<IEAElement> decisionsDirectlyFromDiagram = (from diagramObject in _diagram.GetElements()
-                                                                   select
-                                                                       repository.GetElementByID(diagramObject.ElementID)
-                                                                   into element where element.IsDecision()
-                                                                   select element);
+                select
+                    repository.GetElementByID(diagramObject.ElementID)
+                into element
+                where element.TaggedValueExists(EATaggedValueKeys.IsDecisionElement, _diagram.GUID)
+                select element);
 
             return decisionsFromTopic.Union(decisionsDirectlyFromDiagram).ToArray();
         }
 
-        public IEAElement[] GetRequirements()
+        /// <summary>
+        /// Implements IForcesModel.GetForces()
+        /// </summary>
+        /// <returns></returns>
+        public IEAElement[] GetForces()
         {
             IEARepository repository = EAFacade.EA.Repository;
             return (from diagramObject in _diagram.GetElements()
-                    select repository.GetElementByID(diagramObject.ElementID)
-                    into element where element.IsRequirement() select element).ToArray();
+                select repository.GetElementByID(diagramObject.ElementID)
+                into element
+                where element.TaggedValueExists(EATaggedValueKeys.IsForceElement, _diagram.GUID)
+                 select element).ToArray();
         }
 
-        public Dictionary<IEAElement, List<IEAElement>> GetConcernsPerRequirement()
+        /// <summary>
+        /// Implements IForcesModel.GetConcernsPerForce()
+        /// </summary>
+        /// <returns></returns>
+        public Dictionary<IEAElement, List<IEAElement>> GetConcernsPerForce()
         {
-            var requirementConcernDictionary = new Dictionary<IEAElement, List<IEAElement>>();
-            foreach (IEAElement requirement in GetRequirements())
+            var forceConcernDictionary = new Dictionary<IEAElement, List<IEAElement>>();
+            foreach (IEAElement force in GetForces())
             {
-                List<IEAElement> concerns =
-                    requirement.GetConnectedConcerns().Where(concern => _diagram.Contains(concern)).ToList();
-                requirementConcernDictionary.Add(requirement, concerns);
+                List<IEAElement> concerns = force.GetConnectedConcerns(_diagram.GUID).Where(concern => _diagram.Contains(concern)).ToList();
+                forceConcernDictionary.Add(force,concerns);
             }
-            return requirementConcernDictionary;
-        }
-
-        [Obsolete("use reqPerConc", true)]
-        public Dictionary<IEAElement, List<IEAElement>> GetConcerns()
-        {
-            IEARepository repository = EAFacade.EA.Repository;
-            var requirementsConcerns = new Dictionary<IEAElement, List<IEAElement>>();
-            foreach (IEADiagramObject diagramObject in _diagram.GetElements())
-            {
-                IEAElement concern = repository.GetElementByID(diagramObject.ElementID);
-                if (!concern.IsConcern()) continue;
-                foreach (IEAElement connectedRequirement in 
-                    concern.GetConnectedRequirements()
-                           .Where(connectedRequirement => _diagram.Contains(connectedRequirement)))
-                {
-                    if (requirementsConcerns.ContainsKey(connectedRequirement))
-                    {
-                        requirementsConcerns[connectedRequirement].Add(concern);
-                    }
-                    else
-                    {
-                        if (connectedRequirement.IsRequirement())
-                            requirementsConcerns.Add(connectedRequirement, new List<IEAElement> {concern});
-                    }
-                }
-            }
-            return requirementsConcerns;
+            return forceConcernDictionary;
         }
 
         public List<Rating> GetRatings()
@@ -140,7 +128,7 @@ namespace DecisionViewpoints.Model
                               select new Rating
                                   {
                                       DecisionGUID = element.GUID,
-                                      RequirementGUID = Rating.GetReqGUIDFromTaggedValue(taggedValue.Name),
+                                      ForceGUID = Rating.GetForceGUIDFromTaggedValue(taggedValue.Name),
                                       ConcernGUID = Rating.GetConcernGUIDFromTaggedValue(taggedValue.Name),
                                       Value = taggedValue.Value
                                   });
@@ -155,7 +143,7 @@ namespace DecisionViewpoints.Model
             {
                 IEAElement decision = repository.GetElementByGUID(rating.DecisionGUID);
                 if (decision == null) continue;
-                string forcesTaggedValue = Rating.ConstructForcesTaggedValue(rating.RequirementGUID, rating.ConcernGUID);
+                string forcesTaggedValue = Rating.ConstructForcesTaggedValue(rating.ForceGUID, rating.ConcernGUID);
                 if (decision.GetTaggedValue(forcesTaggedValue) != null)
                     decision.UpdateTaggedValue(forcesTaggedValue, rating.Value);
                 else
@@ -175,17 +163,5 @@ namespace DecisionViewpoints.Model
         {
             return String.Format("{0} (Forces)", diagramName);
         }
-
-        /*
-        public static void PrintRequirementInfo(String value)
-        {
-            var key = value.Split(':')[2];
-            var obj =EAFacade.EA.Repository.GetElementByGUID(key);
-            MessageBox.Show("Value: " + key + 
-                "\nWhat is it? (Type): " + obj.Type
-                +"\nMetatype: " +obj.MetaType
-                +"\nName: " + obj.Name);
-        }
-         */
     }
 }

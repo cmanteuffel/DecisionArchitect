@@ -36,7 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Interop.EA">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Sparx Systems\EA\Interop.EA.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\SEARCH Group\Decision Viewpoints\Interop.EA.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />
@@ -48,6 +48,7 @@
     <Compile Include="EA.cs" />
     <Compile Include="EAConstants.cs" />
     <Compile Include="EATaggedValueKeys.cs" />
+    <Compile Include="Model\IEAConnectorTag.cs" />
     <Compile Include="Model\IEADiagram.cs" />
     <Compile Include="Model\IEAPackage.cs" />
     <Compile Include="Model\IEADiagramObject.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="Model\IEAVolatileDiagram.cs" />
     <Compile Include="Model\IEAVolatileElement.cs" />
     <Compile Include="Model\Impl\EAConnector.cs" />
+    <Compile Include="Model\Impl\EAConnectorTag.cs" />
     <Compile Include="Model\Impl\EADiagram.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>

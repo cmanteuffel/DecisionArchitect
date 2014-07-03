@@ -39,7 +39,7 @@
       <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Open XML SDK\V2.0\lib\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
     <Reference Include="Interop.EA">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Sparx Systems\EA\Interop.EA.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\SEARCH Group\Decision Viewpoints\Interop.EA.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -50,12 +50,21 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logic\Forces\Excel.cs" />
     <Compile Include="Model\DataComparator.cs" />
     <Compile Include="Model\StakeholderInvolvement.cs" />
     <Compile Include="Utilities.cs" />
+    <Compile Include="View\Forces\AddElement.cs" />
+    <Compile Include="View\Forces\AddForce.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Forces\AddForce.Designer.cs">
+      <DependentUpon>AddForce.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\Controller\DetailController.cs" />
     <Compile Include="View\Controller\ForcesController.cs" />
     <Compile Include="View\Controller\ICustomViewController.cs" />
@@ -152,13 +161,17 @@
     <Compile Include="View\DetailView.Designer.cs">
       <DependentUpon>DetailView.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\ForcesView.cs">
+    <Compile Include="View\Forces\ForcesTableContext.cs" />
+    <Compile Include="View\Forces\ForcesView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="View\ICustomView.cs" />
     <Compile Include="View\IDetailView.cs" />
-    <Compile Include="View\IForcesView.cs" />
+    <Compile Include="View\Forces\IForcesView.cs" />
     <Compile Include="View\ITopicDetailView.cs" />
+    <Compile Include="View\Forces\AddDecision.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="View\SelectDiagram.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -173,11 +186,18 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="View\Forces\AddForce.resx">
+      <DependentUpon>AddForce.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\DetailView.resx">
       <DependentUpon>DetailView.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\ForcesView.resx">
+    <EmbeddedResource Include="View\Forces\ForcesView.resx">
       <DependentUpon>ForcesView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Forces\AddDecision.resx">
+      <DependentUpon>AddDecision.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\SelectDiagram.resx">
       <DependentUpon>SelectDiagram.cs</DependentUpon>
@@ -196,6 +216,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Logic\Menu\ExportReportsCustomMessageBox.resx">
       <DependentUpon>ExportReportsCustomMessageBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Templates\Template.pptx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -238,6 +259,44 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Templates\ExampleDecisionViewTemplate.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="ADODB">
+      <Guid>{2A75196C-D9EB-4129-B803-931327F72D5C}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

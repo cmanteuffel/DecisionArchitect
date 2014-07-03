@@ -8,6 +8,7 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    Mark Hoekstra (University of Groningen)
 */
 
 using System;
@@ -46,6 +47,12 @@ namespace EAFacade.Model.Impl
                 IEAPackage package = EARepository.Instance.GetPackageByID(ID);
                 return ((EAPackage)package)._native.Packages.Cast<Package>().Select(Wrap).ToList();
             }
+        }
+
+        public string Stereotype
+        {
+            get { return _native.StereotypeEx; }
+            set { _native.StereotypeEx = value; }
         }
 
         public string GUID

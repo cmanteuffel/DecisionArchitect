@@ -179,6 +179,24 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Decision named &quot;{0}&quot; already exists..
+        /// </summary>
+        internal static string ForcesViewDecisionExists {
+            get {
+                return ResourceManager.GetString("ForcesViewDecisionExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Force named &quot;{0}&quot; already exists with the Concern named &quot;{1}&quot;..
+        /// </summary>
+        internal static string ForcesViewForceExists {
+            get {
+                return ResourceManager.GetString("ForcesViewForceExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open Decision Detail View.
         /// </summary>
         internal static string ForcesViewOpenDecisionInDetailView {
@@ -197,11 +215,38 @@ namespace DecisionViewpoints {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove all decisions.
+        /// </summary>
+        internal static string ForcesViewRemoveAllDecisions {
+            get {
+                return ResourceManager.GetString("ForcesViewRemoveAllDecisions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove all forces.
+        /// </summary>
+        internal static string ForcesViewRemoveAllForces {
+            get {
+                return ResourceManager.GetString("ForcesViewRemoveAllForces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove Decision.
         /// </summary>
         internal static string ForcesViewRemoveDecision {
             get {
                 return ResourceManager.GetString("ForcesViewRemoveDecision", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove Force.
+        /// </summary>
+        internal static string ForcesViewRemoveForce {
+            get {
+                return ResourceManager.GetString("ForcesViewRemoveForce", resourceCulture);
             }
         }
         

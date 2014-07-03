@@ -112,7 +112,7 @@ namespace DecisionViewpoints.Logic.Chronological
         {
             foreach (IEAElement element in elements)
             {
-                chronologicalViewpoint.AddToDiagram(element);
+                chronologicalViewpoint.AddElement(element);
             }
         }
     }

@@ -11,6 +11,7 @@
 */
 
 using DecisionViewpoints.Model;
+using DecisionViewpoints.View.Forces;
 using EAFacade.Model;
 
 
@@ -23,10 +24,10 @@ namespace DecisionViewpoints.View.Controller
         void Configure();
         void SetDiagramModel(IEADiagram diagram);
         void UpdateDecision(IEAElement element);
-        void UpdateRequirement(IEAElement element);
+        void UpdateForce(IEAElement element);
         void UpdateConcern(IEAElement element);
         void RemoveDecision(IEAElement element);
-        void RemoveRequirement(IEAElement element);
+        void RemoveForce(IEAElement element);
         void RemoveConcern(IEAElement element);
     }
 }

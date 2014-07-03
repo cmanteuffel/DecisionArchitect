@@ -65,7 +65,7 @@ namespace DecisionViewpoints.Logic.Reporting
             const string forcesTableTopLeftColumn = "A";
             const uint forcesTopLeftRow = 1;
 
-            InsertText(worksheetPart, forcesTableTopLeftColumn, forcesTopLeftRow, "Requirement");
+            InsertText(worksheetPart, forcesTableTopLeftColumn, forcesTopLeftRow, "Force");
             InsertText(worksheetPart, forcesTopLeftRow, "Concern");
 
             foreach (IEAElement decision in forces.GetDecisions())
@@ -74,18 +74,18 @@ namespace DecisionViewpoints.Logic.Reporting
             }
 
             uint rowIndex = forcesTopLeftRow + 1;
-            foreach (var concernsPerRequirement in forces.GetConcernsPerRequirement())
+            foreach (var concernsPerForce in forces.GetConcernsPerForce())
             {
-                IEAElement requirement = concernsPerRequirement.Key;
-                List<IEAElement> concerns = concernsPerRequirement.Value;
+                IEAElement force = concernsPerForce.Key;
+                List<IEAElement> concerns = concernsPerForce.Value;
 
                 foreach (IEAElement concern in concerns)
                 {
-                    InsertText(worksheetPart, forcesTableTopLeftColumn, rowIndex, requirement.Name);
+                    InsertText(worksheetPart, forcesTableTopLeftColumn, rowIndex, force.Name);
                     InsertText(worksheetPart, rowIndex, concern.Name);
                     foreach (Rating rating in forces.GetRatings())
                     {
-                        if (rating.RequirementGUID != requirement.GUID || rating.ConcernGUID != concern.GUID) continue;
+                        if (rating.ForceGUID != force.GUID || rating.ConcernGUID != concern.GUID) continue;
                         if (forces.GetDecisions().Any(decision => rating.DecisionGUID == decision.GUID))
                         {
                             InsertText(worksheetPart, rowIndex, rating.Value);

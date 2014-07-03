@@ -58,13 +58,8 @@ namespace DecisionViewpoints.View
             this.Relation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RelatedTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.relatedUid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RelatedRequirementsTb = new System.Windows.Forms.TabPage();
-            this.dgvRelatedRequirements = new System.Windows.Forms.DataGridView();
-            this.reqUid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.concern = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rating = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RelatedForcesTb = new System.Windows.Forms.TabPage();
+            this.dgvRelatedForces = new System.Windows.Forms.DataGridView();
             this.TracesTb = new System.Windows.Forms.TabPage();
             this.dgvTraces = new System.Windows.Forms.DataGridView();
             this.traceUid = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -98,13 +93,18 @@ namespace DecisionViewpoints.View
             this.ProblemTab = new System.Windows.Forms.TabPage();
             this.txtIssue = new System.Windows.Forms.RichTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.forceUid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.concern = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rating = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCntrlUnodifiable.SuspendLayout();
             this.AlternativeTb.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAlternatives)).BeginInit();
             this.RelatedDecisionsTb.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRelatedDecisions)).BeginInit();
-            this.RelatedRequirementsTb.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRelatedRequirements)).BeginInit();
+            this.RelatedForcesTb.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRelatedForces)).BeginInit();
             this.TracesTb.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTraces)).BeginInit();
             this.StakeholderTb.SuspendLayout();
@@ -137,7 +137,7 @@ namespace DecisionViewpoints.View
             resources.ApplyResources(this.tbCntrlUnodifiable, "tbCntrlUnodifiable");
             this.tbCntrlUnodifiable.Controls.Add(this.AlternativeTb);
             this.tbCntrlUnodifiable.Controls.Add(this.RelatedDecisionsTb);
-            this.tbCntrlUnodifiable.Controls.Add(this.RelatedRequirementsTb);
+            this.tbCntrlUnodifiable.Controls.Add(this.RelatedForcesTb);
             this.tbCntrlUnodifiable.Controls.Add(this.TracesTb);
             this.tbCntrlUnodifiable.Controls.Add(this.StakeholderTb);
             this.tbCntrlUnodifiable.Controls.Add(this.HistoryTb);
@@ -253,62 +253,30 @@ namespace DecisionViewpoints.View
             this.relatedUid.Name = "relatedUid";
             this.relatedUid.ReadOnly = true;
             // 
-            // RelatedRequirementsTb
+            // RelatedForcesTb
             // 
-            this.RelatedRequirementsTb.BackColor = System.Drawing.SystemColors.Control;
-            this.RelatedRequirementsTb.Controls.Add(this.dgvRelatedRequirements);
-            resources.ApplyResources(this.RelatedRequirementsTb, "RelatedRequirementsTb");
-            this.RelatedRequirementsTb.Name = "RelatedRequirementsTb";
+            this.RelatedForcesTb.BackColor = System.Drawing.SystemColors.Control;
+            this.RelatedForcesTb.Controls.Add(this.dgvRelatedForces);
+            resources.ApplyResources(this.RelatedForcesTb, "RelatedForcesTb");
+            this.RelatedForcesTb.Name = "RelatedForcesTb";
             // 
-            // dgvRelatedRequirements
+            // dgvRelatedForces
             // 
-            this.dgvRelatedRequirements.AllowUserToAddRows = false;
-            this.dgvRelatedRequirements.AllowUserToDeleteRows = false;
-            this.dgvRelatedRequirements.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvRelatedRequirements.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRelatedRequirements.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.reqUid,
+            this.dgvRelatedForces.AllowUserToAddRows = false;
+            this.dgvRelatedForces.AllowUserToDeleteRows = false;
+            this.dgvRelatedForces.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvRelatedForces.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvRelatedForces.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.forceUid,
             this.dataGridViewTextBoxColumn2,
             this.concern,
             this.rating,
             this.dataGridViewTextBoxColumn3});
-            resources.ApplyResources(this.dgvRelatedRequirements, "dgvRelatedRequirements");
-            this.dgvRelatedRequirements.Name = "dgvRelatedRequirements";
-            this.dgvRelatedRequirements.ReadOnly = true;
-            this.dgvRelatedRequirements.RowHeadersVisible = false;
-            this.dgvRelatedRequirements.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRelatedRequirements_CellContentClick);
-            // 
-            // reqUid
-            // 
-            resources.ApplyResources(this.reqUid, "reqUid");
-            this.reqUid.Name = "reqUid";
-            this.reqUid.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            // 
-            // concern
-            // 
-            resources.ApplyResources(this.concern, "concern");
-            this.concern.Name = "concern";
-            this.concern.ReadOnly = true;
-            // 
-            // rating
-            // 
-            resources.ApplyResources(this.rating, "rating");
-            this.rating.Name = "rating";
-            this.rating.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            resources.ApplyResources(this.dataGridViewTextBoxColumn3, "dataGridViewTextBoxColumn3");
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            resources.ApplyResources(this.dgvRelatedForces, "dgvRelatedForces");
+            this.dgvRelatedForces.Name = "dgvRelatedForces";
+            this.dgvRelatedForces.ReadOnly = true;
+            this.dgvRelatedForces.RowHeadersVisible = false;
+            this.dgvRelatedForces.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRelatedForces_CellContentClick);
             // 
             // TracesTb
             // 
@@ -553,6 +521,38 @@ namespace DecisionViewpoints.View
             // 
             resources.ApplyResources(this.notifyIcon1, "notifyIcon1");
             // 
+            // forceUid
+            // 
+            resources.ApplyResources(this.forceUid, "forceUid");
+            this.forceUid.Name = "forceUid";
+            this.forceUid.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // concern
+            // 
+            resources.ApplyResources(this.concern, "concern");
+            this.concern.Name = "concern";
+            this.concern.ReadOnly = true;
+            // 
+            // rating
+            // 
+            resources.ApplyResources(this.rating, "rating");
+            this.rating.Name = "rating";
+            this.rating.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            resources.ApplyResources(this.dataGridViewTextBoxColumn3, "dataGridViewTextBoxColumn3");
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
             // DetailView
             // 
             resources.ApplyResources(this, "$this");
@@ -584,8 +584,8 @@ namespace DecisionViewpoints.View
             ((System.ComponentModel.ISupportInitialize)(this.dgvAlternatives)).EndInit();
             this.RelatedDecisionsTb.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRelatedDecisions)).EndInit();
-            this.RelatedRequirementsTb.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRelatedRequirements)).EndInit();
+            this.RelatedForcesTb.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRelatedForces)).EndInit();
             this.TracesTb.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTraces)).EndInit();
             this.StakeholderTb.ResumeLayout(false);
@@ -619,13 +619,8 @@ namespace DecisionViewpoints.View
         private System.Windows.Forms.DataGridViewTextBoxColumn Relation;
         private System.Windows.Forms.DataGridViewTextBoxColumn RelatedTo;
         private System.Windows.Forms.DataGridViewTextBoxColumn relatedUid;
-        private System.Windows.Forms.TabPage RelatedRequirementsTb;
-        private System.Windows.Forms.DataGridView dgvRelatedRequirements;
-        private System.Windows.Forms.DataGridViewTextBoxColumn reqUid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn concern;
-        private System.Windows.Forms.DataGridViewTextBoxColumn rating;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.TabPage RelatedForcesTb;
+        private System.Windows.Forms.DataGridView dgvRelatedForces;
         private System.Windows.Forms.TabPage TracesTb;
         private System.Windows.Forms.DataGridView dgvTraces;
         private System.Windows.Forms.DataGridViewTextBoxColumn traceUid;
@@ -659,5 +654,10 @@ namespace DecisionViewpoints.View
         private System.Windows.Forms.DataGridView dvgHistory;
         private System.Windows.Forms.DataGridViewTextBoxColumn StateColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn DateColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn forceUid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn concern;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rating;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
     }
 }

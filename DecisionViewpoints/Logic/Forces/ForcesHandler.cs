@@ -8,13 +8,14 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    Mark Hoekstra (University of Groningen)
 */
 
 using System.Collections.Generic;
 using System.Linq;
 using DecisionViewpoints.Model;
-using DecisionViewpoints.View;
 using DecisionViewpoints.View.Controller;
+using DecisionViewpoints.View.Forces;
 using EAFacade;
 using EAFacade.Model;
 
@@ -23,7 +24,7 @@ namespace DecisionViewpoints.Logic.Forces
 {
     public class ForcesHandler : RepositoryAdapter
     {
-        // hold referecnes to the created views so to respond to the changed events (might need to change)
+        // hold references to the created views so to respond to the changed events (might need to change)
         private readonly Dictionary<string, IForcesController> _controllers =
             new Dictionary<string, IForcesController>();
 
@@ -94,12 +95,13 @@ namespace DecisionViewpoints.Logic.Forces
                                    .Where(eaDiagram => _controllers.ContainsKey(eaDiagram.GUID)))
                     {
                         forcesController = _controllers[eaDiagram.GUID];
-                        if (element.IsDecision())
+                        // An element can be of multiple types:
+                        if (element.TaggedValueExists(EATaggedValueKeys.IsDecisionElement, eaDiagram.GUID))
                             forcesController.UpdateDecision(element);
-                        else if (element.IsConcern())
+                        if (element.TaggedValueExists(EATaggedValueKeys.IsConcernElement, eaDiagram.GUID))
                             forcesController.UpdateConcern(element);
-                        else if (element.IsRequirement())
-                            forcesController.UpdateRequirement(element);
+                        if (element.TaggedValueExists(EATaggedValueKeys.IsForceElement, eaDiagram.GUID))
+                            forcesController.UpdateForce(element);
                     }
                     break;
             }
@@ -121,25 +123,30 @@ namespace DecisionViewpoints.Logic.Forces
 
         public override bool OnPreDeleteElement(IEAElement element)
         {
-            if (!element.IsDecision() && !element.IsConcern() && !element.IsRequirement()) return true;
+            if (!element.TaggedValueExists(EATaggedValueKeys.IsDecisionElement) &&
+                !element.TaggedValueExists(EATaggedValueKeys.IsConcernElement) &&
+                !element.TaggedValueExists(EATaggedValueKeys.IsForceElement)) return true;
+
             var diagrams = new List<IEADiagram>();
             diagrams.AddRange(element.GetDiagrams().Where(eaDiagram => eaDiagram.IsForcesView()));
             if (diagrams.Count == 0) return true;
             var repository = EAFacade.EA.Repository;
+            
             foreach (
                 var forcesController in
                     from diagram in diagrams
                     where repository.IsTabOpen(ForcesModel.CreateForcesTabName(diagram.Name)) > 0
                     select _controllers[diagram.GUID])
             {
+                string diagramGuid = forcesController.Model.DiagramGUID;
                 // we cannot update the view with a new diagram model here, as the diagram changes are applied
                 // after the deletion event is successful
-                if (element.IsDecision())
+                if (element.TaggedValueExists(EATaggedValueKeys.IsDecisionElement, diagramGuid))
                     forcesController.RemoveDecision(element);
-                else if (element.IsConcern())
+                if (element.TaggedValueExists(EATaggedValueKeys.IsConcernElement, diagramGuid))
                     forcesController.RemoveConcern(element);
-                else if (element.IsRequirement())
-                    forcesController.RemoveRequirement(element);
+                if (element.TaggedValueExists(EATaggedValueKeys.IsForceElement, diagramGuid))
+                    forcesController.RemoveForce(element);
             }
             return true;
         }

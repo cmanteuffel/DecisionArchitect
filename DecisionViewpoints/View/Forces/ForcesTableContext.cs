@@ -9,20 +9,20 @@
     Mark Hoekstra (University of Groningen)
 */
 
-namespace DecisionViewpoints.View
+namespace DecisionViewpoints.View.Forces
 {
     public class ForcesTableContext
     {
         public const string EmptyCellValue = "-";
 
-        public const int RequirementGUIDColumnIndex = 0;
+        public const int ForceGUIDColumnIndex = 0;
         public const int ConcernColumnIndex = 1;
         public const int ConcernGUIDColumnIndex = 2;
         public const int DecisionColumnIndex = 3;
 
         public const string ConcernHeader = "Concern";
         public const string ConcernGUIDHeader = "ConcernGUID";
-        public const string RequirementGUIDHeader = "RequirementGUID";
+        public const string ForceGUIDHeader = "ForceGUID";
         public const string DecisionGUIDHeader = "DecisionGUID";
     }
 }

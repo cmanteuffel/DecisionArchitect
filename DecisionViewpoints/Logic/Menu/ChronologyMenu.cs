@@ -16,6 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DecisionViewpoints.Logic.Chronological;
+using EAFacade;
 using EAFacade.Model;
 
 namespace DecisionViewpoints.Logic.Menu
@@ -41,7 +42,7 @@ namespace DecisionViewpoints.Logic.Menu
                 {
                     historyPackage.ParentPackage.DeletePackage(historyPackage);
                 }
-                historyPackage = parentPackage.CreatePackage("History data for " + chronologicalView.Name, "generated");
+                historyPackage = parentPackage.CreatePackage("History data for " + chronologicalView.Name, EAConstants.ChronologicalStereoType);
 
                 var generator = new ChronologicalViewpointGenerator(decisionViewPackage, historyPackage,
                                                                     chronologicalView);

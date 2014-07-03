@@ -80,13 +80,13 @@ namespace DecisionViewpoints.View.Controller
                 // MessageBox.Show("Traced element: " + tracedElement.Name + "\nuid: " + tracedElement.GUID);
             }
 
-            // Update Related Requirements
+            // Update Related Forces
             var forces = _decision.GetForces();
             foreach (var rating in forces)
             {
-                IEAElement req = EAFacade.EA.Repository.GetElementByGUID(rating.RequirementGUID);
+                IEAElement force = EAFacade.EA.Repository.GetElementByGUID(rating.ForceGUID);
                 IEAElement concern = EAFacade.EA.Repository.GetElementByGUID(rating.ConcernGUID);
-                _view.AddRelatedRequirement(req.Name, rating.Value, req.Notes, rating.RequirementGUID, concern.Name);
+                _view.AddRelatedForce(force.Name, rating.Value, force.Notes, rating.ForceGUID, concern.Name);
             }
 
             // Update Stakeholder field

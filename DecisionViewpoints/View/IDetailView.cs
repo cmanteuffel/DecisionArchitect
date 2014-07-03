@@ -25,7 +25,7 @@ namespace DecisionViewpoints.View
         string DecisionText { get; set; }
         string DecisionAlternatives { get; set; }
         string DecisionArguments { get; set; }
-        string DecisionRelatedRequirements { get; set; }
+        string DecisionRelatedForces { get; set; }
         //string DecisionGroup { get; set; }
 
         //string DecisionIssuePlainText { get; }
@@ -43,7 +43,7 @@ namespace DecisionViewpoints.View
         //void AddTrace(string name, string type);
         void AddTrace(string name, string type, string uid);
         // void AddRelatedRequirement(string name, string rating, string description);
-        void AddRelatedRequirement(string name, string rating, string description, string uid, string concern);
+        void AddRelatedForce(string name, string rating, string description, string uid, string concern);
         void AddTopic(string name, string description, bool hasTopic);
     }
 }

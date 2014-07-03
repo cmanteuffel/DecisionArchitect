@@ -18,7 +18,8 @@ namespace EAFacade.Model
     {
         IEnumerable<IEAPackage> GetAllDecisionViewPackages();
         IEAPackage GetPackageFromRootByName(string name);
-        IEAPackage GetPackageByID(int packageID);
+        IEAPackage GetPackageByID(int id);
+        IEAPackage GetPackageByGUID(string guid);
         IEAElement GetElementByID(int elementID);
         IEAConnector GetConnectorByID(int connectorId);
         IEAConnector GetConnectorByGUID(string guid);

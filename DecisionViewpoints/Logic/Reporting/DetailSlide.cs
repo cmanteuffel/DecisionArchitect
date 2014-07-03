@@ -35,7 +35,7 @@ namespace DecisionViewpoints.Logic.Reporting
             public const string Alternatives = "{alternatives}";
             public const string Arguments = "{arguments}";
             public const string RelatedDecisions = "{decisions}";
-            public const string RelatedRequirements = "{requirements}";
+            public const string RelatedForces = "{forces}";
             public const string Traces = "{traces}";
         }
 
@@ -72,14 +72,14 @@ namespace DecisionViewpoints.Logic.Reporting
                 }
             }
 
-            // Related Requirements
-            var relatedRequirements = new StringBuilder();
+            // Related Forces
+            var relatedForces = new StringBuilder();
             IEnumerable<Rating> forces = _decision.GetForces();
             foreach (Rating rating in forces)
             {
-                IEAElement req = EAFacade.EA.Repository.GetElementByGUID(rating.RequirementGUID);
+                IEAElement force = EAFacade.EA.Repository.GetElementByGUID(rating.ForceGUID);
                 IEAElement concern = EAFacade.EA.Repository.GetElementByGUID(rating.ConcernGUID);
-                relatedRequirements.AppendLine(req.Name + " - " + req.Notes);
+                relatedForces.AppendLine(force.Name + " - " + force.Notes);
             }
 
             //Traces Componenets
@@ -99,7 +99,7 @@ namespace DecisionViewpoints.Logic.Reporting
             SetPlaceholder(NewSlidePart, Placeholder.Arguments, _decision.Argumentation);
             SetPlaceholder(NewSlidePart, Placeholder.Alternatives, alternativeDecisions.ToString());
             SetPlaceholder(NewSlidePart, Placeholder.RelatedDecisions, relatedDecisions.ToString());
-            SetPlaceholder(NewSlidePart, Placeholder.RelatedRequirements, relatedRequirements.ToString());
+            SetPlaceholder(NewSlidePart, Placeholder.RelatedForces, relatedForces.ToString());
             SetPlaceholder(NewSlidePart, Placeholder.Traces, traces.ToString());
         }
     }

@@ -8,6 +8,7 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    Mark Hoekstra (University of Groningen)
 */
 
 using System.Collections.Generic;
@@ -23,11 +24,25 @@ namespace DecisionViewpoints.Model
         IEADiagram DiagramModel { set; }
 
         void SaveRatings(List<Rating> data);
+
+        /// <summary>
+        /// Get Decisions from Diagram and Topics that are on the diagram
+        /// </summary>
+        /// <returns></returns>
         IEAElement[] GetDecisions();
-        IEAElement[] GetRequirements();
-        Dictionary<IEAElement, List<IEAElement>> GetConcerns();
+
+        /// <summary>
+        /// Get all elements which are a force in this model
+        /// </summary>
+        /// <returns></returns>
+        IEAElement[] GetForces();
+
+        /// <summary>
+        /// Get all forces and concerns connected to each other
+        /// </summary>
+        /// <returns></returns>
+        Dictionary<IEAElement, List<IEAElement>> GetConcernsPerForce();
         List<Rating> GetRatings();
-        Dictionary<IEAElement, List<IEAElement>> GetConcernsPerRequirement();
 
         void AddObserver(IForcesModelObserver observer);
         void RemoveObserver(IForcesModelObserver observer);

@@ -9,11 +9,12 @@
     Mark Hoekstra (University of Groningen)
 */
 
+using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using DecisionViewpoints.View;
 using DecisionViewpoints.View.Controller;
+using DecisionViewpoints.View.Forces;
 using ExcelInterop = Microsoft.Office.Interop.Excel;
 
 namespace DecisionViewpoints.Logic.Forces
@@ -28,10 +29,10 @@ namespace DecisionViewpoints.Logic.Forces
         private ExcelInterop.Worksheet _worksheetHidden; // used for storing mapping information
         private readonly DataGridView _forcesTable;
 
-        // Index of row used to store the GUIDs for mapping. 
-        // The location of the value belonging to the GUID is stored into the row right of it
+        // Index of column used to store the GUIDs for mapping. 
+        // The location of the value belonging to the GUID is stored into the column right of it
         private const int DiagramMappingIndex = 1,
-            RequirementMappingIndex = 2,
+            ForceMappingIndex = 2,
             ConcernMappingIndex = 4,
             DecisionMappingIndex =  6,
             RatingMappingIndex = 8;
@@ -44,16 +45,33 @@ namespace DecisionViewpoints.Logic.Forces
             Initialize();
         }
 
-        /// <summary>
-        /// Quit the open excel application
-        /// </summary>
         ~Excel()
         {
-            if (_application != null)
-            {
-                _application.Quit();
-                Marshal.ReleaseComObject(_application);
-            }
+            Dispose();
+        }
+
+        /// <summary>
+        /// Release ComObjects to remove the process EXCEL.exe.
+        /// </summary>
+        private void Dispose()
+        {
+            if (_application == null) return;
+
+            _application.Quit();
+
+            // Manual disposal because of COM
+            while (Marshal.ReleaseComObject(_application) != 0) { }
+            while (Marshal.ReleaseComObject(_workbook) != 0) { }
+            while (Marshal.ReleaseComObject(_worksheet) != 0) { }
+            while (Marshal.ReleaseComObject(_worksheetHidden) != 0) { }
+
+            _application = null;
+            _workbook = null;
+            _worksheet = null;
+            _worksheetHidden = null;
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private void Initialize()
@@ -62,22 +80,23 @@ namespace DecisionViewpoints.Logic.Forces
             //2 dots must be avoided to release wrappers: http://support.microsoft.com/kb/317109
             var workbooks = _application.Workbooks;
             _workbook = workbooks.Add(Missing.Value);
+
             var worksheets = _workbook.Worksheets;
-            _worksheet = (ExcelInterop.Worksheet)_workbook.ActiveSheet;
-            _worksheetHidden = (ExcelInterop.Worksheet)worksheets.Add();
+            _worksheet = (ExcelInterop.Worksheet) _workbook.ActiveSheet;
+            _worksheetHidden = (ExcelInterop.Worksheet) worksheets.Add();
             
             // Release wrapper objects
-            Marshal.ReleaseComObject(worksheets);
-            Marshal.ReleaseComObject(workbooks);
+            Marshal.FinalReleaseComObject(worksheets);
+            Marshal.FinalReleaseComObject(workbooks);
 
             _worksheetHidden.Name = "Mapping Information";
             _worksheetHidden.Visible = ExcelInterop.XlSheetVisibility.xlSheetVeryHidden;
 
             //Event handlers
             _worksheet.Change += Event_ChangeEvent;
-            _application.WorkbookBeforeClose +=_application_WorkbookBeforeClose;
 
             Populate();
+
             _application.Visible = true; //Show the application after it's populated
         }
 
@@ -90,9 +109,9 @@ namespace DecisionViewpoints.Logic.Forces
 
             for (int i = 0; i < _forcesTable.Rows.Count-1; i++) //Last row can be ignored
             {
-                int amountColHidden = 0; //For ignoring these in excel
+                int amountColHidden = 0; //For ignoring these columns in excel
                 
-                RequirementCell(i);
+                ForceCell(i);
 
                 for (int j = 0; j < _forcesTable.Rows[i].Cells.Count; j++)
                 {
@@ -101,11 +120,10 @@ namespace DecisionViewpoints.Logic.Forces
                     if (j == ForcesTableContext.ConcernColumnIndex) // Concern
                     {
                         ConcernCell(i, j, amountColHidden);
-
-                    } else if (j >= ForcesTableContext.DecisionColumnIndex) // Decision/rating
+                    }
+                    else if (j >= ForcesTableContext.DecisionColumnIndex) // Decision/rating
                     {
                         if (i == 0) DecisionCell(i, j, amountColHidden);
-
                         RatingCell(i, j, amountColHidden);
                     }
                 }
@@ -113,16 +131,16 @@ namespace DecisionViewpoints.Logic.Forces
         }
 
         /// <summary>
-        /// Value for a cell containing a requirement and its mapping information
+        /// Value for a cell containing a force and its mapping information
         /// </summary>
         /// <param name="i"></param>
-        private void RequirementCell(int i)
+        private void ForceCell(int i)
         {
             int row = i + StartRow, col = 1;
             _worksheet.Cells[row, col] = _forcesTable.Rows[i].HeaderCell.Value;
 
-            object guid = _forcesTable.Rows[i].Cells[ForcesTableContext.RequirementGUIDColumnIndex].Value;
-            UpdateMapping(row, col, RequirementMappingIndex, guid);
+            object guid = _forcesTable.Rows[i].Cells[ForcesTableContext.ForceGUIDColumnIndex].Value;
+            UpdateMapping(row, col, ForceMappingIndex, guid);
         }
 
         /// <summary>
@@ -169,10 +187,10 @@ namespace DecisionViewpoints.Logic.Forces
             int row = i + StartRow, col = j + StartColumn - amountColHidden;
             _worksheet.Cells[row, col] = _forcesTable.Rows[i].Cells[j].Value;
 
-            var reqGuid = _forcesTable.Rows[i].Cells[ForcesTableContext.RequirementGUIDColumnIndex];
+            var forGuid = _forcesTable.Rows[i].Cells[ForcesTableContext.ForceGUIDColumnIndex];
             var conGuid = _forcesTable.Rows[i].Cells[ForcesTableContext.ConcernGUIDColumnIndex];
             var decGuid = _forcesTable.Rows[_forcesTable.Rows.Count - 1].Cells[j];
-            var ratingGuids = reqGuid.Value + ";" + conGuid.Value + ";" + decGuid.Value;
+            var ratingGuids = forGuid.Value + ";" + conGuid.Value + ";" + decGuid.Value;
             UpdateMapping(row, col, RatingMappingIndex, ratingGuids);
         }
 
@@ -213,18 +231,12 @@ namespace DecisionViewpoints.Logic.Forces
             return 1;
         }
 
+
         // EVENT HANDLERS
 
         private void Event_ChangeEvent(ExcelInterop.Range range)
         {
             //TODO connect with ForcesViewpoint
-        }
-
-        private void _application_WorkbookBeforeClose(ExcelInterop.Workbook wb, ref bool cancel)
-        {
-            _application.Quit(); //Shutdown
-            Marshal.FinalReleaseComObject(_application); // Remove references
-            _application = null; //Set to null, so it will not be used anymore in destructor
         }
     }
 }

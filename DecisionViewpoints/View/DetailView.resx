@@ -195,48 +195,6 @@
   <data name="tbCntrlUnodifiable.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <metadata name="decisionUid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="decisionUid.HeaderText" xml:space="preserve">
-    <value>DecisionUid</value>
-  </data>
-  <data name="decisionUid.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <metadata name="AlternativeName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="AlternativeName.HeaderText" xml:space="preserve">
-    <value>Decision Name</value>
-  </data>
-  <metadata name="AlternativeUid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="AlternativeUid.HeaderText" xml:space="preserve">
-    <value>AlternativeUid</value>
-  </data>
-  <data name="AlternativeUid.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <metadata name="AlternativeFor.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="AlternativeFor.HeaderText" xml:space="preserve">
-    <value>Alternative for</value>
-  </data>
-  <data name="dgvAlternatives.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="dgvAlternatives.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="dgvAlternatives.Size" type="System.Drawing.Size, System.Drawing">
-    <value>455, 112</value>
-  </data>
-  <data name="dgvAlternatives.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
-  </data>
   <data name="&gt;&gt;dgvAlternatives.Name" xml:space="preserve">
     <value>dgvAlternatives</value>
   </data>
@@ -275,54 +233,6 @@
   </data>
   <data name="&gt;&gt;AlternativeTb.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <metadata name="dataGridViewTextBoxColumn1.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
-    <value>rdecisionUid</value>
-  </data>
-  <data name="dataGridViewTextBoxColumn1.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <metadata name="RelatedName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="RelatedName.HeaderText" xml:space="preserve">
-    <value>Decision Name</value>
-  </data>
-  <metadata name="Relation.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="Relation.HeaderText" xml:space="preserve">
-    <value>Relation</value>
-  </data>
-  <metadata name="RelatedTo.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="RelatedTo.HeaderText" xml:space="preserve">
-    <value>Related to</value>
-  </data>
-  <metadata name="relatedUid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="relatedUid.HeaderText" xml:space="preserve">
-    <value>relatedUid</value>
-  </data>
-  <data name="relatedUid.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="dgvRelatedDecisions.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="dgvRelatedDecisions.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="dgvRelatedDecisions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>455, 112</value>
-  </data>
-  <data name="dgvRelatedDecisions.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
   </data>
   <data name="&gt;&gt;dgvRelatedDecisions.Name" xml:space="preserve">
     <value>dgvRelatedDecisions</value>
@@ -363,20 +273,20 @@
   <data name="&gt;&gt;RelatedDecisionsTb.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <metadata name="reqUid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="forceUid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="reqUid.HeaderText" xml:space="preserve">
-    <value>reqUid</value>
+  <data name="forceUid.HeaderText" xml:space="preserve">
+    <value>forceUid</value>
   </data>
-  <data name="reqUid.Visible" type="System.Boolean, mscorlib">
+  <data name="forceUid.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <metadata name="dataGridViewTextBoxColumn2.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <data name="dataGridViewTextBoxColumn2.HeaderText" xml:space="preserve">
-    <value>Requirement Name</value>
+    <value>Force Name</value>
   </data>
   <metadata name="concern.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -396,86 +306,53 @@
   <data name="dataGridViewTextBoxColumn3.HeaderText" xml:space="preserve">
     <value>Description</value>
   </data>
-  <data name="dgvRelatedRequirements.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="dgvRelatedForces.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="dgvRelatedRequirements.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="dgvRelatedForces.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="dgvRelatedRequirements.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="dgvRelatedForces.Size" type="System.Drawing.Size, System.Drawing">
     <value>461, 118</value>
   </data>
-  <data name="dgvRelatedRequirements.TabIndex" type="System.Int32, mscorlib">
+  <data name="dgvRelatedForces.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
   </data>
-  <data name="&gt;&gt;dgvRelatedRequirements.Name" xml:space="preserve">
-    <value>dgvRelatedRequirements</value>
+  <data name="&gt;&gt;dgvRelatedForces.Name" xml:space="preserve">
+    <value>dgvRelatedForces</value>
   </data>
-  <data name="&gt;&gt;dgvRelatedRequirements.Type" xml:space="preserve">
+  <data name="&gt;&gt;dgvRelatedForces.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;dgvRelatedRequirements.Parent" xml:space="preserve">
-    <value>RelatedRequirementsTb</value>
+  <data name="&gt;&gt;dgvRelatedForces.Parent" xml:space="preserve">
+    <value>RelatedForcesTb</value>
   </data>
-  <data name="&gt;&gt;dgvRelatedRequirements.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;dgvRelatedForces.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="RelatedRequirementsTb.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="RelatedForcesTb.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
-  <data name="RelatedRequirementsTb.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="RelatedForcesTb.Size" type="System.Drawing.Size, System.Drawing">
     <value>461, 118</value>
   </data>
-  <data name="RelatedRequirementsTb.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="RelatedRequirementsTb.Text" xml:space="preserve">
-    <value>Related Requirements</value>
-  </data>
-  <data name="&gt;&gt;RelatedRequirementsTb.Name" xml:space="preserve">
-    <value>RelatedRequirementsTb</value>
-  </data>
-  <data name="&gt;&gt;RelatedRequirementsTb.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;RelatedRequirementsTb.Parent" xml:space="preserve">
-    <value>tbCntrlUnodifiable</value>
-  </data>
-  <data name="&gt;&gt;RelatedRequirementsTb.ZOrder" xml:space="preserve">
+  <data name="RelatedForcesTb.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <metadata name="traceUid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="traceUid.HeaderText" xml:space="preserve">
-    <value>traceUid</value>
+  <data name="RelatedForcesTb.Text" xml:space="preserve">
+    <value>Related Forces</value>
   </data>
-  <data name="traceUid.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="&gt;&gt;RelatedForcesTb.Name" xml:space="preserve">
+    <value>RelatedForcesTb</value>
   </data>
-  <metadata name="dataGridViewTextBoxColumn4.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="dataGridViewTextBoxColumn4.HeaderText" xml:space="preserve">
-    <value>Trace Name</value>
+  <data name="&gt;&gt;RelatedForcesTb.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <metadata name="Type.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="Type.HeaderText" xml:space="preserve">
-    <value>Type</value>
+  <data name="&gt;&gt;RelatedForcesTb.Parent" xml:space="preserve">
+    <value>tbCntrlUnodifiable</value>
   </data>
-  <data name="dgvTraces.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="dgvTraces.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="dgvTraces.Size" type="System.Drawing.Size, System.Drawing">
-    <value>461, 118</value>
-  </data>
-  <data name="dgvTraces.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
+  <data name="&gt;&gt;RelatedForcesTb.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="&gt;&gt;dgvTraces.Name" xml:space="preserve">
     <value>dgvTraces</value>
@@ -513,39 +390,6 @@
   <data name="&gt;&gt;TracesTb.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <metadata name="stakeholderuid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="stakeholderuid.HeaderText" xml:space="preserve">
-    <value>StakeholderUid</value>
-  </data>
-  <data name="stakeholderuid.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <metadata name="Stakeholder.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="Stakeholder.HeaderText" xml:space="preserve">
-    <value>Stakeholder</value>
-  </data>
-  <metadata name="Action.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="Action.HeaderText" xml:space="preserve">
-    <value>Action</value>
-  </data>
-  <data name="dgvStakeholder.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="dgvStakeholder.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="dgvStakeholder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>461, 118</value>
-  </data>
-  <data name="dgvStakeholder.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
-  </data>
   <data name="&gt;&gt;dgvStakeholder.Name" xml:space="preserve">
     <value>dgvStakeholder</value>
   </data>
@@ -581,27 +425,6 @@
   </data>
   <data name="&gt;&gt;StakeholderTb.ZOrder" xml:space="preserve">
     <value>4</value>
-  </data>
-  <metadata name="StateColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="StateColumn.HeaderText" xml:space="preserve">
-    <value>State</value>
-  </data>
-  <metadata name="DateColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="DateColumn.HeaderText" xml:space="preserve">
-    <value>Date</value>
-  </data>
-  <data name="dvgHistory.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="dvgHistory.Size" type="System.Drawing.Size, System.Drawing">
-    <value>483, 118</value>
-  </data>
-  <data name="dvgHistory.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
   </data>
   <data name="&gt;&gt;dvgHistory.Name" xml:space="preserve">
     <value>dvgHistory</value>
@@ -659,6 +482,294 @@
   </data>
   <data name="&gt;&gt;tbCntrlUnodifiable.ZOrder" xml:space="preserve">
     <value>11</value>
+  </data>
+  <metadata name="decisionUid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="AlternativeName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="AlternativeUid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="AlternativeFor.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dgvAlternatives.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="dgvAlternatives.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="dgvAlternatives.Size" type="System.Drawing.Size, System.Drawing">
+    <value>455, 112</value>
+  </data>
+  <data name="dgvAlternatives.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;dgvAlternatives.Name" xml:space="preserve">
+    <value>dgvAlternatives</value>
+  </data>
+  <data name="&gt;&gt;dgvAlternatives.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dgvAlternatives.Parent" xml:space="preserve">
+    <value>AlternativeTb</value>
+  </data>
+  <data name="&gt;&gt;dgvAlternatives.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="decisionUid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="decisionUid.HeaderText" xml:space="preserve">
+    <value>DecisionUid</value>
+  </data>
+  <data name="decisionUid.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <metadata name="AlternativeName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="AlternativeName.HeaderText" xml:space="preserve">
+    <value>Decision Name</value>
+  </data>
+  <metadata name="AlternativeUid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="AlternativeUid.HeaderText" xml:space="preserve">
+    <value>AlternativeUid</value>
+  </data>
+  <data name="AlternativeUid.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <metadata name="AlternativeFor.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="AlternativeFor.HeaderText" xml:space="preserve">
+    <value>Alternative for</value>
+  </data>
+  <metadata name="dataGridViewTextBoxColumn1.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="RelatedName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Relation.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="RelatedTo.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="relatedUid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dgvRelatedDecisions.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="dgvRelatedDecisions.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="dgvRelatedDecisions.Size" type="System.Drawing.Size, System.Drawing">
+    <value>455, 112</value>
+  </data>
+  <data name="dgvRelatedDecisions.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;dgvRelatedDecisions.Name" xml:space="preserve">
+    <value>dgvRelatedDecisions</value>
+  </data>
+  <data name="&gt;&gt;dgvRelatedDecisions.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dgvRelatedDecisions.Parent" xml:space="preserve">
+    <value>RelatedDecisionsTb</value>
+  </data>
+  <data name="&gt;&gt;dgvRelatedDecisions.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="dataGridViewTextBoxColumn1.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
+    <value>rdecisionUid</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn1.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <metadata name="RelatedName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="RelatedName.HeaderText" xml:space="preserve">
+    <value>Decision Name</value>
+  </data>
+  <metadata name="Relation.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="Relation.HeaderText" xml:space="preserve">
+    <value>Relation</value>
+  </data>
+  <metadata name="RelatedTo.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="RelatedTo.HeaderText" xml:space="preserve">
+    <value>Related to</value>
+  </data>
+  <metadata name="relatedUid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="relatedUid.HeaderText" xml:space="preserve">
+    <value>relatedUid</value>
+  </data>
+  <data name="relatedUid.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <metadata name="traceUid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridViewTextBoxColumn4.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Type.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dgvTraces.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="dgvTraces.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="dgvTraces.Size" type="System.Drawing.Size, System.Drawing">
+    <value>461, 118</value>
+  </data>
+  <data name="dgvTraces.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;dgvTraces.Name" xml:space="preserve">
+    <value>dgvTraces</value>
+  </data>
+  <data name="&gt;&gt;dgvTraces.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dgvTraces.Parent" xml:space="preserve">
+    <value>TracesTb</value>
+  </data>
+  <data name="&gt;&gt;dgvTraces.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="traceUid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="traceUid.HeaderText" xml:space="preserve">
+    <value>traceUid</value>
+  </data>
+  <data name="traceUid.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <metadata name="dataGridViewTextBoxColumn4.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridViewTextBoxColumn4.HeaderText" xml:space="preserve">
+    <value>Trace Name</value>
+  </data>
+  <metadata name="Type.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="Type.HeaderText" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <metadata name="stakeholderuid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Stakeholder.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Action.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dgvStakeholder.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="dgvStakeholder.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="dgvStakeholder.Size" type="System.Drawing.Size, System.Drawing">
+    <value>461, 118</value>
+  </data>
+  <data name="dgvStakeholder.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;dgvStakeholder.Name" xml:space="preserve">
+    <value>dgvStakeholder</value>
+  </data>
+  <data name="&gt;&gt;dgvStakeholder.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dgvStakeholder.Parent" xml:space="preserve">
+    <value>StakeholderTb</value>
+  </data>
+  <data name="&gt;&gt;dgvStakeholder.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="stakeholderuid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="stakeholderuid.HeaderText" xml:space="preserve">
+    <value>StakeholderUid</value>
+  </data>
+  <data name="stakeholderuid.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <metadata name="Stakeholder.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="Stakeholder.HeaderText" xml:space="preserve">
+    <value>Stakeholder</value>
+  </data>
+  <metadata name="Action.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="Action.HeaderText" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <metadata name="StateColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="DateColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dvgHistory.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="dvgHistory.Size" type="System.Drawing.Size, System.Drawing">
+    <value>483, 118</value>
+  </data>
+  <data name="dvgHistory.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;dvgHistory.Name" xml:space="preserve">
+    <value>dvgHistory</value>
+  </data>
+  <data name="&gt;&gt;dvgHistory.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dvgHistory.Parent" xml:space="preserve">
+    <value>HistoryTb</value>
+  </data>
+  <data name="&gt;&gt;dvgHistory.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="StateColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="StateColumn.HeaderText" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <metadata name="DateColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="DateColumn.HeaderText" xml:space="preserve">
+    <value>Date</value>
   </data>
   <data name="btnunderline.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -1035,23 +1146,65 @@
   <data name="tbCnrtlModifiable.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="txtDecision.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="&gt;&gt;DescriptionTab.Name" xml:space="preserve">
+    <value>DescriptionTab</value>
   </data>
-  <data name="txtDecision.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
+  <data name="&gt;&gt;DescriptionTab.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="txtDecision.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
+  <data name="&gt;&gt;DescriptionTab.Parent" xml:space="preserve">
+    <value>tbCnrtlModifiable</value>
   </data>
-  <data name="txtDecision.Size" type="System.Drawing.Size, System.Drawing">
-    <value>454, 108</value>
-  </data>
-  <data name="txtDecision.TabIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;DescriptionTab.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="txtDecision.Text" xml:space="preserve">
-    <value />
+  <data name="&gt;&gt;ArgumentsTab.Name" xml:space="preserve">
+    <value>ArgumentsTab</value>
+  </data>
+  <data name="&gt;&gt;ArgumentsTab.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ArgumentsTab.Parent" xml:space="preserve">
+    <value>tbCnrtlModifiable</value>
+  </data>
+  <data name="&gt;&gt;ArgumentsTab.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;ProblemTab.Name" xml:space="preserve">
+    <value>ProblemTab</value>
+  </data>
+  <data name="&gt;&gt;ProblemTab.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ProblemTab.Parent" xml:space="preserve">
+    <value>tbCnrtlModifiable</value>
+  </data>
+  <data name="&gt;&gt;ProblemTab.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="tbCnrtlModifiable.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 136</value>
+  </data>
+  <data name="tbCnrtlModifiable.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>100, 100</value>
+  </data>
+  <data name="tbCnrtlModifiable.Size" type="System.Drawing.Size, System.Drawing">
+    <value>468, 140</value>
+  </data>
+  <data name="tbCnrtlModifiable.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;tbCnrtlModifiable.Name" xml:space="preserve">
+    <value>tbCnrtlModifiable</value>
+  </data>
+  <data name="&gt;&gt;tbCnrtlModifiable.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbCnrtlModifiable.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tbCnrtlModifiable.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
   <data name="&gt;&gt;txtDecision.Name" xml:space="preserve">
     <value>txtDecision</value>
@@ -1092,23 +1245,35 @@
   <data name="&gt;&gt;DescriptionTab.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="txtArguments.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="txtDecision.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="txtArguments.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+  <data name="txtDecision.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
   </data>
-  <data name="txtArguments.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="txtDecision.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
-  <data name="txtArguments.Size" type="System.Drawing.Size, System.Drawing">
-    <value>460, 114</value>
+  <data name="txtDecision.Size" type="System.Drawing.Size, System.Drawing">
+    <value>454, 108</value>
   </data>
-  <data name="txtArguments.TabIndex" type="System.Int32, mscorlib">
+  <data name="txtDecision.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="txtArguments.Text" xml:space="preserve">
+  <data name="txtDecision.Text" xml:space="preserve">
     <value />
+  </data>
+  <data name="&gt;&gt;txtDecision.Name" xml:space="preserve">
+    <value>txtDecision</value>
+  </data>
+  <data name="&gt;&gt;txtDecision.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtDecision.Parent" xml:space="preserve">
+    <value>DescriptionTab</value>
+  </data>
+  <data name="&gt;&gt;txtDecision.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="&gt;&gt;txtArguments.Name" xml:space="preserve">
     <value>txtArguments</value>
@@ -1146,23 +1311,35 @@
   <data name="&gt;&gt;ArgumentsTab.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="txtIssue.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="txtArguments.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="txtIssue.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
+  <data name="txtArguments.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
   </data>
-  <data name="txtIssue.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="txtArguments.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
-  <data name="txtIssue.Size" type="System.Drawing.Size, System.Drawing">
-    <value>454, 108</value>
+  <data name="txtArguments.Size" type="System.Drawing.Size, System.Drawing">
+    <value>460, 114</value>
   </data>
-  <data name="txtIssue.TabIndex" type="System.Int32, mscorlib">
+  <data name="txtArguments.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="txtIssue.Text" xml:space="preserve">
+  <data name="txtArguments.Text" xml:space="preserve">
     <value />
+  </data>
+  <data name="&gt;&gt;txtArguments.Name" xml:space="preserve">
+    <value>txtArguments</value>
+  </data>
+  <data name="&gt;&gt;txtArguments.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtArguments.Parent" xml:space="preserve">
+    <value>ArgumentsTab</value>
+  </data>
+  <data name="&gt;&gt;txtArguments.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="&gt;&gt;txtIssue.Name" xml:space="preserve">
     <value>txtIssue</value>
@@ -1203,29 +1380,35 @@
   <data name="&gt;&gt;ProblemTab.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="tbCnrtlModifiable.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 136</value>
+  <data name="txtIssue.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
-  <data name="tbCnrtlModifiable.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>100, 100</value>
+  <data name="txtIssue.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
   </data>
-  <data name="tbCnrtlModifiable.Size" type="System.Drawing.Size, System.Drawing">
-    <value>468, 140</value>
+  <data name="txtIssue.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
   </data>
-  <data name="tbCnrtlModifiable.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
+  <data name="txtIssue.Size" type="System.Drawing.Size, System.Drawing">
+    <value>454, 108</value>
   </data>
-  <data name="&gt;&gt;tbCnrtlModifiable.Name" xml:space="preserve">
-    <value>tbCnrtlModifiable</value>
+  <data name="txtIssue.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <data name="&gt;&gt;tbCnrtlModifiable.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="txtIssue.Text" xml:space="preserve">
+    <value />
   </data>
-  <data name="&gt;&gt;tbCnrtlModifiable.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;txtIssue.Name" xml:space="preserve">
+    <value>txtIssue</value>
   </data>
-  <data name="&gt;&gt;tbCnrtlModifiable.ZOrder" xml:space="preserve">
-    <value>4</value>
+  <data name="&gt;&gt;txtIssue.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtIssue.Parent" xml:space="preserve">
+    <value>ProblemTab</value>
+  </data>
+  <data name="&gt;&gt;txtIssue.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="notifyIcon1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -1311,36 +1494,6 @@
   <data name="&gt;&gt;relatedUid.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;reqUid.Name" xml:space="preserve">
-    <value>reqUid</value>
-  </data>
-  <data name="&gt;&gt;reqUid.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewTextBoxColumn2.Name" xml:space="preserve">
-    <value>dataGridViewTextBoxColumn2</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewTextBoxColumn2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;concern.Name" xml:space="preserve">
-    <value>concern</value>
-  </data>
-  <data name="&gt;&gt;concern.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;rating.Name" xml:space="preserve">
-    <value>rating</value>
-  </data>
-  <data name="&gt;&gt;rating.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewTextBoxColumn3.Name" xml:space="preserve">
-    <value>dataGridViewTextBoxColumn3</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewTextBoxColumn3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;traceUid.Name" xml:space="preserve">
     <value>traceUid</value>
   </data>
@@ -1394,6 +1547,36 @@
   </data>
   <data name="&gt;&gt;notifyIcon1.Type" xml:space="preserve">
     <value>System.Windows.Forms.NotifyIcon, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;forceUid.Name" xml:space="preserve">
+    <value>forceUid</value>
+  </data>
+  <data name="&gt;&gt;forceUid.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn2.Name" xml:space="preserve">
+    <value>dataGridViewTextBoxColumn2</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;concern.Name" xml:space="preserve">
+    <value>concern</value>
+  </data>
+  <data name="&gt;&gt;concern.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rating.Name" xml:space="preserve">
+    <value>rating</value>
+  </data>
+  <data name="&gt;&gt;rating.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn3.Name" xml:space="preserve">
+    <value>dataGridViewTextBoxColumn3</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>DetailView</value>

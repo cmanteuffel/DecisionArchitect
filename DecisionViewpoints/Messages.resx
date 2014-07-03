@@ -277,4 +277,19 @@
   <data name="ReportingStakeholderInvolvmentLine" xml:space="preserve">
     <value>‹‹{0}›› {1}: {2}</value>
   </data>
+  <data name="ForcesViewRemoveForce" xml:space="preserve">
+    <value>Remove Force</value>
+  </data>
+  <data name="ForcesViewRemoveAllDecisions" xml:space="preserve">
+    <value>Remove all decisions</value>
+  </data>
+  <data name="ForcesViewRemoveAllForces" xml:space="preserve">
+    <value>Remove all forces</value>
+  </data>
+  <data name="ForcesViewDecisionExists" xml:space="preserve">
+    <value>The Decision named "{0}" already exists.</value>
+  </data>
+  <data name="ForcesViewForceExists" xml:space="preserve">
+    <value>The Force named "{0}" already exists with the Concern named "{1}".</value>
+  </data>
 </root>

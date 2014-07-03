@@ -23,7 +23,7 @@ namespace DecisionViewpoints.Model
 
         public string DecisionGUID { get; set; }
         public string ConcernGUID { get; set; }
-        public string RequirementGUID { get; set; }
+        public string ForceGUID { get; set; }
 
         public string Value
         {
@@ -34,12 +34,12 @@ namespace DecisionViewpoints.Model
                 if (_value.Length <= 255) return;
                 var repository = EAFacade.EA.Repository;
                 var decision = repository.GetElementByGUID(DecisionGUID);
-                var requirement = repository.GetElementByGUID(RequirementGUID);
+                var force = repository.GetElementByGUID(ForceGUID);
                 var concern = repository.GetElementByGUID(ConcernGUID);
                 MessageBox.Show(
                     String.Format(
-                        "The length of rating '{0}' that belongs to decision '{1}' and requirement '{2}' classified by '{3}' is too large. It must be less than 256 characters.",
-                        _value, decision.Name, requirement.Name, concern.Name));
+                        "The length of rating '{0}' that belongs to decision '{1}' and force '{2}' classified by '{3}' is too large. It must be less than 256 characters.",
+                        _value, decision.Name, force.Name, concern.Name));
                 _value = "";
             }
         }
@@ -48,19 +48,19 @@ namespace DecisionViewpoints.Model
         /// 
         /// </summary>
         /// <returns></returns>
-        public static string ConstructForcesTaggedValue(string requirementGUID, string concernGUID)
+        public static string ConstructForcesTaggedValue(string forceGUID, string concernGUID)
         {
-            return String.Format("DV.Forces:{0}:{1}", requirementGUID, concernGUID);
+            return String.Format("DV.Forces:{0}:{1}", forceGUID, concernGUID);
         }
 
         /// <summary>
-        /// Returns just the GUID from the requirement GUID tagged value.
-        /// The format of the requirement GUID tagged value is r:{GUID}.
+        /// Returns just the GUID from the force GUID tagged value.
+        /// The format of the force GUID tagged value is r:{GUID}.
         /// </summary>
         /// <param name="value">The taggged value name.</param>
         /// <returns></returns>
-        //private static string GetReqGUIDFromTaggedValue(string value)//original
-        public static string GetReqGUIDFromTaggedValue(string value)
+        //private static string GetForceGUIDFromTaggedValue(string value)//original
+        public static string GetForceGUIDFromTaggedValue(string value)
         {
             return value.Split(':')[1];
         }

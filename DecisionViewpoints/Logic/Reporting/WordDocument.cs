@@ -192,7 +192,7 @@ namespace DecisionViewpoints.Logic.Reporting
             dataDict.Add("Argumentation", new List<string>());
             dataDict.Add("Alternatives", new List<string>());
             dataDict.Add("Related Decisions", new List<string>());
-            dataDict.Add("Requirements", new List<string>());
+            dataDict.Add("Forces", new List<string>());
             dataDict.Add("Traces", new List<string>());
             dataDict.Add("Stakeholder Involvement", new List<string>());
             dataDict.Add("History", new List<string>());
@@ -277,14 +277,14 @@ namespace DecisionViewpoints.Logic.Reporting
                 }
             }
 
-            // Related Requirements
+            // Related Forces
 
             IEnumerable<Rating> forces = decision.GetForces();
             foreach (Rating rating in forces)
             {
-                IEAElement req = EAFacade.EA.Repository.GetElementByGUID(rating.RequirementGUID);
+                IEAElement force = EAFacade.EA.Repository.GetElementByGUID(rating.ForceGUID);
                 IEAElement concern = EAFacade.EA.Repository.GetElementByGUID(rating.ConcernGUID);
-                dataDict["Requirements"].Add(req.Name + " - " + req.Notes);
+                dataDict["Forces"].Add(force.Name + " - " + force.Notes);
             }
 
 
@@ -445,32 +445,32 @@ namespace DecisionViewpoints.Logic.Reporting
             table.AppendChild(decRow);
 
 
-            foreach (var concernsPerRequirement in forces.GetConcernsPerRequirement())
+            foreach (var concernsPerForces in forces.GetConcernsPerForce())
             {
-                IEAElement requirement = concernsPerRequirement.Key;
-                List<IEAElement> concerns = concernsPerRequirement.Value;
+                IEAElement force = concernsPerForces.Key;
+                List<IEAElement> concerns = concernsPerForces.Value;
 
                 foreach (IEAElement concern in concerns)
                 {
-                    var reqRow = new TableRow();
-                    var reqCell = new TableCell(new Paragraph(new Run(new Text(requirement.Name))));
-                    reqRow.AppendChild(reqCell);
+                    var forceRow = new TableRow();
+                    var forceCell = new TableCell(new Paragraph(new Run(new Text(force.Name))));
+                    forceRow.AppendChild(forceCell);
                     var concCell = new TableCell();
                     concCell.AppendChild(new Paragraph(new Run(new Text(concern.Name))));
-                    reqRow.AppendChild(concCell);
+                    forceRow.AppendChild(concCell);
 
                     // insert ratings
                     foreach (Rating rating in forces.GetRatings())
                     {
-                        if (rating.RequirementGUID != requirement.GUID || rating.ConcernGUID != concern.GUID) continue;
+                        if (rating.ForceGUID != force.GUID || rating.ConcernGUID != concern.GUID) continue;
                         if (forces.GetDecisions().Any(decision => rating.DecisionGUID == decision.GUID))
                         {
                             var ratCell = new TableCell();
                             ratCell.AppendChild(new Paragraph(new Run(new Text(rating.Value))));
-                            reqRow.AppendChild(ratCell);
+                            forceRow.AppendChild(ratCell);
                         }
                     }
-                    table.AppendChild(reqRow);
+                    table.AppendChild(forceRow);
                 }
             }
 

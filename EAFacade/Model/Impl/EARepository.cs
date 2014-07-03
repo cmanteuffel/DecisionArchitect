@@ -57,9 +57,14 @@ namespace EAFacade.Model.Impl
             return EAPackage.Wrap(Root.Packages.GetByName(name));
         }
 
-        public IEAPackage GetPackageByID(int packageID)
+        public IEAPackage GetPackageByID(int id)
         {
-            return EAPackage.Wrap(Native.GetPackageByID(packageID));
+            return EAPackage.Wrap(Native.GetPackageByID(id));
+        }
+
+        public IEAPackage GetPackageByGUID(string guid)
+        {
+            return EAPackage.Wrap(Native.GetPackageByGuid(guid));
         }
 
         /*

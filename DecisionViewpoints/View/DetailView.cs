@@ -117,7 +117,7 @@ namespace DecisionViewpoints.View
              */
         }
 
-        public string DecisionRelatedRequirements { get; set; }
+        public string DecisionRelatedForces { get; set; }
 
 
         public string DecisionAlternatives { get; set; }
@@ -173,9 +173,9 @@ namespace DecisionViewpoints.View
             dgvTraces.Rows.Add(new object[] {uid, name, type});
         }
 
-        public void AddRelatedRequirement(string name, string rating, string description, string uid, string concern)
+        public void AddRelatedForce(string name, string rating, string description, string uid, string concern)
         {
-            dgvRelatedRequirements.Rows.Add(new object[] {uid, name, concern, rating, description});
+            dgvRelatedForces.Rows.Add(new object[] {uid, name, concern, rating, description});
         }
 
         public void AddTopic(string name, string description, bool hasTopic)
@@ -362,13 +362,13 @@ namespace DecisionViewpoints.View
             }
         }
 
-        private void dgvRelatedRequirements_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvRelatedForces_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex != 1)
                 return;
             else
             {
-                string elementGUID = dgvRelatedRequirements[0, e.RowIndex].Value.ToString();
+                string elementGUID = dgvRelatedForces[0, e.RowIndex].Value.ToString();
                 showDiagramsForEAElement(elementGUID);
             }
         }

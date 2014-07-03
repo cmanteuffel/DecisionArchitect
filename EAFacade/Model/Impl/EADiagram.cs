@@ -128,10 +128,10 @@ namespace EAFacade.Model.Impl
         }
 
         /// <summary>
-        /// Adds an element to the diagram
+        /// Implements IEADiagram.AddElement(IEAElement element)
         /// </summary>
-        /// <param name="element">Element to be added</param>
-        public void AddToDiagram(IEAElement element)
+        /// <param name="element"></param>
+        public void AddElement(IEAElement element)
         {
             //check if element already exists on diagram
             if (null != GetElements().FirstOrDefault(dobj => dobj.ElementID.Equals(element.ID)))
@@ -142,23 +142,27 @@ namespace EAFacade.Model.Impl
             DiagramObject diaObj = _native.DiagramObjects.AddNew("l=10;r=110;t=-20;b=-80", "");
             diaObj.ElementID = element.ID;
             diaObj.Update();
+            _native.DiagramObjects.Refresh();
+            _native.Update();
             var nativeRepository = EARepository.Instance.Native;
             nativeRepository.ReloadDiagram(_native.DiagramID);
             nativeRepository.SaveDiagram(_native.DiagramID);
         }
         
         /// <summary>
-        /// Removes an element from the diagram
+        /// Implements IEADiagram.RemoveElement(IEAElement element)
         /// </summary>
-        /// <param name="element">element to be removed</param>
-        public void RemoveFromDiagram(IEAElement element)
+        /// <param name="element"></param>
+        public void RemoveElement(IEAElement element)
         {
             for (short i = 0; i < _native.DiagramObjects.Count; i++)
             {
                 DiagramObject obj = _native.DiagramObjects.GetAt(i);
                 if (obj.ElementID.Equals(element.ID))
                 {
-                    _native.DiagramObjects.DeleteAt(i,true);
+                    _native.DiagramObjects.Delete(i);
+                    _native.DiagramObjects.Refresh();
+
                     var nativeRepository = EARepository.Instance.Native;
                     nativeRepository.ReloadDiagram(_native.DiagramID);
                     nativeRepository.SaveDiagram(_native.DiagramID);
@@ -204,7 +208,7 @@ namespace EAFacade.Model.Impl
 
         public bool IsForcesView()
         {
-          return Metatype.Equals(EAConstants.DiagramMetaTypeForces);
+            return Metatype.Equals(EAConstants.DiagramMetaTypeForces);
         }
 
         public bool IsChronologicalView()
@@ -242,7 +246,5 @@ namespace EAFacade.Model.Impl
             project.SaveDiagramImageToFile(filename);
             return new FileStream(filename, FileMode.Open);
         }
-
-        
     }
 }

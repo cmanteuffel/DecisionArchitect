@@ -8,6 +8,7 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    Mark Hoekstra (University of Groningen)
 */
 
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace EAFacade
         public const string TopicMetaType = "Topic";
         public const string ConcernMetaType = "Concern";
         public const string RequirementMetaType = "Requirement";
+
         public const string DiagramMetaTypeForces = "Decision Viewpoints::Forces";
         public const string DiagramMetaTypeChronological = "Decision Viewpoints::Chronological";
         public const string DiagramMetaTypeRelationship = "Decision Viewpoints::Relationship";
@@ -29,6 +31,7 @@ namespace EAFacade
 
 
         public const string TopicStereoType = "Topic";
+        public const string ChronologicalStereoType = "generated";
 
         public const string StateIdea = "idea";
         public const string StateTentative = "tentative";
@@ -37,6 +40,8 @@ namespace EAFacade
         public const string StateChallenged = "challenged";
         public const string StateDiscarded = "discarded";
         public const string StateRejected = "rejected";
+
+        public const string ForcesConnectorType = "Dependency";
 
         public const string RelationMetaType = "Relationship";
         public const string RelationDependsOn = "depends on";

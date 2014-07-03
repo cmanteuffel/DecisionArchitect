@@ -10895,7 +10895,7 @@ namespace DecisionViewpoints.Logic.Reporting
             A.RunProperties runProperties116 = new A.RunProperties() { Language = "en-US", FontSize = 1000, Dirty = false };
             runProperties116.SetAttribute(new OpenXmlAttribute("", "smtClean", "", "0"));
             A.Text text116 = new A.Text();
-            text116.Text = "Related Requirements";
+            text116.Text = "Related Forces";
 
             run88.Append(runProperties116);
             run88.Append(text116);
@@ -10925,7 +10925,7 @@ namespace DecisionViewpoints.Logic.Reporting
             A.RunProperties runProperties117 = new A.RunProperties() { Language = "en-US", FontSize = 1000, Dirty = false };
             runProperties117.SetAttribute(new OpenXmlAttribute("", "smtClean", "", "0"));
             A.Text text117 = new A.Text();
-            text117.Text = "{requirements}";
+            text117.Text = "{forces}";
 
             run89.Append(runProperties117);
             run89.Append(text117);

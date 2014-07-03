@@ -8,6 +8,7 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    Mark Hoekstra (University of Groningen)
 */
 
 using System.Collections.Generic;
@@ -18,6 +19,8 @@ namespace EAFacade.Model
     {
         IList<IEAElement> Elements { get; }
         IList<IEAPackage> Packages { get; }
+        string Stereotype { get; set; }
+
         bool IsModelRoot();
 
 

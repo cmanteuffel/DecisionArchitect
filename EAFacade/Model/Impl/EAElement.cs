@@ -135,8 +135,6 @@ namespace EAFacade.Model.Impl
             set { _native.PackageID = value.ID; }
         }
 
-        // To modify the stereotype we need to modify the list and not the stereotype directly
-
         public void ShowInProjectView()
         {
             EARepository.Instance.Native.ShowInProjectView(_native);
@@ -155,7 +153,6 @@ namespace EAFacade.Model.Impl
             path = "//" + path;
             return path;
         }
-
 
         public IEnumerable<IEAElement> GetTracedElements()
         {
@@ -187,37 +184,32 @@ namespace EAFacade.Model.Impl
         }
 
         [Obsolete("Should be moved to appropriate domain class", false)]
-        public IEnumerable<IEAElement> GetConnectedConcerns()
+        public IEnumerable<IEAElement> GetConnectedConcerns(string diagramGuid)
         {
-            if (_native == null)
-            {
-                return new EAElement[0];
-            }
-            IList<IEAConnector> connectors =
-                (from Connector c in _native.Connectors select EAConnector.Wrap(c)).ToList();
+            if (_native == null) return new EAElement[0];
 
-            IEnumerable<IEAElement> connectedConcerns = from IEAConnector connector in connectors
-                                                        where connector.Stereotype.Equals("classified by")
+            // Get the connectors with the native element as a client
+            IList<IEAConnector> connectors =
+                (from Connector c in _native.Connectors select EAConnector.Wrap(c)).Where(c=>c.GetClient().GUID.Equals(GUID)).ToList();
+
+            // Get the SuppliedElement for each connector in connectors in the current diagram
+            IEnumerable<IEAElement> suppliers = from IEAConnector connector in connectors
+                                                        where connector.Stereotype.Equals(EAConstants.RelationClassifiedBy) && inDiagram(connector, diagramGuid)
                                                         select (connector.GetSupplier());
 
-            return connectedConcerns;
+            // Get the elements from connectedConcerns which are Concerns
+            return suppliers.Where(x => x.TaggedValueExists(EATaggedValueKeys.IsConcernElement, diagramGuid));
         }
 
-        [Obsolete("Should be moved to appropriate domain class", false)]
-        public IEnumerable<IEAElement> GetConnectedRequirements()
+        /// <summary>
+        /// Checks if the connector is meant to be a connector in the diagram with GUID diagramGUID
+        /// </summary>
+        /// <param name="connector"></param>
+        /// <param name="diagramGuid"></param>
+        /// <returns></returns>
+        private bool inDiagram(IEAConnector connector, string diagramGuid)
         {
-            if (_native == null)
-            {
-                return new EAElement[0];
-            }
-            IList<IEAConnector> connectors =
-                (from Connector c in _native.Connectors select EAConnector.Wrap(c)).ToList();
-
-            IEnumerable<IEAElement> connectedRequirements = from IEAConnector connector in connectors
-                                                            where connector.Stereotype.Equals("classified by")
-                                                            select (connector.GetClient());
-
-            return connectedRequirements;
+            return connector.TaggedValues.Any(x => x.Name.Equals(EATaggedValueKeys.IsForceConnector) && x.Value.Equals(diagramGuid));
         }
 
         public IEADiagram[] GetDiagrams()
@@ -230,60 +222,66 @@ namespace EAFacade.Model.Impl
             document.LoadXml(repository.Query(sql));
             XmlNodeList diagramIDs = document.GetElementsByTagName(@"Diagram_ID");
 
-            var diagrams = new List<IEADiagram>();
-            foreach (XmlNode diagramID in diagramIDs)
-            {
-                int id = EAUtilities.ParseToInt32(diagramID.InnerText, -1);
-                if (id > 0)
-                {
-                    diagrams.Add(repository.GetDiagramByID(id));
-                }
-            }
-
-            return diagrams.ToArray();
+            return (from XmlNode diagramId in diagramIDs
+                select EAUtilities.ParseToInt32(diagramId.InnerText, -1)
+                into id
+                where id > 0
+                select repository.GetDiagramByID(id)).ToArray();
         }
 
         public IList<IEAConnector> FindConnectors(IEAElement suppliedElement, String type, String stereotype)
         {
-            return GetConnectors().Where(c =>
-                {
-                    return c.GetSupplier().GUID.Equals(suppliedElement.GUID) &&
-                           c.Stereotype.Equals(stereotype) &&
-                           c.Type.Equals(type);
-                }).ToList();
+            return GetConnectors().Where(c => c.GetSupplier().GUID.Equals(suppliedElement.GUID) &&
+                                              c.Stereotype.Equals(stereotype) &&
+                                              c.Type.Equals(type) &&
+                                              c.GetClient().GUID.Equals(GUID)).ToList();
         }
 
-        public void ConnectTo(IEAElement suppliedElement, String type, String stereotype)
+        public IEAConnector ConnectTo(IEAElement suppliedElement, String type, String stereotype)
         {
             //check if two elements are already connected with this connector
-            if (FindConnectors(suppliedElement, type, stereotype).Count > 0)
-            {
-                return;
-            }
+            IList<IEAConnector> connectors = FindConnectors(suppliedElement, type, stereotype);
+            if (connectors.Count > 0) return connectors.FirstOrDefault();
 
             Connector connector = _native.Connectors.AddNew("", type);
             connector.Stereotype = stereotype;
             connector.SupplierID = suppliedElement.ID;
             connector.Update();
+
             _native.Connectors.Refresh();
+            _native.Update();
             ((EAElement) suppliedElement)._native.Connectors.Refresh();
+            suppliedElement.Update();
+            
+            return EAConnector.Wrap(connector);
         }
 
+        /// <summary>
+        /// Implements IEAElement.RemoveConnector(IEAConnector connector)
+        /// </summary>
+        /// <param name="connector"></param>
+        public void RemoveConnector(IEAConnector connector)
+        {
+            for (short i = 0; i < _native.Connectors.Count; i++)
+            {
+                EAConnector con = EAConnector.Wrap(_native.Connectors.GetAt(i));
+
+                if (!con.GUID.Equals(connector.GUID)) continue;
+                _native.Connectors.Delete(i);
+                _native.Connectors.Refresh();
+                _native.Update();
+                return;
+            }
+        }
 
         public bool IsDecision()
         {
             return EAConstants.DecisionMetaType.Equals(MetaType.Trim());
-            //return EAConstants.DecisionMetaType.Equals(MetaType);
         }
 
         public bool IsConcern()
         {
             return EAConstants.ConcernMetaType.Equals(MetaType);
-        }
-
-        public bool IsRequirement()
-        {
-            return EAConstants.RequirementMetaType.Equals(MetaType);
         }
 
         public bool IsTopic()
@@ -326,19 +324,54 @@ namespace EAFacade.Model.Impl
             _native.LoadLinkedDocument(fileName);
         }
 
-        public string GetTaggedValue(string dvDecisionviewpackage)
+        /// <summary>
+        /// Implements IEAElement.TaggedValueExists(string name)
+        /// </summary>
+        /// <returns></returns>
+        public bool TaggedValueExists(string name)
         {
-            TaggedValue value = _native.TaggedValues.GetByName(dvDecisionviewpackage);
+            return _native.TaggedValues.Cast<TaggedValue>().Any(tv => tv.Name.Equals(name));
+        }
+
+        /// <summary>
+        /// Implements IEAElement.TaggedValueExists(string name, string data)
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public bool TaggedValueExists(string name, string data)
+        {
+            return _native.TaggedValues.Cast<TaggedValue>().Any(tv => tv.Name.Equals(name) && tv.Value.Equals(data));
+        }
+
+        public string GetTaggedValue(string name)
+        {
+            TaggedValue value;
+
+            try
+            {
+                // GetByName raises an exception if the collection contains items but not with this name
+                value = _native.TaggedValues.GetByName(name);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
             return value == null ? null : value.Value;
         }
 
+        /// <summary>
+        /// Implements IEAElement.AddTaggedValue(string name, string data)
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="data"></param>
         public void AddTaggedValue(string name, string data)
         {
             TaggedValue taggedValue = _native.TaggedValues.AddNew(name, "");
             taggedValue.Value = data;
             taggedValue.Update();
             _native.TaggedValues.Refresh();
-            Update();
         }
 
         public void UpdateTaggedValue(string name, string data)
@@ -352,6 +385,26 @@ namespace EAFacade.Model.Impl
             taggedValue.Update();
             _native.TaggedValues.Refresh();
             Update();
+        }
+
+        /// <summary>
+        /// Implements IEAElement.RemoveTaggedValue(string name, string data)
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="data"></param>
+        public void RemoveTaggedValue(string name, string data)
+        {
+            for (short i = 0; i < TaggedValues.Count; i++)
+            {
+                IEATaggedValue tv = TaggedValues[i];
+
+                if (tv.Name.Equals(name) && tv.Value.Equals(data))
+                {
+                    _native.TaggedValues.Delete(i);
+                    _native.TaggedValues.Refresh();
+                    return; // Only delete one TaggedValue
+                }
+            }
         }
 
         public static IEAElement Wrap(Element native)
@@ -374,8 +427,7 @@ namespace EAFacade.Model.Impl
         {
             if (other == null) return false;
             var element = other as EAElement;
-            if (element == null) return false;
-            return Equals(element);
+            return element != null && Equals(element);
         }
 
         public override int GetHashCode()

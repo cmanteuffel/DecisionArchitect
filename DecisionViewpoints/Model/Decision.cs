@@ -93,7 +93,7 @@ namespace DecisionViewpoints.Model
                                          select new Rating
                                              {
                                                  DecisionGUID = _element.GUID,
-                                                 RequirementGUID = Rating.GetReqGUIDFromTaggedValue(taggedValue.Name),
+                                                 ForceGUID = Rating.GetForceGUIDFromTaggedValue(taggedValue.Name),
                                                  ConcernGUID = Rating.GetConcernGUIDFromTaggedValue(taggedValue.Name),
                                                  Value = taggedValue.Value
                                              };

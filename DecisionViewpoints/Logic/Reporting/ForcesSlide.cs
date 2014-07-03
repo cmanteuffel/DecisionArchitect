@@ -54,27 +54,27 @@ namespace DecisionViewpoints.Logic.Reporting
                 decRow.AppendChild(decCell);
             }
 
-            foreach (var concernsPerRequirement in _forces.GetConcernsPerRequirement())
+            foreach (var concernsPerForce in _forces.GetConcernsPerForce())
             {
-                IEAElement requirement = concernsPerRequirement.Key;
-                List<IEAElement> concerns = concernsPerRequirement.Value;
+                IEAElement force = concernsPerForce.Key;
+                List<IEAElement> concerns = concernsPerForce.Value;
 
                 foreach (IEAElement concern in concerns)
                 {
-                    var reqRow = new TableRow {Height = 370840L};
-                    reqRow.AppendChild(CreateTextCell(requirement.Name));
-                    reqRow.AppendChild(CreateTextCell(concern.Name));
+                    var forceRow = new TableRow {Height = 370840L};
+                    forceRow.AppendChild(CreateTextCell(force.Name));
+                    forceRow.AppendChild(CreateTextCell(concern.Name));
 
                     // insert ratings
                     foreach (Rating rating in _forces.GetRatings())
                     {
-                        if (rating.RequirementGUID != requirement.GUID || rating.ConcernGUID != concern.GUID) continue;
+                        if (rating.ForceGUID != force.GUID || rating.ConcernGUID != concern.GUID) continue;
                         if (_forces.GetDecisions().Any(decision => rating.DecisionGUID == decision.GUID))
                         {
-                            reqRow.AppendChild(CreateTextCell(rating.Value));
+                            forceRow.AppendChild(CreateTextCell(rating.Value));
                         }
                     }
-                    tbl.AppendChild(reqRow);
+                    tbl.AppendChild(forceRow);
                 }
             }
         }

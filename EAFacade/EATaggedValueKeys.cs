@@ -8,6 +8,7 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    Mark Hoekstra (University of Groningen)
 */
 
 namespace EAFacade
@@ -19,6 +20,10 @@ namespace EAFacade
         public const string DecisionState = "DV.DecisionState";
         public const string DecisionHistoryState = "DV.DecisionHistoryState";
         public const string IsHistoryDecision = "DV.IsHistory";
+        public const string IsForceElement = "DV.IsForce";
+        public const string IsDecisionElement = "DV.IsDecision";
+        public const string IsConcernElement = "DV.IsConcern";
+        public const string IsForceConnector = "DC.IsForceConnector";
         public const string DecisionStateChange = "DV.StateChange";
         public const string OriginalDecisionGuid = "DV.OriginalDecisionGuid";
 

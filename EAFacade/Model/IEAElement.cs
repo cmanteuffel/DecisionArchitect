@@ -8,6 +8,7 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    Mark Hoekstra (University of Groningen)
 */
 
 using System;
@@ -29,17 +30,20 @@ namespace EAFacade.Model
         IEnumerable<IEAElement> GetDecisionsForTopic();
 
         [Obsolete("Should be moved to appropriate domain class",false)]
-        IEnumerable<IEAElement> GetConnectedConcerns();
-
-        [Obsolete("Should be moved to appropriate domain class", false)]
-        IEnumerable<IEAElement> GetConnectedRequirements();
+        IEnumerable<IEAElement> GetConnectedConcerns(string diagramGUID);
 
         IEADiagram[] GetDiagrams();
         IList<IEAConnector> FindConnectors(IEAElement suppliedElement, String type, String stereotype);
-        void ConnectTo(IEAElement suppliedElement, String type, String stereotype);
+        IEAConnector ConnectTo(IEAElement suppliedElement, String type, String stereotype);
+
+        /// <summary>
+        /// Removes a connector from the element
+        /// </summary>
+        /// <param name="connector"></param>
+        void RemoveConnector(IEAConnector connector);
+
         bool IsDecision();
         bool IsConcern();
-        bool IsRequirement();
         bool IsTopic();
         bool IsHistoryDecision();
         bool Update();
@@ -48,8 +52,38 @@ namespace EAFacade.Model
         List<IEAConnector> GetConnectors();
         string GetLinkedDocument();
         void LoadLinkedDocument(string fileName);
-        string GetTaggedValue(string dvDecisionviewpackage);
+
+        /// <summary>
+        /// Check if a TaggedValue exists with a certain name 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        bool TaggedValueExists(string name);
+
+        /// <summary>
+        /// Check if a TaggedValue exists with a certain name and data
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        bool TaggedValueExists(string name, string data);
+        string GetTaggedValue(string name);
+
+        /// <summary>
+        /// Adds a TaggedValue to the element with name and data. 
+        /// Multiple TaggedValues with the same name and data can exist.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="data"></param>
         void AddTaggedValue(string name, string data);
         void UpdateTaggedValue(string name, string data);
+
+        /// <summary>
+        /// Removes a TaggedValue from the element with name and data.
+        /// Only one TaggedValue will be removed. Other TaggedValues with the same name and data can still exist.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="data"></param>
+        void RemoveTaggedValue(string name, string data);
     }
 }

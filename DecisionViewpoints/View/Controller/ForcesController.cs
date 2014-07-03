@@ -8,12 +8,14 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    Mark Hoekstra (University of Groningen)
 */
 
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using DecisionViewpoints.Model;
+using DecisionViewpoints.View.Forces;
 using EAFacade.Model;
 
 
@@ -76,9 +78,9 @@ namespace DecisionViewpoints.View.Controller
             _view.UpdateDecision(element);
         }
 
-        public void UpdateRequirement(IEAElement element)
+        public void UpdateForce(IEAElement element)
         {
-            _view.UpdateRequirement(element);
+            _view.UpdateForce(element);
         }
 
         public void UpdateConcern(IEAElement element)
@@ -91,9 +93,9 @@ namespace DecisionViewpoints.View.Controller
             _view.RemoveDecision(element);
         }
 
-        public void RemoveRequirement(IEAElement element)
+        public void RemoveForce(IEAElement element)
         {
-            _view.RemoveRequirement(element);
+            _view.RemoveForce(element);
         }
 
         public void RemoveConcern(IEAElement element)
@@ -112,19 +114,19 @@ namespace DecisionViewpoints.View.Controller
             int decisionColumnIndex = 3;
             foreach (string decisionGUID in _view.DecisionGuids)
             {
-                int requirementRowIndex = 0;
-                foreach (string requirementGUID in _view.RequirementGuids)
+                int forceRowIndex = 0;
+                foreach (string forceGUID in _view.ForceGuids)
                 {
-                    string rating = _view.GetRating(requirementRowIndex, decisionColumnIndex);
-                    string concernGUID = _view.GetRating(requirementRowIndex, 2);
+                    string rating = _view.GetRating(forceRowIndex, decisionColumnIndex);
+                    string concernGUID = _view.GetRating(forceRowIndex, 2);
                     ratings.Add(new Rating
                         {
                             DecisionGUID = decisionGUID,
-                            RequirementGUID = requirementGUID,
+                            ForceGUID = forceGUID,
                             ConcernGUID = concernGUID,
                             Value = rating
                         });
-                    requirementRowIndex++;
+                    forceRowIndex++;
                 }
                 decisionColumnIndex++;
             }

@@ -20,8 +20,19 @@ namespace EAFacade.Model
     {
         IEAElement ParentElement { get; set; }
         string Metatype { get; }
-        void AddToDiagram(IEAElement newElement);
-        void RemoveFromDiagram(IEAElement element);
+
+        /// <summary>
+        /// Adds an element to the diagram. Will not be added if element already exists
+        /// </summary>
+        /// <param name="element">Element to be added</param>
+        void AddElement(IEAElement element);
+
+        /// <summary>
+        /// Removes an element from the diagram
+        /// </summary>
+        /// <param name="element">element to be removed</param>
+        void RemoveElement(IEAElement element);
+
         void OpenAndSelectElement(IEAElement element);
         List<IEADiagramObject> GetElements();
         void HideConnectors(string[] stereotypes);
