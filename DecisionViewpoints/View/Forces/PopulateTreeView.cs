@@ -16,12 +16,12 @@ using EAFacade.Model;
 
 namespace DecisionViewpoints.View.Forces
 {
-    public class AddElement
+    public class PopulateTreeView
     {
         private readonly TreeView _tv;
         private readonly bool _decision; //Specifies whether decisions or all elements should be added
 
-        public AddElement(TreeView tv, bool decision)
+        public PopulateTreeView(TreeView tv, bool decision)
         {
             _tv = tv;
             _decision = decision;
@@ -30,7 +30,7 @@ namespace DecisionViewpoints.View.Forces
         /// <summary>
         /// Populates the treeview with the elements from the repository
         /// </summary>
-        public void PopulateTreeView()
+        public void Populate()
         {
             IEARepository repository = EAFacade.EA.Repository;
             foreach (IEAPackage package in repository.GetAllDecisionViewPackages())

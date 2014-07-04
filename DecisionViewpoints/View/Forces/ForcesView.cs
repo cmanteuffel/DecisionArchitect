@@ -713,7 +713,7 @@ namespace DecisionViewpoints.View.Forces
 
         private void _btnOpenExcel_Click(object sender, EventArgs e)
         {
-            new Excel(_controller, _forcesTable);
+            new ExcelSynchronization(_controller, _forcesTable);
         }
 
         private void _btnAddDecision_Click(object sender, EventArgs e)

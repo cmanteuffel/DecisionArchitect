@@ -29,8 +29,8 @@ namespace DecisionViewpoints.View.Forces
             _controller = controller;
             InitializeComponent();
 
-            var addElement = new AddElement(_tvForce, false);
-            addElement.PopulateTreeView();
+            var populateTreeView = new PopulateTreeView(_tvForce, false);
+            populateTreeView.Populate();
 
             PopulateConcerns();
         }
@@ -57,9 +57,9 @@ namespace DecisionViewpoints.View.Forces
         }
 
         /// <summary>
-        /// Adds the elements that are selected in the TreeView and ListBox
+        /// Adds the forces and concerns that are selected in the TreeView and ListBox to the forces diagram
         /// </summary>
-        public void AddElements()
+        public void AddForceToForcesDiagram()
         {
             TreeNode selectedNode = _tvForce.SelectedNode;
             // Cannot add force if no force or concern is selected
@@ -127,7 +127,7 @@ namespace DecisionViewpoints.View.Forces
         /// <param name="e"></param>
         private void _btnAddForce_Click(object sender, System.EventArgs e)
         {
-            AddElements();
+            AddForceToForcesDiagram();
         }
 
         /// <summary>
@@ -137,7 +137,7 @@ namespace DecisionViewpoints.View.Forces
         /// <param name="e"></param>
         private void _tvForce_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            AddElements();
+            AddForceToForcesDiagram();
         }
         
         /// <summary>

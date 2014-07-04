@@ -25,9 +25,9 @@ namespace DecisionViewpoints.View.Forces
         {
             _controller = controller;
             InitializeComponent();
-            
-            var addElement = new AddElement(_tvDecision, true);
-            addElement.PopulateTreeView();
+
+            var populateTreeView = new PopulateTreeView(_tvDecision, true);
+            populateTreeView.Populate();
         }
 
         #region Windows Form Designer generated code
@@ -118,9 +118,9 @@ namespace DecisionViewpoints.View.Forces
         private TreeView _tvDecision;
 
         /// <summary>
-        /// Adds the element(s) that is/are selected in the TreeView
+        /// Adds the element(s) that is/are selected in the TreeView to the forces diagram
         /// </summary>
-        public void AddElements()
+        public void AddAllDecisionsToDiagram()
         {
             TreeNode selectedNode = _tvDecision.SelectedNode;
             if (selectedNode == null) return; //nothing selected
@@ -149,15 +149,15 @@ namespace DecisionViewpoints.View.Forces
             {
                 IEARepository repository = EAFacade.EA.Repository;
                 IEAElement element = repository.GetElementByGUID(node.ImageKey);
-                if(element.IsDecision()) AddElement(element);
+                if(element.IsDecision()) AddDecisionToDiagram(element);
             }
         }
 
         /// <summary>
-        /// Add element to the diagram and TaggedValue to the element if it doesn't exist already
+        /// Add deicsion to the diagram and TaggedValue to the decision if it doesn't exist already
         /// </summary>
         /// <param name="element"></param>
-        private void AddElement(IEAElement element)
+        private void AddDecisionToDiagram(IEAElement element)
         {
             IEARepository repository = EAFacade.EA.Repository;
 
@@ -187,7 +187,7 @@ namespace DecisionViewpoints.View.Forces
         /// <param name="e"></param>
         private void _btnAddDecision_Click(object sender, System.EventArgs e)
         {
-            AddElements();
+            AddAllDecisionsToDiagram();
         }
 
         /// <summary>
@@ -197,7 +197,7 @@ namespace DecisionViewpoints.View.Forces
         /// <param name="e"></param>
         private void _tvDecision_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            AddElements();
+            AddAllDecisionsToDiagram();
         }
     }
 }

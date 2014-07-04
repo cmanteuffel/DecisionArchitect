@@ -19,7 +19,7 @@ using ExcelInterop = Microsoft.Office.Interop.Excel;
 
 namespace DecisionViewpoints.Logic.Forces
 {
-    public class Excel
+    public class ExcelSynchronization
     {
         private readonly IForcesController _controller;
 
@@ -38,14 +38,14 @@ namespace DecisionViewpoints.Logic.Forces
             RatingMappingIndex = 8;
         private const int StartColumn = 2, StartRow = 2; // Index for start column/row. Excel starts counting at 1 and Row/Column header takes up a row/column
       
-        public Excel(IForcesController controller, DataGridView forcesTable)
+        public ExcelSynchronization(IForcesController controller, DataGridView forcesTable)
         {
             _controller = controller;
             _forcesTable = forcesTable;
             Initialize();
         }
 
-        ~Excel()
+        ~ExcelSynchronization()
         {
             Dispose();
         }
@@ -74,6 +74,9 @@ namespace DecisionViewpoints.Logic.Forces
             GC.WaitForPendingFinalizers();
         }
 
+        /// <summary>
+        /// Setup workbooks/worksheets and populate them
+        /// </summary>
         private void Initialize()
         {
             //_application.Workbooks.add(...) is not possible. 
@@ -211,6 +214,7 @@ namespace DecisionViewpoints.Logic.Forces
             //Store location of value next to GUID
             ExcelInterop.Range range = _worksheet.Cells[row, col];
             _worksheetHidden.Cells[lastRowIndex, mappingIndex + 1] = range.AddressLocal[false, false];
+            Marshal.ReleaseComObject(range);
         }
 
         /// <summary>
@@ -223,10 +227,13 @@ namespace DecisionViewpoints.Logic.Forces
         {
             for (int i = 1; i < worksheet.Rows.Count; i++)
             {
-                if (((ExcelInterop.Range)worksheet.Cells[i, columnIndex]).Value2 == null)
+                var range = (ExcelInterop.Range) worksheet.Cells[i, columnIndex];
+                if (range.Value2 == null)
                 {
+                    Marshal.ReleaseComObject(range);
                     return i; // First cell that is empty
                 }
+                Marshal.ReleaseComObject(range);
             }
             return 1;
         }
