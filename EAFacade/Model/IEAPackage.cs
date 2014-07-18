@@ -9,6 +9,7 @@
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
     Mark Hoekstra (University of Groningen)
+    K. Eric Harper (ABB Corporate Research)
 */
 
 using System.Collections.Generic;
@@ -30,6 +31,7 @@ namespace EAFacade.Model
         IEADiagram GetDiagram(string name);
         void RefreshElements();
         IEAElement AddElement(string name, string type);
+        void DeleteElement(short index, bool refresh = true);
         IEnumerable<IEAElement> GetAllElementsOfSubTree();
         IEnumerable<IEAElement> GetAllDecisions();
         IEnumerable<IEAElement> GetAllTopics();

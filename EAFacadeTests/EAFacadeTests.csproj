@@ -59,22 +59,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="EATests.cs" />
-    <Compile Include="Logic\ExampleRepositoryFile.cs" />
-    <Compile Include="Model\EventProperties\EAEventPropertiesHelper.cs" />
-    <Compile Include="Model\EventProperties\EAEventPropertyHelper.cs" />
-    <Compile Include="Model\IRepositoryFile.cs" />
-    <Compile Include="Model\RepositoryFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RepositoryFiles.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RepositoryFiles.resx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="EATestFiles\UnitTestExample.eap">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -82,12 +69,10 @@
       <Project>{1AF84AD5-279F-473C-A20F-C46DCBE0D087}</Project>
       <Name>EAFacade</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="RepositoryFiles.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>RepositoryFiles.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <ProjectReference Include="..\EATestSupport\EATestSupport.csproj">
+      <Project>{e02eb88e-97ee-4e80-bdf7-5fa332d22ea7}</Project>
+      <Name>EATestSupport</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

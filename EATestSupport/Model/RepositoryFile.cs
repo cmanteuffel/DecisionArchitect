@@ -13,7 +13,7 @@
 using System.IO;
 using EA;
 
-namespace EAFacadeTests.Model.RepositoryFile
+namespace EATestSupport.Model.RepositoryFile
 {
     public abstract class RepositoryFile : IRepositoryFile
     {

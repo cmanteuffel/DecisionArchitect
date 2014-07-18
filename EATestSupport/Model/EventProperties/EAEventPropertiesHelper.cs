@@ -16,7 +16,7 @@ using System.Globalization;
 using EA;
 using EAFacade.Model;
 
-namespace EAFacadeTests.Model.EventProperties
+namespace EATestSupport.Model.EventProperties
 {
     public sealed class EAEventPropertiesHelper : EA.EventProperties
     {

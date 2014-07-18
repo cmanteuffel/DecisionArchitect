@@ -11,15 +11,21 @@
     K. Eric Harper (ABB Corporate Research)
 */
 
+using EATestSupport;
+using EATestSupport.Model.RepositoryFile;
 using EA;
 
-namespace EAFacadeTests.Model.EventProperties
+namespace EATestSupport.Logic
 {
-    public class EAEventPropertyHelper : EventProperty
+    public class ExampleRepositoryFile : RepositoryFile
     {
-        public object Value { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public ObjectType ObjectType { get; set; }
+        public ExampleRepositoryFile(Repository repo) : base(repo)
+        {
+        }
+
+        public override void Open()
+        {
+            Repo.OpenFile(GetDirectory() + RepositoryFiles.Example);
+        }
     }
 }

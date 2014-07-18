@@ -11,21 +11,12 @@
     K. Eric Harper (ABB Corporate Research)
 */
 
-using EAFacadeTests;
-using EAFacadeTests.Model.RepositoryFile;
-using EA;
-
-namespace EAFacadeTests.Logic
+namespace EATestSupport.Model.RepositoryFile
 {
-    class ExampleRepositoryFile : RepositoryFile
+    interface IRepositoryFile
     {
-        public ExampleRepositoryFile(Repository repo) : base(repo)
-        {
-        }
-
-        public override void Open()
-        {
-            Repo.OpenFile(GetDirectory() + RepositoryFiles.Example);
-        }
+        void Open();
+        void Reset();
+        void Close();
     }
 }

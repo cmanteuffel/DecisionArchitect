@@ -9,6 +9,7 @@
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
     Mark Hoekstra (University of Groningen)
+    K. Eric Harper (ABB Corporate Research)
 */
 
 using System;
@@ -199,6 +200,15 @@ namespace EAFacade.Model.Impl
         public IEAElement AddElement(string name, string type)
         {
             return EAElement.Wrap(_native.Elements.AddNew(name, type));
+        }
+
+        public void DeleteElement(short index, bool refresh)
+        {
+            _native.Elements.Delete(index);
+            if(refresh)
+            {
+                RefreshElements();
+            }
         }
 
         public IEnumerable<IEAElement> GetAllElementsOfSubTree()
