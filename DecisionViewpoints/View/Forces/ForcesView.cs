@@ -28,10 +28,10 @@ using EAFacade.Model;
 namespace DecisionViewpoints.View.Forces
 {
     [ComVisible(true)]
-    [Guid("D65970AD-12A7-402A-9F88-ED50D8C1DD82")]
-    [ProgId("DecisionViewpoints.ForcesView")]
+    [Guid("B2219386-7889-4250-86A5-74760300A1F8")]
     [ClassInterface(ClassInterfaceType.None)]
     [ComDefaultInterface(typeof(IForcesView))]
+    [ProgId("DecisionViewpoints.Forces")]
     public class ForcesView: UserControl, IForcesView
     {
         private Button _btnConfigure, _btnAddDecision;

@@ -44,7 +44,7 @@ namespace DecisionViewpoints.Logic.Forces
             }
 
             IForcesView forcesView = repository.AddTab(forcesDiagramModel.Name,
-                                                       "DecisionViewpoints.ForcesView");
+                                                       "DecisionViewpoints.Forces");
             IForcesController forcesController;
 
             if (!_controllers.ContainsKey(forcesDiagramModel.DiagramGUID))
