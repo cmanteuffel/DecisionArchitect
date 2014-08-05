@@ -11,9 +11,7 @@
     Marc Holterman (University of Groningen)
  */
 
-using System.Windows.Forms;
 using EA;
-using EAFacade.Model;
 
 namespace DecisionViewpoints
 {

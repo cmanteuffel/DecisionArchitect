@@ -23,10 +23,10 @@ namespace EAFacade
         public const string ConcernMetaType = "Concern";
         public const string RequirementMetaType = "Requirement";
 
-        public const string DiagramMetaTypeForces = "Decision Viewpoints::Forces";
-        public const string DiagramMetaTypeChronological = "Decision Viewpoints::Chronological";
-        public const string DiagramMetaTypeRelationship = "Decision Viewpoints::Relationship";
-        public const string DiagramMetaTypeStakeholder = "Decision Viewpoints::Stakeholder Involvement";
+        public const string DiagramMetaTypeForces = "Decision Architect::Forces";
+        public const string DiagramMetaTypeChronological = "Decision Architect::Chronological";
+        public const string DiagramMetaTypeRelationship = "Decision Architect::Relationship";
+        public const string DiagramMetaTypeStakeholder = "Decision Architect::Stakeholder Involvement";
 
         public const string EventPropertyTypeElement = "Element";
 

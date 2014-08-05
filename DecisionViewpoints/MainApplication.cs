@@ -18,15 +18,11 @@ using DecisionViewpoints.Logic.Forces;
 using DecisionViewpoints.Logic.StakeholderInvolvement;
 using DecisionViewpoints.Logic.Validation;
 using EA;
-using EAFacade;
 using EAFacade.Events;
-using System.Windows.Forms;
-using System.Reflection;
 
 namespace DecisionViewpoints
 {
-    [assembly: AssemblyCopyright("Copyright © 2013")]
-    [assembly: AssemblyVersion("1.1.*")]
+
     public partial class MainApplication : EAEventAdapter
     {
         private readonly IList<IRepositoryListener> _listeners = new List<IRepositoryListener>();
@@ -44,7 +40,7 @@ namespace DecisionViewpoints
         public override object EA_OnInitializeTechnologies(Repository repository)
         {
             EAFacade.EA.UpdateRepository(repository);
-            const string resource = "DecisionViewpoints." + "DecisionViewpoints.xml";
+            const string resource = "DecisionViewpoints." + "DecisionArchitectMDG.xml";
             return Utilities.GetResourceContents(resource);
         }
 

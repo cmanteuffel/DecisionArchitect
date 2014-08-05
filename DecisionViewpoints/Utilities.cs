@@ -78,17 +78,6 @@ namespace DecisionViewpoints
             //           :
         }
 
-        public static string ProgramFilesx86()
-        {
-            if (8 == IntPtr.Size
-                || (!String.IsNullOrEmpty(Environment.GetEnvironmentVariable("PROCESSOR_ARCHITEW6432"))))
-            {
-                return Environment.GetEnvironmentVariable("ProgramFiles(x86)");
-            }
-
-            return Environment.GetEnvironmentVariable("ProgramFiles");
-        }
-
 
         internal static string AntonymRelation(string relation)
         {
@@ -126,41 +115,6 @@ namespace DecisionViewpoints
             box.SetRichText(formattedRtf);
 
             return box.TextBox.Text;
-        }
-
-        private static string getLink(string rtfString, int index)
-        {
-            // "$inet"
-          //  rtfString.Remove(index, 4);
-          //  rtfString.Insert(index, "http");
-            
-            string link = "";
-            //while (rtfString[index++] != '"'); // Walk untill first "
-
-            while (rtfString[index] != '"')
-            {
-                link += rtfString[index];
-                index++;
-            }
-            link = link.Replace("$inet", "http");
-            return link;
-        }
-
-        private static string getTargetName(string rtfString)
-        {
-            var targetName = "";
-            var index = 0;
-            while (rtfString[index++] != '{') ; // walk untill first bracket
-
-            while (rtfString[index] != '}')
-            {
-                targetName += rtfString[index];
-                index++;
-            }
-            var prefix = "\fldrslt";
-            targetName = targetName.Substring(prefix.Length + 1, targetName.Length - (prefix.Length + 1)).Trim(' ');
-            //MessageBox.Show("TargetName: " + targetName);
-            return targetName;
         }
 
         public static string ChangeRtfToCurrentCulture(RichTextBoxEx richTextBox, string rtfValue)
@@ -202,52 +156,8 @@ namespace DecisionViewpoints
             helperRichTextBox.SelectionLength = 1;
             helperRichTextBox.SelectionFont = new Font(richTextBox.Font.FontFamily, richTextBox.Font.Size, helperRichTextBox.SelectionFont.Style);
 
-            // From here on we look for hyperlinks and restore them.
-            if (rtfValue.Contains("$inet") && false)
-            {
-                var index = rtfValue.IndexOf("$inet");
-                var link = getLink(rtfValue, index);
-
-                var targetName = getTargetName(rtfValue.Substring(index, rtfValue.Length - index));
-                //{\field{\*\fldinst HYPERLINK "$inet://www.google.nl"}{\fldrslt www.google.nl}}
-                //MessageBox.Show("Has Link " + index);
-                var pos = helperRichTextBox.Text.IndexOf(targetName);
-               // helperRichTextBox.Re(pos, targetName.Length + link.Length + 4);
-                //helperRichTextBox.Rtf.Remove()
-                helperRichTextBox.InsertLink(targetName, link, pos);
-                MessageBox.Show("Target: " + targetName + " Link: " + link + " Pos: " + pos);
-
-            }
-
 
             return helperRichTextBox.Rtf;
-
-            //var helperRichTextBox = new RichTextBox();
-            //helperRichTextBox.Rtf = rtfValue;
-            //helperRichTextBox.SelectionStart = 0;
-            //helperRichTextBox.SelectionLength = 1;
-
-            //Font lastFont = helperRichTextBox.SelectionFont;
-            //int lastFontChange = 0;
-            //for (int i = 0; i < helperRichTextBox.TextLength; ++i)
-            //{
-            //    helperRichTextBox.SelectionStart = i;
-            //    helperRichTextBox.SelectionLength = 1;
-            //    if (!helperRichTextBox.SelectionFont.Equals(lastFont))
-            //    {
-            //        lastFont = helperRichTextBox.SelectionFont;
-            //        helperRichTextBox.SelectionStart = lastFontChange;
-            //        helperRichTextBox.SelectionLength = i - lastFontChange;
-            //        helperRichTextBox.SelectionFont = new Font(richTextBox.SelectionFont.FontFamily, richTextBox.SelectionFont.Size, helperRichTextBox.SelectionFont.Style);
-            //        lastFontChange = i;
-            //    }
-            //}
-            //helperRichTextBox.SelectionStart = helperRichTextBox.TextLength - 1;
-            //helperRichTextBox.SelectionLength = 1;
-            //helperRichTextBox.SelectionFont = new Font(richTextBox.Font.FontFamily, richTextBox.Font.Size, helperRichTextBox.SelectionFont.Style);
-
-            //richTextBox.SelectedRtf = helperRichTextBox.Rtf;
-            //return richTextBox.Rtf;
         }        
     }
 
@@ -268,8 +178,7 @@ namespace DecisionViewpoints
             DISCARDED = 5,
             REJECTED = 6
         }
-        // This is the xml file containing all the information
-        private const string XmlFilePath = "DecisionViewpoints.xml";
+
         // keeps the Colors for fast access
         private readonly Color[] _stateColors; 
 
@@ -277,10 +186,7 @@ namespace DecisionViewpoints
         private DecisionStateColor()
         {
             _stateColors = new Color[Enum.GetNames(typeof(States)).Length];
-
-            string directoy = Utilities.ProgramFilesx86() + @"\SEARCH Group\Decision Viewpoints\MDG Technology\";
-            string path = directoy + XmlFilePath;
-            InitStateColors(path);
+            InitStateColors();
         }
         
         // Getter
@@ -301,7 +207,7 @@ namespace DecisionViewpoints
         }
 
         // Init method
-        private void InitStateColors(string xmlFileName)
+        private void InitStateColors()
         {
             // Put the intial color on DarkGray
             Color defaultColor = Color.FromKnownColor(KnownColor.DarkGray);
@@ -310,7 +216,8 @@ namespace DecisionViewpoints
             try
             {
                 // Load xml file
-                var xml = XDocument.Load(xmlFileName);
+                var xml = XDocument.Load(Assembly.GetExecutingAssembly()
+                                               .GetManifestResourceStream("DecisionViewpoints." + "DecisionArchitectMDG.xml"));
 
                 // Loop over all states
                 foreach (States state in (States[])Enum.GetValues(typeof(States)))
@@ -334,11 +241,11 @@ namespace DecisionViewpoints
             }
             catch (IndexOutOfRangeException)
             {
-                Console.Error.WriteLine("Query resulted in more than 1 Colors in " + xmlFileName);
+                Console.Error.WriteLine("Query resulted in more than 1 Color");
             }
             catch (Exception)
             {
-                Console.Error.WriteLine("Couldn't find " + xmlFileName + " in current Directoy");
+                Console.Error.WriteLine("Couldn't find DecisionArchitectMDG.xml");
             }
         }
     }
