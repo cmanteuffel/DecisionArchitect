@@ -29,8 +29,8 @@
 	</ItemGroup>
 	<Import Project="$(MSBuildExtensionsPath32)\InstallShield\2013Limited\InstallShield.targets"/>
 	<ItemGroup>
-		<ProjectReference Include="..\DecisionViewpoints\DecisionViewpoints.csproj">
-			<Name>DecisionViewpoints</Name>
+		<ProjectReference Include="..\DecisionArchitect\DecisionArchitect.csproj">
+			<Name>DecisionArchitect</Name>
 			<Project>{778A9A09-5030-4CC1-85A3-C7DBB053CEA2}</Project>
 		</ProjectReference>
 		<ProjectReference Include="..\EAFacade\EAFacade.csproj">
