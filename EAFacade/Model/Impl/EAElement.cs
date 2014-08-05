@@ -9,6 +9,7 @@
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
     Mark Hoekstra (University of Groningen)
+    Marc Holterman (University of Groningen)
 */
 
 using System;
@@ -44,6 +45,13 @@ namespace EAFacade.Model.Impl
             get { return _native.MetaType; }
             set { _native.MetaType = value; }
         }
+
+        public string Author
+        {
+            get { return _native.Author; }
+            set { _native.Author = value; }
+        }
+
 
         public IEAElement ParentElement
         {
@@ -181,6 +189,23 @@ namespace EAFacade.Model.Impl
             }
 
             return from EAElement e in GetElements() where e.IsDecision() select e;
+        }
+
+        [Obsolete("Should be moved to appropriate domain class", false)]
+        public IEnumerable<IEAElement> GetConnectedRequirements()
+        {
+            if (_native == null)
+            {
+                return new EAElement[0];
+            }
+            IList<IEAConnector> connectors =
+                (from Connector c in _native.Connectors select EAConnector.Wrap(c)).ToList();
+
+            IEnumerable<IEAElement> connectedRequirements = from IEAConnector connector in connectors
+                                                            where connector.Stereotype.Equals("classified by")
+                                                            select (connector.GetClient());
+
+            return connectedRequirements;
         }
 
         [Obsolete("Should be moved to appropriate domain class", false)]
@@ -388,6 +413,38 @@ namespace EAFacade.Model.Impl
         }
 
         /// <summary>
+        /// Removes a tagged value from Tagged values
+        /// </summary>
+        /// <param name="name">name of the TaggedValue</param>
+        /// <param name="data">data to be deleted</param>
+        /// <returns>A bool indication whether the action was a success</returns>
+        public bool DeleteTaggedValue(string name, string data)
+        {
+            short index = 0;
+            short targetIndex = -1;
+
+            // Find the entry which needs to be deleted
+            foreach (TaggedValue taggedValue in _native.TaggedValues)
+            {
+                if (taggedValue.Name.StartsWith(name) && taggedValue.Value == data)
+                {
+                    targetIndex = index;
+                }
+                index++;
+            }
+
+            // Delete it
+            if (targetIndex > 0 && targetIndex < _native.TaggedValues.Count - 1)
+            {
+                _native.TaggedValues.DeleteAt(targetIndex, true);
+                Update();
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// Implements IEAElement.RemoveTaggedValue(string name, string data)
         /// </summary>
         /// <param name="name"></param>
@@ -405,6 +462,27 @@ namespace EAFacade.Model.Impl
                     return; // Only delete one TaggedValue
                 }
             }
+        }
+
+        /// <summary>
+        /// Remove all entries of TaggedValuesWithName
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>the amount of entries removed</returns>
+        public int RemoveAllWithName(string name)
+        {
+            int count = 0;
+            short one = 1;
+            for (short idx = (short)(_native.TaggedValues.Count - one); idx >= 0; idx--)
+            {
+                TaggedValue tv = _native.TaggedValues.GetAt(idx);
+                if (tv.Name.StartsWith(name))
+                {
+                    _native.TaggedValues.DeleteAt(idx, true);
+                    count++;
+                }
+            }
+            return count;
         }
 
         public static IEAElement Wrap(Element native)

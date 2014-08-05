@@ -20,9 +20,13 @@ using DecisionViewpoints.Logic.Validation;
 using EA;
 using EAFacade;
 using EAFacade.Events;
+using System.Windows.Forms;
+using System.Reflection;
 
 namespace DecisionViewpoints
 {
+    [assembly: AssemblyCopyright("Copyright © 2013")]
+    [assembly: AssemblyVersion("1.1.*")]
     public partial class MainApplication : EAEventAdapter
     {
         private readonly IList<IRepositoryListener> _listeners = new List<IRepositoryListener>();
@@ -34,7 +38,7 @@ namespace DecisionViewpoints
             _listeners.Add(new ChronologicalViewpointHandler());
             _listeners.Add(new ForcesHandler());
             _listeners.Add(new StakeholderInvolvementHandler());
-            _listeners.Add(new DetailHandler());
+            _listeners.Add(DetailHandler.Instance);
         }
 
         public override object EA_OnInitializeTechnologies(Repository repository)

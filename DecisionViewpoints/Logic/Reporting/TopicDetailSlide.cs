@@ -29,7 +29,7 @@ namespace DecisionViewpoints.Logic.Reporting
         public override void FillContent()
         {
             SetPlaceholder(NewSlidePart, TopicDataTags.Name, _topic.Name);
-            SetPlaceholder(NewSlidePart, TopicDataTags.Description, _topic.Description);
+            SetPlaceholder(NewSlidePart, TopicDataTags.Description, Utilities.FormattedRtfToPlainText(_topic.Description));
         }
     }
 }

@@ -8,34 +8,42 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    Marc Holterman (University of Groningen)
 */
 
 using System;
 using System.Collections.Generic;
 using DecisionViewpoints.Logic.Chronological;
+using DecisionViewpoints.Logic.Events;
+
 using EAFacade.Model;
 
 namespace DecisionViewpoints.Model
 {
+    public delegate void DecisionChangedHandler<IDecision>(IDecision sender, DecisionEventArgs e);
+
     public interface IDecision : ICustomViewModel
     {
+        string GUID { get; }
         int ID { get; }
         string Name { get; set; }
         string State { get; set; }
-        string Problem { get; set; }
-        string Solution { get; set; }
-        string Argumentation { get; set; }
+        DateTime Modified { get; set; }
+        string Author { get; set; }
+        string Rationale { get; set; }
+
         Topic Topic { get; set; }
+
+        IList<DecisionStateChange> History { get; set; }
+
         List<IEAConnector> Connectors { get; }
 
         bool HasTopic();
-        
+        //bool IsRecentlyChanged();
         void Reload();
         void Save();
-        
-
-        
-        
+        void ShowDetailView();
+        string DecisionSerialVersionID();
 
         /// <summary>
         /// Returns a enumeration of elements that were traced to this decision with the trace connector.
@@ -51,5 +59,8 @@ namespace DecisionViewpoints.Model
         IEnumerable<StakeholderInvolvement> GetStakeholderInvolvements();
         IList<DecisionStateChange> GetHistory();
         void AddHistory(string newState, DateTime dateModified);
+       // void DeleteHistory(string stateToBeDeleted, string dateToBeDeleted);
+        bool ReplaceHistoryEntryForState(string state, DateTime oldDatemodified, DateTime newDateModified);
+
     }
 }

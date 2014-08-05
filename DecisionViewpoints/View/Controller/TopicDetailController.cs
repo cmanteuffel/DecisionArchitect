@@ -8,7 +8,8 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
-    Antonis Gkortzis (University of Groningen)    
+    Antonis Gkortzis (University of Groningen)  
+    Marc Holterman (University of Groningen)
 */
 
 using System.CodeDom.Compiler;
@@ -21,47 +22,55 @@ namespace DecisionViewpoints.View.Controller
 {
     public class TopicDetailController : ITopicDetailController
     {
-        private readonly ITopic _topic;
-        private readonly ITopicDetailView _view;
+        private ITopic _topic;
+        //private ITopicDetailView _view;
 
-        public TopicDetailController(ITopic topic, ITopicDetailView view)
+        public TopicDetailController(ITopic topic)
         {
-            _topic = topic;
-            _view = view;
-            _view.SetController(this);
+            //_topic = topic;
+            //_view = view;
+            //_view.SetController(this);
         }
 
 
+        public ITopic Topic
+        {
+            get { return _topic; }
+            set
+            {
+                _topic = value;
+            }
+        }
+
+        //public ITopicDetailView View
+        //{
+        //    get { return _view; }
+        //    set
+        //    {
+        //        _view = value;
+        //       // _view.SetController(this);
+        //    }
+        //}
+
         public void Update()
         {
-            _view.TopicName = _topic.Name;
-            _view.TopicDescription = _topic.Description;
+           // _view.TopicName = _topic.Name;
+          //  _view.TopicDescription = _topic.Description;
+          //  _view.TopicId = _topic.ID.ToString();
         }
 
         public void ShowDetailView()
         {
             Update();
-            _view.ShowAsDialog();
+           // _view.ShowAsDialog();
         }
 
         public void Save()
         {
-            _topic.Name = _view.TopicName;
+            //_topic.Name = _view.TopicName;
+            //_topic.Description = _view.TopicDescription;
 
-            var extraData = new StringBuilder();
-            extraData.Append(string.Format("{0}{1}{2}", TopicDataTags.Description, _view.TopicDescription,
-                                           TopicDataTags.Description));
-
-            using (var tempFiles = new TempFileCollection())
-            {
-                string fileName = tempFiles.AddExtension("rtf");
-                using (var file = new StreamWriter(fileName))
-                {
-                    file.WriteLine(extraData.ToString());
-                }
-                _topic.LoadLinkedDocument(fileName);
-            }
-            _topic.Save(extraData.ToString());
+            //_topic.Save();
         }
     }
 }

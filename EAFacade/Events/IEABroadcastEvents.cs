@@ -8,6 +8,7 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    Marc Holterman (University of Groningen)
 */
 
 using EA;
@@ -61,6 +62,9 @@ namespace EAFacade.Events
         void EA_OnContextItemChanged(Repository repository, string guid, ObjectType type);
         bool EA_OnContextItemDoubleClicked(Repository repository, string guid, ObjectType type);
         void EA_OnNotifyContextItemModified(Repository repository, string guid, ObjectType type);
+
+        // TODO: Marc: Dunno if belongs here
+        void EA_OnTabChanged(Repository repository, string tabname, int diagramID);
     }
 
     internal interface IEATemplateEvents

@@ -9,6 +9,7 @@
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
     Mark Hoekstra (University of Groningen)
+    Marc Holterman (University of Groningen)
 */
 
 using System.Collections.Generic;
@@ -45,12 +46,19 @@ namespace EAFacade
 
         public const string RelationMetaType = "Relationship";
         public const string RelationDependsOn = "depends on";
+        public const string InverseDependsOn = "is dependent of";
         public const string RelationCausedBy = "caused by";
+        public const string InverseCausedBy = "causes";
         public const string RelationAlternativeFor = "alternative for";
+        public const string InverseAlternativeFor = "alternative for";
         public const string RelationExcludedBy = "excluded by";
+        public const string InverseExcludedBy = "excludes";
         public const string RelationReplaces = "replaces";
+        public const string InverseReplaces = "replaced by";
         public const string RelationClassifiedBy = "classified by";
+        public const string InverseClassifiedBy = "classifies";
         public const string RelationFollowedBy = "followed by";
+        public const string InverseFollowedBy = "follows";
         public const string RelationTrace = "trace";
 
         public const string ActionMetaType = "Action";
@@ -66,6 +74,16 @@ namespace EAFacade
                 RelationExcludedBy,
                 RelationReplaces
             };
+
+        public static readonly HashSet<string> InverseRelationships = new HashSet<string>
+            {
+                InverseAlternativeFor,
+                InverseCausedBy,
+                InverseDependsOn,
+                InverseExcludedBy,
+                InverseReplaces
+            };
+
 
         public static readonly HashSet<string> States = new HashSet<string>
             {

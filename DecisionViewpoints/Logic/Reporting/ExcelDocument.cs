@@ -138,11 +138,11 @@ namespace DecisionViewpoints.Logic.Reporting
             }
 
             var sheet = new Sheet
-                {
-                    Id = relationshipId,
-                    SheetId = sheetId,
-                    Name = name
-                };
+            {
+                Id = relationshipId,
+                SheetId = sheetId,
+                Name = name
+            };
             sheets.AppendChild(sheet);
             _mainPart.Workbook.Save();
             return newWorksheetPart;
@@ -232,7 +232,7 @@ namespace DecisionViewpoints.Logic.Reporting
             }
             else
             {
-                row = new Row {RowIndex = rowIndex};
+                row = new Row { RowIndex = rowIndex };
                 sheetData.AppendChild(row);
             }
 
@@ -249,7 +249,7 @@ namespace DecisionViewpoints.Logic.Reporting
                        String.Compare(cell.CellReference.Value, cellRef, StringComparison.OrdinalIgnoreCase) >
                        0);
 
-            var newCell = new Cell {CellReference = cellRef};
+            var newCell = new Cell { CellReference = cellRef };
             row.InsertBefore(newCell, refCell);
 
             worksheet.Save();

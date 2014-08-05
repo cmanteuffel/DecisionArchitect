@@ -10,10 +10,19 @@
     Spyros Ioakeimidis (University of Groningen)
 */
 
+using DecisionViewpoints.Model;
 namespace DecisionViewpoints.View.Controller
 {
-    public interface IDetailViewController : ICustomViewController
+    public interface IDetailViewControllerOld : ICustomViewController
     {
-        void ShowDetailView();
+        //void ShowDetailView();
+
+        IDetailView View { get; set; }
+        IDecision Decision { get; set; }
+
+        void Update();
+        void Initialize();
+
+        void InvokeViewChange(string guid);
     }
 }

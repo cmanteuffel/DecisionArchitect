@@ -114,5 +114,9 @@ namespace DecisionViewpoints.Logic
         public virtual void OnFileNew()
         {
         }
+
+        public virtual void OnTabChanged(string tabname, int diagramId)
+        {
+        }
     }
 }

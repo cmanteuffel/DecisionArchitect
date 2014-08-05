@@ -8,6 +8,7 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    Marc Holterman (University of Groningen)
 */
 
 namespace DecisionViewpoints.Model
@@ -16,10 +17,10 @@ namespace DecisionViewpoints.Model
     {
         int ID { get; }
         string Name { get; set; }
-        string Description { get; }
+        string Description { get; set; }
 
-        void Save(string extraData);
-
+        void Save();
+       
         void LoadLinkedDocument(string fileName);
         /*
         void AddObserver(ITopicObserver observer);

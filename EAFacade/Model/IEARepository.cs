@@ -8,6 +8,8 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    Marc Holterman (University of Groningen)
+
 */
 
 using System.Collections.Generic;
@@ -21,6 +23,8 @@ namespace EAFacade.Model
         IEAPackage GetPackageByID(int id);
         IEAPackage GetPackageByGUID(string guid);
         IEAElement GetElementByID(int elementID);
+        string GetFieldFromFormat(string format, string text);
+        string GetFormatFromField(string format, string text);
         IEAConnector GetConnectorByID(int connectorId);
         IEAConnector GetConnectorByGUID(string guid);
         string Query(string sql);

@@ -44,6 +44,7 @@ namespace DecisionViewpoints.Logic.Chronological
                     //save state change
                     if (element.IsDecision())
                     {
+
                         var decision = new Decision(element);
                         var newState = element.Stereotype;
                         var history = decision.GetHistory().ToList();
@@ -54,12 +55,12 @@ namespace DecisionViewpoints.Logic.Chronological
                             var currentState = history.Last();
                             if (currentState.State != newState)
                             {
-                               decision.AddHistory(newState,DateTime.Now);       
+                               decision.AddHistory(newState, decision.Modified);       
                             }
                         }
                         else
                         {
-                            decision.AddHistory(newState, DateTime.Now); 
+                            decision.AddHistory(newState, decision.Modified);
                         }
 
                         string oldState = element.GetTaggedValue(EATaggedValueKeys.DecisionState);

@@ -8,18 +8,19 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    Marc Holterman (University of Groningen)
 */
 
+using DecisionViewpoints.Model;
 using DecisionViewpoints.View.Controller;
 
 namespace DecisionViewpoints.View
 {
-    public interface ITopicDetailView : ICustomView
+    public interface ITopicViewController : ICustomViewController
     {
         string TopicName { get; set; }
         string TopicDescription { get; set; }
 
-        void ShowAsDialog();
-        void SetController(ITopicDetailController controller);
+        void setTopic(ITopic topic);
     }
 }

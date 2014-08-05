@@ -8,11 +8,15 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    Marc Holterman (University of Groningen)
+
 */
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using EA;
 
 namespace EAFacade.Model.Impl
@@ -66,6 +70,17 @@ namespace EAFacade.Model.Impl
         {
             return EAPackage.Wrap(Native.GetPackageByGuid(guid));
         }
+
+        public string GetFieldFromFormat(string format, string text)
+        {
+            return Native.GetFieldFromFormat(format, text);
+        }
+
+        public string GetFormatFromField(string format, string text)
+        {
+            return Native.GetFormatFromField(format, text);
+        }
+
 
         /*
         public List<IEAPackage> GetAllPackages()
@@ -168,7 +183,7 @@ namespace EAFacade.Model.Impl
         {
             Native.ActivateTab(tabName);
         }
-
+        
         public dynamic AddTab(string tabName, string controlID)
         {
             return Native.AddTab(tabName, controlID);

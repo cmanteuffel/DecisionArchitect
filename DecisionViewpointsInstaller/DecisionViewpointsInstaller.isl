@@ -342,7 +342,6 @@
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
 		<row><td>DecisionViewpoints.Primary_output</td><td>{D00C68CC-2F12-48F7-ABB6-8F7B5A5AB691}</td><td>INSTALLDIR</td><td>2</td><td/><td>decisionviewpoints.primary_o</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>EAFacade.Primary_output</td><td>{75F7EF10-247C-4CC9-A9D7-62DC299AE9A0}</td><td>INSTALLDIR</td><td>2</td><td/><td>eafacade.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>ISX_DEFAULTCOMPONENT</td><td>{F2C6BCD0-AF80-425E-A3BD-57E0EA035F55}</td><td>MDG_TECHNOLOGY</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{7E7D0D85-0F5D-4897-966A-DECDF1BF53C2}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
@@ -1167,7 +1166,6 @@
 		<row><td>ISMyProductDir</td><td>ISMyCompanyDir</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
 		<row><td>ISYourDataBaseDir</td><td>INSTALLDIR</td><td>Database</td><td/><td>0</td><td/></row>
 		<row><td>LocalAppDataFolder</td><td>TARGETDIR</td><td>.:LocalA~1|LocalAppData</td><td/><td>0</td><td/></row>
-		<row><td>MDG_TECHNOLOGY</td><td>INSTALLDIR</td><td>MDGTEC~1|MDG Technology</td><td/><td>0</td><td/></row>
 		<row><td>MICROSOFT.NET</td><td>WINDOWS</td><td>MICROS~1|Microsoft.NET</td><td/><td>0</td><td/></row>
 		<row><td>MICROSOFT.NET1</td><td>SystemFolder</td><td>MICROS~1|Microsoft.NET</td><td/><td>0</td><td/></row>
 		<row><td>MICROSOFT.NET2</td><td>WinDir</td><td>MICROS~1|Microsoft.NET</td><td/><td>0</td><td/></row>
@@ -1902,7 +1900,6 @@
 		<col key="yes" def="s72">Component_</col>
 		<row><td>AlwaysInstall</td><td>DecisionViewpoints.Primary_output</td></row>
 		<row><td>AlwaysInstall</td><td>EAFacade.Primary_output</td></row>
-		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT1</td></row>
 	</table>
 
@@ -1919,7 +1916,6 @@
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
 		<row><td>decisionviewpoints.primary_o</td><td>DecisionViewpoints.Primary_output</td><td>DecisionViewpoints.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;DecisionViewpoints&gt;|Built</td><td>3</td><td/></row>
-		<row><td>decisionviewpoints.xml</td><td>ISX_DEFAULTCOMPONENT</td><td>DECISI~1.XML|DecisionViewpoints.xml</td><td>0</td><td/><td/><td/><td>1</td><td>P:\ViewpointsAddIn\src\DecisionViewpoints\DecisionViewpoints.xml</td><td>1</td><td/></row>
 		<row><td>eafacade.primary_output</td><td>EAFacade.Primary_output</td><td>EAFacade.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;EAFacade&gt;|Built</td><td>3</td><td/></row>
 	</table>
 
@@ -2067,7 +2063,6 @@
 		<col def="S0">Miscellaneous</col>
 		<row><td>DecisionViewpoints.Primary_output</td><td/><td/><td>_4B76F535_969E_4A34_ADF3_C4FBEAEDDE94_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>EAFacade.Primary_output</td><td/><td/><td>_FDAF69E4_6118_4EA3_BB16_5D249AD37029_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>ISX_DEFAULTCOMPONENT</td><td/><td/><td>_05CC79C5_6860_407F_BAFB_60AB84E97A27_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_D048FC65_A288_403C_81A5_7E8F6B4D2B00_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
@@ -2690,7 +2685,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>SEARCH Group</td><td>0</td><td/><td>-1717456532</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>SEARCH Group</td><td>0</td><td/><td>-761115984</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>295819617</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>295819617</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION45FULL</td><td>1033</td><td>Microsoft .NET Framework 4.5 Full package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>295819649</td></row>
@@ -3791,8 +3786,8 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>295819617</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>295819617</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>295819617</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://www.cs.rug.nl/search/</td><td>0</td><td/><td>706830798</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>SEARCH Group</td><td>0</td><td/><td>-1717456532</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://www.SEARCHGroup.com</td><td>0</td><td/><td>-761115984</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>SEARCH Group</td><td>0</td><td/><td>-761115984</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>=-NewEnvironment1</td><td>0</td><td/><td>2040626001</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>=-NewEnvironment1</td><td>0</td><td/><td>2040599409</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>295819617</td></row>
@@ -4017,8 +4012,8 @@
 		<col def="S0">Value</col>
 		<row><td>ActiveLanguage</td><td>1033</td></row>
 		<row><td>Comments</td><td/></row>
-		<row><td>CurrentMedia</td><td dt:dt="bin.base64" md5="6d78a46bf2c52ee27034bbcad20f7f95">
-QwBEAF8AUgBPAE0AAQBFAHgAcAByAGUAcwBzAA==
+		<row><td>CurrentMedia</td><td dt:dt="bin.base64" md5="a4f66fafb30885f14d732b73e196bba0">
+RABWAEQALQA1AAEARQB4AHAAcgBlAHMAcwA=
 			</td></row>
 		<row><td>DefaultProductConfiguration</td><td>Express</td></row>
 		<row><td>EnableSwidtag</td><td>0</td></row>
@@ -4035,7 +4030,7 @@ QwBEAF8AUgBPAE0AAQBFAHgAcAByAGUAcwBzAA==
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{578FB7E8-677A-4949-B521-436B8C28887E}</td></row>
 		<row><td>ISUSSignature</td><td>{8813F9FF-399B-4583-B6CD-E0EF00AB5B05}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewObjects,viewRegistry,viewCustomActions,viewInstallScriptStd,viewSystemSearch,viewProject,viewUpgradePaths,viewAppFiles,viewShortcuts,viewRelease,viewSupportFiles,viewUpdateService,viewDependencies,viewIniFiles,viewTextFiles,viewFileExtensions,viewEnvironmentVariables,viewVRoots,viewSQLServer,viewComponentServices,viewUI,viewTextMessages,viewRealSetupDesign,viewDesignPatches,viewISToday,viewFeatureFiles,viewAppV</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewObjects,viewRegistry,viewCustomActions,viewInstallScriptStd,viewSystemSearch,viewProject,viewUpgradePaths,viewAppFiles,viewShortcuts,viewRelease,viewSupportFiles,viewUpdateService,viewDependencies,viewIniFiles,viewTextFiles,viewFileExtensions,viewEnvironmentVariables,viewVRoots,viewSQLServer,viewComponentServices,viewUI,viewTextMessages,viewRealSetupDesign,viewDesignPatches,viewISToday,viewFeatureFiles,viewAppV,viewSetupDesign,viewSetupTypes,viewXMLConfig,viewServices</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
@@ -4417,7 +4412,7 @@ QwBEAF8AUgBPAE0AAQBFAHgAcAByAGUAcwBzAA==
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>ProductCode</td><td>{EC9AA0A6-9F77-48AC-B737-79434B81F589}</td><td/></row>
 		<row><td>ProductName</td><td>Decision Viewpoints</td><td/></row>
-		<row><td>ProductVersion</td><td>0.4.6</td><td/></row>
+		<row><td>ProductVersion</td><td>0.5.6</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>

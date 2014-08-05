@@ -19,7 +19,7 @@ using System.Reflection;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using System.Linq;
-
+using EAFacade;
 
 namespace DecisionViewpoints
 {
@@ -60,7 +60,7 @@ namespace DecisionViewpoints
         public static DateTime TryParseDateTime(string dateString, DateTime fallback)
         {
             DateTime parsed;
-            if (!DateTime.TryParse(dateString, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out parsed))
+            if (!DateTime.TryParse(dateString, CultureInfo.CurrentUICulture, DateTimeStyles.AdjustToUniversal, out parsed))
             {
                 MessageBox.Show(dateString + " not parsed");
                 parsed = fallback;
@@ -88,8 +88,168 @@ namespace DecisionViewpoints
 
             return Environment.GetEnvironmentVariable("ProgramFiles");
         }
-    }
 
+
+        internal static string AntonymRelation(string relation)
+        {
+            int index = 0;
+            foreach (string r in EAConstants.Relationships)
+            {
+                if (r == relation)
+                    return EAConstants.InverseRelationships.ElementAt(index);
+
+                index++;
+            }
+            return EAConstants.InverseRelationships.ElementAt(0);
+        }
+
+        /**
+         * Tranfors unformatted text to RTF.
+         * This method is usable with the format buttons of the DetailView (current hidden)
+         */
+        public static string PlaintextToRtf(string plainText)
+        {
+            if (string.IsNullOrEmpty(plainText))
+                return "";
+
+            string escapedPlainText = plainText.Replace(@"\", @"\\").Replace("{", @"\{").Replace("}", @"\}");
+            string rtf = @"{\rtf1\ansi\ansicpg1253\deff0\deflang1032{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}
+                            {\f1\fnil\fcharset161 Microsoft Sans Serif;}}\viewkind4\uc1\pard\lang1033\f0\fs17 ";
+            rtf += escapedPlainText.Replace(Environment.NewLine, "\\lang1032\\f1\\par");
+            rtf += " }";
+            return rtf;
+        }
+
+        public static string FormattedRtfToPlainText(string formattedRtf)
+        {
+            CustomRichTextBox box = new CustomRichTextBox();
+            box.SetRichText(formattedRtf);
+
+            return box.TextBox.Text;
+        }
+
+        private static string getLink(string rtfString, int index)
+        {
+            // "$inet"
+          //  rtfString.Remove(index, 4);
+          //  rtfString.Insert(index, "http");
+            
+            string link = "";
+            //while (rtfString[index++] != '"'); // Walk untill first "
+
+            while (rtfString[index] != '"')
+            {
+                link += rtfString[index];
+                index++;
+            }
+            link = link.Replace("$inet", "http");
+            return link;
+        }
+
+        private static string getTargetName(string rtfString)
+        {
+            var targetName = "";
+            var index = 0;
+            while (rtfString[index++] != '{') ; // walk untill first bracket
+
+            while (rtfString[index] != '}')
+            {
+                targetName += rtfString[index];
+                index++;
+            }
+            var prefix = "\fldrslt";
+            targetName = targetName.Substring(prefix.Length + 1, targetName.Length - (prefix.Length + 1)).Trim(' ');
+            //MessageBox.Show("TargetName: " + targetName);
+            return targetName;
+        }
+
+        public static string ChangeRtfToCurrentCulture(RichTextBoxEx richTextBox, string rtfValue)
+        {
+            //var textBox = new TextBox();
+            var helperRichTextBox = new RichTextBoxEx();
+
+            helperRichTextBox.Rtf = rtfValue;
+
+            // select 1 char
+            helperRichTextBox.SelectionStart = 0;
+            helperRichTextBox.SelectionLength = 1;
+
+            // set font on the first font
+            Font lastFont = helperRichTextBox.SelectionFont;
+            int lastFontChange = 0;
+            // run over the text
+            for (int i = 0; i < helperRichTextBox.TextLength; ++i)
+            {
+                helperRichTextBox.SelectionStart = i;
+                helperRichTextBox.SelectionLength = 1;
+                if (!helperRichTextBox.SelectionFont.Equals(lastFont))
+                {
+                    lastFont = helperRichTextBox.SelectionFont;
+                    helperRichTextBox.SelectionStart = lastFontChange;
+                    helperRichTextBox.SelectionLength = i - lastFontChange;
+                    helperRichTextBox.SelectionFont = new Font(richTextBox.Font.FontFamily, richTextBox.Font.Size, helperRichTextBox.SelectionFont.Style);
+                    lastFontChange = i;
+                }
+            }
+
+            if (helperRichTextBox.TextLength == 0)
+            {
+                richTextBox.Font = new Font(richTextBox.Font.FontFamily, richTextBox.Font.Size, helperRichTextBox.SelectionFont.Style);
+                return "";
+            }
+
+            helperRichTextBox.SelectionStart = helperRichTextBox.TextLength - 1;
+            helperRichTextBox.SelectionLength = 1;
+            helperRichTextBox.SelectionFont = new Font(richTextBox.Font.FontFamily, richTextBox.Font.Size, helperRichTextBox.SelectionFont.Style);
+
+            // From here on we look for hyperlinks and restore them.
+            if (rtfValue.Contains("$inet") && false)
+            {
+                var index = rtfValue.IndexOf("$inet");
+                var link = getLink(rtfValue, index);
+
+                var targetName = getTargetName(rtfValue.Substring(index, rtfValue.Length - index));
+                //{\field{\*\fldinst HYPERLINK "$inet://www.google.nl"}{\fldrslt www.google.nl}}
+                //MessageBox.Show("Has Link " + index);
+                var pos = helperRichTextBox.Text.IndexOf(targetName);
+               // helperRichTextBox.Re(pos, targetName.Length + link.Length + 4);
+                //helperRichTextBox.Rtf.Remove()
+                helperRichTextBox.InsertLink(targetName, link, pos);
+                MessageBox.Show("Target: " + targetName + " Link: " + link + " Pos: " + pos);
+
+            }
+
+
+            return helperRichTextBox.Rtf;
+
+            //var helperRichTextBox = new RichTextBox();
+            //helperRichTextBox.Rtf = rtfValue;
+            //helperRichTextBox.SelectionStart = 0;
+            //helperRichTextBox.SelectionLength = 1;
+
+            //Font lastFont = helperRichTextBox.SelectionFont;
+            //int lastFontChange = 0;
+            //for (int i = 0; i < helperRichTextBox.TextLength; ++i)
+            //{
+            //    helperRichTextBox.SelectionStart = i;
+            //    helperRichTextBox.SelectionLength = 1;
+            //    if (!helperRichTextBox.SelectionFont.Equals(lastFont))
+            //    {
+            //        lastFont = helperRichTextBox.SelectionFont;
+            //        helperRichTextBox.SelectionStart = lastFontChange;
+            //        helperRichTextBox.SelectionLength = i - lastFontChange;
+            //        helperRichTextBox.SelectionFont = new Font(richTextBox.SelectionFont.FontFamily, richTextBox.SelectionFont.Size, helperRichTextBox.SelectionFont.Style);
+            //        lastFontChange = i;
+            //    }
+            //}
+            //helperRichTextBox.SelectionStart = helperRichTextBox.TextLength - 1;
+            //helperRichTextBox.SelectionLength = 1;
+            //helperRichTextBox.SelectionFont = new Font(richTextBox.Font.FontFamily, richTextBox.Font.Size, helperRichTextBox.SelectionFont.Style);
+
+            //richTextBox.SelectedRtf = helperRichTextBox.Rtf;
+            //return richTextBox.Rtf;
+        }        
+    }
 
     /**
      * This class is used to determine the Color for a Specific State.
@@ -111,7 +271,7 @@ namespace DecisionViewpoints
         // This is the xml file containing all the information
         private const string XmlFilePath = "DecisionViewpoints.xml";
         // keeps the Colors for fast access
-        private readonly Color[] _stateColors;
+        private readonly Color[] _stateColors; 
 
         // Private Constructor
         private DecisionStateColor()
@@ -122,7 +282,7 @@ namespace DecisionViewpoints
             string path = directoy + XmlFilePath;
             InitStateColors(path);
         }
-
+        
         // Getter
         public static DecisionStateColor Instance
         {
@@ -167,7 +327,7 @@ namespace DecisionViewpoints
                     // Should not contain more then 1 entry
                     foreach (var win32Color in win32Colors)
                     {
-                        Color stateColor = ColorTranslator.FromWin32((int)win32Color);
+                        Color stateColor = ColorTranslator.FromWin32((int) win32Color);
                         _stateColors[(int)state] = stateColor != null ? stateColor : defaultColor;
                     }
                 }

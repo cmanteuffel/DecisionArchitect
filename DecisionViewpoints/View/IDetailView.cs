@@ -8,42 +8,55 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
-    Antonis Gkortzis (University of Groningen)    
+    Antonis Gkortzis (University of Groningen)  
+    Marc Holterman (University of Groningen)  
 */
 
 using System;
 using DecisionViewpoints.Model;
 using DecisionViewpoints.View.Controller;
+using DecisionViewpoints.Logic.Events;
+using System.Windows.Forms;
+using DocumentFormat.OpenXml.Office2010.Excel;
 
 namespace DecisionViewpoints.View
 {
-    public interface IDetailView : IDecisionObserver, ICustomView
+//    public delegate void ViewHandler<IDetailView>(IDetailView sender, DetailViewEventArgs e);
+
+    public interface IDetailView //: //ICustomViewController
     {
+        /**
+         * Public Accessors 
+         */
+        //int DecisionId { get; set; }
         string DecisionName { get; set; }
         string DecisionState { get; set; }
-        string DecisionIssue { get; set; }
-        string DecisionText { get; set; }
-        string DecisionAlternatives { get; set; }
-        string DecisionArguments { get; set; }
-        string DecisionRelatedForces { get; set; }
-        //string DecisionGroup { get; set; }
+        string DecisionRationale { get; set; }
+        string TopicName { get; set; }
+        string TopicDescription { get; set; }
+       // DateTime Created { get; set; }
+       // DateTime Modified { get; set; }
+        DateTime Decided { get; set; }
+        string Author { get; set; }
 
-        //string DecisionIssuePlainText { get; }
+        // Set appropriate controller  
+       // event ViewHandler<IDetailView> changed;
+       // void SetController(IDetailViewController controller);
 
-        void ShowAsDialog();
-        void SetController(IDetailViewController controller);
-        //void AddRelatedDecision(string relationship, string name, bool isClient);//original
-        void AddRelatedDecision(string relationship, string name, bool isClient, string decisionuid, string relateduid);
-        void AddStakeholderEntry(string name, string stereotype, string s, string state, string stakeholderuid);
-        //void AddAlternativeDecision(string relationship, string name, bool isClient);
-        void AddAlternativeDecision(string relationship, string name, bool isClient, string decisionuid,
-                                    string alternativeuid);
+        /**
+         * Add topic information
+         */ 
+        void AddTopic(int id, string name, string description, bool hasTopic);
+        void AddTopic(ITopic topic, bool hasTopic);
 
-        void AddHistoryEntry(string state, DateTime dateModfied);
-        //void AddTrace(string name, string type);
-        void AddTrace(string name, string type, string uid);
-        // void AddRelatedRequirement(string name, string rating, string description);
-        void AddRelatedForce(string name, string rating, string description, string uid, string concern);
-        void AddTopic(string name, string description, bool hasTopic);
+        /**
+         * Public Accessors additional information
+         */
+        void AddAlternativeDecision(string guid, string alternativeId, string alternativeName, string alternativeState, string alternativeRationale);
+        void AddRelatedDecision(string guid, string relation, string relatedName, string relatedState);
+        void AddRelatedForce(string guid, string forceName, string forceRating, string forceConcern, string description);
+        void AddTrace(string guid, string traceName, string traceType);
+        void AddStakeholder(string guid, string stakeholderName, string stereotype, string s, string state);
+        void AddHistoryEntry(string historyState, DateTime dateModfied);
     }
 }

@@ -8,6 +8,7 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    Marc Holterman (University of Groningen)  
     Mark Hoekstra (University of Groningen)
 */
 
@@ -21,6 +22,8 @@ namespace EAFacade.Model
         string Type { get; }
         string Stereotype { get; set; }
         string MetaType { get; set; }
+
+        string Author { get; set; }
         IEAElement ParentElement { get; set; }
         List<IEATaggedValue> TaggedValues { get; }
         string StereotypeList { get; set; }
@@ -31,6 +34,9 @@ namespace EAFacade.Model
 
         [Obsolete("Should be moved to appropriate domain class",false)]
         IEnumerable<IEAElement> GetConnectedConcerns(string diagramGUID);
+
+        [Obsolete("Should be moved to appropriate domain class", false)]
+        IEnumerable<IEAElement> GetConnectedRequirements();
 
         IEADiagram[] GetDiagrams();
         IList<IEAConnector> FindConnectors(IEAElement suppliedElement, String type, String stereotype);
@@ -52,7 +58,7 @@ namespace EAFacade.Model
         List<IEAConnector> GetConnectors();
         string GetLinkedDocument();
         void LoadLinkedDocument(string fileName);
-
+        int RemoveAllWithName(string name);
         /// <summary>
         /// Check if a TaggedValue exists with a certain name 
         /// </summary>
@@ -67,6 +73,7 @@ namespace EAFacade.Model
         /// <param name="data"></param>
         /// <returns></returns>
         bool TaggedValueExists(string name, string data);
+
         string GetTaggedValue(string name);
 
         /// <summary>
@@ -76,7 +83,13 @@ namespace EAFacade.Model
         /// <param name="name"></param>
         /// <param name="data"></param>
         void AddTaggedValue(string name, string data);
+        
+
         void UpdateTaggedValue(string name, string data);
+
+
+        // MC implementation
+        bool DeleteTaggedValue(string name, string data);
 
         /// <summary>
         /// Removes a TaggedValue from the element with name and data.
@@ -85,5 +98,6 @@ namespace EAFacade.Model
         /// <param name="name"></param>
         /// <param name="data"></param>
         void RemoveTaggedValue(string name, string data);
+
     }
 }

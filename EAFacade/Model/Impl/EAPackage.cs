@@ -160,7 +160,7 @@ namespace EAFacade.Model.Impl
         public void DeletePackage(IEAPackage package)
         {
             short index = 0;
-            foreach (Package p in  _native.Packages.Cast<Package>())
+            foreach (Package p in _native.Packages.Cast<Package>())
             {
                 if (p.PackageGUID.Equals(package.GUID))
                 {
@@ -171,6 +171,16 @@ namespace EAFacade.Model.Impl
                 index++;
             }
         }
+
+        public void DeleteElement(short index, bool refresh)
+        {
+            _native.Elements.Delete(index);
+            if (refresh)
+            {
+                RefreshElements();
+            }
+        }
+
 
         public IEAElement CreateElement(string name, string stereotype, string type)
         {
@@ -200,15 +210,6 @@ namespace EAFacade.Model.Impl
         public IEAElement AddElement(string name, string type)
         {
             return EAElement.Wrap(_native.Elements.AddNew(name, type));
-        }
-
-        public void DeleteElement(short index, bool refresh)
-        {
-            _native.Elements.Delete(index);
-            if(refresh)
-            {
-                RefreshElements();
-            }
         }
 
         public IEnumerable<IEAElement> GetAllElementsOfSubTree()

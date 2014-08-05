@@ -16,7 +16,7 @@ using System.IO;
 
 namespace EAFacade.Model
 {
-    public interface IEADiagram: IModelObject
+    public interface IEADiagram : IModelObject
     {
         IEAElement ParentElement { get; set; }
         string Metatype { get; }

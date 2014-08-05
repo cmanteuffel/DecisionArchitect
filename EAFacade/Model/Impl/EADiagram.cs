@@ -148,7 +148,7 @@ namespace EAFacade.Model.Impl
             nativeRepository.ReloadDiagram(_native.DiagramID);
             nativeRepository.SaveDiagram(_native.DiagramID);
         }
-        
+
         /// <summary>
         /// Implements IEADiagram.RemoveElement(IEAElement element)
         /// </summary>

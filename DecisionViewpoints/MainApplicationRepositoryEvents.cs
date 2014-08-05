@@ -145,7 +145,6 @@ namespace DecisionViewpoints
         public override void EA_OnPostCloseDiagram(Repository repository, int diagramId)
         {
             EAFacade.EA.UpdateRepository(repository);
-            //System.Windows.Forms.MessageBox.Show("Event OnPostCloseDiagram");
         }
 
     }

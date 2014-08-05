@@ -94,9 +94,9 @@ namespace DecisionViewpoints.Logic.Reporting
             SetPlaceholder(NewSlidePart, Placeholder.Name, _decision.Name);
             SetPlaceholder(NewSlidePart, Placeholder.State, _decision.State);
             SetPlaceholder(NewSlidePart, Placeholder.Topic, _decision.HasTopic() ? _decision.Topic.Name : "");
-            SetPlaceholder(NewSlidePart, Placeholder.Issue, _decision.Problem);
-            SetPlaceholder(NewSlidePart, Placeholder.DecisionText, _decision.Solution);
-            SetPlaceholder(NewSlidePart, Placeholder.Arguments, _decision.Argumentation);
+            SetPlaceholder(NewSlidePart, Placeholder.Issue, "");
+            SetPlaceholder(NewSlidePart, Placeholder.DecisionText, "");
+            SetPlaceholder(NewSlidePart, Placeholder.Arguments, _decision.Rationale);
             SetPlaceholder(NewSlidePart, Placeholder.Alternatives, alternativeDecisions.ToString());
             SetPlaceholder(NewSlidePart, Placeholder.RelatedDecisions, relatedDecisions.ToString());
             SetPlaceholder(NewSlidePart, Placeholder.RelatedForces, relatedForces.ToString());

@@ -702,8 +702,7 @@ namespace DecisionViewpoints.View.Forces
 
         private void OpenInDetailView(Decision decision)
         {
-            var detailController = new DetailController(decision, new DetailView());
-            detailController.ShowDetailView();
+            decision.ShowDetailView();
         }
 
         private void _btnConfigure_Click(object sender, EventArgs e)

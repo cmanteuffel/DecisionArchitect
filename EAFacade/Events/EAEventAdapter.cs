@@ -71,6 +71,10 @@ namespace EAFacade.Events
         {
         }
 
+        public virtual void EA_OnTabChanged(Repository repository, string tabname, int diagramID)
+        {
+        }
+
         public virtual void EA_OnPostOpenDiagram(Repository repository, int diagramId)
         {
         }

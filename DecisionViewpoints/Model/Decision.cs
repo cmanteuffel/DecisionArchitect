@@ -8,6 +8,7 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    Marc Holterman (University of Groningen)
 */
 
 using System;
@@ -19,6 +20,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using DecisionViewpoints.Logic.Chronological;
+using DecisionViewpoints.Logic.Detail;
+using DecisionViewpoints.View;
 using EAFacade;
 using EAFacade.Model;
 
@@ -36,10 +39,17 @@ namespace DecisionViewpoints.Model
         private const int SerialVersionID = 1;
         private readonly IEAElement _element;
 
+       // private bool _decisionDataChanged;
+
         public Decision(IEAElement element)
         {
             _element = element;
             Load();
+        }
+
+        public string GUID
+        {
+            get { return _element.GUID; }
         }
 
         public int ID
@@ -50,19 +60,52 @@ namespace DecisionViewpoints.Model
         public string Name
         {
             get { return _element.Name; }
-            set { _element.Name = value; }
+            set
+            {
+                if(_element.Name != value)
+                {
+                    _element.Name = value;
+                 }
+            }
         }
 
         public string State
         {
             get { return _element.StereotypeList; }
-            set { _element.StereotypeList = value; }
+            set
+            {
+                if (_element.StereotypeList != value)
+                {
+                    _element.StereotypeList = value;
+                    //setChanged();
+                }
+            }
         }
 
-        public string Problem { get; set; }
-        public string Solution { get; set; }
-        public string Argumentation { get; set; }
+        public string Rationale
+        {
+            get;
+            set;
+        }
 
+        public DateTime Modified 
+        {
+            get { return _element.Modified; }
+            set { _element.Modified = value; } 
+        }
+
+        public string Author
+        {
+            get { return _element.Author; }
+            set 
+            {
+                if (_element.Author != value)
+                {
+                    _element.Author = value;
+                   // setChanged();
+                }
+            }
+        }
 
         public Topic Topic
         {
@@ -71,7 +114,13 @@ namespace DecisionViewpoints.Model
                 if (_element.ParentElement == null || !_element.ParentElement.IsTopic()) return null;
                 return new Topic(_element.ParentElement);
             }
-            set { _element.ParentElement = value.GetElement(); }
+            set
+            {
+                if (!_element.ParentElement.Equals(value.GetElement()))
+                {
+                    _element.ParentElement = value.GetElement();
+                }
+        }
         }
 
         public List<IEAConnector> Connectors
@@ -85,6 +134,11 @@ namespace DecisionViewpoints.Model
             return _element.ParentElement.IsTopic();
         }
 
+        public IList<DecisionStateChange> History
+        {
+            get { return GetHistory(); }
+            set { SetHistory(value);  }
+        }
 
         public IEnumerable<Rating> GetForces()
         {
@@ -93,7 +147,7 @@ namespace DecisionViewpoints.Model
                                          select new Rating
                                              {
                                                  DecisionGUID = _element.GUID,
-                                                 ForceGUID = Rating.GetForceGUIDFromTaggedValue(taggedValue.Name),
+                                             ForceGUID = Rating.GetForceGUIDFromTaggedValue(taggedValue.Name),
                                                  ConcernGUID = Rating.GetConcernGUIDFromTaggedValue(taggedValue.Name),
                                                  Value = taggedValue.Value
                                              };
@@ -113,8 +167,22 @@ namespace DecisionViewpoints.Model
                         State = GetStateFromTaggedValue(value)
                     });
             }
-
             return history;
+        }
+
+        public void SetHistory(IList<DecisionStateChange> history)
+        {
+            // Remove the old history
+            _element.RemoveAllWithName(EATaggedValueKeys.DecisionStateChange);
+            
+            // Add the new History Data
+            foreach (DecisionStateChange dsc in history)
+            {
+                var data = String.Format("{0}|{1}", dsc.State,
+                                                dsc.DateModified.ToString(CultureInfo.InvariantCulture));
+                var name = EATaggedValueKeys.DecisionStateChange;
+                _element.AddTaggedValue(name, data);
+            }
         }
 
         public IEnumerable<StakeholderInvolvement> GetStakeholderInvolvements()
@@ -147,17 +215,13 @@ namespace DecisionViewpoints.Model
             Load();
         }
 
-
         public void Save()
         {
             var extraData = new StringBuilder();
-            extraData.Append(String.Format("{0}{1}{2}", DecisionDataTags.Issue, Problem,
-                                           DecisionDataTags.Issue));
-            extraData.Append(String.Format("{0}{1}{2}", DecisionDataTags.DecisionText, Solution,
+            extraData.Append(String.Format("{0}{1}{2}", DecisionDataTags.DecisionText, Rationale,
                                            DecisionDataTags.DecisionText));
-            extraData.Append(String.Format("{0}{1}{2}", DecisionDataTags.Arguments, Argumentation,
-                                           DecisionDataTags.Arguments));
-            _element.Notes = Argumentation;
+
+            //_element.Notes = Rationale;
             using (var tempFiles = new TempFileCollection())
             {
                 string fileName = tempFiles.AddExtension("rtf");
@@ -182,28 +246,58 @@ namespace DecisionViewpoints.Model
                     .UpdateTaggedValue(EATaggedValueKeys.DecisionSerialVersionID,
                                        SerialVersionID.ToString(CultureInfo.InvariantCulture));
             }
+            //MessageBox.Show("Decision Save " + Name);
 
             _element.Update();
             IEARepository repository = EAFacade.EA.Repository;
             repository.AdviseElementChanged(_element.ID);
         }
 
+        public void ShowDetailView()
+        {
+            IEARepository repository = EAFacade.EA.Repository;
+            if (repository.IsTabOpen(Name) > 0)
+            {
+                FocusTab();
+            } else {
+                OpenNewDecisionTab();
+            }
+           
+        }
+
+        private void OpenNewDecisionTab()
+        {
+            IDetailViewController detailViewController = EAFacade.EA.Repository.AddTab(Name,
+                                                    "DecisionViewpoints.DetailViewController");
+            detailViewController.SetDecision(this);
+            if (_element.ParentElement != null)
+            {
+                detailViewController.SetTopic(new Topic(_element.ParentElement));
+            }
+            SynchronizationManager.Instance.Subscribe(_element.GUID, detailViewController, Name);
+        }
+
+        public void FocusTab()
+        {
+            EAFacade.EA.Repository.ActivateTab(Name);
+            SynchronizationManager.Instance.Update(_element.GUID);
+        }
+
+
+
         public IEAElement GetElement()
         {
             return _element;
         }
 
+        //public bool IsRecentlyChanged()
+        //{
+        //    return _decisionDataChanged;
+        //}
+
         private void Load()
         {
-            Problem = GetSubstring(DecisionDataTags.Issue);
-            Solution = GetSubstring(DecisionDataTags.DecisionText);
-            switch (GetSerialVersionID())
-            {
-                case 0:
-                case 1:
-                    Argumentation = GetSubstring(DecisionDataTags.Arguments);
-                    break;         
-            }
+            Rationale = GetSubstring(DecisionDataTags.DecisionText);
         }
 
 
@@ -225,7 +319,7 @@ namespace DecisionViewpoints.Model
 
         private string GetSubstring(string tag)
         {
-            var rtf = new RichTextBox {Rtf = _element.GetLinkedDocument()};
+            var rtf = new RichTextBox { Rtf = _element.GetLinkedDocument()};
             /*var first = _element.Notes.IndexOf(tag, StringComparison.Ordinal) + tag.Length;
             var last = _element.Notes.LastIndexOf(tag, StringComparison.Ordinal);*/
             int first = rtf.Text.IndexOf(tag, StringComparison.Ordinal) + tag.Length;
@@ -239,11 +333,30 @@ namespace DecisionViewpoints.Model
             return EAUtilities.ParseToInt32(serialVersionString, -1);
         }
 
+        public string DecisionSerialVersionID()
+        {
+            return GetElement().GetTaggedValue(EATaggedValueKeys.DecisionSerialVersionID) ?? "0";
+        }
+
         public void AddHistory(string newState, DateTime dateModified)
         {
             GetElement().AddTaggedValue(EATaggedValueKeys.DecisionStateChange,
                                    String.Format("{0}|{1}", newState,
-                                                 DateTime.Now.ToString(CultureInfo.InvariantCulture)));
+                                                 dateModified.ToString(CultureInfo.InvariantCulture)));
+        }
+
+        public bool ReplaceHistoryEntryForState(string state, DateTime oldDatemodified, DateTime newDateModified)
+        {
+
+            string removeData = String.Format("{0}|{1}", state, oldDatemodified.ToString(CultureInfo.InvariantCulture));
+            _element.UpdateTaggedValue(EATaggedValueKeys.DecisionStateChange, removeData);
+
+            if (GetElement().DeleteTaggedValue(EATaggedValueKeys.DecisionStateChange, removeData))
+            {
+                AddHistory(state, newDateModified);
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -23,11 +23,6 @@ namespace DecisionViewpoints.Model
         void Update(IForcesModel model);
     }
 
-    public interface IDecisionObserver : ICustomViewModelObserver
-    {
-        void Update(IDecision model);
-    }
-
     /*
     public interface ITopicObserver : ICustomViewModelObserver
     {

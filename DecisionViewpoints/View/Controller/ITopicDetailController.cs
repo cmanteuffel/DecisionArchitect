@@ -8,12 +8,18 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    Marc Holterman (University of Groningen)
 */
+
+using DecisionViewpoints.Model;
 
 namespace DecisionViewpoints.View.Controller
 {
     public interface ITopicDetailController : ICustomViewController
     {
-        void ShowDetailView();
+        //ITopicDetailView View { get; set; }
+        //ITopic Topic { get; set; }
+
+        //void ShowDetailView();
     }
 }

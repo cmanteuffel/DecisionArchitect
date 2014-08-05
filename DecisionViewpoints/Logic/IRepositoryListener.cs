@@ -59,5 +59,8 @@ namespace DecisionViewpoints.Logic
         void OnFileClose();
 
         void OnFileNew();
+
+        //marc: This is a callback that is not only triggered by the tabchange, also by opening of tabs etc.
+        void OnTabChanged(string tabname, int diagramId);
     }
 }

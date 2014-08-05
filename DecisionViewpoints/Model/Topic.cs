@@ -8,11 +8,17 @@
  Contributors:
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
+    Marc Holterman (University of Groningen)
 */
 
 using System;
+using System.Drawing;
 using System.Windows.Forms;
+using EA;
 using EAFacade.Model;
+using System.Text;
+using System.CodeDom.Compiler;
+using System.IO;
 
 namespace DecisionViewpoints.Model
 {
@@ -29,6 +35,7 @@ namespace DecisionViewpoints.Model
         public Topic(IEAElement element)
         {
             _element = element;
+            Load();
         }
 
         public int ID
@@ -42,16 +49,43 @@ namespace DecisionViewpoints.Model
             set { _element.Name = value; }
         }
 
-        public string Description
-        {
-            get { return GetSubstring(TopicDataTags.Description); }
-        }
+        //public string Description
+        //{
+        //    get { return _element.Notes; }
+        //    set
+        //    {
+        //        if (_element.Notes != value)
+        //        {
+        //            _element.Notes = value;
+        //        }
+        //    }
+        //}
 
-        public void Save(string extraData)
+        public string Description { get; set; }
+   
+        public void Save()
         {
+            var extraData = new StringBuilder();
+            extraData.Append(string.Format("{0}{1}{2}", TopicDataTags.Description, Description,
+                                           TopicDataTags.Description));
+
+            using (var tempFiles = new TempFileCollection())
+            {
+                string fileName = tempFiles.AddExtension("rtf");
+                using (var file = new StreamWriter(fileName))
+                {
+                    file.WriteLine(extraData.ToString());
+                }
+                LoadLinkedDocument(fileName);
+            }
             _element.Update();
             IEARepository repository = EAFacade.EA.Repository;
             repository.AdviseElementChanged(_element.ID);
+        }
+
+        private void Load()
+        {
+            Description = GetSubstring(TopicDataTags.Description);
         }
 
         public void LoadLinkedDocument(string fileName)
@@ -73,18 +107,5 @@ namespace DecisionViewpoints.Model
         {
             return _element;
         }
-
-        /*
-        public void AddObserver(ITopicObserver observer)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveObserver(ITopicObserver observer)
-        {
-
-            throw new NotImplementedException();
-        }
-         */
     }
 }
