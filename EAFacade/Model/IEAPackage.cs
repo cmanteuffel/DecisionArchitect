@@ -40,9 +40,6 @@ namespace EAFacade.Model
         IEnumerable<IEAElement> GetAllTopics();
         IEnumerable<IEADiagram> GetAllDiagrams();
         IEAPackage GetSubpackageByName(string data);
-        [Obsolete("dep", true)]
-        bool IsDecisionViewPackage();
-        IEAPackage FindDecisionViewPackage();
         IEnumerable<IEADiagram> GetDiagrams();
     }
 }

@@ -294,18 +294,6 @@ namespace EAFacade.Model.Impl
             return (value != null && value.Equals("true"));
         }
 
-         [Obsolete("dep", true)]
-        public IEAPackage FindDecisionViewPackage()
-        {
-            IEAPackage package = this;
-            if (package == null) throw new Exception("package is null");
-            while (!(package.IsModelRoot() || package.IsDecisionViewPackage()))
-            {
-                package = package.ParentPackage;
-            }
-            return package;
-        }
-
         public IEnumerable<IEADiagram> GetDiagrams()
         {
             return _native.Diagrams.Cast<Diagram>().Select(EADiagram.Wrap).ToList();
