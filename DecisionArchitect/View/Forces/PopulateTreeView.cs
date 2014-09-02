@@ -33,14 +33,15 @@ namespace DecisionArchitect.View.Forces
         public void Populate()
         {
             IEARepository repository = EAFacade.EA.Repository;
-            foreach (IEAPackage package in repository.GetAllDecisionViewPackages())
+            foreach (IEAPackage package in repository.GetAllRootPackages())
             {
                 //Skip history package
                 if (package.Stereotype.Equals(EAConstants.ChronologicalStereoType)) continue;
                 TreeNode node = AddPackageNode(new TreeNode(), package);
-                node.Expand();
-                _tv.Nodes.Add(node);
-
+                if (null != node) {
+                    node.Expand();
+                    _tv.Nodes.Add(node);
+                }
             }
             if(_decision) _tv.ExpandAll();
         }
@@ -56,20 +57,29 @@ namespace DecisionArchitect.View.Forces
             node.ImageKey = package.GUID;
             node.Text = package.Name;
 
-            foreach (IEAPackage el in package.Packages)
+            foreach (IEAPackage subPackage in package.Packages)
             {
                 //Skip history package and packages without elements
-                if (el.Stereotype.Equals(EAConstants.ChronologicalStereoType) || !el.GetAllElementsOfSubTree().Any()) continue;
-                node.Nodes.Add(AddPackageNode(new TreeNode(), el));
+                if (subPackage.Stereotype.Equals(EAConstants.ChronologicalStereoType) || !subPackage.GetAllElementsOfSubTree().Any()) continue;
+                TreeNode subPackageNode = AddPackageNode(new TreeNode(), subPackage);
+                if (null != subPackageNode)
+                {
+                    node.Nodes.Add(subPackageNode);
+                }
             }
 
-            foreach (IEAElement el in package.Elements)
+            int count = 0;
+            foreach (IEAElement element in package.Elements)
             {
-                if (el.Name.Equals("") || el.IsHistoryDecision()) continue;
-                if (_decision && (!el.IsDecision() && !el.IsTopic())) continue;
-
-                node.Nodes.Add(AddElementToNode(new TreeNode(), el));
+                if (element.Name.Equals("") || element.IsHistoryDecision()) continue;
+                if (_decision && (!element.IsDecision() && !element.IsTopic())) continue;
+                node.Nodes.Add(AddElementToNode(new TreeNode(), element));
+                ++count;
             }
+            if (node.GetNodeCount(true) == 0)
+            {
+                return null;
+            } 
             return node;
         }
 

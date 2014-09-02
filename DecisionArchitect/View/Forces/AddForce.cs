@@ -7,8 +7,10 @@
  
  Contributors:
     Mark Hoekstra (University of Groningen)
+    Christian Manteuffel (")
 */
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -18,9 +20,8 @@ using EAFacade.Model;
 
 namespace DecisionArchitect.View.Forces
 {
-    public partial class AddForce: Form
+    public partial class AddForce : Form
     {
-
         private readonly IForcesController _controller;
         private bool _closeWindow; // Form will only be closed when at least one force is added.
 
@@ -36,16 +37,17 @@ namespace DecisionArchitect.View.Forces
         }
 
         /// <summary>
-        /// Populates the listbox with the concerns from the repository
+        ///     Populates the listbox with the concerns from the repository
         /// </summary>
         private void PopulateConcerns()
         {
             IEARepository repository = EAFacade.EA.Repository;
 
-            var concerns =
+            Dictionary<string, string> concerns =
                 repository.GetAllElements()
-                    .Where(element => element != null && element.IsConcern())
-                    .ToDictionary(element => element.GUID, element => element.Name+ " (" + element.ParentPackage.Name + ")");
+                          .Where(element => element != null && element.IsConcern())
+                          .ToDictionary(element => element.GUID,
+                                        element => element.Name + " (" + element.ParentPackage.Name + ")");
             if (concerns.Count <= 0) //No concerns found
             {
                 _btnAddForce.Enabled = false;
@@ -57,7 +59,7 @@ namespace DecisionArchitect.View.Forces
         }
 
         /// <summary>
-        /// Adds the forces and concerns that are selected in the TreeView and ListBox to the forces diagram
+        ///     Adds the forces and concerns that are selected in the TreeView and ListBox to the forces diagram
         /// </summary>
         public void AddForceToForcesDiagram()
         {
@@ -83,7 +85,7 @@ namespace DecisionArchitect.View.Forces
         }
 
         /// <summary>
-        /// Add a new force for each concern if the combination not exists already
+        ///     Add a new force for each concern if the combination not exists already
         /// </summary>
         /// <param name="force"></param>
         private void AddForceConcerns(IEAElement force)
@@ -93,14 +95,15 @@ namespace DecisionArchitect.View.Forces
             IEADiagram diagram = repository.GetDiagramByGuid(diagramGuid);
 
             //Add the force for each selected concern
-            foreach (var item in _lbConcern.SelectedItems)
+            foreach (object item in _lbConcern.SelectedItems)
             {
-                var selectedItem = (KeyValuePair<string, string>)item;
+                var selectedItem = (KeyValuePair<string, string>) item;
                 IEAElement concern = repository.GetElementByGUID(selectedItem.Key);
 
                 diagram.AddElement(concern);
 
-                IEAConnector connector = force.ConnectTo(concern, EAConstants.ForcesConnectorType, EAConstants.RelationClassifiedBy);
+                IEAConnector connector = force.ConnectTo(concern, EAConstants.ForcesConnectorType,
+                                                         EAConstants.RelationClassifiedBy);
                 if (!connector.TaggedValueExists(EATaggedValueKeys.IsForceConnector, diagramGuid))
                 {
                     // Add TaggedValue for new force and concern (having multiple TaggedValues of the same name/data is possible). 
@@ -115,23 +118,24 @@ namespace DecisionArchitect.View.Forces
                 else //Force concern combination (connector) already exists
                 {
                     MessageBox.Show(string.Format(Messages.ForcesViewForceExists, force.Name, concern.Name),
-                        "Force already exists", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                    Messages.ForcesViewForceExistsWindowTitle, MessageBoxButtons.OK,
+                                    MessageBoxIcon.Exclamation);
                 }
             }
         }
 
         /// <summary>
-        /// Forces can be added by clicking on a button
+        ///     Forces can be added by clicking on a button
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void _btnAddForce_Click(object sender, System.EventArgs e)
+        private void _btnAddForce_Click(object sender, EventArgs e)
         {
             AddForceToForcesDiagram();
         }
 
         /// <summary>
-        /// Forces can be added by double clicking in the TreeView
+        ///     Forces can be added by double clicking in the TreeView
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -139,21 +143,21 @@ namespace DecisionArchitect.View.Forces
         {
             AddForceToForcesDiagram();
         }
-        
+
         /// <summary>
-        /// The selection in the ListBox for the concerns has changed. 
-        /// Now check if the button AddForce can be enabled.
+        ///     The selection in the ListBox for the concerns has changed.
+        ///     Now check if the button AddForce can be enabled.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void _lbConcern_SelectedIndexChanged(object sender, System.EventArgs e)
+        private void _lbConcern_SelectedIndexChanged(object sender, EventArgs e)
         {
             _btnAddForce.Enabled = ButtonEnabled();
         }
 
         /// <summary>
-        /// The selection in the TreeView for the forces has changed. 
-        /// Now check if the button AddForce can be enabled.
+        ///     The selection in the TreeView for the forces has changed.
+        ///     Now check if the button AddForce can be enabled.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -163,12 +167,22 @@ namespace DecisionArchitect.View.Forces
         }
 
         /// <summary>
-        /// Checks whether the _btnAddForce should be enabled or disabled
+        ///     Checks whether the _btnAddForce should be enabled or disabled
+        ///     Cannot add force if no force or concern is selected or if selected element is a model or package
         /// </summary>
         /// <returns></returns>
         private bool ButtonEnabled()
         {
-            return _tvForce.SelectedNode != null && _lbConcern.SelectedIndex >= 0;
+            TreeNode selectedNode = _tvForce.SelectedNode;
+            if (selectedNode == null || _lbConcern.SelectedItems.Count < 1) return false;
+
+            EANativeType type = EAUtilities.IdentifyGUIDType(selectedNode.ImageKey);
+            if (type == EANativeType.Model || type == EANativeType.Package)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

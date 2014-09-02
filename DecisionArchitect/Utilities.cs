@@ -167,17 +167,17 @@ namespace DecisionArchitect
      */
     public sealed class DecisionStateColor
     {
-        private static DecisionStateColor instance = null;
+        private static DecisionStateColor _instance;
 
         enum States
         {
-            IDEA = 0,
-            TENTATIVE = 1,
-            DECIDED = 2,
-            APPROVED = 3,
-            CHALLENGED = 4,
-            DISCARDED = 5,
-            REJECTED = 6
+            Idea = 0,
+            Tentative = 1,
+            Decided = 2,
+            Approved = 3,
+            Challenged = 4,
+            Discarded = 5,
+            Rejected = 6
         }
 
         // keeps the Colors for fast access
@@ -193,7 +193,7 @@ namespace DecisionArchitect
         // Getter
         public static DecisionStateColor Instance
         {
-            get { return instance ?? (instance = new DecisionStateColor()); }
+            get { return _instance ?? (_instance = new DecisionStateColor()); }
         }
 
         /// <summary>
@@ -218,7 +218,7 @@ namespace DecisionArchitect
             {
                 // Load xml file
                 var xml = XDocument.Load(Assembly.GetExecutingAssembly()
-                                               .GetManifestResourceStream("DecisionViewpoints." + "DecisionArchitectMDG.xml"));
+                                               .GetManifestResourceStream("DecisionArchitect." + "DecisionArchitectMDG.xml"));
 
                 // Loop over all states
                 foreach (States state in (States[])Enum.GetValues(typeof(States)))
@@ -228,7 +228,7 @@ namespace DecisionArchitect
 
                     // Query the data and write out a subset of colors
                     var win32Colors = from item in xml.Root.Descendants("Stereotype")
-                                      where (string)item.Attribute("metatype") == "Decision" &&
+                                      where (string)item.Attribute("metatype") == EAConstants.DecisionMetaType &&
                                             (string)item.Attribute("name") == stateStr
                                       select item.Attribute("bgcolor");
 

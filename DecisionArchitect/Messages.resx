@@ -292,4 +292,7 @@
   <data name="ForcesViewForceExists" xml:space="preserve">
     <value>The Force named "{0}" already exists with the Concern named "{1}".</value>
   </data>
+  <data name="ForcesViewForceExistsWindowTitle" xml:space="preserve">
+    <value>Force already exists</value>
+  </data>
 </root>

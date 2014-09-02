@@ -11,6 +11,7 @@
 */
 
 using System;
+using System.Runtime.InteropServices;
 using EA;
 using EAFacade.Model;
 
@@ -36,6 +37,43 @@ namespace EAFacade
                 number = valueOnFailure;
             }
             return number;
+        }
+
+        public static EANativeType IdentifyGUIDType(string guid)
+        {
+            Repository nativeRepository = EA.Repository.Native;
+            if (null != nativeRepository.GetElementByGuid(guid))
+            {
+                return EANativeType.Element;
+            }
+            try
+            {
+                if (null != nativeRepository.GetDiagramByGuid(guid))
+                {
+                    return EANativeType.Diagram;
+                }
+            }
+            catch (COMException)
+            {
+                /* discard exception, GUID is not of a diagram*/
+            }
+
+
+            Package p;
+            if ((p = nativeRepository.GetPackageByGuid(guid)) != null)
+            {
+                if (p.IsModel)
+                {
+                    return EANativeType.Model;
+                }
+                return EANativeType.Package;
+            }
+            if (null != nativeRepository.GetConnectorByGuid(guid))
+            {
+                return EANativeType.Connector;
+            }
+
+            return EANativeType.Unspecified;
         }
 
         public static EANativeType Translate(ObjectType nativeOt)

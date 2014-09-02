@@ -11,6 +11,7 @@
     Mark Hoekstra (University of Groningen)
 */
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using EA;
@@ -93,6 +94,10 @@ namespace EAFacade.Model.Impl
 
         internal static IEAConnector Wrap(Connector native)
         {
+            if (null == native)
+            {
+                throw new ArgumentNullException("native");
+            }
             return new EAConnector(native);
         }
 

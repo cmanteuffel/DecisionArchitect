@@ -13,39 +13,43 @@
 */
 
 using System.Collections.Generic;
+using EA;
 
 namespace EAFacade.Model
 {
-    public interface IEARepository : IEAObject
+    public abstract class IEARepository : IEAObject
     {
-        IEnumerable<IEAPackage> GetAllDecisionViewPackages();
-        IEAPackage GetPackageFromRootByName(string name);
-        IEAPackage GetPackageByID(int id);
-        IEAPackage GetPackageByGUID(string guid);
-        IEAElement GetElementByID(int elementID);
-        string GetFieldFromFormat(string format, string text);
-        string GetFormatFromField(string format, string text);
-        IEAConnector GetConnectorByID(int connectorId);
-        IEAConnector GetConnectorByGUID(string guid);
-        string Query(string sql);
-        IEADiagram GetDiagramByID(int id);
-        IEADiagram GetDiagramByGuid(string guid);
-        IEAElement GetElementByGUID(string guid);
-        IEADiagram GetCurrentDiagram();
-        IEnumerable<IEAElement> GetSelectedItems();
-        IEnumerable<IEAElement> GetAllElements();
-        void RefreshModelView(int packageID);
-        void RefreshOpenDiagrams(bool fullReload);
-        void AdviseElementChanged(int elementID);
-        EANativeType GetContextItemType();
-        bool IsProjectOpen();
-        int IsTabOpen(string tabName);
-        void ActivateTab(string tabName);
-        dynamic AddTab(string tabName, string controlID);
-        void RemoveTab(string tabName);
-        void OpenDiagram(int diagramID);
-        void ReloadDiagram(int diagramID);
-        void SuppressDefaultDialogs(bool flag);
-        T GetContextObject<T>() where T : IModelItem;
+        internal Repository Native { get; set; }
+        abstract public IEnumerable<IEAPackage> GetAllDecisionViewPackages();
+        abstract public IEnumerable<IEAPackage> GetAllRootPackages();
+        abstract public IEAPackage GetPackageFromRootByName(string name);
+        abstract public IEAPackage GetPackageByID(int id);
+        abstract public IEAPackage GetPackageByGUID(string guid);
+        abstract public IEAElement GetElementByID(int elementID);
+        abstract public string GetFieldFromFormat(string format, string text);
+        abstract public string GetFormatFromField(string format, string text);
+        abstract public IEAConnector GetConnectorByID(int connectorId);
+        abstract public IEAConnector GetConnectorByGUID(string guid);
+        abstract public string Query(string sql);
+        abstract public IEADiagram GetDiagramByID(int id);
+        abstract public IEADiagram GetDiagramByGuid(string guid);
+        abstract public IEAElement GetElementByGUID(string guid);
+        abstract public IEADiagram GetCurrentDiagram();
+        abstract public IEnumerable<IEAElement> GetSelectedItems();
+        abstract public IEnumerable<IEAElement> GetAllElements();
+        abstract public void RefreshModelView(int packageID);
+        abstract public void RefreshOpenDiagrams(bool fullReload);
+        abstract public void AdviseElementChanged(int elementID);
+        abstract public EANativeType GetContextItemType();
+        abstract public bool IsProjectOpen();
+        abstract public int IsTabOpen(string tabName);
+        abstract public void ActivateTab(string tabName);
+        abstract public dynamic AddTab(string tabName, string controlID);
+        abstract public void RemoveTab(string tabName);
+        abstract public void OpenDiagram(int diagramID);
+        abstract public void ReloadDiagram(int diagramID);
+        abstract public void SuppressDefaultDialogs(bool flag);
+        public abstract T GetContextObject<T>() where T : IModelItem;
+
     }
 }

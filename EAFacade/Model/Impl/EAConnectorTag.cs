@@ -9,6 +9,7 @@
     Mark Hoekstra (University of Groningen)
 */
 
+using System;
 using EA;
 
 namespace EAFacade.Model.Impl
@@ -58,6 +59,10 @@ namespace EAFacade.Model.Impl
 
         public static IEAConnectorTag Wrap(ConnectorTag native)
         {
+            if (null == native)
+            {
+                throw new ArgumentNullException("native");
+            }
             return new EAConnectorTag(native);
         }
     }

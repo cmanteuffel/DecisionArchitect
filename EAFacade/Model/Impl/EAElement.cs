@@ -215,26 +215,18 @@ namespace EAFacade.Model.Impl
 
             // Get the connectors with the native element as a client
             IList<IEAConnector> connectors =
-                (from Connector c in _native.Connectors select EAConnector.Wrap(c)).Where(c=>c.GetClient().GUID.Equals(GUID)).ToList();
+                (from Connector c in _native.Connectors select EAConnector.Wrap(c)).Where(
+                    c => c.GetClient().GUID.Equals(GUID)).ToList();
 
             // Get the SuppliedElement for each connector in connectors in the current diagram
             IEnumerable<IEAElement> suppliers = from IEAConnector connector in connectors
-                                                        where connector.Stereotype.Equals(EAConstants.RelationClassifiedBy) && inDiagram(connector, diagramGuid)
-                                                        select (connector.GetSupplier());
+                                                where
+                                                    connector.Stereotype.Equals(EAConstants.RelationClassifiedBy) &&
+                                                    inDiagram(connector, diagramGuid)
+                                                select (connector.GetSupplier());
 
             // Get the elements from connectedConcerns which are Concerns
             return suppliers.Where(x => x.TaggedValueExists(EATaggedValueKeys.IsConcernElement, diagramGuid));
-        }
-
-        /// <summary>
-        /// Checks if the connector is meant to be a connector in the diagram with GUID diagramGUID
-        /// </summary>
-        /// <param name="connector"></param>
-        /// <param name="diagramGuid"></param>
-        /// <returns></returns>
-        private bool inDiagram(IEAConnector connector, string diagramGuid)
-        {
-            return connector.TaggedValues.Any(x => x.Name.Equals(EATaggedValueKeys.IsForceConnector) && x.Value.Equals(diagramGuid));
         }
 
         public IEADiagram[] GetDiagrams()
@@ -248,10 +240,10 @@ namespace EAFacade.Model.Impl
             XmlNodeList diagramIDs = document.GetElementsByTagName(@"Diagram_ID");
 
             return (from XmlNode diagramId in diagramIDs
-                select EAUtilities.ParseToInt32(diagramId.InnerText, -1)
-                into id
-                where id > 0
-                select repository.GetDiagramByID(id)).ToArray();
+                    select EAUtilities.ParseToInt32(diagramId.InnerText, -1)
+                    into id
+                    where id > 0
+                    select repository.GetDiagramByID(id)).ToArray();
         }
 
         public IList<IEAConnector> FindConnectors(IEAElement suppliedElement, String type, String stereotype)
@@ -277,12 +269,12 @@ namespace EAFacade.Model.Impl
             _native.Update();
             ((EAElement) suppliedElement)._native.Connectors.Refresh();
             suppliedElement.Update();
-            
+
             return EAConnector.Wrap(connector);
         }
 
         /// <summary>
-        /// Implements IEAElement.RemoveConnector(IEAConnector connector)
+        ///     Implements IEAElement.RemoveConnector(IEAConnector connector)
         /// </summary>
         /// <param name="connector"></param>
         public void RemoveConnector(IEAConnector connector)
@@ -350,7 +342,7 @@ namespace EAFacade.Model.Impl
         }
 
         /// <summary>
-        /// Implements IEAElement.TaggedValueExists(string name)
+        ///     Implements IEAElement.TaggedValueExists(string name)
         /// </summary>
         /// <returns></returns>
         public bool TaggedValueExists(string name)
@@ -359,7 +351,7 @@ namespace EAFacade.Model.Impl
         }
 
         /// <summary>
-        /// Implements IEAElement.TaggedValueExists(string name, string data)
+        ///     Implements IEAElement.TaggedValueExists(string name, string data)
         /// </summary>
         /// <param name="name"></param>
         /// <param name="data"></param>
@@ -387,7 +379,7 @@ namespace EAFacade.Model.Impl
         }
 
         /// <summary>
-        /// Implements IEAElement.AddTaggedValue(string name, string data)
+        ///     Implements IEAElement.AddTaggedValue(string name, string data)
         /// </summary>
         /// <param name="name"></param>
         /// <param name="data"></param>
@@ -413,7 +405,7 @@ namespace EAFacade.Model.Impl
         }
 
         /// <summary>
-        /// Removes a tagged value from Tagged values
+        ///     Removes a tagged value from Tagged values
         /// </summary>
         /// <param name="name">name of the TaggedValue</param>
         /// <param name="data">data to be deleted</param>
@@ -445,7 +437,7 @@ namespace EAFacade.Model.Impl
         }
 
         /// <summary>
-        /// Implements IEAElement.RemoveTaggedValue(string name, string data)
+        ///     Implements IEAElement.RemoveTaggedValue(string name, string data)
         /// </summary>
         /// <param name="name"></param>
         /// <param name="data"></param>
@@ -465,7 +457,7 @@ namespace EAFacade.Model.Impl
         }
 
         /// <summary>
-        /// Remove all entries of TaggedValuesWithName
+        ///     Remove all entries of TaggedValuesWithName
         /// </summary>
         /// <param name="name"></param>
         /// <returns>the amount of entries removed</returns>
@@ -473,7 +465,7 @@ namespace EAFacade.Model.Impl
         {
             int count = 0;
             short one = 1;
-            for (short idx = (short)(_native.TaggedValues.Count - one); idx >= 0; idx--)
+            for (var idx = (short) (_native.TaggedValues.Count - one); idx >= 0; idx--)
             {
                 TaggedValue tv = _native.TaggedValues.GetAt(idx);
                 if (tv.Name.StartsWith(name))
@@ -485,8 +477,26 @@ namespace EAFacade.Model.Impl
             return count;
         }
 
+        /// <summary>
+        ///     Checks if the connector is meant to be a connector in the diagram with GUID diagramGUID
+        /// </summary>
+        /// <param name="connector"></param>
+        /// <param name="diagramGuid"></param>
+        /// <returns></returns>
+        private bool inDiagram(IEAConnector connector, string diagramGuid)
+        {
+            return
+                connector.TaggedValues.Any(
+                    x => x.Name.Equals(EATaggedValueKeys.IsForceConnector) && x.Value.Equals(diagramGuid));
+        }
+
         public static IEAElement Wrap(Element native)
         {
+            if (null == native)
+            {
+                throw new ArgumentNullException(
+                    "native");
+            }
             return new EAElement(native);
         }
 

@@ -88,7 +88,8 @@ namespace DecisionArchitect {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}.
+        ///   Looks up a localized string similar to {0}
+        ///[{1}].
         /// </summary>
         internal static string ChronologyDecisionName {
             get {
@@ -192,6 +193,15 @@ namespace DecisionArchitect {
         internal static string ForcesViewForceExists {
             get {
                 return ResourceManager.GetString("ForcesViewForceExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Force already exists.
+        /// </summary>
+        internal static string ForcesViewForceExistsWindowTitle {
+            get {
+                return ResourceManager.GetString("ForcesViewForceExistsWindowTitle", resourceCulture);
             }
         }
         
@@ -552,15 +562,6 @@ namespace DecisionArchitect {
         internal static string SaveReportAs {
             get {
                 return ResourceManager.GetString("SaveReportAs", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to [{1}].
-        /// </summary>
-        internal static string String {
-            get {
-                return ResourceManager.GetString("String", resourceCulture);
             }
         }
         

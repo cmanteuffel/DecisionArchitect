@@ -124,6 +124,10 @@ namespace EAFacade.Model.Impl
 
         internal static IEADiagram Wrap(Diagram native)
         {
+            if (null == native)
+            {
+                throw new ArgumentNullException("native");
+            }
             return new EADiagram(native);
         }
 

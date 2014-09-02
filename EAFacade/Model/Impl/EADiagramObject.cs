@@ -10,6 +10,7 @@
     Spyros Ioakeimidis (University of Groningen)
 */
 
+using System;
 using EA;
 
 namespace EAFacade.Model.Impl
@@ -25,6 +26,10 @@ namespace EAFacade.Model.Impl
 
         public static IEADiagramObject Wrap(DiagramObject native)
         {
+            if (null == native)
+            {
+                throw new ArgumentNullException("native");
+            }
             return new EADiagramObject(native);
         }
 

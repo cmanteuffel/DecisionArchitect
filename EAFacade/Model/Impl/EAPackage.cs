@@ -197,9 +197,14 @@ namespace EAFacade.Model.Impl
             return EADiagram.Wrap(_native.Diagrams.GetByName(name));
         }
 
-        public static IEAPackage Wrap(Package packageID)
+        public static IEAPackage Wrap(Package native)
         {
-            return new EAPackage(packageID);
+            if (null == native)
+            {
+                throw new ArgumentNullException(
+                    "native");
+            }
+            return new EAPackage(native);
         }
 
         public void RefreshElements()
