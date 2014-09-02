@@ -26,10 +26,12 @@ namespace DecisionArchitect.View
             InitializeComponent();
             comboState.DataSource = EAConstants.States.ToList();
             comboState.SelectedItem = EAConstants.StateDecided;
+            comboState.BackColor = DecisionStateColor.ConvertStateToColor(EAConstants.StateDecided);
             textName.Text = nameProposal;
-            comboBox1.DataSource = EAFacade.EA.Repository.GetAllDecisionViewPackages();
+            comboBox1.DataSource = EAFacade.EA.Repository.GetAllPackages();
             comboBox1.DisplayMember = "Name";
             comboBox1.ValueMember = "GUID";
+
             if (comboBox1.Items.Count == 0)
             {
                 errorProvider1.SetError(comboBox1, Messages.ErrorSelectDecisionViewPackage);
@@ -82,6 +84,11 @@ namespace DecisionArchitect.View
             string name = ((IEAPackage)e.ListItem).Name;
             string path = ((IEAPackage)e.ListItem).GetProjectPath();
             e.Value = path + "/" + name;
+        }
+
+        private void comboState_SelectedValueChanged(object sender, EventArgs e)
+        {
+            comboState.BackColor = DecisionStateColor.ConvertStateToColor(GetState());
         }
     }
 }

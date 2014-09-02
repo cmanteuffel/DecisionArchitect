@@ -42,6 +42,15 @@ namespace EAFacade
         public static EANativeType IdentifyGUIDType(string guid)
         {
             Repository nativeRepository = EA.Repository.Native;
+            Package p;
+            if ((p = nativeRepository.GetPackageByGuid(guid)) != null)
+            {
+                if (p.IsModel)
+                {
+                    return EANativeType.Model;
+                }
+                return EANativeType.Package;
+            }
             if (null != nativeRepository.GetElementByGuid(guid))
             {
                 return EANativeType.Element;
@@ -59,15 +68,7 @@ namespace EAFacade
             }
 
 
-            Package p;
-            if ((p = nativeRepository.GetPackageByGuid(guid)) != null)
-            {
-                if (p.IsModel)
-                {
-                    return EANativeType.Model;
-                }
-                return EANativeType.Package;
-            }
+           
             if (null != nativeRepository.GetConnectorByGuid(guid))
             {
                 return EANativeType.Connector;

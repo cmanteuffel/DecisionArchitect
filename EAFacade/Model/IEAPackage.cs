@@ -12,12 +12,14 @@
     K. Eric Harper (ABB Corporate Research)
 */
 
+using System;
 using System.Collections.Generic;
 
 namespace EAFacade.Model
 {
     public interface IEAPackage : IModelObject
     {
+        new string GUID { get; }
         IList<IEAElement> Elements { get; }
         IList<IEAPackage> Packages { get; }
         string Stereotype { get; set; }
@@ -28,6 +30,7 @@ namespace EAFacade.Model
         IEAPackage CreatePackage(string name, string stereotype = "");
         void DeletePackage(IEAPackage package);
         IEAElement CreateElement(string name, string stereotype, string type);
+        IEADiagram CreateDiagram(string name, string stereotype, string type);
         IEADiagram GetDiagram(string name);
         void RefreshElements();
         IEAElement AddElement(string name, string type);
@@ -37,6 +40,7 @@ namespace EAFacade.Model
         IEnumerable<IEAElement> GetAllTopics();
         IEnumerable<IEADiagram> GetAllDiagrams();
         IEAPackage GetSubpackageByName(string data);
+        [Obsolete("dep", true)]
         bool IsDecisionViewPackage();
         IEAPackage FindDecisionViewPackage();
         IEnumerable<IEADiagram> GetDiagrams();

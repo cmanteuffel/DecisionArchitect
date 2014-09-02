@@ -19,6 +19,7 @@ namespace EAFacade.Model
 {
     public interface IEAElement : IModelObject, IEquatable<IEAElement>
     {
+        new string GUID { get; }
         string Type { get; }
         string Stereotype { get; set; }
         string MetaType { get; set; }

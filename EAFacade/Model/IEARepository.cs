@@ -12,16 +12,19 @@
 
 */
 
+using System;
 using System.Collections.Generic;
 using EA;
 
 namespace EAFacade.Model
 {
+// ReSharper disable InconsistentNaming
     public abstract class IEARepository : IEAObject
+// ReSharper restore InconsistentNaming
     {
         internal Repository Native { get; set; }
-        abstract public IEnumerable<IEAPackage> GetAllDecisionViewPackages();
         abstract public IEnumerable<IEAPackage> GetAllRootPackages();
+        public abstract IEnumerable<IEAPackage> GetAllPackages();
         abstract public IEAPackage GetPackageFromRootByName(string name);
         abstract public IEAPackage GetPackageByID(int id);
         abstract public IEAPackage GetPackageByGUID(string guid);
@@ -51,5 +54,6 @@ namespace EAFacade.Model
         abstract public void SuppressDefaultDialogs(bool flag);
         public abstract T GetContextObject<T>() where T : IModelItem;
 
+        
     }
 }

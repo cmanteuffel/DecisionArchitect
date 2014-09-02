@@ -60,17 +60,17 @@ namespace DecisionArchitect.Logic.Menu
                 {
                     UpdateDelegate = self =>
                         {
-                            if (EANativeType.Diagram == EAFacade.EA.Repository.GetContextItemType())
+                            if (EANativeType.Package == EAFacade.EA.Repository.GetContextItemType())
                             {
-                                var eadiagram = EAFacade.EA.Repository.GetContextObject<IEADiagram>();
-                                self.IsEnabled = (eadiagram != null && eadiagram.IsChronologicalView());
+                                var eapackage = EAFacade.EA.Repository.GetContextObject<IEAPackage>();
+                                self.IsEnabled = (eapackage != null);
                                 return;
                             }
                             self.IsEnabled = false;
                         }
                 };
 
-            var reportMenu = new Model.Menu.Menu(Messages.MenuExport);
+            /*var reportMenu = new Model.Menu.Menu(Messages.MenuExport);
             var generateWordReport = new MenuItem(Messages.MenuExportWord)
                 {
                     ClickDelegate = () => ReportMenu.GenerateReport(SelectedDecisionViewPackage(),"Report.docx", ReportType.Word),
@@ -133,6 +133,7 @@ namespace DecisionArchitect.Logic.Menu
                                     ReportMenu.GenerateSelectedDecisionsReport("Report.pptx", ReportType.PowerPoint),
                     UpdateDelegate = self => { self.IsEnabled = ContextItemAreDecisions();  }
                 };
+             * */
 
             RootMenu.Add(createTraces);
             createTraces.Add(createAndTraceDecision);
@@ -142,40 +143,19 @@ namespace DecisionArchitect.Logic.Menu
             RootMenu.Add(MenuItem.Separator);
             RootMenu.Add(generateChronologicalView);
             RootMenu.Add(MenuItem.Separator);
-            RootMenu.Add(reportMenu);
+           /* RootMenu.Add(reportMenu);
             reportMenu.Add(generateWordReport);        
             reportMenu.Add(generatePowerpointReport);
             reportMenu.Add(generateExcelAllReport);
             reportMenu.Add(MenuItem.Separator);
             reportMenu.Add(generateSelectedDecisionsWordReport);
             reportMenu.Add(generateSelectedDecisionsPowerpointReport);
-            reportMenu.Add(generateExcelReport);
+            reportMenu.Add(generateExcelReport);*/
         }
 
-        private static IEAPackage SelectedDecisionViewPackage()
-        {
-            if (EANativeType.Package == EAFacade.EA.Repository.GetContextItemType())
-            {
-                var package = EAFacade.EA.Repository.GetContextObject<IEAPackage>();
-                if ((package != null) && package.IsDecisionViewPackage())
-                {
-                    return package;
-                }
-            }
+        
 
-            throw new Exception("No Decision View Package");
-        }
-
-        private static bool ContextItemIsDecisionViewPackage()
-        {
-            bool enabled = false;
-            if (EANativeType.Package == EAFacade.EA.Repository.GetContextItemType())
-            {
-                var package = EAFacade.EA.Repository.GetContextObject<IEAPackage>();
-                enabled = ((package != null) && package.IsDecisionViewPackage());
-            }
-            return enabled;
-        }
+        
 
         private static bool ContextItemAreDecisions()
         {

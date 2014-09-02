@@ -23,9 +23,10 @@ namespace DecisionArchitect.View
         {
             InitializeComponent();
             txtName.Text = nameproposal;
-            comboBox1.DataSource = EAFacade.EA.Repository.GetAllDecisionViewPackages();
+            comboBox1.DataSource = EAFacade.EA.Repository.GetAllPackages();
             comboBox1.DisplayMember = "Name";
             comboBox1.ValueMember = "GUID";
+
             if (comboBox1.Items.Count == 0)
             {
                 errorProvider1.SetError(comboBox1, Messages.ErrorSelectDecisionViewPackage);

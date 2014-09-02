@@ -321,7 +321,7 @@ namespace DecisionArchitect.Logic.Menu
                  where !element.IsHistoryDecision()
                  select new Decision(element)).ToList();
             List<IEADiagram> diagrams =
-                (from IEAPackage package in repository.GetAllDecisionViewPackages()
+                (from IEAPackage package in repository.GetAllPackages()
                  from IEADiagram diagram in package.GetAllDiagrams()
                  select diagram).ToList();
 

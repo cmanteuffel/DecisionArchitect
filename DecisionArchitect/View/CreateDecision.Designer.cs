@@ -55,49 +55,45 @@ namespace DecisionArchitect.View
             // 
             // textName
             // 
-            this.textName.Location = new System.Drawing.Point(124, 19);
-            this.textName.Margin = new System.Windows.Forms.Padding(6);
+            this.textName.Location = new System.Drawing.Point(62, 10);
             this.textName.Name = "textName";
-            this.textName.Size = new System.Drawing.Size(416, 31);
+            this.textName.Size = new System.Drawing.Size(210, 20);
             this.textName.TabIndex = 0;
             this.textName.Validating += new System.ComponentModel.CancelEventHandler(this.ValidatingView);
             // 
             // labelName
             // 
             this.labelName.AutoSize = true;
-            this.labelName.Location = new System.Drawing.Point(21, 22);
-            this.labelName.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.labelName.Location = new System.Drawing.Point(10, 11);
             this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(71, 26);
+            this.labelName.Size = new System.Drawing.Size(35, 13);
             this.labelName.TabIndex = 1;
             this.labelName.Text = "Name";
             // 
             // labelState
             // 
             this.labelState.AutoSize = true;
-            this.labelState.Location = new System.Drawing.Point(21, 65);
-            this.labelState.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.labelState.Location = new System.Drawing.Point(10, 34);
             this.labelState.Name = "labelState";
-            this.labelState.Size = new System.Drawing.Size(63, 26);
+            this.labelState.Size = new System.Drawing.Size(32, 13);
             this.labelState.TabIndex = 2;
             this.labelState.Text = "State";
             // 
             // comboState
             // 
             this.comboState.FormattingEnabled = true;
-            this.comboState.Location = new System.Drawing.Point(124, 62);
-            this.comboState.Margin = new System.Windows.Forms.Padding(6);
+            this.comboState.Location = new System.Drawing.Point(62, 32);
             this.comboState.Name = "comboState";
-            this.comboState.Size = new System.Drawing.Size(416, 33);
+            this.comboState.Size = new System.Drawing.Size(210, 21);
             this.comboState.TabIndex = 3;
+            this.comboState.SelectedValueChanged += new System.EventHandler(this.comboState_SelectedValueChanged);
             // 
             // cancelButton
             // 
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(390, 180);
-            this.cancelButton.Margin = new System.Windows.Forms.Padding(6);
+            this.cancelButton.Location = new System.Drawing.Point(195, 94);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(150, 44);
+            this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 5;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
@@ -105,10 +101,9 @@ namespace DecisionArchitect.View
             // createButton
             // 
             this.createButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.createButton.Location = new System.Drawing.Point(168, 180);
-            this.createButton.Margin = new System.Windows.Forms.Padding(6);
+            this.createButton.Location = new System.Drawing.Point(84, 94);
             this.createButton.Name = "createButton";
-            this.createButton.Size = new System.Drawing.Size(210, 44);
+            this.createButton.Size = new System.Drawing.Size(105, 23);
             this.createButton.TabIndex = 4;
             this.createButton.Text = "Create Decision";
             this.createButton.UseVisualStyleBackColor = true;
@@ -120,27 +115,29 @@ namespace DecisionArchitect.View
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 110);
+            this.label1.Location = new System.Drawing.Point(10, 57);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(97, 26);
+            this.label1.Size = new System.Drawing.Size(50, 13);
             this.label1.TabIndex = 6;
             this.label1.Text = "Package";
             // 
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(124, 107);
+            this.comboBox1.Location = new System.Drawing.Point(62, 56);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(416, 33);
+            this.comboBox1.Size = new System.Drawing.Size(210, 21);
             this.comboBox1.TabIndex = 7;
             this.comboBox1.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.comboBox1_Format);
             this.comboBox1.Validating += new System.ComponentModel.CancelEventHandler(this.ValidatingView);
             // 
             // CreateDecision
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(594, 262);
+            this.ClientSize = new System.Drawing.Size(297, 136);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cancelButton);
@@ -150,7 +147,6 @@ namespace DecisionArchitect.View
             this.Controls.Add(this.labelName);
             this.Controls.Add(this.textName);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "CreateDecision";
             this.Text = "CreateDecision";
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();

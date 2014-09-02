@@ -27,6 +27,7 @@ namespace EAFacade.Model.Impl
         public string GUID
         {
             get { return _native.PropertyGUID; }
+            set { throw new InvalidOperationException("Read-only property"); }
         }
 
         public int ID

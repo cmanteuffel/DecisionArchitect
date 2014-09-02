@@ -27,15 +27,15 @@ namespace DecisionArchitect.Logic.Chronological
 
         private readonly IEADiagram _chronologicalViewpoint;
         private readonly IEAPackage _historyPackage;
-        private readonly IEAPackage _viewPackage;
+        private readonly List<IEAElement> _decisions; 
 
-        public ChronologicalViewpointGenerator(IEAPackage viewPackage, IEAPackage historyPackage,
+        public ChronologicalViewpointGenerator(List<IEAElement> decisions, IEAPackage historyPackage,
                                                IEADiagram chronologicalViewpoint)
         {
-            _viewPackage = viewPackage;
+           
             _chronologicalViewpoint = chronologicalViewpoint;
             _historyPackage = historyPackage;
-            //decisions = _viewPackage.GetAllDecisions().ToDictionary(e => e.GUID, e => e);
+            _decisions = decisions;
         }
 
 
@@ -51,8 +51,7 @@ namespace DecisionArchitect.Logic.Chronological
 
         private IEnumerable<IEAElement> GetHistory()
         {
-            IEnumerable<IEAElement> allDecisionsInPackage =
-                _viewPackage.GetAllDecisions();
+            IEnumerable<IEAElement> allDecisionsInPackage = _decisions;
 
             var history =  allDecisionsInPackage.SelectMany(d => new Decision(d).GetHistory());
         
@@ -87,9 +86,12 @@ namespace DecisionArchitect.Logic.Chronological
                 pastDecisions.Add(pastDecision);
             }
 
-            //add topics           
 
-            return pastDecisions.Union( _viewPackage.GetAllTopics());
+            //add topics  and original decisions         
+
+            return
+                pastDecisions.Union(
+                    _decisions.Select(d => new Decision(d)).Where(d => d.HasTopic()).Select(d => d.Topic.GetElement())).Union(_decisions);;
         }
 
         private IList<IEAElement> ConnectDecisions(IEnumerable<IEAElement> elements)

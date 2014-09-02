@@ -19,7 +19,7 @@ using EA;
 
 namespace EAFacade.Model.Impl
 {
-    internal sealed class EAPackage : IEAPackage
+     sealed class EAPackage : IEAPackage
     {
         private readonly Package _native;
 
@@ -192,7 +192,17 @@ namespace EAFacade.Model.Impl
             return EAElement.Wrap(newElement);
         }
 
-        public IEADiagram GetDiagram(string name)
+         public IEADiagram CreateDiagram(string name, string stereotype, string type)
+         {
+             Diagram newDiagram = _native.Diagrams.AddNew(name, type);
+             newDiagram.Stereotype = stereotype;
+             newDiagram.Update();
+             _native.Diagrams.Refresh();
+             EARepository.Instance.RefreshModelView(_native.PackageID);
+             return EADiagram.Wrap(newDiagram);
+         }
+
+         public IEADiagram GetDiagram(string name)
         {
             return EADiagram.Wrap(_native.Diagrams.GetByName(name));
         }
@@ -284,6 +294,7 @@ namespace EAFacade.Model.Impl
             return (value != null && value.Equals("true"));
         }
 
+         [Obsolete("dep", true)]
         public IEAPackage FindDecisionViewPackage()
         {
             IEAPackage package = this;

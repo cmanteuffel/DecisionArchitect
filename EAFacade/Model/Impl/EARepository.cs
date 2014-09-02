@@ -41,12 +41,11 @@ namespace EAFacade.Model.Impl
             get { return Native.Models.GetAt(0); }
         }
 
-        public override IEnumerable<IEAPackage> GetAllDecisionViewPackages()
+        public override IEnumerable<IEAPackage> GetAllPackages()
         {
             return Native.Models.Cast<Package>().SelectMany(
                 root => root.Packages.Cast<Package>()
-                            .Select(EAPackage.Wrap)
-                            .Where(eapackage => eapackage.IsDecisionViewPackage())).ToList();
+                            .Select(EAPackage.Wrap)).ToList();
         }
 
         public override IEnumerable<IEAPackage> GetAllRootPackages()
