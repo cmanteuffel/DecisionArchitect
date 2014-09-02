@@ -1,4 +1,4 @@
-<MDG.Technology version="1.0"><Documentation id="DA4EA" name="Decision Architect" version="0.5" notes="Decision Architect allows the documentation of architectyre decisions in a user-friendly and efficient way, and makes it possible to trace them to other architectural design elements. &#xA;&#xA;Decision Architect provides five decisions views. Each view is specialized to answer a different set of stakeholder questions or to document a particular aspect of the system's design rationale." infoURI="http://decisions.codeplex.com"/><Logo><Image type="bitmap" xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64">Qk1mdQAAAAAAADYAAAAoAAAAZAAAAGQAAAABABgAAAAAADB1AADEDgAAxA4AAAAAAAAAAAAA
+<MDG.Technology version="1.0"><Documentation id="DA4EA" name="Decision Architect" version="0.5" notes="Decision Architect allows the documentation and tracing of architecture decisions in a user-friendly and efficient way.&#xA;&#xA;Decision Architect provides five decisions views. Each view is specialized to answer a different set of stakeholder questions or to document a particular aspect of the system's design rationale." infoURI="http://decisions.codeplex.com"/><Logo><Image type="bitmap" xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64">Qk1mdQAAAAAAADYAAAAoAAAAZAAAAGQAAAABABgAAAAAADB1AADEDgAAxA4AAAAAAAAAAAAA
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
 /////////v7+7u7u3d3dzMzMubm7qqmxnpypkpCihoSagoCXioidlZSkn56rqqmxwsLC1NTU
@@ -569,10 +569,10 @@ TT7FoJjg7uz6OinCXlHV+vr+z8r5dGf67u3+w733TT7gRjXTycXv////UkTHem/Tb2PQbmLQ
 t7HrXU/VQDDKQjLHy8fuz8vvOyu/urTo////////////////////pp7iPi7Az8vv////////
 xL/s8/L8////urToQzTC/////////////////////////Pz+f3XVMiG8ZFfNjYTajILZhXvX
 TT/FMSC8YlXM////////////////////////////////0c7wiX/ZXlDLTD3FV0nId2zSubPo
-/f3+////////////KQA9ADAAIABPAHIAIAAoAHQAXwBjAG8AbgBuAGUAYwB0AG8AcgAuAEQA
-aQBhAGcAcgBhAG0ASQBEACkAPQB0AF8AZABpAGEAZwByAGEAbQBvAGIAagBlAGMAdABzAC4A
-RABpAGEAZwByAGEAbQBfAEkARAApAA0ACgAgACAATwBSAEQARQBSACAAQgBZACAAdABfAGMA
-bwBuAG4AZQBjAHQAbwByAC4AUwBlAHEATgBvAAAATgBvAAAAAAAAAAAAAAAAAAAAAAAA
+/f3+////////////dABWAGkAcwBpAGIAbABlACAAIgBTAGMAcgBpAHAAdAAiAAoACgAJAFMA
+ZQBzAHMAaQBvAG4ALgBPAHUAdABwAHUAdAAoACAAIgBWAEIAUwBjAHIAaQBwAHQAIABQAHIA
+bwBqAGUAYwB0ACAAQgByAG8AdwBzAGUAcgAgAE0AdQBsAHQAaQAgAFMAZQBsAGUAYwB0AGkA
+bwBuACAARQB4AGEAbQBwAGwAZQAiACAAKQAKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AA==</Image></Icon><UMLProfiles><UMLProfile profiletype="uml2">
 			<Documentation id="2D1B27EE-5" name="Decision Architect" version="1.0" notes="Decision Architect"/>
 			<Content>

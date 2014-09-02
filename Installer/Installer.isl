@@ -340,7 +340,7 @@
 		<col def="S0">ISDotNetInstallerArgsCommit</col>
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
-		<row><td>DecisionViewpoints.Primary_output</td><td>{D00C68CC-2F12-48F7-ABB6-8F7B5A5AB691}</td><td>INSTALLDIR</td><td>2</td><td/><td>decisionviewpoints.primary_o</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>DecisionArchitect.Primary_output</td><td>{CF7BDA04-0938-4E67-A247-1688EA2FB374}</td><td>INSTALLDIR</td><td>2</td><td/><td>decisionarchitect.primary_ou</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>EAFacade.Primary_output</td><td>{75F7EF10-247C-4CC9-A9D7-62DC299AE9A0}</td><td>INSTALLDIR</td><td>2</td><td/><td>eafacade.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{7E7D0D85-0F5D-4897-966A-DECDF1BF53C2}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
@@ -1899,7 +1899,7 @@
 	<table name="FeatureComponents">
 		<col key="yes" def="s38">Feature_</col>
 		<col key="yes" def="s72">Component_</col>
-		<row><td>AlwaysInstall</td><td>DecisionViewpoints.Primary_output</td></row>
+		<row><td>AlwaysInstall</td><td>DecisionArchitect.Primary_output</td></row>
 		<row><td>AlwaysInstall</td><td>EAFacade.Primary_output</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT1</td></row>
 	</table>
@@ -1916,7 +1916,7 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
-		<row><td>decisionviewpoints.primary_o</td><td>DecisionViewpoints.Primary_output</td><td>DecisionViewpoints.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;DecisionViewpoints&gt;|Built</td><td>3</td><td/></row>
+		<row><td>decisionarchitect.primary_ou</td><td>DecisionArchitect.Primary_output</td><td>DecisionArchitect.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;DecisionArchitect&gt;|Built</td><td>3</td><td/></row>
 		<row><td>eafacade.primary_output</td><td>EAFacade.Primary_output</td><td>EAFacade.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;EAFacade&gt;|Built</td><td>3</td><td/></row>
 	</table>
 
@@ -2062,7 +2062,7 @@
 		<col def="S0">FTPLocation</col>
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
-		<row><td>DecisionViewpoints.Primary_output</td><td/><td/><td>_4B76F535_969E_4A34_ADF3_C4FBEAEDDE94_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>DecisionArchitect.Primary_output</td><td/><td/><td>_39F7D07F_3BD2_4FFF_BDA9_F02738AE58CD_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>EAFacade.Primary_output</td><td/><td/><td>_FDAF69E4_6118_4EA3_BB16_5D249AD37029_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_D048FC65_A288_403C_81A5_7E8F6B4D2B00_FILTER</td><td/><td/><td/><td/></row>
 	</table>
@@ -2366,6 +2366,7 @@
 		<col def="S255">TestValue</col>
 		<col def="i4">Type</col>
 		<row><td>CommonFilesFolder</td><td/><td/><td>1</td></row>
+		<row><td>DecisionArchitect</td><td>DecisionArchitect\DecisionArchitect.csproj</td><td/><td>2</td></row>
 		<row><td>DecisionViewpoints</td><td>DecisionViewpoints\DecisionViewpoints.csproj</td><td/><td>2</td></row>
 		<row><td>DecisionViewpointsCustomViews</td><td>DecisionViewpointsCustomViews\DecisionViewpointsCustomViews.csproj</td><td/><td>2</td></row>
 		<row><td>DecisionViewpointsTests</td><td>DecisionViewpointsTests\DecisionViewpointsTests.csproj</td><td/><td>2</td></row>
