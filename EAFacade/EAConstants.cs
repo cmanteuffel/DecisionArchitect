@@ -18,8 +18,8 @@ namespace EAFacade
 {
     public static class EAConstants
     {
-        public const string DecisionMetaType = "Decision";
-        public const string TopicMetaType = "Topic";
+        public const string DecisionMetaType = "DADecision";
+        public const string TopicMetaType = "DATopic";
         public const string ConcernMetaType = "Concern";
         public const string RequirementMetaType = "Requirement";
 
