@@ -151,19 +151,20 @@ namespace DecisionArchitect.View.DetailView
             // spltDetailView.Panel1
             // 
             this.spltDetailView.Panel1.Controls.Add(this.gpbDecisionInformation);
-            this.spltDetailView.Panel1MinSize = 400;
+            this.spltDetailView.Panel1MinSize = 0;
             // 
             // spltDetailView.Panel2
             // 
             this.spltDetailView.Panel2.Controls.Add(this.splitContainer1);
-            this.spltDetailView.Panel2MinSize = 300;
+            this.spltDetailView.Panel2MinSize = 0;
             this.spltDetailView.Size = new System.Drawing.Size(916, 769);
-            this.spltDetailView.SplitterDistance = 590;
+            this.spltDetailView.SplitterDistance = 589;
             this.spltDetailView.TabIndex = 0;
             this.spltDetailView.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.spltDetailView_SplitterMoved);
             // 
             // gpbDecisionInformation
             // 
+            this.gpbDecisionInformation.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.gpbDecisionInformation.BackColor = System.Drawing.SystemColors.Control;
             this.gpbDecisionInformation.Controls.Add(this.lblModified);
             this.gpbDecisionInformation.Controls.Add(this.gpbRationale);
@@ -177,7 +178,7 @@ namespace DecisionArchitect.View.DetailView
             this.gpbDecisionInformation.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gpbDecisionInformation.Location = new System.Drawing.Point(0, 0);
             this.gpbDecisionInformation.Name = "gpbDecisionInformation";
-            this.gpbDecisionInformation.Size = new System.Drawing.Size(586, 765);
+            this.gpbDecisionInformation.Size = new System.Drawing.Size(585, 765);
             this.gpbDecisionInformation.TabIndex = 57;
             this.gpbDecisionInformation.TabStop = false;
             this.gpbDecisionInformation.Text = "Decision";
@@ -187,7 +188,7 @@ namespace DecisionArchitect.View.DetailView
             this.lblModified.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblModified.AutoSize = true;
             this.lblModified.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblModified.Location = new System.Drawing.Point(408, 45);
+            this.lblModified.Location = new System.Drawing.Point(407, 45);
             this.lblModified.Name = "lblModified";
             this.lblModified.Size = new System.Drawing.Size(65, 13);
             this.lblModified.TabIndex = 138;
@@ -202,7 +203,7 @@ namespace DecisionArchitect.View.DetailView
             this.gpbRationale.Controls.Add(this.rtbRationale);
             this.gpbRationale.Location = new System.Drawing.Point(3, 96);
             this.gpbRationale.Name = "gpbRationale";
-            this.gpbRationale.Size = new System.Drawing.Size(580, 663);
+            this.gpbRationale.Size = new System.Drawing.Size(579, 663);
             this.gpbRationale.TabIndex = 137;
             this.gpbRationale.TabStop = false;
             this.gpbRationale.Text = "   Rationale:";
@@ -212,7 +213,7 @@ namespace DecisionArchitect.View.DetailView
             this.rtbRationale.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rtbRationale.Location = new System.Drawing.Point(3, 16);
             this.rtbRationale.Name = "rtbRationale";
-            this.rtbRationale.Size = new System.Drawing.Size(574, 644);
+            this.rtbRationale.Size = new System.Drawing.Size(573, 644);
             this.rtbRationale.TabIndex = 1;
             // 
             // lblDecisionState
@@ -244,7 +245,7 @@ namespace DecisionArchitect.View.DetailView
             "Rejected"});
             this.cbxState.Location = new System.Drawing.Point(79, 43);
             this.cbxState.Name = "cbxState";
-            this.cbxState.Size = new System.Drawing.Size(323, 21);
+            this.cbxState.Size = new System.Drawing.Size(322, 21);
             this.cbxState.TabIndex = 136;
             this.cbxState.SelectedIndexChanged += new System.EventHandler(this.cbxState_SelectedIndexChanged);
             // 
@@ -266,7 +267,7 @@ namespace DecisionArchitect.View.DetailView
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDecisionName.Location = new System.Drawing.Point(79, 17);
             this.txtDecisionName.Name = "txtDecisionName";
-            this.txtDecisionName.Size = new System.Drawing.Size(499, 20);
+            this.txtDecisionName.Size = new System.Drawing.Size(498, 20);
             this.txtDecisionName.TabIndex = 131;
             // 
             // dtModified
@@ -275,7 +276,7 @@ namespace DecisionArchitect.View.DetailView
             this.dtModified.CustomFormat = "dd.MM.yyyy";
             this.dtModified.Enabled = false;
             this.dtModified.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtModified.Location = new System.Drawing.Point(479, 43);
+            this.dtModified.Location = new System.Drawing.Point(478, 43);
             this.dtModified.Name = "dtModified";
             this.dtModified.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.dtModified.Size = new System.Drawing.Size(99, 20);
@@ -301,7 +302,7 @@ namespace DecisionArchitect.View.DetailView
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtAuthor.Location = new System.Drawing.Point(79, 70);
             this.txtAuthor.Name = "txtAuthor";
-            this.txtAuthor.Size = new System.Drawing.Size(499, 20);
+            this.txtAuthor.Size = new System.Drawing.Size(498, 20);
             this.txtAuthor.TabIndex = 122;
             // 
             // splitContainer1
@@ -317,19 +318,20 @@ namespace DecisionArchitect.View.DetailView
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.gpbTopicInformation);
-            this.splitContainer1.Panel1MinSize = 200;
+            this.splitContainer1.Panel1MinSize = 175;
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.gpbAdditionalInformation);
-            this.splitContainer1.Panel2MinSize = 400;
-            this.splitContainer1.Size = new System.Drawing.Size(322, 769);
-            this.splitContainer1.SplitterDistance = 200;
+            this.splitContainer1.Panel2MinSize = 0;
+            this.splitContainer1.Size = new System.Drawing.Size(323, 769);
+            this.splitContainer1.SplitterDistance = 300;
             this.splitContainer1.TabIndex = 126;
             this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
             // 
             // gpbTopicInformation
             // 
+            this.gpbTopicInformation.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.gpbTopicInformation.BackColor = System.Drawing.SystemColors.Control;
             this.gpbTopicInformation.Controls.Add(this.grpDescription);
             this.gpbTopicInformation.Controls.Add(this.lblTopicName);
@@ -337,7 +339,7 @@ namespace DecisionArchitect.View.DetailView
             this.gpbTopicInformation.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gpbTopicInformation.Location = new System.Drawing.Point(0, 0);
             this.gpbTopicInformation.Name = "gpbTopicInformation";
-            this.gpbTopicInformation.Size = new System.Drawing.Size(318, 196);
+            this.gpbTopicInformation.Size = new System.Drawing.Size(319, 296);
             this.gpbTopicInformation.TabIndex = 123;
             this.gpbTopicInformation.TabStop = false;
             this.gpbTopicInformation.Text = "Topic";
@@ -350,7 +352,7 @@ namespace DecisionArchitect.View.DetailView
             this.grpDescription.Controls.Add(this.rtbTopicDescription);
             this.grpDescription.Location = new System.Drawing.Point(3, 43);
             this.grpDescription.Name = "grpDescription";
-            this.grpDescription.Size = new System.Drawing.Size(309, 147);
+            this.grpDescription.Size = new System.Drawing.Size(310, 247);
             this.grpDescription.TabIndex = 122;
             this.grpDescription.TabStop = false;
             this.grpDescription.Text = "Description:";
@@ -360,7 +362,7 @@ namespace DecisionArchitect.View.DetailView
             this.rtbTopicDescription.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rtbTopicDescription.Location = new System.Drawing.Point(3, 16);
             this.rtbTopicDescription.Name = "rtbTopicDescription";
-            this.rtbTopicDescription.Size = new System.Drawing.Size(303, 128);
+            this.rtbTopicDescription.Size = new System.Drawing.Size(304, 228);
             this.rtbTopicDescription.TabIndex = 121;
             // 
             // lblTopicName
@@ -381,7 +383,7 @@ namespace DecisionArchitect.View.DetailView
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTopicName.Location = new System.Drawing.Point(76, 17);
             this.txtTopicName.Name = "txtTopicName";
-            this.txtTopicName.Size = new System.Drawing.Size(225, 20);
+            this.txtTopicName.Size = new System.Drawing.Size(226, 20);
             this.txtTopicName.TabIndex = 113;
             // 
             // gpbAdditionalInformation
@@ -391,7 +393,7 @@ namespace DecisionArchitect.View.DetailView
             this.gpbAdditionalInformation.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gpbAdditionalInformation.Location = new System.Drawing.Point(0, 0);
             this.gpbAdditionalInformation.Name = "gpbAdditionalInformation";
-            this.gpbAdditionalInformation.Size = new System.Drawing.Size(318, 561);
+            this.gpbAdditionalInformation.Size = new System.Drawing.Size(319, 461);
             this.gpbAdditionalInformation.TabIndex = 124;
             this.gpbAdditionalInformation.TabStop = false;
             this.gpbAdditionalInformation.Text = "Additional information";
@@ -403,7 +405,7 @@ namespace DecisionArchitect.View.DetailView
             this.pnlAccordion.Location = new System.Drawing.Point(3, 16);
             this.pnlAccordion.Name = "pnlAccordion";
             this.pnlAccordion.Padding = new System.Windows.Forms.Padding(5, 0, 5, 13);
-            this.pnlAccordion.Size = new System.Drawing.Size(312, 542);
+            this.pnlAccordion.Size = new System.Drawing.Size(313, 442);
             this.pnlAccordion.TabIndex = 123;
             // 
             // vAccordionPane
@@ -424,7 +426,7 @@ namespace DecisionArchitect.View.DetailView
             this.vAccordionPane.Location = new System.Drawing.Point(5, 0);
             this.vAccordionPane.Name = "vAccordionPane";
             this.vAccordionPane.Padding = new System.Windows.Forms.Padding(20);
-            this.vAccordionPane.Size = new System.Drawing.Size(302, 529);
+            this.vAccordionPane.Size = new System.Drawing.Size(303, 429);
             this.vAccordionPane.TabIndex = 122;
             this.vAccordionPane.VIBlendTheme = VIBlend.Utilities.VIBLEND_THEME.STEEL;
             // 
@@ -439,11 +441,11 @@ namespace DecisionArchitect.View.DetailView
             this.vAlternativePane.ItemPanel.Controls.Add(this.dgvAlternativeDecisions);
             this.vAlternativePane.ItemPanel.Location = new System.Drawing.Point(1, 30);
             this.vAlternativePane.ItemPanel.Name = "ItemPanel";
-            this.vAlternativePane.ItemPanel.Size = new System.Drawing.Size(300, 348);
+            this.vAlternativePane.ItemPanel.Size = new System.Drawing.Size(301, 248);
             this.vAlternativePane.ItemPanel.TabIndex = 1;
             this.vAlternativePane.Location = new System.Drawing.Point(0, 0);
             this.vAlternativePane.Name = "vAlternativePane";
-            this.vAlternativePane.Size = new System.Drawing.Size(302, 379);
+            this.vAlternativePane.Size = new System.Drawing.Size(303, 279);
             this.vAlternativePane.TabIndex = 0;
             this.vAlternativePane.Text = "Alternatives";
             this.vAlternativePane.TooltipText = "Alternatives";
@@ -471,7 +473,7 @@ namespace DecisionArchitect.View.DetailView
             this.dgvAlternativeDecisions.ReadOnly = true;
             this.dgvAlternativeDecisions.RowHeadersVisible = false;
             this.dgvAlternativeDecisions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAlternativeDecisions.Size = new System.Drawing.Size(300, 348);
+            this.dgvAlternativeDecisions.Size = new System.Drawing.Size(301, 248);
             this.dgvAlternativeDecisions.TabIndex = 105;
             this.dgvAlternativeDecisions.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAlternativeDecisions_CellContentClick);
             this.dgvAlternativeDecisions.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAlternativeDecisions_CellContentDubbelClick);
@@ -533,11 +535,11 @@ namespace DecisionArchitect.View.DetailView
             this.vRelatedPane.ItemPanel.Controls.Add(this.dgvRelatedDecisions);
             this.vRelatedPane.ItemPanel.Location = new System.Drawing.Point(1, 30);
             this.vRelatedPane.ItemPanel.Name = "ItemPanel";
-            this.vRelatedPane.ItemPanel.Size = new System.Drawing.Size(300, 0);
+            this.vRelatedPane.ItemPanel.Size = new System.Drawing.Size(301, 0);
             this.vRelatedPane.ItemPanel.TabIndex = 1;
-            this.vRelatedPane.Location = new System.Drawing.Point(0, 379);
+            this.vRelatedPane.Location = new System.Drawing.Point(0, 279);
             this.vRelatedPane.Name = "vRelatedPane";
-            this.vRelatedPane.Size = new System.Drawing.Size(302, 30);
+            this.vRelatedPane.Size = new System.Drawing.Size(303, 30);
             this.vRelatedPane.TabIndex = 1;
             this.vRelatedPane.Text = "Related Decisions";
             this.vRelatedPane.TooltipText = "Related Decisions";
@@ -561,7 +563,7 @@ namespace DecisionArchitect.View.DetailView
             this.dgvRelatedDecisions.ReadOnly = true;
             this.dgvRelatedDecisions.RowHeadersVisible = false;
             this.dgvRelatedDecisions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvRelatedDecisions.Size = new System.Drawing.Size(300, 0);
+            this.dgvRelatedDecisions.Size = new System.Drawing.Size(301, 0);
             this.dgvRelatedDecisions.TabIndex = 19;
             this.dgvRelatedDecisions.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRelatedDecisions_CellContentClick);
             this.dgvRelatedDecisions.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRelatedDecisions_CellContentDoubleClick);
@@ -615,11 +617,11 @@ namespace DecisionArchitect.View.DetailView
             this.vForcesPane.ItemPanel.Controls.Add(this.dgvForces);
             this.vForcesPane.ItemPanel.Location = new System.Drawing.Point(1, 30);
             this.vForcesPane.ItemPanel.Name = "ItemPanel";
-            this.vForcesPane.ItemPanel.Size = new System.Drawing.Size(300, 0);
+            this.vForcesPane.ItemPanel.Size = new System.Drawing.Size(301, 0);
             this.vForcesPane.ItemPanel.TabIndex = 1;
-            this.vForcesPane.Location = new System.Drawing.Point(0, 409);
+            this.vForcesPane.Location = new System.Drawing.Point(0, 309);
             this.vForcesPane.Name = "vForcesPane";
-            this.vForcesPane.Size = new System.Drawing.Size(302, 30);
+            this.vForcesPane.Size = new System.Drawing.Size(303, 30);
             this.vForcesPane.TabIndex = 2;
             this.vForcesPane.Text = "Related Forces";
             this.vForcesPane.TooltipText = "Forces";
@@ -642,7 +644,7 @@ namespace DecisionArchitect.View.DetailView
             this.dgvForces.Name = "dgvForces";
             this.dgvForces.ReadOnly = true;
             this.dgvForces.RowHeadersVisible = false;
-            this.dgvForces.Size = new System.Drawing.Size(300, 0);
+            this.dgvForces.Size = new System.Drawing.Size(301, 0);
             this.dgvForces.TabIndex = 19;
             this.dgvForces.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvForces_CellContentClick);
             this.dgvForces.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvForces_CellContentDoubleClick);
@@ -693,11 +695,11 @@ namespace DecisionArchitect.View.DetailView
             this.vTracesPane.ItemPanel.Controls.Add(this.dgvTraces);
             this.vTracesPane.ItemPanel.Location = new System.Drawing.Point(1, 30);
             this.vTracesPane.ItemPanel.Name = "ItemPanel";
-            this.vTracesPane.ItemPanel.Size = new System.Drawing.Size(300, 0);
+            this.vTracesPane.ItemPanel.Size = new System.Drawing.Size(301, 0);
             this.vTracesPane.ItemPanel.TabIndex = 1;
-            this.vTracesPane.Location = new System.Drawing.Point(0, 439);
+            this.vTracesPane.Location = new System.Drawing.Point(0, 339);
             this.vTracesPane.Name = "vTracesPane";
-            this.vTracesPane.Size = new System.Drawing.Size(302, 30);
+            this.vTracesPane.Size = new System.Drawing.Size(303, 30);
             this.vTracesPane.TabIndex = 3;
             this.vTracesPane.Text = "Traces";
             this.vTracesPane.TooltipText = "Traces";
@@ -719,7 +721,7 @@ namespace DecisionArchitect.View.DetailView
             this.dgvTraces.ReadOnly = true;
             this.dgvTraces.RowHeadersVisible = false;
             this.dgvTraces.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTraces.Size = new System.Drawing.Size(300, 0);
+            this.dgvTraces.Size = new System.Drawing.Size(301, 0);
             this.dgvTraces.TabIndex = 19;
             this.dgvTraces.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTraces_CellContentClick);
             this.dgvTraces.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTraces_CellContentDoubleClick);
@@ -757,11 +759,11 @@ namespace DecisionArchitect.View.DetailView
             this.vStakeholderPane.ItemPanel.Controls.Add(this.dgvStakeholder);
             this.vStakeholderPane.ItemPanel.Location = new System.Drawing.Point(1, 30);
             this.vStakeholderPane.ItemPanel.Name = "ItemPanel";
-            this.vStakeholderPane.ItemPanel.Size = new System.Drawing.Size(300, 0);
+            this.vStakeholderPane.ItemPanel.Size = new System.Drawing.Size(301, 0);
             this.vStakeholderPane.ItemPanel.TabIndex = 1;
-            this.vStakeholderPane.Location = new System.Drawing.Point(0, 469);
+            this.vStakeholderPane.Location = new System.Drawing.Point(0, 369);
             this.vStakeholderPane.Name = "vStakeholderPane";
-            this.vStakeholderPane.Size = new System.Drawing.Size(302, 30);
+            this.vStakeholderPane.Size = new System.Drawing.Size(303, 30);
             this.vStakeholderPane.TabIndex = 4;
             this.vStakeholderPane.Text = "Stakeholder";
             this.vStakeholderPane.TooltipText = "Stakeholders";
@@ -783,7 +785,7 @@ namespace DecisionArchitect.View.DetailView
             this.dgvStakeholder.ReadOnly = true;
             this.dgvStakeholder.RowHeadersVisible = false;
             this.dgvStakeholder.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvStakeholder.Size = new System.Drawing.Size(300, 0);
+            this.dgvStakeholder.Size = new System.Drawing.Size(301, 0);
             this.dgvStakeholder.TabIndex = 19;
             this.dgvStakeholder.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStakeholder_CellContentClick);
             this.dgvStakeholder.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStakeholder_CellContentDoubleClick);
@@ -821,11 +823,11 @@ namespace DecisionArchitect.View.DetailView
             this.vHistoryPane.ItemPanel.Controls.Add(this.dgvHistory);
             this.vHistoryPane.ItemPanel.Location = new System.Drawing.Point(1, 30);
             this.vHistoryPane.ItemPanel.Name = "ItemPanel";
-            this.vHistoryPane.ItemPanel.Size = new System.Drawing.Size(300, 0);
+            this.vHistoryPane.ItemPanel.Size = new System.Drawing.Size(301, 0);
             this.vHistoryPane.ItemPanel.TabIndex = 1;
-            this.vHistoryPane.Location = new System.Drawing.Point(0, 499);
+            this.vHistoryPane.Location = new System.Drawing.Point(0, 399);
             this.vHistoryPane.Name = "vHistoryPane";
-            this.vHistoryPane.Size = new System.Drawing.Size(302, 30);
+            this.vHistoryPane.Size = new System.Drawing.Size(303, 30);
             this.vHistoryPane.TabIndex = 5;
             this.vHistoryPane.Text = "History";
             this.vHistoryPane.TooltipText = "History";
@@ -845,7 +847,7 @@ namespace DecisionArchitect.View.DetailView
             this.dgvHistory.Location = new System.Drawing.Point(0, 0);
             this.dgvHistory.Name = "dgvHistory";
             this.dgvHistory.RowHeadersVisible = false;
-            this.dgvHistory.Size = new System.Drawing.Size(300, 0);
+            this.dgvHistory.Size = new System.Drawing.Size(301, 0);
             this.dgvHistory.TabIndex = 0;
             this.dgvHistory.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgvHistory_CellBeginEdit);
             this.dgvHistory.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvHistory_CellEndEdit);
@@ -881,6 +883,7 @@ namespace DecisionArchitect.View.DetailView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.spltDetailView);
             this.Name = "DetailViewController";
             this.Size = new System.Drawing.Size(916, 769);
