@@ -557,7 +557,7 @@ namespace DecisionArchitect {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SaveDescription report as....
+        ///   Looks up a localized string similar to Save report as....
         /// </summary>
         internal static string SaveReportAs {
             get {
@@ -589,6 +589,24 @@ namespace DecisionArchitect {
         internal static string WarningCreateRelation {
             get {
                 return ResourceManager.GetString("WarningCreateRelation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure that you want to revert all changes?.
+        /// </summary>
+        internal static string WarningRevertChanges {
+            get {
+                return ResourceManager.GetString("WarningRevertChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Revert Changes.
+        /// </summary>
+        internal static string WarningRevertChangesTitle {
+            get {
+                return ResourceManager.GetString("WarningRevertChangesTitle", resourceCulture);
             }
         }
     }

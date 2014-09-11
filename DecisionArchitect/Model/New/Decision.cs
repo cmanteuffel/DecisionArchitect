@@ -1,6 +1,7 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -18,16 +19,23 @@ namespace DecisionArchitect.Model.New
     /// </summary>
     public class Decision : Entity, IDecision
     {
-        private IList<IDecisionRelation> _alternatives;
         private string _author;
+        private bool _changed;
         private DateTime _modified;
         private string _name;
         private string _rationale;
-        private IList<IDecisionRelation> _relatedDecisions;
+
         private string _state;
 
         private Decision()
         {
+            History = new BindingList<IHistoryEntry>();
+            Alternatives = new BindingList<IDecisionRelation>();
+            RelatedDecisions = new BindingList<IDecisionRelation>();
+            Traces = new BindingList<ITraceLink>();
+            Stakeholders = new BindingList<IStakeholderAction>();
+            Forces = new BindingList<IForceEvaluation>();
+            Changed = false;
         }
 
         public string GUID { get; private set; }
@@ -42,7 +50,7 @@ namespace DecisionArchitect.Model.New
         public string State
         {
             get { return _state; }
-            set { SetField(ref _state, value, "State"); }
+            set { SetField(ref _state, value.ToLower(), "State"); }
         }
 
         public DateTime Modified
@@ -63,46 +71,25 @@ namespace DecisionArchitect.Model.New
             set { SetField(ref _rationale, value, "Rationale"); }
         }
 
+        public bool Changed
+        {
+            get { return _changed; }
+            private set { SetField(ref _changed, value, "Changed"); }
+        }
 
         public ITopic Topic { get; private set; }
-        public IList<IHistoryEntry> History { get; private set; }
-        public IList<ITraceLink> Traces { get; private set; }
-
-        //!lazy loading to avoid cyclic loading of alternatives. 
-        public IList<IDecisionRelation> Alternatives
-        {
-            get
-            {
-                if (_alternatives == null)
-                {
-                    IEAElement element = EAMain.Repository.GetElementByGUID(GUID);
-                    _alternatives = LoadAlternatives(element);
-                }
-                return _alternatives;
-            }
-        }
-
-        //!lazy loading to avoid cyclic loading of related decisions. 
-        public IList<IDecisionRelation> RelatedDecisions
-        {
-            get
-            {
-                if (_relatedDecisions == null)
-                {
-                    IEAElement element = EAMain.Repository.GetElementByGUID(GUID);
-                    _relatedDecisions = LoadRelations(element);
-                }
-                return _relatedDecisions;
-            }
-        }
-
-        public IList<IForceEvaluation> Forces { get; private set; }
-        public IList<IStakeholderAction> Stakeholders { get; private set; }
+        public BindingList<IHistoryEntry> History { get; private set; }
+        public BindingList<ITraceLink> Traces { get; private set; }
+        public BindingList<IDecisionRelation> Alternatives { get; private set; }
+        public BindingList<IDecisionRelation> RelatedDecisions { get; private set; }
+        public BindingList<IForceEvaluation> Forces { get; private set; }
+        public BindingList<IStakeholderAction> Stakeholders { get; private set; }
 
         public bool HasTopic()
         {
             return Topic != null;
         }
+
 
         public bool SaveChanges()
         {
@@ -122,13 +109,14 @@ namespace DecisionArchitect.Model.New
                                        element.Modified.ToString(CultureInfo.InvariantCulture));
             }
 
-            if (!element.Stereotype.Equals(State))
+            if (!element.StereotypeList.Equals(State))
             {
                 History.Add(new HistoryEntry(this, element.Stereotype, element.Modified));
                 element.UpdateTaggedValue(EATaggedValueKeys.DecisionStateModifiedDate,
                                           Modified.ToString(CultureInfo.InvariantCulture));
-                element.UpdateTaggedValue(EATaggedValueKeys.DecisionState, State);
             }
+            element.UpdateTaggedValue(EATaggedValueKeys.DecisionState, State);
+            
             element.StereotypeList = State;
             element.Modified = Modified;
             element.Author = Author;
@@ -141,6 +129,7 @@ namespace DecisionArchitect.Model.New
             SaveStakeholders(element);
             element.Update();
             repository.AdviseElementChanged(element.ID);
+            Changed = false;
             return true;
         }
 
@@ -151,10 +140,24 @@ namespace DecisionArchitect.Model.New
             LoadDecisionDataFromElement(element);
         }
 
+        private void UpdateListChangeFlag(object sender, ListChangedEventArgs listChangedEventArgs)
+        {
+            if (listChangedEventArgs.ListChangedType==ListChangedType.ItemMoved) return;
+            Changed = true;
+        }
+
+
+        private void UpdateChangeFlag(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName.Equals("Changed")) return;
+            Changed = true;
+        }
+
         public static IDecision Load(IEAElement element)
         {
             var decision = new Decision();
             decision.LoadDecisionDataFromElement(element);
+            decision.PropertyChanged += decision.UpdateChangeFlag;
             return decision;
         }
 
@@ -166,20 +169,56 @@ namespace DecisionArchitect.Model.New
         private void LoadDecisionDataFromElement(IEAElement element)
         {
             if (element == null) throw new Exception();
+            RemoveAllChangeListener();
             GUID = element.GUID;
             ID = element.ID;
             Name = element.Name;
-            State = element.Stereotype;
+            State = element.StereotypeList;
             Modified = element.Modified;
             Author = element.Author;
             Rationale = LoadRationale(element);
             //Topic change not yet possible.
             Topic = LoadTopic(element);
-            History = LoadHistory(element);
-            Forces = LoadForces(element);
-            Traces = LoadTraces(element);
-            Stakeholders = LoadStakeholder(element);
+            LoadAlternatives(element);
+            LoadRelations(element);
+            LoadHistory(element);
+            LoadForces(element);
+            LoadTraces(element);
+            LoadStakeholder(element);
+            Changed = false;
+            AddAllChangeListener();
         }
+
+        private void AddAllChangeListener()
+        {
+            if (HasTopic())
+            {
+                Topic.PropertyChanged += UpdateChangeFlag;
+            }
+            Alternatives.ListChanged += UpdateListChangeFlag;
+            RelatedDecisions.ListChanged += UpdateListChangeFlag;
+            History.ListChanged += UpdateListChangeFlag;
+            Forces.ListChanged += UpdateListChangeFlag;
+            Traces.ListChanged += UpdateListChangeFlag;
+            Stakeholders.ListChanged += UpdateListChangeFlag;
+            PropertyChanged += UpdateChangeFlag;
+        }
+
+        private void RemoveAllChangeListener()
+        {
+            if (HasTopic())
+            {
+                Topic.PropertyChanged -= UpdateChangeFlag;
+            }
+            Alternatives.ListChanged -= UpdateListChangeFlag;
+            RelatedDecisions.ListChanged -= UpdateListChangeFlag;
+            History.ListChanged -= UpdateListChangeFlag;
+            Forces.ListChanged -= UpdateListChangeFlag;
+            Traces.ListChanged -= UpdateListChangeFlag;
+            Stakeholders.ListChanged -= UpdateListChangeFlag;
+            PropertyChanged -= UpdateChangeFlag;
+        }
+
 
         private ITopic LoadTopic(IEAElement element)
         {
@@ -236,12 +275,15 @@ namespace DecisionArchitect.Model.New
             }
         }
 
-        private IList<IHistoryEntry> LoadHistory(IEAElement element)
+        private void LoadHistory(IEAElement element)
         {
-            return
-                element.GetTaggedValuesByName(EATaggedValueKeys.DecisionStateChange)
-                       .Select(tv => (IHistoryEntry) new HistoryEntry(this, tv))
-                       .ToList();
+            History.Clear();
+            IEnumerable<IHistoryEntry> entries = element.GetTaggedValuesByName(EATaggedValueKeys.DecisionStateChange)
+                                                        .Select(tv => (IHistoryEntry) new HistoryEntry(this, tv));
+            foreach (IHistoryEntry entry in entries)
+            {
+                History.Add(entry);
+            }
         }
 
         private void SaveHistory(IEAElement element)
@@ -264,12 +306,16 @@ namespace DecisionArchitect.Model.New
             }
         }
 
-        private IList<IForceEvaluation> LoadForces(IEAElement element)
+        private void LoadForces(IEAElement element)
         {
-            return
+            Forces.Clear();
+            IEnumerable<IForceEvaluation> forces =
                 element.TaggedValues.Where(tv => tv.Name.StartsWith(EATaggedValueKeys.ForceEvaluation))
-                       .Select(tv => (IForceEvaluation) new ForceEvaluation(this, tv))
-                       .ToList();
+                       .Select(tv => (IForceEvaluation) new ForceEvaluation(this, tv));
+            foreach (IForceEvaluation force in forces)
+            {
+                Forces.Add(force);
+            }
         }
 
         private void SaveForces(IEAElement element)
@@ -290,9 +336,15 @@ namespace DecisionArchitect.Model.New
             }
         }
 
-        private IList<ITraceLink> LoadTraces(IEAElement element)
+        private void LoadTraces(IEAElement element)
         {
-            return element.GetTracedElements().Select(t => (ITraceLink) new TraceLink(t.GUID)).ToList();
+            Traces.Clear();
+            IEnumerable<ITraceLink> traces =
+                element.GetTracedElements().Select(t => (ITraceLink) new TraceLink(t.GUID));
+            foreach (ITraceLink trace in traces)
+            {
+                Traces.Add(trace);
+            }
         }
 
         private void SaveTraces(IEAElement element)
@@ -330,12 +382,17 @@ namespace DecisionArchitect.Model.New
             }
         }
 
-        private IList<IDecisionRelation> LoadAlternatives(IEAElement element)
+        private void LoadAlternatives(IEAElement element)
         {
-            return
+            Alternatives.Clear();
+            IEnumerable<IDecisionRelation> alternatives =
                 element.FindConnectors(EAConstants.RelationMetaType, EAConstants.RelationAlternativeFor)
-                       .Select(a => (IDecisionRelation) new DecisionRelation(this, a))
-                       .ToList();
+                       .Select(a => (IDecisionRelation) new DecisionRelation(this, a));
+
+            foreach (IDecisionRelation alternative in alternatives)
+            {
+                Alternatives.Add(alternative);
+            }
         }
 
         private void SaveAlternatives(IEAElement element)
@@ -362,14 +419,20 @@ namespace DecisionArchitect.Model.New
             }
         }
 
-        private IList<IDecisionRelation> LoadRelations(IEAElement element)
+        private void LoadRelations(IEAElement element)
         {
-            return
-                element.FindConnectors(EAConstants.RelationMetaType, EAConstants.RelationDependsOn,
-                                       EAConstants.RelationExcludedBy, EAConstants.RelationCausedBy,
-                                       EAConstants.RelationReplaces)
-                       .Select(a => (IDecisionRelation) new DecisionRelation(this, a))
-                       .ToList();
+            RelatedDecisions.Clear();
+            IEnumerable<IDecisionRelation> relations = element.FindConnectors(EAConstants.RelationMetaType,
+                                                                              EAConstants.RelationDependsOn,
+                                                                              EAConstants.RelationExcludedBy,
+                                                                              EAConstants.RelationCausedBy,
+                                                                              EAConstants.RelationReplaces)
+                                                              .Select(
+                                                                  a => (IDecisionRelation) new DecisionRelation(this, a));
+            foreach (IDecisionRelation relation in relations)
+            {
+                RelatedDecisions.Add(relation);
+            }
         }
 
         private void SaveRelations(IEAElement element)
@@ -398,13 +461,17 @@ namespace DecisionArchitect.Model.New
             }
         }
 
-        private IList<IStakeholderAction> LoadStakeholder(IEAElement element)
+        private void LoadStakeholder(IEAElement element)
         {
-            return
+            Stakeholders.Clear();
+            IEnumerable<IStakeholderAction> actions =
                 element.GetConnectors()
                        .Where(connector => connector.IsAction() && EAMain.IsStakeholder(connector.GetClient()))
-                       .Select(sa => (IStakeholderAction) new StakeholderAction(this, sa))
-                       .ToList();
+                       .Select(sa => (IStakeholderAction) new StakeholderAction(this, sa));
+            foreach (IStakeholderAction action in actions)
+            {
+                Stakeholders.Add(action);
+            }
         }
 
         private void SaveStakeholders(IEAElement element)

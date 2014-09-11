@@ -192,6 +192,7 @@
     <Compile Include="View\Chronology\GenerateChronologyView.Designer.cs">
       <DependentUpon>GenerateChronologyView.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\HSLColor.cs" />
     <Compile Include="View\ICustomView.cs" />
     <Compile Include="View\RichTextBox\HyperLinkWindow.cs">
       <SubType>Form</SubType>

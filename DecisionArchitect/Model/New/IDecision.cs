@@ -15,12 +15,12 @@ namespace DecisionArchitect.Model.New
         string Rationale { get; set; }
         //topic cannot (yet) be changed programatically. Feature will come in future. 
         ITopic Topic { get; }
-        IList<IHistoryEntry> History { get; }
-        IList<IForceEvaluation> Forces { get; }
-        IList<ITraceLink> Traces { get; }
-        IList<IDecisionRelation> Alternatives { get; }
-        IList<IDecisionRelation> RelatedDecisions { get; }
-        IList<IStakeholderAction> Stakeholders { get; }
+        BindingList<IHistoryEntry> History { get; }
+        BindingList<IForceEvaluation> Forces { get; }
+        BindingList<ITraceLink> Traces { get; }
+        BindingList<IDecisionRelation> Alternatives { get; }
+        BindingList<IDecisionRelation> RelatedDecisions { get; }
+        BindingList<IStakeholderAction> Stakeholders { get; }
         bool HasTopic();
     }
 }

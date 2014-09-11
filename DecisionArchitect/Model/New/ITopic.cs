@@ -32,9 +32,17 @@ namespace DecisionArchitect.Model.New
     {
         private string _description;
         private string _name;
+        private bool _changed=false;
+
 
         private Topic()
         {
+        }
+
+        public bool Changed
+        {
+            get { return _changed; }
+            private set { SetField(ref _changed, value, "Changed"); }
         }
 
         public bool SaveChanges()
@@ -43,6 +51,7 @@ namespace DecisionArchitect.Model.New
             if (null == element || !EAMain.IsTopic(element)) throw new Exception("element null or not a topic");
             element.Name = Name;
             SaveDescription(element);
+            Changed = false;
             return true;
         }
 
@@ -81,6 +90,7 @@ namespace DecisionArchitect.Model.New
             GUID = element.GUID;
             Name = element.Name;
             Description = LoadDescription(element);
+            Changed = false;
         }
 
         /// <summary>
@@ -109,6 +119,12 @@ namespace DecisionArchitect.Model.New
         {
             var rtf = new RichTextBox {Rtf = element.GetLinkedDocument()};
             return rtf.Text;
+        }
+
+        private void UpdateChangeFlag(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName.Equals("Changed")) return;
+            Changed = true;
         }
     }
 }

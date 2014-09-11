@@ -12,7 +12,7 @@
 */
 
 using System;
-using System.ComponentModel;
+using System.Drawing;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -29,6 +29,8 @@ namespace DecisionArchitect.View.DetailView
     [ComDefaultInterface(typeof (IDetailViewController))]
     public partial class DetailViewController : UserControl, IDetailViewController
     {
+        private const double SelectionLuminosityFactor = .65;
+        private const double SelectionSaturationFactor = .55;
         private IDecision _decision;
 
         public DetailViewController()
@@ -45,18 +47,15 @@ namespace DecisionArchitect.View.DetailView
             {
                 if (value == null || value.Equals(_decision))
                 {
-                    txtDecisionName.DataBindings.Clear();
-                    txtAuthor.DataBindings.Clear();
-                    rtbRationale.DataBindings.Clear();
-                    txtTopicName.DataBindings.Clear();
-                    rtbTopicDescription.DataBindings.Clear();
-                    dtModified.DataBindings.Clear();
+                    UnbindAllComponents();
                 }
 
                 _decision = value;
 
                 if (_decision != null)
                 {
+                    btnSave.DataBindings.Add("Enabled", Decision, "Changed");
+                    btnRevert.DataBindings.Add("Enabled", Decision, "Changed");
                     txtDecisionName.DataBindings.Add("Text", Decision, "Name");
                     txtAuthor.DataBindings.Add("Text", Decision, "Author");
                     dtModified.DataBindings.Add("Value", Decision, "Modified");
@@ -84,10 +83,29 @@ namespace DecisionArchitect.View.DetailView
             }
         }
 
+        private void UnbindAllComponents()
+        {
+            btnSave.DataBindings.Clear();
+            btnRevert.DataBindings.Clear();
+            txtDecisionName.DataBindings.Clear();
+            txtAuthor.DataBindings.Clear();
+            rtbRationale.DataBindings.Clear();
+            txtTopicName.DataBindings.Clear();
+            rtbTopicDescription.DataBindings.Clear();
+            dtModified.DataBindings.Clear();
+            dgvAlternativeDecisions.DataBindings.Clear();
+            dgvForces.DataBindings.Clear();
+            dgvRelatedDecisions.DataBindings.Clear();
+            dgvStakeholder.DataBindings.Clear();
+            dgvHistory.DataBindings.Clear();
+            dgvTraces.DataBindings.Clear();
+        }
+
         private void btnRevert_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Are you sure that you want to revert all changes?",
-                                                        "Revert Changes", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show(Messages.WarningRevertChanges,
+                                                        Messages.WarningRevertChangesTitle,
+                                                        MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
                 Decision.DiscardChanges();
@@ -126,14 +144,14 @@ namespace DecisionArchitect.View.DetailView
         private void BindAlternatives()
         {
             dgvAlternativeDecisions.AutoGenerateColumns = false;
-            var source = new BindingSource(new BindingList<IDecisionRelation>(Decision.Alternatives), null);
+            var source = new BindingSource(Decision.Alternatives, null);
             dgvAlternativeDecisions.DataSource = source;
         }
 
         private void BindRelatedDecisions()
         {
             dgvRelatedDecisions.AutoGenerateColumns = false;
-            var source = new BindingSource(new BindingList<IDecisionRelation>(Decision.RelatedDecisions), null);
+            var source = new BindingSource(Decision.RelatedDecisions, null);
             dgvRelatedDecisions.DataSource = source;
         }
 
@@ -141,14 +159,14 @@ namespace DecisionArchitect.View.DetailView
         private void BindForces()
         {
             dgvForces.AutoGenerateColumns = false;
-            var source = new BindingSource(new BindingList<IForceEvaluation>(Decision.Forces), null);
+            var source = new BindingSource(Decision.Forces, null);
             dgvForces.DataSource = source;
         }
 
         private void BindTraces()
         {
             dgvTraces.AutoGenerateColumns = false;
-            var source = new BindingSource(new BindingList<ITraceLink>(Decision.Traces), null);
+            var source = new BindingSource(Decision.Traces, null);
             dgvTraces.DataSource = source;
         }
 
@@ -156,17 +174,19 @@ namespace DecisionArchitect.View.DetailView
         private void BindStakeholders()
         {
             dgvStakeholder.AutoGenerateColumns = false;
-            var source = new BindingSource(new BindingList<IStakeholderAction>(Decision.Stakeholders), null);
+            var source = new BindingSource(Decision.Stakeholders, null);
             dgvStakeholder.DataSource = source;
         }
 
         private void BindHistory()
         {
-            dtpHistoryCell = new DateTimePicker();
-            dtpHistoryCell.Format = DateTimePickerFormat.Custom;
-            dtpHistoryCell.CustomFormat = Application.CurrentCulture.DateTimeFormat.ShortDatePattern;
-            dtpHistoryCell.Visible = false;
-            dtpHistoryCell.Width = clmHistoryDate.Width;
+            dtpHistoryCell = new DateTimePicker
+                {
+                    Format = DateTimePickerFormat.Custom,
+                    CustomFormat = Application.CurrentCulture.DateTimeFormat.ShortDatePattern,
+                    Visible = false,
+                    Width = clmHistoryDate.Width
+                };
             dgvHistory.Controls.Add(dtpHistoryCell);
             dgvHistory.CellBeginEdit += dgvHistory_CellBeginEdit;
             dgvHistory.CellEndEdit += dgvHistory_CellEndEdit;
@@ -175,29 +195,12 @@ namespace DecisionArchitect.View.DetailView
             {
                 clmHistoryState.Items.Add(state);
             }
-            dgvHistory.CellValueChanged += dgvHistory_CellValueChanged;
 
             dgvHistory.AutoGenerateColumns = false;
-            var decisionHistory = new BindingList<IHistoryEntry>(Decision.History);
-            var source = new BindingSource(decisionHistory, null);
+            var source = new BindingSource(Decision.History, null);
             dgvHistory.DataSource = source;
-            foreach (DataGridViewRow row in dgvHistory.Rows)
-            {
-                ColorRowAccordingToState(row, row.Cells[clmHistoryState.Index].Value.ToString());
-            }
         }
 
-        private void dgvHistory_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            //check if the cell that contains the state has been changed.
-            if (e.ColumnIndex == clmHistoryState.Index)
-            {
-                DataGridViewRow row = dgvHistory.Rows[e.RowIndex];
-                DataGridViewCell cell = row.Cells[clmHistoryState.Name];
-                string state = cell.Value.ToString();
-                ColorRowAccordingToState(row, state);
-            }
-        }
 
 
         private void dgvHistory_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
@@ -238,23 +241,41 @@ namespace DecisionArchitect.View.DetailView
             cbxState.BackColor = DecisionStateColor.ConvertStateToColor(cbxState.Text);
         }
 
-        /********************************************************************************************
-         ******************************************************************************************** 
-         ** Auxillery methods
-         ******************************************************************************************** 
-         ********************************************************************************************/
 
-        // Color the cell according to the State
-        private void ColorCellAccordingToState(DataGridViewCell cell, string state)
-        {
-            cell.Style.BackColor = DecisionStateColor.ConvertStateToColor(state);
-        }
 
-        private void ColorRowAccordingToState(DataGridViewRow row, string state)
+        /// <summary>
+        ///     Fix nested property binding in datagridviews
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ColoringAndNestingBinding(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            foreach (DataGridViewCell cell in row.Cells)
+            var grid = (DataGridView)sender;
+            DataGridViewRow row = grid.Rows[e.RowIndex];
+            if ((row.DataBoundItem != null) &&
+                (grid.Columns[e.ColumnIndex].DataPropertyName.Contains(".")))
             {
-                ColorCellAccordingToState(cell, state);
+                e.Value = BindProperty(
+                    row.DataBoundItem,
+                    grid.Columns[e.ColumnIndex].DataPropertyName
+                    );
+            }
+
+
+            //coloring
+            if (grid == dgvHistory)
+            {
+                var historyEntry = (IHistoryEntry)row.DataBoundItem;
+                if (historyEntry != null)
+                {
+                    ColorRowAccordingToState(row, historyEntry.State);
+                }
+            }
+            else if (grid == dgvAlternativeDecisions || grid == dgvRelatedDecisions)
+            {
+                var decisionRelation = (IDecisionRelation)row.DataBoundItem;
+                if (decisionRelation != null)
+                    ColorRowAccordingToState(row, decisionRelation.RelatedDecision.State);
             }
         }
 
@@ -265,18 +286,19 @@ namespace DecisionArchitect.View.DetailView
         /// <param name="e"></param>
         private void CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            var grid = (DataGridView) sender;
-            string guid = "";
+            var grid = (DataGridView)sender;
+            string guid;
             DataGridViewRow row = grid.Rows[e.RowIndex];
 
+            // ReSharper disable CanBeReplacedWithTryCastAndCheckForNull
             if (row.DataBoundItem is IStakeholderAction)
             {
-                var stakeholderAction = (IStakeholderAction) row.DataBoundItem;
+                var stakeholderAction = (IStakeholderAction)row.DataBoundItem;
                 guid = stakeholderAction.Stakeholder.GUID;
             }
             else if (row.DataBoundItem is ITraceLink)
             {
-                var link = (ITraceLink) row.DataBoundItem;
+                var link = (ITraceLink)row.DataBoundItem;
                 guid = link.TracedElementGUID;
             }
             else if (row.DataBoundItem is IDecisionRelation)
@@ -288,6 +310,7 @@ namespace DecisionArchitect.View.DetailView
             {
                 throw new NotSupportedException();
             }
+            // ReSharper restore CanBeReplacedWithTryCastAndCheckForNull
             if (guid != null && !"".Equals(guid))
             {
                 IEAElement element = EAMain.Repository.GetElementByGUID(guid);
@@ -310,21 +333,27 @@ namespace DecisionArchitect.View.DetailView
             }
         }
 
-        /// <summary>
-        ///     Fix nested property binding in datagridviews
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        /********************************************************************************************
+         ******************************************************************************************** 
+         ** Auxillery methods
+         ******************************************************************************************** 
+         ********************************************************************************************/
+
+        // Color the cell according to the State
+        private void ColorCellAccordingToState(DataGridViewCell cell, string state)
         {
-            var grid = (DataGridView) sender;
-            if ((grid.Rows[e.RowIndex].DataBoundItem != null) &&
-                (grid.Columns[e.ColumnIndex].DataPropertyName.Contains(".")))
+            cell.Style.BackColor = DecisionStateColor.ConvertStateToColor(state);
+            HSLColor hsl = DecisionStateColor.ConvertStateToColor(state); 
+            hsl.Luminosity = (hsl.Luminosity*SelectionLuminosityFactor);
+            hsl.Saturation = (hsl.Saturation * SelectionSaturationFactor);
+            cell.Style.SelectionBackColor = hsl;
+        }
+       
+        private void ColorRowAccordingToState(DataGridViewRow row, string state)
+        {
+            foreach (DataGridViewCell cell in row.Cells)
             {
-                e.Value = BindProperty(
-                    grid.Rows[e.RowIndex].DataBoundItem,
-                    grid.Columns[e.ColumnIndex].DataPropertyName
-                    );
+                ColorCellAccordingToState(cell, state);
             }
         }
 
@@ -340,11 +369,8 @@ namespace DecisionArchitect.View.DetailView
 
             if (propertyName.Contains("."))
             {
-                PropertyInfo[] arrayProperties;
-                string leftPropertyName;
-
-                leftPropertyName = propertyName.Substring(0, propertyName.IndexOf("."));
-                arrayProperties = property.GetType().GetProperties();
+                string leftPropertyName = propertyName.Substring(0, propertyName.IndexOf(".", StringComparison.Ordinal));
+                PropertyInfo[] arrayProperties = property.GetType().GetProperties();
 
                 foreach (PropertyInfo propertyInfo in arrayProperties)
                 {
@@ -352,22 +378,37 @@ namespace DecisionArchitect.View.DetailView
                     {
                         retValue = BindProperty(
                             propertyInfo.GetValue(property, null),
-                            propertyName.Substring(propertyName.IndexOf(".") + 1));
+                            propertyName.Substring(propertyName.IndexOf(".", StringComparison.Ordinal) + 1));
                         break;
                     }
                 }
             }
             else
             {
-                Type propertyType;
-                PropertyInfo propertyInfo;
-
-                propertyType = property.GetType();
-                propertyInfo = propertyType.GetProperty(propertyName);
+                Type propertyType = property.GetType();
+                PropertyInfo propertyInfo = propertyType.GetProperty(propertyName);
                 retValue = propertyInfo.GetValue(property, null).ToString();
             }
 
             return retValue;
         }
+
+        private void HistoryMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right && e.RowIndex >= 0)
+            {
+                var historyEntry = (IHistoryEntry)dgvHistory.Rows[e.RowIndex].DataBoundItem;
+
+                var menu = new ContextMenu();
+
+                // Menuitem for opening a decision in its diagram
+                menu.MenuItems.Add("Delete", (o, arg) => Decision.History.Remove(historyEntry));
+
+                // Menuitem for a separator
+                menu.MenuItems.Add("-");
+                menu.Show(this, PointToClient(Cursor.Position));
+            }
+        }
+
     }
 }

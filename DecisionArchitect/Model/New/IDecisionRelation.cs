@@ -22,30 +22,39 @@ namespace DecisionArchitect.Model.New
 
     public class DecisionRelation : Entity, IDecisionRelation
     {
+        private IDecision _relatedDecision;
         private string _type;
 
         public DecisionRelation(Decision decision, IEAConnector eaConnector)
         {
             IEAElement client = eaConnector.GetClient();
-            IEAElement supplier = eaConnector.GetSupplier();
-            if (client.GUID.Equals(decision.GUID))
-            {
-                Decision = decision;
-                RelatedDecision = New.Decision.Load(supplier);
-                Direction = DecisionRelationDirection.Incoming;
-            }
-            else
-            {
-                Decision = decision;
-                RelatedDecision = New.Decision.Load(client);
-                Direction = DecisionRelationDirection.Outgoing;
-            }
+            Direction = client.GUID.Equals(decision.GUID)
+                            ? DecisionRelationDirection.Incoming
+                            : DecisionRelationDirection.Outgoing;
+
+            Decision = decision;
             RelationGUID = eaConnector.GUID;
             Type = eaConnector.Stereotype;
         }
 
         public IDecision Decision { get; private set; }
-        public IDecision RelatedDecision { get; private set; }
+
+        public IDecision RelatedDecision
+        {
+            get
+            {
+                if (_relatedDecision == null)
+                {
+                    IEAConnector eaConnector = EAMain.Repository.GetConnectorByGUID(RelationGUID);
+                    _relatedDecision =
+                        New.Decision.Load(Direction == DecisionRelationDirection.Incoming
+                                              ? eaConnector.GetSupplier()
+                                              : eaConnector.GetClient());
+                }
+                return _relatedDecision;
+            }
+        }
+
         public DecisionRelationDirection Direction { get; set; }
 
         public string Type
@@ -54,7 +63,8 @@ namespace DecisionArchitect.Model.New
             set { SetField(ref _type, value, "Type"); }
         }
 
-        public string DirectedType {
+        public string DirectedType
+        {
             get
             {
                 if (Direction == DecisionRelationDirection.Incoming)
@@ -62,19 +72,21 @@ namespace DecisionArchitect.Model.New
                     return EAConstants.ConvertInverse[Type];
                 }
                 return Type;
-            } 
+            }
             set
             {
                 if (EAConstants.Relationships.Contains(value))
                 {
                     Type = value;
                     Direction = DecisionRelationDirection.Incoming;
-                } else if (EAConstants.InverseRelationships.Contains(value))
+                }
+                else if (EAConstants.InverseRelationships.Contains(value))
                 {
                     Direction = DecisionRelationDirection.Outgoing;
                     Type = EAConstants.ConvertToRelationship[value];
                 }
-            } }
+            }
+        }
 
         public string RelationGUID { get; private set; }
     }

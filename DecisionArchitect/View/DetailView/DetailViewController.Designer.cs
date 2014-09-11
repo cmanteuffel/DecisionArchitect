@@ -70,8 +70,13 @@ namespace DecisionArchitect.View.DetailView
             this.vAccordionPane = new VIBlend.WinForms.Controls.vNavPane();
             this.vAlternativePane = new VIBlend.WinForms.Controls.vNavPaneItem();
             this.dgvAlternativeDecisions = new System.Windows.Forms.DataGridView();
+            this.clmAlternativeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmAlternativeState = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.vRelatedPane = new VIBlend.WinForms.Controls.vNavPaneItem();
             this.dgvRelatedDecisions = new System.Windows.Forms.DataGridView();
+            this.clmRelatedTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmRelatedDecisionsState = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmRelation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.vForcesPane = new VIBlend.WinForms.Controls.vNavPaneItem();
             this.dgvForces = new System.Windows.Forms.DataGridView();
             this.clmForcesName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -99,11 +104,6 @@ namespace DecisionArchitect.View.DetailView
             this.Content = new VIBlend.WinForms.Controls.vContentPanel();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.iStakeholderBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.clmAlternativeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmAlternativeState = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmRelatedTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmRelatedDecisionsState = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmRelation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.spltDetailView)).BeginInit();
             this.spltDetailView.Panel1.SuspendLayout();
             this.spltDetailView.Panel2.SuspendLayout();
@@ -466,11 +466,11 @@ namespace DecisionArchitect.View.DetailView
             this.vAlternativePane.ItemPanel.Controls.Add(this.dgvAlternativeDecisions);
             this.vAlternativePane.ItemPanel.Location = new System.Drawing.Point(1, 30);
             this.vAlternativePane.ItemPanel.Name = "ItemPanel";
-            this.vAlternativePane.ItemPanel.Size = new System.Drawing.Size(291, 124);
+            this.vAlternativePane.ItemPanel.Size = new System.Drawing.Size(291, 0);
             this.vAlternativePane.ItemPanel.TabIndex = 1;
             this.vAlternativePane.Location = new System.Drawing.Point(0, 0);
             this.vAlternativePane.Name = "vAlternativePane";
-            this.vAlternativePane.Size = new System.Drawing.Size(293, 155);
+            this.vAlternativePane.Size = new System.Drawing.Size(293, 30);
             this.vAlternativePane.TabIndex = 0;
             this.vAlternativePane.Text = "Alternatives";
             this.vAlternativePane.TooltipText = "Alternatives";
@@ -495,10 +495,30 @@ namespace DecisionArchitect.View.DetailView
             this.dgvAlternativeDecisions.ReadOnly = true;
             this.dgvAlternativeDecisions.RowHeadersVisible = false;
             this.dgvAlternativeDecisions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAlternativeDecisions.Size = new System.Drawing.Size(291, 124);
+            this.dgvAlternativeDecisions.Size = new System.Drawing.Size(291, 0);
             this.dgvAlternativeDecisions.TabIndex = 105;
             this.dgvAlternativeDecisions.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CellContentDoubleClick);
-            this.dgvAlternativeDecisions.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.CellFormatting);
+            this.dgvAlternativeDecisions.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.ColoringAndNestingBinding);
+            // 
+            // clmAlternativeName
+            // 
+            this.clmAlternativeName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.clmAlternativeName.DataPropertyName = "RelatedDecision.Name";
+            this.clmAlternativeName.FillWeight = 149.2733F;
+            this.clmAlternativeName.HeaderText = "Decision";
+            this.clmAlternativeName.Name = "clmAlternativeName";
+            this.clmAlternativeName.ReadOnly = true;
+            this.clmAlternativeName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.clmAlternativeName.ToolTipText = "Dubble click to open the selected Decision";
+            // 
+            // clmAlternativeState
+            // 
+            this.clmAlternativeState.DataPropertyName = "RelatedDecision.State";
+            this.clmAlternativeState.FillWeight = 89.28613F;
+            this.clmAlternativeState.HeaderText = "State";
+            this.clmAlternativeState.Name = "clmAlternativeState";
+            this.clmAlternativeState.ReadOnly = true;
+            this.clmAlternativeState.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // vRelatedPane
             // 
@@ -513,7 +533,7 @@ namespace DecisionArchitect.View.DetailView
             this.vRelatedPane.ItemPanel.Name = "ItemPanel";
             this.vRelatedPane.ItemPanel.Size = new System.Drawing.Size(291, 0);
             this.vRelatedPane.ItemPanel.TabIndex = 1;
-            this.vRelatedPane.Location = new System.Drawing.Point(0, 155);
+            this.vRelatedPane.Location = new System.Drawing.Point(0, 30);
             this.vRelatedPane.Name = "vRelatedPane";
             this.vRelatedPane.Size = new System.Drawing.Size(293, 30);
             this.vRelatedPane.TabIndex = 1;
@@ -540,7 +560,30 @@ namespace DecisionArchitect.View.DetailView
             this.dgvRelatedDecisions.Size = new System.Drawing.Size(291, 0);
             this.dgvRelatedDecisions.TabIndex = 19;
             this.dgvRelatedDecisions.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CellContentDoubleClick);
-            this.dgvRelatedDecisions.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.CellFormatting);
+            this.dgvRelatedDecisions.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.ColoringAndNestingBinding);
+            // 
+            // clmRelatedTo
+            // 
+            this.clmRelatedTo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.clmRelatedTo.DataPropertyName = "RelatedDecision.Name";
+            this.clmRelatedTo.HeaderText = "Decision";
+            this.clmRelatedTo.Name = "clmRelatedTo";
+            this.clmRelatedTo.ReadOnly = true;
+            // 
+            // clmRelatedDecisionsState
+            // 
+            this.clmRelatedDecisionsState.DataPropertyName = "RelatedDecision.State";
+            this.clmRelatedDecisionsState.HeaderText = "State";
+            this.clmRelatedDecisionsState.Name = "clmRelatedDecisionsState";
+            this.clmRelatedDecisionsState.ReadOnly = true;
+            // 
+            // clmRelation
+            // 
+            this.clmRelation.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.clmRelation.DataPropertyName = "DirectedType";
+            this.clmRelation.HeaderText = "Relation";
+            this.clmRelation.Name = "clmRelation";
+            this.clmRelation.ReadOnly = true;
             // 
             // vForcesPane
             // 
@@ -555,7 +598,7 @@ namespace DecisionArchitect.View.DetailView
             this.vForcesPane.ItemPanel.Name = "ItemPanel";
             this.vForcesPane.ItemPanel.Size = new System.Drawing.Size(291, 0);
             this.vForcesPane.ItemPanel.TabIndex = 1;
-            this.vForcesPane.Location = new System.Drawing.Point(0, 185);
+            this.vForcesPane.Location = new System.Drawing.Point(0, 60);
             this.vForcesPane.Name = "vForcesPane";
             this.vForcesPane.Size = new System.Drawing.Size(293, 30);
             this.vForcesPane.TabIndex = 2;
@@ -579,7 +622,7 @@ namespace DecisionArchitect.View.DetailView
             this.dgvForces.RowHeadersVisible = false;
             this.dgvForces.Size = new System.Drawing.Size(291, 0);
             this.dgvForces.TabIndex = 19;
-            this.dgvForces.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.CellFormatting);
+            this.dgvForces.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.ColoringAndNestingBinding);
             // 
             // clmForcesName
             // 
@@ -615,7 +658,7 @@ namespace DecisionArchitect.View.DetailView
             this.vTracesPane.ItemPanel.Name = "ItemPanel";
             this.vTracesPane.ItemPanel.Size = new System.Drawing.Size(291, 0);
             this.vTracesPane.ItemPanel.TabIndex = 1;
-            this.vTracesPane.Location = new System.Drawing.Point(0, 215);
+            this.vTracesPane.Location = new System.Drawing.Point(0, 90);
             this.vTracesPane.Name = "vTracesPane";
             this.vTracesPane.Size = new System.Drawing.Size(293, 30);
             this.vTracesPane.TabIndex = 3;
@@ -662,7 +705,7 @@ namespace DecisionArchitect.View.DetailView
             this.vStakeholderPane.ItemPanel.Name = "ItemPanel";
             this.vStakeholderPane.ItemPanel.Size = new System.Drawing.Size(291, 0);
             this.vStakeholderPane.ItemPanel.TabIndex = 1;
-            this.vStakeholderPane.Location = new System.Drawing.Point(0, 245);
+            this.vStakeholderPane.Location = new System.Drawing.Point(0, 120);
             this.vStakeholderPane.Name = "vStakeholderPane";
             this.vStakeholderPane.Size = new System.Drawing.Size(293, 30);
             this.vStakeholderPane.TabIndex = 4;
@@ -692,7 +735,7 @@ namespace DecisionArchitect.View.DetailView
             this.dgvStakeholder.Size = new System.Drawing.Size(291, 0);
             this.dgvStakeholder.TabIndex = 19;
             this.dgvStakeholder.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CellContentDoubleClick);
-            this.dgvStakeholder.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.CellFormatting);
+            this.dgvStakeholder.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.ColoringAndNestingBinding);
             // 
             // Stakeholder
             // 
@@ -730,11 +773,11 @@ namespace DecisionArchitect.View.DetailView
             this.vHistoryPane.ItemPanel.Controls.Add(this.dgvHistory);
             this.vHistoryPane.ItemPanel.Location = new System.Drawing.Point(1, 30);
             this.vHistoryPane.ItemPanel.Name = "ItemPanel";
-            this.vHistoryPane.ItemPanel.Size = new System.Drawing.Size(291, 0);
+            this.vHistoryPane.ItemPanel.Size = new System.Drawing.Size(291, 124);
             this.vHistoryPane.ItemPanel.TabIndex = 1;
-            this.vHistoryPane.Location = new System.Drawing.Point(0, 275);
+            this.vHistoryPane.Location = new System.Drawing.Point(0, 150);
             this.vHistoryPane.Name = "vHistoryPane";
-            this.vHistoryPane.Size = new System.Drawing.Size(293, 30);
+            this.vHistoryPane.Size = new System.Drawing.Size(293, 155);
             this.vHistoryPane.TabIndex = 5;
             this.vHistoryPane.Text = "History";
             this.vHistoryPane.TooltipText = "History";
@@ -758,10 +801,12 @@ namespace DecisionArchitect.View.DetailView
             this.dgvHistory.Name = "dgvHistory";
             this.dgvHistory.RowHeadersVisible = false;
             this.dgvHistory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvHistory.Size = new System.Drawing.Size(291, 0);
+            this.dgvHistory.Size = new System.Drawing.Size(291, 124);
             this.dgvHistory.TabIndex = 0;
             this.dgvHistory.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgvHistory_CellBeginEdit);
             this.dgvHistory.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvHistory_CellEndEdit);
+            this.dgvHistory.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.ColoringAndNestingBinding);
+            this.dgvHistory.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.HistoryMouseClick);
             // 
             // clmHistoryState
             // 
@@ -843,49 +888,6 @@ namespace DecisionArchitect.View.DetailView
             // iStakeholderBindingSource
             // 
             this.iStakeholderBindingSource.DataSource = typeof(DecisionArchitect.Model.New.IStakeholder);
-            // 
-            // clmAlternativeName
-            // 
-            this.clmAlternativeName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.clmAlternativeName.DataPropertyName = "RelatedDecision.Name";
-            this.clmAlternativeName.FillWeight = 149.2733F;
-            this.clmAlternativeName.HeaderText = "Decision";
-            this.clmAlternativeName.Name = "clmAlternativeName";
-            this.clmAlternativeName.ReadOnly = true;
-            this.clmAlternativeName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.clmAlternativeName.ToolTipText = "Dubble click to open the selected Decision";
-            // 
-            // clmAlternativeState
-            // 
-            this.clmAlternativeState.DataPropertyName = "RelatedDecision.State";
-            this.clmAlternativeState.FillWeight = 89.28613F;
-            this.clmAlternativeState.HeaderText = "State";
-            this.clmAlternativeState.Name = "clmAlternativeState";
-            this.clmAlternativeState.ReadOnly = true;
-            this.clmAlternativeState.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // clmRelatedTo
-            // 
-            this.clmRelatedTo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.clmRelatedTo.DataPropertyName = "RelatedDecision.Name";
-            this.clmRelatedTo.HeaderText = "Decision";
-            this.clmRelatedTo.Name = "clmRelatedTo";
-            this.clmRelatedTo.ReadOnly = true;
-            // 
-            // clmRelatedDecisionsState
-            // 
-            this.clmRelatedDecisionsState.DataPropertyName = "RelatedDecision.State";
-            this.clmRelatedDecisionsState.HeaderText = "State";
-            this.clmRelatedDecisionsState.Name = "clmRelatedDecisionsState";
-            this.clmRelatedDecisionsState.ReadOnly = true;
-            // 
-            // clmRelation
-            // 
-            this.clmRelation.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.clmRelation.DataPropertyName = "DirectedType";
-            this.clmRelation.HeaderText = "Relation";
-            this.clmRelation.Name = "clmRelation";
-            this.clmRelation.ReadOnly = true;
             // 
             // DetailViewController
             // 
@@ -999,10 +1001,10 @@ namespace DecisionArchitect.View.DetailView
         private DataGridViewTextBoxColumn clmForcesName;
         private DataGridViewTextBoxColumn clmForceConcern;
         private DataGridViewTextBoxColumn clmForceRating;
-        private DataGridViewTextBoxColumn clmAlternativeName;
-        private DataGridViewTextBoxColumn clmAlternativeState;
         private DataGridViewTextBoxColumn clmRelatedTo;
         private DataGridViewTextBoxColumn clmRelatedDecisionsState;
         private DataGridViewTextBoxColumn clmRelation;
+        private DataGridViewTextBoxColumn clmAlternativeName;
+        private DataGridViewTextBoxColumn clmAlternativeState;
     }
 }

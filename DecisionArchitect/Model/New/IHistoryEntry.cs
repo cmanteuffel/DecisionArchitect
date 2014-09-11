@@ -57,6 +57,8 @@ namespace DecisionArchitect.Model.New
         }
 
 
+        public bool Changed { get; private set; }
+
         public bool SaveChanges()
         {
             IEARepository repository = EAMain.Repository;

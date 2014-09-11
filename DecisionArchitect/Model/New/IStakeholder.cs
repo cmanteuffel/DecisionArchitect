@@ -35,6 +35,8 @@ namespace DecisionArchitect.Model.New
 
         public string GUID { get; private set; }
 
+        public bool Changed { get; private set; }
+
         public bool SaveChanges()
         {
             if (null == GUID && "".Equals(GUID)) throw new Exception();
