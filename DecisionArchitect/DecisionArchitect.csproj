@@ -91,7 +91,8 @@
     <Compile Include="Model\New\ITopic.cs" />
     <Compile Include="Model\New\ITraceLink.cs" />
     <Compile Include="Properties\CanBeNullAttribute.cs" />
-    <Compile Include="Utilities.cs" />
+    <Compile Include="Utilities\SortableBindingList.cs" />
+    <Compile Include="Utilities\Utils.cs" />
     <Compile Include="View\Forces\PopulateTreeView.cs" />
     <Compile Include="View\Forces\AddForce.cs">
       <SubType>Form</SubType>
@@ -117,7 +118,7 @@
     <Compile Include="View\Chronology\ChronologicalViewpointGenerator.cs" />
     <Compile Include="Logic\EventHandler\ChronologicalViewpointHandler.cs" />
     <Compile Include="Logic\EventHandler\ForcesHandler.cs" />
-    <Compile Include="Logic\EventHandler\DetailHandler.cs" />
+    <Compile Include="Logic\EventHandler\DetailViewHandler.cs" />
     <Compile Include="Logic\Menu\ChronologyMenu.cs" />
     <Compile Include="Logic\Menu\CreateTraceMenu.cs" />
     <Compile Include="Logic\Menu\ExportReportsCustomMessageBox.cs">
@@ -192,7 +193,7 @@
     <Compile Include="View\Chronology\GenerateChronologyView.Designer.cs">
       <DependentUpon>GenerateChronologyView.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\HSLColor.cs" />
+    <Compile Include="Utilities\HSLColor.cs" />
     <Compile Include="View\ICustomView.cs" />
     <Compile Include="View\RichTextBox\HyperLinkWindow.cs">
       <SubType>Form</SubType>

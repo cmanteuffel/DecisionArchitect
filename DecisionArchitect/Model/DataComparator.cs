@@ -12,6 +12,7 @@
 
 using System;
 using System.Globalization;
+using DecisionArchitect.Utilities;
 using EAFacade;
 using EAFacade.Model;
 
@@ -25,8 +26,8 @@ namespace DecisionArchitect.Model
             string xDateString = x.GetTaggedValueByName(EATaggedValueKeys.DecisionStateModifiedDate) ?? oldestDateString;
             string yDateString = y.GetTaggedValueByName(EATaggedValueKeys.DecisionStateModifiedDate) ?? oldestDateString;
 
-            DateTime xModified = Utilities.TryParseDateTime(xDateString, DateTime.MinValue);
-            DateTime yModified = Utilities.TryParseDateTime(yDateString, DateTime.MinValue);
+            DateTime xModified = Utils.TryParseDateTime(xDateString, DateTime.MinValue);
+            DateTime yModified = Utils.TryParseDateTime(yDateString, DateTime.MinValue);
             return DateTime.Compare(xModified, yModified);
         }
     }

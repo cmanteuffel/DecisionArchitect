@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
+using DecisionArchitect.Utilities;
 using EAFacade;
 using EAFacade.Model;
 
@@ -107,7 +108,7 @@ namespace DecisionArchitect.Model.New
         {
             State = serializedValue.Split(Separator)[0];
             string dateString = serializedValue.Split(Separator)[1];
-            Modified = Utilities.TryParseDateTime(dateString, DateTime.MinValue, Culture);
+            Modified = Utils.TryParseDateTime(dateString, DateTime.MinValue, Culture);
         }
 
         private bool IsHistoryTag(string name)

@@ -10,9 +10,7 @@
     Spyros Ioakeimidis (University of Groningen)
 */
 
-using System;
 using System.Globalization;
-using DecisionArchitect.Model.New;
 using EAFacade;
 using EAFacade.Model;
 

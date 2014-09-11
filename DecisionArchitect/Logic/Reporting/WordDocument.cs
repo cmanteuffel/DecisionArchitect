@@ -17,6 +17,7 @@ using System.IO;
 using System.Linq;
 using DecisionArchitect.Model;
 using DecisionArchitect.Model.New;
+using DecisionArchitect.Utilities;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Drawing.Wordprocessing;
@@ -148,7 +149,7 @@ namespace DecisionArchitect.Logic.Reporting
             imagePart.FeedData(fs);
 
             Image image = Image.FromFile(fs.Name);
-            AddImageToBody(_mainPart.GetIdOfPart(imagePart), Utilities.GetImageSize(image));
+            AddImageToBody(_mainPart.GetIdOfPart(imagePart), Utils.GetImageSize(image));
 
             //cleanup:
             fs.Close();

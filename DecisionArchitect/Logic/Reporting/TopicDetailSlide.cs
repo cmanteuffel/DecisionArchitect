@@ -11,6 +11,7 @@
 */
 
 using DecisionArchitect.Model;
+using DecisionArchitect.Utilities;
 using DocumentFormat.OpenXml.Packaging;
 using ITopic = DecisionArchitect.Model.New.ITopic;
 
@@ -34,7 +35,7 @@ namespace DecisionArchitect.Logic.Reporting
         {
             SetPlaceholder(NewSlidePart, TopicDataTags.Name, _topic.Name);
             SetPlaceholder(NewSlidePart, TopicDataTags.Description,
-                           Utilities.FormattedRtfToPlainText(_topic.Description));
+                           Utils.FormattedRtfToPlainText(_topic.Description));
         }
     }
 }

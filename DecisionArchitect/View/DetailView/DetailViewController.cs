@@ -12,11 +12,13 @@
 */
 
 using System;
-using System.Drawing;
+using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using DecisionArchitect.Logic.EventHandler;
 using DecisionArchitect.Model.New;
+using DecisionArchitect.Utilities;
 using EAFacade;
 using EAFacade.Model;
 
@@ -32,10 +34,18 @@ namespace DecisionArchitect.View.DetailView
         private const double SelectionLuminosityFactor = .65;
         private const double SelectionSaturationFactor = .55;
         private IDecision _decision;
+        private string _orginalDecisionName = "";
 
         public DetailViewController()
         {
             InitializeComponent();
+            this.Disposed += Cleanup;
+        }
+
+        private void Cleanup(object sender, EventArgs e)
+        {
+            UnbindAllComponents();
+            Decision = null;
         }
 
         public ITopic Topic { get; set; }
@@ -79,9 +89,13 @@ namespace DecisionArchitect.View.DetailView
                     {
                         DisableTopicGroupBox();
                     }
+
+                    _orginalDecisionName = Decision.Name;
                 }
             }
         }
+
+        
 
         private void UnbindAllComponents()
         {
@@ -117,13 +131,22 @@ namespace DecisionArchitect.View.DetailView
             if (Decision != null)
             {
                 //update history and other additional information.
-
                 if (Decision.HasTopic())
                 {
                     Decision.Topic.SaveChanges();
                 }
 
+                string newDecisionName = Decision.Name;
                 Decision.SaveChanges();
+                if (!_orginalDecisionName.Equals(newDecisionName))
+                {
+                    DialogResult result = MessageBox.Show(Messages.WarningReloadDetailView, Messages.WarningReloadDetailViewTitle,
+                                                          MessageBoxButtons.YesNo);
+                    if (result == DialogResult.Yes)
+                    {
+                        DetailViewHandler.Instance.ReloadDecisionDetailView(Decision);
+                    }
+                }
             }
         }
 
@@ -199,13 +222,13 @@ namespace DecisionArchitect.View.DetailView
             dgvHistory.AutoGenerateColumns = false;
             var source = new BindingSource(Decision.History, null);
             dgvHistory.DataSource = source;
+            dgvHistory.Sort(clmHistoryState, ListSortDirection.Descending);
         }
-
 
 
         private void dgvHistory_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
-            if ((dgvHistory.Focused) && (dgvHistory.CurrentCell.ColumnIndex == 3))
+            if ((dgvHistory.Focused) && (dgvHistory.CurrentCell.ColumnIndex == clmHistoryDate.Index))
             {
                 // Place the DateTimePicker in the current cell
                 dtpHistoryCell.Location =
@@ -242,7 +265,6 @@ namespace DecisionArchitect.View.DetailView
         }
 
 
-
         /// <summary>
         ///     Fix nested property binding in datagridviews
         /// </summary>
@@ -250,7 +272,7 @@ namespace DecisionArchitect.View.DetailView
         /// <param name="e"></param>
         private void ColoringAndNestingBinding(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            var grid = (DataGridView)sender;
+            var grid = (DataGridView) sender;
             DataGridViewRow row = grid.Rows[e.RowIndex];
             if ((row.DataBoundItem != null) &&
                 (grid.Columns[e.ColumnIndex].DataPropertyName.Contains(".")))
@@ -265,7 +287,7 @@ namespace DecisionArchitect.View.DetailView
             //coloring
             if (grid == dgvHistory)
             {
-                var historyEntry = (IHistoryEntry)row.DataBoundItem;
+                var historyEntry = (IHistoryEntry) row.DataBoundItem;
                 if (historyEntry != null)
                 {
                     ColorRowAccordingToState(row, historyEntry.State);
@@ -273,7 +295,7 @@ namespace DecisionArchitect.View.DetailView
             }
             else if (grid == dgvAlternativeDecisions || grid == dgvRelatedDecisions)
             {
-                var decisionRelation = (IDecisionRelation)row.DataBoundItem;
+                var decisionRelation = (IDecisionRelation) row.DataBoundItem;
                 if (decisionRelation != null)
                     ColorRowAccordingToState(row, decisionRelation.RelatedDecision.State);
             }
@@ -286,24 +308,24 @@ namespace DecisionArchitect.View.DetailView
         /// <param name="e"></param>
         private void CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            var grid = (DataGridView)sender;
+            var grid = (DataGridView) sender;
             string guid;
             DataGridViewRow row = grid.Rows[e.RowIndex];
 
             // ReSharper disable CanBeReplacedWithTryCastAndCheckForNull
             if (row.DataBoundItem is IStakeholderAction)
             {
-                var stakeholderAction = (IStakeholderAction)row.DataBoundItem;
+                var stakeholderAction = (IStakeholderAction) row.DataBoundItem;
                 guid = stakeholderAction.Stakeholder.GUID;
             }
             else if (row.DataBoundItem is ITraceLink)
             {
-                var link = (ITraceLink)row.DataBoundItem;
+                var link = (ITraceLink) row.DataBoundItem;
                 guid = link.TracedElementGUID;
             }
             else if (row.DataBoundItem is IDecisionRelation)
             {
-                var link = (IDecisionRelation)row.DataBoundItem;
+                var link = (IDecisionRelation) row.DataBoundItem;
                 guid = link.RelatedDecision.GUID;
             }
             else
@@ -343,12 +365,12 @@ namespace DecisionArchitect.View.DetailView
         private void ColorCellAccordingToState(DataGridViewCell cell, string state)
         {
             cell.Style.BackColor = DecisionStateColor.ConvertStateToColor(state);
-            HSLColor hsl = DecisionStateColor.ConvertStateToColor(state); 
+            HSLColor hsl = DecisionStateColor.ConvertStateToColor(state);
             hsl.Luminosity = (hsl.Luminosity*SelectionLuminosityFactor);
-            hsl.Saturation = (hsl.Saturation * SelectionSaturationFactor);
+            hsl.Saturation = (hsl.Saturation*SelectionSaturationFactor);
             cell.Style.SelectionBackColor = hsl;
         }
-       
+
         private void ColorRowAccordingToState(DataGridViewRow row, string state)
         {
             foreach (DataGridViewCell cell in row.Cells)
@@ -397,7 +419,7 @@ namespace DecisionArchitect.View.DetailView
         {
             if (e.Button == MouseButtons.Right && e.RowIndex >= 0)
             {
-                var historyEntry = (IHistoryEntry)dgvHistory.Rows[e.RowIndex].DataBoundItem;
+                var historyEntry = (IHistoryEntry) dgvHistory.Rows[e.RowIndex].DataBoundItem;
 
                 var menu = new ContextMenu();
 
@@ -409,6 +431,5 @@ namespace DecisionArchitect.View.DetailView
                 menu.Show(this, PointToClient(Cursor.Position));
             }
         }
-
     }
 }

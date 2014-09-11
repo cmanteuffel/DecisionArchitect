@@ -116,7 +116,8 @@ namespace DecisionArchitect {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This is only a copy of the orginal decision. No modifications will be stored in this element. Do you want to open the original version of the decision instead?.
+        ///   Looks up a localized string similar to This is only a copy of the orginal decision. No modifications will be stored in this element. 
+        ///Do you want to open the original version of the decision instead?.
         /// </summary>
         internal static string DialogOpenLatestDecision {
             get {
@@ -589,6 +590,25 @@ namespace DecisionArchitect {
         internal static string WarningCreateRelation {
             get {
                 return ResourceManager.GetString("WarningCreateRelation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It is recommended to reload the tab for the name change to take effect.
+        ///Do you want to reload the view now?.
+        /// </summary>
+        internal static string WarningReloadDetailView {
+            get {
+                return ResourceManager.GetString("WarningReloadDetailView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Decision Name changed.
+        /// </summary>
+        internal static string WarningReloadDetailViewTitle {
+            get {
+                return ResourceManager.GetString("WarningReloadDetailViewTitle", resourceCulture);
             }
         }
         

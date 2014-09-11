@@ -253,7 +253,8 @@
     <value>{0} Topic</value>
   </data>
   <data name="DialogOpenLatestDecision" xml:space="preserve">
-    <value>This is only a copy of the orginal decision. No modifications will be stored in this element. Do you want to open the original version of the decision instead?</value>
+    <value>This is only a copy of the orginal decision. No modifications will be stored in this element. 
+Do you want to open the original version of the decision instead?</value>
   </data>
   <data name="DialogOpenLatestDecisionTitle" xml:space="preserve">
     <value>Open latest version of the decision</value>
@@ -300,5 +301,12 @@
   </data>
   <data name="WarningRevertChangesTitle" xml:space="preserve">
     <value>Revert Changes</value>
+  </data>
+  <data name="WarningReloadDetailView" xml:space="preserve">
+    <value>It is recommended to reload the tab for the name change to take effect.
+Do you want to reload the view now?</value>
+  </data>
+  <data name="WarningReloadDetailViewTitle" xml:space="preserve">
+    <value>Decision Name changed</value>
   </data>
 </root>

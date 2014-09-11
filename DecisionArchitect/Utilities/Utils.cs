@@ -23,9 +23,9 @@ using System.Xml.Linq;
 using DecisionArchitect.View.RichTextBox;
 using EAFacade;
 
-namespace DecisionArchitect
+namespace DecisionArchitect.Utilities
 {
-    public static class Utilities
+    public static class Utils
     {
         public static string GetResourceContents(string resource)
         {

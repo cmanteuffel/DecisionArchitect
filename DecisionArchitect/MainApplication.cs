@@ -15,6 +15,7 @@ using DecisionArchitect.Logic;
 using DecisionArchitect.Logic.EventHandler;
 using DecisionArchitect.Logic.StakeholderInvolvement;
 using DecisionArchitect.Logic.Validation;
+using DecisionArchitect.Utilities;
 using EA;
 using EAFacade;
 using EAFacade.Events;
@@ -29,7 +30,7 @@ namespace DecisionArchitect
         public MainApplication()
         {
             _listeners.Add(new DecisionStateChangeEventHandler());
-            _listeners.Add(DetailHandler.Instance);
+            _listeners.Add(DetailViewHandler.Instance);
             _listeners.Add(new ValidationHandler());
             _listeners.Add(new ChronologicalViewpointHandler());
             _listeners.Add(new ForcesHandler());
@@ -40,14 +41,14 @@ namespace DecisionArchitect
         {
             EAMain.UpdateRepository(repository);
             const string resource = "DecisionArchitect." + "DecisionArchitectMDG.xml";
-            return Utilities.GetResourceContents(resource);
+            return Utils.GetResourceContents(resource);
         }
 
         public override string EA_OnRetrieveModelTemplate(Repository repository, string location)
         {
             EAMain.UpdateRepository(repository);
             string resource = "DecisionArchitect.Templates." + location;
-            return Utilities.GetResourceContents(resource);
+            return Utils.GetResourceContents(resource);
         }
     }
 }

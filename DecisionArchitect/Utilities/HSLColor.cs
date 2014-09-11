@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-namespace DecisionArchitect.View
+namespace DecisionArchitect.Utilities
 {
     public class HSLColor
     {

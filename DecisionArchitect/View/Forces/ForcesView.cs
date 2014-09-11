@@ -22,6 +22,7 @@ using System.Windows.Forms;
 using DecisionArchitect.Logic.EventHandler;
 using DecisionArchitect.Logic.Forces;
 using DecisionArchitect.Model;
+using DecisionArchitect.Utilities;
 using DecisionArchitect.View.Controller;
 using EAFacade;
 using EAFacade.Model;
@@ -737,7 +738,7 @@ namespace DecisionArchitect.View.Forces
 
         private void OpenInDetailView(IDecision decision)
         {
-            DetailHandler.Instance.OpenDecisionDetailView(decision);
+            DetailViewHandler.Instance.OpenDecisionDetailView(decision);
         }
 
         private void _btnConfigure_Click(object sender, EventArgs e)

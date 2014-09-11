@@ -6,6 +6,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using DecisionArchitect.Utilities;
 using EAFacade;
 using EAFacade.Model;
 
@@ -29,13 +30,12 @@ namespace DecisionArchitect.Model.New
 
         private Decision()
         {
-            History = new BindingList<IHistoryEntry>();
+            History = new SortableBindingList<IHistoryEntry>();
             Alternatives = new BindingList<IDecisionRelation>();
             RelatedDecisions = new BindingList<IDecisionRelation>();
             Traces = new BindingList<ITraceLink>();
             Stakeholders = new BindingList<IStakeholderAction>();
             Forces = new BindingList<IForceEvaluation>();
-            Changed = false;
         }
 
         public string GUID { get; private set; }
@@ -116,7 +116,7 @@ namespace DecisionArchitect.Model.New
                                           Modified.ToString(CultureInfo.InvariantCulture));
             }
             element.UpdateTaggedValue(EATaggedValueKeys.DecisionState, State);
-            
+
             element.StereotypeList = State;
             element.Modified = Modified;
             element.Author = Author;
@@ -142,8 +142,14 @@ namespace DecisionArchitect.Model.New
 
         private void UpdateListChangeFlag(object sender, ListChangedEventArgs listChangedEventArgs)
         {
-            if (listChangedEventArgs.ListChangedType==ListChangedType.ItemMoved) return;
-            Changed = true;
+            switch (listChangedEventArgs.ListChangedType)
+            {
+                case ListChangedType.ItemAdded:
+                case ListChangedType.ItemChanged:
+                case ListChangedType.ItemDeleted:
+                    Changed = true;
+                    break;
+            }
         }
 
 

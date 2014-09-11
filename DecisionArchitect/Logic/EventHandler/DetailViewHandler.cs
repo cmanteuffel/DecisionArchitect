@@ -13,6 +13,8 @@
 */
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using DecisionArchitect.Logic.Detail;
 using DecisionArchitect.Model.New;
@@ -29,13 +31,14 @@ using EAFacade.Model;
 
 namespace DecisionArchitect.Logic.EventHandler
 {
-    public class DetailHandler : RepositoryAdapter
+    public class DetailViewHandler : RepositoryAdapter
     {
-        private static DetailHandler _instance;
+        private static DetailViewHandler _instance;
+        public IDictionary<string, string> _tabMap = new Dictionary<string, string>();
 
-        public static DetailHandler Instance
+        public static DetailViewHandler Instance
         {
-            get { return _instance ?? (_instance = new DetailHandler()); }
+            get { return _instance ?? (_instance = new DetailViewHandler()); }
         }
 
         /********************************************************************************************
@@ -67,14 +70,14 @@ namespace DecisionArchitect.Logic.EventHandler
             {
                 return false;
             }
+
             // Check if the tab is already open.
-
-
             if (EAMain.IsDecision(element))
             {
                 OpenDecisionDetailView(Decision.Load(element));
                 return true;
             }
+
             if (EAMain.IsTopic(element))
             {
                 if (IsOpenTab(element))
@@ -220,23 +223,77 @@ namespace DecisionArchitect.Logic.EventHandler
         //        InitializeNewOpenedTab(originalElement.GUID, detailView, decision);
         //    }
         //}
+
+        public void CloseDecisionDetailView(IDecision decision)
+        {
+            if (!_tabMap.ContainsKey(decision.GUID)) return;
+
+            string tabName = _tabMap[decision.GUID];
+            IEARepository repository = EAMain.Repository;
+            if (repository.IsTabOpen(tabName) > 0)
+            {
+                repository.RemoveTab(tabName);
+                _tabMap.Remove(decision.GUID);
+            }
+        }
+
+        public void ReloadDecisionDetailView(IDecision decision)
+        {
+            IEAElement refreshedDecision = EAMain.Repository.GetElementByGUID(decision.GUID);
+            CloseDecisionDetailView(decision);
+            OpenDecisionDetailView(Decision.Load(refreshedDecision));
+        }
+
         public void OpenDecisionDetailView(IDecision decision)
         {
-            IEARepository _repository = EAMain.Repository;
-            IEAElement _element = _repository.GetElementByGUID(decision.GUID);
             IEARepository repository = EAMain.Repository;
-            if (repository.IsTabOpen(decision.Name) > 0)
+
+            //do some cleanup (find the closed tabs)
+            foreach (string key in _tabMap.Keys.ToArray())
             {
-                EAMain.Repository.ActivateTab(decision.Name);
-                SynchronizationManager.Instance.Update(_element.GUID);
+                if (repository.IsTabOpen(_tabMap[key]) == 0)
+                {
+                    _tabMap.Remove(key);
+                }
+            }
+
+            //tab is unknown, so far so good
+            if (!_tabMap.ContainsKey(decision.GUID))
+            {
+                _tabMap.Add(decision.GUID, FindUniqueTabName(decision));
+            }
+
+            string tabName = _tabMap[decision.GUID];
+            if (repository.IsTabOpen(tabName) > 0)
+            {
+                EAMain.Repository.ActivateTab(tabName);
             }
             else
             {
-                IDetailViewController detailViewController = _repository.AddTab(decision.Name,
-                                                                                "DecisionViewpoints.DetailViewController");
+                //possibility to update name, if it is a temporary one.
+                if (!tabName.Equals(decision.Name))
+                {
+                    tabName = FindUniqueTabName(decision);
+                    _tabMap[decision.GUID] = tabName;
+                }
+                IDetailViewController detailViewController = repository.AddTab(tabName,
+                                                                               "DecisionViewpoints.DetailViewController");
                 detailViewController.Decision = decision;
-                SynchronizationManager.Instance.Subscribe(_element.GUID, detailViewController, decision.Name);
             }
         }
+
+        private string FindUniqueTabName(IDecision decision)
+        {
+            //check if another decision occupies same name.
+            string tabName = decision.Name;
+            if (_tabMap.Values.Contains(decision.Name))
+            {
+                //need to find another unique name
+                tabName = decision.Name + " (ID:" + decision.ID + ")";
+            }
+            return tabName;
+        }
+
+      
     }
 }

@@ -93,10 +93,6 @@ namespace DecisionArchitect.View.DetailView
             this.iStakeholderActionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.vHistoryPane = new VIBlend.WinForms.Controls.vNavPaneItem();
             this.dgvHistory = new System.Windows.Forms.DataGridView();
-            this.clmHistoryState = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.modifiedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.taggedValueGUIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmHistoryDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.iHistoryEntryBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSave = new System.Windows.Forms.Button();
@@ -104,6 +100,8 @@ namespace DecisionArchitect.View.DetailView
             this.Content = new VIBlend.WinForms.Controls.vContentPanel();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.iStakeholderBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.clmHistoryState = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.clmHistoryDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.spltDetailView)).BeginInit();
             this.spltDetailView.Panel1.SuspendLayout();
             this.spltDetailView.Panel2.SuspendLayout();
@@ -784,15 +782,12 @@ namespace DecisionArchitect.View.DetailView
             // 
             // dgvHistory
             // 
-            this.dgvHistory.AllowUserToOrderColumns = true;
             this.dgvHistory.AllowUserToResizeRows = false;
             this.dgvHistory.AutoGenerateColumns = false;
             this.dgvHistory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvHistory.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clmHistoryState,
-            this.modifiedDataGridViewTextBoxColumn,
-            this.taggedValueGUIDDataGridViewTextBoxColumn,
             this.clmHistoryDate});
             this.dgvHistory.DataSource = this.iHistoryEntryBindingSource;
             this.dgvHistory.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -807,38 +802,6 @@ namespace DecisionArchitect.View.DetailView
             this.dgvHistory.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvHistory_CellEndEdit);
             this.dgvHistory.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.ColoringAndNestingBinding);
             this.dgvHistory.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.HistoryMouseClick);
-            // 
-            // clmHistoryState
-            // 
-            this.clmHistoryState.DataPropertyName = "State";
-            this.clmHistoryState.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.clmHistoryState.HeaderText = "State";
-            this.clmHistoryState.Name = "clmHistoryState";
-            this.clmHistoryState.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.clmHistoryState.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // modifiedDataGridViewTextBoxColumn
-            // 
-            this.modifiedDataGridViewTextBoxColumn.DataPropertyName = "Modified";
-            this.modifiedDataGridViewTextBoxColumn.HeaderText = "Modified";
-            this.modifiedDataGridViewTextBoxColumn.Name = "modifiedDataGridViewTextBoxColumn";
-            this.modifiedDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // taggedValueGUIDDataGridViewTextBoxColumn
-            // 
-            this.taggedValueGUIDDataGridViewTextBoxColumn.DataPropertyName = "TaggedValueGUID";
-            this.taggedValueGUIDDataGridViewTextBoxColumn.HeaderText = "TaggedValueGUID";
-            this.taggedValueGUIDDataGridViewTextBoxColumn.Name = "taggedValueGUIDDataGridViewTextBoxColumn";
-            this.taggedValueGUIDDataGridViewTextBoxColumn.ReadOnly = true;
-            this.taggedValueGUIDDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // clmHistoryDate
-            // 
-            this.clmHistoryDate.DataPropertyName = "Modified";
-            this.clmHistoryDate.HeaderText = "Date";
-            this.clmHistoryDate.Name = "clmHistoryDate";
-            this.clmHistoryDate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.clmHistoryDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // iHistoryEntryBindingSource
             // 
@@ -888,6 +851,22 @@ namespace DecisionArchitect.View.DetailView
             // iStakeholderBindingSource
             // 
             this.iStakeholderBindingSource.DataSource = typeof(DecisionArchitect.Model.New.IStakeholder);
+            // 
+            // clmHistoryState
+            // 
+            this.clmHistoryState.DataPropertyName = "State";
+            this.clmHistoryState.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.clmHistoryState.HeaderText = "State";
+            this.clmHistoryState.Name = "clmHistoryState";
+            this.clmHistoryState.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.clmHistoryState.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // clmHistoryDate
+            // 
+            this.clmHistoryDate.DataPropertyName = "Modified";
+            this.clmHistoryDate.HeaderText = "Date";
+            this.clmHistoryDate.Name = "clmHistoryDate";
+            this.clmHistoryDate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // DetailViewController
             // 
@@ -987,10 +966,6 @@ namespace DecisionArchitect.View.DetailView
         private TableLayoutPanel tableLayoutPanel1;
         private Panel panel1;
         private BindingSource iHistoryEntryBindingSource;
-        private DataGridViewComboBoxColumn clmHistoryState;
-        private DataGridViewTextBoxColumn modifiedDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn taggedValueGUIDDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn clmHistoryDate;
         private BindingSource iStakeholderActionBindingSource;
         private BindingSource iStakeholderBindingSource;
         private DataGridViewTextBoxColumn clmStakeholderName;
@@ -1006,5 +981,7 @@ namespace DecisionArchitect.View.DetailView
         private DataGridViewTextBoxColumn clmRelation;
         private DataGridViewTextBoxColumn clmAlternativeName;
         private DataGridViewTextBoxColumn clmAlternativeState;
+        private DataGridViewComboBoxColumn clmHistoryState;
+        private DataGridViewTextBoxColumn clmHistoryDate;
     }
 }
