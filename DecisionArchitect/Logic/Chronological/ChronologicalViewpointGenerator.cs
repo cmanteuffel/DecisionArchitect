@@ -16,10 +16,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using DecisionArchitect.Model;
-using DecisionArchitect.Model.New;
 using EAFacade;
 using EAFacade.Model;
-using Decision = DecisionArchitect.Model.New.Decision;
+using Decision = DecisionArchitect.Model.Decision;
 
 namespace DecisionArchitect.Logic.Chronological
 {

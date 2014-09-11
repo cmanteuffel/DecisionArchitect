@@ -77,45 +77,44 @@
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
     <Compile Include="Model\DataComparator.cs" />
-    <Compile Include="Model\New\Decision.cs" />
-    <Compile Include="Model\New\Entity.cs" />
-    <Compile Include="Model\New\IConcern.cs" />
-    <Compile Include="Model\New\IDecision.cs" />
-    <Compile Include="Model\New\IDecisionRelation.cs" />
-    <Compile Include="Model\New\IForce.cs" />
-    <Compile Include="Model\New\IForceEvaluation.cs" />
-    <Compile Include="Model\New\IHistoryEntry.cs" />
-    <Compile Include="Model\New\IPersistableModel.cs" />
-    <Compile Include="Model\New\IStakeholder.cs" />
-    <Compile Include="Model\New\IStakeholderAction.cs" />
-    <Compile Include="Model\New\ITopic.cs" />
-    <Compile Include="Model\New\ITraceLink.cs" />
+    <Compile Include="Model\Decision.cs" />
+    <Compile Include="Model\Entity.cs" />
+    <Compile Include="Model\IConcern.cs" />
+    <Compile Include="Model\IDecision.cs" />
+    <Compile Include="Model\IDecisionRelation.cs" />
+    <Compile Include="Model\IForce.cs" />
+    <Compile Include="Model\IForceEvaluation.cs" />
+    <Compile Include="Model\IHistoryEntry.cs" />
+    <Compile Include="Model\IPersistableModel.cs" />
+    <Compile Include="Model\IStakeholder.cs" />
+    <Compile Include="Model\IStakeholderAction.cs" />
+    <Compile Include="Model\ITopic.cs" />
+    <Compile Include="Model\ITraceLink.cs" />
     <Compile Include="Properties\CanBeNullAttribute.cs" />
     <Compile Include="Utilities\SortableBindingList.cs" />
     <Compile Include="Utilities\Utils.cs" />
     <Compile Include="View\Forces\PopulateTreeView.cs" />
-    <Compile Include="View\Forces\AddForce.cs">
+    <Compile Include="View\Dialogs\AddForce.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Forces\AddForce.Designer.cs">
+    <Compile Include="View\Dialogs\AddForce.Designer.cs">
       <DependentUpon>AddForce.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\Controller\ForcesController.cs" />
-    <Compile Include="View\Controller\ICustomViewController.cs" />
-    <Compile Include="View\Controller\IForcesController.cs" />
-    <Compile Include="View\CreateDecision.cs">
+    <Compile Include="View\Forces\ForcesController.cs" />
+    <Compile Include="View\Forces\IForcesController.cs" />
+    <Compile Include="View\Dialogs\CreateDecision.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\CreateDecision.Designer.cs">
+    <Compile Include="View\Dialogs\CreateDecision.Designer.cs">
       <DependentUpon>CreateDecision.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\CreateTopic.cs">
+    <Compile Include="View\Dialogs\CreateTopic.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\CreateTopic.Designer.cs">
+    <Compile Include="View\Dialogs\CreateTopic.Designer.cs">
       <DependentUpon>CreateTopic.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\Chronology\ChronologicalViewpointGenerator.cs" />
+    <Compile Include="Logic\Chronological\ChronologicalViewpointGenerator.cs" />
     <Compile Include="Logic\EventHandler\ChronologicalViewpointHandler.cs" />
     <Compile Include="Logic\EventHandler\ForcesHandler.cs" />
     <Compile Include="Logic\EventHandler\DetailViewHandler.cs" />
@@ -176,60 +175,57 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="View\DetailView\DetailViewController.cs">
+    <Compile Include="View\DetailView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="View\DetailView\DetailViewController.Designer.cs">
-      <DependentUpon>DetailViewController.cs</DependentUpon>
+    <Compile Include="View\DetailView.Designer.cs">
+      <DependentUpon>DetailView.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\DetailView\IDetailViewController.cs" />
     <Compile Include="View\Forces\ForcesTableContext.cs" />
     <Compile Include="View\Forces\ForcesView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="View\Chronology\GenerateChronologyView.cs">
+    <Compile Include="View\Dialogs\GenerateChronologyView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Chronology\GenerateChronologyView.Designer.cs">
+    <Compile Include="View\Dialogs\GenerateChronologyView.Designer.cs">
       <DependentUpon>GenerateChronologyView.cs</DependentUpon>
     </Compile>
     <Compile Include="Utilities\HSLColor.cs" />
     <Compile Include="View\ICustomView.cs" />
-    <Compile Include="View\RichTextBox\HyperLinkWindow.cs">
+    <Compile Include="View\Components\RichTextBox\HyperLinkWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\RichTextBox\HyperLinkWindow.Designer.cs">
+    <Compile Include="View\Components\RichTextBox\HyperLinkWindow.Designer.cs">
       <DependentUpon>HyperLinkWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\RichTextBox\RichTextBoxEx.cs">
+    <Compile Include="View\Components\RichTextBox\RichTextBoxEx.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="View\RichTextBox\CustomRichTextBox.cs">
+    <Compile Include="View\Components\RichTextBox\CustomRichTextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="View\RichTextBox\CustomRichTextBox.Designer.cs">
+    <Compile Include="View\Components\RichTextBox\CustomRichTextBox.Designer.cs">
       <DependentUpon>CustomRichTextBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\IDetailView.cs" />
     <Compile Include="View\Forces\IForcesView.cs" />
-    <Compile Include="View\Forces\AddDecision.cs">
+    <Compile Include="View\Dialogs\AddDecision.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\TopicView\ITopicViewController.cs" />
-    <Compile Include="View\SelectDiagram.cs">
+    <Compile Include="View\Dialogs\SelectDiagram.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\SelectDiagram.Designer.cs">
+    <Compile Include="View\Dialogs\SelectDiagram.Designer.cs">
       <DependentUpon>SelectDiagram.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\ToolStripFontComboBox.cs">
+    <Compile Include="View\Components\RichTextBox\ToolStripFontComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="View\TopicView\TopicViewController.cs">
+    <Compile Include="View\TopicView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="View\TopicView\TopicViewController.Designer.cs">
-      <DependentUpon>TopicViewController.cs</DependentUpon>
+    <Compile Include="View\TopicView.Designer.cs">
+      <DependentUpon>TopicView.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -238,32 +234,32 @@
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\DetailView\DetailViewController.resx">
-      <DependentUpon>DetailViewController.cs</DependentUpon>
+    <EmbeddedResource Include="View\DetailView.resx">
+      <DependentUpon>DetailView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\Forces\AddForce.resx">
+    <EmbeddedResource Include="View\Dialogs\AddForce.resx">
       <DependentUpon>AddForce.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Forces\ForcesView.resx">
       <DependentUpon>ForcesView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\Forces\AddDecision.resx">
+    <EmbeddedResource Include="View\Dialogs\AddDecision.resx">
       <DependentUpon>AddDecision.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\Chronology\GenerateChronologyView.resx">
+    <EmbeddedResource Include="View\Dialogs\GenerateChronologyView.resx">
       <DependentUpon>GenerateChronologyView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\RichTextBox\HyperLinkWindow.resx">
+    <EmbeddedResource Include="View\Components\RichTextBox\HyperLinkWindow.resx">
       <DependentUpon>HyperLinkWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\RichTextBox\CustomRichTextBox.resx">
+    <EmbeddedResource Include="View\Components\RichTextBox\CustomRichTextBox.resx">
       <DependentUpon>CustomRichTextBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\SelectDiagram.resx">
+    <EmbeddedResource Include="View\Dialogs\SelectDiagram.resx">
       <DependentUpon>SelectDiagram.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\TopicView\TopicViewController.resx">
-      <DependentUpon>TopicViewController.cs</DependentUpon>
+    <EmbeddedResource Include="View\TopicView.resx">
+      <DependentUpon>TopicView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\DataSources\DecisionArchitect.Model.New.IHistoryEntry.datasource" />
@@ -274,7 +270,7 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Settings2.Designer.cs</LastGenOutput>
     </None>
-    <EmbeddedResource Include="View\CreateTopic.resx">
+    <EmbeddedResource Include="View\Dialogs\CreateTopic.resx">
       <DependentUpon>CreateTopic.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Logic\Menu\ExportReportsCustomMessageBox.resx">
@@ -288,13 +284,15 @@
     <None Include="Templates\RUG_SATemplate.eap" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="View\CreateDecision.resx">
+    <EmbeddedResource Include="View\Dialogs\CreateDecision.resx">
       <DependentUpon>CreateDecision.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Logic\Chronological\" />
     <Folder Include="Logic\Relationship\" />
+    <Folder Include="View\Chronology\" />
+    <Folder Include="View\Controller\" />
+    <Folder Include="View\DetailView\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Templates\DefaultDecisionViewTemplate.xml">

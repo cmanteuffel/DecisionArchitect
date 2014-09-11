@@ -16,11 +16,10 @@ using System.Linq;
 using System.Windows.Forms;
 using DecisionArchitect.Logic.Reporting;
 using DecisionArchitect.Model;
-using DecisionArchitect.Model.New;
 using EAFacade;
 using EAFacade.Model;
-using ITopic = DecisionArchitect.Model.New.ITopic;
-using Topic = DecisionArchitect.Model.New.Topic;
+using ITopic = DecisionArchitect.Model.ITopic;
+using Topic = DecisionArchitect.Model.Topic;
 
 namespace DecisionArchitect.Logic.Menu
 {

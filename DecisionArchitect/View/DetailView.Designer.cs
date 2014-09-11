@@ -12,6 +12,7 @@
 */
 
 using System.Windows.Forms;
+using DecisionArchitect.Model;
 using DecisionArchitect.View.RichTextBox;
 
 namespace DecisionArchitect.View.DetailView
@@ -758,7 +759,7 @@ namespace DecisionArchitect.View.DetailView
             // 
             // iStakeholderActionBindingSource
             // 
-            this.iStakeholderActionBindingSource.DataSource = typeof(DecisionArchitect.Model.New.IStakeholderAction);
+            this.iStakeholderActionBindingSource.DataSource = typeof(IStakeholderAction);
             // 
             // vHistoryPane
             // 
@@ -805,7 +806,7 @@ namespace DecisionArchitect.View.DetailView
             // 
             // iHistoryEntryBindingSource
             // 
-            this.iHistoryEntryBindingSource.DataSource = typeof(DecisionArchitect.Model.New.IHistoryEntry);
+            this.iHistoryEntryBindingSource.DataSource = typeof(IHistoryEntry);
             // 
             // panel1
             // 
@@ -850,7 +851,7 @@ namespace DecisionArchitect.View.DetailView
             // 
             // iStakeholderBindingSource
             // 
-            this.iStakeholderBindingSource.DataSource = typeof(DecisionArchitect.Model.New.IStakeholder);
+            this.iStakeholderBindingSource.DataSource = typeof(IStakeholder);
             // 
             // clmHistoryState
             // 
