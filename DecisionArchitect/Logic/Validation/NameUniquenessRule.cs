@@ -25,7 +25,7 @@ namespace DecisionArchitect.Logic.Validation
 
         public override bool ValidateElement(IEAElement element)
         {
-            var repository = EAFacade.EA.Repository;
+            IEARepository repository = EAMain.Repository;
             return !(from IEAElement e in repository.GetAllElements()
                      where EAConstants.States.Contains(e.Stereotype)
                      where (!e.GUID.Equals(element.GUID))

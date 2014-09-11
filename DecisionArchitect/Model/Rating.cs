@@ -13,9 +13,12 @@
 
 using System;
 using System.Windows.Forms;
+using EAFacade;
+using EAFacade.Model;
 
 namespace DecisionArchitect.Model
 {
+    
     public class Rating
     {
         private string _value;
@@ -31,10 +34,10 @@ namespace DecisionArchitect.Model
             {
                 _value = value;
                 if (_value.Length <= 255) return;
-                var repository = EAFacade.EA.Repository;
-                var decision = repository.GetElementByGUID(DecisionGUID);
-                var force = repository.GetElementByGUID(ForceGUID);
-                var concern = repository.GetElementByGUID(ConcernGUID);
+                IEARepository repository = EAMain.Repository;
+                IEAElement decision = repository.GetElementByGUID(DecisionGUID);
+                IEAElement force = repository.GetElementByGUID(ForceGUID);
+                IEAElement concern = repository.GetElementByGUID(ConcernGUID);
                 MessageBox.Show(
                     String.Format(
                         "The length of rating '{0}' that belongs to decision '{1}' and force '{2}' classified by '{3}' is too large. It must be less than 256 characters.",
@@ -44,7 +47,6 @@ namespace DecisionArchitect.Model
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <returns></returns>
         public static string ConstructForcesTaggedValue(string forceGUID, string concernGUID)
@@ -53,8 +55,8 @@ namespace DecisionArchitect.Model
         }
 
         /// <summary>
-        /// Returns just the GUID from the force GUID tagged value.
-        /// The format of the force GUID tagged value is r:{GUID}.
+        ///     Returns just the GUID from the force GUID tagged value.
+        ///     The format of the force GUID tagged value is r:{GUID}.
         /// </summary>
         /// <param name="value">The taggged value name.</param>
         /// <returns></returns>
@@ -70,7 +72,7 @@ namespace DecisionArchitect.Model
         }
 
         /// <summary>
-        /// Checks if the tagged value of the 
+        ///     Checks if the tagged value of the
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>

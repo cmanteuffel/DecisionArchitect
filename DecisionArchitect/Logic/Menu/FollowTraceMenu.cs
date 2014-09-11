@@ -15,14 +15,14 @@ using System.Linq;
 using System.Windows.Forms;
 using DecisionArchitect.Model.Menu;
 using DecisionArchitect.View;
+using EAFacade;
 using EAFacade.Model;
 using MenuItem = DecisionArchitect.Model.Menu.MenuItem;
 
 namespace DecisionArchitect.Logic.Menu
 {
-    class FollowTraceMenu : Model.Menu.Menu
+    internal class FollowTraceMenu : Model.Menu.Menu
     {
-
         public FollowTraceMenu()
             : base(Messages.MenuFollowTraceDefault)
         {
@@ -31,7 +31,7 @@ namespace DecisionArchitect.Logic.Menu
 
         private void OnNoTracesDefined(IMenu self)
         {
-            var repository = EAFacade.EA.Repository;
+            IEARepository repository = EAMain.Repository;
             if (repository.GetContextItemType() == EANativeType.Element)
             {
                 var element = repository.GetContextObject<IEAElement>();
@@ -47,14 +47,13 @@ namespace DecisionArchitect.Logic.Menu
                     IsEnabled = true;
                 }
             }
-
         }
 
         public override string[] GetSubItems()
         {
             Clear();
-            
-            var repository = EAFacade.EA.Repository;
+
+            IEARepository repository = EAMain.Repository;
             if (repository.GetContextItemType() == EANativeType.Element)
             {
                 var element = repository.GetContextObject<IEAElement>();
@@ -63,15 +62,14 @@ namespace DecisionArchitect.Logic.Menu
                     var menuItemNames = new List<string>();
                     foreach (IEAElement tracedElement in element.GetTracedElements())
                     {
-
                         string name = tracedElement.GetProjectPath() + "/" + tracedElement.Name;
                         if (!"".Equals(tracedElement.Stereotype))
                         {
                             name += " �" + tracedElement.Stereotype + "�";
                         }
 
-                        var uniqueName = GetUniqueName(name, menuItemNames);
-                        var menuItem = CreateTraceMenuItem(uniqueName, tracedElement);
+                        string uniqueName = GetUniqueName(name, menuItemNames);
+                        MenuItem menuItem = CreateTraceMenuItem(uniqueName, tracedElement);
 
                         menuItemNames.Add(uniqueName);
                         Add(menuItem);
@@ -104,7 +102,7 @@ namespace DecisionArchitect.Logic.Menu
                     IEADiagram[] diagrams = tracedElement.GetDiagrams();
                     if (diagrams.Count() == 1)
                     {
-                        var diagram = diagrams[0];
+                        IEADiagram diagram = diagrams[0];
                         diagram.OpenAndSelectElement(tracedElement);
                     }
                     else if (diagrams.Count() >= 2)

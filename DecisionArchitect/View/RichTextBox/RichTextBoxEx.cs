@@ -15,34 +15,6 @@ namespace DecisionArchitect.View.RichTextBox
     public class RichTextBoxEx : System.Windows.Forms.RichTextBox
     {
         #region Interop-Defines
-        [StructLayout(LayoutKind.Sequential)]
-        private struct CHARFORMAT2_STRUCT
-        {
-            public UInt32 cbSize;
-            public UInt32 dwMask;
-            public UInt32 dwEffects;
-            public Int32 yHeight;
-            public Int32 yOffset;
-            public Int32 crTextColor;
-            public byte bCharSet;
-            public byte bPitchAndFamily;
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
-            public char[] szFaceName;
-            public UInt16 wWeight;
-            public UInt16 sSpacing;
-            public int crBackColor; // Color.ToArgb() -> int
-            public int lcid;
-            public int dwReserved;
-            public Int16 sStyle;
-            public Int16 wKerning;
-            public byte bUnderlineType;
-            public byte bAnimation;
-            public byte bRevAuthor;
-            public byte bReserved1;
-        }
-
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
 
         private const int WM_USER = 0x0400;
         private const int EM_GETCHARFORMAT = WM_USER + 58;
@@ -53,6 +25,7 @@ namespace DecisionArchitect.View.RichTextBox
         private const int SCF_ALL = 0x0004;
 
         #region CHARFORMAT2 Flags
+
         private const UInt32 CFE_BOLD = 0x0001;
         private const UInt32 CFE_ITALIC = 0x0002;
         private const UInt32 CFE_UNDERLINE = 0x0004;
@@ -60,27 +33,27 @@ namespace DecisionArchitect.View.RichTextBox
         private const UInt32 CFE_PROTECTED = 0x0010;
         private const UInt32 CFE_LINK = 0x0020;
         private const UInt32 CFE_AUTOCOLOR = 0x40000000;
-        private const UInt32 CFE_SUBSCRIPT = 0x00010000;    /* Superscript and subscript are */
-        private const UInt32 CFE_SUPERSCRIPT = 0x00020000;    /*  mutually exclusive       */
+        private const UInt32 CFE_SUBSCRIPT = 0x00010000; /* Superscript and subscript are */
+        private const UInt32 CFE_SUPERSCRIPT = 0x00020000; /*  mutually exclusive       */
 
-        private const int CFM_SMALLCAPS = 0x0040;      /* (*)  */
-        private const int CFM_ALLCAPS = 0x0080;      /* Displayed by 3.0  */
-        private const int CFM_HIDDEN = 0x0100;      /* Hidden by 3.0 */
-        private const int CFM_OUTLINE = 0x0200;      /* (*)  */
-        private const int CFM_SHADOW = 0x0400;      /* (*)  */
-        private const int CFM_EMBOSS = 0x0800;      /* (*)  */
-        private const int CFM_IMPRINT = 0x1000;      /* (*)  */
+        private const int CFM_SMALLCAPS = 0x0040; /* (*)  */
+        private const int CFM_ALLCAPS = 0x0080; /* Displayed by 3.0  */
+        private const int CFM_HIDDEN = 0x0100; /* Hidden by 3.0 */
+        private const int CFM_OUTLINE = 0x0200; /* (*)  */
+        private const int CFM_SHADOW = 0x0400; /* (*)  */
+        private const int CFM_EMBOSS = 0x0800; /* (*)  */
+        private const int CFM_IMPRINT = 0x1000; /* (*)  */
         private const int CFM_DISABLED = 0x2000;
         private const int CFM_REVISED = 0x4000;
 
         private const int CFM_BACKCOLOR = 0x04000000;
         private const int CFM_LCID = 0x02000000;
-        private const int CFM_UNDERLINETYPE = 0x00800000;    /* Many displayed by 3.0 */
+        private const int CFM_UNDERLINETYPE = 0x00800000; /* Many displayed by 3.0 */
         private const int CFM_WEIGHT = 0x00400000;
-        private const int CFM_SPACING = 0x00200000;    /* Displayed by 3.0  */
-        private const int CFM_KERNING = 0x00100000;    /* (*)  */
-        private const int CFM_STYLE = 0x00080000;    /* (*)  */
-        private const int CFM_ANIMATION = 0x00040000;    /* (*)  */
+        private const int CFM_SPACING = 0x00200000; /* Displayed by 3.0  */
+        private const int CFM_KERNING = 0x00100000; /* (*)  */
+        private const int CFM_STYLE = 0x00080000; /* (*)  */
+        private const int CFM_ANIMATION = 0x00040000; /* (*)  */
         private const int CFM_REVAUTHOR = 0x00008000;
 
 
@@ -112,13 +85,41 @@ namespace DecisionArchitect.View.RichTextBox
 
         #endregion
 
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct CHARFORMAT2_STRUCT
+        {
+            public UInt32 cbSize;
+            public UInt32 dwMask;
+            public UInt32 dwEffects;
+            public readonly Int32 yHeight;
+            public readonly Int32 yOffset;
+            public readonly Int32 crTextColor;
+            public readonly byte bCharSet;
+            public readonly byte bPitchAndFamily;
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)] public char[] szFaceName;
+            public readonly UInt16 wWeight;
+            public readonly UInt16 sSpacing;
+            public readonly int crBackColor; // Color.ToArgb() -> int
+            public readonly int lcid;
+            public readonly int dwReserved;
+            public readonly Int16 sStyle;
+            public readonly Int16 wKerning;
+            public readonly byte bUnderlineType;
+            public readonly byte bAnimation;
+            public readonly byte bRevAuthor;
+            public readonly byte bReserved1;
+        }
+
         #endregion
 
         public RichTextBoxEx()
         {
             // Otherwise, non-standard links get lost when user starts typing
             // next to a non-standard link
-            this.DetectUrls = false;
+            DetectUrls = false;
         }
 
         [DefaultValue(false)]
@@ -129,76 +130,77 @@ namespace DecisionArchitect.View.RichTextBox
         }
 
         /// <summary>
-        /// Insert a given text as a link into the RichTextBox at the current insert position.
+        ///     Insert a given text as a link into the RichTextBox at the current insert position.
         /// </summary>
         /// <param name="text">Text to be inserted</param>
         public void InsertLink(string text)
         {
-            InsertLink(text, this.SelectionStart);
+            InsertLink(text, SelectionStart);
         }
 
         /// <summary>
-        /// Insert a given text at a given position as a link. 
+        ///     Insert a given text at a given position as a link.
         /// </summary>
         /// <param name="text">Text to be inserted</param>
         /// <param name="position">Insert position</param>
         public void InsertLink(string text, int position)
         {
-            if (position < 0 || position > this.Text.Length)
+            if (position < 0 || position > Text.Length)
                 throw new ArgumentOutOfRangeException("position");
 
-            this.SelectionStart = position;
-            this.SelectedText = text;
-            this.Select(position, text.Length);
-            this.SetSelectionLink(true);
-            this.Select(position + text.Length, 0);
+            SelectionStart = position;
+            SelectedText = text;
+            Select(position, text.Length);
+            SetSelectionLink(true);
+            Select(position + text.Length, 0);
         }
 
         /// <summary>
-        /// Insert a given text at at the current input position as a link.
-        /// The link text is followed by a hash (#) and the given hyperlink text, both of
-        /// them invisible.
-        /// When clicked on, the whole link text and hyperlink string are given in the
-        /// LinkClickedEventArgs.
+        ///     Insert a given text at at the current input position as a link.
+        ///     The link text is followed by a hash (#) and the given hyperlink text, both of
+        ///     them invisible.
+        ///     When clicked on, the whole link text and hyperlink string are given in the
+        ///     LinkClickedEventArgs.
         /// </summary>
         /// <param name="text">Text to be inserted</param>
         /// <param name="hyperlink">Invisible hyperlink string to be inserted</param>
         public void InsertLink(string text, string hyperlink)
         {
-            InsertLink(text, hyperlink, this.SelectionStart);
+            InsertLink(text, hyperlink, SelectionStart);
         }
 
         /// <summary>
-        /// Insert a given text at a given position as a link. The link text is followed by
-        /// a hash (#) and the given hyperlink text, both of them invisible.
-        /// When clicked on, the whole link text and hyperlink string are given in the
-        /// LinkClickedEventArgs.
+        ///     Insert a given text at a given position as a link. The link text is followed by
+        ///     a hash (#) and the given hyperlink text, both of them invisible.
+        ///     When clicked on, the whole link text and hyperlink string are given in the
+        ///     LinkClickedEventArgs.
         /// </summary>
         /// <param name="text">Text to be inserted</param>
         /// <param name="hyperlink">Invisible hyperlink string to be inserted</param>
         /// <param name="position">Insert position</param>
         public void InsertLink(string text, string hyperlink, int position)
         {
-            if (position < 0 || position > this.Text.Length)
+            if (position < 0 || position > Text.Length)
                 throw new ArgumentOutOfRangeException("position");
 
-            this.SelectionStart = position;
-            this.SelectedRtf = @"{\rtf1\ansi " + text + @"\v #" + hyperlink + @"\v0}";
-            this.Select(position, text.Length + hyperlink.Length + 1);
-            this.SetSelectionLink(true);
-            this.Select(position + text.Length + hyperlink.Length + 1, 0);
+            SelectionStart = position;
+            SelectedRtf = @"{\rtf1\ansi " + text + @"\v #" + hyperlink + @"\v0}";
+            Select(position, text.Length + hyperlink.Length + 1);
+            SetSelectionLink(true);
+            Select(position + text.Length + hyperlink.Length + 1, 0);
         }
 
         /// <summary>
-        /// Set the current selection's link style
+        ///     Set the current selection's link style
         /// </summary>
         /// <param name="link">true: set link style, false: clear link style</param>
         public void SetSelectionLink(bool link)
         {
             SetSelectionStyle(CFM_LINK, link ? CFE_LINK : 0);
         }
+
         /// <summary>
-        /// Get the link style for the current selection
+        ///     Get the link style for the current selection
         /// </summary>
         /// <returns>0: link style not set, 1: link style set, -1: mixed</returns>
         public int GetSelectionLink()
@@ -208,12 +210,12 @@ namespace DecisionArchitect.View.RichTextBox
 
         private void SetSelectionStyle(UInt32 mask, UInt32 effect)
         {
-            CHARFORMAT2_STRUCT cf = new CHARFORMAT2_STRUCT();
-            cf.cbSize = (UInt32)Marshal.SizeOf(cf);
+            var cf = new CHARFORMAT2_STRUCT();
+            cf.cbSize = (UInt32) Marshal.SizeOf(cf);
             cf.dwMask = mask;
             cf.dwEffects = effect;
 
-            IntPtr wpar = new IntPtr(SCF_SELECTION);
+            var wpar = new IntPtr(SCF_SELECTION);
             IntPtr lpar = Marshal.AllocCoTaskMem(Marshal.SizeOf(cf));
             Marshal.StructureToPtr(cf, lpar, false);
 
@@ -224,17 +226,17 @@ namespace DecisionArchitect.View.RichTextBox
 
         private int GetSelectionStyle(UInt32 mask, UInt32 effect)
         {
-            CHARFORMAT2_STRUCT cf = new CHARFORMAT2_STRUCT();
-            cf.cbSize = (UInt32)Marshal.SizeOf(cf);
+            var cf = new CHARFORMAT2_STRUCT();
+            cf.cbSize = (UInt32) Marshal.SizeOf(cf);
             cf.szFaceName = new char[32];
 
-            IntPtr wpar = new IntPtr(SCF_SELECTION);
+            var wpar = new IntPtr(SCF_SELECTION);
             IntPtr lpar = Marshal.AllocCoTaskMem(Marshal.SizeOf(cf));
             Marshal.StructureToPtr(cf, lpar, false);
 
             IntPtr res = SendMessage(Handle, EM_GETCHARFORMAT, wpar, lpar);
 
-            cf = (CHARFORMAT2_STRUCT)Marshal.PtrToStructure(lpar, typeof(CHARFORMAT2_STRUCT));
+            cf = (CHARFORMAT2_STRUCT) Marshal.PtrToStructure(lpar, typeof (CHARFORMAT2_STRUCT));
 
             int state;
             // dwMask holds the information which properties are consistent throughout the selection:
@@ -255,41 +257,43 @@ namespace DecisionArchitect.View.RichTextBox
         }
 
         /// <summary>
-        /// This additional code block checks the locations of links
-        /// and desc. it via a string which contains informations of how many links are there
-        /// .Split('&')-1 and the select information .Select(.Split('&')[i].Split('-')[0],.Split('&')[i].Split('-')[1])
-        /// After we select the links we can SetSelectionLink(true) to get our links back.
+        ///     This additional code block checks the locations of links
+        ///     and desc. it via a string which contains informations of how many links are there
+        ///     .Split('&')-1 and the select information .Select(.Split('&')[i].Split('-')[0],.Split('&')[i].Split('-')[1])
+        ///     After we select the links we can SetSelectionLink(true) to get our links back.
         /// </summary>
         public string GetLinkPositions()
         {
             string pos = "";
-            for (int i = 0; i < this.TextLength; i++)
+            for (int i = 0; i < TextLength; i++)
             {
-                this.Select(i, 1);
+                Select(i, 1);
                 int isLink = GetSelectionLink();
                 if (isLink == 1)
                 {
                     //the selected first character is a part of link, now find its last character
-                    for (int j = i + 1; j <= this.TextLength; j++)
+                    for (int j = i + 1; j <= TextLength; j++)
                     {
-                        this.Select(j, 1);
+                        Select(j, 1);
                         isLink = GetSelectionLink();
-                        if (isLink != 1 || j == this.TextLength)
+                        if (isLink != 1 || j == TextLength)
                         {
                             //we found the last character's +1 so end char is (j-1), start char is (i)
-                            pos += (i) + "-" + ((j - 1) - (i - 1)) + "&"; //j-1 to i but i inserted -1 one more so we can determine the right pos
+                            pos += (i) + "-" + ((j - 1) - (i - 1)) + "&";
+                                //j-1 to i but i inserted -1 one more so we can determine the right pos
                             i = j; //cont. from j+1
                             break; //exit second for cont. from i = j+1 (i will increase on new i value)
                         }
                     }
                 }
             }
-            this.DeselectAll();
+            DeselectAll();
             return pos;
         }
+
         /// <summary>
-        /// This method generates the links back only created via InsertLink(string text)
-        /// and overloaded InsertLink(string text,int position)
+        ///     This method generates the links back only created via InsertLink(string text)
+        ///     and overloaded InsertLink(string text,int position)
         /// </summary>
         /// <param name="pos">the pos string from getLinkPositions</param>
         public void SetLinkPositions(string pos)
@@ -298,11 +302,11 @@ namespace DecisionArchitect.View.RichTextBox
             for (int i = 0; i < positions.Length - 1; i++)
             {
                 string[] xy = positions[i].Split('-');
-                this.Select(Int32.Parse(xy[0]), Int32.Parse(xy[1]));
-                this.SetSelectionLink(true);
-                this.Select(Int32.Parse(xy[0]) + Int32.Parse(xy[1]), 0);
+                Select(Int32.Parse(xy[0]), Int32.Parse(xy[1]));
+                SetSelectionLink(true);
+                Select(Int32.Parse(xy[0]) + Int32.Parse(xy[1]), 0);
             }
-            this.DeselectAll();
+            DeselectAll();
         }
     }
 }

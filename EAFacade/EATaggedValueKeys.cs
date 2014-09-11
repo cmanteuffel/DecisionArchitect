@@ -28,5 +28,6 @@ namespace EAFacade
         public const string OriginalDecisionGuid = "DV.OriginalDecisionGuid";
 
         public const string DecisionSerialVersionID = "DV.SerialVersionID";
+        public const string ForceEvaluation = "DV.Forces";
     }
 }

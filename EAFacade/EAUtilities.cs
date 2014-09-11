@@ -41,7 +41,7 @@ namespace EAFacade
 
         public static EANativeType IdentifyGUIDType(string guid)
         {
-            Repository nativeRepository = EA.Repository.Native;
+            Repository nativeRepository = EAMain.Repository.Native;
             Package p;
             if ((p = nativeRepository.GetPackageByGuid(guid)) != null)
             {

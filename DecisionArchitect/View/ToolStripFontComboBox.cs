@@ -18,17 +18,16 @@ namespace DecisionArchitect.View
     public class ToolStripFontComboBox : ToolStripComboBox
     {
         // With of the listbox.
-        protected int DropWidth = 0;
 
         private readonly Color _selectedTextBoxColor = Color.LightBlue;
+        public string DefaultFont = "Microsoft Sans Serif";
+        public Boolean DrawPlainText = true;
+        protected int DropWidth = 0;
         public Brush TextColor = Brushes.Black;
 
         // Makes the text in the scrollbar change while selecting
         private Boolean _changeSelectedTextWhileScrolling = false;
         // Makes the text appear in plain text of the Font that is describes
-        public Boolean DrawPlainText = true;
-        //public FontFamily defaultFont = new FontFamily("Times New Roman");
-        public string DefaultFont = "Microsoft Sans Serif";
 
         public ToolStripFontComboBox()
         {
@@ -51,25 +50,24 @@ namespace DecisionArchitect.View
             ComboBox.DrawItem += DrawItem;
 
             // I do this to loose the focus in the box....
-            this.ComboBox.CausesValidation = false;
-            this.ComboBox.SelectedText = String.Empty;
-            this.ComboBox.SelectionStart = 0;
+            ComboBox.CausesValidation = false;
+            ComboBox.SelectedText = String.Empty;
+            ComboBox.SelectionStart = 0;
         }
 
         protected new void DropDownClosed(object sender, EventArgs e)
         {
             // Change the color of the selected text in the combobox
             // to your custom color
-            this.ComboBox.ForeColor = Color.Black;
-            this.ComboBox.BackColor = Color.White;
-           // Console.WriteLine("DropDownClosed");
+            ComboBox.ForeColor = Color.Black;
+            ComboBox.BackColor = Color.White;
+            // Console.WriteLine("DropDownClosed");
         }
 
         protected new void DropDown(object sender, EventArgs e)
         {
-            this.ComboBox.DropDownWidth = DropWidth;
+            ComboBox.DropDownWidth = DropWidth;
             //Console.WriteLine("DropDown");
-
         }
 
         protected void MeasureItem(object sender, MeasureItemEventArgs e)
@@ -77,16 +75,22 @@ namespace DecisionArchitect.View
             if (e.Index > -1)
             {
                 string szFont = Items[e.Index].ToString();
-                Graphics g = this.ComboBox.CreateGraphics();
-                SizeF size = g.MeasureString(szFont, new Font(szFont, this.Font.Size));
+                Graphics g = ComboBox.CreateGraphics();
+                SizeF size = g.MeasureString(szFont, new Font(szFont, Font.Size));
 
                 // Set the Item's Width, and iDropWidth if the item has a greater width
-                e.ItemWidth = (int)size.Width;
-                if (e.ItemWidth > DropWidth) { DropWidth = e.ItemWidth; }
+                e.ItemWidth = (int) size.Width;
+                if (e.ItemWidth > DropWidth)
+                {
+                    DropWidth = e.ItemWidth;
+                }
 
                 // If .NET gives you problems drawing fonts with different heights, set a maximum height
-                e.ItemHeight = (int)size.Height;
-                if (e.ItemHeight > 20) { e.ItemHeight = 20; }
+                e.ItemHeight = (int) size.Height;
+                if (e.ItemHeight > 20)
+                {
+                    e.ItemHeight = 20;
+                }
             }
         }
 
@@ -104,9 +108,9 @@ namespace DecisionArchitect.View
                 e.Graphics.FillRectangle(Brushes.White, e.Bounds);
             }
 
-            if (e.Index > -1 && e.Index < this.ComboBox.Items.Count)
+            if (e.Index > -1 && e.Index < ComboBox.Items.Count)
             {
-                string fontName = this.ComboBox.Items[e.Index].ToString();
+                string fontName = ComboBox.Items[e.Index].ToString();
 
                 if (DrawPlainText)
                 {
@@ -115,7 +119,7 @@ namespace DecisionArchitect.View
                 else
                 {
                     var cvt = new FontConverter();
-                    Font font = cvt.ConvertFromString(fontName) as Font;
+                    var font = cvt.ConvertFromString(fontName) as Font;
                     e.Graphics.DrawString(font.Name, font, TextColor, e.Bounds.Left, e.Bounds.Top);
                 }
 
@@ -133,10 +137,10 @@ namespace DecisionArchitect.View
             ComboBox.Items.Clear();
             foreach (FontFamily ff in FontFamily.Families)
             {
-                if (!ff.IsStyleAvailable(FontStyle.Regular)) 
+                if (!ff.IsStyleAvailable(FontStyle.Regular))
                     continue;
-                
-                ComboBox.Items.Add(ff.Name);                
+
+                ComboBox.Items.Add(ff.Name);
             }
         }
     }

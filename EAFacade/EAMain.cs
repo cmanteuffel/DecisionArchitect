@@ -16,7 +16,7 @@ using EAFacade.Model.Impl;
 
 namespace EAFacade
 {
-    public sealed class EA
+    public sealed class EAMain
     {
         public static IEARepository Repository
         {
@@ -56,6 +56,31 @@ namespace EAFacade
         public static IEAVolatileElement WrapVolatileElement(EventProperties properties)
         {
             return EAVolatileElement.Wrap(properties);
+        }
+
+        public static bool IsDecision(IEAElement element)
+        {
+            return EAConstants.DecisionMetaType.Equals(element.MetaType.Trim());
+        }
+
+        public static bool IsConcern(IEAElement element)
+        {
+            return EAConstants.ConcernMetaType.Equals(element.MetaType);
+        }
+
+        public static bool IsTopic(IEAElement element)
+        {
+            return EAConstants.TopicMetaType.Equals(element.MetaType);
+        }
+
+        public static bool IsStakeholder(IEAElement element)
+        {
+            return EAConstants.StakeholderMetaType.Equals(element.MetaType) || "Stakeholder".Equals(element.MetaType);
+        }
+
+        public static bool IsHistoryDecision(IEAElement element)
+        {
+            return true.ToString().Equals(element.GetTaggedValueByName(EATaggedValueKeys.IsHistoryDecision));
         }
     }
 }

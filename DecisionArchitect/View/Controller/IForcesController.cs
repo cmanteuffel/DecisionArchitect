@@ -28,5 +28,7 @@ namespace DecisionArchitect.View.Controller
         void RemoveDecision(IEAElement element);
         void RemoveForce(IEAElement element);
         void RemoveConcern(IEAElement element);
+        void Update();
+        void Save();
     }
 }

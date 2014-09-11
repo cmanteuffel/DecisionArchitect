@@ -11,16 +11,13 @@
     Marc Holterman (University of Groningen)
 */
 
-using DecisionArchitect.Model;
+using DecisionArchitect.Model.New;
 using DecisionArchitect.View.Controller;
 
 namespace DecisionArchitect.View.TopicView
 {
     public interface ITopicViewController : ICustomViewController
     {
-        string TopicName { get; set; }
-        string TopicDescription { get; set; }
-
-        void setTopic(ITopic topic);
+        ITopic Topic { get; set; }
     }
 }

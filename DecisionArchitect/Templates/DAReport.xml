@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="Windows-1252"?>
-<RefData version="1.0" exporter="EA.25">
+
+<RefData version="1.0" exporter="EAMain.25">
   <DataSet name="RTF Document Templates" table="t_document where DocType='SSDOCSTYLE'" filter="DocID='#DocID#'">
     <DataRow>
-      <Column name="DocID" value="{14367DF7-EADD-4f7e-A9C9-3AAB0FF63F94}"/>
-      <Column name="DocName" value="DecisionReport"/>
-      <Column name="Style" value="Zip=1;"/>
-      <Column name="ElementID" value="SSDOCSTYLE"/>
-      <Column name="ElementType" value="SSDOCSTYLE"/>
+      <Column name="DocID" value="{14367DF7-EAMainDD-4f7e-A9C9-3AAB0FF63F94}" />
+      <Column name="DocName" value="DecisionReport" />
+      <Column name="Style" value="Zip=1;" />
+      <Column name="ElementID" value="SSDOCSTYLE" />
+      <Column name="ElementType" value="SSDOCSTYLE" />
       <Column name="BinContent" xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64">
-        UEsDBBQAAAAIAPZp40R4gxVAFywAAM6QAQAHABEAc3RyLmRhdFVUDQAHX1e1U19XtVNfV7VT
+        UEsDBBQAAAAIAPZp40R4gxVAFywAAM6QAQAHABEAMainc3RyLmRhdFVUDQAHX1e1U19XtVNfV7VT
         7X1rbx05kiU/L7D/oTEDDHaxqG5LsrpbO70N+KWy3SW5LMvPLwVbLku2JZXHVrUtDea/bxye
         GyKTjyR5byblKRcKrqt8MDLOiWAwGOTN+zfzSP67bX4xB+ZXc2J+NqfmzPzB/FP++mg+mbdy
         5dT8P/MvZs380VyTzz/I8Ut7J87els8DuUvv3JPjD/LXR5HyL+bv5m9J+X80D+Sus0WbTyLz
@@ -219,20 +220,20 @@
         IafpcYi+jTGIz9S199QYxPWV9jHohvmr1eneIo+E7DOD2vCGSb2/AOM5YiP4SvPa7tt4H8Ib
         69uOfx3vxuocdXFmlRqH5tZ44wzzcX2n5N/Mn8QPHwnzv8j1X6XVzwZvPPpjdObv2Xv/biX+
         f1BLAQIXCxQAAAAIAPZp40R4gxVAFywAAM6QAQAHAAkAAAAAAAAAAAAAgAAAAABzdHIuZGF0
-        VVQFAAdfV7VTUEsFBgAAAAABAAEAPgAAAE0sAAAAAA==
+        VVQFAAdfV7VTUEsFBgAAAAABAAEAMainPgAAAE0sAAAAAA==
       </Column>
-      <Column name="DocType" value="SSDOCSTYLE"/>
-      <Column name="IsActive" value="1"/>
-      <Column name="DocDate" value="2014-07-03 13:15:11"/>
+      <Column name="DocType" value="SSDOCSTYLE" />
+      <Column name="IsActive" value="1" />
+      <Column name="DocDate" value="2014-07-03 13:15:11" />
     </DataRow>
     <DataRow>
-      <Column name="DocID" value="{1816D47A-2612-42e5-9A14-1F7268445DE6}"/>
-      <Column name="DocName" value="Decision RelatedDecisions"/>
-      <Column name="Style" value="Zip=1;"/>
-      <Column name="ElementID" value="SSDOCSTYLE"/>
-      <Column name="ElementType" value="SSDOCSTYLE"/>
+      <Column name="DocID" value="{1816D47A-2612-42e5-9A14-1F7268445DE6}" />
+      <Column name="DocName" value="Decision RelatedDecisions" />
+      <Column name="Style" value="Zip=1;" />
+      <Column name="ElementID" value="SSDOCSTYLE" />
+      <Column name="ElementType" value="SSDOCSTYLE" />
       <Column name="BinContent" xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64">
-        UEsDBBQAAAAIAA6I2kRw5FO67CcAAK54AQAHABEAc3RyLmRhdFVUDQAHx1GsU8dRrFPHUaxT
+        UEsDBBQAAAAIAA6I2kRw5FO67CcAAK54AQAHABEAMainc3RyLmRhdFVUDQAHx1GsU8dRrFPHUaxT
         7V1pb1zHla3PA8x/MCZAkPlgRySlxJokBrSLiklZFEWZ/GJIpEQtJKVoCUUO5r/PPXW6WPur
         qu73qmnLEOzmW+q+e85d6tbyuv+uHsu/2+qd2lef1bF6oU7UJ/WN+rf89UF9VK/lyon6h/ov
         taK+U1fk8xs5fqbvxNnb8rkvd5k7v1FbcuZI7vgknwfR9Y/S5gf19+RTv1MP1Xv5NHd+I1fe
@@ -294,7 +295,7 @@
         9pnIxh76VxrzTX39WG0KV7u6/bkc/yyyzvRztkTec5G3I+fXRco17ctn0u7xhRzo9Fye8Uld
         n/GF3QxG9onIBJ6nmh+j+660fSX/9uX6ppZ5W64dqieCBX4G3NfFEg/1Wo7BDx3S2IntjVgP
         djjTOsFGO8LhhsTLTZH8THRY0VaD/g81zn39TDwLz3wqVvd5e3Qh+1yeB5ufz9oP87YpTAEz
-        sd/W3EAnw8+m8Gf42RQMz6TtpoMvxc8N0WVb3RdMwPlUbPNq9izY8kRw+rrvVugOnXz9T7Wd
+        sd/W3EAMainnw8+m8Gf42RQMz6TtpoMvxc8N0WVb3RdMwPlUbPNq9izY8kRw+rrvVugOnXz9T7Wd
         wSGecTeywVrWBjv6GYiB1ZnfHMv186D91Yv2uH4k8vG8TeHpQOvxXusEXeAP23LPjrSnjOte
         nKAN4u76LD4faFngel/+od1b0euN2HdF3w+/3dO+/Nk7j3aIyydyfVOe+ESe+3AW97gfnECn
         WAZwYIYVNjnSfnZD63ZfZCK24dMrInNH7sPaH3Q60rFiz7vtt+U8+Akx4Dl++13xa6OT1f+L
@@ -422,21 +423,21 @@
         +bytRF8Pndpqirual61Ef79IDch6A/IfzPo7t0ZJ+x7HQvAx1PjgnHMX6HNabEg5oQ35vqix
         obGdqRM3FfotPhP9N2KWMnF8om2GsSbOY4yO+3i/X8M+0NgQZ2YsiVoAeen7qCYM+SVPdbW7
         qdm2NH9vgxoD4xHc90GZsWSdD1zX592YsrVKv7gajim7V/ud+of6u/qz+O1jOX4n930WqS8U
-        Zn6/i878kL33By3x/wFQSwECFwsUAAAACAAOiNpEcORTuuwnAACueAEABwAJAAAAAAAAAAAA
+        Zn6/i878kL33By3x/wFQSwECFwsUAAAACAAOiNpEcORTuuwnAACueAEAMainBwAJAAAAAAAAAAAA
         AIAAAAAAc3RyLmRhdFVUBQAHx1GsU1BLBQYAAAAAAQABAD4AAAAiKAAAAAA=
       </Column>
-      <Column name="DocType" value="SSDOCSTYLE"/>
-      <Column name="IsActive" value="0"/>
-      <Column name="DocDate" value="2014-06-26 17:00:55"/>
+      <Column name="DocType" value="SSDOCSTYLE" />
+      <Column name="IsActive" value="0" />
+      <Column name="DocDate" value="2014-06-26 17:00:55" />
     </DataRow>
     <DataRow>
-      <Column name="DocID" value="{088DBCE2-F89A-4789-8E4C-F59A5B752E4F}"/>
-      <Column name="DocName" value="Decision Description"/>
-      <Column name="Style" value="Zip=1;"/>
-      <Column name="ElementID" value="SSDOCSTYLE"/>
-      <Column name="ElementType" value="SSDOCSTYLE"/>
+      <Column name="DocID" value="{088DBCE2-F89A-4789-8E4C-F59A5B752E4F}" />
+      <Column name="DocName" value="Decision Description" />
+      <Column name="Style" value="Zip=1;" />
+      <Column name="ElementID" value="SSDOCSTYLE" />
+      <Column name="ElementType" value="SSDOCSTYLE" />
       <Column name="BinContent" xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64">
-        UEsDBBQAAAAIALZ+2kTm3xVXJyQAAPJUAQAHABEAc3RyLmRhdFVUDQAH90GsU/dBrFP3QaxT
+        UEsDBBQAAAAIALZ+2kTm3xVXJyQAAPJUAQAHABEAMainc3RyLmRhdFVUDQAH90GsU/dBrFP3QaxT
         7V1rbx03kuXnBfY/BDPAYBaLZPScRDszAfySH4nkWJYdy18CW7Yl25LssZWRpcX+963Dcym+
         m+S93ZQnDgLnqh+srnOqWCwWefv+XT2U/26qd2pf/aqO1Ut1ok7VV+pf8tcH9VG9lisn6h/q
         D2pZfaOW5PMrOX6m78TZm/K5L3eZO7/SZz7KuQ9y5r3I4vk/qO/V35PP+kbdd+77KBKO5a8X
@@ -515,7 +516,7 @@
         /9Lx/F8i74n450etE2UAN/KAFS37bOaz7B/Wp5EFuGPn0xnu4dgKHeD7mEvQl7dFkh2bVuSs
         tQt0GrIN5kgPta7ITQxPqfEM/cfw648ZZZ7NHI7x0cQnExvNmLJ3GStLfftC+wnaG5vviX+a
         +LOtn+nbJm0XzkEPFfNMzKU4P0XsjsdM9AHk/vP0AcQvvw+YcZV9ALE65ID9rgcPS5c8xBz4
-        8dDEAvjqPDxwTuXzUIqJPWLB9kAs2ItiweqM33liwYrGGcYC9AHMy/CO3dAPxvIBxoIhPwCf
+        8dDEAMainvjqPDxwTuXzUIqJPWLB9kAs2ItiweqM33liwYrGGcYC9AHMy/CO3dAPxvIBxoIhPwCf
         OT/gXN7tC4hf8/gAcjvjA8yf3HnZstyDz/eX/lCbN401PtKfUJNJ+8NB5A/rRX9I8408Mu0L
         oQ/0iwWoQ6R94L5iHceMC9CJY4OxXTw2xOO+39fHti3HFtREkR/DvrRzOL/gGJuyWZi/0zYt
         ujJ/P9V4TY0VMpjL85yfJ9/XfX9ZeIEurIfg/JbY6Ik8eykYi03MTPNNHYZrHUandI7B+duP
@@ -526,7 +527,7 @@
         hLxQh9p6A3R4NrNDGJfM841OYR32sWb/tuJaD9dP/Nho5pa1sdHkG9QFuUmoi9GDOlldDgUp
         dMG6h8klnkW8XFz2hRpe2vz1ttYJ/WdDx90nolc8f4cOubn74jrYHInPZ17g9hM8v6afoP5r
         +kltH3mgsePZ7jyF9fgtxfwJGM3YkvNBU19K2d21OcZF5otv9TH6J9YlEIPdNTjky8Bt5ju+
-        3zEHsmNwPV7EAPw6BnOa1Nzd9T/Dg5lzkA8zVrHegOeeKfZr1qKBD309pRvG7ZRuyLewHgTv
+        3zEHsmNwPV7EAMainPw6BnOa1Nzd9T/Dg5lzkA8zVrHegOeeKfZr1qKBD309pRvG7ZRuyLewHgTv
         oz9+UFyjRZ6Q0gmxM+d/eJ7tl9QpHSdSNtpQ2OUNm6A/Y4xZkmc/kc+jKFZw/aQ2Vti5uh1b
         jM+W+onN5fyxBdLc/mr4wZyizmbGXr4/URfYzNQWQpsh76HNkCcg/zzTfgWdn+pz1tfJG6rN
         Zl/BDYVVZa7TrSjM97C2CAxYL3ymY42Zc+KNChw73fW6HzQO5JXkBTKsb9v7GFuRR5o81N5v
@@ -609,21 +610,21 @@
         +eJdkMj9MZZANo5pM+QTOI866G3Nv/UzM87R5vBX5JvkibnXXdH3LBo7UhzXje+M65uaV7x7
         GP36TP1T64ScBfnTqY5zx54PQKe8H+C7o6faV8fsV6U+NRwLwn5l5jwH6h/y39/VX9RD+e+m
         yMW7ko6FCcyAvonOfJ+993utwf8DUEsBAhcLFAAAAAgAtn7aRObfFVcnJAAA8lQBAAcACQAA
-        AAAAAAAAAACAAAAAAHN0ci5kYXRVVAUAB/dBrFNQSwUGAAAAAAEAAQA+AAAAXSQAAAAA
+        AAAAAAAAAACAAAAAAHN0ci5kYXRVVAUAB/dBrFNQSwUGAAAAAAEAMainAQA+AAAAXSQAAAAA
       </Column>
-      <Column name="DocType" value="SSDOCSTYLE"/>
-      <Column name="Author" value="Decision Architect"/>
-      <Column name="IsActive" value="0"/>
-      <Column name="DocDate" value="2014-06-26 15:53:27"/>
+      <Column name="DocType" value="SSDOCSTYLE" />
+      <Column name="Author" value="Decision Architect" />
+      <Column name="IsActive" value="0" />
+      <Column name="DocDate" value="2014-06-26 15:53:27" />
     </DataRow>
     <DataRow>
-      <Column name="DocID" value="{ACFDC859-E099-4978-8FB9-B987F117CDF7}"/>
-      <Column name="DocName" value="Decision Details"/>
-      <Column name="Style" value="Zip=1;"/>
-      <Column name="ElementID" value="SSDOCSTYLE"/>
-      <Column name="ElementType" value="SSDOCSTYLE"/>
+      <Column name="DocID" value="{ACFDC859-E099-4978-8FB9-B987F117CDF7}" />
+      <Column name="DocName" value="Decision Details" />
+      <Column name="Style" value="Zip=1;" />
+      <Column name="ElementID" value="SSDOCSTYLE" />
+      <Column name="ElementType" value="SSDOCSTYLE" />
       <Column name="BinContent" xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64">
-        UEsDBBQAAAAIAIiA2kRIXEYP8CwAALqVAQAHABEAc3RyLmRhdFVUDQAHpESsU6RErFOkRKxT
+        UEsDBBQAAAAIAIiA2kRIXEYP8CwAALqVAQAHABEAMainc3RyLmRhdFVUDQAHpESsU6RErFOkRKxT
         7V3bchU5stXziTj/0DEP5+VE94AN08OZSwQ3g5m2AdsY8EsH2GDwDQZMG/vrTy6tnVaVLiVp
         7yqZaTqI7u1dVcrKtTKVSqVUtf9uNuXfPfPB7Jov5ti8MSfm1PxgfpO/PpnP5r2cOTH/MH8y
         181P5pp8/iDfX9krcfSefO7KVXrlD/bIqVzx3hzJ0T+Zf5q/R+/xk3lsPson232Wlsfy155c
@@ -837,21 +838,21 @@
         8VPrBfOMobfNX4U3fO/bIsZzrS2hk9pzPNuhL8w/BnG8K+sPrfoC+92Qb9bFl27/cX0nldsw
         //Zzb+VpjPcRxfhz+bfWDPPvImIsqM2/78nR/ZksyMZ+nJPEWD08LsT8GDrlfRnj9y3Dvewx
         G3Tzq/nzy379CX/7cSXsHzpnZM2P76/7YP5h/m7+LPnGpnzHe8y+iNQ31qt/Co78M3ntP60m
-        /w9QSwECFwsUAAAACACIgNpESFxGD/AsAAC6lQEABwAJAAAAAAAAAAAAAIAAAAAAc3RyLmRh
+        /w9QSwECFwsUAAAACACIgNpESFxGD/AsAAC6lQEAMainBwAJAAAAAAAAAAAAAIAAAAAAc3RyLmRh
         dFVUBQAHpESsU1BLBQYAAAAAAQABAD4AAAAmLQAAAAA=
       </Column>
-      <Column name="DocType" value="SSDOCSTYLE"/>
-      <Column name="IsActive" value="0"/>
-      <Column name="DocDate" value="2014-06-26 16:04:52"/>
+      <Column name="DocType" value="SSDOCSTYLE" />
+      <Column name="IsActive" value="0" />
+      <Column name="DocDate" value="2014-06-26 16:04:52" />
     </DataRow>
     <DataRow>
-      <Column name="DocID" value="{281B6EAA-BCA3-43c6-A037-2227ED88D901}"/>
-      <Column name="DocName" value="Decision History"/>
-      <Column name="Style" value="Zip=1;"/>
-      <Column name="ElementID" value="SSDOCSTYLE"/>
-      <Column name="ElementType" value="SSDOCSTYLE"/>
+      <Column name="DocID" value="{281B6EAMainA-BCA3-43c6-A037-2227ED88D901}" />
+      <Column name="DocName" value="Decision History" />
+      <Column name="Style" value="Zip=1;" />
+      <Column name="ElementID" value="SSDOCSTYLE" />
+      <Column name="ElementType" value="SSDOCSTYLE" />
       <Column name="BinContent" xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64">
-        UEsDBBQAAAAIAEyA2kRf3hRvUScAAAZ1AQAHABEAc3RyLmRhdFVUDQAHLkSsUy5ErFMuRKxT
+        UEsDBBQAAAAIAEyA2kRf3hRvUScAAAZ1AQAHABEAMainc3RyLmRhdFVUDQAHLkSsUy5ErFMuRKxT
         7V1rT11Hlq3PI81/iKalVo9GSRsw3c10TyQ/wI8OEGNsB75ENrbBGLDbdtqG0fz32avWLep9
         qurecwo6jiLnch61z15rP2rX4577N/VY/rur3qkD9Ys6Va/UmfqkvlH/lL8+qI/qjVw5U/+j
         /kMtqe/UDfn8Ro6f6ztx9q58Hshd5s5v1H199EmOPqhzueN79bfkM75T2+q9fLLdR2l5Kn+9
@@ -1039,21 +1040,21 @@
         /Txqjk/KHZcM94c7mhfkkHSuhk7z5esNLWtHJD3W98NPgLu9zw37W/I0FC/T97lhf2vrgnyf
         +6O2BfKc9eVUf9jS57LmMXtu/ZoIOtXWRcYPXivM4cwfV2l72JhirbJYXJnx39/UH8W3Hguq
         dwq/zXQq0YBe5rvozPfZe7/XGv0/UEsBAhcLFAAAAAgATIDaRF/eFG9RJwAABnUBAAcACQAA
-        AAAAAAAAAACAAAAAAHN0ci5kYXRVVAUABy5ErFNQSwUGAAAAAAEAAQA+AAAAhycAAAAA
+        AAAAAAAAAACAAAAAAHN0ci5kYXRVVAUABy5ErFNQSwUGAAAAAAEAMainAQA+AAAAhycAAAAA
       </Column>
-      <Column name="DocType" value="SSDOCSTYLE"/>
-      <Column name="IsActive" value="0"/>
-      <Column name="DocDate" value="2014-06-26 16:02:54"/>
+      <Column name="DocType" value="SSDOCSTYLE" />
+      <Column name="IsActive" value="0" />
+      <Column name="DocDate" value="2014-06-26 16:02:54" />
     </DataRow>
     <DataRow>
-      <Column name="DocID" value="{6895C110-5BCE-4417-9038-EA0537DD83D4}"/>
-      <Column name="DocName" value="Decision Traces"/>
-      <Column name="Style" value="Zip=1;"/>
-      <Column name="ElementID" value="SSDOCSTYLE"/>
-      <Column name="ElementType" value="SSDOCSTYLE"/>
+      <Column name="DocID" value="{6895C110-5BCE-4417-9038-EAMain0537DD83D4}" />
+      <Column name="DocName" value="Decision Traces" />
+      <Column name="Style" value="Zip=1;" />
+      <Column name="ElementID" value="SSDOCSTYLE" />
+      <Column name="ElementType" value="SSDOCSTYLE" />
       <Column name="BinContent" xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64">
-        UEsDBBQAAAAIAPhi3kT0O+aV/icAAMZ4AQAHABEAc3RyLmRhdFVUDQAHwFaxU8BWsVPAVrFT
-        7V1pcxVHls3PEzH/wdEdMTHzwW4kQbeZ7ukIdnBbwgixiC8OkEAYJJlmaZAm5r/PPXneVWbl
+        UEsDBBQAAAAIAPhi3kT0O+aV/icAAMZ4AQAHABEAMainc3RyLmRhdFVUDQAHwFaxU8BWsVPAVrFT
+        7V1pcxVHls3PEzH/wdEdMTHzwW4kQbeZ7ukIdnBbwgixiC8OkEAMainYJJlmaZAm5r/PPXneVWbl
         Upn5XlUKG8KBn2rJW/ecu+TN5dX7m7kv/103v5o988Ecmefm2Lw335h/yV9vzTvzi1w5Nv9j
         /mDWzHfmgnx+I8dP7Z04e10+9+QuvfMbsyPtnsq553LuD+bv5m/JJ3xn7po38slW76Tdkfy1
         L/e8lTueyhXK/1aei2e+kzM4+0H+OpRWr4Prb8xLuf5OzqauPpPjFyKfsl9Y6W+D9q/Ngb1j
@@ -1211,7 +1212,7 @@
         +nN7zgaQoPr3yg3q49P0rbcM5gBbc4N/H34PbujjfjysF/PIcjlEr186u757phMw/XZ/aw7X
         lskzjic/dvCuR3cffrvN3Ye+f8o16lQ+UpvdMvoOvqtShzqsWCeP8xXrgj41SG2+Yh/schZm
         7afMV/hdQWcbP97wzkZ330svrw39qS23qX+U8pqzlcsZTzwOwryn+UlzX+7diNhjhPEN3l29
-        JVeeiKTx9/EAw+kCy45IO1mMj4Z7lHxd/iFPU55c7G9YvsDPD1Y27ItYBW/wr1zOSLUb5vnU
+        JVeeiKTx9/EAMainw+kCy45IO1mMj4Z7lHxd/iFPU55c7G9YvsDPD1Y27ItYBW/wr1zOSLUb5vnU
         OM6N4aiLyiNPKZmv7PmHNkeCp2Gfon1CmL9Uh8v2PPLPicG6DXIM89aJtQP6hyG/6FsY54y7
         I4sDMuJctkr/tty7v10uqI/V4VhhtXd/w8bgD/ZEDEFn6IT+CPvc4nuQp9gXf5JrT+0xrg3v
         Z/4/Mfh+O2I6vU6n/IT8lmz3yPoJjtcsX8yd474c1xFhXm7JyXiXaKpvWbUPLfWfmudy7xLV
@@ -1243,12 +1244,12 @@
         7gJ9TosNKYc2ZNypz0FmaEOtO3Ed970y6L85LwKZOD62NsNYE+cxRsd9vH9Yv2J/z56NMx1H
         wqeQl74/qwkZd7RFmmN/rmG8Ztu2/L0O6guMR3DfW6PjyJIPsA+GH1y211JxFfbr9FGwzu/D
         6hzR38yfxJfui9YYG36QFs8NZmO/i878PXvv361G/w9QSwECFwsUAAAACAD4Yt5E9Dvmlf4n
-        AADGeAEABwAJAAAAAAAAAAAAAIAAAAAAc3RyLmRhdFVUBQAHwFaxU1BLBQYAAAAAAQABAD4A
+        AADGeAEAMainBwAJAAAAAAAAAAAAAIAAAAAAc3RyLmRhdFVUBQAHwFaxU1BLBQYAAAAAAQABAD4A
         AAA0KAAAAAA=
       </Column>
-      <Column name="DocType" value="SSDOCSTYLE"/>
-      <Column name="IsActive" value="0"/>
-      <Column name="DocDate" value="2014-06-30 12:23:28"/>
+      <Column name="DocType" value="SSDOCSTYLE" />
+      <Column name="IsActive" value="0" />
+      <Column name="DocDate" value="2014-06-30 12:23:28" />
     </DataRow>
   </DataSet>
 </RefData>

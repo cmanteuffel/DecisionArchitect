@@ -46,9 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EA.cs" />
+    <Compile Include="EAMain.cs" />
     <Compile Include="EAConstants.cs" />
     <Compile Include="EATaggedValueKeys.cs" />
+    <Compile Include="Model\EAConnectorDirection.cs" />
     <Compile Include="Model\IEAConnectorTag.cs" />
     <Compile Include="Model\IEADiagram.cs" />
     <Compile Include="Model\IEAPackage.cs" />

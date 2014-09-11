@@ -17,6 +17,7 @@ namespace DecisionArchitect.Logic.Validation
 {
     internal class ExclusionRule : ConnectorRule
     {
+        public static readonly string[] Any = new string[0];
         private readonly HashSet<string> _clientState = new HashSet<string>();
         private readonly HashSet<string> _relationType = new HashSet<string>();
         private readonly HashSet<string> _supplierState = new HashSet<string>();
@@ -44,7 +45,5 @@ namespace DecisionArchitect.Logic.Validation
             }
             return true;
         }
-
-        public static readonly string[] Any = new string[0];
     }
 }

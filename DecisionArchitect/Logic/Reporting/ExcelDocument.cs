@@ -21,6 +21,8 @@ using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using EAFacade.Model;
+using IDecision = DecisionArchitect.Model.New.IDecision;
+using ITopic = DecisionArchitect.Model.New.ITopic;
 
 namespace DecisionArchitect.Logic.Reporting
 {
@@ -44,6 +46,7 @@ namespace DecisionArchitect.Logic.Reporting
                 _mainPart.Workbook.AppendChild(new Sheets());
             }
         }
+
 
         public void InsertTopicTable(ITopic topic)
         {
@@ -137,11 +140,11 @@ namespace DecisionArchitect.Logic.Reporting
             }
 
             var sheet = new Sheet
-            {
-                Id = relationshipId,
-                SheetId = sheetId,
-                Name = name
-            };
+                {
+                    Id = relationshipId,
+                    SheetId = sheetId,
+                    Name = name
+                };
             sheets.AppendChild(sheet);
             _mainPart.Workbook.Save();
             return newWorksheetPart;
@@ -231,7 +234,7 @@ namespace DecisionArchitect.Logic.Reporting
             }
             else
             {
-                row = new Row { RowIndex = rowIndex };
+                row = new Row {RowIndex = rowIndex};
                 sheetData.AppendChild(row);
             }
 
@@ -248,7 +251,7 @@ namespace DecisionArchitect.Logic.Reporting
                        String.Compare(cell.CellReference.Value, cellRef, StringComparison.OrdinalIgnoreCase) >
                        0);
 
-            var newCell = new Cell { CellReference = cellRef };
+            var newCell = new Cell {CellReference = cellRef};
             row.InsertBefore(newCell, refCell);
 
             worksheet.Save();

@@ -14,7 +14,7 @@ using EAFacade.Model;
 
 namespace DecisionArchitect.Logic
 {
-    interface IRepositoryListener
+    internal interface IRepositoryListener
     {
         void OnPostOpenDiagram(IEADiagram diagram);
 
@@ -42,7 +42,7 @@ namespace DecisionArchitect.Logic
 
         bool OnPostNewConnector(IEAConnector connector);
 
-        //cm: does not return a diagram object because of an issue within the EA API
+        //cm: does not return a diagram object because of an issue within the EAMain API
         bool OnPostNewDiagramObject();
 
         bool OnPostNewPackage(IEAPackage package);

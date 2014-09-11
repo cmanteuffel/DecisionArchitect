@@ -13,6 +13,7 @@
 */
 
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace EAFacade
 {
@@ -22,6 +23,7 @@ namespace EAFacade
         public const string TopicMetaType = "DATopic";
         public const string ConcernMetaType = "Concern";
         public const string RequirementMetaType = "Requirement";
+        public const string StakeholderMetaType = "Actor";
 
         public const string DiagramMetaTypeForces = "Decision Architect::Forces";
         public const string DiagramMetaTypeChronological = "Decision Architect::Chronological";
@@ -84,6 +86,27 @@ namespace EAFacade
                 InverseReplaces
             };
 
+        public static readonly IDictionary<string, string> ConvertInverse =
+            new ReadOnlyDictionary<string, string>(new Dictionary<string, string>
+                {
+                    {RelationAlternativeFor, InverseAlternativeFor},
+                    {RelationCausedBy, InverseCausedBy},
+                    {RelationDependsOn, InverseDependsOn},
+                    {RelationExcludedBy, InverseExcludedBy},
+                    {RelationReplaces, InverseReplaces}
+                });
+
+        public static readonly IDictionary<string, string> ConvertToRelationship =
+            new ReadOnlyDictionary<string, string>(new Dictionary<string, string>
+                {
+                    {InverseAlternativeFor, RelationAlternativeFor},
+                    {InverseCausedBy, RelationCausedBy},
+                    {InverseDependsOn, RelationDependsOn},
+                    {InverseExcludedBy, RelationExcludedBy},
+                    {InverseReplaces, RelationReplaces}
+                });
+        
+
 
         public static readonly HashSet<string> States = new HashSet<string>
             {
@@ -95,5 +118,7 @@ namespace EAFacade
                 StateRejected,
                 StateTentative
             };
+
+
     }
 }

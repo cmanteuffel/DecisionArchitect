@@ -10,10 +10,10 @@
     Spyros Ioakeimidis (University of Groningen)
 */
 
-using System;
+using System.Collections.Generic;
 using System.Linq;
-using DecisionArchitect.Logic.Reporting;
 using DecisionArchitect.Model.Menu;
+using EAFacade;
 using EAFacade.Model;
 
 namespace DecisionArchitect.Logic.Menu
@@ -30,11 +30,11 @@ namespace DecisionArchitect.Logic.Menu
                 {
                     UpdateDelegate = menuItem =>
                         {
-                            if (EANativeType.Element == EAFacade.EA.Repository.GetContextItemType())
+                            if (EANativeType.Element == EAMain.Repository.GetContextItemType())
                             {
-                                var eaelement = EAFacade.EA.Repository.GetContextObject<IEAElement>();
-                                menuItem.IsEnabled = (eaelement != null && !eaelement.IsDecision() &&
-                                                      !eaelement.IsTopic());
+                                var eaelement = EAMain.Repository.GetContextObject<IEAElement>();
+                                menuItem.IsEnabled = (eaelement != null && !EAMain.IsDecision(eaelement) &&
+                                                      !EAMain.IsTopic(eaelement));
                                 return;
                             }
                             menuItem.IsEnabled = false;
@@ -45,11 +45,11 @@ namespace DecisionArchitect.Logic.Menu
                 {
                     UpdateDelegate = menuItem =>
                         {
-                            if (EANativeType.Element == EAFacade.EA.Repository.GetContextItemType())
+                            if (EANativeType.Element == EAMain.Repository.GetContextItemType())
                             {
-                                var eaelement = EAFacade.EA.Repository.GetContextObject<IEAElement>();
-                                menuItem.IsEnabled = (eaelement != null && !eaelement.IsDecision() &&
-                                                      !eaelement.IsTopic());
+                                var eaelement = EAMain.Repository.GetContextObject<IEAElement>();
+                                menuItem.IsEnabled = (eaelement != null && !EAMain.IsDecision(eaelement) &&
+                                                      !EAMain.IsTopic(eaelement));
                                 return;
                             }
                             menuItem.IsEnabled = false;
@@ -60,9 +60,9 @@ namespace DecisionArchitect.Logic.Menu
                 {
                     UpdateDelegate = self =>
                         {
-                            if (EANativeType.Package == EAFacade.EA.Repository.GetContextItemType())
+                            if (EANativeType.Package == EAMain.Repository.GetContextItemType())
                             {
-                                var eapackage = EAFacade.EA.Repository.GetContextObject<IEAPackage>();
+                                var eapackage = EAMain.Repository.GetContextObject<IEAPackage>();
                                 self.IsEnabled = (eapackage != null);
                                 return;
                             }
@@ -93,17 +93,17 @@ namespace DecisionArchitect.Logic.Menu
                 {
                     ClickDelegate = () =>
                         {
-                            if (EANativeType.Diagram == EAFacade.EA.Repository.GetContextItemType())
+                            if (EANativeType.Diagram == EAFacade.EAMain.Repository.GetContextItemType())
                             {
-                                var eadiagram = EAFacade.EA.Repository.GetContextObject<IEADiagram>();
+                                var eadiagram = EAFacade.EAMain.Repository.GetContextObject<IEADiagram>();
                                 ReportMenu.GenerateForcesReport(eadiagram.Name + "_Report.xlsx", eadiagram);
                             }
                         },
                     UpdateDelegate = self =>
                         {
-                            if (EANativeType.Diagram == EAFacade.EA.Repository.GetContextItemType())
+                            if (EANativeType.Diagram == EAFacade.EAMain.Repository.GetContextItemType())
                             {
-                                var eadiagram = EAFacade.EA.Repository.GetContextObject<IEADiagram>();
+                                var eadiagram = EAFacade.EAMain.Repository.GetContextObject<IEADiagram>();
                                 self.IsEnabled = ((eadiagram != null) && eadiagram.IsForcesView());
                                 return;
                             }
@@ -143,7 +143,7 @@ namespace DecisionArchitect.Logic.Menu
             RootMenu.Add(MenuItem.Separator);
             RootMenu.Add(generateChronologicalView);
             RootMenu.Add(MenuItem.Separator);
-           /* RootMenu.Add(reportMenu);
+            /* RootMenu.Add(reportMenu);
             reportMenu.Add(generateWordReport);        
             reportMenu.Add(generatePowerpointReport);
             reportMenu.Add(generateExcelAllReport);
@@ -153,18 +153,14 @@ namespace DecisionArchitect.Logic.Menu
             reportMenu.Add(generateExcelReport);*/
         }
 
-        
-
-        
 
         private static bool ContextItemAreDecisions()
         {
-
-            var selectedTopicsAndDecisions = (from IEAElement element in EAFacade.EA.Repository.GetSelectedItems()
-                 where (element.IsDecision() || element.IsTopic()) && !element.IsHistoryDecision()
+            IEnumerable<IEAElement> selectedTopicsAndDecisions =
+                (from IEAElement element in EAMain.Repository.GetSelectedItems()
+                 where (EAMain.IsDecision(element) || EAMain.IsTopic(element)) && !EAMain.IsHistoryDecision(element)
                  select element);
             return selectedTopicsAndDecisions.Any();
-           
         }
 
         public static object GetMenuItems(string location, string menuName)

@@ -18,31 +18,32 @@ namespace DecisionArchitect.Logic.Menu
 {
     public partial class ExportReportsCustomMessageBox : Form
     {
-        private string filename;
+        private readonly string filename;
+
         public ExportReportsCustomMessageBox()
         {
             InitializeComponent();
         }
+
         public ExportReportsCustomMessageBox(string reportType, string filename)
         {
             InitializeComponent();
-            this.Text = string.Format(Messages.ReportSuccessful, reportType);
+            Text = string.Format(Messages.ReportSuccessful, reportType);
             this.filename = filename;
-            this.labelReportDetails.Text = filename.Substring(filename.LastIndexOf("\\")+1);
-            this.labelReportFolderDetails.Text = filename.Substring(0, filename.LastIndexOf("\\"));
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;   //remove Maximize Button
-            this.MinimizeBox = false;   //remove Minimize Button
+            labelReportDetails.Text = filename.Substring(filename.LastIndexOf("\\") + 1);
+            labelReportFolderDetails.Text = filename.Substring(0, filename.LastIndexOf("\\"));
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false; //remove Maximize Button
+            MinimizeBox = false; //remove Minimize Button
         }
 
         private void ExportReportsCustomMessageBox_Load(object sender, EventArgs e)
         {
-            
         }
 
         private void buttonOpenReport_Click(object sender, EventArgs e)
         {
-            Process.Start(this.filename);
+            Process.Start(filename);
             Close();
         }
 
@@ -53,7 +54,7 @@ namespace DecisionArchitect.Logic.Menu
 
         private void buttonOpenFolder_Click(object sender, EventArgs e)
         {
-            var reportFolderpath = this.filename.Substring(0, filename.LastIndexOf("\\"));
+            string reportFolderpath = filename.Substring(0, filename.LastIndexOf("\\"));
             //MessageBox.Show("Report Folderpath:" + reportFolderpath);//DEBUG
             Process.Start(reportFolderpath);
             Close();

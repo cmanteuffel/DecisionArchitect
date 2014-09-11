@@ -14,7 +14,7 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using DecisionArchitect.Model;
+using DecisionArchitect.Model.New;
 
 namespace DecisionArchitect.View.TopicView
 {
@@ -22,7 +22,7 @@ namespace DecisionArchitect.View.TopicView
     [Guid("D65970AD-12A7-402A-9F88-ED50D8C1DD90")]
     [ProgId("DecisionViewpoints.TopicViewController")]
     [ClassInterface(ClassInterfaceType.None)]
-    [ComDefaultInterface(typeof(ITopicViewController))]
+    [ComDefaultInterface(typeof (ITopicViewController))]
     public partial class TopicViewController : UserControl, ITopicViewController
     {
         // Model
@@ -36,64 +36,9 @@ namespace DecisionArchitect.View.TopicView
         public TopicViewController(ITopic topic)
             : this()
         {
-            setTopic(topic);
-            LoadContent();
+            Topic = topic;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public void LoadContent()
-        {
-            if (_topic != null)
-            {
-                // Topic
-                LoadTopicGroupBox();
-            }
-        }
-
-        public void Save()
-        {
-            _topic.Name = TopicName;
-            _topic.Description = TopicDescription;
-            //MessageBox.Show("Saved: " + _topic.Name);
-
-            _topic.Save();
-        }
-
-        public void Update()
-        {
-           // MessageBox.Show("Updated: " + _topic.Name);
-            LoadContent();
-        }
-
-        public void setTopic(ITopic topic)
-        {
-            _topic = topic;
-            if (_topic != null)
-            {
-                LoadTopicGroupBox();
-            }
-        }
-
-        private void TopicDetailView_Load(object sender, EventArgs e)
-        {
-            if (txtTopicName.Text.Length < 50)
-                Text = txtTopicName.Text;
-            else
-                Text = txtTopicName.Text.Substring(0, 40) + " ...";
-        }
-
-        /********************************************************************************************
-         ********************************************************************************************
-         ** TOPIC GROUPBOX 
-         ******************************************************************************************** 
-         ********************************************************************************************/
-        private void LoadTopicGroupBox()
-        {
-            TopicName = _topic.Name;
-            TopicDescription = _topic.Description;
-        }
 
         public string TopicName
         {
@@ -101,27 +46,58 @@ namespace DecisionArchitect.View.TopicView
             set { txtTopicName.Text = value; }
         }
 
-        //public string TopicDescription
-        //{
-        //    get { return txtTopicDescription.Rtf.Trim(' '); }
-        //    set
-        //    {
-        //        txtTopicDescription.Rtf = value.Contains("\\rtf1")
-        //            ? value
-        //            : Utilities.PlaintextToRtf(value);
-        //    }
-        //}
-
         public string TopicDescription
         {
-            get
-            {
-                return rtbDescription.GetRichText();
-            }
+            get { return rtbDescription.RichText; }
+            set { rtbDescription.RichText = value; }
+        }
+
+        public void Save()
+        {
+            _topic.SaveChanges();
+        }
+
+        public new void Update()
+        {
+            //   LoadContent();
+        }
+
+
+        public ITopic Topic
+        {
+            get { return _topic; }
             set
             {
-                rtbDescription.SetRichText(value);
+
+                if (value==null || value.Equals(_topic))
+                {
+                    txtTopicName.DataBindings.Clear();
+                    rtbDescription.DataBindings.Clear();
+                }
+
+                _topic = value;
+                if (_topic != null)
+                {
+                        txtTopicName.DataBindings.Add("Text", Topic, "Name");
+                        rtbDescription.DataBindings.Add("RichText", Topic, "Description");
+                }
             }
+        }
+        
+
+        private void btnRevert_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Are you sure that you want to revert all changes?",
+                                                        "Revert Changes", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                Topic.DiscardChanges();
+            }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            Topic.SaveChanges();
         }
     }
 }

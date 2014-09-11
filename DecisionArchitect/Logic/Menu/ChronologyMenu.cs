@@ -12,27 +12,26 @@
 
 using System.Windows.Forms;
 using DecisionArchitect.Logic.Chronological;
-using DecisionArchitect.View;
 using DecisionArchitect.View.Chronology;
 using EAFacade;
 using EAFacade.Model;
 
 namespace DecisionArchitect.Logic.Menu
 {
-    class ChronologyMenu
+    internal class ChronologyMenu
     {
         public static void Generate()
         {
-
-            if (EANativeType.Package != EAFacade.EA.Repository.GetContextItemType()) return;                
-            var eapackage = EAFacade.EA.Repository.GetContextObject<IEAPackage>();
+            if (EANativeType.Package != EAMain.Repository.GetContextItemType()) return;
+            var eapackage = EAMain.Repository.GetContextObject<IEAPackage>();
             if (null == eapackage) return;
 
             var view = new GenerateChronologyView();
             if (DialogResult.OK == view.ShowDialog())
             {
-                MessageBox.Show("Generate chronology view called " +  view.ViewName  +"  in " + eapackage.Name + " with " + view.Decisions.Count + " decisions");
-               
+                MessageBox.Show("Generate chronology view called " + view.ViewName + "  in " + eapackage.Name + " with " +
+                                view.Decisions.Count + " decisions");
+
                 IEADiagram chronologicalView = CreateChronologyDiagram(eapackage, view.ViewName);
                 IEAPackage historyPackage =
                     eapackage.GetSubpackageByName("History data for " + chronologicalView.Name);
@@ -40,17 +39,17 @@ namespace DecisionArchitect.Logic.Menu
                 {
                     historyPackage.ParentPackage.DeletePackage(historyPackage);
                 }
-                historyPackage = eapackage.CreatePackage("History data for " + chronologicalView.Name, EAConstants.ChronologicalStereoType);
+                historyPackage = eapackage.CreatePackage("History data for " + chronologicalView.Name,
+                                                         EAConstants.ChronologicalStereoType);
 
-                var generator = new ChronologicalViewpointGenerator(view.Decisions, historyPackage,chronologicalView );
+                var generator = new ChronologicalViewpointGenerator(view.Decisions, historyPackage, chronologicalView);
                 generator.GenerateViewpoint();
             }
-            
         }
 
         private static IEADiagram CreateChronologyDiagram(IEAPackage package, string viewName)
         {
-            return package.CreateDiagram(viewName,"generated",EAConstants.DiagramMetaTypeChronological);
+            return package.CreateDiagram(viewName, "generated", EAConstants.DiagramMetaTypeChronological);
         }
     }
 }

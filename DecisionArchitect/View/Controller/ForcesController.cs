@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using DecisionArchitect.Model;
 using DecisionArchitect.View.Forces;
+using EAFacade;
 using EAFacade.Model;
 
 namespace DecisionArchitect.View.Controller
@@ -55,7 +56,7 @@ namespace DecisionArchitect.View.Controller
 
         public void Configure()
         {
-            IEARepository repository = EAFacade.EA.Repository;
+            IEARepository repository = EAMain.Repository;
             try
             {
                 IEADiagram diagram = repository.GetDiagramByGuid(_model.DiagramGUID);

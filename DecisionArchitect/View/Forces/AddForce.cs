@@ -41,11 +41,11 @@ namespace DecisionArchitect.View.Forces
         /// </summary>
         private void PopulateConcerns()
         {
-            IEARepository repository = EAFacade.EA.Repository;
+            IEARepository repository = EAMain.Repository;
 
             Dictionary<string, string> concerns =
                 repository.GetAllElements()
-                          .Where(element => element != null && element.IsConcern())
+                          .Where(element => element != null && EAMain.IsConcern(element))
                           .ToDictionary(element => element.GUID,
                                         element => element.Name + " (" + element.ParentPackage.Name + ")");
             if (concerns.Count <= 0) //No concerns found
@@ -67,7 +67,7 @@ namespace DecisionArchitect.View.Forces
             // Cannot add force if no force or concern is selected
             if (selectedNode == null || _lbConcern.SelectedItems.Count < 1) return;
 
-            IEARepository repository = EAFacade.EA.Repository;
+            IEARepository repository = EAMain.Repository;
             string diagramGuid = _controller.Model.DiagramGUID;
             IEADiagram diagram = repository.GetDiagramByGuid(diagramGuid);
 
@@ -90,7 +90,7 @@ namespace DecisionArchitect.View.Forces
         /// <param name="force"></param>
         private void AddForceConcerns(IEAElement force)
         {
-            IEARepository repository = EAFacade.EA.Repository;
+            IEARepository repository = EAMain.Repository;
             string diagramGuid = _controller.Model.DiagramGUID;
             IEADiagram diagram = repository.GetDiagramByGuid(diagramGuid);
 

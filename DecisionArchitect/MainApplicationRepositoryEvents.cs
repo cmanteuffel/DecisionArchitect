@@ -24,8 +24,8 @@ namespace DecisionArchitect
     {
         public override bool EA_OnPreNewElement(Repository repository, EventProperties properties)
         {
-            EAFacade.EA.UpdateRepository(repository);
-            IEAVolatileElement element = EAFacade.EA.WrapVolatileElement(properties);
+            EAMain.UpdateRepository(repository);
+            IEAVolatileElement element = EAMain.WrapVolatileElement(properties);
 
             foreach (IRepositoryListener l in _listeners)
             {
@@ -39,8 +39,8 @@ namespace DecisionArchitect
 
         public override bool EA_OnPostNewElement(Repository repository, EventProperties properties)
         {
-            EAFacade.EA.UpdateRepository(repository);
-            var element = EAFacade.EA.WrapElement(properties);
+            EAMain.UpdateRepository(repository);
+            IEAElement element = EAMain.WrapElement(properties);
 
             foreach (IRepositoryListener l in _listeners)
             {
@@ -54,8 +54,8 @@ namespace DecisionArchitect
 
         public override bool EA_OnPreNewConnector(Repository repository, EventProperties info)
         {
-            EAFacade.EA.UpdateRepository(repository);
-            IEAVolatileConnector volatileConnector = EAFacade.EA.WrapVolatileConnector(info);
+            EAMain.UpdateRepository(repository);
+            IEAVolatileConnector volatileConnector = EAMain.WrapVolatileConnector(info);
             foreach (IRepositoryListener l in _listeners)
             {
                 if (!l.OnPreNewConnector(volatileConnector))
@@ -68,7 +68,7 @@ namespace DecisionArchitect
 
         public override void EA_OnContextItemChanged(Repository repository, string guid, ObjectType ot)
         {
-            EAFacade.EA.UpdateRepository(repository);
+            EAMain.UpdateRepository(repository);
             foreach (IRepositoryListener l in _listeners)
             {
                 l.OnContextItemChanged(guid, EAUtilities.Translate(ot));
@@ -77,7 +77,7 @@ namespace DecisionArchitect
 
         public override bool EA_OnContextItemDoubleClicked(Repository repository, string guid, ObjectType ot)
         {
-            EAFacade.EA.UpdateRepository(repository);
+            EAMain.UpdateRepository(repository);
             foreach (IRepositoryListener l in _listeners)
             {
                 if (l.OnContextItemDoubleClicked(guid, EAUtilities.Translate(ot)))
@@ -90,7 +90,7 @@ namespace DecisionArchitect
 
         public override void EA_OnNotifyContextItemModified(Repository repository, string guid, ObjectType ot)
         {
-            EAFacade.EA.UpdateRepository(repository);
+            EAMain.UpdateRepository(repository);
             foreach (IRepositoryListener l in _listeners)
             {
                 l.OnNotifyContextItemModified(guid, EAUtilities.Translate(ot));
@@ -99,15 +99,15 @@ namespace DecisionArchitect
 
         public override bool EA_OnPreDeleteDiagram(Repository repository, EventProperties properties)
         {
-            EAFacade.EA.UpdateRepository(repository);
-            IEAVolatileDiagram diagram = EAFacade.EA.WrapVolatileDiagram(properties);
+            EAMain.UpdateRepository(repository);
+            IEAVolatileDiagram diagram = EAMain.WrapVolatileDiagram(properties);
             return _listeners.All(l => l.OnPreDeleteDiagram(diagram));
         }
 
         public override bool EA_OnPreDeleteElement(Repository repository, EventProperties properties)
         {
-            EAFacade.EA.UpdateRepository(repository);
-            var element = EAFacade.EA.WrapElement(properties);
+            EAMain.UpdateRepository(repository);
+            IEAElement element = EAMain.WrapElement(properties);
 
             foreach (IRepositoryListener l in _listeners)
             {
@@ -121,8 +121,8 @@ namespace DecisionArchitect
 
         public override void EA_OnPostOpenDiagram(Repository repository, int diagramId)
         {
-            EAFacade.EA.UpdateRepository(repository);
-            IEADiagram diagram = EAFacade.EA.Repository.GetDiagramByID(diagramId);
+            EAMain.UpdateRepository(repository);
+            IEADiagram diagram = EAMain.Repository.GetDiagramByID(diagramId);
             foreach (IRepositoryListener l in _listeners)
             {
                 l.OnPostOpenDiagram(diagram);
@@ -131,7 +131,7 @@ namespace DecisionArchitect
 
         public override bool EA_OnPostNewDiagramObject(Repository repository, EventProperties properties)
         {
-            EAFacade.EA.UpdateRepository(repository);
+            EAMain.UpdateRepository(repository);
             foreach (IRepositoryListener l in _listeners)
             {
                 if (!l.OnPostNewDiagramObject())
@@ -144,8 +144,7 @@ namespace DecisionArchitect
 
         public override void EA_OnPostCloseDiagram(Repository repository, int diagramId)
         {
-            EAFacade.EA.UpdateRepository(repository);
+            EAMain.UpdateRepository(repository);
         }
-
     }
 }

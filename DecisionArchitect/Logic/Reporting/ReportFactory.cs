@@ -10,6 +10,8 @@
     Spyros Ioakeimidis (University of Groningen)
 */
 
+using System.IO;
+
 namespace DecisionArchitect.Logic.Reporting
 {
     public enum ReportType
@@ -30,7 +32,7 @@ namespace DecisionArchitect.Logic.Reporting
                 {
                     case ReportType.Word:
                         reportDocument = new WordDocument(filename);
-                        break; 
+                        break;
                     case ReportType.Excel:
                         reportDocument = new ExcelDocument(filename);
                         break;
@@ -39,7 +41,7 @@ namespace DecisionArchitect.Logic.Reporting
                         break;
                 }
             }
-            catch (System.IO.IOException)
+            catch (IOException)
             {
                 return null;
             }

@@ -26,22 +26,23 @@ namespace DecisionArchitect.Model
         void SaveRatings(List<Rating> data);
 
         /// <summary>
-        /// Get Decisions from Diagram and Topics that are on the diagram
+        ///     Get Decisions from Diagram and Topics that are on the diagram
         /// </summary>
         /// <returns></returns>
         IEAElement[] GetDecisions();
 
         /// <summary>
-        /// Get all elements which are a force in this model
+        ///     Get all elements which are a force in this model
         /// </summary>
         /// <returns></returns>
         IEAElement[] GetForces();
 
         /// <summary>
-        /// Get all forces and concerns connected to each other
+        ///     Get all forces and concerns connected to each other
         /// </summary>
         /// <returns></returns>
         Dictionary<IEAElement, List<IEAElement>> GetConcernsPerForce();
+
         List<Rating> GetRatings();
 
         void AddObserver(IForcesModelObserver observer);

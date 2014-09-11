@@ -44,8 +44,8 @@ namespace EATestSupport
         {
             IEAPackage package = null;
             Assert.IsNotNull(Repo);
-            EAFacade.EA.UpdateRepository(Repo);
-            IEnumerable<IEAPackage> packages = EAFacade.EA.Repository.GetAllDecisionViewPackages();
+            EAFacade.EAMain.UpdateRepository(Repo);
+            IEnumerable<IEAPackage> packages = EAFacade.EAMain.Repository.GetAllDecisionViewPackages();
             Assert.IsNotNull(packages);
             // Use the first decision package
             package = packages.ElementAt<IEAPackage>(0);

@@ -30,25 +30,28 @@ namespace DecisionArchitect.View
         string DecisionRationale { get; set; }
         string TopicName { get; set; }
         string TopicDescription { get; set; }
-       // DateTime Created { get; set; }
-       // DateTime Modified { get; set; }
+        // DateTime Created { get; set; }
+        // DateTime Modified { get; set; }
         DateTime Decided { get; set; }
         string Author { get; set; }
 
         // Set appropriate controller  
-       // event ViewHandler<IDetailView> changed;
-       // void SetController(IDetailViewController controller);
+        // event ViewHandler<IDetailView> changed;
+        // void SetController(IDetailViewController controller);
 
         /**
          * Add topic information
-         */ 
+         */
         void AddTopic(int id, string name, string description, bool hasTopic);
-        void AddTopic(ITopic topic, bool hasTopic);
+        void AddTopic(Model.New.ITopic topic, bool hasTopic);
 
         /**
          * Public Accessors additional information
          */
-        void AddAlternativeDecision(string guid, string alternativeId, string alternativeName, string alternativeState, string alternativeRationale);
+
+        void AddAlternativeDecision(string guid, string alternativeId, string alternativeName, string alternativeState,
+                                    string alternativeRationale);
+
         void AddRelatedDecision(string guid, string relation, string relatedName, string relatedState);
         void AddRelatedForce(string guid, string forceName, string forceRating, string forceConcern, string description);
         void AddTrace(string guid, string traceName, string traceType);

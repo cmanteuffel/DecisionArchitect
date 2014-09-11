@@ -22,16 +22,16 @@ namespace DecisionArchitect.Logic.Validation
         private static readonly RuleManager Singleton = new RuleManager();
         private readonly IList<AbstractRule> _rules = new List<AbstractRule>();
 
-        public IList<AbstractRule> Rules
-        {
-            get { return _rules; }
-        }
-
 
         private RuleManager()
         {
             CreateConnectorRules();
             CreateElementRules();
+        }
+
+        public IList<AbstractRule> Rules
+        {
+            get { return _rules; }
         }
 
 
@@ -50,7 +50,7 @@ namespace DecisionArchitect.Logic.Validation
             }
 
 
-            foreach (var rule in Rules.Where(r => r.GetRuleType() == RuleType.VolatileElement))
+            foreach (AbstractRule rule in Rules.Where(r => r.GetRuleType() == RuleType.VolatileElement))
             {
                 if (!rule.Validate(element, out message))
                 {
@@ -70,7 +70,7 @@ namespace DecisionArchitect.Logic.Validation
             }
 
 
-            foreach (var rule in Rules.Where(r => (r.GetRuleType() == RuleType.Element)))
+            foreach (AbstractRule rule in Rules.Where(r => (r.GetRuleType() == RuleType.Element)))
             {
                 if (!rule.Validate(element, out message))
                 {
@@ -89,7 +89,7 @@ namespace DecisionArchitect.Logic.Validation
                 return true;
             }
 
-            foreach (var rule in _rules.Where(r => r.GetRuleType() == RuleType.Connector))
+            foreach (AbstractRule rule in _rules.Where(r => r.GetRuleType() == RuleType.Connector))
             {
                 if (!rule.Validate(connector, out message))
                 {
@@ -108,7 +108,7 @@ namespace DecisionArchitect.Logic.Validation
                 return true;
             }
 
-            foreach (var rule in _rules.Where(r => r.GetRuleType() == RuleType.Connector))
+            foreach (AbstractRule rule in _rules.Where(r => r.GetRuleType() == RuleType.Connector))
             {
                 if (!rule.Validate(connector, out message))
                 {

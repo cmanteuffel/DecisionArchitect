@@ -15,28 +15,31 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using DecisionArchitect.View.Controller;
 using DecisionArchitect.View.Forces;
+using Microsoft.Office.Interop.Excel;
+using Application = Microsoft.Office.Interop.Excel.Application;
 
 namespace DecisionArchitect.Logic.Forces
 {
     public class ExcelSynchronization
     {
-        private readonly IForcesController _controller;
-
-        private Microsoft.Office.Interop.Excel.Application _application = new Microsoft.Office.Interop.Excel.Application { Visible = false };
-        private Microsoft.Office.Interop.Excel.Workbook _workbook;
-        private Microsoft.Office.Interop.Excel.Worksheet _worksheet;
-        private Microsoft.Office.Interop.Excel.Worksheet _worksheetHidden; // used for storing mapping information
-        private readonly DataGridView _forcesTable;
-
         // Index of column used to store the GUIDs for mapping. 
         // The location of the value belonging to the GUID is stored into the column right of it
         private const int DiagramMappingIndex = 1,
-            ForceMappingIndex = 2,
-            ConcernMappingIndex = 4,
-            DecisionMappingIndex =  6,
-            RatingMappingIndex = 8;
-        private const int StartColumn = 2, StartRow = 2; // Index for start column/row. Excel starts counting at 1 and Row/Column header takes up a row/column
-      
+                          ForceMappingIndex = 2,
+                          ConcernMappingIndex = 4,
+                          DecisionMappingIndex = 6,
+                          RatingMappingIndex = 8;
+
+        private const int StartColumn = 2, StartRow = 2;
+                          // Index for start column/row. Excel starts counting at 1 and Row/Column header takes up a row/column
+
+        private readonly IForcesController _controller;
+        private readonly DataGridView _forcesTable;
+        private Application _application = new Application {Visible = false};
+        private Workbook _workbook;
+        private Worksheet _worksheet;
+        private Worksheet _worksheetHidden; // used for storing mapping information
+
         public ExcelSynchronization(IForcesController controller, DataGridView forcesTable)
         {
             _controller = controller;
@@ -50,7 +53,7 @@ namespace DecisionArchitect.Logic.Forces
         }
 
         /// <summary>
-        /// Release ComObjects to remove the process EXCEL.exe.
+        ///     Release ComObjects to remove the process EXCEL.exe.
         /// </summary>
         private void Dispose()
         {
@@ -59,10 +62,18 @@ namespace DecisionArchitect.Logic.Forces
             _application.Quit();
 
             // Manual disposal because of COM
-            while (Marshal.ReleaseComObject(_application) != 0) { }
-            while (Marshal.ReleaseComObject(_workbook) != 0) { }
-            while (Marshal.ReleaseComObject(_worksheet) != 0) { }
-            while (Marshal.ReleaseComObject(_worksheetHidden) != 0) { }
+            while (Marshal.ReleaseComObject(_application) != 0)
+            {
+            }
+            while (Marshal.ReleaseComObject(_workbook) != 0)
+            {
+            }
+            while (Marshal.ReleaseComObject(_worksheet) != 0)
+            {
+            }
+            while (Marshal.ReleaseComObject(_worksheetHidden) != 0)
+            {
+            }
 
             _application = null;
             _workbook = null;
@@ -74,25 +85,25 @@ namespace DecisionArchitect.Logic.Forces
         }
 
         /// <summary>
-        /// Setup workbooks/worksheets and populate them
+        ///     Setup workbooks/worksheets and populate them
         /// </summary>
         private void Initialize()
         {
             //_application.Workbooks.add(...) is not possible. 
             //2 dots must be avoided to release wrappers: http://support.microsoft.com/kb/317109
-            var workbooks = _application.Workbooks;
+            Workbooks workbooks = _application.Workbooks;
             _workbook = workbooks.Add(Missing.Value);
 
-            var worksheets = _workbook.Worksheets;
-            _worksheet = (Microsoft.Office.Interop.Excel.Worksheet) _workbook.ActiveSheet;
-            _worksheetHidden = (Microsoft.Office.Interop.Excel.Worksheet) worksheets.Add();
-            
+            Sheets worksheets = _workbook.Worksheets;
+            _worksheet = (Worksheet) _workbook.ActiveSheet;
+            _worksheetHidden = (Worksheet) worksheets.Add();
+
             // Release wrapper objects
             Marshal.FinalReleaseComObject(worksheets);
             Marshal.FinalReleaseComObject(workbooks);
 
             _worksheetHidden.Name = "Mapping Information";
-            _worksheetHidden.Visible = Microsoft.Office.Interop.Excel.XlSheetVisibility.xlSheetVeryHidden;
+            _worksheetHidden.Visible = XlSheetVisibility.xlSheetVeryHidden;
 
             //Event handlers
             _worksheet.Change += Event_ChangeEvent;
@@ -103,16 +114,17 @@ namespace DecisionArchitect.Logic.Forces
         }
 
         /// <summary>
-        /// Convert the data from the forces table to the excel and its mapping information
+        ///     Convert the data from the forces table to the excel and its mapping information
         /// </summary>
         private void Populate()
         {
-            _worksheetHidden.Cells[1, DiagramMappingIndex] = _controller.Model.DiagramGUID; // Store diagram GUID in first row
+            _worksheetHidden.Cells[1, DiagramMappingIndex] = _controller.Model.DiagramGUID;
+                // Store diagram GUID in first row
 
-            for (int i = 0; i < _forcesTable.Rows.Count-1; i++) //Last row can be ignored
+            for (int i = 0; i < _forcesTable.Rows.Count - 1; i++) //Last row can be ignored
             {
                 int amountColHidden = 0; //For ignoring these columns in excel
-                
+
                 ForceCell(i);
 
                 for (int j = 0; j < _forcesTable.Rows[i].Cells.Count; j++)
@@ -133,7 +145,7 @@ namespace DecisionArchitect.Logic.Forces
         }
 
         /// <summary>
-        /// Value for a cell containing a force and its mapping information
+        ///     Value for a cell containing a force and its mapping information
         /// </summary>
         /// <param name="i"></param>
         private void ForceCell(int i)
@@ -146,7 +158,7 @@ namespace DecisionArchitect.Logic.Forces
         }
 
         /// <summary>
-        /// Value for a cell containing a concern and its mapping information
+        ///     Value for a cell containing a concern and its mapping information
         /// </summary>
         /// <param name="i"></param>
         /// <param name="j"></param>
@@ -164,7 +176,7 @@ namespace DecisionArchitect.Logic.Forces
         }
 
         /// <summary>
-        /// Value for a cell containing a decision and its mapping information
+        ///     Value for a cell containing a decision and its mapping information
         /// </summary>
         /// <param name="i"></param>
         /// <param name="j"></param>
@@ -179,7 +191,7 @@ namespace DecisionArchitect.Logic.Forces
         }
 
         /// <summary>
-        /// Value for a cell containing a rating and its mapping information
+        ///     Value for a cell containing a rating and its mapping information
         /// </summary>
         /// <param name="i"></param>
         /// <param name="j"></param>
@@ -189,15 +201,15 @@ namespace DecisionArchitect.Logic.Forces
             int row = i + StartRow, col = j + StartColumn - amountColHidden;
             _worksheet.Cells[row, col] = _forcesTable.Rows[i].Cells[j].Value;
 
-            var forGuid = _forcesTable.Rows[i].Cells[ForcesTableContext.ForceGUIDColumnIndex];
-            var conGuid = _forcesTable.Rows[i].Cells[ForcesTableContext.ConcernGUIDColumnIndex];
-            var decGuid = _forcesTable.Rows[_forcesTable.Rows.Count - 1].Cells[j];
-            var ratingGuids = forGuid.Value + ";" + conGuid.Value + ";" + decGuid.Value;
+            DataGridViewCell forGuid = _forcesTable.Rows[i].Cells[ForcesTableContext.ForceGUIDColumnIndex];
+            DataGridViewCell conGuid = _forcesTable.Rows[i].Cells[ForcesTableContext.ConcernGUIDColumnIndex];
+            DataGridViewCell decGuid = _forcesTable.Rows[_forcesTable.Rows.Count - 1].Cells[j];
+            string ratingGuids = forGuid.Value + ";" + conGuid.Value + ";" + decGuid.Value;
             UpdateMapping(row, col, RatingMappingIndex, ratingGuids);
         }
 
         /// <summary>
-        /// Stores mapping information: GUID and location of value
+        ///     Stores mapping information: GUID and location of value
         /// </summary>
         /// <param name="row"> Index of row of the value stored in Excel</param>
         /// <param name="col"> Index of column of the value stored in Excel</param>
@@ -206,27 +218,27 @@ namespace DecisionArchitect.Logic.Forces
         private void UpdateMapping(int row, int col, int mappingIndex, object guid)
         {
             int lastRowIndex = GetLastRow(_worksheetHidden, mappingIndex);
-            
+
             //Store GUID
             _worksheetHidden.Cells[lastRowIndex, mappingIndex] = guid;
 
             //Store location of value next to GUID
-            Microsoft.Office.Interop.Excel.Range range = _worksheet.Cells[row, col];
+            Range range = _worksheet.Cells[row, col];
             _worksheetHidden.Cells[lastRowIndex, mappingIndex + 1] = range.AddressLocal[false, false];
             Marshal.ReleaseComObject(range);
         }
 
         /// <summary>
-        /// Retrieves the last used row of columnIndex in worksheet
+        ///     Retrieves the last used row of columnIndex in worksheet
         /// </summary>
         /// <param name="worksheet"></param>
         /// <param name="columnIndex"></param>
         /// <returns></returns>
-        private int GetLastRow(Microsoft.Office.Interop.Excel.Worksheet worksheet, int columnIndex)
+        private int GetLastRow(Worksheet worksheet, int columnIndex)
         {
             for (int i = 1; i < worksheet.Rows.Count; i++)
             {
-                var range = (Microsoft.Office.Interop.Excel.Range) worksheet.Cells[i, columnIndex];
+                var range = (Range) worksheet.Cells[i, columnIndex];
                 if (range.Value2 == null)
                 {
                     Marshal.ReleaseComObject(range);
@@ -240,7 +252,7 @@ namespace DecisionArchitect.Logic.Forces
 
         // EVENT HANDLERS
 
-        private void Event_ChangeEvent(Microsoft.Office.Interop.Excel.Range range)
+        private void Event_ChangeEvent(Range range)
         {
             //TODO connect with ForcesViewpoint
         }

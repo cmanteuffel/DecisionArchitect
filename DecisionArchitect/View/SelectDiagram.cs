@@ -20,24 +20,16 @@ namespace DecisionArchitect.View
 {
     public partial class SelectDiagram : Form
     {
-        class DiagramListItem
-        {
-            public string Name { get; set; }
-            public int ID { get; set; }
-            public IEADiagram Diagram { get; set; }
-        }
-
         public SelectDiagram(IEnumerable<IEADiagram> diagrams)
         {
             InitializeComponent();
 
             var datasource = new List<DiagramListItem>();
-            diagrams.ToList().ForEach(x => datasource.Add(new DiagramListItem { Name = x.Name, ID = x.ID, Diagram = x }));
+            diagrams.ToList().ForEach(x => datasource.Add(new DiagramListItem {Name = x.Name, ID = x.ID, Diagram = x}));
             listDiagrams.ValueMember = "ID";
             listDiagrams.DisplayMember = "Name";
             //datasource.Add(new DiagramListItem { Name = "Open DetailView", ID = 999, Diagram = null });
             listDiagrams.DataSource = datasource;
-
         }
 
 
@@ -64,6 +56,13 @@ namespace DecisionArchitect.View
                 return item.Diagram;
             }
             return null;
+        }
+
+        private class DiagramListItem
+        {
+            public string Name { get; set; }
+            public int ID { get; set; }
+            public IEADiagram Diagram { get; set; }
         }
     }
 }

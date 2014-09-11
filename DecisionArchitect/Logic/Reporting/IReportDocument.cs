@@ -12,6 +12,8 @@
 
 using DecisionArchitect.Model;
 using EAFacade.Model;
+using IDecision = DecisionArchitect.Model.New.IDecision;
+using ITopic = DecisionArchitect.Model.New.ITopic;
 
 namespace DecisionArchitect.Logic.Reporting
 {

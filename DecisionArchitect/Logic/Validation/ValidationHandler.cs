@@ -12,6 +12,7 @@
 
 using System;
 using System.Windows.Forms;
+using EAFacade;
 using EAFacade.Model;
 
 namespace DecisionArchitect.Logic.Validation
@@ -76,7 +77,7 @@ namespace DecisionArchitect.Logic.Validation
             {
                 case EANativeType.Element:
 
-                    IEAElement element = EAFacade.EA.Repository.GetElementByGUID(guid);
+                    IEAElement element = EAMain.Repository.GetElementByGUID(guid);
 
                     //dirty hack to prevent that the event is fired twice when an decision is modified
                     if (lastGUID.Equals(guid) && lastChange.Equals(element.Modified))
@@ -98,7 +99,7 @@ namespace DecisionArchitect.Logic.Validation
 
                     break;
                 case EANativeType.Connector:
-                    var connector = EAFacade.EA.Repository.GetConnectorByGUID(guid);
+                    IEAConnector connector = EAMain.Repository.GetConnectorByGUID(guid);
 
                     //dirty hack that prevents that an modified event is fired after a connector has been created
                     if (_preventConnectorModifiedEvent)

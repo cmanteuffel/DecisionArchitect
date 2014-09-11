@@ -11,13 +11,15 @@
     Antonis Gkortzis (University of Groningen)
 */
 
+using System;
+
 namespace DecisionArchitect.Model
 {
+    
     public interface ICustomViewModelObserver
     {
-        
     }
-
+    
     public interface IForcesModelObserver : ICustomViewModelObserver
     {
         void Update(IForcesModel model);
@@ -28,5 +30,5 @@ namespace DecisionArchitect.Model
     {
         void Update(ITopic model);
     }
-     */ 
+     */
 }

@@ -30,12 +30,12 @@ namespace DecisionArchitect.Logic.Validation
 
         public static ModelValidator Initialize(Repository repository)
         {
-            var project = repository.GetProjectInterface();
-            var categoryID = project.DefineRuleCategory(Messages.ModelValidationCategory);
+            Project project = repository.GetProjectInterface();
+            string categoryID = project.DefineRuleCategory(Messages.ModelValidationCategory);
 
             var mv = new ModelValidator(categoryID);
 
-            foreach (var rule in RuleManager.Instance.Rules)
+            foreach (AbstractRule rule in RuleManager.Instance.Rules)
             {
                 mv.AddRule(repository, rule);
             }

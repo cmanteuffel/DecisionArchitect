@@ -85,7 +85,7 @@ namespace EAFacade.Tests
             }
 
             // Operations
-            // See the Type property in the EA Element class documentation for a list of valid element types.
+            // See the Type property in the EAMain Element class documentation for a list of valid element types.
 
             {  // CreatePackage / DeletePackage
                 IEAPackage package = _e.GetDecisionPackage();
@@ -315,7 +315,7 @@ namespace EAFacade.Tests
         /// <summary>
         /// ConfirmMDG verifies if the Decision type is recognized.
         /// This test will fail if the MDG file DecisionViewpoints.xml is not manually added to the
-        /// SparxSystems/EA/MDGTechnologies folder. The package will have the Action instead of Decision type.
+        /// SparxSystems/EAMain/MDGTechnologies folder. The package will have the Action instead of Decision type.
         /// </summary>
         [Test()]
         public void EA_ConfirmMDG()
@@ -336,7 +336,7 @@ namespace EAFacade.Tests
         {
             IEADiagramObject obj = _e.GetForcesDiagramObject();
             EventProperties properties = EAEventPropertiesHelper.GetInstance("", "", "", 0, 0, 0, obj.ElementID, 0);
-            IEAElement e = EA.WrapElement(properties);
+            IEAElement e = EAMain.WrapElement(properties);
             Assert.IsTrue(obj.ElementID == e.ID);
         }
 
@@ -347,7 +347,7 @@ namespace EAFacade.Tests
         public void EA_WrapElement_elementTest()
         {
             Element element = _e.GetDecisionPackageElement();
-            IEAElement e = EA.WrapElement(element);
+            IEAElement e = EAMain.WrapElement(element);
             Assert.IsTrue(element.ElementID == e.ID);
         }
 
@@ -358,7 +358,7 @@ namespace EAFacade.Tests
         public void EA_WrapConnectorTest()
         {
             Connector connector = _e.GetForcesElementConnector();
-            IEAConnector c = EA.WrapConnector(connector);
+            IEAConnector c = EAMain.WrapConnector(connector);
             Assert.IsTrue(connector.ConnectorID == c.ID);
         }
 
@@ -371,7 +371,7 @@ namespace EAFacade.Tests
             Connector connector = _e.GetForcesElementConnector();
             EventProperties properties = EAEventPropertiesHelper.GetInstance(
                 connector.Type, connector.Subtype, connector.Stereotype, connector.ClientID, connector.SupplierID, connector.DiagramID, 0, 0);
-            IEAVolatileConnector c = EA.WrapVolatileConnector(properties);
+            IEAVolatileConnector c = EAMain.WrapVolatileConnector(properties);
             Assert.IsTrue(connector.Type == c.Type);
             Assert.IsTrue(connector.Subtype == c.Subtype);
             Assert.IsTrue(connector.ClientID == c.Client.ID);
@@ -387,7 +387,7 @@ namespace EAFacade.Tests
         {
             IEADiagram diagram = _e.GetDecisionForcesDiagram();
             EventProperties properties = EAEventPropertiesHelper.GetInstance("", "", "", 0, 0, diagram.ID, 0, 0);
-            IEAVolatileDiagram d = EA.WrapVolatileDiagram(properties);
+            IEAVolatileDiagram d = EAMain.WrapVolatileDiagram(properties);
             Assert.IsTrue(diagram.ID == d.DiagramID);
         }
 
@@ -400,7 +400,7 @@ namespace EAFacade.Tests
             Element element = _e.GetDecisionPackageElement();
             EventProperties properties = EAEventPropertiesHelper.GetInstance(
                 EAConstants.EventPropertyTypeElement, element.Subtype.ToString(), element.Stereotype, 0, 0, 0, 0, element.ElementID);
-            IEAVolatileElement e = EA.WrapVolatileElement(properties);
+            IEAVolatileElement e = EAMain.WrapVolatileElement(properties);
             Assert.IsTrue(element.ElementID == e.ParentElement.ID);
         }
 
@@ -412,7 +412,7 @@ namespace EAFacade.Tests
         {
             IEADiagram diagram = _e.GetDecisionForcesDiagram();
             EventProperties properties = EAEventPropertiesHelper.GetInstance("", "", "", 0, 0, diagram.ID, 0, 0);
-            IEAVolatileElement e = EA.WrapVolatileElement(properties);
+            IEAVolatileElement e = EAMain.WrapVolatileElement(properties);
             Assert.IsTrue(diagram.ID == e.Diagram.ID);
         }
     }

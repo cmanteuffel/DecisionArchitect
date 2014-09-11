@@ -16,7 +16,6 @@ namespace DecisionArchitect.Logic.Validation
 {
     public abstract class ConnectorRule : AbstractRule
     {
-        
         protected ConnectorRule(string errorMessage) : base(errorMessage)
         {
         }
@@ -27,6 +26,5 @@ namespace DecisionArchitect.Logic.Validation
         }
 
         public new abstract bool ValidateConnector(IEAConnector connector);
-  
     }
 }

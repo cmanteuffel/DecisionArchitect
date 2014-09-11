@@ -17,6 +17,8 @@ using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Presentation;
 using EAFacade.Model;
+using IDecision = DecisionArchitect.Model.New.IDecision;
+using ITopic = DecisionArchitect.Model.New.ITopic;
 
 namespace DecisionArchitect.Logic.Reporting
 {
@@ -39,7 +41,7 @@ namespace DecisionArchitect.Logic.Reporting
 
         public PowerPointDocument(string filename)
         {
-            _filename = filename;   
+            _filename = filename;
             using (
                 PresentationDocument ppDoc = PresentationDocument.Create(_filename,
                                                                          PresentationDocumentType.Presentation)
@@ -57,7 +59,7 @@ namespace DecisionArchitect.Logic.Reporting
             _detailSlideTemplate = (SlidePart) _doc.PresentationPart.GetPartById(DetailTemplateSlideId);
             _imageSlideTemplate = (SlidePart) _doc.PresentationPart.GetPartById(ImageTemplateSlideId);
             _forcesSlideTemplate = (SlidePart) _doc.PresentationPart.GetPartById(ForcesTemplateSlideId);
-            _topicSlideTemplate = (SlidePart)_doc.PresentationPart.GetPartById(TopicTemplateSlideId);
+            _topicSlideTemplate = (SlidePart) _doc.PresentationPart.GetPartById(TopicTemplateSlideId);
         }
 
         public void InsertTopicTable(ITopic topic)
@@ -69,9 +71,9 @@ namespace DecisionArchitect.Logic.Reporting
             topicdetailSlide.Add();
         }
 
+
         public void InsertDecisionWithoutTopicMessage()
         {
-            
         }
 
 

@@ -13,6 +13,7 @@
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
+using EAFacade;
 using EAFacade.Model;
 
 namespace DecisionArchitect.View
@@ -23,14 +24,14 @@ namespace DecisionArchitect.View
         {
             InitializeComponent();
             txtName.Text = nameproposal;
-            comboBox1.DataSource = EAFacade.EA.Repository.GetAllPackages();
+            comboBox1.DataSource = EAMain.Repository.GetAllPackages();
             comboBox1.DisplayMember = "Name";
             comboBox1.ValueMember = "GUID";
 
             if (comboBox1.Items.Count == 0)
             {
                 errorProvider1.SetError(comboBox1, Messages.ErrorSelectDecisionViewPackage);
-                btnCreateTopic.Enabled = false;   
+                btnCreateTopic.Enabled = false;
             }
         }
 
@@ -41,13 +42,13 @@ namespace DecisionArchitect.View
 
         public IEAPackage GetDecisionViewPackage()
         {
-            return (IEAPackage)comboBox1.SelectedItem;
+            return (IEAPackage) comboBox1.SelectedItem;
         }
 
         private void comboBox1_Format(object sender, ListControlConvertEventArgs e)
         {
-            string name = ((IEAPackage)e.ListItem).Name;
-            string path = ((IEAPackage)e.ListItem).GetProjectPath();
+            string name = ((IEAPackage) e.ListItem).Name;
+            string path = ((IEAPackage) e.ListItem).GetProjectPath();
             e.Value = path + "/" + name;
         }
 
@@ -73,7 +74,6 @@ namespace DecisionArchitect.View
                 errorProvider1.Clear();
                 btnCreateTopic.Enabled = true;
             }
-        }    
-
+        }
     }
 }

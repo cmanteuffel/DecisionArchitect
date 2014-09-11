@@ -48,7 +48,7 @@ namespace DecisionArchitect.Model.Menu
         }
 
         public IMenu FindMenuItem(string name)
-        {           
+        {
             if (Name.Equals(name))
             {
                 return this;
@@ -65,6 +65,23 @@ namespace DecisionArchitect.Model.Menu
             return null;
         }
 
+        public virtual string[] GetSubItems()
+        {
+            Update();
+            if (!IsVisible)
+            {
+                return new string[0];
+            }
+
+            var menuItems = new string[_subitems.Count];
+            for (int i = 0; i < _subitems.Count; i++)
+            {
+                _subitems[i].Update();
+                menuItems[i] = _subitems[i].Name;
+            }
+            return menuItems;
+        }
+
 
         public void Add(IMenu i)
         {
@@ -79,23 +96,6 @@ namespace DecisionArchitect.Model.Menu
         public void Clear()
         {
             _subitems.Clear();
-        }
-
-        public virtual string[] GetSubItems()
-        {
-            Update();
-            if (!IsVisible)
-            {
-                return new string[0];
-            }
-                
-            var menuItems = new string[_subitems.Count];
-            for (int i = 0; i < _subitems.Count; i++)
-            {
-                _subitems[i].Update();
-                menuItems[i] = _subitems[i].Name;
-            }
-            return menuItems;
         }
     }
 }

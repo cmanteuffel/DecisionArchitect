@@ -18,8 +18,8 @@ namespace DecisionArchitect.View.Forces
 {
     public class PopulateTreeView
     {
-        private readonly TreeView _tv;
         private readonly bool _decision; //Specifies whether decisions or all elements should be added
+        private readonly TreeView _tv;
 
         public PopulateTreeView(TreeView tv, bool decision)
         {
@@ -28,26 +28,27 @@ namespace DecisionArchitect.View.Forces
         }
 
         /// <summary>
-        /// Populates the treeview with the elements from the repository
+        ///     Populates the treeview with the elements from the repository
         /// </summary>
         public void Populate()
         {
-            IEARepository repository = EAFacade.EA.Repository;
+            IEARepository repository = EAMain.Repository;
             foreach (IEAPackage package in repository.GetAllRootPackages())
             {
                 //Skip history package
                 if (package.Stereotype.Equals(EAConstants.ChronologicalStereoType)) continue;
                 TreeNode node = AddPackageNode(new TreeNode(), package);
-                if (null != node) {
+                if (null != node)
+                {
                     node.Expand();
                     _tv.Nodes.Add(node);
                 }
             }
-            if(_decision) _tv.ExpandAll();
+            if (_decision) _tv.ExpandAll();
         }
 
         /// <summary>
-        /// Adds a package and its children to the node
+        ///     Adds a package and its children to the node
         /// </summary>
         /// <param name="node">Node to be added to</param>
         /// <param name="package">Package to be added</param>
@@ -60,7 +61,8 @@ namespace DecisionArchitect.View.Forces
             foreach (IEAPackage subPackage in package.Packages)
             {
                 //Skip history package and packages without elements
-                if (subPackage.Stereotype.Equals(EAConstants.ChronologicalStereoType) || !subPackage.GetAllElementsOfSubTree().Any()) continue;
+                if (subPackage.Stereotype.Equals(EAConstants.ChronologicalStereoType) ||
+                    !subPackage.GetAllElementsOfSubTree().Any()) continue;
                 TreeNode subPackageNode = AddPackageNode(new TreeNode(), subPackage);
                 if (null != subPackageNode)
                 {
@@ -71,20 +73,20 @@ namespace DecisionArchitect.View.Forces
             int count = 0;
             foreach (IEAElement element in package.Elements)
             {
-                if (element.Name.Equals("") || element.IsHistoryDecision()) continue;
-                if (_decision && (!element.IsDecision() && !element.IsTopic())) continue;
+                if (element.Name.Equals("") || EAMain.IsHistoryDecision(element)) continue;
+                if (_decision && (!EAMain.IsDecision(element) && !EAMain.IsTopic(element))) continue;
                 node.Nodes.Add(AddElementToNode(new TreeNode(), element));
                 ++count;
             }
             if (node.GetNodeCount(true) == 0)
             {
                 return null;
-            } 
+            }
             return node;
         }
 
         /// <summary>
-        /// Adds an element and its children to the node
+        ///     Adds an element and its children to the node
         /// </summary>
         /// <param name="node">Node to be added to</param>
         /// <param name="element"></param>
@@ -96,8 +98,11 @@ namespace DecisionArchitect.View.Forces
 
             foreach (IEAElement el in element.GetElements())
             {
-                if (el.Name.Equals("") || el.IsHistoryDecision()) continue;
-                if (_decision && (!el.IsDecision() && !el.IsTopic())) {continue;}
+                if (el.Name.Equals("") || EAMain.IsHistoryDecision(el)) continue;
+                if (_decision && (!EAMain.IsDecision(el) && !EAMain.IsTopic(el)))
+                {
+                    continue;
+                }
                 node.Nodes.Add((AddElementToNode(new TreeNode(), el)));
             }
             return node;

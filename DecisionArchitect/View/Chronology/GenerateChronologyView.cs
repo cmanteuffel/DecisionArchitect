@@ -9,21 +9,21 @@ namespace DecisionArchitect.View.Chronology
 {
     public partial class GenerateChronologyView : Form
     {
-
         public List<IEAElement> Decisions = new List<IEAElement>();
-        public string ViewName { get; set; }
 
         public GenerateChronologyView()
         {
-            InitializeComponent();            
+            InitializeComponent();
             PopulateTreeView();
             listSelectedDecisions.DisplayMember = "Name";
             listSelectedDecisions.ValueMember = "GUID";
         }
 
+        public string ViewName { get; set; }
+
         private void PopulateTreeView()
         {
-            foreach (IEAPackage rootPackage in EAFacade.EA.Repository.GetAllRootPackages())
+            foreach (IEAPackage rootPackage in EAMain.Repository.GetAllRootPackages())
             {
                 var rootNode = new TreeNode(Name = rootPackage.Name) {ImageKey = rootPackage.GUID};
                 IEnumerable<TreeNode> nodes = rootPackage.Packages.Select(CreateTreeNode).Where(n => n != null);
@@ -40,7 +40,8 @@ namespace DecisionArchitect.View.Chronology
         {
             TreeNode packageNode = null;
             IEnumerable<TreeNode> decisions =
-                package.Elements.Where(e => e.IsDecision() && !e.IsHistoryDecision()).Select(e => new TreeNode(Name = e.Name) {ImageKey = e.GUID});
+                package.Elements.Where(e => EAMain.IsDecision(e) && !EAMain.IsHistoryDecision(e))
+                       .Select(e => new TreeNode(Name = e.Name) {ImageKey = e.GUID});
             IEnumerable<TreeNode> subpackages = package.Packages.Select(CreateTreeNode).Where(node => node != null);
             IOrderedEnumerable<TreeNode> subtree = decisions.Union(subpackages).OrderBy(node => node.Name);
             if (subtree.Any())
@@ -58,26 +59,26 @@ namespace DecisionArchitect.View.Chronology
             {
                 case EANativeType.Package:
                 case EANativeType.Model:
-                    var package = EAFacade.EA.Repository.GetPackageByGUID(guid);
-                    foreach (var d in package.GetAllDecisions())
+                    IEAPackage package = EAMain.Repository.GetPackageByGUID(guid);
+                    foreach (IEAElement d in package.GetAllDecisions())
                     {
                         if (!Decisions.Contains(d))
                         {
                             Decisions.Add(d);
                             listSelectedDecisions.Items.Add(d);
                             node.Checked = true;
-                        }    
+                        }
                     }
-                    
+
                     break;
                 case EANativeType.Element:
-                    var decision = EAFacade.EA.Repository.GetElementByGUID(guid);
+                    IEAElement decision = EAMain.Repository.GetElementByGUID(guid);
                     if (!Decisions.Contains(decision))
                     {
                         Decisions.Add(decision);
                         listSelectedDecisions.Items.Add(decision);
                         node.Checked = true;
-                    }                   
+                    }
                     break;
             }
             UpdateButtonStates();
@@ -92,8 +93,8 @@ namespace DecisionArchitect.View.Chronology
         private void remove_Click(object sender, EventArgs e)
         {
             var list = new object[listSelectedDecisions.SelectedItems.Count];
-           listSelectedDecisions.SelectedItems.CopyTo(list,0);
-            foreach (var item in list)
+            listSelectedDecisions.SelectedItems.CopyTo(list, 0);
+            foreach (object item in list)
             {
                 var decision = (IEAElement) item;
                 listSelectedDecisions.Items.Remove(item);
@@ -104,7 +105,6 @@ namespace DecisionArchitect.View.Chronology
 
         private void okButton_Click(object sender, EventArgs e)
         {
-            
         }
 
         private void treeAllDecisions_AfterSelect(object sender, TreeViewEventArgs e)

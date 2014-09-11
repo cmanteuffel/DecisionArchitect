@@ -11,7 +11,9 @@
     Marc Holterman (University of Groningen)
  */
 
+using DecisionArchitect.Logic;
 using EA;
+using EAFacade;
 
 namespace DecisionArchitect
 {
@@ -21,8 +23,8 @@ namespace DecisionArchitect
         {
             //MessageBox.Show("EA_FileOpen ");
 
-            EAFacade.EA.UpdateRepository(repository);
-            foreach (var l in _listeners)
+            EAMain.UpdateRepository(repository);
+            foreach (IRepositoryListener l in _listeners)
             {
                 l.OnFileOpen();
             }
@@ -30,10 +32,10 @@ namespace DecisionArchitect
 
         public override void EA_FileClose(Repository repository)
         {
-           // MessageBox.Show("EA_FileClose ");
+            // MessageBox.Show("EA_FileClose ");
 
-            EAFacade.EA.UpdateRepository(repository);
-            foreach (var l in _listeners)
+            EAMain.UpdateRepository(repository);
+            foreach (IRepositoryListener l in _listeners)
             {
                 l.OnFileClose();
             }
@@ -41,30 +43,29 @@ namespace DecisionArchitect
 
         public override void EA_FileNew(Repository repository)
         {
-          //  MessageBox.Show("EA_FileNew ");
+            //  MessageBox.Show("EA_FileNew ");
 
-            EAFacade.EA.UpdateRepository(repository);
-            foreach (var l in _listeners)
+            EAMain.UpdateRepository(repository);
+            foreach (IRepositoryListener l in _listeners)
             {
                 l.OnFileNew();
             }
         }
 
         /// <summary>
-        /// This is called if the user clicks on a tab
+        ///     This is called if the user clicks on a tab
         /// </summary>
         /// <param name="tabname">
-        /// tells the listeners which tab 
+        ///     tells the listeners which tab
         /// </param>
         public override void EA_OnTabChanged(Repository repository, string tabname, int diagramID)
         {
             //MessageBox.Show("EA_OnTabChanged " + tabname);
-            EAFacade.EA.UpdateRepository(repository);
-            foreach (var l in _listeners)
+            EAMain.UpdateRepository(repository);
+            foreach (IRepositoryListener l in _listeners)
             {
                 l.OnTabChanged(tabname, diagramID);
             }
         }
-        
     }
 }
