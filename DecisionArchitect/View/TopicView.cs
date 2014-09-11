@@ -14,10 +14,16 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using DecisionArchitect.Model.New;
+using DecisionArchitect.Model;
 
 namespace DecisionArchitect.View.TopicView
 {
+
+    public interface ITopicViewController
+    {
+        ITopic Topic { get; set; }
+    }
+
     [ComVisible(true)]
     [Guid("D65970AD-12A7-402A-9F88-ED50D8C1DD90")]
     [ProgId("DecisionViewpoints.TopicViewController")]
@@ -87,8 +93,8 @@ namespace DecisionArchitect.View.TopicView
 
         private void btnRevert_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Are you sure that you want to revert all changes?",
-                                                        "Revert Changes", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show(Messages.WarningRevertChanges,
+                                                        Messages.WarningRevertChangesTitle, MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
                 Topic.DiscardChanges();

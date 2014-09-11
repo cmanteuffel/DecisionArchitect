@@ -2,7 +2,7 @@ using System.ComponentModel;
 using EAFacade;
 using EAFacade.Model;
 
-namespace DecisionArchitect.Model.New
+namespace DecisionArchitect.Model
 {
     public interface IDecisionRelation : INotifyPropertyChanged
     {
@@ -47,7 +47,7 @@ namespace DecisionArchitect.Model.New
                 {
                     IEAConnector eaConnector = EAMain.Repository.GetConnectorByGUID(RelationGUID);
                     _relatedDecision =
-                        New.Decision.Load(Direction == DecisionRelationDirection.Incoming
+                        Model.Decision.Load(Direction == DecisionRelationDirection.Incoming
                                               ? eaConnector.GetSupplier()
                                               : eaConnector.GetClient());
                 }

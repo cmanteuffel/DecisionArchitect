@@ -1,6 +1,6 @@
 using EAFacade.Model;
 
-namespace DecisionArchitect.Model.New
+namespace DecisionArchitect.Model
 {
     public interface IStakeholderAction
     {
@@ -14,7 +14,7 @@ namespace DecisionArchitect.Model.New
     {
         public StakeholderAction(IDecision decision, IEAConnector connector)
         {
-            Stakeholder = New.Stakeholder.Load(connector.GetClient());
+            Stakeholder = Model.Stakeholder.Load(connector.GetClient());
             Action = connector.Stereotype;
             ConnectorGUID = connector.GUID;
             Decision = decision;

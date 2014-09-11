@@ -1,6 +1,6 @@
 using EAFacade;
 
-namespace DecisionArchitect.Model.New
+namespace DecisionArchitect.Model
 {
     public interface ITraceLink
     {

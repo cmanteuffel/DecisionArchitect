@@ -26,8 +26,8 @@ using DecisionArchitect.Utilities;
 using DecisionArchitect.View.Controller;
 using EAFacade;
 using EAFacade.Model;
-using Decision = DecisionArchitect.Model.New.Decision;
-using IDecision = DecisionArchitect.Model.New.IDecision;
+using Decision = DecisionArchitect.Model.Decision;
+using IDecision = DecisionArchitect.Model.IDecision;
 
 namespace DecisionArchitect.View.Forces
 {

@@ -5,7 +5,7 @@ using DecisionArchitect.Utilities;
 using EAFacade;
 using EAFacade.Model;
 
-namespace DecisionArchitect.Model.New
+namespace DecisionArchitect.Model
 {
     public interface IHistoryEntry : IPersistableModel, INotifyPropertyChanged 
     {

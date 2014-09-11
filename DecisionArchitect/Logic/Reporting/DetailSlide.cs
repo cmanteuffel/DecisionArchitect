@@ -12,7 +12,7 @@
 
 using System.Collections.Generic;
 using System.Text;
-using DecisionArchitect.Model.New;
+using DecisionArchitect.Model;
 using DocumentFormat.OpenXml.Packaging;
 using EAFacade;
 using EAFacade.Model;

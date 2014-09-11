@@ -3,7 +3,7 @@ using System.ComponentModel;
 using EAFacade;
 using EAFacade.Model;
 
-namespace DecisionArchitect.Model.New
+namespace DecisionArchitect.Model
 {
     public interface IStakeholder : IPersistableModel, INotifyPropertyChanged 
     {

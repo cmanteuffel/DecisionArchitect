@@ -13,7 +13,7 @@
 using DecisionArchitect.Model;
 using DecisionArchitect.Utilities;
 using DocumentFormat.OpenXml.Packaging;
-using ITopic = DecisionArchitect.Model.New.ITopic;
+using ITopic = DecisionArchitect.Model.ITopic;
 
 namespace DecisionArchitect.Logic.Reporting
 {

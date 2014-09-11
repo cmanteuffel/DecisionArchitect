@@ -16,7 +16,7 @@ using EAFacade.Model;
 
 namespace DecisionArchitect.View.Controller
 {
-    public interface IForcesController : ICustomViewController
+    public interface IForcesController
     {
         IForcesModel Model { get; set; }
         IForcesView View { get; set; }

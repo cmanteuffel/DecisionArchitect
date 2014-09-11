@@ -12,12 +12,10 @@
     Marc Holterman (University of Groningen)
 */
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using DecisionArchitect.Logic.Detail;
-using DecisionArchitect.Model.New;
+using DecisionArchitect.Model;
 using DecisionArchitect.View;
 using DecisionArchitect.View.DetailView;
 using DecisionArchitect.View.TopicView;
@@ -125,23 +123,6 @@ namespace DecisionArchitect.Logic.EventHandler
             return false;
         }
 
-        /// <summary>
-        ///     Method that is called when the user changes tabs.
-        /// </summary>
-        /// <param name="tabname"></param>
-        /// String holding the name of the tab that is clicked by the user
-        /// <param name="diagramId"></param>
-        public override void OnTabChanged(string tabname, int diagramId)
-        {
-            try
-            {
-                SynchronizationManager.Instance.SetActiveTab(tabname);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
 
         /********************************************************************************************
         ** Auxiliary methods
@@ -153,7 +134,6 @@ namespace DecisionArchitect.Logic.EventHandler
                                                                                 "DecisionViewpoints.TopicViewController");
             ITopic topic = Topic.Load(element);
             topicViewController.Topic = topic;
-            SynchronizationManager.Instance.Subscribe(element.GUID, topicViewController, element.Name);
         }
 
         public bool IsOpenTab(IEAElement element)
@@ -164,7 +144,6 @@ namespace DecisionArchitect.Logic.EventHandler
         public void FocusTab(IEAElement element)
         {
             EAMain.Repository.ActivateTab(element.Name);
-            SynchronizationManager.Instance.Update(element.GUID);
         }
 
         public void CloseTab(IEAElement element)
@@ -276,8 +255,8 @@ namespace DecisionArchitect.Logic.EventHandler
                     tabName = FindUniqueTabName(decision);
                     _tabMap[decision.GUID] = tabName;
                 }
-                IDetailViewController detailViewController = repository.AddTab(tabName,
-                                                                               "DecisionViewpoints.DetailViewController");
+                DetailViewController detailViewController = repository.AddTab(tabName,
+                                                                              "DecisionViewpoints.DetailViewController");
                 detailViewController.Decision = decision;
             }
         }
@@ -293,7 +272,5 @@ namespace DecisionArchitect.Logic.EventHandler
             }
             return tabName;
         }
-
-      
     }
 }

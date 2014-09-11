@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DecisionArchitect.View.Controller;
 using EAFacade;
 
 namespace DecisionArchitect.Logic.Detail
 {
+    [Obsolete("",true)]
     internal class SynchronizationManager
     {
         private static SynchronizationManager _instance;

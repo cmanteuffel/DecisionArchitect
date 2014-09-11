@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace DecisionArchitect.Model.New
+namespace DecisionArchitect.Model
 {
     public abstract class Entity : INotifyPropertyChanged
     {
