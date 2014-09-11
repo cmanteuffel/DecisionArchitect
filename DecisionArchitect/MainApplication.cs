@@ -12,17 +12,15 @@
 
 using System.Collections.Generic;
 using DecisionArchitect.Logic;
-using DecisionArchitect.Logic.Chronological;
-using DecisionArchitect.Logic.Detail;
-using DecisionArchitect.Logic.Forces;
+using DecisionArchitect.Logic.EventHandler;
 using DecisionArchitect.Logic.StakeholderInvolvement;
 using DecisionArchitect.Logic.Validation;
 using EA;
+using EAFacade;
 using EAFacade.Events;
 
 namespace DecisionArchitect
 {
-
     public partial class MainApplication : EAEventAdapter
     {
         private readonly IList<IRepositoryListener> _listeners = new List<IRepositoryListener>();
@@ -30,23 +28,24 @@ namespace DecisionArchitect
         //init repository listener
         public MainApplication()
         {
+            _listeners.Add(new DecisionStateChangeEventHandler());
+            _listeners.Add(DetailHandler.Instance);
             _listeners.Add(new ValidationHandler());
             _listeners.Add(new ChronologicalViewpointHandler());
             _listeners.Add(new ForcesHandler());
             _listeners.Add(new StakeholderInvolvementHandler());
-            _listeners.Add(DetailHandler.Instance);
         }
 
         public override object EA_OnInitializeTechnologies(Repository repository)
         {
-            EAFacade.EA.UpdateRepository(repository);
+            EAMain.UpdateRepository(repository);
             const string resource = "DecisionArchitect." + "DecisionArchitectMDG.xml";
             return Utilities.GetResourceContents(resource);
         }
 
         public override string EA_OnRetrieveModelTemplate(Repository repository, string location)
         {
-            EAFacade.EA.UpdateRepository(repository);
+            EAMain.UpdateRepository(repository);
             string resource = "DecisionArchitect.Templates." + location;
             return Utilities.GetResourceContents(resource);
         }

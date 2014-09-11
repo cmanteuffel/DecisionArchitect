@@ -16,21 +16,26 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using DecisionArchitect.Model;
+using DecisionArchitect.Model.New;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Drawing.Wordprocessing;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
+using EAFacade;
 using EAFacade.Model;
 using BlipFill = DocumentFormat.OpenXml.Drawing.Pictures.BlipFill;
 using BottomBorder = DocumentFormat.OpenXml.Wordprocessing.BottomBorder;
 using Break = DocumentFormat.OpenXml.Wordprocessing.Break;
 using Color = DocumentFormat.OpenXml.Wordprocessing.Color;
+using IDecision = DecisionArchitect.Model.New.IDecision;
+using ITopic = DecisionArchitect.Model.New.ITopic;
 using InsideHorizontalBorder = DocumentFormat.OpenXml.Wordprocessing.InsideHorizontalBorder;
 using InsideVerticalBorder = DocumentFormat.OpenXml.Wordprocessing.InsideVerticalBorder;
 using LeftBorder = DocumentFormat.OpenXml.Wordprocessing.LeftBorder;
 using NonVisualDrawingProperties = DocumentFormat.OpenXml.Drawing.Pictures.NonVisualDrawingProperties;
-using NonVisualGraphicFrameDrawingProperties = DocumentFormat.OpenXml.Drawing.Wordprocessing.NonVisualGraphicFrameDrawingProperties;
+using NonVisualGraphicFrameDrawingProperties =
+    DocumentFormat.OpenXml.Drawing.Wordprocessing.NonVisualGraphicFrameDrawingProperties;
 using NonVisualPictureDrawingProperties = DocumentFormat.OpenXml.Drawing.Pictures.NonVisualPictureDrawingProperties;
 using NonVisualPictureProperties = DocumentFormat.OpenXml.Drawing.Pictures.NonVisualPictureProperties;
 using Paragraph = DocumentFormat.OpenXml.Wordprocessing.Paragraph;
@@ -208,97 +213,91 @@ namespace DecisionArchitect.Logic.Reporting
             var props = new TableProperties(
                 new TableBorders(
                     new TopBorder
-                    {
-                        Val = new EnumValue<BorderValues>(BorderValues.Single),
-                        Size = 11
-                    },
+                        {
+                            Val = new EnumValue<BorderValues>(BorderValues.Single),
+                            Size = 11
+                        },
                     new BottomBorder
-                    {
-                        Val = new EnumValue<BorderValues>(BorderValues.Single),
-                        Size = 11
-                    },
+                        {
+                            Val = new EnumValue<BorderValues>(BorderValues.Single),
+                            Size = 11
+                        },
                     new LeftBorder
-                    {
-                        Val = new EnumValue<BorderValues>(BorderValues.Single),
-                        Size = 11
-                    },
+                        {
+                            Val = new EnumValue<BorderValues>(BorderValues.Single),
+                            Size = 11
+                        },
                     new RightBorder
-                    {
-                        Val = new EnumValue<BorderValues>(BorderValues.Single),
-                        Size = 11
-                    },
+                        {
+                            Val = new EnumValue<BorderValues>(BorderValues.Single),
+                            Size = 11
+                        },
                     new InsideHorizontalBorder
-                    {
-                        Val = new EnumValue<BorderValues>(BorderValues.Single),
-                        Size = 11
-                    },
+                        {
+                            Val = new EnumValue<BorderValues>(BorderValues.Single),
+                            Size = 11
+                        },
                     new InsideVerticalBorder
-                    {
-                        Val = new EnumValue<BorderValues>(BorderValues.Single),
-                        Size = 11
-                    },
+                        {
+                            Val = new EnumValue<BorderValues>(BorderValues.Single),
+                            Size = 11
+                        },
                     new TableWidth
-                    {
-                        Width = "5000",
-                        Type = TableWidthUnitValues.Pct
-                    }
+                        {
+                            Width = "5000",
+                            Type = TableWidthUnitValues.Pct
+                        }
                     ),
                 new TableCaption
-                {
-                    Val = new StringValue("My Caption Val") // Does not work..
-                });
+                    {
+                        Val = new StringValue("My Caption Val") // Does not work..
+                    });
 
             table.AppendChild(props);
 
-            foreach (IEAConnector connector in decision.Connectors.Where(connector => connector.IsRelationship()))
+            foreach (IDecisionRelation relation in decision.RelatedDecisions)
             {
-                // Related Decisions
-                if (!connector.Stereotype.Equals("alternative for"))
-                {
-                    dataDict["Alternatives"].Add(connector.ClientId == decision.ID
-                                                     ? "<<this>> " + decision.Name + " - " + connector.Stereotype +
-                                                       " - " +
-                                                       connector.GetSupplier().Name
-                                                     : connector.GetClient().Name + " - " + connector.Stereotype +
-                                                       " - <<this>> " + decision.Name + "\r\n");
-                }
-                // Alternative Decisions
-                else if (connector.Stereotype.Equals("alternative for"))
-                {
-                    dataDict["Related Decisions"].Add(connector.ClientId == decision.ID
-                                                          ? "<<this>> " + decision.Name + " - " + connector.Stereotype +
-                                                            " - " + connector.GetSupplier().Name
-                                                          : connector.GetClient().Name + " - " + connector.Stereotype +
-                                                            " - <<this>> " + decision.Name + "\r\n");
-                }
+                dataDict["Related Decisions"].Add(relation.Decision.GUID.Equals(decision.GUID)
+                                                      ? "<<this>> " + decision.Name + " - " + relation.Type +
+                                                        " - " +
+                                                        relation.RelatedDecision.Name
+                                                      : relation.Decision.Name + " - " + relation.Type +
+                                                        " - <<this>> " + decision.Name + "\r\n");
             }
 
-            // Related Forces
-
-            IEnumerable<Rating> forces = decision.GetForces();
-            foreach (Rating rating in forces)
+            foreach (IDecisionRelation alternative in decision.Alternatives)
             {
-                IEAElement force = EAFacade.EA.Repository.GetElementByGUID(rating.ForceGUID);
-                IEAElement concern = EAFacade.EA.Repository.GetElementByGUID(rating.ConcernGUID);
-                dataDict["Forces"].Add(force.Name + " - " + force.Notes);
+                dataDict["Alternatives"].Add(alternative.Decision.GUID.Equals(decision.GUID)
+                                                 ? "<<this>> " + decision.Name + " - " + alternative.Type +
+                                                   " - " + alternative.RelatedDecision.Name
+                                                 : alternative.Decision.Name + " - " + alternative.Type +
+                                                   " - <<this>> " + decision.Name + "\r\n");
             }
 
 
-            foreach (IEAElement trace in decision.GetTraces())
+            foreach (IForceEvaluation rating in decision.Forces)
             {
-                dataDict["Traces"].Add(trace.GetProjectPath() + "/" + trace.Name);
+                IEAElement force = EAMain.Repository.GetElementByGUID(rating.Force.ForceGUID);
+                dataDict["Forces"].Add(rating.Force.Name + " - " + force.Notes);
             }
 
 
-            foreach (var entry in decision.GetHistory())
+            foreach (ITraceLink trace in decision.Traces)
             {
-                dataDict["History"].Add(entry.State + " " + entry.DateModified.ToShortDateString());
+                dataDict["Traces"].Add(trace.TracedElementName);
             }
 
-            foreach (Model.StakeholderInvolvement stakeholderInvolvment in decision.GetStakeholderInvolvements())
+
+            foreach (IHistoryEntry entry in decision.History)
+            {
+                dataDict["History"].Add(entry.State + " " + entry.Modified.ToShortDateString());
+            }
+
+            foreach (IStakeholderAction stakeholderInvolvment in decision.Stakeholders)
             {
                 string line = string.Format(Messages.ReportingStakeholderInvolvmentLine,
-                                            stakeholderInvolvment.StakeholderType, stakeholderInvolvment.StakeholderName,
+                                            stakeholderInvolvment.Stakeholder.Role,
+                                            stakeholderInvolvment.Stakeholder.Name,
                                             stakeholderInvolvment.Action);
                 dataDict["Stakeholder Involvement"].Add(line);
             }
@@ -312,14 +311,14 @@ namespace DecisionArchitect.Logic.Reporting
                 var tableRow = new TableRow();
 
                 var rowHeader = new TableCell();
-                rowHeader.Append(new TableCellWidth { Type = TableWidthUnitValues.Dxa, Width = "1821" });
+                rowHeader.Append(new TableCellWidth {Type = TableWidthUnitValues.Dxa, Width = "1821"});
                 rowHeader.Append(
                     new TableCellProperties(new Shading
-                    {
-                        Val = ShadingPatternValues.Clear,
-                        Color = "auto",
-                        Fill = "##d3d4d6"
-                    }));
+                        {
+                            Val = ShadingPatternValues.Clear,
+                            Color = "auto",
+                            Fill = "##d3d4d6"
+                        }));
                 Paragraph para = rowHeader.AppendChild(new Paragraph());
                 Run run = para.AppendChild(new Run());
                 getBold(run);
@@ -388,35 +387,35 @@ namespace DecisionArchitect.Logic.Reporting
             var props = new TableProperties(
                 new TableBorders(
                     new TopBorder
-                    {
-                        Val = new EnumValue<BorderValues>(BorderValues.Single),
-                        Size = 11
-                    },
+                        {
+                            Val = new EnumValue<BorderValues>(BorderValues.Single),
+                            Size = 11
+                        },
                     new BottomBorder
-                    {
-                        Val = new EnumValue<BorderValues>(BorderValues.Single),
-                        Size = 11
-                    },
+                        {
+                            Val = new EnumValue<BorderValues>(BorderValues.Single),
+                            Size = 11
+                        },
                     new LeftBorder
-                    {
-                        Val = new EnumValue<BorderValues>(BorderValues.Single),
-                        Size = 11
-                    },
+                        {
+                            Val = new EnumValue<BorderValues>(BorderValues.Single),
+                            Size = 11
+                        },
                     new RightBorder
-                    {
-                        Val = new EnumValue<BorderValues>(BorderValues.Single),
-                        Size = 11
-                    },
+                        {
+                            Val = new EnumValue<BorderValues>(BorderValues.Single),
+                            Size = 11
+                        },
                     new InsideHorizontalBorder
-                    {
-                        Val = new EnumValue<BorderValues>(BorderValues.Single),
-                        Size = 11
-                    },
+                        {
+                            Val = new EnumValue<BorderValues>(BorderValues.Single),
+                            Size = 11
+                        },
                     new InsideVerticalBorder
-                    {
-                        Val = new EnumValue<BorderValues>(BorderValues.Single),
-                        Size = 11
-                    }));
+                        {
+                            Val = new EnumValue<BorderValues>(BorderValues.Single),
+                            Size = 11
+                        }));
 
             table.AppendChild(props);
 
@@ -481,61 +480,61 @@ namespace DecisionArchitect.Logic.Reporting
             var element =
                 new Drawing(
                     new Inline(
-                        new Extent { Cx = size[0], Cy = size[1] },
+                        new Extent {Cx = size[0], Cy = size[1]},
                         new EffectExtent
-                        {
-                            LeftEdge = 0L,
-                            TopEdge = 0L,
-                            RightEdge = 0L,
-                            BottomEdge = 0L
-                        },
+                            {
+                                LeftEdge = 0L,
+                                TopEdge = 0L,
+                                RightEdge = 0L,
+                                BottomEdge = 0L
+                            },
                         new DocProperties
-                        {
-                            Id = (UInt32Value)1U,
-                            Name = "Picture 1"
-                        },
+                            {
+                                Id = (UInt32Value) 1U,
+                                Name = "Picture 1"
+                            },
                         new NonVisualGraphicFrameDrawingProperties(
-                            new GraphicFrameLocks { NoChangeAspect = true }),
+                            new GraphicFrameLocks {NoChangeAspect = true}),
                         new Graphic(
                             new GraphicData(
                                 new Picture(
                                     new NonVisualPictureProperties(
                                         new NonVisualDrawingProperties
-                                        {
-                                            Id = (UInt32Value)0U,
-                                            Name = "New Bitmap Image.jpg"
-                                        },
+                                            {
+                                                Id = (UInt32Value) 0U,
+                                                Name = "New Bitmap Image.jpg"
+                                            },
                                         new NonVisualPictureDrawingProperties()),
                                     new BlipFill(
                                         new Blip(
                                             new BlipExtensionList(
                                                 new BlipExtension
-                                                {
-                                                    Uri = Guid.NewGuid().ToString()
-                                                })
+                                                    {
+                                                        Uri = Guid.NewGuid().ToString()
+                                                    })
                                             )
-                                        {
-                                            Embed = relationshipId,
-                                            CompressionState =
-                                                BlipCompressionValues.Print
-                                        },
+                                            {
+                                                Embed = relationshipId,
+                                                CompressionState =
+                                                    BlipCompressionValues.Print
+                                            },
                                         new Stretch(
                                             new FillRectangle())),
                                     new ShapeProperties(
                                         new Transform2D(
-                                            new Offset { X = 0L, Y = 0L },
-                                            new Extents { Cx = size[0], Cy = size[1] }),
+                                            new Offset {X = 0L, Y = 0L},
+                                            new Extents {Cx = size[0], Cy = size[1]}),
                                         new PresetGeometry(
                                             new AdjustValueList()
-                                            ) { Preset = ShapeTypeValues.Rectangle }))
-                                ) { Uri = "http://schemas.openxmlformats.org/drawingml/2006/picture" })
+                                            ) {Preset = ShapeTypeValues.Rectangle}))
+                                ) {Uri = "http://schemas.openxmlformats.org/drawingml/2006/picture"})
                         )
-                    {
-                        DistanceFromTop = (UInt32Value)0U,
-                        DistanceFromBottom = (UInt32Value)0U,
-                        DistanceFromLeft = (UInt32Value)0U,
-                        DistanceFromRight = (UInt32Value)0U,
-                    });
+                        {
+                            DistanceFromTop = (UInt32Value) 0U,
+                            DistanceFromBottom = (UInt32Value) 0U,
+                            DistanceFromLeft = (UInt32Value) 0U,
+                            DistanceFromRight = (UInt32Value) 0U,
+                        });
 
             // Append the reference to body, the element should be in a Run.
             _body.AppendChild(new Paragraph(new Run(element)));
@@ -558,8 +557,8 @@ namespace DecisionArchitect.Logic.Reporting
             RunProperties runProperties = run.AppendChild(new RunProperties());
             var bold = new Bold();
             bold.Val = OnOffValue.FromBoolean(true);
-            var color = new Color { Val = "365F91", ThemeColor = ThemeColorValues.Accent1, ThemeShade = "BF" };
-            var size = new FontSize { Val = new StringValue("33") };
+            var color = new Color {Val = "365F91", ThemeColor = ThemeColorValues.Accent1, ThemeShade = "BF"};
+            var size = new FontSize {Val = new StringValue("33")};
 
             runProperties.AppendChild(bold);
             runProperties.AppendChild(color);
@@ -573,8 +572,8 @@ namespace DecisionArchitect.Logic.Reporting
             RunProperties runProperties = run.AppendChild(new RunProperties());
             var bold = new Bold();
             bold.Val = OnOffValue.FromBoolean(true);
-            var color = new Color { Val = "365F91", ThemeColor = ThemeColorValues.Accent1, ThemeShade = "BF" };
-            var size = new FontSize { Val = new StringValue("29") };
+            var color = new Color {Val = "365F91", ThemeColor = ThemeColorValues.Accent1, ThemeShade = "BF"};
+            var size = new FontSize {Val = new StringValue("29")};
 
             runProperties.AppendChild(bold);
             runProperties.AppendChild(color);
@@ -588,8 +587,8 @@ namespace DecisionArchitect.Logic.Reporting
             RunProperties runProperties = run.AppendChild(new RunProperties());
             var bold = new Bold();
             bold.Val = OnOffValue.FromBoolean(true);
-            var color = new Color { Val = "365F91", ThemeColor = ThemeColorValues.Accent1, ThemeShade = "BF" };
-            var size = new FontSize { Val = new StringValue("25") };
+            var color = new Color {Val = "365F91", ThemeColor = ThemeColorValues.Accent1, ThemeShade = "BF"};
+            var size = new FontSize {Val = new StringValue("25")};
 
             runProperties.AppendChild(bold);
             runProperties.AppendChild(color);

@@ -16,8 +16,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using DecisionArchitect.Model;
+using DecisionArchitect.Model.New;
 using EAFacade;
 using EAFacade.Model;
+using Decision = DecisionArchitect.Model.New.Decision;
 
 namespace DecisionArchitect.Logic.Chronological
 {
@@ -26,13 +28,12 @@ namespace DecisionArchitect.Logic.Chronological
         //private const string BaselineIdentifier = "Decision History";
 
         private readonly IEADiagram _chronologicalViewpoint;
+        private readonly List<IEAElement> _decisions;
         private readonly IEAPackage _historyPackage;
-        private readonly List<IEAElement> _decisions; 
 
         public ChronologicalViewpointGenerator(List<IEAElement> decisions, IEAPackage historyPackage,
                                                IEADiagram chronologicalViewpoint)
         {
-           
             _chronologicalViewpoint = chronologicalViewpoint;
             _historyPackage = historyPackage;
             _decisions = decisions;
@@ -41,8 +42,7 @@ namespace DecisionArchitect.Logic.Chronological
 
         public bool GenerateViewpoint()
         {
-            
-            IEnumerable < IEAElement > decisionElements = GetHistory();
+            IEnumerable<IEAElement> decisionElements = GetHistory();
             IList<IEAElement> connectedElements = ConnectDecisions(decisionElements);
             GenerateDiagram(_chronologicalViewpoint, connectedElements);
 
@@ -53,32 +53,35 @@ namespace DecisionArchitect.Logic.Chronological
         {
             IEnumerable<IEAElement> allDecisionsInPackage = _decisions;
 
-            var history =  allDecisionsInPackage.SelectMany(d => new Decision(d).GetHistory());
-        
-            IEnumerable<IEAElement> exisitingHistoryDecisions = _historyPackage.Elements.Where(e => e.IsDecision());
+            IEnumerable<IHistoryEntry> history = allDecisionsInPackage.SelectMany(d => Decision.Load(d).History);
+
+            IEnumerable<IEAElement> exisitingHistoryDecisions = _historyPackage.Elements.Where(e => EAMain.IsDecision(e));
 
             //create non existing and update existing (name)
             var pastDecisions = new List<IEAElement>();
-            foreach (DecisionStateChange item in history.ToList())
+            foreach (IHistoryEntry item in history.ToList())
             {
-
-                string name = string.Format(Messages.ChronologyDecisionName, item.Element.Name, item.DateModified.ToShortDateString());
+                string name = string.Format(Messages.ChronologyDecisionName, item.Decision.Name,
+                                            item.Modified.ToShortDateString());
                 string stereotype = item.State;
-                DateTime modified = item.DateModified;
-                var type = EAConstants.ActionMetaType;
-                string originalGUID = item.Element.GUID;
+                DateTime modified = item.Modified;
+                string type = EAConstants.ActionMetaType;
+                string originalGUID = item.Decision.GUID;
 
-                IEAElement pastDecision = exisitingHistoryDecisions.FirstOrDefault(hd => originalGUID.Equals(hd.GetTaggedValue(EATaggedValueKeys.OriginalDecisionGuid)) &&
-                                                                                       modified.ToString(CultureInfo.InvariantCulture)
-                                                                                               .Equals(hd.GetTaggedValue(EATaggedValueKeys.DecisionStateModifiedDate)) &&
-                                                                                       stereotype.Equals(hd.Stereotype));
+                IEAElement pastDecision =
+                    exisitingHistoryDecisions.FirstOrDefault(
+                        hd => originalGUID.Equals(hd.GetTaggedValueByName(EATaggedValueKeys.OriginalDecisionGuid)) &&
+                              modified.ToString(CultureInfo.InvariantCulture)
+                                      .Equals(hd.GetTaggedValueByName(EATaggedValueKeys.DecisionStateModifiedDate)) &&
+                              stereotype.Equals(hd.Stereotype));
                 if (pastDecision == null)
                 {
                     pastDecision = _historyPackage.CreateElement(name, stereotype, type);
                 }
                 pastDecision.MetaType = EAConstants.DecisionMetaType;
                 pastDecision.Modified = modified;
-                pastDecision.AddTaggedValue(EATaggedValueKeys.DecisionStateModifiedDate, modified.ToString(CultureInfo.InvariantCulture));
+                pastDecision.AddTaggedValue(EATaggedValueKeys.DecisionStateModifiedDate,
+                                            modified.ToString(CultureInfo.InvariantCulture));
                 pastDecision.AddTaggedValue(EATaggedValueKeys.DecisionState, stereotype);
                 pastDecision.AddTaggedValue(EATaggedValueKeys.IsHistoryDecision, true.ToString());
                 pastDecision.AddTaggedValue(EATaggedValueKeys.OriginalDecisionGuid, originalGUID);
@@ -91,7 +94,10 @@ namespace DecisionArchitect.Logic.Chronological
 
             return
                 pastDecisions.Union(
-                    _decisions.Select(d => new Decision(d)).Where(d => d.HasTopic()).Select(d => d.Topic.GetElement())).Union(_decisions);;
+                    _decisions.Select(d => Decision.Load(d))
+                              .Where(d => d.HasTopic())
+                              .Select(d => EAMain.Repository.GetElementByGUID(d.Topic.GUID))).Union(_decisions);
+            ;
         }
 
         private IList<IEAElement> ConnectDecisions(IEnumerable<IEAElement> elements)

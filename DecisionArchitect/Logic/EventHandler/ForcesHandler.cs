@@ -19,7 +19,7 @@ using DecisionArchitect.View.Forces;
 using EAFacade;
 using EAFacade.Model;
 
-namespace DecisionArchitect.Logic.Forces
+namespace DecisionArchitect.Logic.EventHandler
 {
     public class ForcesHandler : RepositoryAdapter
     {
@@ -30,8 +30,8 @@ namespace DecisionArchitect.Logic.Forces
         public override bool OnContextItemDoubleClicked(string guid, EANativeType type)
         {
             if (EANativeType.Diagram != type) return false;
-            var repository = EAFacade.EA.Repository;
-            var diagram = repository.GetDiagramByGuid(guid);
+            IEARepository repository = EAMain.Repository;
+            IEADiagram diagram = repository.GetDiagramByGuid(guid);
             if (!diagram.IsForcesView()) return false;
             var forcesDiagramModel = new ForcesModel(diagram);
             if (repository.IsTabOpen(forcesDiagramModel.Name) > 0)
@@ -64,13 +64,13 @@ namespace DecisionArchitect.Logic.Forces
 
         public override void OnNotifyContextItemModified(string guid, EANativeType type)
         {
-            var repository = EAFacade.EA.Repository;
+            IEARepository repository = EAMain.Repository;
             IForcesController forcesController;
             switch (type)
             {
-                // the diagram is modified when we remove an element or a connector from it
+                    // the diagram is modified when we remove an element or a connector from it
                 case EANativeType.Diagram:
-                    var diagram = repository.GetDiagramByGuid(guid);
+                    IEADiagram diagram = repository.GetDiagramByGuid(guid);
                     if (!diagram.IsForcesView()) return;
                     // if the name of a diagram changed and the forces tab is open then close it to avoid conflicts
                     if (repository.IsTabOpen(ForcesModel.CreateForcesTabName(diagram.Name)) <= 0)
@@ -86,9 +86,9 @@ namespace DecisionArchitect.Logic.Forces
                     forcesController.SetDiagramModel(diagram);
                     break;
                 case EANativeType.Element:
-                    var element = repository.GetElementByGUID(guid);
+                    IEAElement element = repository.GetElementByGUID(guid);
                     foreach (
-                        var eaDiagram in
+                        IEADiagram eaDiagram in
                             element.GetDiagrams()
                                    .Where(eaDiagram => eaDiagram.IsForcesView())
                                    .Where(eaDiagram => _controllers.ContainsKey(eaDiagram.GUID)))
@@ -108,8 +108,8 @@ namespace DecisionArchitect.Logic.Forces
 
         public override bool OnPreDeleteDiagram(IEAVolatileDiagram volatileDiagram)
         {
-            var repository = EAFacade.EA.Repository;
-            var diagram = repository.GetDiagramByID(volatileDiagram.DiagramID);
+            IEARepository repository = EAMain.Repository;
+            IEADiagram diagram = repository.GetDiagramByID(volatileDiagram.DiagramID);
             if (!diagram.IsForcesView()) return true;
             if (_controllers.ContainsKey(diagram.GUID))
             {
@@ -129,10 +129,10 @@ namespace DecisionArchitect.Logic.Forces
             var diagrams = new List<IEADiagram>();
             diagrams.AddRange(element.GetDiagrams().Where(eaDiagram => eaDiagram.IsForcesView()));
             if (diagrams.Count == 0) return true;
-            var repository = EAFacade.EA.Repository;
-            
+            IEARepository repository = EAMain.Repository;
+
             foreach (
-                var forcesController in
+                IForcesController forcesController in
                     from diagram in diagrams
                     where repository.IsTabOpen(ForcesModel.CreateForcesTabName(diagram.Name)) > 0
                     select _controllers[diagram.GUID])

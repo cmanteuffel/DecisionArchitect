@@ -13,7 +13,7 @@
 using EAFacade;
 using EAFacade.Model;
 
-namespace DecisionArchitect.Logic.Relationship
+namespace DecisionArchitect.Logic.EventHandler
 {
     public class RelationshipHandler : RepositoryAdapter
     {
@@ -30,15 +30,13 @@ namespace DecisionArchitect.Logic.Relationship
         {
             if (EANativeType.Diagram.Equals(type))
             {
-                var diagram = EAFacade.EA.Repository.GetDiagramByGuid(guid);
+                IEADiagram diagram = EAMain.Repository.GetDiagramByGuid(guid);
                 if (!diagram.IsRelationshipView()) return;
                 diagram.HideConnectors(new[]
-                {
-                    EAConstants.RelationFollowedBy
-                });
-                
+                    {
+                        EAConstants.RelationFollowedBy
+                    });
             }
         }
-
     }
 }

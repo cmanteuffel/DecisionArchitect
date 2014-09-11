@@ -5,6 +5,17 @@ namespace DecisionArchitect.View.RichTextBox
 {
     public partial class HyperLinkWindow : Form
     {
+        public HyperLinkWindow()
+            : this("")
+        {
+        }
+
+        public HyperLinkWindow(string targetName)
+        {
+            InitializeComponent();
+            txtTargetName.Text = targetName;
+        }
+
         public string Address
         {
             get { return txtAddress.Text.Trim(' '); }
@@ -15,33 +26,23 @@ namespace DecisionArchitect.View.RichTextBox
             get { return txtTargetName.Text.Trim(' '); }
         }
 
-        public HyperLinkWindow()
-            : this("")
-        { }
-
-        public HyperLinkWindow(string targetName)
-        {
-            InitializeComponent();
-            txtTargetName.Text = targetName;
-        }
-
         private void HyperLinkWindow_Load(object sender, EventArgs e)
         {
             //cmboxType.Text = "Web Site";
-            this.ActiveControl = txtAddress;
+            ActiveControl = txtAddress;
         }
 
 
         private void btnOK_Click(object sender, EventArgs e)
         {
             // _controller.Save();
-            this.DialogResult = DialogResult.OK;
+            DialogResult = DialogResult.OK;
             Close();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.Cancel;
+            DialogResult = DialogResult.Cancel;
             Close();
         }
 
@@ -63,7 +64,7 @@ namespace DecisionArchitect.View.RichTextBox
 
         private void btnMore_Click(object sender, EventArgs e)
         {
-            OpenFileDialog browseFile = new OpenFileDialog();
+            var browseFile = new OpenFileDialog();
             //browseFile.Filter = "XML Files (*.xml)|*.xml";
             //browseFile.Title = "Browse XML file";
             if (browseFile.ShowDialog() == DialogResult.Cancel)
@@ -73,12 +74,11 @@ namespace DecisionArchitect.View.RichTextBox
             {
                 txtAddress.Text = browseFile.FileName;
                 MessageBox.Show("" + browseFile.FileName + " | " + txtAddress.Text);
-
             }
             catch (Exception)
             {
                 MessageBox.Show("Error opening file", "File Error",
-                MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
@@ -94,16 +94,16 @@ namespace DecisionArchitect.View.RichTextBox
         //    return txtAddress.Text;
         //}
 
-        private void txtAddress_keyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        private void txtAddress_keyDown(object sender, KeyEventArgs e)
         {
-            KeyEventArgs ke = e as KeyEventArgs;
+            KeyEventArgs ke = e;
             if (ke != null && ke.KeyCode == Keys.Return)
             {
-                this.btnOK.PerformClick();
+                btnOK.PerformClick();
             }
             if (ke != null && ke.KeyCode == Keys.Escape)
             {
-                this.btnCancel.PerformClick();
+                btnCancel.PerformClick();
             }
         }
     }

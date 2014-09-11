@@ -116,7 +116,7 @@ namespace EAFacade.Model.Impl
             set { _native.ParentID = value.ID; }
         }
 
-        //TODO: Transparent ILIST that wraps the strange EA Collection
+        //TODO: Transparent ILIST that wraps the strange EAMain Collection
 
 
         public void ShowInProjectView()
@@ -250,12 +250,12 @@ namespace EAFacade.Model.Impl
 
         public IEnumerable<IEAElement> GetAllDecisions()
         {
-            return GetAllElementsOfSubTree().Where(e => e.IsDecision() && !e.IsHistoryDecision());
+            return GetAllElementsOfSubTree().Where(e => EAMain.IsDecision(e) && !EAMain.IsHistoryDecision(e));
         }
 
         public IEnumerable<IEAElement> GetAllTopics()
         {
-            return GetAllElementsOfSubTree().Where(e => e.IsTopic());
+            return GetAllElementsOfSubTree().Where(EAMain.IsTopic);
         }
 
         public IEnumerable<IEADiagram> GetAllDiagrams()
@@ -290,7 +290,7 @@ namespace EAFacade.Model.Impl
         public bool IsDecisionViewPackage()
         {
             var underlyingElement = EAElement.Wrap(_native.Element);
-            string value = underlyingElement.GetTaggedValue(EATaggedValueKeys.DecisionViewPackage);
+            string value = underlyingElement.GetTaggedValueByName(EATaggedValueKeys.DecisionViewPackage);
             return (value != null && value.Equals("true"));
         }
 

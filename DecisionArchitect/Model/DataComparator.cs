@@ -22,8 +22,8 @@ namespace DecisionArchitect.Model
         public static int CompareByStateDateModified(IEAElement x, IEAElement y)
         {
             string oldestDateString = DateTime.MinValue.ToString(CultureInfo.InvariantCulture);
-            string xDateString = x.GetTaggedValue(EATaggedValueKeys.DecisionStateModifiedDate) ?? oldestDateString;
-            string yDateString = y.GetTaggedValue(EATaggedValueKeys.DecisionStateModifiedDate) ?? oldestDateString;
+            string xDateString = x.GetTaggedValueByName(EATaggedValueKeys.DecisionStateModifiedDate) ?? oldestDateString;
+            string yDateString = y.GetTaggedValueByName(EATaggedValueKeys.DecisionStateModifiedDate) ?? oldestDateString;
 
             DateTime xModified = Utilities.TryParseDateTime(xDateString, DateTime.MinValue);
             DateTime yModified = Utilities.TryParseDateTime(yDateString, DateTime.MinValue);

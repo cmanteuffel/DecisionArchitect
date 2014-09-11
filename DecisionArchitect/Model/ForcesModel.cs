@@ -60,17 +60,19 @@ namespace DecisionArchitect.Model
         }
 
         /// <summary>
-        /// Implements IForcesModel.GetDecisions()
+        ///     Implements IForcesModel.GetDecisions()
         /// </summary>
         /// <returns></returns>
         public IEAElement[] GetDecisions()
         {
-            IEARepository repository = EAFacade.EA.Repository;
+            IEARepository repository = EAMain.Repository;
             IEAElement[] topics = (from diagramObject in _diagram.GetElements()
-                                  select repository.GetElementByID(diagramObject.ElementID)
-                                  into element
-                                  where element.IsTopic() && !element.TaggedValueExists(EATaggedValueKeys.IsForceElement, _diagram.GUID)
-                                  select element).ToArray();
+                                   select repository.GetElementByID(diagramObject.ElementID)
+                                   into element
+                                   where
+                                       EAMain.IsTopic(element) &&
+                                       !element.TaggedValueExists(EATaggedValueKeys.IsForceElement, _diagram.GUID)
+                                   select element).ToArray();
 
 
             IEnumerable<IEAElement> decisionsFromTopic =
@@ -78,31 +80,35 @@ namespace DecisionArchitect.Model
 
 
             IEnumerable<IEAElement> decisionsDirectlyFromDiagram = (from diagramObject in _diagram.GetElements()
-                select
-                    repository.GetElementByID(diagramObject.ElementID)
-                into element
-                where element.TaggedValueExists(EATaggedValueKeys.IsDecisionElement, _diagram.GUID)
-                select element);
+                                                                    select
+                                                                        repository.GetElementByID(
+                                                                            diagramObject.ElementID)
+                                                                    into element
+                                                                    where
+                                                                        element.TaggedValueExists(
+                                                                            EATaggedValueKeys.IsDecisionElement,
+                                                                            _diagram.GUID)
+                                                                    select element);
 
             return decisionsFromTopic.Union(decisionsDirectlyFromDiagram).ToArray();
         }
 
         /// <summary>
-        /// Implements IForcesModel.GetForces()
+        ///     Implements IForcesModel.GetForces()
         /// </summary>
         /// <returns></returns>
         public IEAElement[] GetForces()
         {
-            IEARepository repository = EAFacade.EA.Repository;
+            IEARepository repository = EAMain.Repository;
             return (from diagramObject in _diagram.GetElements()
-                select repository.GetElementByID(diagramObject.ElementID)
-                into element
-                where element.TaggedValueExists(EATaggedValueKeys.IsForceElement, _diagram.GUID)
-                 select element).ToArray();
+                    select repository.GetElementByID(diagramObject.ElementID)
+                    into element
+                    where element.TaggedValueExists(EATaggedValueKeys.IsForceElement, _diagram.GUID)
+                    select element).ToArray();
         }
 
         /// <summary>
-        /// Implements IForcesModel.GetConcernsPerForce()
+        ///     Implements IForcesModel.GetConcernsPerForce()
         /// </summary>
         /// <returns></returns>
         public Dictionary<IEAElement, List<IEAElement>> GetConcernsPerForce()
@@ -110,8 +116,9 @@ namespace DecisionArchitect.Model
             var forceConcernDictionary = new Dictionary<IEAElement, List<IEAElement>>();
             foreach (IEAElement force in GetForces())
             {
-                List<IEAElement> concerns = force.GetConnectedConcerns(_diagram.GUID).Where(concern => _diagram.Contains(concern)).ToList();
-                forceConcernDictionary.Add(force,concerns);
+                List<IEAElement> concerns =
+                    force.GetConnectedConcerns(_diagram.GUID).Where(concern => _diagram.Contains(concern)).ToList();
+                forceConcernDictionary.Add(force, concerns);
             }
             return forceConcernDictionary;
         }
@@ -138,13 +145,13 @@ namespace DecisionArchitect.Model
 
         public void SaveRatings(List<Rating> data)
         {
-            IEARepository repository = EAFacade.EA.Repository;
+            IEARepository repository = EAMain.Repository;
             foreach (Rating rating in data)
             {
                 IEAElement decision = repository.GetElementByGUID(rating.DecisionGUID);
                 if (decision == null) continue;
                 string forcesTaggedValue = Rating.ConstructForcesTaggedValue(rating.ForceGUID, rating.ConcernGUID);
-                if (decision.GetTaggedValue(forcesTaggedValue) != null)
+                if (decision.GetTaggedValueByName(forcesTaggedValue) != null)
                     decision.UpdateTaggedValue(forcesTaggedValue, rating.Value);
                 else
                     decision.AddTaggedValue(forcesTaggedValue, rating.Value);

@@ -30,62 +30,103 @@ namespace EAFacade.Model
         string StereotypeList { get; set; }
         IEnumerable<IEAElement> GetTracedElements();
 
-        [Obsolete("Should be moved to topic",false)]
+        [Obsolete("Should be moved to topic", false)]
         IEnumerable<IEAElement> GetDecisionsForTopic();
 
-        [Obsolete("Should be moved to appropriate domain class",false)]
+        [Obsolete("Should be moved to appropriate domain class", false)]
         IEnumerable<IEAElement> GetConnectedConcerns(string diagramGUID);
 
         [Obsolete("Should be moved to appropriate domain class", false)]
         IEnumerable<IEAElement> GetConnectedRequirements();
 
         IEADiagram[] GetDiagrams();
-        IList<IEAConnector> FindConnectors(IEAElement suppliedElement, String type, String stereotype);
+
+        IList<IEAConnector> FindConnectors(string metatype, params string[] stereotypes);
+
+        IList<IEAConnector> FindConnectors(IEAElement connectedElement, string stereotype, string type = null,
+                                           EAConnectorDirection direction = EAConnectorDirection.ClientToSupplier);
+
         IEAConnector ConnectTo(IEAElement suppliedElement, String type, String stereotype);
 
         /// <summary>
-        /// Removes a connector from the element
+        ///     Removes a connector from the element
         /// </summary>
         /// <param name="connector"></param>
         void RemoveConnector(IEAConnector connector);
 
-        bool IsDecision();
-        bool IsConcern();
-        bool IsTopic();
-        bool IsHistoryDecision();
         bool Update();
         void Refresh();
         List<IEAElement> GetElements();
         List<IEAConnector> GetConnectors();
         string GetLinkedDocument();
-        void LoadLinkedDocument(string fileName);
-        int RemoveAllWithName(string name);
+        void LoadFileIntoLinkedDocument(string fileName);
+
         /// <summary>
-        /// Check if a TaggedValue exists with a certain name 
+        ///     Remove all entries of TaggedValuesWithName
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>the amount of entries removed</returns>
+        int RemoveAllWithName(string name);
+
+        /// <summary>
+        ///     Check if a TaggedValue exists with a certain name
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
         bool TaggedValueExists(string name);
 
         /// <summary>
-        /// Check if a TaggedValue exists with a certain name and data
+        ///     Check if a TaggedValue exists with a certain name and data
         /// </summary>
         /// <param name="name"></param>
         /// <param name="data"></param>
         /// <returns></returns>
         bool TaggedValueExists(string name, string data);
 
-        string GetTaggedValue(string name);
+        /// <summary>
+        ///     Gets a specific taggedvalue identified via the propertyguid
+        /// </summary>
+        /// <param name="taggedValueGUID"></param>
+        /// <returns></returns>
+        IEATaggedValue GetTaggedValueByGUID(string taggedValueGUID);
 
         /// <summary>
-        /// Adds a TaggedValue to the element with name and data. 
-        /// Multiple TaggedValues with the same name and data can exist.
+        ///     Returns all taggedvalue with a particular name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        IList<IEATaggedValue> GetTaggedValuesByName(string name);
+
+        /// <summary>
+        ///     Returns the first taggedvalue with the specified name. (possibility that multiple taggedvalue with the same name exist)
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        string GetTaggedValueByName(string name);
+
+        /// <summary>
+        ///     Adds a TaggedValue to the element with name and data.
+        ///     Multiple TaggedValues with the same name and data can exist.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="data"></param>
         void AddTaggedValue(string name, string data);
-        
 
+        /// <summary>
+        ///     Updates a specific TaggedValue idientified via the TaggesValue guid.
+        ///     The name is not sufficient as identification since there can be multiple TV with the same name.
+        /// </summary>
+        /// <param name="guid">identification</param>
+        /// <param name="name">the new name</param>
+        /// <param name="data">the new value</param>
+        /// <returns></returns>
+        bool UpdateTaggedValue(string guid, string name, string data);
+
+        /// <summary>
+        ///     Updates first taggedvalue with the specified name. Only data is updated not the name.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="data"></param>
         void UpdateTaggedValue(string name, string data);
 
 
@@ -93,12 +134,22 @@ namespace EAFacade.Model
         bool DeleteTaggedValue(string name, string data);
 
         /// <summary>
-        /// Removes a TaggedValue from the element with name and data.
-        /// Only one TaggedValue will be removed. Other TaggedValues with the same name and data can still exist.
+        ///     Removes a TaggedValue from the element with name and data.
+        ///     Only one TaggedValue will be removed. Other TaggedValues with the same name and data can still exist.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="data"></param>
         void RemoveTaggedValue(string name, string data);
 
+        /// <summary>
+        ///     Removes a particluar taggedvalue from the element identified by GUID.
+        /// </summary>
+        /// <param name="tagGUID"></param>
+        void RemoveTaggedValueByGUID(string tagGUID);
+
+        /// <summary>
+        ///     Provides an Add-In or automation client with the ability to advise the Enterprise Architect user interface that a particular element has changed and, if it is visible in any open diagram, to reload and refresh that element for the user.
+        /// </summary>
+        void AdviseElementChanged();
     }
 }

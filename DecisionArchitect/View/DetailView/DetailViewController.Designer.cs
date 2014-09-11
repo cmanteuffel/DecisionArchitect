@@ -44,6 +44,7 @@ namespace DecisionArchitect.View.DetailView
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.spltDetailView = new System.Windows.Forms.SplitContainer();
             this.gpbDecisionInformation = new System.Windows.Forms.GroupBox();
@@ -57,6 +58,7 @@ namespace DecisionArchitect.View.DetailView
             this.dtModified = new System.Windows.Forms.DateTimePicker();
             this.lblAuthor = new System.Windows.Forms.Label();
             this.txtAuthor = new System.Windows.Forms.TextBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.gpbTopicInformation = new System.Windows.Forms.GroupBox();
             this.grpDescription = new System.Windows.Forms.GroupBox();
@@ -68,48 +70,47 @@ namespace DecisionArchitect.View.DetailView
             this.vAccordionPane = new VIBlend.WinForms.Controls.vNavPane();
             this.vAlternativePane = new VIBlend.WinForms.Controls.vNavPaneItem();
             this.dgvAlternativeDecisions = new System.Windows.Forms.DataGridView();
-            this.clmAlternativeGuid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmAlternativeID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmAlternativeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmAlternativeState = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmAlternativeRationale = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.vRelatedPane = new VIBlend.WinForms.Controls.vNavPaneItem();
             this.dgvRelatedDecisions = new System.Windows.Forms.DataGridView();
-            this.clmRelatedGuid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmRelation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmRelatedName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmRelatedTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmRelatedUid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.vForcesPane = new VIBlend.WinForms.Controls.vNavPaneItem();
             this.dgvForces = new System.Windows.Forms.DataGridView();
-            this.clmForceGuid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmForcesName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmForceConcern = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmForceRating = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmForceDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.vTracesPane = new VIBlend.WinForms.Controls.vNavPaneItem();
             this.dgvTraces = new System.Windows.Forms.DataGridView();
-            this.clmTraceGuid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmTraceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmTraceType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.vStakeholderPane = new VIBlend.WinForms.Controls.vNavPaneItem();
             this.dgvStakeholder = new System.Windows.Forms.DataGridView();
-            this.clmStakeholderGuid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmStakeholderName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Stakeholder = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmStakeholderRole = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmStakeholderAction = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.iStakeholderActionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.vHistoryPane = new VIBlend.WinForms.Controls.vNavPaneItem();
             this.dgvHistory = new System.Windows.Forms.DataGridView();
-            this.clmHistoryGuid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clmHistoryState = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmHistoryState = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.modifiedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.taggedValueGUIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmHistoryDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.iHistoryEntryBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnRevert = new System.Windows.Forms.Button();
             this.Content = new VIBlend.WinForms.Controls.vContentPanel();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.iStakeholderBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.clmAlternativeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmAlternativeState = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmRelatedTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmRelatedDecisionsState = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmRelation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.spltDetailView)).BeginInit();
             this.spltDetailView.Panel1.SuspendLayout();
             this.spltDetailView.Panel2.SuspendLayout();
             this.spltDetailView.SuspendLayout();
             this.gpbDecisionInformation.SuspendLayout();
             this.gpbRationale.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -134,9 +135,13 @@ namespace DecisionArchitect.View.DetailView
             this.vStakeholderPane.ItemPanel.SuspendLayout();
             this.vStakeholderPane.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStakeholder)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iStakeholderActionBindingSource)).BeginInit();
             this.vHistoryPane.ItemPanel.SuspendLayout();
             this.vHistoryPane.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHistory)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iHistoryEntryBindingSource)).BeginInit();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.iStakeholderBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // spltDetailView
@@ -155,12 +160,11 @@ namespace DecisionArchitect.View.DetailView
             // 
             // spltDetailView.Panel2
             // 
-            this.spltDetailView.Panel2.Controls.Add(this.splitContainer1);
+            this.spltDetailView.Panel2.Controls.Add(this.tableLayoutPanel1);
             this.spltDetailView.Panel2MinSize = 0;
-            this.spltDetailView.Size = new System.Drawing.Size(916, 769);
+            this.spltDetailView.Size = new System.Drawing.Size(916, 725);
             this.spltDetailView.SplitterDistance = 589;
             this.spltDetailView.TabIndex = 0;
-            this.spltDetailView.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.spltDetailView_SplitterMoved);
             // 
             // gpbDecisionInformation
             // 
@@ -178,7 +182,7 @@ namespace DecisionArchitect.View.DetailView
             this.gpbDecisionInformation.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gpbDecisionInformation.Location = new System.Drawing.Point(0, 0);
             this.gpbDecisionInformation.Name = "gpbDecisionInformation";
-            this.gpbDecisionInformation.Size = new System.Drawing.Size(585, 765);
+            this.gpbDecisionInformation.Size = new System.Drawing.Size(585, 721);
             this.gpbDecisionInformation.TabIndex = 57;
             this.gpbDecisionInformation.TabStop = false;
             this.gpbDecisionInformation.Text = "Decision";
@@ -203,7 +207,7 @@ namespace DecisionArchitect.View.DetailView
             this.gpbRationale.Controls.Add(this.rtbRationale);
             this.gpbRationale.Location = new System.Drawing.Point(3, 96);
             this.gpbRationale.Name = "gpbRationale";
-            this.gpbRationale.Size = new System.Drawing.Size(579, 663);
+            this.gpbRationale.Size = new System.Drawing.Size(579, 619);
             this.gpbRationale.TabIndex = 137;
             this.gpbRationale.TabStop = false;
             this.gpbRationale.Text = "   Rationale:";
@@ -213,7 +217,10 @@ namespace DecisionArchitect.View.DetailView
             this.rtbRationale.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rtbRationale.Location = new System.Drawing.Point(3, 16);
             this.rtbRationale.Name = "rtbRationale";
-            this.rtbRationale.Size = new System.Drawing.Size(573, 644);
+            this.rtbRationale.RichText = "{rtfData}{\\rtf1\\ansi\\ansicpg1252\\deff0\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 Mi" +
+    "crosoft Sans Serif;}}\r\n\\viewkind4\\uc1\\pard\\f0\\fs17\\par\r\n}\r\n{rtfData}{linkPositio" +
+    "ns}{linkPositions}";
+            this.rtbRationale.Size = new System.Drawing.Size(573, 600);
             this.rtbRationale.TabIndex = 1;
             // 
             // lblDecisionState
@@ -247,7 +254,7 @@ namespace DecisionArchitect.View.DetailView
             this.cbxState.Name = "cbxState";
             this.cbxState.Size = new System.Drawing.Size(322, 21);
             this.cbxState.TabIndex = 136;
-            this.cbxState.SelectedIndexChanged += new System.EventHandler(this.cbxState_SelectedIndexChanged);
+            this.cbxState.SelectedValueChanged += new System.EventHandler(this.cbxState_SelectedValueChanged);
             // 
             // lblDecisionName
             // 
@@ -305,13 +312,28 @@ namespace DecisionArchitect.View.DetailView
             this.txtAuthor.Size = new System.Drawing.Size(498, 20);
             this.txtAuthor.TabIndex = 122;
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.splitContainer1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 1);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(319, 721);
+            this.tableLayoutPanel1.TabIndex = 127;
+            // 
             // splitContainer1
             // 
             this.splitContainer1.BackColor = System.Drawing.Color.Transparent;
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -323,11 +345,10 @@ namespace DecisionArchitect.View.DetailView
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.gpbAdditionalInformation);
-            this.splitContainer1.Panel2MinSize = 0;
-            this.splitContainer1.Size = new System.Drawing.Size(323, 769);
-            this.splitContainer1.SplitterDistance = 300;
+            this.splitContainer1.Panel2MinSize = 150;
+            this.splitContainer1.Size = new System.Drawing.Size(313, 675);
+            this.splitContainer1.SplitterDistance = 330;
             this.splitContainer1.TabIndex = 126;
-            this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
             // 
             // gpbTopicInformation
             // 
@@ -339,7 +360,7 @@ namespace DecisionArchitect.View.DetailView
             this.gpbTopicInformation.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gpbTopicInformation.Location = new System.Drawing.Point(0, 0);
             this.gpbTopicInformation.Name = "gpbTopicInformation";
-            this.gpbTopicInformation.Size = new System.Drawing.Size(319, 296);
+            this.gpbTopicInformation.Size = new System.Drawing.Size(309, 326);
             this.gpbTopicInformation.TabIndex = 123;
             this.gpbTopicInformation.TabStop = false;
             this.gpbTopicInformation.Text = "Topic";
@@ -352,7 +373,7 @@ namespace DecisionArchitect.View.DetailView
             this.grpDescription.Controls.Add(this.rtbTopicDescription);
             this.grpDescription.Location = new System.Drawing.Point(3, 43);
             this.grpDescription.Name = "grpDescription";
-            this.grpDescription.Size = new System.Drawing.Size(310, 247);
+            this.grpDescription.Size = new System.Drawing.Size(300, 277);
             this.grpDescription.TabIndex = 122;
             this.grpDescription.TabStop = false;
             this.grpDescription.Text = "Description:";
@@ -362,7 +383,10 @@ namespace DecisionArchitect.View.DetailView
             this.rtbTopicDescription.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rtbTopicDescription.Location = new System.Drawing.Point(3, 16);
             this.rtbTopicDescription.Name = "rtbTopicDescription";
-            this.rtbTopicDescription.Size = new System.Drawing.Size(304, 228);
+            this.rtbTopicDescription.RichText = "{rtfData}{\\rtf1\\ansi\\ansicpg1252\\deff0\\deflang1033{\\fonttbl{\\f0\\fnil\\fcharset0 Mi" +
+    "crosoft Sans Serif;}}\r\n\\viewkind4\\uc1\\pard\\f0\\fs17\\par\r\n}\r\n{rtfData}{linkPositio" +
+    "ns}{linkPositions}";
+            this.rtbTopicDescription.Size = new System.Drawing.Size(294, 258);
             this.rtbTopicDescription.TabIndex = 121;
             // 
             // lblTopicName
@@ -383,7 +407,7 @@ namespace DecisionArchitect.View.DetailView
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTopicName.Location = new System.Drawing.Point(76, 17);
             this.txtTopicName.Name = "txtTopicName";
-            this.txtTopicName.Size = new System.Drawing.Size(226, 20);
+            this.txtTopicName.Size = new System.Drawing.Size(216, 20);
             this.txtTopicName.TabIndex = 113;
             // 
             // gpbAdditionalInformation
@@ -393,7 +417,7 @@ namespace DecisionArchitect.View.DetailView
             this.gpbAdditionalInformation.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gpbAdditionalInformation.Location = new System.Drawing.Point(0, 0);
             this.gpbAdditionalInformation.Name = "gpbAdditionalInformation";
-            this.gpbAdditionalInformation.Size = new System.Drawing.Size(319, 461);
+            this.gpbAdditionalInformation.Size = new System.Drawing.Size(309, 337);
             this.gpbAdditionalInformation.TabIndex = 124;
             this.gpbAdditionalInformation.TabStop = false;
             this.gpbAdditionalInformation.Text = "Additional information";
@@ -403,9 +427,10 @@ namespace DecisionArchitect.View.DetailView
             this.pnlAccordion.Controls.Add(this.vAccordionPane);
             this.pnlAccordion.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlAccordion.Location = new System.Drawing.Point(3, 16);
+            this.pnlAccordion.MinimumSize = new System.Drawing.Size(0, 150);
             this.pnlAccordion.Name = "pnlAccordion";
             this.pnlAccordion.Padding = new System.Windows.Forms.Padding(5, 0, 5, 13);
-            this.pnlAccordion.Size = new System.Drawing.Size(313, 442);
+            this.pnlAccordion.Size = new System.Drawing.Size(303, 318);
             this.pnlAccordion.TabIndex = 123;
             // 
             // vAccordionPane
@@ -426,7 +451,7 @@ namespace DecisionArchitect.View.DetailView
             this.vAccordionPane.Location = new System.Drawing.Point(5, 0);
             this.vAccordionPane.Name = "vAccordionPane";
             this.vAccordionPane.Padding = new System.Windows.Forms.Padding(20);
-            this.vAccordionPane.Size = new System.Drawing.Size(303, 429);
+            this.vAccordionPane.Size = new System.Drawing.Size(293, 305);
             this.vAccordionPane.TabIndex = 122;
             this.vAccordionPane.VIBlendTheme = VIBlend.Utilities.VIBLEND_THEME.STEEL;
             // 
@@ -441,11 +466,11 @@ namespace DecisionArchitect.View.DetailView
             this.vAlternativePane.ItemPanel.Controls.Add(this.dgvAlternativeDecisions);
             this.vAlternativePane.ItemPanel.Location = new System.Drawing.Point(1, 30);
             this.vAlternativePane.ItemPanel.Name = "ItemPanel";
-            this.vAlternativePane.ItemPanel.Size = new System.Drawing.Size(301, 248);
+            this.vAlternativePane.ItemPanel.Size = new System.Drawing.Size(291, 124);
             this.vAlternativePane.ItemPanel.TabIndex = 1;
             this.vAlternativePane.Location = new System.Drawing.Point(0, 0);
             this.vAlternativePane.Name = "vAlternativePane";
-            this.vAlternativePane.Size = new System.Drawing.Size(303, 279);
+            this.vAlternativePane.Size = new System.Drawing.Size(293, 155);
             this.vAlternativePane.TabIndex = 0;
             this.vAlternativePane.Text = "Alternatives";
             this.vAlternativePane.TooltipText = "Alternatives";
@@ -461,11 +486,8 @@ namespace DecisionArchitect.View.DetailView
             this.dgvAlternativeDecisions.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dgvAlternativeDecisions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAlternativeDecisions.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.clmAlternativeGuid,
-            this.clmAlternativeID,
             this.clmAlternativeName,
-            this.clmAlternativeState,
-            this.clmAlternativeRationale});
+            this.clmAlternativeState});
             this.dgvAlternativeDecisions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvAlternativeDecisions.GridColor = System.Drawing.SystemColors.Control;
             this.dgvAlternativeDecisions.Location = new System.Drawing.Point(0, 0);
@@ -473,56 +495,10 @@ namespace DecisionArchitect.View.DetailView
             this.dgvAlternativeDecisions.ReadOnly = true;
             this.dgvAlternativeDecisions.RowHeadersVisible = false;
             this.dgvAlternativeDecisions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAlternativeDecisions.Size = new System.Drawing.Size(301, 248);
+            this.dgvAlternativeDecisions.Size = new System.Drawing.Size(291, 124);
             this.dgvAlternativeDecisions.TabIndex = 105;
-            this.dgvAlternativeDecisions.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAlternativeDecisions_CellContentClick);
-            this.dgvAlternativeDecisions.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAlternativeDecisions_CellContentDubbelClick);
-            this.dgvAlternativeDecisions.Leave += new System.EventHandler(this.dgvAlternativeDecisions_Leave);
-            // 
-            // clmAlternativeGuid
-            // 
-            this.clmAlternativeGuid.FillWeight = 66.8797F;
-            this.clmAlternativeGuid.HeaderText = "alternativeGuid";
-            this.clmAlternativeGuid.Name = "clmAlternativeGuid";
-            this.clmAlternativeGuid.ReadOnly = true;
-            this.clmAlternativeGuid.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.clmAlternativeGuid.Visible = false;
-            // 
-            // clmAlternativeID
-            // 
-            this.clmAlternativeID.FillWeight = 25.46421F;
-            this.clmAlternativeID.HeaderText = "Id";
-            this.clmAlternativeID.Name = "clmAlternativeID";
-            this.clmAlternativeID.ReadOnly = true;
-            this.clmAlternativeID.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.clmAlternativeID.Visible = false;
-            // 
-            // clmAlternativeName
-            // 
-            this.clmAlternativeName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.clmAlternativeName.FillWeight = 149.2733F;
-            this.clmAlternativeName.HeaderText = "Decision";
-            this.clmAlternativeName.Name = "clmAlternativeName";
-            this.clmAlternativeName.ReadOnly = true;
-            this.clmAlternativeName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.clmAlternativeName.ToolTipText = "Dubble click to open the selected Decision";
-            // 
-            // clmAlternativeState
-            // 
-            this.clmAlternativeState.FillWeight = 89.28613F;
-            this.clmAlternativeState.HeaderText = "State";
-            this.clmAlternativeState.Name = "clmAlternativeState";
-            this.clmAlternativeState.ReadOnly = true;
-            this.clmAlternativeState.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // clmAlternativeRationale
-            // 
-            this.clmAlternativeRationale.FillWeight = 80.41162F;
-            this.clmAlternativeRationale.HeaderText = "alternativeRationale";
-            this.clmAlternativeRationale.Name = "clmAlternativeRationale";
-            this.clmAlternativeRationale.ReadOnly = true;
-            this.clmAlternativeRationale.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.clmAlternativeRationale.Visible = false;
+            this.dgvAlternativeDecisions.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CellContentDoubleClick);
+            this.dgvAlternativeDecisions.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.CellFormatting);
             // 
             // vRelatedPane
             // 
@@ -535,11 +511,11 @@ namespace DecisionArchitect.View.DetailView
             this.vRelatedPane.ItemPanel.Controls.Add(this.dgvRelatedDecisions);
             this.vRelatedPane.ItemPanel.Location = new System.Drawing.Point(1, 30);
             this.vRelatedPane.ItemPanel.Name = "ItemPanel";
-            this.vRelatedPane.ItemPanel.Size = new System.Drawing.Size(301, 0);
+            this.vRelatedPane.ItemPanel.Size = new System.Drawing.Size(291, 0);
             this.vRelatedPane.ItemPanel.TabIndex = 1;
-            this.vRelatedPane.Location = new System.Drawing.Point(0, 279);
+            this.vRelatedPane.Location = new System.Drawing.Point(0, 155);
             this.vRelatedPane.Name = "vRelatedPane";
-            this.vRelatedPane.Size = new System.Drawing.Size(303, 30);
+            this.vRelatedPane.Size = new System.Drawing.Size(293, 30);
             this.vRelatedPane.TabIndex = 1;
             this.vRelatedPane.Text = "Related Decisions";
             this.vRelatedPane.TooltipText = "Related Decisions";
@@ -552,59 +528,19 @@ namespace DecisionArchitect.View.DetailView
             this.dgvRelatedDecisions.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvRelatedDecisions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvRelatedDecisions.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.clmRelatedGuid,
-            this.clmRelation,
-            this.clmRelatedName,
             this.clmRelatedTo,
-            this.clmRelatedUid});
+            this.clmRelatedDecisionsState,
+            this.clmRelation});
             this.dgvRelatedDecisions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvRelatedDecisions.Location = new System.Drawing.Point(0, 0);
             this.dgvRelatedDecisions.Name = "dgvRelatedDecisions";
             this.dgvRelatedDecisions.ReadOnly = true;
             this.dgvRelatedDecisions.RowHeadersVisible = false;
             this.dgvRelatedDecisions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvRelatedDecisions.Size = new System.Drawing.Size(301, 0);
+            this.dgvRelatedDecisions.Size = new System.Drawing.Size(291, 0);
             this.dgvRelatedDecisions.TabIndex = 19;
-            this.dgvRelatedDecisions.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRelatedDecisions_CellContentClick);
-            this.dgvRelatedDecisions.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRelatedDecisions_CellContentDoubleClick);
-            this.dgvRelatedDecisions.Leave += new System.EventHandler(this.dgvRelatedDecisions_Leave);
-            // 
-            // clmRelatedGuid
-            // 
-            this.clmRelatedGuid.HeaderText = "relatedGuid";
-            this.clmRelatedGuid.Name = "clmRelatedGuid";
-            this.clmRelatedGuid.ReadOnly = true;
-            this.clmRelatedGuid.Visible = false;
-            // 
-            // clmRelation
-            // 
-            this.clmRelation.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.clmRelation.HeaderText = "Relation";
-            this.clmRelation.Name = "clmRelation";
-            this.clmRelation.ReadOnly = true;
-            // 
-            // clmRelatedName
-            // 
-            this.clmRelatedName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.clmRelatedName.HeaderText = "Decision";
-            this.clmRelatedName.Name = "clmRelatedName";
-            this.clmRelatedName.ReadOnly = true;
-            this.clmRelatedName.ToolTipText = "Dubble click to open the selected Decision";
-            // 
-            // clmRelatedTo
-            // 
-            this.clmRelatedTo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.clmRelatedTo.HeaderText = "Related to";
-            this.clmRelatedTo.Name = "clmRelatedTo";
-            this.clmRelatedTo.ReadOnly = true;
-            this.clmRelatedTo.Visible = false;
-            // 
-            // clmRelatedUid
-            // 
-            this.clmRelatedUid.HeaderText = "relatedUid";
-            this.clmRelatedUid.Name = "clmRelatedUid";
-            this.clmRelatedUid.ReadOnly = true;
-            this.clmRelatedUid.Visible = false;
+            this.dgvRelatedDecisions.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CellContentDoubleClick);
+            this.dgvRelatedDecisions.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.CellFormatting);
             // 
             // vForcesPane
             // 
@@ -617,11 +553,11 @@ namespace DecisionArchitect.View.DetailView
             this.vForcesPane.ItemPanel.Controls.Add(this.dgvForces);
             this.vForcesPane.ItemPanel.Location = new System.Drawing.Point(1, 30);
             this.vForcesPane.ItemPanel.Name = "ItemPanel";
-            this.vForcesPane.ItemPanel.Size = new System.Drawing.Size(301, 0);
+            this.vForcesPane.ItemPanel.Size = new System.Drawing.Size(291, 0);
             this.vForcesPane.ItemPanel.TabIndex = 1;
-            this.vForcesPane.Location = new System.Drawing.Point(0, 309);
+            this.vForcesPane.Location = new System.Drawing.Point(0, 185);
             this.vForcesPane.Name = "vForcesPane";
-            this.vForcesPane.Size = new System.Drawing.Size(303, 30);
+            this.vForcesPane.Size = new System.Drawing.Size(293, 30);
             this.vForcesPane.TabIndex = 2;
             this.vForcesPane.Text = "Related Forces";
             this.vForcesPane.TooltipText = "Forces";
@@ -634,55 +570,37 @@ namespace DecisionArchitect.View.DetailView
             this.dgvForces.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvForces.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvForces.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.clmForceGuid,
             this.clmForcesName,
             this.clmForceConcern,
-            this.clmForceRating,
-            this.clmForceDescription});
+            this.clmForceRating});
             this.dgvForces.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvForces.Location = new System.Drawing.Point(0, 0);
             this.dgvForces.Name = "dgvForces";
-            this.dgvForces.ReadOnly = true;
             this.dgvForces.RowHeadersVisible = false;
-            this.dgvForces.Size = new System.Drawing.Size(301, 0);
+            this.dgvForces.Size = new System.Drawing.Size(291, 0);
             this.dgvForces.TabIndex = 19;
-            this.dgvForces.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvForces_CellContentClick);
-            this.dgvForces.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvForces_CellContentDoubleClick);
-            this.dgvForces.Leave += new System.EventHandler(this.dgvForces_Leave);
-            // 
-            // clmForceGuid
-            // 
-            this.clmForceGuid.HeaderText = "forceGuid";
-            this.clmForceGuid.Name = "clmForceGuid";
-            this.clmForceGuid.ReadOnly = true;
-            this.clmForceGuid.Visible = false;
+            this.dgvForces.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.CellFormatting);
             // 
             // clmForcesName
             // 
             this.clmForcesName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.clmForcesName.DataPropertyName = "Force.Name";
             this.clmForcesName.HeaderText = "Force";
             this.clmForcesName.Name = "clmForcesName";
             this.clmForcesName.ReadOnly = true;
             // 
             // clmForceConcern
             // 
+            this.clmForceConcern.DataPropertyName = "Concern.Name";
             this.clmForceConcern.HeaderText = "Concern";
             this.clmForceConcern.Name = "clmForceConcern";
             this.clmForceConcern.ReadOnly = true;
             // 
             // clmForceRating
             // 
+            this.clmForceRating.DataPropertyName = "Result";
             this.clmForceRating.HeaderText = "Rating";
             this.clmForceRating.Name = "clmForceRating";
-            this.clmForceRating.ReadOnly = true;
-            // 
-            // clmForceDescription
-            // 
-            this.clmForceDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.clmForceDescription.HeaderText = "Description";
-            this.clmForceDescription.Name = "clmForceDescription";
-            this.clmForceDescription.ReadOnly = true;
-            this.clmForceDescription.Visible = false;
             // 
             // vTracesPane
             // 
@@ -695,11 +613,11 @@ namespace DecisionArchitect.View.DetailView
             this.vTracesPane.ItemPanel.Controls.Add(this.dgvTraces);
             this.vTracesPane.ItemPanel.Location = new System.Drawing.Point(1, 30);
             this.vTracesPane.ItemPanel.Name = "ItemPanel";
-            this.vTracesPane.ItemPanel.Size = new System.Drawing.Size(301, 0);
+            this.vTracesPane.ItemPanel.Size = new System.Drawing.Size(291, 0);
             this.vTracesPane.ItemPanel.TabIndex = 1;
-            this.vTracesPane.Location = new System.Drawing.Point(0, 339);
+            this.vTracesPane.Location = new System.Drawing.Point(0, 215);
             this.vTracesPane.Name = "vTracesPane";
-            this.vTracesPane.Size = new System.Drawing.Size(303, 30);
+            this.vTracesPane.Size = new System.Drawing.Size(293, 30);
             this.vTracesPane.TabIndex = 3;
             this.vTracesPane.Text = "Traces";
             this.vTracesPane.TooltipText = "Traces";
@@ -712,41 +630,24 @@ namespace DecisionArchitect.View.DetailView
             this.dgvTraces.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvTraces.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTraces.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.clmTraceGuid,
-            this.clmTraceName,
-            this.clmTraceType});
+            this.clmTraceName});
             this.dgvTraces.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvTraces.Location = new System.Drawing.Point(0, 0);
             this.dgvTraces.Name = "dgvTraces";
             this.dgvTraces.ReadOnly = true;
             this.dgvTraces.RowHeadersVisible = false;
             this.dgvTraces.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTraces.Size = new System.Drawing.Size(301, 0);
+            this.dgvTraces.Size = new System.Drawing.Size(291, 0);
             this.dgvTraces.TabIndex = 19;
-            this.dgvTraces.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTraces_CellContentClick);
-            this.dgvTraces.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTraces_CellContentDoubleClick);
-            this.dgvTraces.Leave += new System.EventHandler(this.dgvTraces_Leave);
-            // 
-            // clmTraceGuid
-            // 
-            this.clmTraceGuid.HeaderText = "traceGuid";
-            this.clmTraceGuid.Name = "clmTraceGuid";
-            this.clmTraceGuid.ReadOnly = true;
-            this.clmTraceGuid.Visible = false;
+            this.dgvTraces.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CellContentDoubleClick);
             // 
             // clmTraceName
             // 
             this.clmTraceName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.clmTraceName.HeaderText = "Trace name";
+            this.clmTraceName.DataPropertyName = "TracedElementName";
+            this.clmTraceName.HeaderText = "Element";
             this.clmTraceName.Name = "clmTraceName";
             this.clmTraceName.ReadOnly = true;
-            // 
-            // clmTraceType
-            // 
-            this.clmTraceType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.clmTraceType.HeaderText = "Type";
-            this.clmTraceType.Name = "clmTraceType";
-            this.clmTraceType.ReadOnly = true;
             // 
             // vStakeholderPane
             // 
@@ -759,11 +660,11 @@ namespace DecisionArchitect.View.DetailView
             this.vStakeholderPane.ItemPanel.Controls.Add(this.dgvStakeholder);
             this.vStakeholderPane.ItemPanel.Location = new System.Drawing.Point(1, 30);
             this.vStakeholderPane.ItemPanel.Name = "ItemPanel";
-            this.vStakeholderPane.ItemPanel.Size = new System.Drawing.Size(301, 0);
+            this.vStakeholderPane.ItemPanel.Size = new System.Drawing.Size(291, 0);
             this.vStakeholderPane.ItemPanel.TabIndex = 1;
-            this.vStakeholderPane.Location = new System.Drawing.Point(0, 369);
+            this.vStakeholderPane.Location = new System.Drawing.Point(0, 245);
             this.vStakeholderPane.Name = "vStakeholderPane";
-            this.vStakeholderPane.Size = new System.Drawing.Size(303, 30);
+            this.vStakeholderPane.Size = new System.Drawing.Size(293, 30);
             this.vStakeholderPane.TabIndex = 4;
             this.vStakeholderPane.Text = "Stakeholder";
             this.vStakeholderPane.TooltipText = "Stakeholders";
@@ -773,44 +674,50 @@ namespace DecisionArchitect.View.DetailView
             this.dgvStakeholder.AllowUserToAddRows = false;
             this.dgvStakeholder.AllowUserToDeleteRows = false;
             this.dgvStakeholder.AllowUserToResizeRows = false;
+            this.dgvStakeholder.AutoGenerateColumns = false;
             this.dgvStakeholder.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvStakeholder.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvStakeholder.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.clmStakeholderGuid,
-            this.clmStakeholderName,
+            this.Stakeholder,
+            this.clmStakeholderRole,
             this.clmStakeholderAction});
+            this.dgvStakeholder.DataSource = this.iStakeholderActionBindingSource;
             this.dgvStakeholder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvStakeholder.Location = new System.Drawing.Point(0, 0);
+            this.dgvStakeholder.MultiSelect = false;
             this.dgvStakeholder.Name = "dgvStakeholder";
             this.dgvStakeholder.ReadOnly = true;
             this.dgvStakeholder.RowHeadersVisible = false;
             this.dgvStakeholder.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvStakeholder.Size = new System.Drawing.Size(301, 0);
+            this.dgvStakeholder.Size = new System.Drawing.Size(291, 0);
             this.dgvStakeholder.TabIndex = 19;
-            this.dgvStakeholder.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStakeholder_CellContentClick);
-            this.dgvStakeholder.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStakeholder_CellContentDoubleClick);
-            this.dgvStakeholder.Leave += new System.EventHandler(this.dgvStakeholder_Leave);
+            this.dgvStakeholder.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CellContentDoubleClick);
+            this.dgvStakeholder.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.CellFormatting);
             // 
-            // clmStakeholderGuid
+            // Stakeholder
             // 
-            this.clmStakeholderGuid.HeaderText = "stakeholderGuid";
-            this.clmStakeholderGuid.Name = "clmStakeholderGuid";
-            this.clmStakeholderGuid.ReadOnly = true;
-            this.clmStakeholderGuid.Visible = false;
+            this.Stakeholder.DataPropertyName = "Stakeholder.Name";
+            this.Stakeholder.HeaderText = "Name";
+            this.Stakeholder.Name = "Stakeholder";
+            this.Stakeholder.ReadOnly = true;
             // 
-            // clmStakeholderName
+            // clmStakeholderRole
             // 
-            this.clmStakeholderName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.clmStakeholderName.HeaderText = "Stakeholder";
-            this.clmStakeholderName.Name = "clmStakeholderName";
-            this.clmStakeholderName.ReadOnly = true;
+            this.clmStakeholderRole.DataPropertyName = "Stakeholder.Role";
+            this.clmStakeholderRole.HeaderText = "Role";
+            this.clmStakeholderRole.Name = "clmStakeholderRole";
+            this.clmStakeholderRole.ReadOnly = true;
             // 
             // clmStakeholderAction
             // 
-            this.clmStakeholderAction.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.clmStakeholderAction.DataPropertyName = "Action";
             this.clmStakeholderAction.HeaderText = "Action";
             this.clmStakeholderAction.Name = "clmStakeholderAction";
             this.clmStakeholderAction.ReadOnly = true;
+            // 
+            // iStakeholderActionBindingSource
+            // 
+            this.iStakeholderActionBindingSource.DataSource = typeof(DecisionArchitect.Model.New.IStakeholderAction);
             // 
             // vHistoryPane
             // 
@@ -823,53 +730,107 @@ namespace DecisionArchitect.View.DetailView
             this.vHistoryPane.ItemPanel.Controls.Add(this.dgvHistory);
             this.vHistoryPane.ItemPanel.Location = new System.Drawing.Point(1, 30);
             this.vHistoryPane.ItemPanel.Name = "ItemPanel";
-            this.vHistoryPane.ItemPanel.Size = new System.Drawing.Size(301, 0);
+            this.vHistoryPane.ItemPanel.Size = new System.Drawing.Size(291, 0);
             this.vHistoryPane.ItemPanel.TabIndex = 1;
-            this.vHistoryPane.Location = new System.Drawing.Point(0, 399);
+            this.vHistoryPane.Location = new System.Drawing.Point(0, 275);
             this.vHistoryPane.Name = "vHistoryPane";
-            this.vHistoryPane.Size = new System.Drawing.Size(303, 30);
+            this.vHistoryPane.Size = new System.Drawing.Size(293, 30);
             this.vHistoryPane.TabIndex = 5;
             this.vHistoryPane.Text = "History";
             this.vHistoryPane.TooltipText = "History";
             // 
             // dgvHistory
             // 
-            this.dgvHistory.AllowUserToAddRows = false;
-            this.dgvHistory.AllowUserToDeleteRows = false;
+            this.dgvHistory.AllowUserToOrderColumns = true;
             this.dgvHistory.AllowUserToResizeRows = false;
+            this.dgvHistory.AutoGenerateColumns = false;
             this.dgvHistory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvHistory.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.clmHistoryGuid,
             this.clmHistoryState,
+            this.modifiedDataGridViewTextBoxColumn,
+            this.taggedValueGUIDDataGridViewTextBoxColumn,
             this.clmHistoryDate});
+            this.dgvHistory.DataSource = this.iHistoryEntryBindingSource;
             this.dgvHistory.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvHistory.Location = new System.Drawing.Point(0, 0);
+            this.dgvHistory.MultiSelect = false;
             this.dgvHistory.Name = "dgvHistory";
             this.dgvHistory.RowHeadersVisible = false;
-            this.dgvHistory.Size = new System.Drawing.Size(301, 0);
+            this.dgvHistory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvHistory.Size = new System.Drawing.Size(291, 0);
             this.dgvHistory.TabIndex = 0;
             this.dgvHistory.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgvHistory_CellBeginEdit);
             this.dgvHistory.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvHistory_CellEndEdit);
-            this.dgvHistory.Leave += new System.EventHandler(this.dgvHistory_Leave);
-            // 
-            // clmHistoryGuid
-            // 
-            this.clmHistoryGuid.HeaderText = "historyGuid";
-            this.clmHistoryGuid.Name = "clmHistoryGuid";
-            this.clmHistoryGuid.Visible = false;
             // 
             // clmHistoryState
             // 
+            this.clmHistoryState.DataPropertyName = "State";
+            this.clmHistoryState.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.clmHistoryState.HeaderText = "State";
             this.clmHistoryState.Name = "clmHistoryState";
-            this.clmHistoryState.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.clmHistoryState.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.clmHistoryState.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // modifiedDataGridViewTextBoxColumn
+            // 
+            this.modifiedDataGridViewTextBoxColumn.DataPropertyName = "Modified";
+            this.modifiedDataGridViewTextBoxColumn.HeaderText = "Modified";
+            this.modifiedDataGridViewTextBoxColumn.Name = "modifiedDataGridViewTextBoxColumn";
+            this.modifiedDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // taggedValueGUIDDataGridViewTextBoxColumn
+            // 
+            this.taggedValueGUIDDataGridViewTextBoxColumn.DataPropertyName = "TaggedValueGUID";
+            this.taggedValueGUIDDataGridViewTextBoxColumn.HeaderText = "TaggedValueGUID";
+            this.taggedValueGUIDDataGridViewTextBoxColumn.Name = "taggedValueGUIDDataGridViewTextBoxColumn";
+            this.taggedValueGUIDDataGridViewTextBoxColumn.ReadOnly = true;
+            this.taggedValueGUIDDataGridViewTextBoxColumn.Visible = false;
             // 
             // clmHistoryDate
             // 
+            this.clmHistoryDate.DataPropertyName = "Modified";
             this.clmHistoryDate.HeaderText = "Date";
             this.clmHistoryDate.Name = "clmHistoryDate";
-            this.clmHistoryDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.clmHistoryDate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.clmHistoryDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // iHistoryEntryBindingSource
+            // 
+            this.iHistoryEntryBindingSource.DataSource = typeof(DecisionArchitect.Model.New.IHistoryEntry);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.btnSave);
+            this.panel1.Controls.Add(this.btnRevert);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(3, 684);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(313, 34);
+            this.panel1.TabIndex = 127;
+            // 
+            // btnSave
+            // 
+            this.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnSave.Location = new System.Drawing.Point(152, 4);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 125;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnRevert
+            // 
+            this.btnRevert.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnRevert.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnRevert.Location = new System.Drawing.Point(233, 4);
+            this.btnRevert.Name = "btnRevert";
+            this.btnRevert.Size = new System.Drawing.Size(75, 23);
+            this.btnRevert.TabIndex = 124;
+            this.btnRevert.Text = "Revert";
+            this.btnRevert.UseVisualStyleBackColor = true;
+            this.btnRevert.Click += new System.EventHandler(this.btnRevert_Click);
             // 
             // Content
             // 
@@ -879,6 +840,53 @@ namespace DecisionArchitect.View.DetailView
             this.Content.Size = new System.Drawing.Size(200, 100);
             this.Content.TabIndex = 0;
             // 
+            // iStakeholderBindingSource
+            // 
+            this.iStakeholderBindingSource.DataSource = typeof(DecisionArchitect.Model.New.IStakeholder);
+            // 
+            // clmAlternativeName
+            // 
+            this.clmAlternativeName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.clmAlternativeName.DataPropertyName = "RelatedDecision.Name";
+            this.clmAlternativeName.FillWeight = 149.2733F;
+            this.clmAlternativeName.HeaderText = "Decision";
+            this.clmAlternativeName.Name = "clmAlternativeName";
+            this.clmAlternativeName.ReadOnly = true;
+            this.clmAlternativeName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.clmAlternativeName.ToolTipText = "Dubble click to open the selected Decision";
+            // 
+            // clmAlternativeState
+            // 
+            this.clmAlternativeState.DataPropertyName = "RelatedDecision.State";
+            this.clmAlternativeState.FillWeight = 89.28613F;
+            this.clmAlternativeState.HeaderText = "State";
+            this.clmAlternativeState.Name = "clmAlternativeState";
+            this.clmAlternativeState.ReadOnly = true;
+            this.clmAlternativeState.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // clmRelatedTo
+            // 
+            this.clmRelatedTo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.clmRelatedTo.DataPropertyName = "RelatedDecision.Name";
+            this.clmRelatedTo.HeaderText = "Decision";
+            this.clmRelatedTo.Name = "clmRelatedTo";
+            this.clmRelatedTo.ReadOnly = true;
+            // 
+            // clmRelatedDecisionsState
+            // 
+            this.clmRelatedDecisionsState.DataPropertyName = "RelatedDecision.State";
+            this.clmRelatedDecisionsState.HeaderText = "State";
+            this.clmRelatedDecisionsState.Name = "clmRelatedDecisionsState";
+            this.clmRelatedDecisionsState.ReadOnly = true;
+            // 
+            // clmRelation
+            // 
+            this.clmRelation.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.clmRelation.DataPropertyName = "DirectedType";
+            this.clmRelation.HeaderText = "Relation";
+            this.clmRelation.Name = "clmRelation";
+            this.clmRelation.ReadOnly = true;
+            // 
             // DetailViewController
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -886,8 +894,7 @@ namespace DecisionArchitect.View.DetailView
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.spltDetailView);
             this.Name = "DetailViewController";
-            this.Size = new System.Drawing.Size(916, 769);
-            this.Load += new System.EventHandler(this.DetailViewController_Load);
+            this.Size = new System.Drawing.Size(916, 725);
             this.spltDetailView.Panel1.ResumeLayout(false);
             this.spltDetailView.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spltDetailView)).EndInit();
@@ -895,6 +902,7 @@ namespace DecisionArchitect.View.DetailView
             this.gpbDecisionInformation.ResumeLayout(false);
             this.gpbDecisionInformation.PerformLayout();
             this.gpbRationale.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -920,9 +928,13 @@ namespace DecisionArchitect.View.DetailView
             this.vStakeholderPane.ItemPanel.ResumeLayout(false);
             this.vStakeholderPane.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvStakeholder)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iStakeholderActionBindingSource)).EndInit();
             this.vHistoryPane.ItemPanel.ResumeLayout(false);
             this.vHistoryPane.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvHistory)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iHistoryEntryBindingSource)).EndInit();
+            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.iStakeholderBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -948,14 +960,8 @@ namespace DecisionArchitect.View.DetailView
         private DataGridView dgvForces;
         private VIBlend.WinForms.Controls.vNavPaneItem vTracesPane;
         private DataGridView dgvTraces;
-        private DataGridViewTextBoxColumn clmTraceGuid;
-        private DataGridViewTextBoxColumn clmTraceName;
-        private DataGridViewTextBoxColumn clmTraceType;
         private VIBlend.WinForms.Controls.vNavPaneItem vStakeholderPane;
         private DataGridView dgvStakeholder;
-        private DataGridViewTextBoxColumn clmStakeholderGuid;
-        private DataGridViewTextBoxColumn clmStakeholderName;
-        private DataGridViewTextBoxColumn clmStakeholderAction;
         private VIBlend.WinForms.Controls.vNavPaneItem vHistoryPane;
         private DataGridView dgvHistory;
         private GroupBox gpbDecisionInformation;
@@ -969,28 +975,34 @@ namespace DecisionArchitect.View.DetailView
         private Label lblAuthor;
         private TextBox txtAuthor;
         private Label lblModified;
-        private DataGridViewTextBoxColumn clmHistoryGuid;
-        private DataGridViewTextBoxColumn clmHistoryState;
-        private DataGridViewTextBoxColumn clmHistoryDate;
-        private DataGridViewTextBoxColumn clmRelatedGuid;
-        private DataGridViewTextBoxColumn clmRelation;
-        private DataGridViewTextBoxColumn clmRelatedName;
-        private DataGridViewTextBoxColumn clmRelatedTo;
-        private DataGridViewTextBoxColumn clmRelatedUid;
-        private DataGridViewTextBoxColumn clmForceGuid;
-        private DataGridViewTextBoxColumn clmForcesName;
-        private DataGridViewTextBoxColumn clmForceConcern;
-        private DataGridViewTextBoxColumn clmForceRating;
-        private DataGridViewTextBoxColumn clmForceDescription;
         private DataGridView dgvAlternativeDecisions;
-        private DataGridViewTextBoxColumn clmAlternativeGuid;
-        private DataGridViewTextBoxColumn clmAlternativeID;
-        private DataGridViewTextBoxColumn clmAlternativeName;
-        private DataGridViewTextBoxColumn clmAlternativeState;
-        private DataGridViewTextBoxColumn clmAlternativeRationale;
         private CustomRichTextBox pnlTopicDescription;
         private CustomRichTextBox rtbTopicDescription;
         private CustomRichTextBox rtbRationale;
         private GroupBox grpDescription;
+        private Button btnRevert;
+        private Button btnSave;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Panel panel1;
+        private BindingSource iHistoryEntryBindingSource;
+        private DataGridViewComboBoxColumn clmHistoryState;
+        private DataGridViewTextBoxColumn modifiedDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn taggedValueGUIDDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn clmHistoryDate;
+        private BindingSource iStakeholderActionBindingSource;
+        private BindingSource iStakeholderBindingSource;
+        private DataGridViewTextBoxColumn clmStakeholderName;
+        private DataGridViewTextBoxColumn clmTraceName;
+        private DataGridViewTextBoxColumn Stakeholder;
+        private DataGridViewTextBoxColumn clmStakeholderRole;
+        private DataGridViewTextBoxColumn clmStakeholderAction;
+        private DataGridViewTextBoxColumn clmForcesName;
+        private DataGridViewTextBoxColumn clmForceConcern;
+        private DataGridViewTextBoxColumn clmForceRating;
+        private DataGridViewTextBoxColumn clmAlternativeName;
+        private DataGridViewTextBoxColumn clmAlternativeState;
+        private DataGridViewTextBoxColumn clmRelatedTo;
+        private DataGridViewTextBoxColumn clmRelatedDecisionsState;
+        private DataGridViewTextBoxColumn clmRelation;
     }
 }

@@ -1,4 +1,4 @@
-﻿using DecisionArchitect.Model;
+﻿using DecisionArchitect.Model.New;
 
 namespace DecisionArchitect.Logic.Events
 {

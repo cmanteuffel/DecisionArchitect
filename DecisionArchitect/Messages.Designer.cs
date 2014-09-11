@@ -557,7 +557,7 @@ namespace DecisionArchitect {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save report as....
+        ///   Looks up a localized string similar to SaveDescription report as....
         /// </summary>
         internal static string SaveReportAs {
             get {

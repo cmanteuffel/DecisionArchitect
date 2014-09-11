@@ -6,9 +6,5 @@ namespace DecisionArchitect.Logic.Events
     // for this program, we have only one value which the user changed.
     public class DetailViewEventArgs : EventArgs
     {
-        public DetailViewEventArgs()
-        {
-        }
     }
-
 }

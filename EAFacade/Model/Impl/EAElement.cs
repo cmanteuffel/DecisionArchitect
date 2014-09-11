@@ -183,13 +183,15 @@ namespace EAFacade.Model.Impl
         [Obsolete("Should be moved to topic", false)]
         public IEnumerable<IEAElement> GetDecisionsForTopic()
         {
-            if (!IsTopic())
+            if (!EAMain.IsTopic(this))
             {
                 throw new Exception("EAElementImpl is not a topic");
             }
 
-            return from EAElement e in GetElements() where e.IsDecision() select e;
+            return from EAElement e in GetElements() where EAMain.IsDecision(e) select e;
         }
+
+        
 
         [Obsolete("Should be moved to appropriate domain class", false)]
         public IEnumerable<IEAElement> GetConnectedRequirements()
@@ -246,18 +248,44 @@ namespace EAFacade.Model.Impl
                     select repository.GetDiagramByID(id)).ToArray();
         }
 
-        public IList<IEAConnector> FindConnectors(IEAElement suppliedElement, String type, String stereotype)
+        public IList<IEAConnector> FindConnectors(string metatype, params string[] stereotypes)
         {
-            return GetConnectors().Where(c => c.GetSupplier().GUID.Equals(suppliedElement.GUID) &&
-                                              c.Stereotype.Equals(stereotype) &&
-                                              c.Type.Equals(type) &&
-                                              c.GetClient().GUID.Equals(GUID)).ToList();
+            IEnumerable<IEAConnector> filteredConnectors = GetConnectors().Where(c => stereotypes.Contains(c.Stereotype));
+            if (null != metatype && !"".Equals(metatype))
+            {
+                filteredConnectors = filteredConnectors.Where(c => c.MetaType.Equals(metatype));
+            }
+            return filteredConnectors.ToList();
+        }
+
+        public IList<IEAConnector> FindConnectors(IEAElement connectedElement, string stereotype, string type = null,
+                                                  EAConnectorDirection direction = EAConnectorDirection.ClientToSupplier)
+        {
+            IList<IEAConnector> filteredConnectors = FindConnectors(type, stereotype);
+
+            switch (direction)
+            {
+                case EAConnectorDirection.ClientToSupplier:
+                    filteredConnectors = filteredConnectors.Where(c => c.ClientId == connectedElement.ID).ToList();
+                    break;
+                case EAConnectorDirection.SupplierToClient:
+                    filteredConnectors = filteredConnectors.Where(c => c.SupplierId == connectedElement.ID).ToList();
+                    break;
+
+                default:
+                    filteredConnectors =
+                        filteredConnectors.Where(
+                            c => c.SupplierId == connectedElement.ID || c.ClientId == connectedElement.ID).ToList();
+                    break;
+            }
+
+            return filteredConnectors;
         }
 
         public IEAConnector ConnectTo(IEAElement suppliedElement, String type, String stereotype)
         {
             //check if two elements are already connected with this connector
-            IList<IEAConnector> connectors = FindConnectors(suppliedElement, type, stereotype);
+            IList<IEAConnector> connectors = FindConnectors(suppliedElement, stereotype, type);
             if (connectors.Count > 0) return connectors.FirstOrDefault();
 
             Connector connector = _native.Connectors.AddNew("", type);
@@ -291,25 +319,8 @@ namespace EAFacade.Model.Impl
             }
         }
 
-        public bool IsDecision()
-        {
-            return EAConstants.DecisionMetaType.Equals(MetaType.Trim());
-        }
 
-        public bool IsConcern()
-        {
-            return EAConstants.ConcernMetaType.Equals(MetaType);
-        }
 
-        public bool IsTopic()
-        {
-            return EAConstants.TopicMetaType.Equals(MetaType);
-        }
-
-        public bool IsHistoryDecision()
-        {
-            return true.ToString().Equals(GetTaggedValue(EATaggedValueKeys.IsHistoryDecision));
-        }
 
         public bool Update()
         {
@@ -336,7 +347,7 @@ namespace EAFacade.Model.Impl
             return _native.GetLinkedDocument();
         }
 
-        public void LoadLinkedDocument(string fileName)
+        public void LoadFileIntoLinkedDocument(string fileName)
         {
             _native.LoadLinkedDocument(fileName);
         }
@@ -361,7 +372,25 @@ namespace EAFacade.Model.Impl
             return _native.TaggedValues.Cast<TaggedValue>().Any(tv => tv.Name.Equals(name) && tv.Value.Equals(data));
         }
 
-        public string GetTaggedValue(string name)
+        public IEATaggedValue GetTaggedValueByGUID(string guid)
+        {
+            return
+                _native.TaggedValues.Cast<TaggedValue>()
+                       .Where(tv => tv.PropertyGUID.Equals(guid))
+                       .Select(EATaggedValue.Wrap)
+                       .FirstOrDefault();
+        }
+
+        public IList<IEATaggedValue> GetTaggedValuesByName(string name)
+        {
+            return
+                _native.TaggedValues.Cast<TaggedValue>()
+                       .Where(tv => tv.Name.Equals(name))
+                       .Select(EATaggedValue.Wrap)
+                       .ToList();
+        }
+
+        public string GetTaggedValueByName(string name)
         {
             TaggedValue value;
 
@@ -389,6 +418,19 @@ namespace EAFacade.Model.Impl
             taggedValue.Value = data;
             taggedValue.Update();
             _native.TaggedValues.Refresh();
+        }
+
+        public bool UpdateTaggedValue(string guid, string name, string data)
+        {
+            TaggedValue taggedValue =
+                _native.TaggedValues.Cast<TaggedValue>().FirstOrDefault(tv => tv.PropertyGUID.Equals(guid));
+            if (taggedValue == null) return false;
+            taggedValue.Name = name;
+            taggedValue.Value = data;
+            taggedValue.Update();
+            _native.TaggedValues.Refresh();
+            Update();
+            return true;
         }
 
         public void UpdateTaggedValue(string name, string data)
@@ -456,11 +498,33 @@ namespace EAFacade.Model.Impl
             }
         }
 
-        /// <summary>
-        ///     Remove all entries of TaggedValuesWithName
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns>the amount of entries removed</returns>
+        public void RemoveTaggedValueByGUID(string tagGUID)
+        {
+            for (short i = 0; i < TaggedValues.Count; i++)
+            {
+                IEATaggedValue tv = TaggedValues[i];
+                if (tv.GUID.Equals(tagGUID))
+                {
+                    _native.TaggedValues.Delete(i);
+                    _native.TaggedValues.Refresh();
+                    return; // Only delete one TaggedValue
+                }
+            }
+        }
+
+        
+        
+        
+        public void AdviseElementChanged()
+        {
+            EAMain.Repository.AdviseElementChanged(ID);
+        }
+
+        
+        
+        
+        
+        
         public int RemoveAllWithName(string name)
         {
             int count = 0;
