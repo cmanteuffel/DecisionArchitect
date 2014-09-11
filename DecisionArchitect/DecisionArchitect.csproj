@@ -65,12 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Logic\EventHandler\DecisionStateChangeEventHandler.cs" />
-    <Compile Include="Logic\Detail\SynchronizationManager.cs" />
-    <Compile Include="Logic\Detail\Events\DecisionEventArgs.cs" />
-    <Compile Include="Logic\Detail\Events\DetailViewEventArgs.cs" />
-    <Compile Include="Logic\Detail\Events\IDecisionObservable.cs" />
-    <Compile Include="Logic\Detail\Events\IDecisionObserver.cs" />
-    <Compile Include="Logic\Forces\ExcelSynchronization.cs" />
+    <Compile Include="Logic\ExcelSynchronization.cs" />
     <Compile Include="Messages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -114,16 +109,16 @@
     <Compile Include="View\Dialogs\CreateTopic.Designer.cs">
       <DependentUpon>CreateTopic.cs</DependentUpon>
     </Compile>
-    <Compile Include="Logic\Chronological\ChronologicalViewpointGenerator.cs" />
+    <Compile Include="Logic\ChronologicalViewpointGenerator.cs" />
     <Compile Include="Logic\EventHandler\ChronologicalViewpointHandler.cs" />
     <Compile Include="Logic\EventHandler\ForcesHandler.cs" />
     <Compile Include="Logic\EventHandler\DetailViewHandler.cs" />
     <Compile Include="Logic\Menu\ChronologyMenu.cs" />
     <Compile Include="Logic\Menu\CreateTraceMenu.cs" />
-    <Compile Include="Logic\Menu\ExportReportsCustomMessageBox.cs">
+    <Compile Include="View\Dialogs\ExportReportsCustomMessageBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Logic\Menu\ExportReportsCustomMessageBox.Designer.cs">
+    <Compile Include="View\Dialogs\ExportReportsCustomMessageBox.Designer.cs">
       <DependentUpon>ExportReportsCustomMessageBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Logic\Menu\ReportMenu.cs" />
@@ -132,7 +127,7 @@
     <Compile Include="Logic\Reporting\TopicDetailSlide.cs" />
     <Compile Include="Logic\RepositoryAdapter.cs" />
     <Compile Include="Logic\IRepositoryListener.cs" />
-    <Compile Include="Logic\StakeholderInvolvement\StakeholderInvolvementHandler.cs" />
+    <Compile Include="Logic\EventHandler\StakeholderInvolvementHandler.cs" />
     <Compile Include="Logic\Validation\ValidationHandler.cs" />
     <Compile Include="MainApplicationFileEvents.cs" />
     <Compile Include="MainApplicationMenuEvents.cs" />
@@ -273,7 +268,7 @@
     <EmbeddedResource Include="View\Dialogs\CreateTopic.resx">
       <DependentUpon>CreateTopic.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Logic\Menu\ExportReportsCustomMessageBox.resx">
+    <EmbeddedResource Include="View\Dialogs\ExportReportsCustomMessageBox.resx">
       <DependentUpon>ExportReportsCustomMessageBox.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -289,10 +284,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Logic\Relationship\" />
+    <Folder Include="Logic\Chronological\" />
+    <Folder Include="Logic\Forces\" />
+    <Folder Include="Logic\StakeholderInvolvement\" />
     <Folder Include="View\Chronology\" />
     <Folder Include="View\Controller\" />
-    <Folder Include="View\DetailView\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Templates\DefaultDecisionViewTemplate.xml">

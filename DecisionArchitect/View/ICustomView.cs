@@ -10,8 +10,12 @@
     Spyros Ioakeimidis (University of Groningen)
 */
 
+using System;
+
 namespace DecisionArchitect.View
 {
+    [Obsolete("" +
+              "",true)]
     public interface ICustomView
     {
     }
