@@ -37,21 +37,6 @@ namespace EATestSupport.Model.EventProperties
                 };
         }
 
-        public static EAEventPropertiesHelper GetInstance(string type, string subtype, string stereotype, int clientid,
-                                                          int supplierid, int diagramid, int elementid, int parentid)
-        {
-            var instance = new EAEventPropertiesHelper();
-            instance.Set(EAEventPropertyKeys.Type, type);
-            instance.Set(EAEventPropertyKeys.Subtype, subtype);
-            instance.Set(EAEventPropertyKeys.Stereotype, stereotype);
-            instance.Set(EAEventPropertyKeys.ClientId, clientid.ToString(CultureInfo.InvariantCulture));
-            instance.Set(EAEventPropertyKeys.SupplierId, supplierid.ToString(CultureInfo.InvariantCulture));
-            instance.Set(EAEventPropertyKeys.DiagramId, diagramid.ToString(CultureInfo.InvariantCulture));
-            instance.Set(EAEventPropertyKeys.ElementId, elementid.ToString(CultureInfo.InvariantCulture));
-            instance.Set(EAEventPropertyKeys.ParentId, parentid.ToString(CultureInfo.InvariantCulture));
-            return instance;
-        }
-
         IEnumerator IEnumerable.GetEnumerator()
         {
             return _properties.GetEnumerator();
@@ -67,6 +52,31 @@ namespace EATestSupport.Model.EventProperties
             return _properties[(string) key];
         }
 
+        public int Count
+        {
+            get { return _properties.Count; }
+        }
+
+        public ObjectType ObjectType
+        {
+            get { return ObjectType.otEventProperties; }
+        }
+
+        public static EAEventPropertiesHelper GetInstance(string type, string subtype, string stereotype, int clientid,
+                                                          int supplierid, int diagramid, int elementid, int parentid)
+        {
+            var instance = new EAEventPropertiesHelper();
+            instance.Set(EAEventPropertyKeys.Type, type);
+            instance.Set(EAEventPropertyKeys.Subtype, subtype);
+            instance.Set(EAEventPropertyKeys.Stereotype, stereotype);
+            instance.Set(EAEventPropertyKeys.ClientId, clientid.ToString(CultureInfo.InvariantCulture));
+            instance.Set(EAEventPropertyKeys.SupplierId, supplierid.ToString(CultureInfo.InvariantCulture));
+            instance.Set(EAEventPropertyKeys.DiagramId, diagramid.ToString(CultureInfo.InvariantCulture));
+            instance.Set(EAEventPropertyKeys.ElementId, elementid.ToString(CultureInfo.InvariantCulture));
+            instance.Set(EAEventPropertyKeys.ParentId, parentid.ToString(CultureInfo.InvariantCulture));
+            return instance;
+        }
+
         private void Set(string key, object value)
         {
             var eventProperty = new EAEventPropertyHelper
@@ -77,16 +87,6 @@ namespace EATestSupport.Model.EventProperties
                     ObjectType = ObjectType.otEventProperty
                 };
             _properties[key] = eventProperty;
-        }
-
-        public int Count
-        {
-            get { return _properties.Count; }
-        }
-
-        public ObjectType ObjectType
-        {
-            get { return ObjectType.otEventProperties; }
         }
     }
 }

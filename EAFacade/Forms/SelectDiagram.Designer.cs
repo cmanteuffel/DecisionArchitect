@@ -10,7 +10,9 @@
     Spyros Ioakeimidis (University of Groningen)
 */
 
-namespace DecisionArchitect.View.Dialogs
+
+
+namespace EAFacade.Forms
 {
     partial class SelectDiagram
     {

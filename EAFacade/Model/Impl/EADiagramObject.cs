@@ -24,16 +24,7 @@ namespace EAFacade.Model.Impl
             _native = native;
         }
 
-        public static IEADiagramObject Wrap(DiagramObject native)
-        {
-            if (null == native)
-            {
-                throw new ArgumentNullException("native");
-            }
-            return new EADiagramObject(native);
-        }
 
-        
         public int ElementID
         {
             get { return _native.ElementID; }
@@ -41,10 +32,16 @@ namespace EAFacade.Model.Impl
 
         public IEADiagram Diagram
         {
-            get
+            get { return EARepository.Instance.GetDiagramByID(_native.DiagramID); }
+        }
+
+        public static IEADiagramObject Wrap(DiagramObject native)
+        {
+            if (null == native)
             {
-                return EARepository.Instance.GetDiagramByID(_native.DiagramID);
+                throw new ArgumentNullException("native");
             }
+            return new EADiagramObject(native);
         }
     }
 }

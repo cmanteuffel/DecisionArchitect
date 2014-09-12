@@ -35,14 +35,14 @@ namespace EAFacade.Model.Impl
 
             if (volatileElement.Type.Equals(EAConstants.EventPropertyTypeElement))
             {
-                var parentElementID = EAUtilities.ParseToInt32(info.Get(EAEventPropertyKeys.ParentId).Value, -1);
+                dynamic parentElementID = EAUtilities.ParseToInt32(info.Get(EAEventPropertyKeys.ParentId).Value, -1);
                 if (parentElementID > 0)
                 {
                     volatileElement.ParentElement = EARepository.Instance.GetElementByID(parentElementID);
                 }
             }
 
-            var diagramID = EAUtilities.ParseToInt32(info.Get(EAEventPropertyKeys.DiagramId).Value, -1);
+            dynamic diagramID = EAUtilities.ParseToInt32(info.Get(EAEventPropertyKeys.DiagramId).Value, -1);
             if (diagramID > 0)
             {
                 volatileElement.Diagram = EARepository.Instance.GetDiagramByID(diagramID);

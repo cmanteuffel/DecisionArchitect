@@ -68,7 +68,6 @@ namespace EAFacade
             }
 
 
-           
             if (null != nativeRepository.GetConnectorByGuid(guid))
             {
                 return EANativeType.Connector;

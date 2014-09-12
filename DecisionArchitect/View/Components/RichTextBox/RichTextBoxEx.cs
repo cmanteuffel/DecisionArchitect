@@ -10,7 +10,7 @@ using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 
-namespace DecisionArchitect.View.RichTextBox
+namespace DecisionArchitect.View.Components.RichTextBox
 {
     public class RichTextBoxEx : System.Windows.Forms.RichTextBox
     {
@@ -280,7 +280,7 @@ namespace DecisionArchitect.View.RichTextBox
                         {
                             //we found the last character's +1 so end char is (j-1), start char is (i)
                             pos += (i) + "-" + ((j - 1) - (i - 1)) + "&";
-                                //j-1 to i but i inserted -1 one more so we can determine the right pos
+                            //j-1 to i but i inserted -1 one more so we can determine the right pos
                             i = j; //cont. from j+1
                             break; //exit second for cont. from i = j+1 (i will increase on new i value)
                         }

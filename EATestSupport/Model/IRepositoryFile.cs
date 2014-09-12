@@ -11,9 +11,9 @@
     K. Eric Harper (ABB Corporate Research)
 */
 
-namespace EATestSupport.Model.RepositoryFile
+namespace EATestSupport.Model
 {
-    interface IRepositoryFile
+    internal interface IRepositoryFile
     {
         void Open();
         void Reset();

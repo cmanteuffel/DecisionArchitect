@@ -34,7 +34,7 @@ namespace EAFacade.Model.Impl
 
         //Exception from pattern, native of repos is allowed to be exposed. Should be only used within the Model namespace
         //maybe we consider to move the model to an own assembly
-       // internal Repository Native { get; private set; }
+        // internal Repository Native { get; private set; }
 
         private Package Root
         {

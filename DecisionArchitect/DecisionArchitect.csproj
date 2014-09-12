@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Logic\EventHandler\DecisionStateChangeEventHandler.cs" />
+    <Compile Include="Logic\EventHandler\SynchronizationManager.cs" />
     <Compile Include="Logic\ExcelSynchronization.cs" />
     <Compile Include="Messages.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -128,7 +129,7 @@
     <Compile Include="Logic\RepositoryAdapter.cs" />
     <Compile Include="Logic\IRepositoryListener.cs" />
     <Compile Include="Logic\EventHandler\StakeholderInvolvementHandler.cs" />
-    <Compile Include="Logic\Validation\ValidationHandler.cs" />
+    <Compile Include="Logic\EventHandler\ValidationHandler.cs" />
     <Compile Include="MainApplicationFileEvents.cs" />
     <Compile Include="MainApplicationMenuEvents.cs" />
     <Compile Include="MainApplicationModelValidatorEvents.cs" />
@@ -187,7 +188,6 @@
       <DependentUpon>GenerateChronologyView.cs</DependentUpon>
     </Compile>
     <Compile Include="Utilities\HSLColor.cs" />
-    <Compile Include="View\ICustomView.cs" />
     <Compile Include="View\Components\RichTextBox\HyperLinkWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -284,9 +284,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Logic\Chronological\" />
-    <Folder Include="Logic\Forces\" />
-    <Folder Include="Logic\StakeholderInvolvement\" />
     <Folder Include="View\Chronology\" />
     <Folder Include="View\Controller\" />
   </ItemGroup>
@@ -304,6 +301,12 @@
     <EmbeddedResource Include="Templates\ExampleDecisionViewTemplate.xml" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Templates\RUG_SAExample.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Templates\RUG_SATemplate.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="DecisionArchitectMDG.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>

@@ -15,11 +15,10 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using DecisionArchitect.Model;
-using DecisionArchitect.View.Forces;
 using EAFacade;
 using EAFacade.Model;
 
-namespace DecisionArchitect.View.Controller
+namespace DecisionArchitect.View.Forces
 {
     public class ForcesController : IForcesController
     {

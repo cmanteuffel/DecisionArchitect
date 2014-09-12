@@ -42,6 +42,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -49,6 +50,12 @@
     <Compile Include="EAMain.cs" />
     <Compile Include="EAConstants.cs" />
     <Compile Include="EATaggedValueKeys.cs" />
+    <Compile Include="Forms\SelectDiagram.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SelectDiagram.Designer.cs">
+      <DependentUpon>SelectDiagram.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\EAConnectorDirection.cs" />
     <Compile Include="Model\IEAConnectorTag.cs" />
     <Compile Include="Model\IEADiagram.cs" />
@@ -86,6 +93,11 @@
     <Compile Include="Model\Impl\EAVolatileElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EAUtilities.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\SelectDiagram.resx">
+      <DependentUpon>SelectDiagram.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

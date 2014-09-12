@@ -13,7 +13,7 @@
 using System;
 using System.Globalization;
 using System.Windows.Forms;
-using DecisionArchitect.View;
+using DecisionArchitect.View.Dialogs;
 using EAFacade;
 using EAFacade.Model;
 

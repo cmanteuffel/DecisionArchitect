@@ -1,3 +1,14 @@
+/*
+ Copyright (c) 2014 ABB Group
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License v1.0
+ which accompanies this distribution, and is available at
+ http://www.eclipse.org/legal/epl-v10.html
+ 
+ Contributors:
+    Christian Manteuffel (University of Groningen)
+*/
+
 using System;
 using System.ComponentModel;
 using EAFacade;
@@ -5,7 +16,7 @@ using EAFacade.Model;
 
 namespace DecisionArchitect.Model
 {
-    public interface IStakeholder : IPersistableModel, INotifyPropertyChanged 
+    public interface IStakeholder : IPersistableModel, INotifyPropertyChanged
     {
         string Name { get; set; }
         string Role { get; set; }
@@ -64,10 +75,7 @@ namespace DecisionArchitect.Model
             {
                 throw new ArgumentException("Argument null or not a stakeholder");
             }
-            var stakeholder = new Stakeholder();
-            stakeholder.Name = element.Name;
-            stakeholder.Role = element.Stereotype;
-            stakeholder.GUID = element.GUID;
+            var stakeholder = new Stakeholder {Name = element.Name, Role = element.Stereotype, GUID = element.GUID};
             return stakeholder;
         }
     }

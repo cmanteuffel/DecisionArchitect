@@ -13,12 +13,11 @@ using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using DecisionArchitect.View.Controller;
 using DecisionArchitect.View.Forces;
 using Microsoft.Office.Interop.Excel;
 using Application = Microsoft.Office.Interop.Excel.Application;
 
-namespace DecisionArchitect.Logic.Forces
+namespace DecisionArchitect.Logic
 {
     public class ExcelSynchronization
     {
@@ -31,7 +30,7 @@ namespace DecisionArchitect.Logic.Forces
                           RatingMappingIndex = 8;
 
         private const int StartColumn = 2, StartRow = 2;
-                          // Index for start column/row. Excel starts counting at 1 and Row/Column header takes up a row/column
+        // Index for start column/row. Excel starts counting at 1 and Row/Column header takes up a row/column
 
         private readonly IForcesController _controller;
         private readonly DataGridView _forcesTable;
@@ -119,7 +118,7 @@ namespace DecisionArchitect.Logic.Forces
         private void Populate()
         {
             _worksheetHidden.Cells[1, DiagramMappingIndex] = _controller.Model.DiagramGUID;
-                // Store diagram GUID in first row
+            // Store diagram GUID in first row
 
             for (int i = 0; i < _forcesTable.Rows.Count - 1; i++) //Last row can be ignored
             {
@@ -150,7 +149,8 @@ namespace DecisionArchitect.Logic.Forces
         /// <param name="i"></param>
         private void ForceCell(int i)
         {
-            int row = i + StartRow, col = 1;
+            int row = i + StartRow;
+            const int col = 1;
             _worksheet.Cells[row, col] = _forcesTable.Rows[i].HeaderCell.Value;
 
             object guid = _forcesTable.Rows[i].Cells[ForcesTableContext.ForceGUIDColumnIndex].Value;

@@ -14,7 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using DecisionArchitect.Model.Menu;
-using DecisionArchitect.View;
+using DecisionArchitect.View.Dialogs;
 using EAFacade;
 using EAFacade.Model;
 using MenuItem = DecisionArchitect.Model.Menu.MenuItem;

@@ -83,9 +83,9 @@ function GetTopicAlternatives(objectID) {
     xmlRoot.appendChild(xmlDataSet);
 
     var xmlData = xmlDOM.createElement("Data");
-    xmlDataSet.appendChild(xmlData);	 
-	
-	 
+    xmlDataSet.appendChild(xmlData);
+
+
     var topic = Repository.GetElementByID(objectID);
     var elements = topic.Elements;
     for (i = 0; i < elements.Count; i++) {

@@ -36,17 +36,17 @@ namespace EAFacade.Model.Impl
                     Stereotype = properties.Get(EAEventPropertyKeys.Stereotype).Value
                 };
 
-            var supplierId = EAUtilities.ParseToInt32(properties.Get(EAEventPropertyKeys.SupplierId).Value, -1);
+            dynamic supplierId = EAUtilities.ParseToInt32(properties.Get(EAEventPropertyKeys.SupplierId).Value, -1);
             if (supplierId > 0)
             {
                 volatileConnector.Supplier = EARepository.Instance.GetElementByID(supplierId);
             }
-            var clientId = EAUtilities.ParseToInt32(properties.Get(EAEventPropertyKeys.ClientId).Value, -1);
+            dynamic clientId = EAUtilities.ParseToInt32(properties.Get(EAEventPropertyKeys.ClientId).Value, -1);
             if (clientId > 0)
             {
                 volatileConnector.Client = EARepository.Instance.GetElementByID(clientId);
             }
-            var diagramId = EAUtilities.ParseToInt32(properties.Get(EAEventPropertyKeys.DiagramId).Value, -1);
+            dynamic diagramId = EAUtilities.ParseToInt32(properties.Get(EAEventPropertyKeys.DiagramId).Value, -1);
             if (diagramId > 0)
             {
                 volatileConnector.Diagram = EARepository.Instance.GetDiagramByID(diagramId);

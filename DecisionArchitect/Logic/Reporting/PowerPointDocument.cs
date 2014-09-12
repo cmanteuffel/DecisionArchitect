@@ -17,8 +17,6 @@ using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Presentation;
 using EAFacade.Model;
-using IDecision = DecisionArchitect.Model.IDecision;
-using ITopic = DecisionArchitect.Model.ITopic;
 
 namespace DecisionArchitect.Logic.Reporting
 {

@@ -22,13 +22,13 @@ namespace EAFacade.Model
         string Metatype { get; }
 
         /// <summary>
-        /// Adds an element to the diagram. Will not be added if element already exists
+        ///     Adds an element to the diagram. Will not be added if element already exists
         /// </summary>
         /// <param name="element">Element to be added</param>
         void AddElement(IEAElement element);
 
         /// <summary>
-        /// Removes an element from the diagram
+        ///     Removes an element from the diagram
         /// </summary>
         /// <param name="element">element to be removed</param>
         void RemoveElement(IEAElement element);

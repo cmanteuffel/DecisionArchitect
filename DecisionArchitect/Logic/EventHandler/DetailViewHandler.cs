@@ -17,8 +17,7 @@ using System.Linq;
 using System.Windows.Forms;
 using DecisionArchitect.Model;
 using DecisionArchitect.View;
-using DecisionArchitect.View.DetailView;
-using DecisionArchitect.View.TopicView;
+using DecisionArchitect.View.Dialogs;
 using EAFacade;
 using EAFacade.Model;
 
@@ -32,7 +31,7 @@ namespace DecisionArchitect.Logic.EventHandler
     public class DetailViewHandler : RepositoryAdapter
     {
         private static DetailViewHandler _instance;
-        public IDictionary<string, string> _tabMap = new Dictionary<string, string>();
+        public IDictionary<string, string> TabMap = new Dictionary<string, string>();
 
         public static DetailViewHandler Instance
         {
@@ -205,14 +204,14 @@ namespace DecisionArchitect.Logic.EventHandler
 
         public void CloseDecisionDetailView(IDecision decision)
         {
-            if (!_tabMap.ContainsKey(decision.GUID)) return;
+            if (!TabMap.ContainsKey(decision.GUID)) return;
 
-            string tabName = _tabMap[decision.GUID];
+            string tabName = TabMap[decision.GUID];
             IEARepository repository = EAMain.Repository;
             if (repository.IsTabOpen(tabName) > 0)
             {
                 repository.RemoveTab(tabName);
-                _tabMap.Remove(decision.GUID);
+                TabMap.Remove(decision.GUID);
             }
         }
 
@@ -228,21 +227,21 @@ namespace DecisionArchitect.Logic.EventHandler
             IEARepository repository = EAMain.Repository;
 
             //do some cleanup (find the closed tabs)
-            foreach (string key in _tabMap.Keys.ToArray())
+            foreach (string key in TabMap.Keys.ToArray())
             {
-                if (repository.IsTabOpen(_tabMap[key]) == 0)
+                if (repository.IsTabOpen(TabMap[key]) == 0)
                 {
-                    _tabMap.Remove(key);
+                    TabMap.Remove(key);
                 }
             }
 
             //tab is unknown, so far so good
-            if (!_tabMap.ContainsKey(decision.GUID))
+            if (!TabMap.ContainsKey(decision.GUID))
             {
-                _tabMap.Add(decision.GUID, FindUniqueTabName(decision));
+                TabMap.Add(decision.GUID, FindUniqueTabName(decision));
             }
 
-            string tabName = _tabMap[decision.GUID];
+            string tabName = TabMap[decision.GUID];
             if (repository.IsTabOpen(tabName) > 0)
             {
                 EAMain.Repository.ActivateTab(tabName);
@@ -253,7 +252,7 @@ namespace DecisionArchitect.Logic.EventHandler
                 if (!tabName.Equals(decision.Name))
                 {
                     tabName = FindUniqueTabName(decision);
-                    _tabMap[decision.GUID] = tabName;
+                    TabMap[decision.GUID] = tabName;
                 }
                 DetailViewController detailViewController = repository.AddTab(tabName,
                                                                               "DecisionViewpoints.DetailViewController");
@@ -265,7 +264,7 @@ namespace DecisionArchitect.Logic.EventHandler
         {
             //check if another decision occupies same name.
             string tabName = decision.Name;
-            if (_tabMap.Values.Contains(decision.Name))
+            if (TabMap.Values.Contains(decision.Name))
             {
                 //need to find another unique name
                 tabName = decision.Name + " (ID:" + decision.ID + ")";

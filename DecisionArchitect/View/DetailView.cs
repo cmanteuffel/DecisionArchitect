@@ -19,11 +19,10 @@ using System.Windows.Forms;
 using DecisionArchitect.Logic.EventHandler;
 using DecisionArchitect.Model;
 using DecisionArchitect.Utilities;
-using DecisionArchitect.View.Controller;
 using EAFacade;
 using EAFacade.Model;
 
-namespace DecisionArchitect.View.DetailView
+namespace DecisionArchitect.View
 {
     internal interface IDetailViewController
     {
@@ -45,13 +44,8 @@ namespace DecisionArchitect.View.DetailView
         public DetailViewController()
         {
             InitializeComponent();
-            this.Disposed += Cleanup;
-        }
-
-        private void Cleanup(object sender, EventArgs e)
-        {
-            UnbindAllComponents();
-            Decision = null;
+            Disposed += Cleanup;
+            SynchronizationManager.Instance.ModelChanged += OnModelChanged;
         }
 
         public ITopic Topic { get; set; }
@@ -101,7 +95,27 @@ namespace DecisionArchitect.View.DetailView
             }
         }
 
-        
+        private void Cleanup(object sender, EventArgs e)
+        {
+            UnbindAllComponents();
+            Decision = null;
+            SynchronizationManager.Instance.ModelChanged -= OnModelChanged;
+        }
+
+        private void OnModelChanged(object sender, ModelChangedEventArgs args)
+        {
+            if (args.Type == ModelChangedType.RemovedElement)
+            {
+                if (Decision != null)
+                {
+                    if (args.GUID.Equals(Decision.GUID))
+                    {
+                        DetailViewHandler.Instance.CloseDecisionDetailView(Decision);
+                    }
+                }
+            }
+        }
+
 
         private void UnbindAllComponents()
         {
@@ -146,7 +160,8 @@ namespace DecisionArchitect.View.DetailView
                 Decision.SaveChanges();
                 if (!_orginalDecisionName.Equals(newDecisionName))
                 {
-                    DialogResult result = MessageBox.Show(Messages.WarningReloadDetailView, Messages.WarningReloadDetailViewTitle,
+                    DialogResult result = MessageBox.Show(Messages.WarningReloadDetailView,
+                                                          Messages.WarningReloadDetailViewTitle,
                                                           MessageBoxButtons.YesNo);
                     if (result == DialogResult.Yes)
                     {
@@ -280,13 +295,19 @@ namespace DecisionArchitect.View.DetailView
         {
             var grid = (DataGridView) sender;
             DataGridViewRow row = grid.Rows[e.RowIndex];
-            if ((row.DataBoundItem != null) &&
-                (grid.Columns[e.ColumnIndex].DataPropertyName.Contains(".")))
+            try
             {
-                e.Value = BindProperty(
-                    row.DataBoundItem,
-                    grid.Columns[e.ColumnIndex].DataPropertyName
-                    );
+                if ((row.DataBoundItem != null) &&
+                    (grid.Columns[e.ColumnIndex].DataPropertyName.Contains(".")))
+                {
+                    e.Value = BindProperty(
+                        row.DataBoundItem,
+                        grid.Columns[e.ColumnIndex].DataPropertyName
+                        );
+                }
+            }
+            catch (IndexOutOfRangeException)
+            {
             }
 
 
@@ -301,9 +322,15 @@ namespace DecisionArchitect.View.DetailView
             }
             else if (grid == dgvAlternativeDecisions || grid == dgvRelatedDecisions)
             {
-                var decisionRelation = (IDecisionRelation) row.DataBoundItem;
-                if (decisionRelation != null)
-                    ColorRowAccordingToState(row, decisionRelation.RelatedDecision.State);
+                try
+                {
+                    var decisionRelation = (IDecisionRelation) row.DataBoundItem;
+                    if (decisionRelation != null)
+                        ColorRowAccordingToState(row, decisionRelation.RelatedDecision.State);
+                }
+                catch (IndexOutOfRangeException)
+                {
+                }
             }
         }
 
@@ -315,49 +342,84 @@ namespace DecisionArchitect.View.DetailView
         private void CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             var grid = (DataGridView) sender;
-            string guid;
+            string guid = null;
             DataGridViewRow row = grid.Rows[e.RowIndex];
 
             // ReSharper disable CanBeReplacedWithTryCastAndCheckForNull
-            if (row.DataBoundItem is IStakeholderAction)
-            {
-                var stakeholderAction = (IStakeholderAction) row.DataBoundItem;
-                guid = stakeholderAction.Stakeholder.GUID;
-            }
-            else if (row.DataBoundItem is ITraceLink)
-            {
-                var link = (ITraceLink) row.DataBoundItem;
-                guid = link.TracedElementGUID;
-            }
-            else if (row.DataBoundItem is IDecisionRelation)
+            if (row.DataBoundItem is IDecisionRelation)
             {
                 var link = (IDecisionRelation) row.DataBoundItem;
-                guid = link.RelatedDecision.GUID;
+                DetailViewHandler.Instance.OpenDecisionDetailView(link.RelatedDecision);
             }
             else
             {
-                throw new NotSupportedException();
+                if (row.DataBoundItem is IStakeholderAction)
+                {
+                    var stakeholderAction = (IStakeholderAction) row.DataBoundItem;
+                    guid = stakeholderAction.Stakeholder.GUID;
+                }
+                else if (row.DataBoundItem is ITraceLink)
+                {
+                    var link = (ITraceLink) row.DataBoundItem;
+                    guid = link.TracedElementGUID;
+                }
+
+                if (guid != null && !"".Equals(guid))
+                {
+                    IEAElement element = EAMain.Repository.GetElementByGUID(guid);
+                    element.ShowInDiagrams();
+                }
             }
             // ReSharper restore CanBeReplacedWithTryCastAndCheckForNull
-            if (guid != null && !"".Equals(guid))
+        }
+
+
+        private void HistoryMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right && e.RowIndex >= 0)
             {
-                IEAElement element = EAMain.Repository.GetElementByGUID(guid);
-                IEADiagram[] diagrams = element.GetDiagrams();
-                if (diagrams.Length == 1)
+                var historyEntry = (IHistoryEntry) dgvHistory.Rows[e.RowIndex].DataBoundItem;
+
+                var menu = new ContextMenu();
+
+                // Menuitem for opening a decision in its diagram
+                menu.MenuItems.Add("Delete", (o, arg) => Decision.History.Remove(historyEntry));
+
+                // Menuitem for a separator
+                menu.MenuItems.Add("-");
+                menu.Show(this, PointToClient(Cursor.Position));
+            }
+        }
+
+        private void AlternativesAndRelatedDecisionMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right && e.RowIndex >= 0)
+            {
+                var grid = (DataGridView) sender;
+                var decisionRelation = (IDecisionRelation) grid.Rows[e.RowIndex].DataBoundItem;
+
+                var menu = new ContextMenu();
+
+                // Menuitem for opening a decision in its diagram
+                menu.MenuItems.Add("Open in Detail View",
+                                   (o, arg) =>
+                                   DetailViewHandler.Instance.OpenDecisionDetailView(decisionRelation.RelatedDecision));
+                menu.MenuItems.Add("Open in Diagrams",
+                                   (o, arg) =>
+                                   EAMain.Repository.GetElementByGUID(decisionRelation.RelatedDecision.GUID)
+                                         .ShowInDiagrams());
+                menu.MenuItems.Add("-");
+                if (sender == dgvAlternativeDecisions)
                 {
-                    IEADiagram diagram = diagrams[0];
-                    diagram.OpenAndSelectElement(element);
+                    menu.MenuItems.Add("Delete", (o, arg) => Decision.Alternatives.Remove(decisionRelation));
                 }
-                else if (diagrams.Length >= 2)
+                else
                 {
-                    var selectForm = new SelectDiagram(diagrams);
-                    if (selectForm.ShowDialog() == DialogResult.OK)
-                    {
-                        IEADiagram diagram = selectForm.GetSelectedDiagram();
-                        diagram.OpenAndSelectElement(element);
-                    }
+                    menu.MenuItems.Add("Delete", (o, arg) => Decision.RelatedDecisions.Remove(decisionRelation));
                 }
-                element.ShowInProjectView();
+
+                // Menuitem for a separator
+                menu.Show(this, PointToClient(Cursor.Position));
             }
         }
 
@@ -419,23 +481,6 @@ namespace DecisionArchitect.View.DetailView
             }
 
             return retValue;
-        }
-
-        private void HistoryMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right && e.RowIndex >= 0)
-            {
-                var historyEntry = (IHistoryEntry) dgvHistory.Rows[e.RowIndex].DataBoundItem;
-
-                var menu = new ContextMenu();
-
-                // Menuitem for opening a decision in its diagram
-                menu.MenuItems.Add("Delete", (o, arg) => Decision.History.Remove(historyEntry));
-
-                // Menuitem for a separator
-                menu.MenuItems.Add("-");
-                menu.Show(this, PointToClient(Cursor.Position));
-            }
         }
     }
 }

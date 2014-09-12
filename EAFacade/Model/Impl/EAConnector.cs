@@ -92,15 +92,6 @@ namespace EAFacade.Model.Impl
             set { _native.Notes = value; }
         }
 
-        internal static IEAConnector Wrap(Connector native)
-        {
-            if (null == native)
-            {
-                throw new ArgumentNullException("native");
-            }
-            return new EAConnector(native);
-        }
-
         public IEAElement GetSupplier()
         {
             return EARepository.Instance.GetElementByID(_native.SupplierID);
@@ -130,7 +121,7 @@ namespace EAFacade.Model.Impl
         }
 
         /// <summary>
-        /// Implements IEAConnector.TaggedValueExists(string name)
+        ///     Implements IEAConnector.TaggedValueExists(string name)
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
@@ -140,7 +131,7 @@ namespace EAFacade.Model.Impl
         }
 
         /// <summary>
-        /// Implements IEAConnector.TaggedValueExists(string name, string data)
+        ///     Implements IEAConnector.TaggedValueExists(string name, string data)
         /// </summary>
         /// <param name="name"></param>
         /// <param name="data"></param>
@@ -160,7 +151,7 @@ namespace EAFacade.Model.Impl
         }
 
         /// <summary>
-        /// Implements IEAConnector.RemoveTaggedValue(string name, string data)
+        ///     Implements IEAConnector.RemoveTaggedValue(string name, string data)
         /// </summary>
         /// <param name="name"></param>
         /// <param name="data"></param>
@@ -178,6 +169,15 @@ namespace EAFacade.Model.Impl
                     return; // Only delete one ConnectorTag
                 }
             }
+        }
+
+        internal static IEAConnector Wrap(Connector native)
+        {
+            if (null == native)
+            {
+                throw new ArgumentNullException("native");
+            }
+            return new EAConnector(native);
         }
     }
 }

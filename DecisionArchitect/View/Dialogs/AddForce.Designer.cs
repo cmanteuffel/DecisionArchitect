@@ -9,7 +9,7 @@
     Mark Hoekstra (University of Groningen)
 */
 
-namespace DecisionArchitect.View.Forces
+namespace DecisionArchitect.View.Dialogs
 {
     partial class AddForce
     {

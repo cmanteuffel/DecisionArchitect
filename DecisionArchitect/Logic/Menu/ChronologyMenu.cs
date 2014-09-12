@@ -11,8 +11,7 @@
 */
 
 using System.Windows.Forms;
-using DecisionArchitect.Logic.Chronological;
-using DecisionArchitect.View.Chronology;
+using DecisionArchitect.View.Dialogs;
 using EAFacade;
 using EAFacade.Model;
 

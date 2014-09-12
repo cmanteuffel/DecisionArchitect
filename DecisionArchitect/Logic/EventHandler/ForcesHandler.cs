@@ -14,7 +14,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using DecisionArchitect.Model;
-using DecisionArchitect.View.Controller;
 using DecisionArchitect.View.Forces;
 using EAFacade;
 using EAFacade.Model;

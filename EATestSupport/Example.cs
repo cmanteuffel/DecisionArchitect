@@ -9,24 +9,18 @@
     K. Eric Harper (ABB Corporate Research)
 */
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using EA;
 using EAFacade;
 using EAFacade.Model;
-using EATestSupport.Logic;
 using NUnit.Framework;
 
 namespace EATestSupport
 {
     public class Example
     {
-        public Repository Repo { get; private set; }
-
-        private ExampleRepositoryFile _f;
+        private readonly ExampleRepositoryFile _f;
 
         public Example()
         {
@@ -34,6 +28,8 @@ namespace EATestSupport
             _f = new ExampleRepositoryFile(Repo);
             _f.Open();
         }
+
+        public Repository Repo { get; private set; }
 
         ~Example()
         {
@@ -44,12 +40,12 @@ namespace EATestSupport
         {
             IEAPackage package = null;
             Assert.IsNotNull(Repo);
-            EAFacade.EAMain.UpdateRepository(Repo);
-            IEnumerable<IEAPackage> packages = EAFacade.EAMain.Repository.GetAllDecisionViewPackages();
-            Assert.IsNotNull(packages);
+            EAMain.UpdateRepository(Repo);
+           // IEnumerable<IEAPackage> packages = EAMain.Repository.GetAllDecisionViewPackages();
+            //Assert.IsNotNull(packages);
             // Use the first decision package
-            package = packages.ElementAt<IEAPackage>(0);
-            Assert.IsNotNull(package);
+            //package = packages.ElementAt(0);
+            //Assert.IsNotNull(package);
             return package;
         }
 
@@ -74,18 +70,18 @@ namespace EATestSupport
 
         public IEADiagramObject GetForcesDiagramObject()
         {
-            IEADiagramObject obj = null;
+            IEADiagramObject obj;
             IEADiagram diagram = GetDecisionForcesDiagram();
             IEnumerable<IEADiagramObject> objects = diagram.GetElements();
             Assert.IsNotNull(objects);
-            obj = objects.ElementAt<IEADiagramObject>(0);
+            obj = objects.ElementAt(0);
             Assert.IsNotNull(obj);
             return obj;
         }
 
         public Element GetDecisionPackageElement()
         {
-            Element element = null;
+            Element element;
             IEAPackage package = GetDecisionPackage();
             Package root = Repo.Models.GetAt(0);
             Assert.IsNotNull(root);
@@ -98,7 +94,7 @@ namespace EATestSupport
 
         public Connector GetForcesElementConnector()
         {
-            Connector connector = null;
+            Connector connector;
             Element element = GetDecisionPackageElement();
             Collection connectors = element.Connectors;
             Assert.IsNotNull(connectors);

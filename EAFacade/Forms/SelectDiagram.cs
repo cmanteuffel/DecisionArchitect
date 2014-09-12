@@ -16,7 +16,7 @@ using System.Linq;
 using System.Windows.Forms;
 using EAFacade.Model;
 
-namespace DecisionArchitect.View.Dialogs
+namespace EAFacade.Forms
 {
     public partial class SelectDiagram : Form
     {

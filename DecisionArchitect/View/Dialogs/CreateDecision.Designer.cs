@@ -10,7 +10,7 @@
     Spyros Ioakeimidis (University of Groningen)
 */
 
-namespace DecisionArchitect.View
+namespace DecisionArchitect.View.Dialogs
 {
     partial class CreateDecision
     {

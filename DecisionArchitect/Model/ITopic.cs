@@ -21,7 +21,7 @@ using EAFacade.Model;
 
 namespace DecisionArchitect.Model
 {
-    public interface ITopic : IPersistableModel, INotifyPropertyChanged 
+    public interface ITopic : IPersistableModel, INotifyPropertyChanged
     {
         string GUID { get; }
         string Name { get; set; }
@@ -30,9 +30,9 @@ namespace DecisionArchitect.Model
 
     public class Topic : Entity, ITopic
     {
+        private bool _changed;
         private string _description;
         private string _name;
-        private bool _changed=false;
 
 
         private Topic()
@@ -87,10 +87,12 @@ namespace DecisionArchitect.Model
             if (null == element) throw new ArgumentNullException();
             if (!EAMain.IsTopic(element)) throw new ArgumentException("not a topic");
 
+            PropertyChanged -= UpdateChangeFlag;
             GUID = element.GUID;
             Name = element.Name;
             Description = LoadDescription(element);
             Changed = false;
+            PropertyChanged += UpdateChangeFlag;
         }
 
         /// <summary>

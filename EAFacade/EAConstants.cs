@@ -66,7 +66,7 @@ namespace EAFacade
         public const string ActionMetaType = "Action";
         public const string ActivityMetaType = "Activity";
         public const string AbstractionMetaType = "Abstraction";
-        
+
 
         public static readonly HashSet<string> Relationships = new HashSet<string>
             {
@@ -105,7 +105,6 @@ namespace EAFacade
                     {InverseExcludedBy, RelationExcludedBy},
                     {InverseReplaces, RelationReplaces}
                 });
-        
 
 
         public static readonly HashSet<string> States = new HashSet<string>
@@ -118,7 +117,5 @@ namespace EAFacade
                 StateRejected,
                 StateTentative
             };
-
-
     }
 }

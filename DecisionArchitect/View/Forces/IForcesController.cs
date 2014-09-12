@@ -11,10 +11,9 @@
 */
 
 using DecisionArchitect.Model;
-using DecisionArchitect.View.Forces;
 using EAFacade.Model;
 
-namespace DecisionArchitect.View.Controller
+namespace DecisionArchitect.View.Forces
 {
     public interface IForcesController
     {

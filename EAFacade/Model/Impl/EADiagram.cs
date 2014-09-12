@@ -122,17 +122,8 @@ namespace EAFacade.Model.Impl
             return path;
         }
 
-        internal static IEADiagram Wrap(Diagram native)
-        {
-            if (null == native)
-            {
-                throw new ArgumentNullException("native");
-            }
-            return new EADiagram(native);
-        }
-
         /// <summary>
-        /// Implements IEADiagram.AddElement(IEAElement element)
+        ///     Implements IEADiagram.AddElement(IEAElement element)
         /// </summary>
         /// <param name="element"></param>
         public void AddElement(IEAElement element)
@@ -148,13 +139,13 @@ namespace EAFacade.Model.Impl
             diaObj.Update();
             _native.DiagramObjects.Refresh();
             _native.Update();
-            var nativeRepository = EARepository.Instance.Native;
+            Repository nativeRepository = EARepository.Instance.Native;
             nativeRepository.ReloadDiagram(_native.DiagramID);
             nativeRepository.SaveDiagram(_native.DiagramID);
         }
 
         /// <summary>
-        /// Implements IEADiagram.RemoveElement(IEAElement element)
+        ///     Implements IEADiagram.RemoveElement(IEAElement element)
         /// </summary>
         /// <param name="element"></param>
         public void RemoveElement(IEAElement element)
@@ -167,7 +158,7 @@ namespace EAFacade.Model.Impl
                     _native.DiagramObjects.Delete(i);
                     _native.DiagramObjects.Refresh();
 
-                    var nativeRepository = EARepository.Instance.Native;
+                    Repository nativeRepository = EARepository.Instance.Native;
                     nativeRepository.ReloadDiagram(_native.DiagramID);
                     nativeRepository.SaveDiagram(_native.DiagramID);
                     break;
@@ -197,11 +188,11 @@ namespace EAFacade.Model.Impl
 
         public void HideConnectors(string[] stereotypes)
         {
-            var repository = EARepository.Instance;
-            foreach (var diagramLink in from DiagramLink diagramLink in _native.DiagramLinks
-                                        let connector = repository.GetConnectorByID(diagramLink.ConnectorID)
-                                        where stereotypes.Contains(connector.Stereotype)
-                                        select diagramLink)
+            EARepository repository = EARepository.Instance;
+            foreach (DiagramLink diagramLink in from DiagramLink diagramLink in _native.DiagramLinks
+                                                let connector = repository.GetConnectorByID(diagramLink.ConnectorID)
+                                                where stereotypes.Contains(connector.Stereotype)
+                                                select diagramLink)
             {
                 diagramLink.IsHidden = true;
                 diagramLink.Update();
@@ -232,7 +223,7 @@ namespace EAFacade.Model.Impl
 
         public bool Contains(IEAElement element)
         {
-            var repository = EARepository.Instance;
+            EARepository repository = EARepository.Instance;
             return
                 (from DiagramObject diagramObject in _native.DiagramObjects
                  select repository.GetElementByID(diagramObject.ElementID)).Any(
@@ -241,14 +232,23 @@ namespace EAFacade.Model.Impl
 
         public FileStream DiagramToStream()
         {
-            var project = EARepository.Instance.Native.GetProjectInterface();
-            var path = Path.GetTempPath();
-            var fileName = Guid.NewGuid().ToString() + ".emf";
+            Project project = EARepository.Instance.Native.GetProjectInterface();
+            string path = Path.GetTempPath();
+            string fileName = Guid.NewGuid().ToString() + ".emf";
             string filename = Path.Combine(path, fileName);
 
             EARepository.Instance.OpenDiagram(ID);
             project.SaveDiagramImageToFile(filename);
             return new FileStream(filename, FileMode.Open);
+        }
+
+        internal static IEADiagram Wrap(Diagram native)
+        {
+            if (null == native)
+            {
+                throw new ArgumentNullException("native");
+            }
+            return new EADiagram(native);
         }
     }
 }

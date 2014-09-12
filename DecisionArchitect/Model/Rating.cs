@@ -18,7 +18,6 @@ using EAFacade.Model;
 
 namespace DecisionArchitect.Model
 {
-    
     public class Rating
     {
         private string _value;

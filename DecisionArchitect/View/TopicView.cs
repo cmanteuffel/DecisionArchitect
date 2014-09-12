@@ -16,9 +16,8 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using DecisionArchitect.Model;
 
-namespace DecisionArchitect.View.TopicView
+namespace DecisionArchitect.View
 {
-
     public interface ITopicViewController
     {
         ITopic Topic { get; set; }
@@ -58,38 +57,34 @@ namespace DecisionArchitect.View.TopicView
             set { rtbDescription.RichText = value; }
         }
 
-        public void Save()
-        {
-            _topic.SaveChanges();
-        }
-
-        public new void Update()
-        {
-            //   LoadContent();
-        }
-
-
         public ITopic Topic
         {
             get { return _topic; }
             set
             {
-
-                if (value==null || value.Equals(_topic))
+                if (value == null || value.Equals(_topic))
                 {
                     txtTopicName.DataBindings.Clear();
                     rtbDescription.DataBindings.Clear();
+                    btnSave.DataBindings.Clear();
+                    btnRevert.DataBindings.Clear();
                 }
 
                 _topic = value;
                 if (_topic != null)
                 {
-                        txtTopicName.DataBindings.Add("Text", Topic, "Name");
-                        rtbDescription.DataBindings.Add("RichText", Topic, "Description");
+                    txtTopicName.DataBindings.Add("Text", Topic, "Name");
+                    rtbDescription.DataBindings.Add("RichText", Topic, "Description");
+                    btnSave.DataBindings.Add("Enabled", Topic, "Changed");
+                    btnRevert.DataBindings.Add("Enabled", Topic, "Changed");
                 }
             }
         }
-        
+
+        public void Save()
+        {
+            _topic.SaveChanges();
+        }
 
         private void btnRevert_Click(object sender, EventArgs e)
         {

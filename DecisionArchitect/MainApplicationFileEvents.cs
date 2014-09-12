@@ -55,9 +55,11 @@ namespace DecisionArchitect
         /// <summary>
         ///     This is called if the user clicks on a tab
         /// </summary>
+        /// <param name="repository"></param>
         /// <param name="tabname">
         ///     tells the listeners which tab
         /// </param>
+        /// <param name="diagramID"></param>
         public override void EA_OnTabChanged(Repository repository, string tabname, int diagramID)
         {
             //MessageBox.Show("EA_OnTabChanged " + tabname);

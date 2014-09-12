@@ -11,11 +11,10 @@
     K. Eric Harper (ABB Corporate Research)
 */
 
-using EATestSupport;
-using EATestSupport.Model.RepositoryFile;
 using EA;
+using EATestSupport.Model;
 
-namespace EATestSupport.Logic
+namespace EATestSupport
 {
     public class ExampleRepositoryFile : RepositoryFile
     {

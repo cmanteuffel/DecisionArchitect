@@ -11,7 +11,7 @@
     Marc Holterman (University of Groningen)
 */
 
-namespace DecisionArchitect.View
+namespace DecisionArchitect.View.Dialogs
 {
     partial class CreateTopic
     {

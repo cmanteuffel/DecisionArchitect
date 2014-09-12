@@ -151,5 +151,7 @@ namespace EAFacade.Model
         ///     Provides an Add-In or automation client with the ability to advise the Enterprise Architect user interface that a particular element has changed and, if it is visible in any open diagram, to reload and refresh that element for the user.
         /// </summary>
         void AdviseElementChanged();
+
+        void ShowInDiagrams();
     }
 }

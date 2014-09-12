@@ -10,7 +10,7 @@
     Spyros Ioakeimidis (University of Groningen)
 */
 
-namespace DecisionArchitect.Logic.Menu
+namespace DecisionArchitect.View.Dialogs
 {
     partial class ExportReportsCustomMessageBox
     {

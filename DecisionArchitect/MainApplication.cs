@@ -13,8 +13,6 @@
 using System.Collections.Generic;
 using DecisionArchitect.Logic;
 using DecisionArchitect.Logic.EventHandler;
-using DecisionArchitect.Logic.StakeholderInvolvement;
-using DecisionArchitect.Logic.Validation;
 using DecisionArchitect.Utilities;
 using EA;
 using EAFacade;
@@ -35,6 +33,7 @@ namespace DecisionArchitect
             _listeners.Add(new ChronologicalViewpointHandler());
             _listeners.Add(new ForcesHandler());
             _listeners.Add(new StakeholderInvolvementHandler());
+            _listeners.Add(SynchronizationManager.Instance);
         }
 
         public override object EA_OnInitializeTechnologies(Repository repository)

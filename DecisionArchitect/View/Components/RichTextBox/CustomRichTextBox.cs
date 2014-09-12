@@ -5,13 +5,31 @@ using System.Net;
 using System.Text;
 using System.Windows.Forms;
 
-namespace DecisionArchitect.View.RichTextBox
+namespace DecisionArchitect.View.Components.RichTextBox
 {
     public partial class CustomRichTextBox : UserControl
     {
         public CustomRichTextBox()
         {
             InitializeComponent();
+        }
+
+        public string RichText
+        {
+            get
+            {
+                var extraData = new StringBuilder();
+                extraData.Append(String.Format("{0}{1}{2}", DataTags.RtfData, TextBox.Rtf.Trim(' '),
+                                               DataTags.RtfData));
+                extraData.Append(String.Format("{0}{1}{2}", DataTags.LinkPositions, TextBox.GetLinkPositions(),
+                                               DataTags.LinkPositions));
+                return extraData.ToString();
+            }
+            set
+            {
+                TextBox.Rtf = GetSubstring(DataTags.RtfData, value);
+                TextBox.SetLinkPositions(GetSubstring(DataTags.LinkPositions, value));
+            }
         }
 
         /*
@@ -191,24 +209,6 @@ namespace DecisionArchitect.View.RichTextBox
         private void txtRationale_TextChanged(object sender, EventArgs e)
         {
         }
-
-        public string RichText {
-            get
-            {
-                var extraData = new StringBuilder();
-                extraData.Append(String.Format("{0}{1}{2}", DataTags.RtfData, TextBox.Rtf.Trim(' '),
-                                               DataTags.RtfData));
-                extraData.Append(String.Format("{0}{1}{2}", DataTags.LinkPositions, TextBox.GetLinkPositions(),
-                                               DataTags.LinkPositions));
-                return extraData.ToString();
-            }
-            set
-            {
-                 TextBox.Rtf = GetSubstring(DataTags.RtfData, value);
-                 TextBox.SetLinkPositions(GetSubstring(DataTags.LinkPositions, value));
-            }
-        }
-
 
 
         public static string GetSubstring(string tag, string rtfString)

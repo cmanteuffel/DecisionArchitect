@@ -14,11 +14,11 @@ using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 
-namespace DecisionArchitect.Logic.Menu
+namespace DecisionArchitect.View.Dialogs
 {
     public partial class ExportReportsCustomMessageBox : Form
     {
-        private readonly string filename;
+        private readonly string _filename;
 
         public ExportReportsCustomMessageBox()
         {
@@ -29,7 +29,7 @@ namespace DecisionArchitect.Logic.Menu
         {
             InitializeComponent();
             Text = string.Format(Messages.ReportSuccessful, reportType);
-            this.filename = filename;
+            _filename = filename;
             labelReportDetails.Text = filename.Substring(filename.LastIndexOf("\\") + 1);
             labelReportFolderDetails.Text = filename.Substring(0, filename.LastIndexOf("\\"));
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -43,7 +43,7 @@ namespace DecisionArchitect.Logic.Menu
 
         private void buttonOpenReport_Click(object sender, EventArgs e)
         {
-            Process.Start(filename);
+            Process.Start(_filename);
             Close();
         }
 
@@ -54,7 +54,7 @@ namespace DecisionArchitect.Logic.Menu
 
         private void buttonOpenFolder_Click(object sender, EventArgs e)
         {
-            string reportFolderpath = filename.Substring(0, filename.LastIndexOf("\\"));
+            string reportFolderpath = _filename.Substring(0, _filename.LastIndexOf("\\"));
             //MessageBox.Show("Report Folderpath:" + reportFolderpath);//DEBUG
             Process.Start(reportFolderpath);
             Close();

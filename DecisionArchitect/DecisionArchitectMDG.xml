@@ -2444,22 +2444,15 @@
     </UMLProfile>
   </UITaskpanes>
   <ModelTemplates>
-    <Model name="Empty Decision View" description="Empty view." location="EmptyDecisionViewTemplate.xml" default="yes"
-           icon="34" filter="Filter Name" />
-    <Model name="Default Decision View"
-           description="Chronoligal, Relationship and Stakeholder View."
-           location="DefaultDecisionViewTemplate.xml" default="yes" icon="34"
-           filter="Filter Name" />
-    <Model name="Empty Decision View"
-           description="Empty view."
-           location="EmptyDecisionViewTemplate.xml"
+       <Model name="Template System Architecture"
+           description="Template of a system architecture document to be used for the course Software Architecture at the University of Groningen."
+           location="Templates\RUG_SATemplate.xml"
            default="yes" icon="34"
            filter="Filter Name" />
-    <Model
-      name="Default Decision View"
-      description="Chronoligal, Relationship and Stakeholder View."
-      location="DefaultDecisionViewTemplate.xml"
-      default="yes" icon="34"
-      filter="Filter Name" />
+    <Model name="Example System Architecture"
+           description="Example of a system architecture document to be used for the course Software Architecture at the University of Groningen. The example is based on a previous iteration of the course."
+           location="Templates\RUG_SAExample.xml"
+           default="yes" icon="34"
+           filter="Filter Name" />
   </ModelTemplates>
 </MDG.Technology>

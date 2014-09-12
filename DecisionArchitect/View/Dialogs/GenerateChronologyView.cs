@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using EAFacade;
 using EAFacade.Model;
 
-namespace DecisionArchitect.View.Chronology
+namespace DecisionArchitect.View.Dialogs
 {
     public partial class GenerateChronologyView : Form
     {

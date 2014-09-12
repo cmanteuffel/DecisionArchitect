@@ -19,15 +19,13 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using DecisionArchitect.Logic;
 using DecisionArchitect.Logic.EventHandler;
-using DecisionArchitect.Logic.Forces;
 using DecisionArchitect.Model;
 using DecisionArchitect.Utilities;
-using DecisionArchitect.View.Controller;
+using DecisionArchitect.View.Dialogs;
 using EAFacade;
 using EAFacade.Model;
-using Decision = DecisionArchitect.Model.Decision;
-using IDecision = DecisionArchitect.Model.IDecision;
 
 namespace DecisionArchitect.View.Forces
 {
@@ -73,7 +71,8 @@ namespace DecisionArchitect.View.Forces
             // insert the decision guids in the table
             data.Rows.Add(new object[]
                 {
-                    ForcesTableContext.EmptyCellValue, ForcesTableContext.EmptyCellValue, ForcesTableContext.EmptyCellValue
+                    ForcesTableContext.EmptyCellValue, ForcesTableContext.EmptyCellValue,
+                    ForcesTableContext.EmptyCellValue
                 });
             InsertDecisionGuids(model, data);
             _forcesTable.DataSource = data;

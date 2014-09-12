@@ -30,14 +30,14 @@ namespace EAFacade.Model
         bool IsAction();
 
         /// <summary>
-        /// Check if a TaggedValue exists with a certain name 
+        ///     Check if a TaggedValue exists with a certain name
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
         bool TaggedValueExists(string name);
 
         /// <summary>
-        /// Check if a TaggedValue exists with a certain name and data
+        ///     Check if a TaggedValue exists with a certain name and data
         /// </summary>
         /// <param name="name"></param>
         /// <param name="data"></param>
@@ -47,8 +47,8 @@ namespace EAFacade.Model
         void AddTaggedValue(string name, string data);
 
         /// <summary>
-        /// Removes a TaggedValue from the connector with name and data.
-        /// Only one TaggedValue will be removed. Other TaggedValues with the same name and data can still exist.
+        ///     Removes a TaggedValue from the connector with name and data.
+        ///     Only one TaggedValue will be removed. Other TaggedValues with the same name and data can still exist.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="data"></param>

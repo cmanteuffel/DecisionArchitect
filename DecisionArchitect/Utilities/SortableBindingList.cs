@@ -5,9 +5,9 @@ using System.ComponentModel;
 namespace DecisionArchitect.Utilities
 {
     /// <summary>
-    /// Provides a generic collection that supports data binding and additionally supports sorting.
-    /// See http://msdn.microsoft.com/en-us/library/ms993236.aspx
-    /// If the elements are IComparable it uses that; otherwise compares the ToString()
+    ///     Provides a generic collection that supports data binding and additionally supports sorting.
+    ///     See http://msdn.microsoft.com/en-us/library/ms993236.aspx
+    ///     If the elements are IComparable it uses that; otherwise compares the ToString()
     /// </summary>
     /// <typeparam name="T">The type of elements in the list.</typeparam>
     public class SortableBindingList<T> : BindingList<T> where T : class
@@ -17,23 +17,28 @@ namespace DecisionArchitect.Utilities
         private PropertyDescriptor _sortProperty;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SortableBindingList{T}"/> class.
+        ///     Initializes a new instance of the <see cref="SortableBindingList{T}" /> class.
         /// </summary>
         public SortableBindingList()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SortableBindingList{T}"/> class.
+        ///     Initializes a new instance of the <see cref="SortableBindingList{T}" /> class.
         /// </summary>
-        /// <param name="list">An <see cref="T:System.Collections.Generic.IList`1" /> of items to be contained in the <see cref="T:System.ComponentModel.BindingList`1" />.</param>
+        /// <param name="list">
+        ///     An <see cref="T:System.Collections.Generic.IList`1" /> of items to be contained in the
+        ///     <see
+        ///         cref="T:System.ComponentModel.BindingList`1" />
+        ///     .
+        /// </param>
         public SortableBindingList(IList<T> list)
             : base(list)
         {
         }
 
         /// <summary>
-        /// Gets a value indicating whether the list supports sorting.
+        ///     Gets a value indicating whether the list supports sorting.
         /// </summary>
         protected override bool SupportsSortingCore
         {
@@ -41,7 +46,7 @@ namespace DecisionArchitect.Utilities
         }
 
         /// <summary>
-        /// Gets a value indicating whether the list is sorted.
+        ///     Gets a value indicating whether the list is sorted.
         /// </summary>
         protected override bool IsSortedCore
         {
@@ -49,7 +54,7 @@ namespace DecisionArchitect.Utilities
         }
 
         /// <summary>
-        /// Gets the direction the list is sorted.
+        ///     Gets the direction the list is sorted.
         /// </summary>
         protected override ListSortDirection SortDirectionCore
         {
@@ -57,7 +62,7 @@ namespace DecisionArchitect.Utilities
         }
 
         /// <summary>
-        /// Gets the property descriptor that is used for sorting the list if sorting is implemented in a derived class; otherwise, returns null
+        ///     Gets the property descriptor that is used for sorting the list if sorting is implemented in a derived class; otherwise, returns null
         /// </summary>
         protected override PropertyDescriptor SortPropertyCore
         {
@@ -65,7 +70,7 @@ namespace DecisionArchitect.Utilities
         }
 
         /// <summary>
-        /// Removes any sort applied with ApplySortCore if sorting is implemented
+        ///     Removes any sort applied with ApplySortCore if sorting is implemented
         /// </summary>
         protected override void RemoveSortCore()
         {
@@ -75,7 +80,7 @@ namespace DecisionArchitect.Utilities
         }
 
         /// <summary>
-        /// Sorts the items if overridden in a derived class
+        ///     Sorts the items if overridden in a derived class
         /// </summary>
         /// <param name="prop"></param>
         /// <param name="direction"></param>
@@ -84,7 +89,7 @@ namespace DecisionArchitect.Utilities
             _sortProperty = prop;
             _sortDirection = direction;
 
-            List<T> list = Items as List<T>;
+            var list = Items as List<T>;
             if (list == null) return;
 
             list.Sort(Compare);
@@ -97,7 +102,7 @@ namespace DecisionArchitect.Utilities
 
         private int Compare(T lhs, T rhs)
         {
-            var result = OnComparison(lhs, rhs);
+            int result = OnComparison(lhs, rhs);
             //invert if descending
             if (_sortDirection == ListSortDirection.Descending)
                 result = -result;
@@ -118,14 +123,14 @@ namespace DecisionArchitect.Utilities
             }
             if (lhsValue is IComparable)
             {
-                return ((IComparable)lhsValue).CompareTo(rhsValue);
+                return ((IComparable) lhsValue).CompareTo(rhsValue);
             }
             if (lhsValue.Equals(rhsValue))
             {
                 return 0; //both are the same
             }
             //not comparable, compare ToString
-            return lhsValue.ToString().CompareTo(rhsValue.ToString());
+            return String.Compare(lhsValue.ToString(), rhsValue.ToString(), StringComparison.Ordinal);
         }
     }
 }

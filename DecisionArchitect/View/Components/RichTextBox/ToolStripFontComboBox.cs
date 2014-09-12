@@ -13,7 +13,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace DecisionArchitect.View
+namespace DecisionArchitect.View.Components.RichTextBox
 {
     public class ToolStripFontComboBox : ToolStripComboBox
     {

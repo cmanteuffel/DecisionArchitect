@@ -18,7 +18,7 @@ using DecisionArchitect.Utilities;
 using EAFacade;
 using EAFacade.Model;
 
-namespace DecisionArchitect.View
+namespace DecisionArchitect.View.Dialogs
 {
     public partial class CreateDecision : Form
     {

@@ -16,7 +16,7 @@ namespace DecisionArchitect.Logic.Validation
 {
     public abstract class ElementRule : AbstractRule
     {
-        public ElementRule(string errorMessage)
+        protected ElementRule(string errorMessage)
             : base(errorMessage)
         {
         }

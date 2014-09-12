@@ -14,11 +14,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using DecisionArchitect.View.Controller;
+using DecisionArchitect.View.Forces;
 using EAFacade;
 using EAFacade.Model;
 
-namespace DecisionArchitect.View.Forces
+namespace DecisionArchitect.View.Dialogs
 {
     public partial class AddForce : Form
     {

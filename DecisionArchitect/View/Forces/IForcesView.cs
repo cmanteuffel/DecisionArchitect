@@ -12,7 +12,6 @@
 
 using System.Runtime.InteropServices;
 using DecisionArchitect.Model;
-using DecisionArchitect.View.Controller;
 using EAFacade.Model;
 
 namespace DecisionArchitect.View.Forces
@@ -20,7 +19,7 @@ namespace DecisionArchitect.View.Forces
     [ComVisible(true)]
     [Guid("C325ED77-CD8C-4CC3-BAB1-974420531239")]
     [InterfaceType(ComInterfaceType.InterfaceIsDual)]
-    public interface IForcesView : IForcesModelObserver, ICustomView
+    public interface IForcesView : IForcesModelObserver
     {
         string[] ForceGuids { get; }
         string[] ConcernGuids { get; }

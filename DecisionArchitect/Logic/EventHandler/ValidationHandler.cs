@@ -12,16 +12,17 @@
 
 using System;
 using System.Windows.Forms;
+using DecisionArchitect.Logic.Validation;
 using EAFacade;
 using EAFacade.Model;
 
-namespace DecisionArchitect.Logic.Validation
+namespace DecisionArchitect.Logic.EventHandler
 {
     public class ValidationHandler : RepositoryAdapter
     {
         // These values need to be consistent with the ones defined in the DecisionVP MDG file.
-        private static string lastGUID = string.Empty;
-        private static DateTime lastChange = DateTime.MinValue;
+        private static string _lastGUID = string.Empty;
+        private static DateTime _lastChange = DateTime.MinValue;
         private static bool _preventConnectorModifiedEvent;
 
 
@@ -80,7 +81,7 @@ namespace DecisionArchitect.Logic.Validation
                     IEAElement element = EAMain.Repository.GetElementByGUID(guid);
 
                     //dirty hack to prevent that the event is fired twice when an decision is modified
-                    if (lastGUID.Equals(guid) && lastChange.Equals(element.Modified))
+                    if (_lastGUID.Equals(guid) && _lastChange.Equals(element.Modified))
                     {
                         return;
                     }
@@ -94,8 +95,8 @@ namespace DecisionArchitect.Logic.Validation
                             MessageBoxIcon.Exclamation,
                             MessageBoxDefaultButton.Button1);
                     }
-                    lastGUID = guid;
-                    lastChange = element.Modified;
+                    _lastGUID = guid;
+                    _lastChange = element.Modified;
 
                     break;
                 case EANativeType.Connector:

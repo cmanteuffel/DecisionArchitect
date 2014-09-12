@@ -13,18 +13,13 @@
 using DecisionArchitect.Model;
 using DecisionArchitect.Utilities;
 using DocumentFormat.OpenXml.Packaging;
-using ITopic = DecisionArchitect.Model.ITopic;
 
 namespace DecisionArchitect.Logic.Reporting
 {
     internal class TopicDetailSlide : AbstractSlide
     {
         private readonly ITopic _topic;
-        public static class TopicDataTags
-        {
-            public const string Name = "{topic}";
-            public const string Description = "{description}";
-        }
+
         public TopicDetailSlide(PresentationDocument document, SlidePart templateSlide, ITopic topic)
             : base(document, templateSlide)
         {
@@ -36,6 +31,12 @@ namespace DecisionArchitect.Logic.Reporting
             SetPlaceholder(NewSlidePart, TopicDataTags.Name, _topic.Name);
             SetPlaceholder(NewSlidePart, TopicDataTags.Description,
                            Utils.FormattedRtfToPlainText(_topic.Description));
+        }
+
+        public static class TopicDataTags
+        {
+            public const string Name = "{topic}";
+            public const string Description = "{description}";
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace DecisionArchitect.View.RichTextBox
+﻿namespace DecisionArchitect.View.Components.RichTextBox
 {
     partial class CustomRichTextBox
     {

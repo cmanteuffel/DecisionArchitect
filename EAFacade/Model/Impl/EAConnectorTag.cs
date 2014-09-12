@@ -16,7 +16,6 @@ namespace EAFacade.Model.Impl
 {
     internal sealed class EAConnectorTag : IEAConnectorTag
     {
-
         private readonly ConnectorTag _native;
 
         private EAConnectorTag(ConnectorTag native)

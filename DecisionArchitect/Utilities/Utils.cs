@@ -20,7 +20,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using DecisionArchitect.View.RichTextBox;
+using DecisionArchitect.View.Components.RichTextBox;
 using EAFacade;
 
 namespace DecisionArchitect.Utilities
@@ -212,7 +212,6 @@ namespace DecisionArchitect.Utilities
         {
             // Put the intial color on DarkGray
             Color defaultColor = Color.FromKnownColor(KnownColor.DarkGray);
-            string stateStr;
 
             try
             {
@@ -225,21 +224,24 @@ namespace DecisionArchitect.Utilities
                 foreach (States state in (States[]) Enum.GetValues(typeof (States)))
                 {
                     // State to string
-                    stateStr = (Enum.GetName(state.GetType(), state)).ToLower();
-
-                    // Query the data and write out a subset of colors
-                    IEnumerable<XAttribute> win32Colors = from item in xml.Root.Descendants("Stereotype")
-                                                          where
-                                                              (string) item.Attribute("metatype") ==
-                                                              EAConstants.DecisionMetaType &&
-                                                              (string) item.Attribute("name") == stateStr
-                                                          select item.Attribute("bgcolor");
-
-                    // Should not contain more then 1 entry
-                    foreach (XAttribute win32Color in win32Colors)
+                    string name = Enum.GetName(state.GetType(), state);
+                    if (name != null)
                     {
-                        Color stateColor = ColorTranslator.FromWin32((int) win32Color);
-                        _stateColors[(int) state] = stateColor != null ? stateColor : defaultColor;
+                        string stateStr = name.ToLower();
+
+                        // Query the data and write out a subset of colors
+                        IEnumerable<XAttribute> win32Colors = from item in xml.Root.Descendants("Stereotype")
+                                                              where
+                                                                  (string) item.Attribute("metatype") ==
+                                                                  EAConstants.DecisionMetaType &&
+                                                                  (string) item.Attribute("name") == stateStr
+                                                              select item.Attribute("bgcolor");
+
+                        // Should not contain more then 1 entry
+                        foreach (XAttribute win32Color in win32Colors)
+                        {
+                            _stateColors[(int) state] = ColorTranslator.FromWin32((int) win32Color);
+                        }
                     }
                 }
             }

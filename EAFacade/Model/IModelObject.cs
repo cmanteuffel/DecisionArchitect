@@ -24,6 +24,5 @@ namespace EAFacade.Model
         void ShowInProjectView();
 
         string GetProjectPath();
-
     }
 }

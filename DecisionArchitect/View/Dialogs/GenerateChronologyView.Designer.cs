@@ -1,4 +1,4 @@
-﻿namespace DecisionArchitect.View.Chronology
+﻿namespace DecisionArchitect.View.Dialogs
 {
     partial class GenerateChronologyView
     {

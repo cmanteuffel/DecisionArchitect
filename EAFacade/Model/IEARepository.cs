@@ -12,7 +12,6 @@
 
 */
 
-using System;
 using System.Collections.Generic;
 using EA;
 
@@ -23,37 +22,35 @@ namespace EAFacade.Model
 // ReSharper restore InconsistentNaming
     {
         internal Repository Native { get; set; }
-        abstract public IEnumerable<IEAPackage> GetAllRootPackages();
+        public abstract IEnumerable<IEAPackage> GetAllRootPackages();
         public abstract IEnumerable<IEAPackage> GetAllPackages();
-        abstract public IEAPackage GetPackageFromRootByName(string name);
-        abstract public IEAPackage GetPackageByID(int id);
-        abstract public IEAPackage GetPackageByGUID(string guid);
-        abstract public IEAElement GetElementByID(int elementID);
-        abstract public string GetFieldFromFormat(string format, string text);
-        abstract public string GetFormatFromField(string format, string text);
-        abstract public IEAConnector GetConnectorByID(int connectorId);
-        abstract public IEAConnector GetConnectorByGUID(string guid);
-        abstract public string Query(string sql);
-        abstract public IEADiagram GetDiagramByID(int id);
-        abstract public IEADiagram GetDiagramByGuid(string guid);
-        abstract public IEAElement GetElementByGUID(string guid);
-        abstract public IEADiagram GetCurrentDiagram();
-        abstract public IEnumerable<IEAElement> GetSelectedItems();
-        abstract public IEnumerable<IEAElement> GetAllElements();
-        abstract public void RefreshModelView(int packageID);
-        abstract public void RefreshOpenDiagrams(bool fullReload);
-        abstract public void AdviseElementChanged(int elementID);
-        abstract public EANativeType GetContextItemType();
-        abstract public bool IsProjectOpen();
-        abstract public int IsTabOpen(string tabName);
-        abstract public void ActivateTab(string tabName);
-        abstract public dynamic AddTab(string tabName, string controlID);
-        abstract public void RemoveTab(string tabName);
-        abstract public void OpenDiagram(int diagramID);
-        abstract public void ReloadDiagram(int diagramID);
-        abstract public void SuppressDefaultDialogs(bool flag);
+        public abstract IEAPackage GetPackageFromRootByName(string name);
+        public abstract IEAPackage GetPackageByID(int id);
+        public abstract IEAPackage GetPackageByGUID(string guid);
+        public abstract IEAElement GetElementByID(int elementID);
+        public abstract string GetFieldFromFormat(string format, string text);
+        public abstract string GetFormatFromField(string format, string text);
+        public abstract IEAConnector GetConnectorByID(int connectorId);
+        public abstract IEAConnector GetConnectorByGUID(string guid);
+        public abstract string Query(string sql);
+        public abstract IEADiagram GetDiagramByID(int id);
+        public abstract IEADiagram GetDiagramByGuid(string guid);
+        public abstract IEAElement GetElementByGUID(string guid);
+        public abstract IEADiagram GetCurrentDiagram();
+        public abstract IEnumerable<IEAElement> GetSelectedItems();
+        public abstract IEnumerable<IEAElement> GetAllElements();
+        public abstract void RefreshModelView(int packageID);
+        public abstract void RefreshOpenDiagrams(bool fullReload);
+        public abstract void AdviseElementChanged(int elementID);
+        public abstract EANativeType GetContextItemType();
+        public abstract bool IsProjectOpen();
+        public abstract int IsTabOpen(string tabName);
+        public abstract void ActivateTab(string tabName);
+        public abstract dynamic AddTab(string tabName, string controlID);
+        public abstract void RemoveTab(string tabName);
+        public abstract void OpenDiagram(int diagramID);
+        public abstract void ReloadDiagram(int diagramID);
+        public abstract void SuppressDefaultDialogs(bool flag);
         public abstract T GetContextObject<T>() where T : IModelItem;
-
-        
     }
 }

@@ -15,8 +15,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using System.Xml;
 using EA;
+using EAFacade.Forms;
 
 namespace EAFacade.Model.Impl
 {
@@ -191,7 +193,6 @@ namespace EAFacade.Model.Impl
             return from EAElement e in GetElements() where EAMain.IsDecision(e) select e;
         }
 
-        
 
         [Obsolete("Should be moved to appropriate domain class", false)]
         public IEnumerable<IEAElement> GetConnectedRequirements()
@@ -250,7 +251,8 @@ namespace EAFacade.Model.Impl
 
         public IList<IEAConnector> FindConnectors(string metatype, params string[] stereotypes)
         {
-            IEnumerable<IEAConnector> filteredConnectors = GetConnectors().Where(c => stereotypes.Contains(c.Stereotype));
+            IEnumerable<IEAConnector> filteredConnectors = GetConnectors()
+                .Where(c => stereotypes.Contains(c.Stereotype));
             if (null != metatype && !"".Equals(metatype))
             {
                 filteredConnectors = filteredConnectors.Where(c => c.MetaType.Equals(metatype));
@@ -317,9 +319,8 @@ namespace EAFacade.Model.Impl
                 _native.Update();
                 return;
             }
+            
         }
-
-
 
 
         public bool Update()
@@ -512,23 +513,37 @@ namespace EAFacade.Model.Impl
             }
         }
 
-        
-        
-        
+
         public void AdviseElementChanged()
         {
             EAMain.Repository.AdviseElementChanged(ID);
         }
 
-        
-        
-        
-        
-        
+        public void ShowInDiagrams()
+        {
+            IEADiagram[] diagrams = GetDiagrams();
+            if (diagrams.Length == 1)
+            {
+                IEADiagram diagram = diagrams[0];
+                diagram.OpenAndSelectElement(this);
+            }
+            else if (diagrams.Length >= 2)
+            {
+                var selectForm = new SelectDiagram(diagrams);
+                if (selectForm.ShowDialog() == DialogResult.OK)
+                {
+                    IEADiagram diagram = selectForm.GetSelectedDiagram();
+                    diagram.OpenAndSelectElement(this);
+                }
+            }
+            ShowInProjectView();
+        }
+
+
         public int RemoveAllWithName(string name)
         {
             int count = 0;
-            short one = 1;
+            const short one = 1;
             for (var idx = (short) (_native.TaggedValues.Count - one); idx >= 0; idx--)
             {
                 TaggedValue tv = _native.TaggedValues.GetAt(idx);

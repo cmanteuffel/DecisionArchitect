@@ -1,3 +1,14 @@
+/*
+ Copyright (c) 2014 ABB Group
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License v1.0
+ which accompanies this distribution, and is available at
+ http://www.eclipse.org/legal/epl-v10.html
+ 
+ Contributors:
+    Christian Manteuffel (University of Groningen)
+*/
+
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
@@ -13,10 +24,11 @@ using EAFacade.Model;
 namespace DecisionArchitect.Model
 {
     /// <summary>
-    ///     Doamin class to hide access to EAMain concepts
+    ///     Doamin class to hide access to EA concepts
     ///     Changes are not written to the repository until SaveChangs has been explicitly called
     ///     ! Changes to linked domain objects such as Topic or other decisions also need to be explicilty saved.
     ///     ! Changes to domain entities such as I*Relation, or I*ForceEvaluation are automatically saved when SaveChagnes is called.
+    ///     ! Be aware of cyclic dependencies created by Load()
     /// </summary>
     public class Decision : Entity, IDecision
     {
@@ -25,18 +37,18 @@ namespace DecisionArchitect.Model
         private DateTime _modified;
         private string _name;
         private string _rationale;
-
         private string _state;
 
         private Decision()
         {
             History = new SortableBindingList<IHistoryEntry>();
-            Alternatives = new BindingList<IDecisionRelation>();
-            RelatedDecisions = new BindingList<IDecisionRelation>();
-            Traces = new BindingList<ITraceLink>();
-            Stakeholders = new BindingList<IStakeholderAction>();
-            Forces = new BindingList<IForceEvaluation>();
+            Alternatives = new SortableBindingList<IDecisionRelation>();
+            RelatedDecisions = new SortableBindingList<IDecisionRelation>();
+            Traces = new SortableBindingList<ITraceLink>();
+            Stakeholders = new SortableBindingList<IStakeholderAction>();
+            Forces = new SortableBindingList<IForceEvaluation>();
         }
+
 
         public string GUID { get; private set; }
         public int ID { get; private set; }
@@ -140,6 +152,15 @@ namespace DecisionArchitect.Model
             LoadDecisionDataFromElement(element);
         }
 
+        public static IDecision Load(IEAElement element)
+        {
+            var decision = new Decision();
+            decision.LoadDecisionDataFromElement(element);
+            decision.PropertyChanged += decision.UpdateChangeFlag;
+            return decision;
+        }
+
+        #pragma region EventListener
         private void UpdateListChangeFlag(object sender, ListChangedEventArgs listChangedEventArgs)
         {
             switch (listChangedEventArgs.ListChangedType)
@@ -158,15 +179,9 @@ namespace DecisionArchitect.Model
             if (e.PropertyName.Equals("Changed")) return;
             Changed = true;
         }
+        #pragma endregion EventListener
 
-        public static IDecision Load(IEAElement element)
-        {
-            var decision = new Decision();
-            decision.LoadDecisionDataFromElement(element);
-            decision.PropertyChanged += decision.UpdateChangeFlag;
-            return decision;
-        }
-
+        #pragma region SaveAndLoadData
 
         /// <summary>
         ///     Loads information from EAelement and converts them into domain model.
@@ -503,5 +518,7 @@ namespace DecisionArchitect.Model
                 }
             }
         }
+
+        #pragma endregion
     }
 }

@@ -16,7 +16,7 @@ using System.Windows.Forms;
 using EAFacade;
 using EAFacade.Model;
 
-namespace DecisionArchitect.View
+namespace DecisionArchitect.View.Dialogs
 {
     public partial class CreateTopic : Form
     {

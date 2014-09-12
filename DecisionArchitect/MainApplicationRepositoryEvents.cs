@@ -11,6 +11,7 @@
     Antonis Gkortzis (University of Groningen)
 */
 
+using System;
 using System.Linq;
 using DecisionArchitect.Logic;
 using EA;
@@ -65,6 +66,43 @@ namespace DecisionArchitect
             }
             return true;
         }
+
+        public override bool EA_OnPostNewConnector(Repository repository, EventProperties properties)
+        {
+            EAMain.UpdateRepository(repository);
+            int connectorID;
+            if (Int32.TryParse(properties.Get(EAEventPropertyKeys.ConnectorID).Value, out connectorID))
+            {
+                IEAConnector connector = EAMain.Repository.GetConnectorByID(connectorID);
+                foreach (IRepositoryListener l in _listeners)
+                {
+                    if (!l.OnPostNewConnector(connector))
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        public override bool EA_OnPreDeleteConnector(Repository repository, EventProperties properties)
+        {
+            EAMain.UpdateRepository(repository);
+            int connectorID;
+            if (Int32.TryParse(properties.Get(EAEventPropertyKeys.ConnectorID).Value, out connectorID))
+            {
+                IEAConnector connector = EAMain.Repository.GetConnectorByID(connectorID);
+                foreach (IRepositoryListener l in _listeners)
+                {
+                    if (!l.OnPreDeleteConnector(connector))
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
 
         public override void EA_OnContextItemChanged(Repository repository, string guid, ObjectType ot)
         {

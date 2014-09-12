@@ -13,7 +13,7 @@
 using EAFacade;
 using EAFacade.Model;
 
-namespace DecisionArchitect.Logic.StakeholderInvolvement
+namespace DecisionArchitect.Logic.EventHandler
 {
     public class StakeholderInvolvementHandler : RepositoryAdapter
     {

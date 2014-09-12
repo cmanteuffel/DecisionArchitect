@@ -12,7 +12,6 @@
     K. Eric Harper (ABB Corporate Research)
 */
 
-using System;
 using System.Collections.Generic;
 
 namespace EAFacade.Model

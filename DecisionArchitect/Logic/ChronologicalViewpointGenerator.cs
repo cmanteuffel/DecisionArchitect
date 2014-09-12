@@ -18,9 +18,8 @@ using System.Linq;
 using DecisionArchitect.Model;
 using EAFacade;
 using EAFacade.Model;
-using Decision = DecisionArchitect.Model.Decision;
 
-namespace DecisionArchitect.Logic.Chronological
+namespace DecisionArchitect.Logic
 {
     internal class ChronologicalViewpointGenerator
     {
@@ -96,7 +95,6 @@ namespace DecisionArchitect.Logic.Chronological
                     _decisions.Select(d => Decision.Load(d))
                               .Where(d => d.HasTopic())
                               .Select(d => EAMain.Repository.GetElementByGUID(d.Topic.GUID))).Union(_decisions);
-            ;
         }
 
         private IList<IEAElement> ConnectDecisions(IEnumerable<IEAElement> elements)
@@ -115,7 +113,7 @@ namespace DecisionArchitect.Logic.Chronological
         }
 
 
-        private void GenerateDiagram(IEADiagram chronologicalViewpoint, IList<IEAElement> elements)
+        private void GenerateDiagram(IEADiagram chronologicalViewpoint, IEnumerable<IEAElement> elements)
         {
             foreach (IEAElement element in elements)
             {

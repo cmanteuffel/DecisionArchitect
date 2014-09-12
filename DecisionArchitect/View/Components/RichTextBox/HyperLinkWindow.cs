@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace DecisionArchitect.View.RichTextBox
+namespace DecisionArchitect.View.Components.RichTextBox
 {
     public partial class HyperLinkWindow : Form
     {

@@ -19,7 +19,7 @@ using EA;
 
 namespace EAFacade.Model.Impl
 {
-     sealed class EAPackage : IEAPackage
+    internal sealed class EAPackage : IEAPackage
     {
         private readonly Package _native;
 
@@ -46,7 +46,7 @@ namespace EAFacade.Model.Impl
             get
             {
                 IEAPackage package = EARepository.Instance.GetPackageByID(ID);
-                return ((EAPackage)package)._native.Packages.Cast<Package>().Select(Wrap).ToList();
+                return ((EAPackage) package)._native.Packages.Cast<Package>().Select(Wrap).ToList();
             }
         }
 
@@ -192,29 +192,19 @@ namespace EAFacade.Model.Impl
             return EAElement.Wrap(newElement);
         }
 
-         public IEADiagram CreateDiagram(string name, string stereotype, string type)
-         {
-             Diagram newDiagram = _native.Diagrams.AddNew(name, type);
-             newDiagram.Stereotype = stereotype;
-             newDiagram.Update();
-             _native.Diagrams.Refresh();
-             EARepository.Instance.RefreshModelView(_native.PackageID);
-             return EADiagram.Wrap(newDiagram);
-         }
-
-         public IEADiagram GetDiagram(string name)
+        public IEADiagram CreateDiagram(string name, string stereotype, string type)
         {
-            return EADiagram.Wrap(_native.Diagrams.GetByName(name));
+            Diagram newDiagram = _native.Diagrams.AddNew(name, type);
+            newDiagram.Stereotype = stereotype;
+            newDiagram.Update();
+            _native.Diagrams.Refresh();
+            EARepository.Instance.RefreshModelView(_native.PackageID);
+            return EADiagram.Wrap(newDiagram);
         }
 
-        public static IEAPackage Wrap(Package native)
+        public IEADiagram GetDiagram(string name)
         {
-            if (null == native)
-            {
-                throw new ArgumentNullException(
-                    "native");
-            }
-            return new EAPackage(native);
+            return EADiagram.Wrap(_native.Diagrams.GetByName(name));
         }
 
         public void RefreshElements()
@@ -275,10 +265,10 @@ namespace EAFacade.Model.Impl
 
         public IEAPackage GetSubpackageByName(string data)
         {
-            var packages = Packages;
+            IList<IEAPackage> packages = Packages;
             if (packages.Any())
             {
-                var foundPackage = packages.FirstOrDefault(e => e.Name.Equals(data));
+                IEAPackage foundPackage = packages.FirstOrDefault(e => e.Name.Equals(data));
                 if (foundPackage != null)
                 {
                     return foundPackage;
@@ -287,16 +277,26 @@ namespace EAFacade.Model.Impl
             return null;
         }
 
-        public bool IsDecisionViewPackage()
-        {
-            var underlyingElement = EAElement.Wrap(_native.Element);
-            string value = underlyingElement.GetTaggedValueByName(EATaggedValueKeys.DecisionViewPackage);
-            return (value != null && value.Equals("true"));
-        }
-
         public IEnumerable<IEADiagram> GetDiagrams()
         {
             return _native.Diagrams.Cast<Diagram>().Select(EADiagram.Wrap).ToList();
+        }
+
+        public static IEAPackage Wrap(Package native)
+        {
+            if (null == native)
+            {
+                throw new ArgumentNullException(
+                    "native");
+            }
+            return new EAPackage(native);
+        }
+
+        public bool IsDecisionViewPackage()
+        {
+            IEAElement underlyingElement = EAElement.Wrap(_native.Element);
+            string value = underlyingElement.GetTaggedValueByName(EATaggedValueKeys.DecisionViewPackage);
+            return (value != null && value.Equals("true"));
         }
     }
 }

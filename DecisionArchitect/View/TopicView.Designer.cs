@@ -11,9 +11,9 @@
     Marc Holterman (University of Groningen)
 */
 
-using DecisionArchitect.View.RichTextBox;
+using DecisionArchitect.View.Components.RichTextBox;
 
-namespace DecisionArchitect.View.TopicView
+namespace DecisionArchitect.View
 {
     partial class TopicViewController
     {
@@ -46,7 +46,7 @@ namespace DecisionArchitect.View.TopicView
             this.txtTopicName = new System.Windows.Forms.TextBox();
             this.lblTopicName = new System.Windows.Forms.Label();
             this.gpbTopicInformation = new System.Windows.Forms.GroupBox();
-            this.rtbDescription = new DecisionArchitect.View.RichTextBox.CustomRichTextBox();
+            this.rtbDescription = new CustomRichTextBox();
             this.lblDescription = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnRevert = new System.Windows.Forms.Button();

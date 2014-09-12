@@ -1,3 +1,14 @@
+/*
+ Copyright (c) 2014 ABB Group
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License v1.0
+ which accompanies this distribution, and is available at
+ http://www.eclipse.org/legal/epl-v10.html
+ 
+ Contributors:
+    Christian Manteuffel (University of Groningen)
+*/
+
 using System;
 using System.ComponentModel;
 using System.Globalization;
@@ -7,7 +18,7 @@ using EAFacade.Model;
 
 namespace DecisionArchitect.Model
 {
-    public interface IHistoryEntry : IPersistableModel, INotifyPropertyChanged 
+    public interface IHistoryEntry : IPersistableModel, INotifyPropertyChanged
     {
         string State { get; set; }
         DateTime Modified { get; set; }

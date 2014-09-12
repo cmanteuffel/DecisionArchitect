@@ -16,7 +16,7 @@ namespace DecisionArchitect.Logic.Validation
 {
     public abstract class VolatileElementRule : AbstractRule
     {
-        public VolatileElementRule(string errorMessage) : base(errorMessage)
+        protected VolatileElementRule(string errorMessage) : base(errorMessage)
         {
         }
 
