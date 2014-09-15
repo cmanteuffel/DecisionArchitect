@@ -275,9 +275,6 @@
     <EmbeddedResource Include="Templates\Template.pptx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <None Include="Templates\ModelTemplates.EAP" />
-    <None Include="Templates\RUG_SAExample.eap" />
-    <None Include="Templates\RUG_SATemplate.eap" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="View\Dialogs\CreateDecision.resx">
@@ -289,12 +286,6 @@
     <Folder Include="View\Controller\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Templates\ExampleModel.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Templates\TutorialModel.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
     <EmbeddedResource Include="DecisionArchitectMDG.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
