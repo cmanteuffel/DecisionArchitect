@@ -286,6 +286,12 @@
     <Folder Include="View\Controller\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Templates\ExampleModel.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Templates\TutorialModel.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="DecisionArchitectMDG.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
