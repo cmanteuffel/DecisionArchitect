@@ -381,12 +381,16 @@ namespace DecisionArchitect.Model
         private void LoadTraces(IEAElement element)
         {
             Traces.Clear();
+
             IEnumerable<ITraceLink> traces =
-                element.GetTracedElements().Select(t => (ITraceLink) new TraceLink(t.GUID));
-            foreach (ITraceLink trace in traces)
+                element.FindConnectors("", EAConstants.RelationTrace)
+                       .Select(a => (ITraceLink)new TraceLink(this, a));
+
+            foreach (var trace in traces)
             {
                 Traces.Add(trace);
             }
+
         }
 
         private void SaveTraces(IEAElement element)

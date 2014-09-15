@@ -82,5 +82,25 @@ namespace EAFacade
         {
             return true.ToString().Equals(element.GetTaggedValueByName(EATaggedValueKeys.IsHistoryDecision));
         }
+
+        public static bool IsDecisionRelationship(IEAConnector connector)
+        {
+            return EAConstants.Relationships.Contains(connector.Stereotype);
+        }
+
+        public static bool IsAlternativeRelationship(IEAConnector connector)
+        {
+            return EAConstants.RelationAlternativeFor.Equals(connector.Stereotype);
+        }
+
+        public static bool IsTrace(IEAConnector connector)
+        {
+            return EAConstants.RelationTrace.Equals(connector.Stereotype);
+        }
+
+        public static bool IsStakeholderAction(IEAConnector connector)
+        {
+            return connector.IsAction() && IsStakeholder(connector.GetClient());
+        }
     }
 }

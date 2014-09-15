@@ -105,65 +105,32 @@ namespace DecisionArchitect.View
 
         private void OnModelChanged(object sender, ModelChangedEventArgs args)
         {
-            if (Decision==null) return;
-            string changedElement = args.GUID;
-            
-            if (args.Type == ModelChangedType.RemovedElement)
+            if (Decision == null) return;
+            switch (args.Type)
             {
-               if (changedElement.Equals(Decision.GUID))
-                    {
-                        DetailViewHandler.Instance.CloseDecisionDetailView(Decision);
-                        return;
-                    }
-                    if (Decision.Topic != null && changedElement.Equals(Decision.Topic.GUID))
-                    {
-                        //topic has been removed.
-                        txtTopicName.DataBindings.Clear();
-                        rtbTopicDescription.DataBindings.Clear();
-                        txtTopicName.Name = "";
-                        rtbTopicDescription.RichText = "";
-                        DisableTopicGroupBox();
-                        return;
-                    }
+                case ModelChangedType.RemovedElement:
+                    OnModelChangeElementRemoved(args);
+                    break;
+                case ModelChangedType.ModifiedElement:
+                    OnModelChangeElementModified(args);
+                    break;
+                case ModelChangedType.RemovedConnector:
+                    OnModelChangeConnectorRemoved(args);
+                    break;
+                case ModelChangedType.NewConnector:
+                    OnModelChangeConnectorAdded(args);
+                    break;
             }
-            if (args.Type == ModelChangedType.ModifiedElement) {
-                if (Decision.HasTopic() && changedElement.Equals(Decision.Topic.GUID) )
-                {
-                    Decision.Topic.DiscardChanges(); 
-                }
-            }
-            if (args.Type == ModelChangedType.RemovedConnector)
+        }
+
+        private void OnModelChangeConnectorAdded(ModelChangedEventArgs args)
+        {
+            IEAConnector connector = EAMain.Repository.GetConnectorByGUID(args.GUID);
+            if (connector.ClientId != Decision.ID && connector.SupplierId != Decision.ID) return;
+            if (EAMain.IsDecisionRelationship(connector))
             {
-                var connector = EAMain.Repository.GetConnectorByGUID(args.GUID);
-                if (EAConstants.Relationships.Contains(connector.Stereotype))
-                {
-                    foreach (var related in Decision.RelatedDecisions.ToArray())
-                    {
-                        if (related.RelationGUID.Equals(changedElement))
-                        {
-                            Decision.RelatedDecisions.Remove(related);
-                            return;
-                        }
-                    }
-                    foreach (var related in Decision.Alternatives.ToArray())
-                    {
-                        if (related.RelationGUID.Equals(changedElement))
-                        {
-                            Decision.Alternatives.Remove(related);
-                            return;
-                        }
-                    }
-                }
-            }
-            if (args.Type == ModelChangedType.NewConnector)
-            {
-                
-                var connector = EAMain.Repository.GetConnectorByGUID(args.GUID);
-                if (!EAConstants.Relationships.Contains(connector.Stereotype)) return;
-                if (connector.ClientId != Decision.ID && connector.SupplierId != Decision.ID) return;
-                
                 var related = new DecisionRelation(Decision, connector);
-                if (connector.Stereotype.Equals(EAConstants.RelationAlternativeFor))
+                if (EAMain.IsAlternativeRelationship(connector))
                 {
                     Decision.Alternatives.Add(related);
                 }
@@ -171,10 +138,83 @@ namespace DecisionArchitect.View
                 {
                     Decision.RelatedDecisions.Add(related);
                 }
-                
+            } else if (EAMain.IsTrace(connector))
+            {
+                Decision.Traces.Add(new TraceLink(Decision, connector));
             }
-        
+            else if (EAMain.IsStakeholderAction(connector))
+            {
+                Decision.Stakeholders.Add(new StakeholderAction(Decision, connector));
+            }
+        }
 
+        private void OnModelChangeConnectorRemoved(ModelChangedEventArgs args)
+        {
+            IEAConnector connector = EAMain.Repository.GetConnectorByGUID(args.GUID);
+            if (EAMain.IsDecisionRelationship(connector))
+            {
+                foreach (IDecisionRelation related in Decision.RelatedDecisions.ToArray())
+                {
+                    if (related.RelationGUID.Equals(args.GUID))
+                    {
+                        Decision.RelatedDecisions.Remove(related);
+                        return;
+                    }
+                }
+                foreach (IDecisionRelation related in Decision.Alternatives.ToArray())
+                {
+                    if (related.RelationGUID.Equals(args.GUID))
+                    {
+                        Decision.Alternatives.Remove(related);
+                        return;
+                    }
+                }
+            } else if (EAMain.IsTrace(connector))
+            {
+                foreach (ITraceLink trace in Decision.Traces.ToArray())
+                {
+                    if (trace.ConnectorGUID.Equals(args.GUID))
+                    {
+                        Decision.Traces.Remove(trace);
+                        return;
+                    }
+                }
+            } else if (EAMain.IsStakeholderAction(connector))
+            {
+                foreach (var action in Decision.Stakeholders.ToArray())
+                {
+                    if (action.ConnectorGUID.Equals(args.GUID))
+                    {
+                        Decision.Stakeholders.Remove(action);
+                        return;
+                    }
+                }
+            }
+        }
+
+        private void OnModelChangeElementModified(ModelChangedEventArgs args)
+        {
+            if (Decision.HasTopic() && args.GUID.Equals(Decision.Topic.GUID))
+            {
+                Decision.Topic.DiscardChanges();
+            }
+        }
+
+        private void OnModelChangeElementRemoved(ModelChangedEventArgs args)
+        {
+            if (args.GUID.Equals(Decision.GUID))
+            {
+                DetailViewHandler.Instance.CloseDecisionDetailView(Decision);
+            }
+            if (Decision.Topic != null && args.GUID.Equals(Decision.Topic.GUID))
+            {
+                //topic has been removed.
+                txtTopicName.DataBindings.Clear();
+                rtbTopicDescription.DataBindings.Clear();
+                txtTopicName.Name = "";
+                rtbTopicDescription.RichText = "";
+                DisableTopicGroupBox();
+            }
         }
 
 
@@ -288,7 +328,9 @@ namespace DecisionArchitect.View
             dtpHistoryCell = new DateTimePicker
                 {
                     Format = DateTimePickerFormat.Custom,
-                    CustomFormat = Application.CurrentCulture.DateTimeFormat.ShortDatePattern + " " + Application.CurrentCulture.DateTimeFormat.ShortTimePattern,
+                    CustomFormat =
+                        Application.CurrentCulture.DateTimeFormat.ShortDatePattern + @" " +
+                        Application.CurrentCulture.DateTimeFormat.ShortTimePattern,
                     Visible = false,
                     Width = clmHistoryDate.Width
                 };

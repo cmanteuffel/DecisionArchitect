@@ -10,6 +10,7 @@
 */
 
 using EAFacade;
+using EAFacade.Model;
 
 namespace DecisionArchitect.Model
 {
@@ -17,17 +18,22 @@ namespace DecisionArchitect.Model
     {
         string TracedElementGUID { get; }
         string TracedElementName { get; }
+        string ConnectorGUID { get; }
     }
 
     public class TraceLink : ITraceLink
     {
-        public TraceLink(string guid)
+        public TraceLink(IDecision decision, IEAConnector connector)
         {
-            TracedElementGUID = guid;
-            TracedElementName = EAMain.Repository.GetElementByGUID(guid).Name;
+            var tracedElement = (connector.ClientId == decision.ID)?connector.GetSupplier():connector.GetClient();
+            
+            TracedElementGUID = tracedElement.GUID;
+            TracedElementName = tracedElement.Name;
+            ConnectorGUID = connector.GUID;
         }
 
         public string TracedElementGUID { get; private set; }
         public string TracedElementName { get; private set; }
+        public string ConnectorGUID { get; private set; }
     }
 }

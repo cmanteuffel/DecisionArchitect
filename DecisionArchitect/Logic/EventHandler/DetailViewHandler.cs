@@ -77,12 +77,7 @@ namespace DecisionArchitect.Logic.EventHandler
 
             if (EAMain.IsTopic(element))
             {
-                if (IsOpenTab(element))
-                {
-                    FocusTab(element);
-                    return true;
-                }
-                OpenNewTopicTab(element);
+               OpenTopicDetailView(Topic.Load(element));
                 return true;
             }
             return false;
@@ -111,12 +106,7 @@ namespace DecisionArchitect.Logic.EventHandler
             }
             if (EAMain.IsTopic(element))
             {
-                if (IsOpenTab(element))
-                {
-                    FocusTab(element);
-                    return true;
-                }
-                OpenNewTopicTab(element);
+                OpenTopicDetailView(Topic.Load(element));
                 return true;
             }
             return false;
@@ -127,28 +117,45 @@ namespace DecisionArchitect.Logic.EventHandler
         ** Auxiliary methods
         ********************************************************************************************/
 
-        private void OpenNewTopicTab(IEAElement element)
+        private void OpenTopicDetailView(ITopic topic)
         {
-            ITopicViewController topicViewController = EAMain.Repository.AddTab(element.Name,
-                                                                                "DecisionViewpoints.TopicViewController");
-            ITopic topic = Topic.Load(element);
-            topicViewController.Topic = topic;
+
+            IEARepository repository = EAMain.Repository;
+
+            //do some cleanup (find the closed tabs)
+            foreach (string key in TabMap.Keys.ToArray())
+            {
+                if (repository.IsTabOpen(TabMap[key]) == 0)
+                {
+                    TabMap.Remove(key);
+                }
+            }
+
+            //tab is unknown, so far so good
+            if (!TabMap.ContainsKey(topic.GUID))
+            {
+                TabMap.Add(topic.GUID, FindUniqueTabName(topic));
+            }
+
+            string tabName = TabMap[topic.GUID];
+            if (repository.IsTabOpen(tabName) > 0)
+            {
+                EAMain.Repository.ActivateTab(tabName);
+            }
+            else
+            {
+                //possibility to update name, if it is a temporary one.
+                if (!tabName.Equals(topic.Name))
+                {
+                    tabName = FindUniqueTabName(topic);
+                    TabMap[topic.GUID] = tabName;
+                }
+                ITopicViewController topicViewController = repository.AddTab(tabName, "DecisionViewpoints.TopicViewController");
+                topicViewController.Topic = topic;
+            }
         }
 
-        public bool IsOpenTab(IEAElement element)
-        {
-            return EAMain.Repository.IsTabOpen(element.Name) > 0;
-        }
-
-        public void FocusTab(IEAElement element)
-        {
-            EAMain.Repository.ActivateTab(element.Name);
-        }
-
-        public void CloseTab(IEAElement element)
-        {
-            // EAFacade.EAMain.Repository.C
-        }
+       
 
         /********************************************************************************************
         ** Invoke View Change methods
@@ -233,8 +240,7 @@ namespace DecisionArchitect.Logic.EventHandler
                     tabName = FindUniqueTabName(decision);
                     TabMap[decision.GUID] = tabName;
                 }
-                DetailView detailView = repository.AddTab(tabName,
-                                                                              "DecisionViewpoints.DetailView");
+                DetailView detailView = repository.AddTab(tabName, "DecisionViewpoints.DetailView");
                 detailView.Decision = decision;
             }
         }
@@ -243,10 +249,22 @@ namespace DecisionArchitect.Logic.EventHandler
         {
             //check if another decision occupies same name.
             string tabName = decision.Name;
-            if (TabMap.Values.Contains(decision.Name))
+            if (TabMap.Values.Contains(decision.Name) || EAMain.Repository.IsTabOpen(decision.Name) > 0)
             {
                 //need to find another unique name
                 tabName = decision.Name + " (ID:" + decision.ID + ")";
+            }
+            return tabName;
+        }
+
+        private string FindUniqueTabName(ITopic topic)
+        {
+            //check if another topic occupies same name.
+            string tabName = topic.Name;
+            if (TabMap.Values.Contains(topic.Name) || EAMain.Repository.IsTabOpen(topic.Name) > 0)
+            {
+                //need to find another unique name
+                tabName = topic.Name + " (ID:" + topic.ID + ")";
             }
             return tabName;
         }

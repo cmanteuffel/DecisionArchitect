@@ -26,6 +26,7 @@ namespace DecisionArchitect.Model
         string GUID { get; }
         string Name { get; set; }
         string Description { get; set; }
+        int ID { get; }
     }
 
     public class Topic : Entity, ITopic
@@ -77,6 +78,8 @@ namespace DecisionArchitect.Model
             set { SetField(ref _description, value, "Description"); }
         }
 
+        public int ID { get; private set; }
+
         public static ITopic Load(IEAElement element)
         {
             var topic = new Topic();
@@ -91,6 +94,7 @@ namespace DecisionArchitect.Model
 
             PropertyChanged -= UpdateChangeFlag;
             GUID = element.GUID;
+            ID = element.ID;
             Name = element.Name;
             Description = LoadDescription(element);
             Changed = false;
