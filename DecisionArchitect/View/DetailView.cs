@@ -288,7 +288,7 @@ namespace DecisionArchitect.View
             dtpHistoryCell = new DateTimePicker
                 {
                     Format = DateTimePickerFormat.Custom,
-                    CustomFormat = Application.CurrentCulture.DateTimeFormat.ShortDatePattern,
+                    CustomFormat = Application.CurrentCulture.DateTimeFormat.ShortDatePattern + " " + Application.CurrentCulture.DateTimeFormat.ShortTimePattern,
                     Visible = false,
                     Width = clmHistoryDate.Width
                 };
