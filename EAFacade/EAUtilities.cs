@@ -94,7 +94,6 @@ namespace EAFacade
                     //FIX: model returns for some reason otNone, translated to otModel. Might cause problems. 
                     return EANativeType.Model;
                 default:
-                    //MessageBox.Show("" + nativeOt);
                     return EANativeType.Unspecified;
             }
         }

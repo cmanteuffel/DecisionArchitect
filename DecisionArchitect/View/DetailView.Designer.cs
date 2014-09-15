@@ -17,7 +17,7 @@ using DecisionArchitect.View.Components.RichTextBox;
 
 namespace DecisionArchitect.View
 {
-    partial class DetailViewController
+    partial class DetailView
     {
         /// <summary>
         /// Required designer variable.
@@ -871,13 +871,13 @@ namespace DecisionArchitect.View
             // 
             this.iStakeholderBindingSource.DataSource = typeof(DecisionArchitect.Model.IStakeholder);
             // 
-            // DetailViewController
+            // DetailView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.spltDetailView);
-            this.Name = "DetailViewController";
+            this.Name = "DetailView";
             this.Size = new System.Drawing.Size(916, 725);
             this.spltDetailView.Panel1.ResumeLayout(false);
             this.spltDetailView.Panel2.ResumeLayout(false);

@@ -51,6 +51,8 @@ namespace DecisionArchitect.Model
             if (null == element || !EAMain.IsTopic(element)) throw new Exception("element null or not a topic");
             element.Name = Name;
             SaveDescription(element);
+            element.Update();
+            EAMain.Repository.AdviseElementChanged(element.ID);
             Changed = false;
             return true;
         }

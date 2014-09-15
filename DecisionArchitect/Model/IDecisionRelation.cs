@@ -36,7 +36,7 @@ namespace DecisionArchitect.Model
         private IDecision _relatedDecision;
         private string _type;
 
-        public DecisionRelation(Decision decision, IEAConnector eaConnector)
+        public DecisionRelation(IDecision decision, IEAConnector eaConnector)
         {
             IEAElement client = eaConnector.GetClient();
             Direction = client.GUID.Equals(decision.GUID)

@@ -181,27 +181,6 @@ namespace DecisionArchitect.Logic.EventHandler
             }
         }
 
-
-        //void OpenHistoryDecisionTab(IEAElement element)
-        //{
-        //    DialogResult dialogResult =
-        //       MessageBox.Show(
-        //           Messages.DialogOpenLatestDecision,
-        //           Messages.DialogOpenLatestDecisionTitle,
-        //           MessageBoxButtons.YesNo,
-        //           MessageBoxIcon.Information);
-
-        //    if (dialogResult == DialogResult.Yes)
-        //    {                        
-        //        string originalguid = element.GetTaggedValueByName(EATaggedValueKeys.OriginalDecisionGuid);
-        //        IEAElement originalElement = EAFacade.EAMain.Repository.GetElementByGUID(originalguid);
-        //        IDetailView detailView = EAFacade.EAMain.Repository.AddTab(originalElement.Name, "DecisionViewpoints.DetailView");
-        //        IDecision decision = new Decision(originalElement);
-
-        //        InitializeNewOpenedTab(originalElement.GUID, detailView, decision);
-        //    }
-        //}
-
         public void CloseDecisionDetailView(IDecision decision)
         {
             if (!TabMap.ContainsKey(decision.GUID)) return;
@@ -254,9 +233,9 @@ namespace DecisionArchitect.Logic.EventHandler
                     tabName = FindUniqueTabName(decision);
                     TabMap[decision.GUID] = tabName;
                 }
-                DetailViewController detailViewController = repository.AddTab(tabName,
-                                                                              "DecisionViewpoints.DetailViewController");
-                detailViewController.Decision = decision;
+                DetailView detailView = repository.AddTab(tabName,
+                                                                              "DecisionViewpoints.DetailView");
+                detailView.Decision = decision;
             }
         }
 

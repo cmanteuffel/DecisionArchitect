@@ -21,7 +21,7 @@ namespace DecisionArchitect
     {
         public override void EA_FileOpen(Repository repository)
         {
-            //MessageBox.Show("EA_FileOpen ");
+
 
             EAMain.UpdateRepository(repository);
             foreach (IRepositoryListener l in _listeners)
@@ -32,7 +32,7 @@ namespace DecisionArchitect
 
         public override void EA_FileClose(Repository repository)
         {
-            // MessageBox.Show("EA_FileClose ");
+
 
             EAMain.UpdateRepository(repository);
             foreach (IRepositoryListener l in _listeners)
@@ -43,7 +43,7 @@ namespace DecisionArchitect
 
         public override void EA_FileNew(Repository repository)
         {
-            //  MessageBox.Show("EA_FileNew ");
+
 
             EAMain.UpdateRepository(repository);
             foreach (IRepositoryListener l in _listeners)

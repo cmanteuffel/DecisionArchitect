@@ -9,6 +9,7 @@
     Christian Manteuffel (University of Groningen)
 */
 
+using System;
 using EAFacade;
 using EAFacade.Model;
 
@@ -24,12 +25,27 @@ namespace DecisionArchitect.Model
     {
         public Force(string forceGUID)
         {
-            IEAElement element = EAMain.Repository.GetElementByGUID(forceGUID);
-            Name = element.Name;
-            ForceGUID = forceGUID;
+            try
+            {
+                IEAElement element = EAMain.Repository.GetElementByGUID(forceGUID);
+                Name = element.Name;
+                ForceGUID = forceGUID;
+            }
+            catch (ArgumentNullException e)
+            {
+                throw new ForceNotInModelException("No Force with the specified GUID can be found. It has been probably deleted.", e);
+            }
         }
 
         public string Name { get; private set; }
         public string ForceGUID { get; private set; }
+    }
+
+    public class ForceNotInModelException : Exception
+    {
+        public ForceNotInModelException(string message, Exception innerException) : base(message,innerException)
+        {
+           
+        }
     }
 }

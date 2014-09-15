@@ -13,6 +13,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -24,31 +25,29 @@ using EAFacade.Model;
 
 namespace DecisionArchitect.View
 {
-    internal interface IDetailViewController
+    internal interface IDetailView
     {
         IDecision Decision { get; set; }
     }
 
     [ComVisible(true)]
     [Guid("D65970AD-12A7-402A-9F88-ED50D8C1DD81")]
-    [ProgId("DecisionViewpoints.DetailViewController")]
+    [ProgId("DecisionViewpoints.DetailView")]
     [ClassInterface(ClassInterfaceType.None)]
-    [ComDefaultInterface(typeof (IDetailViewController))]
-    public partial class DetailViewController : UserControl, IDetailViewController
+    [ComDefaultInterface(typeof (IDetailView))]
+    public partial class DetailView : UserControl, IDetailView
     {
         private const double SelectionLuminosityFactor = .65;
         private const double SelectionSaturationFactor = .55;
         private IDecision _decision;
         private string _orginalDecisionName = "";
 
-        public DetailViewController()
+        public DetailView()
         {
             InitializeComponent();
             Disposed += Cleanup;
             SynchronizationManager.Instance.ModelChanged += OnModelChanged;
         }
-
-        public ITopic Topic { get; set; }
 
         public IDecision Decision
         {
@@ -81,8 +80,10 @@ namespace DecisionArchitect.View
 
                     if (Decision.HasTopic())
                     {
-                        txtTopicName.DataBindings.Add("Text", Decision.Topic, "Name");
-                        rtbTopicDescription.DataBindings.Add("RichText", Decision.Topic, "Description");
+                        //http://stackoverflow.com/questions/8894103/does-data-binding-support-nested-properties-in-windows-forms
+                        var bindingSourceFix = new BindingSource(Decision, null);
+                        txtTopicName.DataBindings.Add("Text", bindingSourceFix, "Topic.Name");
+                        rtbTopicDescription.DataBindings.Add("RichText", bindingSourceFix, "Topic.Description");
                         EnableTopicGroupBox();
                     }
                     else
@@ -104,16 +105,76 @@ namespace DecisionArchitect.View
 
         private void OnModelChanged(object sender, ModelChangedEventArgs args)
         {
+            if (Decision==null) return;
+            string changedElement = args.GUID;
+            
             if (args.Type == ModelChangedType.RemovedElement)
             {
-                if (Decision != null)
-                {
-                    if (args.GUID.Equals(Decision.GUID))
+               if (changedElement.Equals(Decision.GUID))
                     {
                         DetailViewHandler.Instance.CloseDecisionDetailView(Decision);
+                        return;
+                    }
+                    if (Decision.Topic != null && changedElement.Equals(Decision.Topic.GUID))
+                    {
+                        //topic has been removed.
+                        txtTopicName.DataBindings.Clear();
+                        rtbTopicDescription.DataBindings.Clear();
+                        txtTopicName.Name = "";
+                        rtbTopicDescription.RichText = "";
+                        DisableTopicGroupBox();
+                        return;
+                    }
+            }
+            if (args.Type == ModelChangedType.ModifiedElement) {
+                if (Decision.HasTopic() && changedElement.Equals(Decision.Topic.GUID) )
+                {
+                    Decision.Topic.DiscardChanges(); 
+                }
+            }
+            if (args.Type == ModelChangedType.RemovedConnector)
+            {
+                var connector = EAMain.Repository.GetConnectorByGUID(args.GUID);
+                if (EAConstants.Relationships.Contains(connector.Stereotype))
+                {
+                    foreach (var related in Decision.RelatedDecisions.ToArray())
+                    {
+                        if (related.RelationGUID.Equals(changedElement))
+                        {
+                            Decision.RelatedDecisions.Remove(related);
+                            return;
+                        }
+                    }
+                    foreach (var related in Decision.Alternatives.ToArray())
+                    {
+                        if (related.RelationGUID.Equals(changedElement))
+                        {
+                            Decision.Alternatives.Remove(related);
+                            return;
+                        }
                     }
                 }
             }
+            if (args.Type == ModelChangedType.NewConnector)
+            {
+                
+                var connector = EAMain.Repository.GetConnectorByGUID(args.GUID);
+                if (!EAConstants.Relationships.Contains(connector.Stereotype)) return;
+                if (connector.ClientId != Decision.ID && connector.SupplierId != Decision.ID) return;
+                
+                var related = new DecisionRelation(Decision, connector);
+                if (connector.Stereotype.Equals(EAConstants.RelationAlternativeFor))
+                {
+                    Decision.Alternatives.Add(related);
+                }
+                else
+                {
+                    Decision.RelatedDecisions.Add(related);
+                }
+                
+            }
+        
+
         }
 
 

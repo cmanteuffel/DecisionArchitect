@@ -1077,7 +1077,7 @@
 		<row><td>SetAllUsersProfileNT</td><td>51</td><td>ALLUSERSPROFILE</td><td>[%SystemRoot]\Profiles\All Users</td><td/><td/></row>
 		<row><td>ShowMsiLog</td><td>226</td><td>SystemFolder</td><td>[SystemFolder]notepad.exe "[MsiLogFileLocation]"</td><td/><td>Shows Property-driven MSI Log</td></row>
 		<row><td>reg_eafacade</td><td>34</td><td>V4.0.303194</td><td>[V4.0.303194]regasm "[INSTALLDIR]\EAFacade.dll"</td><td/><td/></row>
-		<row><td>reg_main</td><td>34</td><td>V4.0.303194</td><td>[V4.0.303194]regasm "[INSTALLDIR]\DecisionViewpoints.dll" /codebase</td><td/><td/></row>
+		<row><td>reg_main</td><td>34</td><td>V4.0.303194</td><td>[V4.0.303194]regasm "[INSTALLDIR]\DecisionArchitect.dll" /codebase</td><td/><td/></row>
 		<row><td>setAllUsersProfile2K</td><td>51</td><td>ALLUSERSPROFILE</td><td>[%ALLUSERSPROFILE]</td><td/><td/></row>
 		<row><td>setUserProfileNT</td><td>51</td><td>USERPROFILE</td><td>[%USERPROFILE]</td><td/><td/></row>
 	</table>
@@ -3899,7 +3899,7 @@
 		<col def="V0">Data</col>
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I2">ISIconIndex</col>
-		<row><td>ARPPRODUCTICON.exe</td><td/><td>P:\metamodel\icons\setup_icon.ico</td><td>0</td></row>
+		<row><td>ARPPRODUCTICON.exe</td><td/><td>\\psf\Home\Documents\University\Decision Architect\Decision Architect\da\metamodel\icons\setup_icon.ico</td><td>0</td></row>
 	</table>
 
 	<table name="IniFile">
@@ -4015,8 +4015,8 @@
 		<col def="S0">Value</col>
 		<row><td>ActiveLanguage</td><td>1033</td></row>
 		<row><td>Comments</td><td/></row>
-		<row><td>CurrentMedia</td><td dt:dt="bin.base64" md5="a4f66fafb30885f14d732b73e196bba0">
-RABWAEQALQA1AAEARQB4AHAAcgBlAHMAcwA=
+		<row><td>CurrentMedia</td><td dt:dt="bin.base64" md5="6d78a46bf2c52ee27034bbcad20f7f95">
+QwBEAF8AUgBPAE0AAQBFAHgAcAByAGUAcwBzAA==
 			</td></row>
 		<row><td>DefaultProductConfiguration</td><td>Express</td></row>
 		<row><td>EnableSwidtag</td><td>0</td></row>
@@ -4414,9 +4414,9 @@ RABWAEQALQA1AAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKAPPPOOLS</td><td>##IDS_PROGMSG_IIS_ROLLBACKAPPPOOLS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
-		<row><td>ProductCode</td><td>{3052CC65-7F79-482F-A60D-ADEA22EB0D81}</td><td/></row>
+		<row><td>ProductCode</td><td>{47E16B6B-7840-466B-A095-41E9468A895B}</td><td/></row>
 		<row><td>ProductName</td><td>Decision Architect</td><td/></row>
-		<row><td>ProductVersion</td><td>0.5</td><td/></row>
+		<row><td>ProductVersion</td><td>0.4.0</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
@@ -4485,7 +4485,7 @@ RABWAEQALQA1AAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S0">Value</col>
 		<col def="s72">Component_</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>Registry1</td><td>1</td><td>Software\Sparx Systems\EAAddins\Decision Architect</td><td/><td>DecisionViewpoints.MainApplication</td><td>ISX_DEFAULTCOMPONENT1</td><td>0</td></row>
+		<row><td>Registry1</td><td>1</td><td>Software\Sparx Systems\EAAddins\Decision Architect</td><td/><td>DecisionArchitect.MainApplication</td><td>ISX_DEFAULTCOMPONENT1</td><td>0</td></row>
 	</table>
 
 	<table name="RemoveFile">
@@ -4701,7 +4701,7 @@ RABWAEQALQA1AAEARQB4AHAAcgBlAHMAcwA=
 		<col def="s72">ActionProperty</col>
 		<col def="S72">ISDisplayName</col>
 		<row><td>{00000000-0000-0000-0000-000000000000}</td><td>***ALL_VERSIONS***</td><td></td><td></td><td>2</td><td/><td>ISFOUNDNEWERPRODUCTVERSION</td><td>ISPreventDowngrade</td></row>
-		<row><td>{ECB90A08-5F0C-4D5E-80BF-67A8141096BD}</td><td></td><td>0.5</td><td></td><td>768</td><td/><td>ISACTIONPROP1</td><td>NewUpgradeEntry1</td></row>
+		<row><td>{ECB90A08-5F0C-4D5E-80BF-67A8141096BD}</td><td></td><td>0.4.9</td><td></td><td>768</td><td/><td>ISACTIONPROP1</td><td>NewUpgradeEntry1</td></row>
 	</table>
 
 	<table name="Verb">

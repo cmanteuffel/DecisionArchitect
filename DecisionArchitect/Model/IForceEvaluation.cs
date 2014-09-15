@@ -48,7 +48,7 @@ namespace DecisionArchitect.Model
                 DeserializeName(taggedValue.Name);
                 Result = taggedValue.Value;
             }
-            else throw new Exception();
+            else throw new NotAForceTaggedValue();
         }
 
 
@@ -123,5 +123,9 @@ namespace DecisionArchitect.Model
         {
             return name.StartsWith(EATaggedValueKeys.ForceEvaluation);
         }
+    }
+
+    public class NotAForceTaggedValue : Exception
+    {
     }
 }

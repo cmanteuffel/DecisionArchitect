@@ -17,6 +17,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using DecisionArchitect.Logic.EventHandler;
 using DecisionArchitect.Utilities;
 using EAFacade;
 using EAFacade.Model;
@@ -29,6 +30,8 @@ namespace DecisionArchitect.Model
     ///     ! Changes to linked domain objects such as Topic or other decisions also need to be explicilty saved.
     ///     ! Changes to domain entities such as I*Relation, or I*ForceEvaluation are automatically saved when SaveChagnes is called.
     ///     ! Be aware of cyclic dependencies created by Load()
+    /// 
+    ///     DD: Synchronization is done in view and not in the model. Problem: Changes in a decision needs to be synchronized across detail views (especially if relations are removed, which leads to null exceptions). Decision: listen to changes in the model and adapt the decision object accordingly. However, since we only need to keep the views synchronized and not per se every decision object, the observer/update mechanism will be implemented in the view and not hte model. This was done, in ortder to reduce the number of update messages that needs to be processes. 
     /// </summary>
     public class Decision : Entity, IDecision
     {
@@ -48,7 +51,6 @@ namespace DecisionArchitect.Model
             Stakeholders = new SortableBindingList<IStakeholderAction>();
             Forces = new SortableBindingList<IForceEvaluation>();
         }
-
 
         public string GUID { get; private set; }
         public int ID { get; private set; }
@@ -89,7 +91,14 @@ namespace DecisionArchitect.Model
             private set { SetField(ref _changed, value, "Changed"); }
         }
 
-        public ITopic Topic { get; private set; }
+        private ITopic _topic;
+
+        public ITopic Topic
+        {
+            get { return _topic; }
+            private set { SetField(ref _topic, value, "Topic"); }
+        }
+
         public BindingList<IHistoryEntry> History { get; private set; }
         public BindingList<ITraceLink> Traces { get; private set; }
         public BindingList<IDecisionRelation> Alternatives { get; private set; }
@@ -160,7 +169,8 @@ namespace DecisionArchitect.Model
             return decision;
         }
 
-        #pragma region EventListener
+#pragma region EventListener
+
         private void UpdateListChangeFlag(object sender, ListChangedEventArgs listChangedEventArgs)
         {
             switch (listChangedEventArgs.ListChangedType)
@@ -179,9 +189,9 @@ namespace DecisionArchitect.Model
             if (e.PropertyName.Equals("Changed")) return;
             Changed = true;
         }
-        #pragma endregion EventListener
+#pragma endregion EventListener
 
-        #pragma region SaveAndLoadData
+#pragma region SaveAndLoadData
 
         /// <summary>
         ///     Loads information from EAelement and converts them into domain model.
@@ -332,9 +342,20 @@ namespace DecisionArchitect.Model
             Forces.Clear();
             IEnumerable<IForceEvaluation> forces =
                 element.TaggedValues.Where(tv => tv.Name.StartsWith(EATaggedValueKeys.ForceEvaluation))
-                       .Select(tv => (IForceEvaluation) new ForceEvaluation(this, tv));
+                       .Select(tv =>
+                           {
+                               try
+                               {
+                                   return (IForceEvaluation) new ForceEvaluation(this, tv);
+                               }
+                               catch (ForceNotInModelException)
+                               {
+                                   return null;
+                               }
+                           }).Where(tv => tv != null);
             foreach (IForceEvaluation force in forces)
             {
+
                 Forces.Add(force);
             }
         }
@@ -519,6 +540,6 @@ namespace DecisionArchitect.Model
             }
         }
 
-        #pragma endregion
+#pragma endregion
     }
 }

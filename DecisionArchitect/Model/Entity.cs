@@ -10,6 +10,7 @@
 */
 
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -35,7 +36,14 @@ namespace DecisionArchitect.Model
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null)
             {
-                handler(this, new PropertyChangedEventArgs(propertyName));
+                try
+                {
+                    handler(this, new PropertyChangedEventArgs(propertyName));
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    //TODO Log exception 
+                }
             }
         }
     }
