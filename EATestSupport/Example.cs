@@ -38,27 +38,38 @@ namespace EATestSupport
 
         public IEAPackage GetDecisionPackage()
         {
-            IEAPackage package = null;
+            IEAPackage decisions = null;
             Assert.IsNotNull(Repo);
             EAMain.UpdateRepository(Repo);
-           // IEnumerable<IEAPackage> packages = EAMain.Repository.GetAllDecisionViewPackages();
-            //Assert.IsNotNull(packages);
+            IEnumerable<IEAPackage> packages = EAMain.Repository.GetAllPackages();
+            Assert.IsNotNull(packages);
+            // Top level package
+            IEAPackage example = packages.First();
             // Use the first decision package
-            //package = packages.ElementAt(0);
-            //Assert.IsNotNull(package);
-            return package;
+            decisions = example.GetSubpackageByName("Decisions");
+            Assert.IsNotNull(decisions);
+            return decisions;
+        }
+
+        public IEAPackage GetDecisionPackageTopic()
+        {
+            IEAPackage package = GetDecisionPackage();
+            IList<IEAPackage> topics = package.Packages;
+            Assert.IsTrue(0 < topics.Count());
+            // Use first topic
+            return topics.First();
         }
 
         public IEADiagram GetDecisionForcesDiagram()
         {
             IEADiagram diagram = null;
-            IEAPackage package = GetDecisionPackage();
-            IEnumerable<IEADiagram> diagrams = package.GetAllDiagrams();
+            IEAPackage topic = this.GetDecisionPackageTopic();
+            IEnumerable<IEADiagram> diagrams = topic.GetAllDiagrams();
             Assert.IsNotNull(diagrams);
             // Find a forces viewpoint
             foreach (IEADiagram d in diagrams)
             {
-                if (d.IsForcesView())
+                if (d.IsRelationshipView())
                 {
                     diagram = d;
                     break;
@@ -82,12 +93,17 @@ namespace EATestSupport
         public Element GetDecisionPackageElement()
         {
             Element element;
-            IEAPackage package = GetDecisionPackage();
+            IEAPackage package = GetDecisionPackageTopic();
             Package root = Repo.Models.GetAt(0);
             Assert.IsNotNull(root);
-            Package view = root.Packages.GetByName(package.Name);
-            Assert.IsNotNull(view);
-            element = view.Elements.GetAt(0);
+            Package example = root.Packages.GetByName("Example");
+            Assert.IsNotNull(example);
+            Package decisions = example.Packages.GetByName("Decisions");
+            Assert.IsNotNull(decisions);
+            Package topics = decisions.Packages.GetByName(package.Name);
+            Assert.IsNotNull(topics);
+            Assert.IsTrue(0 < topics.Elements.Count);
+            element = topics.Elements.GetAt(0);
             Assert.IsNotNull(element);
             return element;
         }

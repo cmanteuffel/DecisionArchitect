@@ -56,18 +56,34 @@ namespace EAFacadeTests
 
         /// <summary>
         ///     ConfirmMDG verifies if the Decision type is recognized.
-        ///     This test will fail if the MDG file DecisionViewpoints.xml is not manually added to the
-        ///     SparxSystems/EAMain/MDGTechnologies folder. The package will have the Action instead of Decision type.
+        ///     This test will fail if the MDG file DecisionArchitectMDG.xml is not manually added to the
+        ///     SparxSystems/EAMain/MDGTechnologies folder. The decision elements will have the Action instead of DADecision type.
         /// </summary>
         [Test]
         public void EA_ConfirmMDG()
         {
+            bool validMDG = false;
             IEAPackage package = _e.GetDecisionPackage();
-            IEAPackage components = package.GetSubpackageByName("Component Model");
-            Assert.IsNotNull(components);
-           // IEAPackage decisionView = components.FindDecisionViewPackage();
-           // Assert.IsNotNull(decisionView);
-           // Assert.IsTrue(decisionView.IsDecisionViewPackage());
+            IEnumerable<IEAElement> topics = package.GetAllTopics();
+            Assert.IsTrue(0 < topics.Count());
+            foreach (IEAElement topic in topics)
+            {
+                // Confirm the topic contains decision elements
+                IEnumerable<IEAElement> elems = topic.GetElements();
+                foreach(IEAElement elem in elems)
+                {
+                    if(EAConstants.DecisionMetaType == elem.MetaType)
+                    {
+                        validMDG = true;
+                        break;
+                    }
+                }
+                if(validMDG)
+                {
+                    break;
+                }
+            }
+            Assert.IsTrue(validMDG);
         }
 
         /// <summary>
@@ -80,12 +96,12 @@ namespace EAFacadeTests
 
             {
                 IEADiagram diagram = _e.GetDecisionForcesDiagram();
-                Assert.IsTrue(DateTime.Today > diagram.Created);
+                Assert.IsTrue(DateTime.Now > diagram.Created);
                 Assert.IsTrue(EANativeType.Diagram == diagram.EANativeType);
                 Assert.IsTrue("" != diagram.GUID);
                 Assert.IsTrue(0 < diagram.ID);
                 Assert.IsTrue("" != diagram.Metatype);
-                Assert.IsTrue(DateTime.Today > diagram.Modified);
+                Assert.IsTrue(DateTime.Now > diagram.Modified);
                 Assert.IsTrue("" != diagram.Name);
                 Assert.IsTrue("" == diagram.Notes);
                 Assert.IsNull(diagram.ParentElement);
@@ -95,19 +111,6 @@ namespace EAFacadeTests
 
             // Operations
 
-            {
-                // AddToDiagram / Contains / RemoveFromDiagram
-                IEAPackage package = _e.GetDecisionPackage();
-                IEADiagram diagram = _e.GetDecisionForcesDiagram();
-                IEAElement element = package.CreateElement("MyNote", "MyStereotype", "Note");
-                /*
-                package.RefreshElements();
-                diagram.AddToDiagram(element);
-                Assert.IsTrue(diagram.Contains(element));
-                diagram.RemoveFromDiagram(element);
-                 * */
-                Assert.IsTrue(deleteElementFromPackage(package, element));
-            }
         }
 
         /// <summary>
@@ -134,9 +137,9 @@ namespace EAFacadeTests
             Assert.IsTrue(0 < element.Connectors.Count);
             Assert.IsTrue(0 == element.Constraints.Count);
             Assert.IsTrue(0 == element.ConstraintsEx.Count);
-            Assert.IsTrue(DateTime.Today > element.Created);
+            Assert.IsTrue(DateTime.Now > element.Created);
             Assert.IsTrue(0 < element.CustomProperties.Count);
-            Assert.IsTrue(0 == element.Diagrams.Count);
+            Assert.IsTrue(0 < element.Diagrams.Count);
             Assert.IsTrue("" == element.Difficulty);
             Assert.IsTrue(0 == element.Efforts.Count);
             Assert.IsTrue("" != element.ElementGUID);
@@ -163,7 +166,7 @@ namespace EAFacadeTests
             Assert.IsTrue(0 == element.MethodsEx.Count);
             Assert.IsTrue(0 == element.Metrics.Count);
             Assert.IsTrue("" == element.MiscData[0]);
-            Assert.IsTrue(DateTime.Today > element.Modified);
+            Assert.IsTrue(DateTime.Now > element.Modified);
             Assert.IsTrue("" == element.Multiplicity);
             Assert.IsTrue("" != element.Name);
             Assert.IsTrue("" == element.Notes);
@@ -194,7 +197,7 @@ namespace EAFacadeTests
             Assert.IsTrue(0 < element.TaggedValues.Count);
             Assert.IsTrue(0 < element.TaggedValuesEx.Count);
             Assert.IsTrue(0 == element.Tests.Count);
-            Assert.IsTrue(0 == element.TreePos);
+            Assert.IsTrue(1 == element.TreePos);
             Assert.IsTrue("" != element.Type);
             Assert.IsTrue("" != element.Version);
             Assert.IsTrue("" != element.Visibility);
@@ -209,19 +212,19 @@ namespace EAFacadeTests
             // Properties
 
             {
-                IEAPackage package = _e.GetDecisionPackage();
-                Assert.IsTrue(DateTime.Today > package.Created);
+                IEAPackage package = _e.GetDecisionPackageTopic();
+                Assert.IsTrue(DateTime.Now > package.Created);
                 Assert.IsTrue(EANativeType.Package == package.EANativeType);
                 Assert.IsTrue(0 < package.Elements.Count());
                 Assert.IsTrue("" != package.GUID);
                 Assert.IsTrue(0 < package.ID);
-                Assert.IsTrue(DateTime.Today > package.Modified);
+                Assert.IsTrue(DateTime.Now > package.Modified);
                 Assert.IsTrue("" != package.Name);
                 Assert.IsTrue("" == package.Notes);
-                Assert.IsTrue(0 < package.Packages.Count());
+                Assert.IsTrue(0 == package.Packages.Count());
                 Assert.IsNotNull(package.ParentPackage);
-                Assert.IsTrue("" == package.Version);
-                Assert.IsTrue("" == package.Stereotype);
+                Assert.IsTrue("1.0" == package.Version);
+                Assert.IsTrue("system" == package.Stereotype);
             }
 
             // Operations
@@ -252,7 +255,7 @@ namespace EAFacadeTests
 
             {
                 // GetAllDiagrams / GetDiagram
-                IEAPackage package = _e.GetDecisionPackage();
+                IEAPackage package = _e.GetDecisionPackageTopic();
                 IEnumerable<IEADiagram> diagrams = package.GetAllDiagrams();
                 Assert.IsNotNull(diagrams);
                 IEADiagram first = diagrams.ElementAt(0);
@@ -304,20 +307,15 @@ namespace EAFacadeTests
             }
 
             {
-                // GetSubpackageByName / FindDecisionViewPackage / IsDecisionViewPackage
+                // GetSubpackageByName
                 IEAPackage package = _e.GetDecisionPackage();
-                IEAPackage components = package.GetSubpackageByName("Component Model");
-                Assert.IsNotNull(components);
-              ///  IEAPackage decisionView = components.FindDecisionViewPackage();
-               // Assert.IsNotNull(decisionView);
-                //Assert.IsTrue(EANativeType.Package == decisionView.EANativeType);
-                //Assert.IsTrue(package.ID == decisionView.ID);
-                //Assert.IsTrue(decisionView.IsDecisionViewPackage());
+                IEAPackage subPackage = package.GetSubpackageByName("High-level Decisions");
+                Assert.IsNotNull(subPackage);
             }
 
             {
                 // GetDiagrams
-                IEAPackage package = _e.GetDecisionPackage();
+                IEAPackage package = _e.GetDecisionPackageTopic();
                 IEnumerable<IEADiagram> diagrams = package.GetDiagrams();
                 Assert.IsNotNull(diagrams);
                 Assert.IsTrue(0 < diagrams.Count());
