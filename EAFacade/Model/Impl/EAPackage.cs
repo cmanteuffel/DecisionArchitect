@@ -152,7 +152,7 @@ namespace EAFacade.Model.Impl
                 newPackage.Element.Stereotype = stereotype;
                 newPackage.Update();
             }
-            newPackage.Packages.Refresh();
+            _native.Packages.Refresh();
             EARepository.Instance.RefreshModelView(_native.PackageID);
             return Wrap(newPackage);
         }
@@ -165,6 +165,7 @@ namespace EAFacade.Model.Impl
                 if (p.PackageGUID.Equals(package.GUID))
                 {
                     _native.Packages.DeleteAt(index, true);
+                    _native.Packages.Refresh();
                     EARepository.Instance.RefreshModelView(_native.PackageID);
                     return;
                 }
