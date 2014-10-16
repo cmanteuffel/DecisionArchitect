@@ -34,9 +34,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ProgramFiles>Program Files</ProgramFiles>
+    <ProgramFiles Condition="'$(PROCESSOR_ARCHITECTURE)'=='AMD64' or '$(PROCESSOR_ARCHITEW6432)'=='AMD64'">Program Files (x86)</ProgramFiles>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Interop.EA">
-      <HintPath>C:\Program Files\Sparx Systems\EA\Interop.EA.dll</HintPath>
+      <HintPath>C:\$(ProgramFiles)\Sparx Systems\EA\Interop.EA.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />

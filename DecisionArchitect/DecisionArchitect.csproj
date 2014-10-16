@@ -37,19 +37,23 @@
   <PropertyGroup>
     <ApplicationIcon>DecisionArchitect.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <ProgramFiles>Program Files</ProgramFiles>
+    <ProgramFiles Condition="'$(PROCESSOR_ARCHITECTURE)'=='AMD64' or '$(PROCESSOR_ARCHITEW6432)'=='AMD64'">Program Files (x86)</ProgramFiles>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Open XML SDK\V2.0\lib\DocumentFormat.OpenXml.dll</HintPath>
+      <HintPath>C:\$(ProgramFiles)\Open XML SDK\V2.0\lib\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
     <Reference Include="Interop.EA">
-      <HintPath>C:\Program Files\Sparx Systems\EA\Interop.EA.dll</HintPath>
+      <HintPath>C:\$(ProgramFiles)\Sparx Systems\EA\Interop.EA.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
-      <HintPath>C:\Program Files\Microsoft Visual Studio 11.0\Visual Studio Tools for Office\PIA\Office14\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <HintPath>C:\$(ProgramFiles)\Microsoft Visual Studio 11.0\Visual Studio Tools for Office\PIA\Office14\Microsoft.Office.Interop.Excel.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
