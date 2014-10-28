@@ -3788,7 +3788,7 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>295819617</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>295819617</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>295819617</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://www.DecisionArchitectTeam.com</td><td>0</td><td/><td>-1264396048</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://decisions.codeplex.com</td><td>0</td><td/><td>-450719539</td></row>
 		<row><td>ID_STRING2</td><td>1033</td><td>Decision Architect Team</td><td>0</td><td/><td>-1264396048</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>=-NewEnvironment1</td><td>0</td><td/><td>2040626001</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>=-NewEnvironment1</td><td>0</td><td/><td>2040599409</td></row>
@@ -3899,7 +3899,7 @@
 		<col def="V0">Data</col>
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I2">ISIconIndex</col>
-		<row><td>ARPPRODUCTICON.exe</td><td/><td>C:\TFS\DecisionArchitect\da\metamodel\icons\setup_icon.ico</td><td>0</td></row>
+		<row><td>ARPPRODUCTICON.exe</td><td/><td>P:\metamodel\icons\setup_icon.ico</td><td>0</td></row>
 	</table>
 
 	<table name="IniFile">
