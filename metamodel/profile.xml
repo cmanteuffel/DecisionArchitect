@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<UMLProfile profiletype="uml2">
+	<Documentation id="2D1B27EE-5" name="Decision Architect" version="2.0" notes="Decision Architect"/>
+	<Content>
+		<Stereotypes>
+			<Stereotype name="Concern" metatype="Concern" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" strictness="all">
+				<AppliesTo>
+					<Apply type="Object"/>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="Forces" metatype="Forces" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" strictness="all">
+				<AppliesTo>
+					<Apply type="Class">
+						<Property name="isActive" value=""/>
+					</Apply>
+				</AppliesTo>
+				<TaggedValues>
+					<Tag name="data" type="string" description="" unit="" values="" default=""/>
+				</TaggedValues>
+			</Stereotype>
+			<Stereotype name="Group" metatype="Decision Group" notes="" cx="150" cy="80" bgcolor="15985900" fontcolor="-1" bordercolor="-1" borderwidth="1" hideicon="0" strictness="all">
+				<Icon type="bitmap" xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64"></Icon>
+				<AppliesTo>
+					<Apply type="Activity"/>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="Milestone" metatype="Iteration" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" strictness="all">
+				<Image type="EAShapeScript 1.0" xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64">UEsDBBQAAAAIANSJkEKj6lP+hwAAAOoAAAAHABEAc3RyLmRhdFVUDQAHAodtUQKHbVECh21R
+fY25CsJQEEVPq+A/hJdGwUJrF7BI6YLaWEkIIQr6EE0n/rvHBbWS4c1y5555F3bknChJONrt
+iVxp0aThZqtyUKtUE0a+QKE3UpvPToO3d+lcqObuKpmSNj26Eq/ct/52nQ+58M7j11oqSgWG
+RsqKNZl3M+Z2G32Z6tgIf+mUGROmT/fXeeMOUEsBAhcLFAAAAAgA1ImQQqPqU/6HAAAA6gAA
+AAcACQAAAAAAAAAAAACAAAAAAHN0ci5kYXRVVAUABwKHbVFQSwUGAAAAAAEAAQA+AAAAvQAA
+AAAA</Image>
+				<AppliesTo>
+					<Apply type="Object"/>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="Package" metatype="Package" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" strictness="all">
+				<Icon type="bitmap" xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64">Qk02AwAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAADAAASCwAAEgsAAAAAAAAAAAAA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAaGFhKCEhJyAgJyAgJyAg
+JyAgJyAgKCEhJyAgKCEhJyAgJyAgKCEhJyAgwMDAwMDAZ2Bg////////////////zMS+zMS+
+zcW/zMS+zMS+zMS+zMS+zMS+KCEhwMDAwMDAaGFh////////////////////zMS+zMS+zcW/
+zMS+zMS+zMS+zcW/JyAgwMDAwMDAaGFh////////////////////////zMS+zMS+zMS+zMS+
+zMS+zMS+JyAgwMDAwMDAaGFh////////////////////////////zMS+zMS+zMS+zMS+zMS+
+JyAgwMDAwMDAaGFh////////////////////////////////////zMS+zcW/zMS+KCEhwMDA
+wMDAaGFhaGFhZ2BgZ2BgZ2BgaGFhaGFhaGFhZ2BgaGFhaGFhaGFhaGFhaGFhwMDAwMDAaGFh
+zMS+zMS+zMS+zMS+zMS+Z2BgaGFhJyAgKCEhwMDAwMDAwMDAwMDAwMDAwMDAaGFh////zcW/
+zMS+zcW/zMS+zcW/aGFhaGFhKCEhwMDAwMDAwMDAwMDAwMDAwMDAZ2BgZ2BgZ2BgaGFhaGFh
+aGFhaGFhaGFhaGFhaGFhwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAZQBsAHMAPQAwADsAUAByAGkAbgB0AFAAYQBnAGUASABlAGEAZABGAG8A
+bwB0AD0AMAA7AFMAaABvAHcAQQBzAEwAaQBzAHQAPQAwADsAUwB1AHAAcAByAGUAcwBzAGUA
+ZABDAG8AbQBwAGEAcgB0AG0AZQBuAHQAcwA9ADsAUwBhAHYAZQBUAGEAZwA9ADcAOQAzADQA
+RQAyADgANAA7AAAAeAB4ACMAOwAAAHEATgBvAAAATgBvAAAAAAAAAAAAAAAAAAAAAAAA
+AA==</Icon>
+				<AppliesTo>
+					<Apply type="Package">
+						<Property name="URI" value=""/>
+						<Property name="_defaultDiagramType" value="DA4EA::DecisionArchitect"/>
+						<Property name="_makeComposite" value="true"/>
+					</Apply>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="Release" metatype="Iteration" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" strictness="all">
+				<Image type="EAShapeScript 1.0" xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64">UEsDBBQAAAAIAMaJkEKj6lP+hwAAAOoAAAAHABEAc3RyLmRhdFVUDQAH+4ZtUfuGbVH7hm1R
+fY25CsJQEEVPq+A/hJdGwUJrF7BI6YLaWEkIIQr6EE0n/rvHBbWS4c1y5555F3bknChJONrt
+iVxp0aThZqtyUKtUE0a+QKE3UpvPToO3d+lcqObuKpmSNj26Eq/ct/52nQ+58M7j11oqSgWG
+RsqKNZl3M+Z2G32Z6tgIf+mUGROmT/fXeeMOUEsBAhcLFAAAAAgAxomQQqPqU/6HAAAA6gAA
+AAcACQAAAAAAAAAAAACAAAAAAHN0ci5kYXRVVAUAB/uGbVFQSwUGAAAAAAEAAQA+AAAAvQAA
+AAAA</Image>
+				<AppliesTo>
+					<Apply type="Object"/>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="Snapshot" metatype="Iteration" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" strictness="all">
+				<Image type="EAShapeScript 1.0" xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64">UEsDBBQAAAAIANCJkEKj6lP+hwAAAOoAAAAHABEAc3RyLmRhdFVUDQAHEIdtURCHbVEQh21R
+fY25CsJQEEVPq+A/hJdGwUJrF7BI6YLaWEkIIQr6EE0n/rvHBbWS4c1y5555F3bknChJONrt
+iVxp0aThZqtyUKtUE0a+QKE3UpvPToO3d+lcqObuKpmSNj26Eq/ct/52nQ+58M7j11oqSgWG
+RsqKNZl3M+Z2G32Z6tgIf+mUGROmT/fXeeMOUEsBAhcLFAAAAAgA0ImQQqPqU/6HAAAA6gAA
+AAcACQAAAAAAAAAAAACAAAAAAHN0ci5kYXRVVAUABxCHbVFQSwUGAAAAAAEAAQA+AAAAvQAA
+AAAA</Image>
+				<AppliesTo>
+					<Apply type="Object"/>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="Topic" metatype="DATopic" notes="" cx="90" cy="70" bgcolor="16777215" fontcolor="-1" bordercolor="0" borderwidth="1" hideicon="0" strictness="all">
+				<Icon type="bitmap" xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64">Qk02AwAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAADAAATCwAAEwsAAAAAAAAAAAAA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAv767oWEAoWEAspNjwMDAnZSUhG5qi29mjXRtlHxzinBq
+jX1+t7W2wMDAv7+/wMDAv767oWEAoWEAspNjwMDApZaW2dHM69vL5cixwqWRlnpwc1dWfm5v
+lIyLkomJrqqrwMC+sI5ZsI5ZuKiOwMDAuKen6Onp6enp2s3Hrp+ctaulxLinwKuZvqCPooZ9
+g29vwMDAu7CgtZ98wMDAwMDArZyb4+Piw7y9iHR4kYKFs62wq52WuJ2K5dK35c61jXJrwMDA
+spVopWwUwMDAwMDAqZubp5eZjnZzkGxbnHRgm3Vll3Fhb0pFnH5x4suyln92wMDArolRoWMC
+wL68wMDAuLi4nYSF1sfG///5/eXK98yl/+G5xqGIhGZhuKumk4F+wMDAq347oWEAvLSnwMDA
+vr6+r56e5tbW/////vn289fA+9Ko47uWhmdglYiMtrGwwMDAqHQloWEAuamRwMDAvb29o5CQ
+zL29/f///////vn1/vbl0rqpf2hlr6+vwMDAwMDApGkPoWEAtZ56wMDAwMDAsaqqnYWFqo+O
+po2Mpo2Or5eam4OFoZiYwMDAv76/wMDAo2YIoWEAtJpywMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAo2YIoWEAtJpywMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAo2YIoWEAtJpywMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAZQBsAHMAPQAwADsAUAByAGkAbgB0AFAAYQBnAGUASABlAGEAZABGAG8A
+bwB0AD0AMAA7AFMAaABvAHcAQQBzAEwAaQBzAHQAPQAwADsAUwB1AHAAcAByAGUAcwBzAGUA
+ZABDAG8AbQBwAGEAcgB0AG0AZQBuAHQAcwA9ADsAUwBhAHYAZQBUAGEAZwA9ADcAOQAzADQA
+RQAyADgANAA7AAAAeAB4ACMAOwAAAHEATgBvAAAATgBvAAAAAAAAAAAAAAAAAAAAAAAA
+AA==</Icon>
+				<Image type="EAShapeScript 1.0" xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64">UEsDBBQAAAAIAExui0ODOSZ06QAAAGoCAAAHABEAc3RyLmRhdFVUDQAHnm2oUp5tqFKebahS
+jZHdisIwEEa/Wxf2HcS9UfDCVvwB8VmktLUKbpWm4i6L7+7J0NJQBZeQySRzJvlm4nRQooty
+DfWNd1SpP33qg/UsZ9EM70Z8yxypVqUr/Egb4wYwO6gTuQVZWyIp8RIyh+04x742rsRz+L/s
+co1hHG/4SIY/6WXsOT8xUmPO3DlWrAVj2lv7mb6uEnplTGjjgK2gUugEtmgUzWD8jLDd2r9/
+jxpfZ6hsYXxnu5wLcV97TTcr67rXl1n9X5wn/ECO97oDP8Z6rQU7/26oMraanhW+6kDUqJu/
+6cESpp3Rv+iIF1p+HfB37ANQSwECFwsUAAAACABMbotDgzkmdOkAAABqAgAABwAJAAAAAAAA
+AAAAAIAAAAAAc3RyLmRhdFVUBQAHnm2oUlBLBQYAAAAAAQABAD4AAAAfAQAAAAA=</Image>
+				<AppliesTo>
+					<Apply type="Activity"/>
+					<Apply type="Collaboration"/>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="alternative for" metatype="Relationship" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" strictness="all">
+				<Icon type="bitmap" xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64">Qk02AwAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAADAAASCwAAEgsAAAAAAAAAAAAA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAhD08hD09
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAhD08hD08hD09wMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAhD09hD08hD08wMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAhD09hD08xlxcwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxlxbhD08xl1cwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxl1cxl1cxl1cwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxlxbxlxbxl1cwMDAwMDAwMDAhD09wMDAwMDA
+wMDAwMDAhD08wMDAwMDAhD08wMDAwMDAxl1cwp+fxlxcwMDAwMDAhT09wMDAwMDAwMDAwMDA
+hD08wMDAwMDAhD08wMDAwMDAwMDAxlxbvdzBxlxbwMDAhD08wMDAwMDAwMDAwMDAhD08hD08
+hD08hD08wMDAwMDAwMDAwMDAxl1cvdzBxlxbhD09wMDAwMDAwMDAwMDAhD08wMDAwMDAhD08
+wMDAwMDAwMDAwMDAwMDAxl1c7/v/hD08wMDAwMDAwMDAwMDAhD08hD08hD08hD08wMDAwMDA
+hD09hD08hD09hD09hD09hD08wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAZQBsAHMAPQAwADsAUAByAGkAbgB0AFAAYQBnAGUASABlAGEAZABGAG8A
+bwB0AD0AMAA7AFMAaABvAHcAQQBzAEwAaQBzAHQAPQAwADsAUwB1AHAAcAByAGUAcwBzAGUA
+ZABDAG8AbQBwAGEAcgB0AG0AZQBuAHQAcwA9ADsAUwBhAHYAZQBUAGEAZwA9ADcAOQAzADQA
+RQAyADgANAA7AAAAeAB4ACMAOwAAAHEATgBvAAAATgBvAAAAAAAAAAAAAAAAAAAAAAAA
+AA==</Icon>
+				<AppliesTo>
+					<Apply type="ControlFlow">
+						<Property name="direction" value="Source -&gt; Destination"/>
+					</Apply>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="approved" metatype="DADecision" notes="" cx="120" cy="50" bgcolor="8846241" fontcolor="-1" bordercolor="-1" borderwidth="1" hideicon="0" strictness="all">
+				<Icon type="bitmap" xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64">Qk02AwAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAADAAASCwAAEgsAAAAAAAAAAAAA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDALi4uLi4uLi4uLy8vLi4uLi4u
+Li4uLi4uwMDAwMDAwMDAwMDAwMDAwMDAwMDAcHBwoqKizMzMzMzMzMzMzc3Nzc3NzMzMcHBw
+Li4uwMDAwMDAwMDAwMDAwMDAwMDAcHBw////////////zMzMzMzMzMzMzc3NzMzMLy8vwMDA
+wMDAwMDAwMDAwMDAwMDAcHBw////////////////zMzMzMzMzc3NzMzMLy8vwMDAwMDAwMDA
+wMDAwMDAwMDAb29v////////////////////zMzMzMzMzMzMLy8vwMDAwMDAwMDAwMDAwMDA
+wMDAcHBwoqKi////////////////////////oqKiLy8vwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+cHBwb29vb29vcHBwcHBwb29vcHBwcHBwwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAZQBsAHMAPQAwADsAUAByAGkAbgB0AFAAYQBnAGUASABlAGEAZABGAG8A
+bwB0AD0AMAA7AFMAaABvAHcAQQBzAEwAaQBzAHQAPQAwADsAUwB1AHAAcAByAGUAcwBzAGUA
+ZABDAG8AbQBwAGEAcgB0AG0AZQBuAHQAcwA9ADsAUwBhAHYAZQBUAGEAZwA9ADcAOQAzADQA
+RQAyADgANAA7AAAAeAB4ACMAOwAAAHEATgBvAAAATgBvAAAAAAAAAAAAAAAAAAAAAAAA
+AA==</Icon>
+				<AppliesTo>
+					<Apply type="Action"/>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="architect" metatype="Stakeholder" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="Actor"/>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="caused by" metatype="Relationship" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" strictness="all">
+				<Icon type="bitmap" xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64">Qk02AwAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAADAAASCwAAEgsAAAAAAAAAAAAA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAhD08hD09
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAhD08hD08hD09wMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAhD09hD08hD08wMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAhD09hD08xlxcwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxlxbhD08xl1cwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxl1cxl1cxl1cwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxlxbxlxbxl1cwMDAwMDAwMDAhD09wMDAwMDA
+wMDAwMDAwMDAhD08hD08wMDAwMDAwMDAxl1cwp+fxlxcwMDAwMDAhT09wMDAwMDAwMDAwMDA
+hD08wMDAwMDAwMDAwMDAwMDAwMDAxlxbvdzBxlxbwMDAhD08wMDAwMDAwMDAwMDAhD08wMDA
+wMDAwMDAwMDAwMDAwMDAwMDAxl1cvdzBxlxbhD09wMDAwMDAwMDAwMDAhD08wMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAxl1c7/v/hD08wMDAwMDAwMDAwMDAwMDAhD08hD08wMDAwMDAwMDA
+hD09hD08hD09hD09hD09hD08wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAZQBsAHMAPQAwADsAUAByAGkAbgB0AFAAYQBnAGUASABlAGEAZABGAG8A
+bwB0AD0AMAA7AFMAaABvAHcAQQBzAEwAaQBzAHQAPQAwADsAUwB1AHAAcAByAGUAcwBzAGUA
+ZABDAG8AbQBwAGEAcgB0AG0AZQBuAHQAcwA9ADsAUwBhAHYAZQBUAGEAZwA9ADcAOQAzADQA
+RQAyADgANAA7AAAAeAB4ACMAOwAAAHEATgBvAAAATgBvAAAAAAAAAAAAAAAAAAAAAAAA
+AA==</Icon>
+				<AppliesTo>
+					<Apply type="ControlFlow">
+						<Property name="direction" value="Source -&gt; Destination"/>
+					</Apply>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="challenge" metatype="Action" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" strictness="all">
+				<AppliesTo>
+					<Apply type="Dependency">
+						<Property name="direction" value="Source -&gt; Destination"/>
+					</Apply>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="challenged" metatype="DADecision" notes="" cx="120" cy="50" bgcolor="10859007" fontcolor="-1" bordercolor="-1" borderwidth="1" hideicon="0" strictness="all">
+				<Icon type="bitmap" xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64">Qk02AwAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAADAAASCwAAEgsAAAAAAAAAAAAA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDALi4uLi4uLi4uLy8vLi4uLi4u
+Li4uLi4uwMDAwMDAwMDAwMDAwMDAwMDAwMDAcHBwoqKizMzMzMzMzMzMzc3Nzc3NzMzMcHBw
+Li4uwMDAwMDAwMDAwMDAwMDAwMDAcHBw////////////zMzMzMzMzMzMzc3NzMzMLy8vwMDA
+wMDAwMDAwMDAwMDAwMDAcHBw////////////////zMzMzMzMzc3NzMzMLy8vwMDAwMDAwMDA
+wMDAwMDAwMDAb29v////////////////////zMzMzMzMzMzMLy8vwMDAwMDAwMDAwMDAwMDA
+wMDAcHBwoqKi////////////////////////oqKiLy8vwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+cHBwb29vb29vcHBwcHBwb29vcHBwcHBwwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAZQBsAHMAPQAwADsAUAByAGkAbgB0AFAAYQBnAGUASABlAGEAZABGAG8A
+bwB0AD0AMAA7AFMAaABvAHcAQQBzAEwAaQBzAHQAPQAwADsAUwB1AHAAcAByAGUAcwBzAGUA
+ZABDAG8AbQBwAGEAcgB0AG0AZQBuAHQAcwA9ADsAUwBhAHYAZQBUAGEAZwA9ADcAOQAzADQA
+RQAyADgANAA7AAAAeAB4ACMAOwAAAHEATgBvAAAATgBvAAAAAAAAAAAAAAAAAAAAAAAA
+AA==</Icon>
+				<AppliesTo>
+					<Apply type="Action"/>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="classified by" metatype="ForcesRelationship" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" strictness="all">
+				<AppliesTo>
+					<Apply type="ControlFlow">
+						<Property name="direction" value="Source -&gt; Destination"/>
+					</Apply>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="confirm" metatype="Action" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" strictness="all">
+				<AppliesTo>
+					<Apply type="Dependency">
+						<Property name="direction" value="Source -&gt; Destination"/>
+					</Apply>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="customer" metatype="Stakeholder" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="Actor"/>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="decided" metatype="DADecision" notes="" cx="120" cy="50" bgcolor="13958868" fontcolor="-1" bordercolor="-1" borderwidth="1" hideicon="0" strictness="all">
+				<Icon type="bitmap" xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64">Qk02AwAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAADAAASCwAAEgsAAAAAAAAAAAAA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDALi4uLi4uLi4uLy8vLi4uLi4u
+Li4uLi4uwMDAwMDAwMDAwMDAwMDAwMDAwMDAcHBwoqKizMzMzMzMzMzMzc3Nzc3NzMzMcHBw
+Li4uwMDAwMDAwMDAwMDAwMDAwMDAcHBw////////////zMzMzMzMzMzMzc3NzMzMLy8vwMDA
+wMDAwMDAwMDAwMDAwMDAcHBw////////////////zMzMzMzMzc3NzMzMLy8vwMDAwMDAwMDA
+wMDAwMDAwMDAb29v////////////////////zMzMzMzMzMzMLy8vwMDAwMDAwMDAwMDAwMDA
+wMDAcHBwoqKi////////////////////////oqKiLy8vwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+cHBwb29vb29vcHBwcHBwb29vcHBwcHBwwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAZQBsAHMAPQAwADsAUAByAGkAbgB0AFAAYQBnAGUASABlAGEAZABGAG8A
+bwB0AD0AMAA7AFMAaABvAHcAQQBzAEwAaQBzAHQAPQAwADsAUwB1AHAAcAByAGUAcwBzAGUA
+ZABDAG8AbQBwAGEAcgB0AG0AZQBuAHQAcwA9ADsAUwBhAHYAZQBUAGEAZwA9ADcAOQAzADQA
+RQAyADgANAA7AAAAeAB4ACMAOwAAAHEATgBvAAAATgBvAAAAAAAAAAAAAAAAAAAAAAAA
+AA==</Icon>
+				<AppliesTo>
+					<Apply type="Action"/>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="depends on" metatype="Relationship" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" strictness="all">
+				<Icon type="bitmap" xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64">Qk02AwAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAADAAASCwAAEgsAAAAAAAAAAAAA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAhD08hD09
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAhD08hD08hD09wMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAhD09hD08hD08wMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAhD09hD08xlxcwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxlxbhD08xl1cwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxl1cxl1cxl1cwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxlxbxlxbxl1cwMDAwMDAwMDAhD09wMDAwMDA
+wMDAwMDAhD08hD08hD08wMDAwMDAwMDAxl1cwp+fxlxcwMDAwMDAhT09wMDAwMDAwMDAwMDA
+hD08wMDAwMDAhD08wMDAwMDAwMDAxlxbvdzBxlxbwMDAhD08wMDAwMDAwMDAwMDAhD08wMDA
+wMDAhD08wMDAwMDAwMDAwMDAxl1cvdzBxlxbhD09wMDAwMDAwMDAwMDAhD08wMDAwMDAhD08
+wMDAwMDAwMDAwMDAwMDAxl1c7/v/hD08wMDAwMDAwMDAwMDAhD08hD08hD08wMDAwMDAwMDA
+hD09hD08hD09hD09hD09hD08wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAZQBsAHMAPQAwADsAUAByAGkAbgB0AFAAYQBnAGUASABlAGEAZABGAG8A
+bwB0AD0AMAA7AFMAaABvAHcAQQBzAEwAaQBzAHQAPQAwADsAUwB1AHAAcAByAGUAcwBzAGUA
+ZABDAG8AbQBwAGEAcgB0AG0AZQBuAHQAcwA9ADsAUwBhAHYAZQBUAGEAZwA9ADcAOQAzADQA
+RQAyADgANAA7AAAAeAB4ACMAOwAAAHEATgBvAAAATgBvAAAAAAAAAAAAAAAAAAAAAAAA
+AA==</Icon>
+				<AppliesTo>
+					<Apply type="ControlFlow">
+						<Property name="direction" value="Source -&gt; Destination"/>
+					</Apply>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="discard" metatype="Action" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" strictness="all">
+				<AppliesTo>
+					<Apply type="Dependency">
+						<Property name="direction" value="Source -&gt; Destination"/>
+					</Apply>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="discarded" metatype="DADecision" notes="" cx="120" cy="50" bgcolor="14803425" fontcolor="-1" bordercolor="-1" borderwidth="1" hideicon="0" strictness="all">
+				<Icon type="bitmap" xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64">Qk02AwAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAADAAASCwAAEgsAAAAAAAAAAAAA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDALi4uLi4uLi4uLy8vLi4uLi4u
+Li4uLi4uwMDAwMDAwMDAwMDAwMDAwMDAwMDAcHBwoqKizMzMzMzMzMzMzc3Nzc3NzMzMcHBw
+Li4uwMDAwMDAwMDAwMDAwMDAwMDAcHBw////////////zMzMzMzMzMzMzc3NzMzMLy8vwMDA
+wMDAwMDAwMDAwMDAwMDAcHBw////////////////zMzMzMzMzc3NzMzMLy8vwMDAwMDAwMDA
+wMDAwMDAwMDAb29v////////////////////zMzMzMzMzMzMLy8vwMDAwMDAwMDAwMDAwMDA
+wMDAcHBwoqKi////////////////////////oqKiLy8vwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+cHBwb29vb29vcHBwcHBwb29vcHBwcHBwwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAZQBsAHMAPQAwADsAUAByAGkAbgB0AFAAYQBnAGUASABlAGEAZABGAG8A
+bwB0AD0AMAA7AFMAaABvAHcAQQBzAEwAaQBzAHQAPQAwADsAUwB1AHAAcAByAGUAcwBzAGUA
+ZABDAG8AbQBwAGEAcgB0AG0AZQBuAHQAcwA9ADsAUwBhAHYAZQBUAGEAZwA9ADcAOQAzADQA
+RQAyADgANAA7AAAAeAB4ACMAOwAAAHEATgBvAAAATgBvAAAAAAAAAAAAAAAAAAAAAAAA
+AA==</Icon>
+				<AppliesTo>
+					<Apply type="Action"/>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="excluded by" metatype="Relationship" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" strictness="all">
+				<Icon type="bitmap" xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64">Qk02AwAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAADAAASCwAAEgsAAAAAAAAAAAAA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAhD08hD09
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAhD08hD08hD09wMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAhD09hD08hD08wMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAhD09hD08xlxcwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxlxbhD08xl1cwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxl1cxl1cxl1cwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxlxbxlxbxl1cwMDAwMDAwMDAhD09wMDAwMDA
+wMDAwMDAhD08hD08hD08wMDAwMDAwMDAxl1cwp+fxlxcwMDAwMDAhT09wMDAwMDAwMDAwMDA
+hD08wMDAwMDAwMDAwMDAwMDAwMDAxlxbvdzBxlxbwMDAhD08wMDAwMDAwMDAwMDAhD08hD08
+hD08wMDAwMDAwMDAwMDAwMDAxl1cvdzBxlxbhD09wMDAwMDAwMDAwMDAhD08wMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAxl1c7/v/hD08wMDAwMDAwMDAwMDAhD08hD08hD08wMDAwMDAwMDA
+hD09hD08hD09hD09hD09hD08wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAZQBsAHMAPQAwADsAUAByAGkAbgB0AFAAYQBnAGUASABlAGEAZABGAG8A
+bwB0AD0AMAA7AFMAaABvAHcAQQBzAEwAaQBzAHQAPQAwADsAUwB1AHAAcAByAGUAcwBzAGUA
+ZABDAG8AbQBwAGEAcgB0AG0AZQBuAHQAcwA9ADsAUwBhAHYAZQBUAGEAZwA9ADcAOQAzADQA
+RQAyADgANAA7AAAAeAB4ACMAOwAAAHEATgBvAAAATgBvAAAAAAAAAAAAAAAAAAAAAAAA
+AA==</Icon>
+				<AppliesTo>
+					<Apply type="ControlFlow">
+						<Property name="direction" value="Source -&gt; Destination"/>
+					</Apply>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="followed by" metatype="ChronologyRelationship" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" strictness="all">
+				<Image type="EAShapeScript 1.0" xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64">UEsDBBQAAAAIAMaQkELtX9YdwAAAAPgBAAAHABEAc3RyLmRhdFVUDQAHG5NtURuTbVEbk21R
+pU89C8IwEH2rgv8hdKqgoEsXcXBxFvwFLSlWbI2kUQfpf/flWqNVF5FyzeXeR+7VKJDihBwK
+Fbs9jrhhhCEG7AxqwTW7K5ZwsDiTu+gYFecX3h3PGDNMWOOAluL2QOfE3hkFGZqMkm9kcsaI
+6OqnmrecU0O9d6heWFHwaOTvq920TeLYWezkbRXyWPFKpTJxV8zk2f1Udad3dPPsgls9d/4t
+c0I8+Us97elz4vrrXmtqS34rYWwllcGBis0Hu8EdUEsBAhcLFAAAAAgAxpCQQu1f1h3AAAAA
++AEAAAcACQAAAAAAAAAAAACAAAAAAHN0ci5kYXRVVAUABxuTbVFQSwUGAAAAAAEAAQA+AAAA
+9gAAAAAA</Image>
+				<AppliesTo>
+					<Apply type="ControlFlow">
+						<Property name="direction" value="Source -&gt; Destination"/>
+					</Apply>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="formulate" metatype="Action" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" strictness="all">
+				<AppliesTo>
+					<Apply type="Dependency">
+						<Property name="direction" value="Source -&gt; Destination"/>
+					</Apply>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="idea" metatype="DADecision" notes="" cx="120" cy="50" bgcolor="14940415" fontcolor="-1" bordercolor="-1" borderwidth="1" hideicon="0" strictness="all">
+				<Icon type="bitmap" xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64">Qk02AwAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAADAAASCwAAEgsAAAAAAAAAAAAA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDALi4uLi4uLi4uLy8vLi4uLi4u
+Li4uLi4uwMDAwMDAwMDAwMDAwMDAwMDAwMDAcHBwoqKizMzMzMzMzMzMzc3Nzc3NzMzMcHBw
+Li4uwMDAwMDAwMDAwMDAwMDAwMDAcHBw////////////zMzMzMzMzMzMzc3NzMzMLy8vwMDA
+wMDAwMDAwMDAwMDAwMDAcHBw////////////////zMzMzMzMzc3NzMzMLy8vwMDAwMDAwMDA
+wMDAwMDAwMDAb29v////////////////////zMzMzMzMzMzMLy8vwMDAwMDAwMDAwMDAwMDA
+wMDAcHBwoqKi////////////////////////oqKiLy8vwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+cHBwb29vb29vcHBwcHBwb29vcHBwcHBwwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAZQBsAHMAPQAwADsAUAByAGkAbgB0AFAAYQBnAGUASABlAGEAZABGAG8A
+bwB0AD0AMAA7AFMAaABvAHcAQQBzAEwAaQBzAHQAPQAwADsAUwB1AHAAcAByAGUAcwBzAGUA
+ZABDAG8AbQBwAGEAcgB0AG0AZQBuAHQAcwA9ADsAUwBhAHYAZQBUAGEAZwA9ADcAOQAzADQA
+RQAyADgANAA7AAAAeAB4ACMAOwAAAHEATgBvAAAATgBvAAAAAAAAAAAAAAAAAAAAAAAA
+AA==</Icon>
+				<AppliesTo>
+					<Apply type="Action"/>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="manager" metatype="Stakeholder" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="Actor"/>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="propose" metatype="Action" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" strictness="all">
+				<AppliesTo>
+					<Apply type="Dependency">
+						<Property name="direction" value="Source -&gt; Destination"/>
+					</Apply>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="reject" metatype="Action" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" strictness="all">
+				<AppliesTo>
+					<Apply type="Dependency">
+						<Property name="direction" value="Source -&gt; Destination"/>
+					</Apply>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="rejected" metatype="DADecision" notes="" cx="120" cy="50" bgcolor="12500670" fontcolor="-1" bordercolor="-1" borderwidth="1" hideicon="0" strictness="all">
+				<Icon type="bitmap" xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64">Qk02AwAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAADAAASCwAAEgsAAAAAAAAAAAAA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDALi4uLi4uLi4uLy8vLi4uLi4u
+Li4uLi4uwMDAwMDAwMDAwMDAwMDAwMDAwMDAcHBwoqKizMzMzMzMzMzMzc3Nzc3NzMzMcHBw
+Li4uwMDAwMDAwMDAwMDAwMDAwMDAcHBw////////////zMzMzMzMzMzMzc3NzMzMLy8vwMDA
+wMDAwMDAwMDAwMDAwMDAcHBw////////////////zMzMzMzMzc3NzMzMLy8vwMDAwMDAwMDA
+wMDAwMDAwMDAb29v////////////////////zMzMzMzMzMzMLy8vwMDAwMDAwMDAwMDAwMDA
+wMDAcHBwoqKi////////////////////////oqKiLy8vwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+cHBwb29vb29vcHBwcHBwb29vcHBwcHBwwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAZQBsAHMAPQAwADsAUAByAGkAbgB0AFAAYQBnAGUASABlAGEAZABGAG8A
+bwB0AD0AMAA7AFMAaABvAHcAQQBzAEwAaQBzAHQAPQAwADsAUwB1AHAAcAByAGUAcwBzAGUA
+ZABDAG8AbQBwAGEAcgB0AG0AZQBuAHQAcwA9ADsAUwBhAHYAZQBUAGEAZwA9ADcAOQAzADQA
+RQAyADgANAA7AAAAeAB4ACMAOwAAAHEATgBvAAAATgBvAAAAAAAAAAAAAAAAAAAAAAAA
+AA==</Icon>
+				<AppliesTo>
+					<Apply type="Action"/>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="replaces" metatype="Relationship" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" strictness="all">
+				<Icon type="bitmap" xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64">Qk02AwAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAADAAASCwAAEgsAAAAAAAAAAAAA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAhD08hD09
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAhD08hD08hD09wMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAhD09hD08hD08wMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAhD09hD08xlxcwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxlxbhD08xl1cwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxl1cxl1cxl1cwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxlxbxlxbxl1cwMDAwMDAwMDAhD09wMDAwMDA
+wMDAwMDAhD08wMDAwMDAhD08wMDAwMDAxl1cwp+fxlxcwMDAwMDAhT09wMDAwMDAwMDAwMDA
+hD08hD08hD08wMDAwMDAwMDAwMDAxlxbvdzBxlxbwMDAhD08wMDAwMDAwMDAwMDAhD08wMDA
+wMDAhD08wMDAwMDAwMDAwMDAxl1cvdzBxlxbhD09wMDAwMDAwMDAwMDAhD08wMDAwMDAhD08
+wMDAwMDAwMDAwMDAwMDAxl1c7/v/hD08wMDAwMDAwMDAwMDAhD08hD08hD08wMDAwMDAwMDA
+hD09hD08hD09hD09hD09hD08wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAZQBsAHMAPQAwADsAUAByAGkAbgB0AFAAYQBnAGUASABlAGEAZABGAG8A
+bwB0AD0AMAA7AFMAaABvAHcAQQBzAEwAaQBzAHQAPQAwADsAUwB1AHAAcAByAGUAcwBzAGUA
+ZABDAG8AbQBwAGEAcgB0AG0AZQBuAHQAcwA9ADsAUwBhAHYAZQBUAGEAZwA9ADcAOQAzADQA
+RQAyADgANAA7AAAAeAB4ACMAOwAAAHEATgBvAAAATgBvAAAAAAAAAAAAAAAAAAAAAAAA
+AA==</Icon>
+				<AppliesTo>
+					<Apply type="ControlFlow">
+						<Property name="direction" value="Source -&gt; Destination"/>
+					</Apply>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="tentative" metatype="DADecision" notes="" cx="120" cy="50" bgcolor="16771267" fontcolor="-1" bordercolor="-1" borderwidth="1" hideicon="0" strictness="all">
+				<Icon type="bitmap" xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64">Qk02AwAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAADAAASCwAAEgsAAAAAAAAAAAAA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDALi4uLi4uLi4uLy8vLi4uLi4u
+Li4uLi4uwMDAwMDAwMDAwMDAwMDAwMDAwMDAcHBwoqKizMzMzMzMzMzMzc3Nzc3NzMzMcHBw
+Li4uwMDAwMDAwMDAwMDAwMDAwMDAcHBw////////////zMzMzMzMzMzMzc3NzMzMLy8vwMDA
+wMDAwMDAwMDAwMDAwMDAcHBw////////////////zMzMzMzMzc3NzMzMLy8vwMDAwMDAwMDA
+wMDAwMDAwMDAb29v////////////////////zMzMzMzMzMzMLy8vwMDAwMDAwMDAwMDAwMDA
+wMDAcHBwoqKi////////////////////////oqKiLy8vwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+cHBwb29vb29vcHBwcHBwb29vcHBwcHBwwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+wMDAwMDAwMDAwMDAZQBsAHMAPQAwADsAUAByAGkAbgB0AFAAYQBnAGUASABlAGEAZABGAG8A
+bwB0AD0AMAA7AFMAaABvAHcAQQBzAEwAaQBzAHQAPQAwADsAUwB1AHAAcAByAGUAcwBzAGUA
+ZABDAG8AbQBwAGEAcgB0AG0AZQBuAHQAcwA9ADsAUwBhAHYAZQBUAGEAZwA9ADcAOQAzADQA
+RQAyADgANAA7AAAAeAB4ACMAOwAAAHEATgBvAAAATgBvAAAAAAAAAAAAAAAAAAAAAAAA
+AA==</Icon>
+				<AppliesTo>
+					<Apply type="Action"/>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="validate" metatype="Action" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" strictness="all">
+				<AppliesTo>
+					<Apply type="Dependency">
+						<Property name="direction" value="Source -&gt; Destination"/>
+					</Apply>
+				</AppliesTo>
+			</Stereotype>
+		</Stereotypes>
+		<TaggedValueTypes/>
+	</Content>
+</UMLProfile>

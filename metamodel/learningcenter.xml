@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<UMLProfile profiletype="uml2">
+	<Documentation id="A15AB80E-3" name="Learning Center" version="2.0" notes="Learning Center"/>
+	<Content>
+		<Stereotypes>
+			<Stereotype name="Decision Stereotypes" alias="Decision Viewpoints" notes="" cx="468" cy="137" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="ToolboxPage">
+						<Property name="isActive" value=""/>
+					</Apply>
+				</AppliesTo>
+				<TaggedValues>
+					<Tag name="isCommon" type="bool" description="" unit="" values="true,false" default="True"/>
+					<Tag name="EASystem::ShowMovie(https://www.youtube.com/watch?v=MJzr7Dp7P5g)" type="" description="" unit="" values="" default="Tutorial 1 - Introduction"/>
+					<Tag name="EASystem::ShowMovie(https://www.youtube.com/watch?v=70RbrP0f3d4)" type="" description="" unit="" values="" default="Tutorial 2 - Relationship Viewpoint"/>
+					<Tag name="EASystem::ShowMovie(https://www.youtube.com/watch?v=b6eEPyb05hY)" type="" description="" unit="" values="" default="Tutorial 3 - Stakeholder Involvement Viewpoint"/>
+					<Tag name="EASystem::ShowMovie(https://www.youtube.com/watch?v=RkTN6BROGtY)" type="" description="" unit="" values="" default="Tutorial 4 - Chronology Viewpoint"/>
+					<Tag name="EASystem::ShowMovie(https://www.youtube.com/watch?v=qjQ1E4B4ogA)" type="" description="" unit="" values="" default="Tutorial 5 - Decision Forces Viewpoint"/>
+					<Tag name="EASystem::ShowMovie(https://www.youtube.com/watch?v=2DpSzCSGPbE)" type="" description="" unit="" values="" default="Tutorial 6 - Detail Viewpoint"/>
+					<Tag name="EASystem::ShowMovie(https://www.youtube.com/watch?v=-HWJCTbS6gY)" type="" description="" unit="" values="" default="Tutorial 7 - Tracing and Reporting"/>
+				</TaggedValues>
+			</Stereotype>
+		</Stereotypes>
+		<TaggedValueTypes/>
+	</Content>
+</UMLProfile>
