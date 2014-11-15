@@ -1,0 +1,10 @@
+<BranchVCSpec>
+	<PkgGUID>{7DC82F5F-D900-41e7-B110-115CA1F33204}</PkgGUID>
+	<XMLPath>ea1\115CA1F33204.xml</XMLPath>
+	<Config>
+		<GUID>TSDAD</GUID>
+		<LocalPath>%TSDAD%</LocalPath>
+		<Type>3</Type>
+		<TFSServer>https://addin.visualstudio.com/defaultcollection</TFSServer>
+	</Config>
+</BranchVCSpec>
