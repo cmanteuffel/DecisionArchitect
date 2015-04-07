@@ -29,7 +29,7 @@ namespace DecisionArchitect.Logic.Validation
             CreateElementRules();
         }
 
-        public IList<AbstractRule> Rules
+        public IEnumerable<AbstractRule> Rules
         {
             get { return _rules; }
         }

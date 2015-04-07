@@ -319,7 +319,6 @@ namespace EAFacade.Model.Impl
                 _native.Update();
                 return;
             }
-            
         }
 
 
@@ -382,7 +381,7 @@ namespace EAFacade.Model.Impl
                        .FirstOrDefault();
         }
 
-        public IList<IEATaggedValue> GetTaggedValuesByName(string name)
+        public IEnumerable<IEATaggedValue> GetTaggedValuesByName(string name)
         {
             return
                 _native.TaggedValues.Cast<TaggedValue>()

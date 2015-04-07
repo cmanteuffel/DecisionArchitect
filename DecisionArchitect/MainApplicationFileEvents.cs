@@ -11,7 +11,6 @@
     Marc Holterman (University of Groningen)
  */
 
-using System.Runtime.InteropServices;
 using DecisionArchitect.Logic;
 using EA;
 using EAFacade;
@@ -22,8 +21,6 @@ namespace DecisionArchitect
     {
         public override void EA_FileOpen(Repository repository)
         {
-
-
             EAMain.UpdateRepository(repository);
             foreach (IRepositoryListener l in _listeners)
             {
@@ -33,8 +30,6 @@ namespace DecisionArchitect
 
         public override void EA_FileClose(Repository repository)
         {
-
-
             EAMain.UpdateRepository(repository);
             foreach (IRepositoryListener l in _listeners)
             {
@@ -44,8 +39,6 @@ namespace DecisionArchitect
 
         public override void EA_FileNew(Repository repository)
         {
-
-
             EAMain.UpdateRepository(repository);
             foreach (IRepositoryListener l in _listeners)
             {

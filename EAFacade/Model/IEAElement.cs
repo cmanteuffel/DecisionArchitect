@@ -95,7 +95,7 @@ namespace EAFacade.Model
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        IList<IEATaggedValue> GetTaggedValuesByName(string name);
+        IEnumerable<IEATaggedValue> GetTaggedValuesByName(string name);
 
         /// <summary>
         ///     Returns the first taggedvalue with the specified name. (possibility that multiple taggedvalue with the same name exist)

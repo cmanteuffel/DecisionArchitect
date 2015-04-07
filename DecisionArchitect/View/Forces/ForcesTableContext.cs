@@ -11,7 +11,7 @@
 
 namespace DecisionArchitect.View.Forces
 {
-    public class ForcesTableContext
+    public static class ForcesTableContext
     {
         public const string EmptyCellValue = "-";
 

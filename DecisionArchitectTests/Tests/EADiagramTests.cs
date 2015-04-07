@@ -11,19 +11,16 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using EA;
+using System.IO;
 using EAFacade;
 using EAFacade.Model;
 using NUnit.Framework;
 
-namespace DecisionArchitectTests
+namespace DecisionArchitectTests.Tests
 {
     [TestFixture]
     public class EADiagramTests
     {
-        private Example _e;
-
         [SetUp]
         public void InitEATests()
         {
@@ -34,6 +31,8 @@ namespace DecisionArchitectTests
         public void CleanupEATests()
         {
         }
+
+        private Example _e;
 
         private bool deleteElementFromPackage(IEAPackage package, IEAElement element)
         {
@@ -77,7 +76,8 @@ namespace DecisionArchitectTests
 
             // Operations
 
-            {  // IsForcesView / AddElement / Contains / OpenAndSelectElement / HideConnectors / RemoveElement
+            {
+                // IsForcesView / AddElement / Contains / OpenAndSelectElement / HideConnectors / RemoveElement
                 IEAPackage package = _e.GetDecisionPackage();
                 IEADiagram diagram = _e.GetDecisionForcesDiagram();
                 IEAElement element = package.CreateElement("MyNote", "MyStereotype", "Note");
@@ -86,26 +86,28 @@ namespace DecisionArchitectTests
                 Assert.IsTrue(diagram.Contains(element));
                 diagram.OpenAndSelectElement(element);
                 diagram.HideConnectors(new[]
-                {
-                    EAConstants.RelationAlternativeFor, EAConstants.RelationCausedBy,
-                    EAConstants.RelationDependsOn,
-                    EAConstants.RelationExcludedBy, EAConstants.RelationReplaces, EAConstants.RelationFollowedBy
-                });
+                    {
+                        EAConstants.RelationAlternativeFor, EAConstants.RelationCausedBy,
+                        EAConstants.RelationDependsOn,
+                        EAConstants.RelationExcludedBy, EAConstants.RelationReplaces, EAConstants.RelationFollowedBy
+                    });
                 diagram.RemoveElement(element);
                 Assert.IsFalse(diagram.Contains(element));
                 Assert.IsTrue(deleteElementFromPackage(package, element));
             }
 
-            {  // ShowInProjectView / DiagramToStream
+            {
+                // ShowInProjectView / DiagramToStream
                 IEAPackage package = _e.GetDecisionPackage();
                 IEADiagram diagram = _e.GetDecisionForcesDiagram();
                 diagram.ShowInProjectView();
-                System.IO.FileStream fs = diagram.DiagramToStream();
+                FileStream fs = diagram.DiagramToStream();
                 Assert.IsNotNull(fs);
                 Assert.IsTrue(fs.Name.Contains(".emf"));
             }
 
-            {  // GetElements
+            {
+                // GetElements
                 IEAPackage package = _e.GetDecisionPackage();
                 IEADiagram diagram = _e.GetDecisionForcesDiagram();
                 List<IEADiagramObject> objs = diagram.GetElements();

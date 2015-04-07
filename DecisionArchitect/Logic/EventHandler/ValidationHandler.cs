@@ -112,9 +112,7 @@ namespace DecisionArchitect.Logic.EventHandler
                         if (!RuleManager.Instance.ValidateConnector(connector, out message))
                         {
                             MessageBox.Show(
-                            
                                 message,
-                                
                                 Messages.WarningCreateRelation,
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Exclamation,

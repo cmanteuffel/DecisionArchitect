@@ -69,7 +69,6 @@ namespace DecisionArchitect.Utilities
             DateTime parsed;
             if (!DateTime.TryParse(dateString, culture, DateTimeStyles.AdjustToUniversal, out parsed))
             {
-                MessageBox.Show(dateString + " not parsed");
                 parsed = fallback;
             }
             return parsed;
@@ -191,7 +190,7 @@ namespace DecisionArchitect.Utilities
         }
 
         // Getter
-        public static DecisionStateColor Instance
+        private static DecisionStateColor Instance
         {
             get { return _instance ?? (_instance = new DecisionStateColor()); }
         }

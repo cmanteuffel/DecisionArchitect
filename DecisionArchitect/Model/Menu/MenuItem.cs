@@ -14,7 +14,7 @@ namespace DecisionArchitect.Model.Menu
 {
     public class MenuItem : IMenu
     {
-        public static IMenu Separator = new MenuItem("-");
+        public static readonly IMenu Separator = new MenuItem("-");
 
         public MenuItem(string name, ClickDelegate clickDelegate = null)
         {

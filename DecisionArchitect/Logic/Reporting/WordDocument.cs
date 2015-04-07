@@ -422,7 +422,7 @@ namespace DecisionArchitect.Logic.Reporting
             // insert an empty cell in tol left of forces table
             var decRow = new TableRow();
             decRow.AppendChild(emptyCell);
-            para = emptyCell.AppendChild(new Paragraph(new Run(new Text(""))));
+            emptyCell.AppendChild(new Paragraph(new Run(new Text(""))));
 
             // insert the concern header and the decisions names
             var concCellHeader = new TableCell(new Paragraph(new Run(new Text("Concerns"))));

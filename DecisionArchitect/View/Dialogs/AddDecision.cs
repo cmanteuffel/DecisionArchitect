@@ -127,7 +127,7 @@ namespace DecisionArchitect.View.Dialogs
         /// <summary>
         ///     Adds the element(s) that is/are selected in the TreeView to the forces diagram
         /// </summary>
-        public void AddAllDecisionsToDiagram()
+        private void AddAllDecisionsToDiagram()
         {
             TreeNode selectedNode = _tvDecision.SelectedNode;
             if (selectedNode == null) return; //nothing selected
@@ -182,7 +182,7 @@ namespace DecisionArchitect.View.Dialogs
             else
             {
                 MessageBox.Show(string.Format(Messages.ForcesViewDecisionExists, element.Name),
-                                "Decision already exists",
+                                Messages.ForcesViewDecisionExistsTitle,
                                 MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }

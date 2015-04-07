@@ -28,9 +28,7 @@ namespace DecisionArchitect.Logic.Menu
             var view = new GenerateChronologyView();
             if (DialogResult.OK == view.ShowDialog())
             {
-                MessageBox.Show("Generate chronology view called " + view.ViewName + "  in " + eapackage.Name + " with " +
-                                view.Decisions.Count + " decisions");
-
+                
                 IEADiagram chronologicalView = CreateChronologyDiagram(eapackage, view.ViewName);
                 IEAPackage historyPackage =
                     eapackage.GetSubpackageByName("History data for " + chronologicalView.Name);

@@ -1,5 +1,4 @@
-﻿using System.Windows.Forms;
-using EAFacade.Model;
+﻿using EAFacade.Model;
 
 namespace DecisionArchitect.Logic.EventHandler
 {
@@ -48,44 +47,44 @@ namespace DecisionArchitect.Logic.EventHandler
         public override bool OnPostNewConnector(IEAConnector connector)
         {
             OnModelChanged(new ModelChangedEventArgs
-                             {
-                                 GUID = connector.GUID,
-                                 Type = ModelChangedType.NewConnector,
-                                 NativeType = EANativeType.Connector
-                             });
+                {
+                    GUID = connector.GUID,
+                    Type = ModelChangedType.NewConnector,
+                    NativeType = EANativeType.Connector
+                });
             return true;
         }
 
         public override bool OnPostNewElement(IEAElement element)
         {
             OnModelChanged(new ModelChangedEventArgs
-                             {
-                                 GUID = element.GUID,
-                                 Type = ModelChangedType.NewElement,
-                                 NativeType = EANativeType.Element
-                             });
+                {
+                    GUID = element.GUID,
+                    Type = ModelChangedType.NewElement,
+                    NativeType = EANativeType.Element
+                });
             return true;
         }
 
         public override bool OnPreDeleteConnector(IEAConnector connector)
         {
             OnModelChanged(new ModelChangedEventArgs
-                             {
-                                 GUID = connector.GUID,
-                                 Type = ModelChangedType.RemovedConnector,
-                                 NativeType = EANativeType.Connector
-                             });
+                {
+                    GUID = connector.GUID,
+                    Type = ModelChangedType.RemovedConnector,
+                    NativeType = EANativeType.Connector
+                });
             return true;
         }
 
         public override bool OnPreDeleteElement(IEAElement element)
         {
             OnModelChanged(new ModelChangedEventArgs
-                             {
-                                 GUID = element.GUID,
-                                 Type = ModelChangedType.RemovedElement,
-                                 NativeType = EANativeType.Element
-                             });
+                {
+                    GUID = element.GUID,
+                    Type = ModelChangedType.RemovedElement,
+                    NativeType = EANativeType.Element
+                });
             return true;
         }
 
@@ -96,20 +95,20 @@ namespace DecisionArchitect.Logic.EventHandler
             {
                 case EANativeType.Element:
                     OnModelChanged(new ModelChangedEventArgs
-                                     {
-                                         GUID = guid,
-                                         Type = ModelChangedType.ModifiedElement,
-                                         NativeType = EANativeType.Element
-                                     });
+                        {
+                            GUID = guid,
+                            Type = ModelChangedType.ModifiedElement,
+                            NativeType = EANativeType.Element
+                        });
                     break;
                 case EANativeType.Connector:
 
                     OnModelChanged(new ModelChangedEventArgs
-                                     {
-                                         GUID = guid,
-                                         Type = ModelChangedType.ModifiedConnector,
-                                         NativeType = EANativeType.Connector
-                                     });
+                        {
+                            GUID = guid,
+                            Type = ModelChangedType.ModifiedConnector,
+                            NativeType = EANativeType.Connector
+                        });
                     break;
             }
         }

@@ -18,7 +18,7 @@ using EAFacade.Model.Impl;
 namespace EAFacade
 {
     [ComVisible(true)]
-    public sealed class EAMain
+    public static class EAMain
     {
         public static IEARepository Repository
         {

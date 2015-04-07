@@ -9,7 +9,7 @@ namespace DecisionArchitect.View.Dialogs
 {
     public partial class GenerateChronologyView : Form
     {
-        public List<IEAElement> Decisions = new List<IEAElement>();
+        public readonly List<IEAElement> Decisions = new List<IEAElement>();
 
         public GenerateChronologyView()
         {
@@ -19,7 +19,7 @@ namespace DecisionArchitect.View.Dialogs
             listSelectedDecisions.ValueMember = "GUID";
         }
 
-        public string ViewName { get; set; }
+        public string ViewName { get; private set; }
 
         private void PopulateTreeView()
         {

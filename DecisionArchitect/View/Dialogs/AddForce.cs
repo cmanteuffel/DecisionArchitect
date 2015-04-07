@@ -61,7 +61,7 @@ namespace DecisionArchitect.View.Dialogs
         /// <summary>
         ///     Adds the forces and concerns that are selected in the TreeView and ListBox to the forces diagram
         /// </summary>
-        public void AddForceToForcesDiagram()
+        private void AddForceToForcesDiagram()
         {
             TreeNode selectedNode = _tvForce.SelectedNode;
             // Cannot add force if no force or concern is selected

@@ -29,8 +29,7 @@ namespace DecisionArchitect.Model
     ///     ! Changes to linked domain objects such as Topic or other decisions also need to be explicilty saved.
     ///     ! Changes to domain entities such as I*Relation, or I*ForceEvaluation are automatically saved when SaveChagnes is called.
     ///     ! Be aware of cyclic dependencies created by Load()
-    /// 
-    ///     DD: Synchronization is done in view and not in the model. Problem: Changes in a decision needs to be synchronized across detail views (especially if relations are removed, which leads to null exceptions). Decision: listen to changes in the model and adapt the decision object accordingly. However, since we only need to keep the views synchronized and not per se every decision object, the observer/update mechanism will be implemented in the view and not hte model. This was done, in ortder to reduce the number of update messages that needs to be processes. 
+    ///     DD: Synchronization is done in view and not in the model. Problem: Changes in a decision needs to be synchronized across detail views (especially if relations are removed, which leads to null exceptions). Decision: listen to changes in the model and adapt the decision object accordingly. However, since we only need to keep the views synchronized and not per se every decision object, the observer/update mechanism will be implemented in the view and not hte model. This was done, in ortder to reduce the number of update messages that needs to be processes.
     /// </summary>
     public class Decision : Entity, IDecision
     {
@@ -40,6 +39,7 @@ namespace DecisionArchitect.Model
         private string _name;
         private string _rationale;
         private string _state;
+        private ITopic _topic;
 
         private Decision()
         {
@@ -89,8 +89,6 @@ namespace DecisionArchitect.Model
             get { return _changed; }
             private set { SetField(ref _changed, value, "Changed"); }
         }
-
-        private ITopic _topic;
 
         public ITopic Topic
         {
@@ -168,7 +166,7 @@ namespace DecisionArchitect.Model
             return decision;
         }
 
-#region EventListener
+        #region EventListener
 
         private void UpdateListChangeFlag(object sender, ListChangedEventArgs listChangedEventArgs)
         {
@@ -188,9 +186,10 @@ namespace DecisionArchitect.Model
             if (e.PropertyName.Equals("Changed")) return;
             Changed = true;
         }
-#endregion EventListener
 
-#region SaveAndLoadData
+        #endregion EventListener
+
+        #region SaveAndLoadData
 
         /// <summary>
         ///     Loads information from EAelement and converts them into domain model.
@@ -291,7 +290,7 @@ namespace DecisionArchitect.Model
         ///     Saves Rationale field into LinkedDocument
         /// </summary>
         /// <param name="element"></param>
-        public void SaveRationale(IEAElement element)
+        private void SaveRationale(IEAElement element)
         {
             //_element.Notes = Rationale;
             using (var tempFiles = new TempFileCollection())
@@ -354,7 +353,6 @@ namespace DecisionArchitect.Model
                            }).Where(tv => tv != null);
             foreach (IForceEvaluation force in forces)
             {
-
                 Forces.Add(force);
             }
         }
@@ -383,13 +381,12 @@ namespace DecisionArchitect.Model
 
             IEnumerable<ITraceLink> traces =
                 element.FindConnectors("", EAConstants.RelationTrace)
-                       .Select(a => (ITraceLink)new TraceLink(this, a));
+                       .Select(a => (ITraceLink) new TraceLink(this, a));
 
-            foreach (var trace in traces)
+            foreach (ITraceLink trace in traces)
             {
                 Traces.Add(trace);
             }
-
         }
 
         private void SaveTraces(IEAElement element)
@@ -543,6 +540,6 @@ namespace DecisionArchitect.Model
             }
         }
 
-#endregion
+        #endregion
     }
 }

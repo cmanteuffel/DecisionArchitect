@@ -226,7 +226,7 @@ namespace DecisionArchitect.View.Forces
             _controller.SetDiagramModel(repository.GetDiagramByGuid(_controller.Model.DiagramGUID));
         }
 
-        public string[] ForceGuids
+        public IEnumerable<string> ForceGuids
         {
             get
             {
@@ -238,7 +238,7 @@ namespace DecisionArchitect.View.Forces
             }
         }
 
-        public string[] ConcernGuids
+        public IEnumerable<string> ConcernGuids
         {
             get
             {
@@ -249,7 +249,7 @@ namespace DecisionArchitect.View.Forces
             }
         }
 
-        public string[] DecisionGuids
+        public IEnumerable<string> DecisionGuids
         {
             get
             {
@@ -747,7 +747,8 @@ namespace DecisionArchitect.View.Forces
 
         private void _btnOpenExcel_Click(object sender, EventArgs e)
         {
-            new ExcelSynchronization(_controller, _forcesTable);
+            var synchronization = new ExcelSynchronization(_controller, _forcesTable);
+            synchronization.Initialize();
         }
 
         private void _btnAddDecision_Click(object sender, EventArgs e)

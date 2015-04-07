@@ -99,7 +99,6 @@ namespace DecisionArchitect.Logic.Menu
                     IEAElement parent = EAMain.Repository.GetElementByID(decision.ID).ParentElement;
                     if (parent == null || !EAMain.IsTopic(parent))
                     {
-                        parent = EAMain.Repository.GetElementByID(decision.ID).ParentElement;
                         report.InsertDecisionTable(decision);
                     }
                 }

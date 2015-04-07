@@ -41,7 +41,7 @@ namespace DecisionArchitect.Logic
         public bool GenerateViewpoint()
         {
             IEnumerable<IEAElement> decisionElements = GetHistory();
-            IList<IEAElement> connectedElements = ConnectDecisions(decisionElements);
+            IEnumerable<IEAElement> connectedElements = ConnectDecisions(decisionElements);
             GenerateDiagram(_chronologicalViewpoint, connectedElements);
 
             return false;
@@ -63,7 +63,7 @@ namespace DecisionArchitect.Logic
                                             item.Modified.ToShortDateString());
                 string stereotype = item.State;
                 DateTime modified = item.Modified;
-                string type = EAConstants.ActionMetaType;
+                const string type = EAConstants.ActionMetaType;
                 string originalGUID = item.Decision.GUID;
 
                 IEAElement pastDecision =
@@ -97,7 +97,7 @@ namespace DecisionArchitect.Logic
                               .Select(d => EAMain.Repository.GetElementByGUID(d.Topic.GUID))).Union(_decisions);
         }
 
-        private IList<IEAElement> ConnectDecisions(IEnumerable<IEAElement> elements)
+        private IEnumerable<IEAElement> ConnectDecisions(IEnumerable<IEAElement> elements)
         {
             //determine order of decisions
             List<IEAElement> sortedElements = elements.ToList();

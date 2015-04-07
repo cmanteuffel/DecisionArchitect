@@ -138,7 +138,8 @@ namespace DecisionArchitect.View
                 {
                     Decision.RelatedDecisions.Add(related);
                 }
-            } else if (EAMain.IsTrace(connector))
+            }
+            else if (EAMain.IsTrace(connector))
             {
                 Decision.Traces.Add(new TraceLink(Decision, connector));
             }
@@ -169,7 +170,8 @@ namespace DecisionArchitect.View
                         return;
                     }
                 }
-            } else if (EAMain.IsTrace(connector))
+            }
+            else if (EAMain.IsTrace(connector))
             {
                 foreach (ITraceLink trace in Decision.Traces.ToArray())
                 {
@@ -179,9 +181,10 @@ namespace DecisionArchitect.View
                         return;
                     }
                 }
-            } else if (EAMain.IsStakeholderAction(connector))
+            }
+            else if (EAMain.IsStakeholderAction(connector))
             {
-                foreach (var action in Decision.Stakeholders.ToArray())
+                foreach (IStakeholderAction action in Decision.Stakeholders.ToArray())
                 {
                     if (action.ConnectorGUID.Equals(args.GUID))
                     {

@@ -24,7 +24,6 @@ namespace EAFacade.Events
     [ComVisible(true)]
     public abstract class EAEventAdapter : IEAEvents
     {
-
         public virtual string EA_Connect(Repository repository)
         {
             return "";

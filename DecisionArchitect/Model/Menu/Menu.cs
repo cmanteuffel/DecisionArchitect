@@ -93,7 +93,7 @@ namespace DecisionArchitect.Model.Menu
             _subitems.Remove(i);
         }
 
-        public void Clear()
+        protected void Clear()
         {
             _subitems.Clear();
         }

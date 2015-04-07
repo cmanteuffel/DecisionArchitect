@@ -63,7 +63,7 @@ namespace DecisionArchitect.View.Forces
             }
             catch (Exception)
             {
-                MessageBox.Show("no diagram");
+                MessageBox.Show(Messages.ForcesController_Configure_no_diagram);
             }
         }
 

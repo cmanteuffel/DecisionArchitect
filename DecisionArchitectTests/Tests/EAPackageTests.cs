@@ -12,18 +12,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EA;
-using EAFacade;
 using EAFacade.Model;
 using NUnit.Framework;
 
-namespace DecisionArchitectTests
+namespace DecisionArchitectTests.Tests
 {
     [TestFixture]
     public class EAPackageTests
     {
-        private Example _e;
-
         [SetUp]
         public void InitEATests()
         {
@@ -34,6 +30,8 @@ namespace DecisionArchitectTests
         public void CleanupEATests()
         {
         }
+
+        private Example _e;
 
         private bool deleteElementFromPackage(IEAPackage package, IEAElement element)
         {
@@ -64,13 +62,13 @@ namespace DecisionArchitectTests
                 IEAPackage folder = _e.GetDecisionPackageFolder();
                 Assert.IsTrue(DateTime.Now > folder.Created);
                 Assert.IsTrue(EANativeType.Package == folder.EANativeType);
-                Assert.IsTrue(0 < folder.Elements.Count());
+                Assert.IsTrue(folder.Elements.Any());
                 Assert.IsTrue("" != folder.GUID);
                 Assert.IsTrue(0 < folder.ID);
                 Assert.IsTrue(DateTime.Now > folder.Modified);
                 Assert.IsTrue("" != folder.Name);
                 Assert.IsTrue("" == folder.Notes);
-                Assert.IsTrue(0 == folder.Packages.Count());
+                Assert.IsTrue(!folder.Packages.Any());
                 Assert.IsNotNull(folder.ParentPackage);
                 Assert.IsTrue("1.0" == folder.Version);
                 Assert.IsTrue("system" == folder.Stereotype);
@@ -136,7 +134,7 @@ namespace DecisionArchitectTests
                 IEAPackage package = _e.GetDecisionPackage();
                 IEnumerable<IEAElement> elements = package.GetAllElementsOfSubTree();
                 Assert.IsNotNull(elements);
-                Assert.IsTrue(0 < elements.Count());
+                Assert.IsTrue(elements.Any());
             }
 
             {
@@ -144,7 +142,7 @@ namespace DecisionArchitectTests
                 IEAPackage package = _e.GetDecisionPackage();
                 IEnumerable<IEAElement> actions = package.GetAllDecisions();
                 Assert.IsNotNull(actions);
-                Assert.IsTrue(0 < actions.Count());
+                Assert.IsTrue(actions.Any());
             }
 
             {
@@ -152,7 +150,7 @@ namespace DecisionArchitectTests
                 IEAPackage package = _e.GetDecisionPackage();
                 IEnumerable<IEAElement> elements = package.GetAllTopics();
                 Assert.IsNotNull(elements);
-                Assert.IsTrue(0 < elements.Count());
+                Assert.IsTrue(elements.Any());
             }
 
             {
@@ -167,7 +165,7 @@ namespace DecisionArchitectTests
                 IEAPackage folder = _e.GetDecisionPackageFolder();
                 IEnumerable<IEADiagram> diagrams = folder.GetDiagrams();
                 Assert.IsNotNull(diagrams);
-                Assert.IsTrue(0 < diagrams.Count());
+                Assert.IsTrue(diagrams.Any());
             }
         }
     }

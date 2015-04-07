@@ -13,17 +13,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using EA;
-using EAFacade;
 using EAFacade.Model;
 using NUnit.Framework;
 
-namespace DecisionArchitectTests
+namespace DecisionArchitectTests.Tests
 {
     [TestFixture]
     public class EAElementTests
     {
-        private Example _e;
-
         [SetUp]
         public void InitEATests()
         {
@@ -34,6 +31,8 @@ namespace DecisionArchitectTests
         public void CleanupEATests()
         {
         }
+
+        private Example _e;
 
         /// <summary>
         ///     Element exercises the element properties and operations
@@ -129,38 +128,41 @@ namespace DecisionArchitectTests
 
             // Operations
 
-            {  // GetTracedElements (no traced elements in example model)
+            {
+                // GetTracedElements (no traced elements in example model)
                 IEAElement element = _e.GetForcesDecisionElement();
                 IEnumerable<IEAElement> elements = element.GetTracedElements();
-                Assert.IsTrue(0 >= elements.Count<IEAElement>());
+                Assert.IsTrue(!elements.Any());
             }
 
-            {  // GetDiagrams
+            {
+                // GetDiagrams
                 IEAElement element = _e.GetForcesDecisionElement();
                 IEADiagram[] diagrams = element.GetDiagrams();
-                Assert.IsTrue(0 < diagrams.Count<IEADiagram>());
+                Assert.IsTrue(diagrams.Any());
             }
 
-            {  // GetConnectors / ConnectTo / Update / Refresh / FindConnectors / RemoveConnector
+            {
+                // GetConnectors / ConnectTo / Update / Refresh / FindConnectors / RemoveConnector
                 IEAElement element = _e.GetForcesDecisionElement();
-                string myType = "Dependency";
-                string mySterotype = "my stereotype";
+                const string myType = "Dependency";
+                const string mySterotype = "my stereotype";
                 List<IEAConnector> connectors = element.GetConnectors();
-                Assert.IsTrue(0 < connectors.Count());
-                IEAConnector c = connectors.ElementAt<IEAConnector>(0);
+                Assert.IsTrue(connectors.Any());
+                IEAConnector c = connectors.ElementAt(0);
                 IEAElement client = c.GetClient();
                 IEAConnector nc = client.ConnectTo(element, myType, mySterotype);
                 Assert.IsTrue(element.Update());
                 element.Refresh();
                 IList<IEAConnector> flows = client.FindConnectors(element, mySterotype, myType);
                 Assert.IsNotNull(flows);
-                Assert.IsTrue(0 < flows.Count());
+                Assert.IsTrue(flows.Any());
                 element.RemoveConnector(nc);
                 Assert.IsTrue(element.Update());
                 element.Refresh();
                 flows = client.FindConnectors(element, mySterotype, myType);
                 Assert.IsNotNull(flows);
-                Assert.IsFalse(0 < flows.Count());
+                Assert.IsFalse(flows.Any());
             }
 
             /* Disabled pending better understanding of Chronological view

@@ -35,7 +35,7 @@ namespace EAFacade.Model
 
         void OpenAndSelectElement(IEAElement element);
         List<IEADiagramObject> GetElements();
-        void HideConnectors(string[] stereotypes);
+        void HideConnectors(IEnumerable<string> stereotypes);
         bool IsForcesView();
         bool IsChronologicalView();
         bool IsRelationshipView();

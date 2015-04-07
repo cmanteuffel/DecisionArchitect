@@ -9,22 +9,18 @@
     K. Eric Harper (ABB Corporate Research)
 */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Globalization;
+using DecisionArchitectTests.Model.EventProperties;
 using EA;
 using EAFacade;
 using EAFacade.Model;
-using DecisionArchitectTests.Model.EventProperties;
 using NUnit.Framework;
 
-namespace DecisionArchitectTests
+namespace DecisionArchitectTests.Tests
 {
     [TestFixture]
     public class EAFacadeTests
     {
-        private Example _e;
-
         [SetUp]
         public void InitEATests()
         {
@@ -35,6 +31,8 @@ namespace DecisionArchitectTests
         public void CleanupEATests()
         {
         }
+
+        private Example _e;
 
         /// <summary>
         ///     UpdateRepository ensures the Repository singleton is initialized
@@ -129,7 +127,7 @@ namespace DecisionArchitectTests
         {
             Element element = _e.GetDecisionPackageElement();
             EventProperties properties = EAEventPropertiesHelper.GetInstance(
-                EAConstants.EventPropertyTypeElement, element.Subtype.ToString(), element.Stereotype, 0, 0, 0, 0,
+                EAConstants.EventPropertyTypeElement, element.Subtype.ToString(CultureInfo.InvariantCulture), element.Stereotype, 0, 0, 0, 0,
                 element.ElementID);
             IEAVolatileElement e = EAMain.WrapVolatileElement(properties);
             Assert.IsTrue(element.ElementID == e.ParentElement.ID);

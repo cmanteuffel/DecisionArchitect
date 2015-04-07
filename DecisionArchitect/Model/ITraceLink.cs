@@ -9,7 +9,6 @@
     Christian Manteuffel (University of Groningen)
 */
 
-using EAFacade;
 using EAFacade.Model;
 
 namespace DecisionArchitect.Model
@@ -25,8 +24,10 @@ namespace DecisionArchitect.Model
     {
         public TraceLink(IDecision decision, IEAConnector connector)
         {
-            var tracedElement = (connector.ClientId == decision.ID)?connector.GetSupplier():connector.GetClient();
-            
+            IEAElement tracedElement = (connector.ClientId == decision.ID)
+                                           ? connector.GetSupplier()
+                                           : connector.GetClient();
+
             TracedElementGUID = tracedElement.GUID;
             TracedElementName = tracedElement.Name;
             ConnectorGUID = connector.GUID;

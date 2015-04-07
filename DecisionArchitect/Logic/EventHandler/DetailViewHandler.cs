@@ -31,7 +31,7 @@ namespace DecisionArchitect.Logic.EventHandler
     public class DetailViewHandler : RepositoryAdapter
     {
         private static DetailViewHandler _instance;
-        public IDictionary<string, string> TabMap = new Dictionary<string, string>();
+        private readonly IDictionary<string, string> _tabMap = new Dictionary<string, string>();
 
         public static DetailViewHandler Instance
         {
@@ -77,7 +77,7 @@ namespace DecisionArchitect.Logic.EventHandler
 
             if (EAMain.IsTopic(element))
             {
-               OpenTopicDetailView(Topic.Load(element));
+                OpenTopicDetailView(Topic.Load(element));
                 return true;
             }
             return false;
@@ -119,25 +119,24 @@ namespace DecisionArchitect.Logic.EventHandler
 
         private void OpenTopicDetailView(ITopic topic)
         {
-
             IEARepository repository = EAMain.Repository;
 
             //do some cleanup (find the closed tabs)
-            foreach (string key in TabMap.Keys.ToArray())
+            foreach (string key in _tabMap.Keys.ToArray())
             {
-                if (repository.IsTabOpen(TabMap[key]) == 0)
+                if (repository.IsTabOpen(_tabMap[key]) == 0)
                 {
-                    TabMap.Remove(key);
+                    _tabMap.Remove(key);
                 }
             }
 
             //tab is unknown, so far so good
-            if (!TabMap.ContainsKey(topic.GUID))
+            if (!_tabMap.ContainsKey(topic.GUID))
             {
-                TabMap.Add(topic.GUID, FindUniqueTabName(topic));
+                _tabMap.Add(topic.GUID, FindUniqueTabName(topic));
             }
 
-            string tabName = TabMap[topic.GUID];
+            string tabName = _tabMap[topic.GUID];
             if (repository.IsTabOpen(tabName) > 0)
             {
                 EAMain.Repository.ActivateTab(tabName);
@@ -148,14 +147,14 @@ namespace DecisionArchitect.Logic.EventHandler
                 if (!tabName.Equals(topic.Name))
                 {
                     tabName = FindUniqueTabName(topic);
-                    TabMap[topic.GUID] = tabName;
+                    _tabMap[topic.GUID] = tabName;
                 }
-                ITopicViewController topicViewController = repository.AddTab(tabName, "DecisionViewpoints.TopicViewController");
+                ITopicViewController topicViewController = repository.AddTab(tabName,
+                                                                             "DecisionViewpoints.TopicViewController");
                 topicViewController.Topic = topic;
             }
         }
 
-       
 
         /********************************************************************************************
         ** Invoke View Change methods
@@ -190,14 +189,14 @@ namespace DecisionArchitect.Logic.EventHandler
 
         public void CloseDecisionDetailView(IDecision decision)
         {
-            if (!TabMap.ContainsKey(decision.GUID)) return;
+            if (!_tabMap.ContainsKey(decision.GUID)) return;
 
-            string tabName = TabMap[decision.GUID];
+            string tabName = _tabMap[decision.GUID];
             IEARepository repository = EAMain.Repository;
             if (repository.IsTabOpen(tabName) > 0)
             {
                 repository.RemoveTab(tabName);
-                TabMap.Remove(decision.GUID);
+                _tabMap.Remove(decision.GUID);
             }
         }
 
@@ -213,21 +212,21 @@ namespace DecisionArchitect.Logic.EventHandler
             IEARepository repository = EAMain.Repository;
 
             //do some cleanup (find the closed tabs)
-            foreach (string key in TabMap.Keys.ToArray())
+            foreach (string key in _tabMap.Keys.ToArray())
             {
-                if (repository.IsTabOpen(TabMap[key]) == 0)
+                if (repository.IsTabOpen(_tabMap[key]) == 0)
                 {
-                    TabMap.Remove(key);
+                    _tabMap.Remove(key);
                 }
             }
 
             //tab is unknown, so far so good
-            if (!TabMap.ContainsKey(decision.GUID))
+            if (!_tabMap.ContainsKey(decision.GUID))
             {
-                TabMap.Add(decision.GUID, FindUniqueTabName(decision));
+                _tabMap.Add(decision.GUID, FindUniqueTabName(decision));
             }
 
-            string tabName = TabMap[decision.GUID];
+            string tabName = _tabMap[decision.GUID];
             if (repository.IsTabOpen(tabName) > 0)
             {
                 EAMain.Repository.ActivateTab(tabName);
@@ -238,7 +237,7 @@ namespace DecisionArchitect.Logic.EventHandler
                 if (!tabName.Equals(decision.Name))
                 {
                     tabName = FindUniqueTabName(decision);
-                    TabMap[decision.GUID] = tabName;
+                    _tabMap[decision.GUID] = tabName;
                 }
                 DetailView detailView = repository.AddTab(tabName, "DecisionViewpoints.DetailView");
                 detailView.Decision = decision;
@@ -249,7 +248,7 @@ namespace DecisionArchitect.Logic.EventHandler
         {
             //check if another decision occupies same name.
             string tabName = decision.Name;
-            if (TabMap.Values.Contains(decision.Name) || EAMain.Repository.IsTabOpen(decision.Name) > 0)
+            if (_tabMap.Values.Contains(decision.Name) || EAMain.Repository.IsTabOpen(decision.Name) > 0)
             {
                 //need to find another unique name
                 tabName = decision.Name + " (ID:" + decision.ID + ")";
@@ -261,7 +260,7 @@ namespace DecisionArchitect.Logic.EventHandler
         {
             //check if another topic occupies same name.
             string tabName = topic.Name;
-            if (TabMap.Values.Contains(topic.Name) || EAMain.Repository.IsTabOpen(topic.Name) > 0)
+            if (_tabMap.Values.Contains(topic.Name) || EAMain.Repository.IsTabOpen(topic.Name) > 0)
             {
                 //need to find another unique name
                 tabName = topic.Name + " (ID:" + topic.ID + ")";

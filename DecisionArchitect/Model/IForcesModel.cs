@@ -23,7 +23,7 @@ namespace DecisionArchitect.Model
         string DiagramGUID { get; }
         IEADiagram DiagramModel { set; }
 
-        void SaveRatings(List<Rating> data);
+        void SaveRatings(IEnumerable<Rating> data);
 
         /// <summary>
         ///     Get Decisions from Diagram and Topics that are on the diagram
@@ -35,7 +35,7 @@ namespace DecisionArchitect.Model
         ///     Get all elements which are a force in this model
         /// </summary>
         /// <returns></returns>
-        IEAElement[] GetForces();
+        IEnumerable<IEAElement> GetForces();
 
         /// <summary>
         ///     Get all forces and concerns connected to each other
@@ -43,7 +43,7 @@ namespace DecisionArchitect.Model
         /// <returns></returns>
         Dictionary<IEAElement, List<IEAElement>> GetConcernsPerForce();
 
-        List<Rating> GetRatings();
+        IEnumerable<Rating> GetRatings();
 
         void AddObserver(IForcesModelObserver observer);
         void RemoveObserver(IForcesModelObserver observer);

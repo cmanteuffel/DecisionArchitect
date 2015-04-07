@@ -25,14 +25,20 @@ namespace EAFacade.Forms
             InitializeComponent();
 
             var datasource = new List<DiagramListItem>();
-            diagrams.ToList().ForEach(x => datasource.Add(new DiagramListItem {Name = x.GetProjectPath() +"/"+x.Name, ID = x.ID, Diagram = x}));
+            diagrams.ToList()
+                    .ForEach(
+                        x =>
+                        datasource.Add(new DiagramListItem
+                            {
+                                Name = x.GetProjectPath() + "/" + x.Name,
+                                ID = x.ID,
+                                Diagram = x
+                            }));
             listDiagrams.ValueMember = "ID";
             listDiagrams.DisplayMember = "Name";
             //datasource.Add(new DiagramListItem { Name = "Open DetailView", ID = 999, Diagram = null });
             listDiagrams.DataSource = datasource;
         }
-
-
 
 
         public IEADiagram GetSelectedDiagram()
@@ -47,8 +53,10 @@ namespace EAFacade.Forms
 
         private class DiagramListItem
         {
+// ReSharper disable UnusedAutoPropertyAccessor.Local
             public string Name { get; set; }
             public int ID { get; set; }
+// ReSharper restore UnusedAutoPropertyAccessor.Local
             public IEADiagram Diagram { get; set; }
         }
     }

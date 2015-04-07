@@ -44,6 +44,8 @@ using Text = DocumentFormat.OpenXml.Drawing.Text;
 using TextBody = DocumentFormat.OpenXml.Presentation.TextBody;
 using Transform2D = DocumentFormat.OpenXml.Drawing.Transform2D;
 
+
+// ReSharper disable InconsistentNaming
 namespace DecisionArchitect.Logic.Reporting
 {
     public class PowerPointTemplate
@@ -12434,3 +12436,4 @@ namespace DecisionArchitect.Logic.Reporting
         #endregion
     }
 }
+// ReSharper restore InconsistentNaming

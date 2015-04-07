@@ -66,7 +66,7 @@ namespace DecisionArchitect.Model
             }
         }
 
-        public DecisionRelationDirection Direction { get; set; }
+        public DecisionRelationDirection Direction { get; private set; }
 
         public string Type
         {

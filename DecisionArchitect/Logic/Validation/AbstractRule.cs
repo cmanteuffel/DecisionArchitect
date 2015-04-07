@@ -59,17 +59,17 @@ namespace DecisionArchitect.Logic.Validation
             return validationResult;
         }
 
-        public virtual bool ValidateElement(IEAVolatileElement element)
+        protected virtual bool ValidateElement(IEAVolatileElement element)
         {
             return true;
         }
 
-        public virtual bool ValidateElement(IEAElement element)
+        protected virtual bool ValidateElement(IEAElement element)
         {
             return true;
         }
 
-        public virtual bool ValidateConnector(IEAConnector connector)
+        protected virtual bool ValidateConnector(IEAConnector connector)
         {
             return true;
         }

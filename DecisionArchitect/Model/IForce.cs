@@ -33,7 +33,8 @@ namespace DecisionArchitect.Model
             }
             catch (ArgumentNullException e)
             {
-                throw new ForceNotInModelException("No Force with the specified GUID can be found. It has been probably deleted.", e);
+                throw new ForceNotInModelException(
+                    "No Force with the specified GUID can be found. It has been probably deleted.", e);
             }
         }
 
@@ -43,9 +44,8 @@ namespace DecisionArchitect.Model
 
     public class ForceNotInModelException : Exception
     {
-        public ForceNotInModelException(string message, Exception innerException) : base(message,innerException)
+        public ForceNotInModelException(string message, Exception innerException) : base(message, innerException)
         {
-           
         }
     }
 }

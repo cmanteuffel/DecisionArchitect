@@ -186,7 +186,7 @@ namespace EAFacade.Model.Impl
                     .ToList();
         }
 
-        public void HideConnectors(string[] stereotypes)
+        public void HideConnectors(IEnumerable<string> stereotypes)
         {
             EARepository repository = EARepository.Instance;
             foreach (DiagramLink diagramLink in from DiagramLink diagramLink in _native.DiagramLinks

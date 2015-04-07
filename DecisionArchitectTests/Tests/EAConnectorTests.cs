@@ -9,21 +9,17 @@
     K. Eric Harper (ABB Corporate Research)
 */
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using EA;
 using EAFacade;
 using EAFacade.Model;
 using NUnit.Framework;
 
-namespace DecisionArchitectTests
+namespace DecisionArchitectTests.Tests
 {
     [TestFixture]
     public class EAConnectorTests
     {
-        private Example _e;
-
         [SetUp]
         public void InitEATests()
         {
@@ -35,10 +31,12 @@ namespace DecisionArchitectTests
         {
         }
 
+        private Example _e;
+
         /// <summary>
-        /// Connector exercises the connector properties and operations
+        ///     Connector exercises the connector properties and operations
         /// </summary>
-        [Test()]
+        [Test]
         public void EA_ConnectorTests()
         {
             // Properties
@@ -51,12 +49,13 @@ namespace DecisionArchitectTests
                 Assert.IsTrue(0 < connect.ClientId);
                 Assert.IsTrue(EAConstants.RelationMetaType == connect.MetaType);
                 List<IEAConnectorTag> tags = connect.TaggedValues;
-                Assert.IsTrue(0 >= tags.Count());
+                Assert.IsTrue(!tags.Any());
             }
 
             // Operations
 
-            {  // GetSupplier / GetClient
+            {
+                // GetSupplier / GetClient
                 IEAConnector connect = _e.GetForcesDecisionConnector();
                 IEAElement supplier = connect.GetSupplier();
                 Assert.IsNotNull(supplier);

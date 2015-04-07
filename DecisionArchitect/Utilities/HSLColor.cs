@@ -12,7 +12,7 @@ namespace DecisionArchitect.Utilities
         private double _luminosity = 1.0;
         private double _saturation = 1.0;
 
-        public HSLColor()
+        private HSLColor()
         {
         }
 
@@ -33,7 +33,7 @@ namespace DecisionArchitect.Utilities
             Luminosity = luminosity;
         }
 
-        public double Hue
+        private double Hue
         {
             get { return _hue*Scale; }
             set { _hue = CheckRange(value/Scale); }
@@ -71,7 +71,7 @@ namespace DecisionArchitect.Utilities
             return String.Format("R: {0:#0.##} G: {1:#0.##} B: {2:#0.##}", color.R, color.G, color.B);
         }
 
-        public void SetRGB(int red, int green, int blue)
+        private void SetRGB(int red, int green, int blue)
         {
             HSLColor hslColor = Color.FromArgb(red, green, blue);
             _hue = hslColor._hue;

@@ -43,7 +43,6 @@ namespace DecisionArchitect.Logic
         {
             _controller = controller;
             _forcesTable = forcesTable;
-            Initialize();
         }
 
         ~ExcelSynchronization()
@@ -86,7 +85,7 @@ namespace DecisionArchitect.Logic
         /// <summary>
         ///     Setup workbooks/worksheets and populate them
         /// </summary>
-        private void Initialize()
+        public void Initialize()
         {
             //_application.Workbooks.add(...) is not possible. 
             //2 dots must be avoided to release wrappers: http://support.microsoft.com/kb/317109

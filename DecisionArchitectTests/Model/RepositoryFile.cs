@@ -24,7 +24,7 @@ namespace DecisionArchitectTests.Model
             _repo = repo;
         }
 
-        public Repository Repo
+        protected Repository Repo
         {
             get { return _repo; }
         }

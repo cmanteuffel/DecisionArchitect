@@ -59,7 +59,7 @@ namespace DecisionArchitect.Logic.Reporting
             foreach (ForceEvaluation rating in forces)
             {
                 IEAElement force = EAMain.Repository.GetElementByGUID(rating.Force.ForceGUID);
-                IEAElement concern = EAMain.Repository.GetElementByGUID(rating.Concern.ConcernGUID);
+                EAMain.Repository.GetElementByGUID(rating.Concern.ConcernGUID);
                 relatedForces.AppendLine(force.Name + " - " + force.Notes);
             }
 
@@ -84,7 +84,7 @@ namespace DecisionArchitect.Logic.Reporting
             SetPlaceholder(NewSlidePart, Placeholder.Traces, traces.ToString());
         }
 
-        public static class Placeholder
+        private static class Placeholder
         {
             public const string Name = "{name}";
             public const string State = "{state}";

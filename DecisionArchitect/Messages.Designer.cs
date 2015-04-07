@@ -171,6 +171,15 @@ namespace DecisionArchitect {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to no diagram.
+        /// </summary>
+        internal static string ForcesController_Configure_no_diagram {
+            get {
+                return ResourceManager.GetString("ForcesController_Configure_no_diagram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Configure.
         /// </summary>
         internal static string ForcesViewConfigureButton {
@@ -185,6 +194,15 @@ namespace DecisionArchitect {
         internal static string ForcesViewDecisionExists {
             get {
                 return ResourceManager.GetString("ForcesViewDecisionExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Decision already exists.
+        /// </summary>
+        internal static string ForcesViewDecisionExistsTitle {
+            get {
+                return ResourceManager.GetString("ForcesViewDecisionExistsTitle", resourceCulture);
             }
         }
         

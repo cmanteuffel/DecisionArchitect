@@ -17,7 +17,7 @@ using EAFacade.Model;
 
 namespace EAFacade
 {
-    public class EAUtilities
+    public static class EAUtilities
     {
         public static int ParseToInt32(string value, int valueOnFailure)
         {

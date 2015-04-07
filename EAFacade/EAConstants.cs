@@ -19,6 +19,7 @@ namespace EAFacade
 {
     public static class EAConstants
     {
+// ReSharper disable MemberCanBePrivate.Global
         public const string DecisionMetaType = "DADecision";
         public const string TopicMetaType = "DATopic";
         public const string ConcernMetaType = "Concern";
@@ -45,12 +46,14 @@ namespace EAFacade
         public const string StateRejected = "rejected";
 
         public const string ForcesConnectorType = "Dependency";
-
+        
         public const string RelationMetaType = "Relationship";
         public const string RelationDependsOn = "depends on";
         public const string InverseDependsOn = "is dependent of";
         public const string RelationCausedBy = "caused by";
+
         public const string InverseCausedBy = "causes";
+
         public const string RelationAlternativeFor = "alternative for";
         public const string InverseAlternativeFor = "alternative for";
         public const string RelationExcludedBy = "excluded by";
@@ -66,7 +69,7 @@ namespace EAFacade
         public const string ActionMetaType = "Action";
         public const string ActivityMetaType = "Activity";
         public const string AbstractionMetaType = "Abstraction";
-
+// ReSharper restore MemberCanBePrivate.Global
 
         public static readonly HashSet<string> Relationships = new HashSet<string>
             {

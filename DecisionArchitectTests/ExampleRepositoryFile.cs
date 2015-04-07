@@ -11,8 +11,8 @@
     K. Eric Harper (ABB Corporate Research)
 */
 
-using EA;
 using DecisionArchitectTests.Model;
+using EA;
 
 namespace DecisionArchitectTests
 {

@@ -10,18 +10,23 @@ using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 
+// ReSharper disable InconsistentNaming
+
 namespace DecisionArchitect.View.Components.RichTextBox
 {
     public class RichTextBoxEx : System.Windows.Forms.RichTextBox
     {
         #region Interop-Defines
 
+
+#pragma warning disable 169
         private const int WM_USER = 0x0400;
         private const int EM_GETCHARFORMAT = WM_USER + 58;
         private const int EM_SETCHARFORMAT = WM_USER + 68;
 
         private const int SCF_SELECTION = 0x0001;
         private const int SCF_WORD = 0x0002;
+
         private const int SCF_ALL = 0x0004;
 
         #region CHARFORMAT2 Flags
@@ -82,6 +87,7 @@ namespace DecisionArchitect.View.Components.RichTextBox
         private const byte CFU_UNDERLINEWAVE = 0x00000008;
         private const byte CFU_UNDERLINETHICK = 0x00000009;
         private const byte CFU_UNDERLINEHAIRLINE = 0x0000000A; /* (*) displayed as ordinary underline  */
+#pragma warning restore 169
 
         #endregion
 
@@ -94,23 +100,23 @@ namespace DecisionArchitect.View.Components.RichTextBox
             public UInt32 cbSize;
             public UInt32 dwMask;
             public UInt32 dwEffects;
-            public readonly Int32 yHeight;
-            public readonly Int32 yOffset;
-            public readonly Int32 crTextColor;
-            public readonly byte bCharSet;
-            public readonly byte bPitchAndFamily;
+            private readonly Int32 yHeight;
+            private readonly Int32 yOffset;
+            private readonly Int32 crTextColor;
+            private readonly byte bCharSet;
+            private readonly byte bPitchAndFamily;
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)] public char[] szFaceName;
-            public readonly UInt16 wWeight;
-            public readonly UInt16 sSpacing;
-            public readonly int crBackColor; // Color.ToArgb() -> int
-            public readonly int lcid;
-            public readonly int dwReserved;
-            public readonly Int16 sStyle;
-            public readonly Int16 wKerning;
-            public readonly byte bUnderlineType;
-            public readonly byte bAnimation;
-            public readonly byte bRevAuthor;
-            public readonly byte bReserved1;
+            private readonly UInt16 wWeight;
+            private readonly UInt16 sSpacing;
+            private readonly int crBackColor; // Color.ToArgb() -> int
+            private readonly int lcid;
+            private readonly int dwReserved;
+            private readonly Int16 sStyle;
+            private readonly Int16 wKerning;
+            private readonly byte bUnderlineType;
+            private readonly byte bAnimation;
+            private readonly byte bRevAuthor;
+            private readonly byte bReserved1;
         }
 
         #endregion
@@ -219,7 +225,7 @@ namespace DecisionArchitect.View.Components.RichTextBox
             IntPtr lpar = Marshal.AllocCoTaskMem(Marshal.SizeOf(cf));
             Marshal.StructureToPtr(cf, lpar, false);
 
-            IntPtr res = SendMessage(Handle, EM_SETCHARFORMAT, wpar, lpar);
+            SendMessage(Handle, EM_SETCHARFORMAT, wpar, lpar);
 
             Marshal.FreeCoTaskMem(lpar);
         }
@@ -234,7 +240,7 @@ namespace DecisionArchitect.View.Components.RichTextBox
             IntPtr lpar = Marshal.AllocCoTaskMem(Marshal.SizeOf(cf));
             Marshal.StructureToPtr(cf, lpar, false);
 
-            IntPtr res = SendMessage(Handle, EM_GETCHARFORMAT, wpar, lpar);
+            SendMessage(Handle, EM_GETCHARFORMAT, wpar, lpar);
 
             cf = (CHARFORMAT2_STRUCT) Marshal.PtrToStructure(lpar, typeof (CHARFORMAT2_STRUCT));
 
@@ -310,3 +316,4 @@ namespace DecisionArchitect.View.Components.RichTextBox
         }
     }
 }
+// ReSharper restore InconsistentNaming

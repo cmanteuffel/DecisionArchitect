@@ -9,21 +9,17 @@
     K. Eric Harper (ABB Corporate Research)
 */
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using EA;
 using EAFacade;
 using EAFacade.Model;
 using NUnit.Framework;
 
-namespace DecisionArchitectTests
+namespace DecisionArchitectTests.Tests
 {
     [TestFixture]
     public class EATests
     {
-        private Example _e;
-
         [SetUp]
         public void InitEATests()
         {
@@ -34,6 +30,8 @@ namespace DecisionArchitectTests
         public void CleanupEATests()
         {
         }
+
+        private Example _e;
 
         /// <summary>
         ///     ConfirmMDG verifies if the Decision type is recognized.
@@ -46,7 +44,7 @@ namespace DecisionArchitectTests
             bool validMDG = false;
             IEAPackage package = _e.GetDecisionPackage();
             IEnumerable<IEAElement> topics = package.GetAllTopics();
-            Assert.IsTrue(0 < topics.Count());
+            Assert.IsTrue(topics.Any());
             foreach (IEAElement topic in topics)
             {
                 // Confirm the topic contains decision elements

@@ -29,7 +29,7 @@ namespace DecisionArchitectTests
             _f.Open();
         }
 
-        public Repository Repo { get; private set; }
+        private Repository Repo { get; set; }
 
         ~Example()
         {
@@ -38,7 +38,6 @@ namespace DecisionArchitectTests
 
         public IEAPackage GetDecisionPackage()
         {
-            IEAPackage decisions = null;
             Assert.IsNotNull(Repo);
             EAMain.UpdateRepository(Repo);
             IEnumerable<IEAPackage> packages = EAMain.Repository.GetAllPackages();
@@ -46,7 +45,7 @@ namespace DecisionArchitectTests
             // Top level package
             IEAPackage example = packages.First();
             // Use the first decision package
-            decisions = example.GetSubpackageByName("Decisions");
+            IEAPackage decisions = example.GetSubpackageByName("Decisions");
             Assert.IsNotNull(decisions);
             return decisions;
         }
@@ -55,7 +54,7 @@ namespace DecisionArchitectTests
         {
             IEAPackage package = GetDecisionPackage();
             IList<IEAPackage> folder = package.Packages;
-            Assert.IsTrue(0 < folder.Count());
+            Assert.IsTrue(folder.Any());
             // Use first topic
             return folder.First();
         }
@@ -63,11 +62,11 @@ namespace DecisionArchitectTests
         public IEADiagram GetDecisionForcesDiagram()
         {
             IEADiagram diagram = null;
-            IEAPackage folder = this.GetDecisionPackageFolder();
+            IEAPackage folder = GetDecisionPackageFolder();
             IList<IEAElement> topics = folder.Elements;
-            Assert.IsTrue(0 < topics.Count());
+            Assert.IsTrue(topics.Any());
             // Use the first topic
-            IEAElement topic = topics.First<IEAElement>();
+            IEAElement topic = topics.First();
             IEnumerable<IEADiagram> diagrams = topic.GetDiagrams();
             Assert.IsNotNull(diagrams);
             // Find a forces viewpoint
@@ -85,18 +84,16 @@ namespace DecisionArchitectTests
 
         public IEADiagramObject GetForcesDiagramObject()
         {
-            IEADiagramObject obj;
             IEADiagram diagram = GetDecisionForcesDiagram();
             IEnumerable<IEADiagramObject> objects = diagram.GetElements();
             Assert.IsNotNull(objects);
-            obj = objects.ElementAt(0);
+            IEADiagramObject obj = objects.ElementAt(0);
             Assert.IsNotNull(obj);
             return obj;
         }
 
         public Element GetDecisionPackageElement()
         {
-            Element element;
             IEAPackage folder = GetDecisionPackageFolder();
             Package root = Repo.Models.GetAt(0);
             Assert.IsNotNull(root);
@@ -107,12 +104,12 @@ namespace DecisionArchitectTests
             Package topics = decisions.Packages.GetByName(folder.Name);
             Assert.IsNotNull(topics);
             Assert.IsTrue(0 < topics.Elements.Count);
-            element = topics.Elements.GetAt(0);
+            Element element = topics.Elements.GetAt(0);
             Assert.IsNotNull(element);
             return element;
         }
 
-        public IEADiagram GetDecisionRelationshipDiagram()
+        private IEADiagram GetDecisionRelationshipDiagram()
         {
             IEADiagram diagram = null;
             IEAPackage package = GetDecisionPackage();
@@ -131,7 +128,7 @@ namespace DecisionArchitectTests
             return diagram;
         }
 
-        public IEADiagram GetDecisionStakeholderDiagram()
+        private IEADiagram GetDecisionStakeholderDiagram()
         {
             IEADiagram diagram = null;
             IEAPackage package = GetDecisionPackage();
@@ -150,14 +147,14 @@ namespace DecisionArchitectTests
             return diagram;
         }
 
-        public IEADiagram GetDecisionChronologicalDiagram()
+        private IEADiagram GetDecisionChronologicalDiagram()
         {
             IEADiagram diagram = null;
             IEAPackage folder = GetDecisionPackageFolder();
             IList<IEAElement> topics = folder.Elements;
-            Assert.IsTrue(0 < topics.Count());
+            Assert.IsTrue(topics.Any());
             // Use the first topic
-            IEAElement topic = topics.First<IEAElement>();
+            IEAElement topic = topics.First();
             IEnumerable<IEADiagram> diagrams = topic.GetDiagrams();
             Assert.IsNotNull(diagrams);
             // Find a forces viewpoint
@@ -175,132 +172,122 @@ namespace DecisionArchitectTests
 
         public IEAElement GetForcesDecisionElement()
         {
-            IEAElement element = null;
             IEADiagram diagram = GetDecisionForcesDiagram();
-            IEARepository repository = EAFacade.EAMain.Repository;
+            IEARepository repository = EAMain.Repository;
             IEAElement[] elements = (from diagramObject in diagram.GetElements()
-                                       select repository.GetElementByID(diagramObject.ElementID)
-                                       into elem
-                                       where EAConstants.DecisionMetaType == elem.MetaType
-                                       select elem).ToArray();
+                                     select repository.GetElementByID(diagramObject.ElementID)
+                                     into elem
+                                     where EAConstants.DecisionMetaType == elem.MetaType
+                                     select elem).ToArray();
             Assert.IsNotNull(elements);
-            element = elements.ElementAt<IEAElement>(0);
+            IEAElement element = elements.ElementAt(0);
             Assert.IsNotNull(element);
             return element;
         }
 
-        public IEAElement GetRelationshipDecisionElement()
+        private IEAElement GetRelationshipDecisionElement()
         {
-            IEAElement element = null;
             IEADiagram diagram = GetDecisionRelationshipDiagram();
-            IEARepository repository = EAFacade.EAMain.Repository;
+            IEARepository repository = EAMain.Repository;
             IEAElement[] elements = (from diagramObject in diagram.GetElements()
                                      select repository.GetElementByID(diagramObject.ElementID)
-                                         into elem
-                                         where EAConstants.DecisionMetaType == elem.MetaType
-                                         select elem).ToArray();
+                                     into elem
+                                     where EAConstants.DecisionMetaType == elem.MetaType
+                                     select elem).ToArray();
             Assert.IsNotNull(elements);
-            element = elements.ElementAt<IEAElement>(0);
+            IEAElement element = elements.ElementAt(0);
             Assert.IsNotNull(element);
             return element;
         }
 
-        public IEAElement GetStakeholderActorElement()
+        private IEAElement GetStakeholderActorElement()
         {
-            IEAElement element = null;
             IEADiagram diagram = GetDecisionStakeholderDiagram();
-            IEARepository repository = EAFacade.EAMain.Repository;
+            IEARepository repository = EAMain.Repository;
             IEAElement[] elements = (from diagramObject in diagram.GetElements()
                                      select repository.GetElementByID(diagramObject.ElementID)
-                                         into elem
-                                         where EAConstants.StakeholderMetaType == elem.MetaType
-                                         select elem).ToArray();
+                                     into elem
+                                     where EAConstants.StakeholderMetaType == elem.MetaType
+                                     select elem).ToArray();
             Assert.IsNotNull(elements);
-            element = elements.ElementAt<IEAElement>(0);
+            IEAElement element = elements.ElementAt(0);
             Assert.IsNotNull(element);
             return element;
         }
 
-        public IEAElement GetChronologyDecisionElement()
+        private IEAElement GetChronologyDecisionElement()
         {
-            IEAElement element = null;
             IEADiagram diagram = GetDecisionChronologicalDiagram();
-            IEARepository repository = EAFacade.EAMain.Repository;
+            IEARepository repository = EAMain.Repository;
             IEAElement[] elements = (from diagramObject in diagram.GetElements()
                                      select repository.GetElementByID(diagramObject.ElementID)
-                                         into elem
-                                         where EAConstants.DecisionMetaType == elem.MetaType
-                                         select elem).ToArray();
+                                     into elem
+                                     where EAConstants.DecisionMetaType == elem.MetaType
+                                     select elem).ToArray();
             Assert.IsNotNull(elements);
-            element = elements.ElementAt<IEAElement>(0);
+            IEAElement element = elements.ElementAt(0);
             Assert.IsNotNull(element);
             return element;
         }
 
         public IEAElement GetChronologyTopicElement()
         {
-            IEAElement element = null;
             IEADiagram diagram = GetDecisionChronologicalDiagram();
-            IEARepository repository = EAFacade.EAMain.Repository;
+            IEARepository repository = EAMain.Repository;
             IEAElement[] elements = (from diagramObject in diagram.GetElements()
                                      select repository.GetElementByID(diagramObject.ElementID)
-                                         into elem
-                                         where EAConstants.TopicMetaType == elem.MetaType
-                                         select elem).ToArray();
+                                     into elem
+                                     where EAConstants.TopicMetaType == elem.MetaType
+                                     select elem).ToArray();
             Assert.IsNotNull(elements);
-            element = elements.ElementAt<IEAElement>(0);
+            IEAElement element = elements.ElementAt(0);
             Assert.IsNotNull(element);
             return element;
         }
 
         public Connector GetForcesElementConnector()
         {
-            Connector connector;
             Element element = GetDecisionPackageElement();
             Collection connectors = element.Connectors;
             Assert.IsNotNull(connectors);
-            connector = connectors.GetAt(0);
+            Connector connector = connectors.GetAt(0);
             Assert.IsNotNull(connector);
             return connector;
         }
 
         public IEAConnector GetForcesDecisionConnector()
         {
-            IEAConnector connect = null;
             IEAElement decision = GetForcesDecisionElement();
             List<IEAConnector> connectors = decision.GetConnectors();
-            Assert.IsTrue(0 < connectors.Count());
-            connect = connectors.ElementAt<IEAConnector>(0);
+            Assert.IsTrue(connectors.Any());
+            IEAConnector connect = connectors.ElementAt(0);
             return connect;
         }
 
         public IEAConnector GetRelationshipDecisionConnector()
         {
-            IEAConnector connect = null;
             IEAElement decision = GetRelationshipDecisionElement();
             List<IEAConnector> connectors = decision.GetConnectors();
-            Assert.IsTrue(0 < connectors.Count());
-            connect = connectors.ElementAt<IEAConnector>(0);
+            Assert.IsTrue(connectors.Any());
+            IEAConnector connect = connectors.ElementAt(0);
             return connect;
         }
 
         public IEAConnector GetStakeholderDecisionConnector()
         {
-            IEAConnector connect = null;
             IEAElement decision = GetStakeholderActorElement();
             List<IEAConnector> connectors = decision.GetConnectors();
-            Assert.IsTrue(0 < connectors.Count());
-            connect = connectors.ElementAt<IEAConnector>(0);
+            Assert.IsTrue(connectors.Any());
+            IEAConnector connect = connectors.ElementAt(0);
             return connect;
         }
 
         public IEAConnector GetChronologyDecisionConnector()
         {
-            IEAConnector connect = null;
             IEAElement decision = GetChronologyDecisionElement();
             List<IEAConnector> connectors = decision.GetConnectors();
-            Assert.IsTrue(0 < connectors.Count());
-            connect = connectors.ElementAt<IEAConnector>(0);
+            Assert.IsTrue(connectors.Any());
+            IEAConnector connect = connectors.ElementAt(0);
             return connect;
         }
     }

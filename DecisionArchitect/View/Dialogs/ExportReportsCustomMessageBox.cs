@@ -30,8 +30,8 @@ namespace DecisionArchitect.View.Dialogs
             InitializeComponent();
             Text = string.Format(Messages.ReportSuccessful, reportType);
             _filename = filename;
-            labelReportDetails.Text = filename.Substring(filename.LastIndexOf("\\") + 1);
-            labelReportFolderDetails.Text = filename.Substring(0, filename.LastIndexOf("\\"));
+            labelReportDetails.Text = filename.Substring(filename.LastIndexOf("\\", System.StringComparison.Ordinal) + 1);
+            labelReportFolderDetails.Text = filename.Substring(0, filename.LastIndexOf("\\", System.StringComparison.Ordinal));
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false; //remove Maximize Button
             MinimizeBox = false; //remove Minimize Button
@@ -54,7 +54,7 @@ namespace DecisionArchitect.View.Dialogs
 
         private void buttonOpenFolder_Click(object sender, EventArgs e)
         {
-            string reportFolderpath = _filename.Substring(0, _filename.LastIndexOf("\\"));
+            string reportFolderpath = _filename.Substring(0, _filename.LastIndexOf("\\", System.StringComparison.Ordinal));
             //MessageBox.Show("Report Folderpath:" + reportFolderpath);//DEBUG
             Process.Start(reportFolderpath);
             Close();

@@ -10,6 +10,7 @@
     Spyros Ioakeimidis (University of Groningen)
 */
 
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using DecisionArchitect.Model;
 using EAFacade.Model;
@@ -21,9 +22,9 @@ namespace DecisionArchitect.View.Forces
     [InterfaceType(ComInterfaceType.InterfaceIsDual)]
     public interface IForcesView : IForcesModelObserver
     {
-        string[] ForceGuids { get; }
-        string[] ConcernGuids { get; }
-        string[] DecisionGuids { get; }
+        IEnumerable<string> ForceGuids { get; }
+        IEnumerable<string> ConcernGuids { get; }
+        IEnumerable<string> DecisionGuids { get; }
 
         void SetController(IForcesController controller);
         void UpdateTable(IForcesModel model);

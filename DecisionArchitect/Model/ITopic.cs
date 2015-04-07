@@ -105,7 +105,7 @@ namespace DecisionArchitect.Model
         ///     Saves Rationale field into LinkedDocument
         /// </summary>
         /// <param name="element"></param>
-        public void SaveDescription(IEAElement element)
+        private void SaveDescription(IEAElement element)
         {
             //_element.Notes = Rationale;
             using (var tempFiles = new TempFileCollection())

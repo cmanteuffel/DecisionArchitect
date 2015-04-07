@@ -32,7 +32,7 @@ namespace DecisionArchitect.Model
             DiagramName = diagramModel.Name;
         }
 
-        public string Name { get; set; }
+        public string Name { get; private set; }
         public string DiagramName { get; private set; }
 
         public string DiagramGUID
@@ -97,7 +97,7 @@ namespace DecisionArchitect.Model
         ///     Implements IForcesModel.GetForces()
         /// </summary>
         /// <returns></returns>
-        public IEAElement[] GetForces()
+        public IEnumerable<IEAElement> GetForces()
         {
             IEARepository repository = EAMain.Repository;
             return (from diagramObject in _diagram.GetElements()
@@ -123,7 +123,7 @@ namespace DecisionArchitect.Model
             return forceConcernDictionary;
         }
 
-        public List<Rating> GetRatings()
+        public IEnumerable<Rating> GetRatings()
         {
             var data = new List<Rating>();
             foreach (
@@ -143,7 +143,7 @@ namespace DecisionArchitect.Model
             return data;
         }
 
-        public void SaveRatings(List<Rating> data)
+        public void SaveRatings(IEnumerable<Rating> data)
         {
             IEARepository repository = EAMain.Repository;
             foreach (Rating rating in data)
