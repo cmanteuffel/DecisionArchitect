@@ -11,6 +11,7 @@
 */
 
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using DecisionArchitect.Logic;
 using DecisionArchitect.Logic.EventHandler;
 using DecisionArchitect.Utilities;
@@ -20,6 +21,7 @@ using EAFacade.Events;
 
 namespace DecisionArchitect
 {
+    [ComVisible(true)]
     public partial class MainApplication : EAEventAdapter
     {
         private readonly IList<IRepositoryListener> _listeners = new List<IRepositoryListener>();

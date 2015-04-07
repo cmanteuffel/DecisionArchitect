@@ -10,12 +10,14 @@
     Spyros Ioakeimidis (University of Groningen)
 */
 
+using System.Runtime.InteropServices;
 using EA;
 using EAFacade.Model;
 using EAFacade.Model.Impl;
 
 namespace EAFacade
 {
+    [ComVisible(true)]
     public sealed class EAMain
     {
         public static IEARepository Repository

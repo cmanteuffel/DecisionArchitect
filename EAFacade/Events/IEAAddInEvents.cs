@@ -10,10 +10,12 @@
     Spyros Ioakeimidis (University of Groningen)
 */
 
+using System.Runtime.InteropServices;
 using EA;
 
 namespace EAFacade.Events
 {
+    [ComVisible(true)]
     internal interface IEAAddInEvents
     {
         string EA_Connect(Repository repository);

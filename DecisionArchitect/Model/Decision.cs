@@ -17,7 +17,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using DecisionArchitect.Logic.EventHandler;
 using DecisionArchitect.Utilities;
 using EAFacade;
 using EAFacade.Model;
@@ -169,7 +168,7 @@ namespace DecisionArchitect.Model
             return decision;
         }
 
-#pragma region EventListener
+#region EventListener
 
         private void UpdateListChangeFlag(object sender, ListChangedEventArgs listChangedEventArgs)
         {
@@ -189,9 +188,9 @@ namespace DecisionArchitect.Model
             if (e.PropertyName.Equals("Changed")) return;
             Changed = true;
         }
-#pragma endregion EventListener
+#endregion EventListener
 
-#pragma region SaveAndLoadData
+#region SaveAndLoadData
 
         /// <summary>
         ///     Loads information from EAelement and converts them into domain model.
@@ -544,6 +543,6 @@ namespace DecisionArchitect.Model
             }
         }
 
-#pragma endregion
+#endregion
     }
 }

@@ -18,6 +18,7 @@ using DecisionArchitect.Model;
 
 namespace DecisionArchitect.View
 {
+    [ComVisible(true)]
     public interface ITopicViewController
     {
         ITopic Topic { get; set; }

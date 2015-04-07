@@ -25,12 +25,12 @@ using EAFacade.Model;
 
 namespace DecisionArchitect.View
 {
-    internal interface IDetailView
+    [ComVisible(true)]
+    public interface IDetailView
     {
         IDecision Decision { get; set; }
     }
 
-    [ComVisible(true)]
     [Guid("D65970AD-12A7-402A-9F88-ED50D8C1DD81")]
     [ProgId("DecisionViewpoints.DetailView")]
     [ClassInterface(ClassInterfaceType.None)]

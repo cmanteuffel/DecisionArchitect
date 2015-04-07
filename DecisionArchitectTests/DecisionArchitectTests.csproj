@@ -49,7 +49,7 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="nunit.framework">
-      <HintPath>packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
+      <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>

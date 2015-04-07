@@ -11,16 +11,20 @@
 */
 
 using System;
+using System.Runtime.InteropServices;
 using EA;
 
 namespace EAFacade.Events
 {
+    [ComVisible(true)]
     internal interface IEAEvents : IEAAddInEvents, IEABroadcastEvents
     {
     }
 
+    [ComVisible(true)]
     public abstract class EAEventAdapter : IEAEvents
     {
+
         public virtual string EA_Connect(Repository repository)
         {
             return "";

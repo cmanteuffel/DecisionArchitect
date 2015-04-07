@@ -11,16 +11,19 @@
     Marc Holterman (University of Groningen)
 */
 
+using System.Runtime.InteropServices;
 using EA;
 
 namespace EAFacade.Events
 {
+    [ComVisible(true)]
     internal interface IEABroadcastEvents : IEAFileEvents, IEACompartmentEvents, IEAInitEvents, IEAModelEvents,
                                             IEATechnologyEvent, IEATemplateEvents, IEATransformationEvents,
                                             IEAValidationEvents
     {
     }
 
+    [ComVisible(true)]
     public interface IEAFileEvents
     {
         void EA_FileOpen(Repository repository);
@@ -30,11 +33,13 @@ namespace EAFacade.Events
         void EA_OnPostCloseDiagram(Repository repository, int diagramId);
     }
 
+    [ComVisible(true)]
     internal interface IEAInitEvents
     {
         void EA_OnPostInitialized(Repository repository);
     }
 
+    [ComVisible(true)]
     internal interface IEAModelEvents
     {
         bool EA_OnPreDeleteElement(Repository repository, EventProperties properties);
@@ -67,22 +72,26 @@ namespace EAFacade.Events
         void EA_OnTabChanged(Repository repository, string tabname, int diagramID);
     }
 
+    [ComVisible(true)]
     internal interface IEATemplateEvents
     {
         string EA_OnRetrieveModelTemplate(Repository repository, string location);
     }
 
+    [ComVisible(true)]
     internal interface IEATransformationEvents
     {
         bool EA_OnPostTransform(Repository repository, EventProperties properties);
     }
 
+    [ComVisible(true)]
     internal interface IEACompartmentEvents
     {
         object EA_QueryAvailableCompartments(Repository repository);
         object EA_GetCompartmentData(Repository repository, string compartment, string guid, ObjectType type);
     }
 
+    [ComVisible(true)]
     internal interface IEATechnologyEvent
     {
         object EA_OnInitializeTechnologies(Repository repository);
@@ -90,6 +99,7 @@ namespace EAFacade.Events
         bool EA_OnPostActivateTechnology(Repository repository, EventProperties properties);
     }
 
+    [ComVisible(true)]
     internal interface IEAValidationEvents
     {
         void EA_OnInitializeUserRules(Repository repository);

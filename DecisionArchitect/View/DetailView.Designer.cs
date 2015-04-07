@@ -11,12 +11,14 @@
     Marc Holterman (University of Groningen)
 */
 
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using DecisionArchitect.Model;
 using DecisionArchitect.View.Components.RichTextBox;
 
 namespace DecisionArchitect.View
 {
+    [ComVisible(true)]
     partial class DetailView
     {
         /// <summary>
@@ -950,7 +952,6 @@ namespace DecisionArchitect.View
         private DataGridView dgvHistory;
         private GroupBox gpbDecisionInformation;
         private GroupBox gpbRationale;
-        private CustomRichTextBox pnlRichTextBox;
         private Label lblDecisionState;
         private ComboBox cbxState;
         private Label lblDecisionName;
@@ -960,7 +961,6 @@ namespace DecisionArchitect.View
         private TextBox txtAuthor;
         private Label lblModified;
         private DataGridView dgvAlternativeDecisions;
-        private CustomRichTextBox pnlTopicDescription;
         private CustomRichTextBox rtbTopicDescription;
         private CustomRichTextBox rtbRationale;
         private GroupBox grpDescription;
@@ -971,7 +971,6 @@ namespace DecisionArchitect.View
         private BindingSource iHistoryEntryBindingSource;
         private BindingSource iStakeholderActionBindingSource;
         private BindingSource iStakeholderBindingSource;
-        private DataGridViewTextBoxColumn clmStakeholderName;
         private DataGridViewTextBoxColumn clmTraceName;
         private DataGridViewTextBoxColumn Stakeholder;
         private DataGridViewTextBoxColumn clmStakeholderRole;

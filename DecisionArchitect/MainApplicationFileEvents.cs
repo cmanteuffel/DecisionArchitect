@@ -11,6 +11,7 @@
     Marc Holterman (University of Groningen)
  */
 
+using System.Runtime.InteropServices;
 using DecisionArchitect.Logic;
 using EA;
 using EAFacade;
