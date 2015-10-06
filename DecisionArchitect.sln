@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "Installer", "Installer\Installer.isproj", "{6B6D70B7-E4FB-46EC-872B-9A03BFB9BD0B}"
 	ProjectSection(ProjectDependencies) = postProject
 		{778A9A09-5030-4CC1-85A3-C7DBB053CEA2} = {778A9A09-5030-4CC1-85A3-C7DBB053CEA2}

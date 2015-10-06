@@ -7,6 +7,7 @@
  
  Contributors:
     Christian Manteuffel (University of Groningen)
+    Mathieu Kalksma (University of Groningen)
 */
 
 using System;
@@ -20,6 +21,7 @@ namespace DecisionArchitect.Model
     {
         IForce Force { get; }
         IConcern Concern { get; }
+        IDecision Decision { get; }
         string Result { get; set; }
         string TaggedValueGUID { get; }
     }
@@ -37,6 +39,14 @@ namespace DecisionArchitect.Model
             Force = force;
             Concern = concern;
             Result = result;
+            Decision = decision;
+        }
+
+        public ForceEvaluation(ITopic topic, IForce force, IConcern concern, string result)
+        {
+            Concern = concern;
+            Result = result;
+            Force = Force;
         }
 
         public ForceEvaluation(IDecision decision, IEATaggedValue taggedValue)
@@ -54,6 +64,7 @@ namespace DecisionArchitect.Model
 
         public IForce Force { get; private set; }
         public IConcern Concern { get; private set; }
+        public IDecision Decision { get; private set; }
 
         public string Result
         {

@@ -213,6 +213,8 @@ namespace DecisionArchitect.View.Components.RichTextBox
 
         public static string GetSubstring(string tag, string rtfString)
         {
+            if (string.IsNullOrEmpty(rtfString))
+                return string.Empty;
             int first = rtfString.IndexOf(tag, StringComparison.Ordinal) + tag.Length;
             int last = rtfString.LastIndexOf(tag, StringComparison.Ordinal);
             return last > first ? rtfString.Substring(first, last - first) : "";

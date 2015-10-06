@@ -9,12 +9,12 @@
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
     Marc Holterman (University of Groningen)
+    Mathieu Kalksma
 */
 
 using System;
 using System.ComponentModel;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using DecisionArchitect.Logic.EventHandler;
@@ -35,10 +35,8 @@ namespace DecisionArchitect.View
     [ProgId("DecisionViewpoints.DetailView")]
     [ClassInterface(ClassInterfaceType.None)]
     [ComDefaultInterface(typeof (IDetailView))]
-    public partial class DetailView : UserControl, IDetailView
+    public partial class DetailView : DecisionArchitectControl, IDetailView
     {
-        private const double SelectionLuminosityFactor = .65;
-        private const double SelectionSaturationFactor = .55;
         private IDecision _decision;
         private string _orginalDecisionName = "";
 
@@ -400,21 +398,23 @@ namespace DecisionArchitect.View
         private void ColoringAndNestingBinding(object sender, DataGridViewCellFormattingEventArgs e)
         {
             var grid = (DataGridView) sender;
-            DataGridViewRow row = grid.Rows[e.RowIndex];
-            try
-            {
-                if ((row.DataBoundItem != null) &&
-                    (grid.Columns[e.ColumnIndex].DataPropertyName.Contains(".")))
-                {
-                    e.Value = BindProperty(
-                        row.DataBoundItem,
-                        grid.Columns[e.ColumnIndex].DataPropertyName
-                        );
-                }
-            }
-            catch (IndexOutOfRangeException)
-            {
-            }
+            var row = grid.Rows[e.RowIndex];
+            //DataGridViewRow row = grid.Rows[e.RowIndex];
+            //try
+            //{
+            //    if ((row.DataBoundItem != null) &&
+            //        (grid.Columns[e.ColumnIndex].DataPropertyName.Contains(".")))
+            //    {
+            //        e.Value = BindProperty(
+            //            row.DataBoundItem,
+            //            grid.Columns[e.ColumnIndex].DataPropertyName
+            //            );
+            //    }
+            //}
+            //catch (IndexOutOfRangeException)
+            //{
+            //}
+            FixNestedProperty(grid, e);
 
 
             //coloring
@@ -529,64 +529,5 @@ namespace DecisionArchitect.View
             }
         }
 
-        /********************************************************************************************
-         ******************************************************************************************** 
-         ** Auxillery methods
-         ******************************************************************************************** 
-         ********************************************************************************************/
-
-        // Color the cell according to the State
-        private void ColorCellAccordingToState(DataGridViewCell cell, string state)
-        {
-            cell.Style.BackColor = DecisionStateColor.ConvertStateToColor(state);
-            HSLColor hsl = DecisionStateColor.ConvertStateToColor(state);
-            hsl.Luminosity = (hsl.Luminosity*SelectionLuminosityFactor);
-            hsl.Saturation = (hsl.Saturation*SelectionSaturationFactor);
-            cell.Style.SelectionBackColor = hsl;
-        }
-
-        private void ColorRowAccordingToState(DataGridViewRow row, string state)
-        {
-            foreach (DataGridViewCell cell in row.Cells)
-            {
-                ColorCellAccordingToState(cell, state);
-            }
-        }
-
-        /// <summary>
-        ///     Require for nested property binding.
-        /// </summary>
-        /// <param name="property"></param>
-        /// <param name="propertyName"></param>
-        /// <returns></returns>
-        private string BindProperty(object property, string propertyName)
-        {
-            string retValue = "";
-
-            if (propertyName.Contains("."))
-            {
-                string leftPropertyName = propertyName.Substring(0, propertyName.IndexOf(".", StringComparison.Ordinal));
-                PropertyInfo[] arrayProperties = property.GetType().GetProperties();
-
-                foreach (PropertyInfo propertyInfo in arrayProperties)
-                {
-                    if (propertyInfo.Name == leftPropertyName)
-                    {
-                        retValue = BindProperty(
-                            propertyInfo.GetValue(property, null),
-                            propertyName.Substring(propertyName.IndexOf(".", StringComparison.Ordinal) + 1));
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                Type propertyType = property.GetType();
-                PropertyInfo propertyInfo = propertyType.GetProperty(propertyName);
-                retValue = propertyInfo.GetValue(property, null).ToString();
-            }
-
-            return retValue;
-        }
     }
 }

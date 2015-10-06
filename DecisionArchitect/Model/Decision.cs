@@ -40,6 +40,7 @@ namespace DecisionArchitect.Model
         private string _rationale;
         private string _state;
         private ITopic _topic;
+        private bool _doDelete;
 
         private Decision()
         {
@@ -58,6 +59,12 @@ namespace DecisionArchitect.Model
         {
             get { return _name; }
             set { SetField(ref _name, value, "Name"); }
+        }
+
+        public bool DoDelete
+        {
+            get { return _doDelete; }
+            set { SetField(ref _doDelete, value, "DoDelete"); }
         }
 
         public string State
@@ -111,12 +118,34 @@ namespace DecisionArchitect.Model
 
         public bool SaveChanges()
         {
-            if (("").Equals(GUID) && ID == 0)
+            //if (("").Equals(GUID) && ID == 0)
+            //{
+            //    throw new Exception();
+            //}
+            if (DoDelete)
             {
-                throw new Exception();
+                var decisionElement = EAMain.Repository.GetElementByGUID(GUID);
+                decisionElement.ParentElement = null;
+                return decisionElement.Update(); 
             }
-            IEARepository repository = EAMain.Repository;
-            IEAElement element = repository.GetElementByGUID(GUID);
+
+            IEAElement element;
+            if (string.IsNullOrEmpty(GUID) && ID == 0)
+            {
+                var topicElement = Topic.Element;
+                element = topicElement.ParentPackage.CreateElement(Name,
+                                              State,
+                                              EAConstants.ActionMetaType);
+                element.MetaType = EAConstants.DecisionMetaType;
+                element.ParentElement = topicElement;
+                GUID = element.GUID;
+                ID = element.ID;
+            }
+            else
+            {
+                element = EAMain.Repository.GetElementByGUID(GUID);    
+            }
+            
 
             element.Name = Name;
 
@@ -125,11 +154,15 @@ namespace DecisionArchitect.Model
                 element.AddTaggedValue(EATaggedValueKeys.DecisionState, element.Stereotype);
                 element.AddTaggedValue(EATaggedValueKeys.DecisionStateModifiedDate,
                                        element.Modified.ToString(CultureInfo.InvariantCulture));
+
             }
 
-            if (!element.StereotypeList.Equals(State))
+            var lastHistoryState = History.LastOrDefault();
+            var stateChanged = lastHistoryState == null || !lastHistoryState.State.Equals(State);
+            if (!element.StereotypeList.Equals(State) || stateChanged)
             {
-                History.Add(new HistoryEntry(this, element.Stereotype, element.Modified));
+                //History.Add(new HistoryEntry(this, element.Stereotype, element.Modified));
+                History.Add(new HistoryEntry(this, State, DateTime.Now));
                 element.UpdateTaggedValue(EATaggedValueKeys.DecisionStateModifiedDate,
                                           Modified.ToString(CultureInfo.InvariantCulture));
             }
@@ -146,7 +179,7 @@ namespace DecisionArchitect.Model
             SaveRelations(element);
             SaveStakeholders(element);
             element.Update();
-            repository.AdviseElementChanged(element.ID);
+            EAMain.Repository.AdviseElementChanged(element.ID);
             Changed = false;
             return true;
         }
@@ -155,14 +188,38 @@ namespace DecisionArchitect.Model
         public void DiscardChanges()
         {
             IEAElement element = LoadElementFromRepository();
-            LoadDecisionDataFromElement(element);
+            LoadDecisionDataFromElement(element, true);
+        }
+
+        public static IDecision Load(IEAElement element, bool loadTopic)
+        {
+            var decision = new Decision();
+            decision.LoadDecisionDataFromElement(element, loadTopic);
+            decision.Stakeholders.RaiseListChangedEvents = true;
+            decision.Stakeholders.ListChanged += decision.UpdateListChangeFlag;
+            decision.PropertyChanged += decision.UpdateChangeFlag;
+            return decision;
         }
 
         public static IDecision Load(IEAElement element)
         {
-            var decision = new Decision();
-            decision.LoadDecisionDataFromElement(element);
+            return Load(element, true);
+        }
+
+        public static IDecision Create(string name, string state, ITopic topic)
+        {
+            var decision = new Decision
+            {
+                Name = name,
+                State = state,
+                Topic = topic,
+                Changed = true
+            };
             decision.PropertyChanged += decision.UpdateChangeFlag;
+            decision.Stakeholders.RaiseListChangedEvents = true;
+            decision.Stakeholders.ListChanged += decision.UpdateListChangeFlag;
+
+            
             return decision;
         }
 
@@ -195,7 +252,7 @@ namespace DecisionArchitect.Model
         ///     Loads information from EAelement and converts them into domain model.
         /// </summary>
         /// <param name="element"></param>
-        private void LoadDecisionDataFromElement(IEAElement element)
+        private void LoadDecisionDataFromElement(IEAElement element, bool loadTopic)
         {
             if (element == null) throw new Exception();
             RemoveAllChangeListener();
@@ -207,7 +264,8 @@ namespace DecisionArchitect.Model
             Author = element.Author;
             Rationale = LoadRationale(element);
             //Topic change not yet possible.
-            Topic = LoadTopic(element);
+            if (loadTopic)
+                Topic = LoadTopic(element);
             LoadAlternatives(element);
             LoadRelations(element);
             LoadHistory(element);
@@ -508,7 +566,7 @@ namespace DecisionArchitect.Model
             Stakeholders.Clear();
             IEnumerable<IStakeholderAction> actions =
                 element.GetConnectors()
-                       .Where(connector => connector.IsAction() && EAMain.IsStakeholder(connector.GetClient()))
+                        .Where(connector => connector.IsAction() && EAMain.IsStakeholder(connector.GetClient()))
                        .Select(sa => (IStakeholderAction) new StakeholderAction(this, sa));
             foreach (IStakeholderAction action in actions)
             {
@@ -531,11 +589,16 @@ namespace DecisionArchitect.Model
 
             foreach (IStakeholderAction connector in Stakeholders)
             {
-                if ("".Equals(connector.ConnectorGUID) || null == connector.ConnectorGUID)
+                if ("".Equals(connector.ConnectorGUID) || null == connector.ConnectorGUID && !connector.DoDelete)
                 {
-                    IEAElement client = repository.GetElementByGUID(GUID);
-                    IEAElement supplier = repository.GetElementByGUID(connector.Stakeholder.GUID);
-                    client.ConnectTo(supplier, EAConstants.ActionMetaType, connector.Action);
+                    var client = repository.GetElementByGUID(GUID);
+                    var supplier = repository.GetElementByGUID(connector.Stakeholder.GUID);
+                    supplier.ConnectTo(client, EAConstants.ActionMetaType, connector.Action);
+                } else if (connector.ConnectorGUID != null && connector.DoDelete)
+                {
+                    var supplier = repository.GetElementByGUID(connector.Stakeholder.GUID);
+                    var temp = EAMain.Repository.GetConnectorByGUID(connector.ConnectorGUID);
+                    supplier.RemoveConnector(temp);
                 }
             }
         }

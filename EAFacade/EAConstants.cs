@@ -46,6 +46,10 @@ namespace EAFacade
         public const string StateRejected = "rejected";
 
         public const string ForcesConnectorType = "Dependency";
+
+        public const string ConcernUID = "ConcernUID";
+        public const string ForceWeight = "Weight";
+
         
         public const string RelationMetaType = "Relationship";
         public const string RelationDependsOn = "depends on";

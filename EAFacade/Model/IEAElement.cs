@@ -10,10 +10,12 @@
     Spyros Ioakeimidis (University of Groningen)
     Marc Holterman (University of Groningen)  
     Mark Hoekstra (University of Groningen)
+    Mathieu Kalksma (University of Groningen)
 */
 
 using System;
 using System.Collections.Generic;
+using EA;
 
 namespace EAFacade.Model
 {
@@ -30,8 +32,8 @@ namespace EAFacade.Model
         string StereotypeList { get; set; }
         IEnumerable<IEAElement> GetTracedElements();
 
-        [Obsolete("Should be moved to topic", false)]
-        IEnumerable<IEAElement> GetDecisionsForTopic();
+        //[Obsolete("Should be moved to topic", false)]
+        //IEnumerable<IEAElement> GetDecisionsForTopic();
 
         [Obsolete("Should be moved to appropriate domain class", false)]
         IEnumerable<IEAElement> GetConnectedConcerns(string diagramGUID);
@@ -47,6 +49,7 @@ namespace EAFacade.Model
                                            EAConnectorDirection direction = EAConnectorDirection.ClientToSupplier);
 
         IEAConnector ConnectTo(IEAElement suppliedElement, String type, String stereotype);
+        IEAConnector ConnectTo(IEAElement suppliedElement, String type, String stereotype, bool allowMultiple);
 
         /// <summary>
         ///     Removes a connector from the element
@@ -58,8 +61,11 @@ namespace EAFacade.Model
         void Refresh();
         List<IEAElement> GetElements();
         List<IEAConnector> GetConnectors();
+        List<IEAFile> Files { get; }
         string GetLinkedDocument();
         void LoadFileIntoLinkedDocument(string fileName);
+        IEAFile AddFile(string file);
+        void DeleteFile(int index);
 
         /// <summary>
         ///     Remove all entries of TaggedValuesWithName

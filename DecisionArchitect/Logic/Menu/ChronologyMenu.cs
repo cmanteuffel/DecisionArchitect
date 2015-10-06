@@ -25,7 +25,7 @@ namespace DecisionArchitect.Logic.Menu
             var eapackage = EAMain.Repository.GetContextObject<IEAPackage>();
             if (null == eapackage) return;
 
-            var view = new GenerateChronologyView();
+            var view = new GenerateChronologyViewDialog();
             if (DialogResult.OK == view.ShowDialog())
             {
                 

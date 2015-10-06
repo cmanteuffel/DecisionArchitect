@@ -30,7 +30,7 @@ namespace DecisionArchitect.Logic.Menu
                 if (eaelement != null && !EAMain.IsDecision(eaelement) && !EAMain.IsTopic(eaelement))
                 {
                     string nameSuggestion = string.Format(Messages.NameSuggestionDecision, eaelement.Name);
-                    var createDecisionView = new CreateDecision(nameSuggestion);
+                    var createDecisionView = new CreateDecisionDialog(nameSuggestion);
                     if (createDecisionView.ShowDialog() == DialogResult.OK)
                     {
                         IEAPackage dvPackage = createDecisionView.GetDecisionViewPackage();
@@ -60,7 +60,7 @@ namespace DecisionArchitect.Logic.Menu
                 if (eaelement != null && !EAMain.IsDecision(eaelement) && !EAMain.IsTopic(eaelement))
                 {
                     string nameSuggestion = string.Format(Messages.NameSuggestionTopic, eaelement.Name);
-                    var createTopicView = new CreateTopic(nameSuggestion);
+                    var createTopicView = new CreateTopicDialog(nameSuggestion);
                     if (createTopicView.ShowDialog() == DialogResult.OK)
                     {
                         IEAPackage dvPackage = createTopicView.GetDecisionViewPackage();

@@ -9,6 +9,7 @@
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
     Mark Hoekstra (University of Groningen)
+    Mathieu Kalksma (University of Groningen)
 */
 
 using System.Collections.Generic;
@@ -45,6 +46,9 @@ namespace EAFacade.Model
         bool TaggedValueExists(string name, string data);
 
         void AddTaggedValue(string name, string data);
+
+        string GetTaggedValueByName(string name);
+        void UpdateTaggedValue(string name, string data);
 
         /// <summary>
         ///     Removes a TaggedValue from the connector with name and data.

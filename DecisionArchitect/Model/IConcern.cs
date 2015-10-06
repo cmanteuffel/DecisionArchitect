@@ -7,9 +7,12 @@
  
  Contributors:
     Christian Manteuffel (University of Groningen)
+    Mathieu Kalksma (University of Groningen)
 */
 
 
+using System.Collections.Generic;
+using System.Linq;
 using EAFacade;
 using EAFacade.Model;
 
@@ -19,6 +22,9 @@ namespace DecisionArchitect.Model
     {
         string Name { get; }
         string ConcernGUID { get; }
+        string UID { get; set; }
+        IEAElement Element { get; }
+        IEnumerable<string> GetUIDs(IForce force);
     }
 
 
@@ -31,7 +37,32 @@ namespace DecisionArchitect.Model
             ConcernGUID = concernGUID;
         }
 
+        public Concern(IEAElement concernElement)
+        {
+            Name = concernElement.Name;
+            ConcernGUID = concernElement.GUID;
+        }
+        public Concern(IEAElement concernElement, string uid)
+        {
+            Name = concernElement.Name;
+            ConcernGUID = concernElement.GUID;
+            UID = uid;
+        }
+
         public string Name { get; private set; }
         public string ConcernGUID { get; private set; }
+        public string UID { get;  set; }
+        public IEAElement Element { get { return EAMain.Repository.GetElementByGUID(ConcernGUID); }}
+
+        public IEnumerable<string> GetUIDs(IForce force)
+        {
+            var element = EAMain.Repository.GetElementByGUID(force.ForceGUID);
+
+            return (from x in element.GetConnectors()
+                where
+                    x.MetaType.Equals(EAConstants.ConcernMetaType) && x.GetSupplier().GUID.Equals(ConcernGUID) &&
+                    x.TaggedValueExists(EAConstants.ConcernUID)
+                select x.GetTaggedValueByName(EAConstants.ConcernUID));
+        }
     }
 }

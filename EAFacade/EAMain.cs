@@ -17,9 +17,15 @@ using EAFacade.Model.Impl;
 
 namespace EAFacade
 {
+    [Guid("71D1F871-BD1F-47D8-8E8F-7DA11BB14DF7")]
     [ComVisible(true)]
+    [ProgId("EAFacade.EAMAIN")]
     public static class EAMain
     {
+        static EAMain()
+        {
+        }
+
         public static IEARepository Repository
         {
             get { return EARepository.Instance; }

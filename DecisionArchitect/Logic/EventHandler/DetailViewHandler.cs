@@ -173,7 +173,7 @@ namespace DecisionArchitect.Logic.EventHandler
                 }
                 else if (diagrams.Length >= 2)
                 {
-                    var selectForm = new SelectDiagram(diagrams);
+                    var selectForm = new SelectDiagramDialog(diagrams);
                     if (selectForm.ShowDialog() == DialogResult.OK)
                     {
                         IEADiagram diagram = selectForm.GetSelectedDiagram();

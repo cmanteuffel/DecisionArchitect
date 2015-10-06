@@ -46,7 +46,7 @@
       <HintPath>C:\$(ProgramFiles)\Open XML SDK\V2.0\lib\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
     <Reference Include="Interop.EA">
-      <HintPath>C:\$(ProgramFiles)\Sparx Systems\EA\Interop.EA.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Sparx Systems\EA\Interop.EA.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -63,8 +63,18 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="VIBlend.WinForms.Controls, Version=10.0.0.0, Culture=neutral, PublicKeyToken=6feea38fef5ea0cf" />
-    <Reference Include="VIBlend.WinForms.Utilities, Version=8.0.0.0, Culture=neutral, PublicKeyToken=970a5af59bc48043" />
+    <Reference Include="VIBlend.WinForms.Controls">
+      <HintPath>C:\Program Files (x86)\VIBlend\Windows Forms Controls v.10.1.0.0\VIBlend.WinForms.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="VIBlend.WinForms.Controls.Design">
+      <HintPath>C:\Program Files (x86)\VIBlend\Windows Forms Controls v.10.1.0.0\VIBlend.WinForms.Controls.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="VIBlend.WinForms.DataGridView">
+      <HintPath>C:\Program Files (x86)\VIBlend\Windows Forms Controls v.10.1.0.0\VIBlend.WinForms.DataGridView.dll</HintPath>
+    </Reference>
+    <Reference Include="VIBlend.WinForms.Utilities">
+      <HintPath>C:\Program Files (x86)\VIBlend\Windows Forms Controls v.10.1.0.0\VIBlend.WinForms.Utilities.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +86,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Model\DAFile.cs" />
+    <Compile Include="Model\ITopicForceEvaluation.cs" />
     <Compile Include="Model\DataComparator.cs" />
     <Compile Include="Model\Decision.cs" />
     <Compile Include="Model\Entity.cs" />
@@ -91,28 +103,65 @@
     <Compile Include="Model\ITopic.cs" />
     <Compile Include="Model\ITraceLink.cs" />
     <Compile Include="Properties\CanBeNullAttribute.cs" />
+    <Compile Include="Utilities\RoundedRectangle.cs" />
     <Compile Include="Utilities\SortableBindingList.cs" />
+    <Compile Include="Utilities\TopicViewDelegater.cs" />
     <Compile Include="Utilities\Utils.cs" />
-    <Compile Include="View\Forces\PopulateTreeView.cs" />
-    <Compile Include="View\Dialogs\AddForce.cs">
+    <Compile Include="View\Chronology\ChronologyView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Chronology\ChronologyView.Designer.cs">
+      <DependentUpon>ChronologyView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\DecisionArchitectControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Components\Dialogs\SelectForceDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Dialogs\AddForce.Designer.cs">
-      <DependentUpon>AddForce.cs</DependentUpon>
+    <Compile Include="View\Components\Dialogs\SelectForceDialog.Designer.cs">
+      <DependentUpon>SelectForceDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Components\Dialogs\CreateStakeholderActionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Components\Dialogs\CreateStakeholderActionDialog.Designer.cs">
+      <DependentUpon>CreateStakeholderActionDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Components\Dialogs\EditForceRatingDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Components\Dialogs\EditForceRatingDialog.Designer.cs">
+      <DependentUpon>EditForceRatingDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Components\Dialogs\SelectForceDiagram.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Components\Dialogs\SelectForceDiagram.Designer.cs">
+      <DependentUpon>SelectForceDiagram.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Components\Dialogs\IDecisionDialogListener.cs" />
+    <Compile Include="View\Forces\DecisionEvaluation.cs" />
+    <Compile Include="View\Forces\PopulateTreeView.cs" />
+    <Compile Include="View\Components\Dialogs\AddForceDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Components\Dialogs\AddForceDialog.Designer.cs">
+      <DependentUpon>AddForceDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="View\Forces\ForcesController.cs" />
     <Compile Include="View\Forces\IForcesController.cs" />
-    <Compile Include="View\Dialogs\CreateDecision.cs">
+    <Compile Include="View\Components\Dialogs\CreateDecisionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Dialogs\CreateDecision.Designer.cs">
-      <DependentUpon>CreateDecision.cs</DependentUpon>
+    <Compile Include="View\Components\Dialogs\CreateDecisionDialog.Designer.cs">
+      <DependentUpon>CreateDecisionDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\Dialogs\CreateTopic.cs">
+    <Compile Include="View\Components\Dialogs\CreateTopicDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Dialogs\CreateTopic.Designer.cs">
-      <DependentUpon>CreateTopic.cs</DependentUpon>
+    <Compile Include="View\Components\Dialogs\CreateTopicDialog.Designer.cs">
+      <DependentUpon>CreateTopicDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Logic\ChronologicalViewpointGenerator.cs" />
     <Compile Include="Logic\EventHandler\ChronologicalViewpointHandler.cs" />
@@ -120,10 +169,10 @@
     <Compile Include="Logic\EventHandler\DetailViewHandler.cs" />
     <Compile Include="Logic\Menu\ChronologyMenu.cs" />
     <Compile Include="Logic\Menu\CreateTraceMenu.cs" />
-    <Compile Include="View\Dialogs\ExportReportsCustomMessageBox.cs">
+    <Compile Include="View\Components\Dialogs\ExportReportsCustomMessageBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Dialogs\ExportReportsCustomMessageBox.Designer.cs">
+    <Compile Include="View\Components\Dialogs\ExportReportsCustomMessageBox.Designer.cs">
       <DependentUpon>ExportReportsCustomMessageBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Logic\Menu\ReportMenu.cs" />
@@ -185,11 +234,11 @@
     <Compile Include="View\Forces\ForcesView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="View\Dialogs\GenerateChronologyView.cs">
+    <Compile Include="View\Components\Dialogs\GenerateChronologyViewDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Dialogs\GenerateChronologyView.Designer.cs">
-      <DependentUpon>GenerateChronologyView.cs</DependentUpon>
+    <Compile Include="View\Components\Dialogs\GenerateChronologyViewDialog.Designer.cs">
+      <DependentUpon>GenerateChronologyViewDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Utilities\HSLColor.cs" />
     <Compile Include="View\Components\RichTextBox\HyperLinkWindow.cs">
@@ -208,17 +257,29 @@
       <DependentUpon>CustomRichTextBox.cs</DependentUpon>
     </Compile>
     <Compile Include="View\Forces\IForcesView.cs" />
-    <Compile Include="View\Dialogs\AddDecision.cs">
+    <Compile Include="View\Components\Dialogs\AddDecisionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Dialogs\SelectDiagram.cs">
+    <Compile Include="View\Components\Dialogs\SelectDiagramDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Dialogs\SelectDiagram.Designer.cs">
-      <DependentUpon>SelectDiagram.cs</DependentUpon>
+    <Compile Include="View\Components\Dialogs\SelectDiagramDialog.Designer.cs">
+      <DependentUpon>SelectDiagramDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="View\Components\RichTextBox\ToolStripFontComboBox.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="View\Forces\TopicForceView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Forces\TopicForceView.Designer.cs">
+      <DependentUpon>TopicForceView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Stakeholders\StakeholdersView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Stakeholders\StakeholdersView.Designer.cs">
+      <DependentUpon>StakeholdersView.cs</DependentUpon>
     </Compile>
     <Compile Include="View\TopicView.cs">
       <SubType>UserControl</SubType>
@@ -233,20 +294,35 @@
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\Chronology\ChronologyView.resx">
+      <DependentUpon>ChronologyView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\DetailView.resx">
       <DependentUpon>DetailView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\Dialogs\AddForce.resx">
-      <DependentUpon>AddForce.cs</DependentUpon>
+    <EmbeddedResource Include="View\Components\Dialogs\AddForceDialog.resx">
+      <DependentUpon>AddForceDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Components\Dialogs\SelectForceDialog.resx">
+      <DependentUpon>SelectForceDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Components\Dialogs\CreateStakeholderActionDialog.resx">
+      <DependentUpon>CreateStakeholderActionDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Components\Dialogs\EditForceRatingDialog.resx">
+      <DependentUpon>EditForceRatingDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Components\Dialogs\SelectForceDiagram.resx">
+      <DependentUpon>SelectForceDiagram.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Forces\ForcesView.resx">
       <DependentUpon>ForcesView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\Dialogs\AddDecision.resx">
-      <DependentUpon>AddDecision.cs</DependentUpon>
+    <EmbeddedResource Include="View\Components\Dialogs\AddDecisionDialog.resx">
+      <DependentUpon>AddDecisionDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\Dialogs\GenerateChronologyView.resx">
-      <DependentUpon>GenerateChronologyView.cs</DependentUpon>
+    <EmbeddedResource Include="View\Components\Dialogs\GenerateChronologyViewDialog.resx">
+      <DependentUpon>GenerateChronologyViewDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Components\RichTextBox\HyperLinkWindow.resx">
       <DependentUpon>HyperLinkWindow.cs</DependentUpon>
@@ -254,8 +330,14 @@
     <EmbeddedResource Include="View\Components\RichTextBox\CustomRichTextBox.resx">
       <DependentUpon>CustomRichTextBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\Dialogs\SelectDiagram.resx">
-      <DependentUpon>SelectDiagram.cs</DependentUpon>
+    <EmbeddedResource Include="View\Components\Dialogs\SelectDiagramDialog.resx">
+      <DependentUpon>SelectDiagramDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Forces\TopicForceView.resx">
+      <DependentUpon>TopicForceView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Stakeholders\StakeholdersView.resx">
+      <DependentUpon>StakeholdersView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\TopicView.resx">
       <DependentUpon>TopicView.cs</DependentUpon>
@@ -269,10 +351,10 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Settings2.Designer.cs</LastGenOutput>
     </None>
-    <EmbeddedResource Include="View\Dialogs\CreateTopic.resx">
-      <DependentUpon>CreateTopic.cs</DependentUpon>
+    <EmbeddedResource Include="View\Components\Dialogs\CreateTopicDialog.resx">
+      <DependentUpon>CreateTopicDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\Dialogs\ExportReportsCustomMessageBox.resx">
+    <EmbeddedResource Include="View\Components\Dialogs\ExportReportsCustomMessageBox.resx">
       <DependentUpon>ExportReportsCustomMessageBox.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -281,12 +363,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="View\Dialogs\CreateDecision.resx">
-      <DependentUpon>CreateDecision.cs</DependentUpon>
+    <EmbeddedResource Include="View\Components\Dialogs\CreateDecisionDialog.resx">
+      <DependentUpon>CreateDecisionDialog.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="View\Chronology\" />
     <Folder Include="View\Controller\" />
   </ItemGroup>
   <ItemGroup>
@@ -300,6 +381,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <Content Include="DecisionArchitect.ico" />
+    <None Include="Resources\plus.png" />
+    <None Include="Resources\colorpicker1.png" />
     <Content Include="Templates\DAReport.xml" />
     <Content Include="Templates\DAReportScript.js" />
   </ItemGroup>

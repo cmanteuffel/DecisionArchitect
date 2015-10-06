@@ -18,9 +18,9 @@ using EAFacade.Model;
 
 namespace DecisionArchitect.View.Dialogs
 {
-    public partial class SelectDiagram : Form
+    public partial class SelectDiagramDialog : Form
     {
-        public SelectDiagram(IEnumerable<IEADiagram> diagrams)
+        public SelectDiagramDialog(IEnumerable<IEADiagram> diagrams)
         {
             InitializeComponent();
 

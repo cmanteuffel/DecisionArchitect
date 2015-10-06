@@ -17,9 +17,10 @@ using EAFacade.Model;
 
 namespace DecisionArchitect.View.Dialogs
 {
-    public class AddDecision : Form
+    public class AddDecisionDialog : Form
     {
         private readonly IForcesController _controller;
+        private readonly IDecisionDialogListener _listener;
 
         private Button _btnAddDecision;
         private Button _btnCancel;
@@ -27,7 +28,15 @@ namespace DecisionArchitect.View.Dialogs
         private Label _lblDecision;
         private TreeView _tvDecision;
 
-        public AddDecision(IForcesController controller)
+        public AddDecisionDialog(IDecisionDialogListener callbackListener)
+        {
+            _listener = callbackListener;
+            InitializeComponent();
+            var populateTreeView = new PopulateTreeView(_tvDecision, true);
+            populateTreeView.Populate();
+        }
+
+        public AddDecisionDialog(IForcesController controller)
         {
             _controller = controller;
             InitializeComponent();
@@ -166,6 +175,12 @@ namespace DecisionArchitect.View.Dialogs
         /// <param name="element"></param>
         private void AddDecisionToDiagram(IEAElement element)
         {
+            if (_listener != null)
+            {
+                _listener.OnDecisionSelected(element);
+                return;
+            }
+
             IEARepository repository = EAMain.Repository;
 
             string diagramGuid = _controller.Model.DiagramGUID;

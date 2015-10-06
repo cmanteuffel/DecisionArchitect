@@ -11,7 +11,7 @@
 
 namespace DecisionArchitect.View.Dialogs
 {
-    partial class AddForce
+    partial class AddForceDialog
     {
         /// <summary>
         /// Required designer variable.

@@ -225,7 +225,7 @@
 	<table name="AppSearch">
 		<col key="yes" def="s72">Property</col>
 		<col key="yes" def="s72">Signature_</col>
-		<row><td>DOTNETVERSION45FULL</td><td>DotNet45Full</td></row>
+		<row><td>DOTNETVERSION40CLIENT</td><td>DotNet40Client</td></row>
 	</table>
 
 	<table name="BBControl">
@@ -263,7 +263,9 @@
 		<row><td>NewBinary16</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\InstallFirstUse.ico</td></row>
 		<row><td>NewBinary17</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\InstallPartial.ico</td></row>
 		<row><td>NewBinary18</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\InstallStateMenu.ico</td></row>
+		<row><td>NewBinary19</td><td/><td>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\RegAsm.exe</td></row>
 		<row><td>NewBinary2</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\New.ibd</td></row>
+		<row><td>NewBinary20</td><td/><td>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\RegAsm.exe</td></row>
 		<row><td>NewBinary3</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\Up.ibd</td></row>
 		<row><td>NewBinary4</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\WarningIcon.ibd</td></row>
 		<row><td>NewBinary5</td><td/><td>&lt;ISProductFolder&gt;\Support\Themes\InstallShield Blue Theme\welcome.jpg</td></row>
@@ -1011,13 +1013,13 @@
 		<row><td>SetupCompleteError</td><td>Finish</td><td>DoAction</td><td>CleanUp</td><td>ISSCRIPTRUNNING="1"</td><td>1</td></row>
 		<row><td>SetupCompleteError</td><td>Finish</td><td>DoAction</td><td>ShowMsiLog</td><td>MsiLogFileLocation And (ISSHOWMSILOG="1")</td><td>3</td></row>
 		<row><td>SetupCompleteError</td><td>Finish</td><td>EndDialog</td><td>Exit</td><td>1</td><td>2</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>CleanUp</td><td>ISSCRIPTRUNNING="1"</td><td>35</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>ShowMsiLog</td><td>MsiLogFileLocation And (ISSHOWMSILOG="1") And NOT ISENABLEDWUSFINISHDIALOG</td><td>40</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>reg_eafacade</td><td>Not Installed And (DOTNETVERSION45FULL&gt;="#1")</td><td>3</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>reg_main</td><td>Not Installed And (DOTNETVERSION45FULL&gt;="#1")</td><td>1</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>EndDialog</td><td>Exit</td><td>1</td><td>36</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>[reg_eafacade]</td><td>reg_eafacade</td><td>Not Installed And (DOTNETVERSION45FULL&gt;="#1")</td><td>4</td></row>
-		<row><td>SetupCompleteSuccess</td><td>OK</td><td>[reg_main]</td><td>reg_main</td><td>Not Installed And (DOTNETVERSION45FULL&gt;="#1")</td><td>2</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>CleanUp</td><td>ISSCRIPTRUNNING="1"</td><td>37</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>ShowMsiLog</td><td>MsiLogFileLocation And (ISSHOWMSILOG="1") And NOT ISENABLEDWUSFINISHDIALOG</td><td>42</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>reg_ea</td><td>Not Installed</td><td>1</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>DoAction</td><td>reg_eamain</td><td>Not Installed</td><td>3</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>EndDialog</td><td>Exit</td><td>1</td><td>38</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>[reg_ea]</td><td>reg_ea</td><td>Not Installed</td><td>2</td></row>
+		<row><td>SetupCompleteSuccess</td><td>OK</td><td>[reg_eamain]</td><td>reg_eamain</td><td>Not Installed</td><td>4</td></row>
 		<row><td>SetupError</td><td>A</td><td>EndDialog</td><td>ErrorAbort</td><td>1</td><td>0</td></row>
 		<row><td>SetupError</td><td>C</td><td>EndDialog</td><td>ErrorCancel</td><td>1</td><td>0</td></row>
 		<row><td>SetupError</td><td>I</td><td>EndDialog</td><td>ErrorIgnore</td><td>1</td><td>0</td></row>
@@ -1076,8 +1078,8 @@
 		<row><td>SetARPINSTALLLOCATION</td><td>51</td><td>ARPINSTALLLOCATION</td><td>[INSTALLDIR]</td><td/><td/></row>
 		<row><td>SetAllUsersProfileNT</td><td>51</td><td>ALLUSERSPROFILE</td><td>[%SystemRoot]\Profiles\All Users</td><td/><td/></row>
 		<row><td>ShowMsiLog</td><td>226</td><td>SystemFolder</td><td>[SystemFolder]notepad.exe "[MsiLogFileLocation]"</td><td/><td>Shows Property-driven MSI Log</td></row>
-		<row><td>reg_eafacade</td><td>34</td><td>V4.0.303194</td><td>[V4.0.303194]regasm "[INSTALLDIR]\EAFacade.dll"</td><td/><td/></row>
-		<row><td>reg_main</td><td>34</td><td>V4.0.303194</td><td>[V4.0.303194]regasm "[INSTALLDIR]\DecisionArchitect.dll" /codebase</td><td/><td/></row>
+		<row><td>reg_ea</td><td>98</td><td>V4.0.303194</td><td>[V4.0.303194]RegAsm.exe "[INSTALLDIR]\eafacade.dll"</td><td/><td/></row>
+		<row><td>reg_eamain</td><td>98</td><td>V4.0.303194</td><td>[V4.0.303194]RegAsm.exe "[INSTALLDIR]\DecisionArchitect.dll" /codebase</td><td/><td/></row>
 		<row><td>setAllUsersProfile2K</td><td>51</td><td>ALLUSERSPROFILE</td><td>[%ALLUSERSPROFILE]</td><td/><td/></row>
 		<row><td>setUserProfileNT</td><td>51</td><td>USERPROFILE</td><td>[%USERPROFILE]</td><td/><td/></row>
 	</table>
@@ -1158,6 +1160,7 @@
 		<row><td>FRAMEWORK2</td><td>MICROSOFT.NET2</td><td>FRAMEW~1|Framework</td><td/><td>0</td><td/></row>
 		<row><td>FRAMEWORK3</td><td>MICROSOFT.NET3</td><td>FRAMEW~1|Framework</td><td/><td>0</td><td/></row>
 		<row><td>FRAMEWORK4</td><td>MICROSOFT.NET4</td><td>FRAMEW~1|Framework</td><td/><td>0</td><td/></row>
+		<row><td>FRAMEWORK64</td><td>MICROSOFT.NET4</td><td>FRAMEW~1|Framework64</td><td/><td>0</td><td/></row>
 		<row><td>FavoritesFolder</td><td>TARGETDIR</td><td>.:FAVORI~1|Favorites</td><td/><td>0</td><td/></row>
 		<row><td>FontsFolder</td><td>TARGETDIR</td><td>.:Fonts</td><td/><td>0</td><td/></row>
 		<row><td>GlobalAssemblyCache</td><td>TARGETDIR</td><td>.:Global~1|GlobalAssemblyCache</td><td/><td>0</td><td/></row>
@@ -1179,6 +1182,9 @@
 		<row><td>NEW_DIRECTORY3</td><td>TARGETDIR</td><td>NEW_DIRECTORY3</td><td/><td>0</td><td/></row>
 		<row><td>NEW_DIRECTORY4</td><td>TARGETDIR</td><td>NEW_DIRECTORY4</td><td/><td>0</td><td/></row>
 		<row><td>NEW_DIRECTORY5</td><td>TARGETDIR</td><td>NEW_DIRECTORY5</td><td/><td>0</td><td/></row>
+		<row><td>NEW_DIRECTORY6</td><td>TARGETDIR</td><td>NEW_DIRECTORY6</td><td/><td>0</td><td/></row>
+		<row><td>NEW_DIRECTORY7</td><td>TARGETDIR</td><td>NEW_DIRECTORY7</td><td/><td>0</td><td/></row>
+		<row><td>NEW_DIRECTORY8</td><td>TARGETDIR</td><td>NEW_DIRECTORY8</td><td/><td>0</td><td/></row>
 		<row><td>NetHoodFolder</td><td>TARGETDIR</td><td>.:NetHood</td><td/><td>0</td><td/></row>
 		<row><td>PersonalFolder</td><td>TARGETDIR</td><td>.:Personal</td><td/><td>0</td><td/></row>
 		<row><td>PrimaryVolumePath</td><td>TARGETDIR</td><td>.:Primar~1|PrimaryVolumePath</td><td/><td>0</td><td/></row>
@@ -1203,6 +1209,7 @@
 		<row><td>V4.0.303192</td><td>FRAMEWORK2</td><td>V4_0_3~1|v4.0.30319</td><td/><td>0</td><td/></row>
 		<row><td>V4.0.303193</td><td>FRAMEWORK3</td><td>V4_0_3~1|v4.0.30319</td><td/><td>0</td><td/></row>
 		<row><td>V4.0.303194</td><td>FRAMEWORK4</td><td>V4_0_3~1|v4.0.30319</td><td/><td>0</td><td/></row>
+		<row><td>V4.0.303195</td><td>FRAMEWORK64</td><td>V4_0_3~1|v4.0.30319</td><td/><td>0</td><td/></row>
 		<row><td>WINDIR</td><td>TARGETDIR</td><td>.</td><td/><td>0</td><td/></row>
 		<row><td>WINDOWS</td><td>DIRPROPERTY3</td><td>Windows</td><td/><td>0</td><td/></row>
 		<row><td>WinDir</td><td>TARGETDIR</td><td>.</td><td/><td>0</td><td/></row>
@@ -2653,7 +2660,7 @@
 		<col def="I2">Order</col>
 		<col def="I2">ISSetupLocation</col>
 		<col def="S255">ISReleaseFlags</col>
-		<row><td>_0536627B_29FA_4E9C_93F1_9B244781B482_</td><td>Microsoft .NET Framework 4.5 Web.prq</td><td/><td/><td/></row>
+		<row><td>_8750543E_7461_439C_B7FB_2680149B77A7_</td><td>Microsoft .NET Framework 4.0 Client (Web Download).prq</td><td/><td/><td/></row>
 	</table>
 
 	<table name="ISSetupType">
@@ -2687,10 +2694,11 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>Decision Architect Team</td><td>0</td><td/><td>-1264396048</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>Decision Architect </td><td>0</td><td/><td>1017327958</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>295819617</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>295819617</td></row>
-		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION45FULL</td><td>1033</td><td>Microsoft .NET Framework 4.5 Full package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>295819649</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION40CLIENT</td><td>1033</td><td>Microsoft .NET Framework 4.0 Client Package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>-1021057460</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION45FULL</td><td>1033</td><td>Microsoft .NET Framework 4.5 Full package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>-1021064276</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_OS</td><td>1033</td><td>The operating system is not adequate for running [ProductName].</td><td>0</td><td/><td>295819617</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>295819617</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>295819617</td></row>
@@ -3788,8 +3796,8 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>295819617</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>295819617</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>295819617</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://decisions.codeplex.com</td><td>0</td><td/><td>-450719539</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>Decision Architect Team</td><td>0</td><td/><td>-1264396048</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://decisions.codeplex.com</td><td>0</td><td/><td>1017370934</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>Decision Architect Team</td><td>0</td><td/><td>-1021066260</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>=-NewEnvironment1</td><td>0</td><td/><td>2040626001</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>=-NewEnvironment1</td><td>0</td><td/><td>2040599409</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>295819617</td></row>
@@ -4095,7 +4103,7 @@ QwBEAF8AUgBPAE0AAQBFAHgAcAByAGUAcwBzAA==
 	<table name="LaunchCondition">
 		<col key="yes" def="s255">Condition</col>
 		<col def="l255">Description</col>
-		<row><td>DOTNETVERSION45FULL&gt;="#1"</td><td>##IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION45FULL##</td></row>
+		<row><td>DOTNETVERSION40CLIENT&gt;="#1"</td><td>##IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION40CLIENT##</td></row>
 	</table>
 
 	<table name="ListBox">
@@ -4388,7 +4396,9 @@ QwBEAF8AUgBPAE0AAQBFAHgAcAByAGUAcwBzAA==
 		<row><td>IS_SQLSERVER_USERNAME</td><td>sa</td><td/></row>
 		<row><td>InstallChoice</td><td>AR</td><td/></row>
 		<row><td>LAUNCHREADME</td><td>1</td><td/></row>
+		<row><td>MSIFASTINSTALL</td><td>0</td><td/></row>
 		<row><td>Manufacturer</td><td>##COMPANY_NAME##</td><td/></row>
+		<row><td>MsiLogging</td><td>voicewarmup</td><td/></row>
 		<row><td>PIDKEY</td><td/><td/></row>
 		<row><td>PIDTemplate</td><td>12345&lt;###-%%%%%%%&gt;@@@@@</td><td/></row>
 		<row><td>PROGMSG_IIS_CREATEAPPPOOL</td><td>##IDS_PROGMSG_IIS_CREATEAPPPOOL##</td><td/></row>
@@ -4414,9 +4424,9 @@ QwBEAF8AUgBPAE0AAQBFAHgAcAByAGUAcwBzAA==
 		<row><td>PROGMSG_IIS_ROLLBACKAPPPOOLS</td><td>##IDS_PROGMSG_IIS_ROLLBACKAPPPOOLS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
-		<row><td>ProductCode</td><td>{3C338BED-1E7C-4254-BD75-2AE69C22F136}</td><td/></row>
+		<row><td>ProductCode</td><td>{5AF2C7B2-C546-4DDA-9839-E7C8A242E785}</td><td/></row>
 		<row><td>ProductName</td><td>Decision Architect</td><td/></row>
-		<row><td>ProductVersion</td><td>0.5</td><td/></row>
+		<row><td>ProductVersion</td><td>0.6</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
@@ -4429,7 +4439,7 @@ QwBEAF8AUgBPAE0AAQBFAHgAcAByAGUAcwBzAA==
 		<row><td>SERIALNUMBER</td><td/><td/></row>
 		<row><td>SERIALNUMVALSUCCESSRETVAL</td><td>1</td><td/></row>
 		<row><td>SHOWLAUNCHPROGRAM</td><td>0</td><td/></row>
-		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;DOTNETVERSION45FULL;ISACTIONPROP1</td><td/></row>
+		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;ISACTIONPROP1;DOTNETVERSION40CLIENT</td><td/></row>
 		<row><td>SelectedSetupType</td><td>##IDS__DisplayName_Typical##</td><td/></row>
 		<row><td>SetupType</td><td>Typical</td><td/></row>
 		<row><td>UpgradeCode</td><td>{ECB90A08-5F0C-4D5E-80BF-67A8141096BD}</td><td/></row>
@@ -4474,7 +4484,7 @@ QwBEAF8AUgBPAE0AAQBFAHgAcAByAGUAcwBzAA==
 		<col def="s255">Key</col>
 		<col def="S255">Name</col>
 		<col def="I2">Type</col>
-		<row><td>DotNet45Full</td><td>2</td><td>SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full</td><td>Version</td><td>2</td></row>
+		<row><td>DotNet40Client</td><td>2</td><td>SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Client</td><td>Install</td><td>2</td></row>
 	</table>
 
 	<table name="Registry">
@@ -4701,7 +4711,7 @@ QwBEAF8AUgBPAE0AAQBFAHgAcAByAGUAcwBzAA==
 		<col def="s72">ActionProperty</col>
 		<col def="S72">ISDisplayName</col>
 		<row><td>{00000000-0000-0000-0000-000000000000}</td><td>***ALL_VERSIONS***</td><td></td><td></td><td>2</td><td/><td>ISFOUNDNEWERPRODUCTVERSION</td><td>ISPreventDowngrade</td></row>
-		<row><td>{ECB90A08-5F0C-4D5E-80BF-67A8141096BD}</td><td></td><td>0.5</td><td></td><td>768</td><td/><td>ISACTIONPROP1</td><td>NewUpgradeEntry1</td></row>
+		<row><td>{ECB90A08-5F0C-4D5E-80BF-67A8141096BD}</td><td></td><td>0.6</td><td></td><td>768</td><td/><td>ISACTIONPROP1</td><td>NewUpgradeEntry1</td></row>
 	</table>
 
 	<table name="Verb">

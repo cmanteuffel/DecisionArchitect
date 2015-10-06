@@ -9,6 +9,7 @@
     Christian Manteuffel (University of Groningen)
     Spyros Ioakeimidis (University of Groningen)
     Mark Hoekstra (University of Groningen)
+    Mathieu Kalksma (University of Groningen)
 */
 
 using System;
@@ -144,7 +145,32 @@ namespace EAFacade.Model.Impl
         public void AddTaggedValue(string name, string data)
         {
             ConnectorTag taggedValue = _native.TaggedValues.AddNew(name, "");
-            taggedValue.Value = data;
+            if (data == null) data = "";
+            if (data.Length > 255)
+            {
+                taggedValue.Value = "<memo>";
+                taggedValue.Notes = data;
+            }
+            else
+            {
+                taggedValue.Value = data;
+            }
+            taggedValue.Update();
+            _native.TaggedValues.Refresh();
+            _native.Update();
+        }
+
+        public void UpdateTaggedValue(string name, string data)
+        {
+            ConnectorTag taggedValue = _native.TaggedValues.GetByName(name);
+            if (data.Length > 255)
+            {
+                taggedValue.Value = "<memo>";
+                taggedValue.Notes = data;
+            }
+            else
+                taggedValue.Value = data;    
+            
             taggedValue.Update();
             _native.TaggedValues.Refresh();
             _native.Update();
@@ -170,6 +196,22 @@ namespace EAFacade.Model.Impl
                 }
             }
         }
+
+        public string GetTaggedValueByName(string name)
+        {
+            var value = (from x in TaggedValues where x.Name.Equals(name) select x);
+
+            if (value.Any())
+            {
+                var first = value.First();
+                if (first.Value.Equals("<memo>"))
+                    return first.Notes;
+                return first.Value;
+            }
+            return null;
+            //return value.Any() ? value.First().Value : null;
+        }
+
 
         internal static IEAConnector Wrap(Connector native)
         {

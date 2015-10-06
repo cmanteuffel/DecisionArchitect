@@ -25,6 +25,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>0</WarningLevel>
     <RegisterForComInterop>true</RegisterForComInterop>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -38,9 +39,12 @@
     <ProgramFiles>Program Files</ProgramFiles>
     <ProgramFiles Condition="'$(PROCESSOR_ARCHITECTURE)'=='AMD64' or '$(PROCESSOR_ARCHITEW6432)'=='AMD64'">Program Files (x86)</ProgramFiles>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Interop.EA">
-      <HintPath>C:\$(ProgramFiles)\Sparx Systems\EA\Interop.EA.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Sparx Systems\EA\Interop.EA.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />
@@ -60,6 +64,7 @@
     <Compile Include="Forms\SelectDiagram.Designer.cs">
       <DependentUpon>SelectDiagram.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\IEAFile.cs" />
     <Compile Include="Model\EAConnectorDirection.cs" />
     <Compile Include="Model\IEAConnectorTag.cs" />
     <Compile Include="Model\IEADiagram.cs" />
@@ -69,6 +74,7 @@
     <Compile Include="Model\IEAVolatileConnector.cs" />
     <Compile Include="Model\IEAVolatileDiagram.cs" />
     <Compile Include="Model\IEAVolatileElement.cs" />
+    <Compile Include="Model\Impl\EAFile.cs" />
     <Compile Include="Model\Impl\EAConnector.cs" />
     <Compile Include="Model\Impl\EAConnectorTag.cs" />
     <Compile Include="Model\Impl\EADiagram.cs">

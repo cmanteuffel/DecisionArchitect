@@ -10,6 +10,7 @@
     Spyros Ioakeimidis (University of Groningen)
     Mark Hoekstra (University of Groningen)
     Marc Holterman (University of Groningen)
+    Mathieu Kalksma (University of Groningen)
 */
 
 using System;
@@ -66,7 +67,9 @@ namespace EAFacade.Model.Impl
                 }
                 return parentElmt;
             }
-            set { _native.ParentID = value.ID; }
+            set {
+                _native.ParentID = value == null ? 0 : value.ID;
+            }
         }
 
         public List<IEATaggedValue> TaggedValues
@@ -76,6 +79,11 @@ namespace EAFacade.Model.Impl
                 return _native.TaggedValues.Cast<TaggedValue>()
                               .Select(EATaggedValue.Wrap).ToList();
             }
+        }
+
+        public List<IEAFile> Files 
+        {
+            get { return _native.Files.Cast<IFile>().Select(EAFile.Wrap).ToList(); }
         }
 
         public string StereotypeList
@@ -164,6 +172,18 @@ namespace EAFacade.Model.Impl
             return path;
         }
 
+        public IEAFile AddFile(string name)
+        {
+            IFile newFile = _native.Files.AddNew(name, String.Empty);
+            newFile.Update();
+            return EAFile.Wrap(newFile);
+        }
+
+        public void DeleteFile(int index)
+        {
+            _native.Files.DeleteAt((short)index, true);
+        }
+
         public IEnumerable<IEAElement> GetTracedElements()
         {
             if (_native == null)
@@ -181,18 +201,6 @@ namespace EAFacade.Model.Impl
                                                     );
             return traces;
         }
-
-        [Obsolete("Should be moved to topic", false)]
-        public IEnumerable<IEAElement> GetDecisionsForTopic()
-        {
-            if (!EAMain.IsTopic(this))
-            {
-                throw new Exception("EAElementImpl is not a topic");
-            }
-
-            return from EAElement e in GetElements() where EAMain.IsDecision(e) select e;
-        }
-
 
         [Obsolete("Should be moved to appropriate domain class", false)]
         public IEnumerable<IEAElement> GetConnectedRequirements()
@@ -302,6 +310,29 @@ namespace EAFacade.Model.Impl
 
             return EAConnector.Wrap(connector);
         }
+
+        public IEAConnector ConnectTo(IEAElement suppliedElement, String type, String stereotype, bool allowMultiple)
+        {
+            //check if two elements are already connected with this connector
+            if (!allowMultiple)
+            {
+                IList<IEAConnector> connectors = FindConnectors(suppliedElement, stereotype, type);
+                if (connectors.Count > 0) return connectors.FirstOrDefault();
+            }
+
+            Connector connector = _native.Connectors.AddNew("", type);
+            connector.Stereotype = stereotype;
+            connector.SupplierID = suppliedElement.ID;
+            connector.Update();
+
+            _native.Connectors.Refresh();
+            _native.Update();
+            ((EAElement)suppliedElement)._native.Connectors.Refresh();
+            suppliedElement.Update();
+
+            return EAConnector.Wrap(connector);
+        }
+
 
         /// <summary>
         ///     Implements IEAElement.RemoveConnector(IEAConnector connector)

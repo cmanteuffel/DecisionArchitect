@@ -10,6 +10,7 @@
     Spyros Ioakeimidis (University of Groningen)
     Antonis Gkortzis (University of Groningen)
     Mark Hoekstra (University of Groningen)
+    Mathieu Kalksma (University of Groningen)
 */
 
 using System;
@@ -66,7 +67,7 @@ namespace DecisionArchitect.Model
         public IEAElement[] GetDecisions()
         {
             IEARepository repository = EAMain.Repository;
-            IEAElement[] topics = (from diagramObject in _diagram.GetElements()
+            IEAElement[] topicsElements = (from diagramObject in _diagram.GetElements()
                                    select repository.GetElementByID(diagramObject.ElementID)
                                    into element
                                    where
@@ -75,8 +76,11 @@ namespace DecisionArchitect.Model
                                    select element).ToArray();
 
 
+            
+            ITopic[] topics = (from element in topicsElements select Topic.Load(element)).ToArray();
+
             IEnumerable<IEAElement> decisionsFromTopic =
-                (from IEAElement topic in topics select topic.GetDecisionsForTopic()).SelectMany(x => x);
+                (from ITopic topic in topics select topic.GetDecisionsForTopic()).SelectMany(x => x);
 
 
             IEnumerable<IEAElement> decisionsDirectlyFromDiagram = (from diagramObject in _diagram.GetElements()

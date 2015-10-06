@@ -12,7 +12,7 @@
 
 namespace DecisionArchitect.View.Dialogs
 {
-    partial class CreateDecision
+    partial class CreateDecisionDialog
     {
         /// <summary>
         /// Required designer variable.

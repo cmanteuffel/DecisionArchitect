@@ -20,6 +20,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using DecisionArchitect.Model;
 using DecisionArchitect.View.Components.RichTextBox;
 using EAFacade;
 
@@ -27,6 +28,7 @@ namespace DecisionArchitect.Utilities
 {
     public static class Utils
     {
+
         public static string GetResourceContents(string resource)
         {
             string technology = null;
@@ -40,6 +42,16 @@ namespace DecisionArchitect.Utilities
                     }
             }
             return technology;
+        }
+
+        public static Color GetDesiredForegroundColor(Color backgroundColor)
+        {
+            //http://stackoverflow.com/questions/2241447/make-foregroundcolor-black-or-white-depending-on-background
+            var backColor = (int)Math.Sqrt(
+                backgroundColor.R * backgroundColor.R * .299 +
+                backgroundColor.G * backgroundColor.G * .587 +
+                backgroundColor.B * backgroundColor.B * .114);
+            return backColor > 130 ? Color.Black : Color.White;
         }
 
         public static long[] GetImageSize(Image img)
@@ -169,6 +181,34 @@ namespace DecisionArchitect.Utilities
 
             return helperRichTextBox.Rtf;
         }
+
+        public static List<IDecision> SortDecisionsByState(List<IDecision> input)
+        {
+            input.Sort((a, b) => GetSortValueForState(a.State).CompareTo(GetSortValueForState(b.State)));
+            return input;
+        }
+
+        private static int GetSortValueForState(string state)
+        {
+            switch (state.ToLower())
+            {
+                case "approved":
+                    return 1;
+                case "decided":
+                    return 2;
+                case "tentative":
+                    return 3;
+                case "idea":
+                    return 4;
+                case "challenged":
+                    return 5;
+                case "discarded":
+                    return 6;
+                default:
+                    return 7;
+
+            }
+        }
     }
 
     /**
@@ -264,5 +304,6 @@ namespace DecisionArchitect.Utilities
             Discarded = 5,
             Rejected = 6
         }
+
     }
 }

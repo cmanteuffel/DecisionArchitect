@@ -18,9 +18,9 @@ using EAFacade.Model;
 
 namespace DecisionArchitect.View.Dialogs
 {
-    public partial class CreateTopic : Form
+    public partial class CreateTopicDialog : Form
     {
-        public CreateTopic(string nameproposal)
+        public CreateTopicDialog(string nameproposal)
         {
             InitializeComponent();
             txtName.Text = nameproposal;

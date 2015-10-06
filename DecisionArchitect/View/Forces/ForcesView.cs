@@ -593,7 +593,7 @@ namespace DecisionArchitect.View.Forces
             }
             else if (diagrams.Count() >= 2) // let the user decide which diagram to open
             {
-                var selectForm = new SelectDiagram(diagrams);
+                var selectForm = new SelectDiagramDialog(diagrams);
                 if (selectForm.ShowDialog() == DialogResult.OK)
                 {
                     IEADiagram diagram = selectForm.GetSelectedDiagram();
@@ -753,13 +753,13 @@ namespace DecisionArchitect.View.Forces
 
         private void _btnAddDecision_Click(object sender, EventArgs e)
         {
-            var addDecision = new AddDecision(_controller);
+            var addDecision = new AddDecisionDialog(_controller);
             addDecision.ShowDialog();
         }
 
         private void _btnAddForce_Click(object sender, EventArgs e)
         {
-            var addForce = new AddForce(_controller);
+            var addForce = new AddForceDialog(_controller);
             addForce.ShowDialog();
         }
     }

@@ -20,9 +20,9 @@ using EAFacade.Model;
 
 namespace DecisionArchitect.View.Dialogs
 {
-    public partial class CreateDecision : Form
+    public partial class CreateDecisionDialog : Form
     {
-        public CreateDecision(string nameProposal)
+        public CreateDecisionDialog(string nameProposal)
         {
             InitializeComponent();
             comboState.DataSource = EAConstants.States.ToList();

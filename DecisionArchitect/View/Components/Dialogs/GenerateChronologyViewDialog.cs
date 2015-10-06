@@ -7,11 +7,11 @@ using EAFacade.Model;
 
 namespace DecisionArchitect.View.Dialogs
 {
-    public partial class GenerateChronologyView : Form
+    public partial class GenerateChronologyViewDialog : Form
     {
         public readonly List<IEAElement> Decisions = new List<IEAElement>();
 
-        public GenerateChronologyView()
+        public GenerateChronologyViewDialog()
         {
             InitializeComponent();
             PopulateTreeView();

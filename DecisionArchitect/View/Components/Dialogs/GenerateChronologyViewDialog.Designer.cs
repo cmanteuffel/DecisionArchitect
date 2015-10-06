@@ -1,6 +1,6 @@
 ﻿namespace DecisionArchitect.View.Dialogs
 {
-    partial class GenerateChronologyView
+    partial class GenerateChronologyViewDialog
     {
         /// <summary>
         /// Required designer variable.

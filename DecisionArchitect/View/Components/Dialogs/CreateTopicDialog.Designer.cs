@@ -13,7 +13,7 @@
 
 namespace DecisionArchitect.View.Dialogs
 {
-    partial class CreateTopic
+    partial class CreateTopicDialog
     {
         /// <summary>
         /// Required designer variable.

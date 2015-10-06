@@ -24,6 +24,7 @@ namespace DecisionArchitect.Model
         DateTime Modified { get; set; }
         string Author { get; set; }
         string Rationale { get; set; }
+        bool DoDelete { get; set; }
         //topic cannot (yet) be changed programatically. Feature will come in future. 
         ITopic Topic { get; }
         BindingList<IHistoryEntry> History { get; }
