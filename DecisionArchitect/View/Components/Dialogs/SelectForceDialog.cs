@@ -4,11 +4,13 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DecisionArchitect.Model;
 using EAFacade;
+using log4net;
 
 namespace DecisionArchitect.View.Dialogs
 {
@@ -18,14 +20,19 @@ namespace DecisionArchitect.View.Dialogs
         private Dictionary<string, string> _forcesMap; 
         public IConcern Concern { get; private set; }
         public IForce Force { get; private set; }
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private IList<ITopicForceEvaluation> _forces; 
 
         public SelectForceDialog(IList<ITopicForceEvaluation> forces )
         {
             InitializeComponent();
             _forces = forces;
+            Log.Debug("Loading Concerns for autocompletion");
             txtConcern.AutoCompleteCustomSource = LoadAutoCompleteConcerns();
+            Log.Debug("Finished loading Concerns for autocompletion");
+            Log.Debug("Loading Forces  for autocompletion");
             txtForce.AutoCompleteCustomSource = LoadAutoCompleteForces();
+            Log.Debug("Finished loading Forces for autocompletion");
         }
 
         [Obsolete("Debt: Weak key in map. Map does not support concerns with the same name. Quick fix applied")]
@@ -51,17 +58,8 @@ namespace DecisionArchitect.View.Dialogs
             var elements = (from x in EAMain.Repository.GetAllElements() where !string.IsNullOrEmpty(x.Name) select x);
             foreach (var element in elements)
             {
-                var package = element.ParentPackage.Name;
-                var temp = element.ParentPackage;
-                var lastParent = temp.GUID;
-                while (true)
-                {
-                    temp = temp.ParentPackage;
-                    if (temp == null || lastParent.Equals(temp.GUID)) break;
-                    lastParent = temp.GUID;
-                    package = temp.Name + "/" + package;
-                }
-                var fullName = element.Name + " (" + package + ")";
+                
+                var fullName = element.Name + " (" + element.GetProjectPath() + ")";
                 //TODO: What to do with multiple with same name?
                 if (_forcesMap.ContainsKey(fullName ))
                     continue; 
@@ -69,7 +67,6 @@ namespace DecisionArchitect.View.Dialogs
                 collection.Add(fullName);
             }
             return collection;
-
         }
 
 

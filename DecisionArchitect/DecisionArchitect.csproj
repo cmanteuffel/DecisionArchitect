@@ -49,6 +49,10 @@
       <HintPath>C:\Program Files (x86)\Sparx Systems\EA\Interop.EA.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -342,7 +346,8 @@
     <EmbeddedResource Include="View\TopicView.resx">
       <DependentUpon>TopicView.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="app.config" />
+    <EmbeddedResource Include="app.config" />
+    <None Include="packages.config" />
     <None Include="Properties\DataSources\DecisionArchitect.Model.New.IHistoryEntry.datasource" />
     <None Include="Properties\DataSources\DecisionArchitect.Model.New.IStakeholder.datasource" />
     <None Include="Properties\DataSources\DecisionArchitect.Model.New.IStakeholderAction.datasource" />
@@ -383,6 +388,9 @@
     <Content Include="DecisionArchitect.ico" />
     <None Include="Resources\plus.png" />
     <None Include="Resources\colorpicker1.png" />
+    <None Include="logger.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Templates\DAReport.xml" />
     <Content Include="Templates\DAReportScript.js" />
   </ItemGroup>

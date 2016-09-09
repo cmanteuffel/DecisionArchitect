@@ -25,6 +25,7 @@ using DecisionArchitect.View.Chronology;
 using DecisionArchitect.View.Dialogs;
 using DecisionArchitect.View.Forces;
 using DecisionArchitect.View.Stakeholders;
+using log4net;
 
 namespace DecisionArchitect.View
 {
@@ -52,10 +53,13 @@ namespace DecisionArchitect.View
         public ChronologyView ChronologyView { get { return chronologyView1;  }}
         public StakeholdersView StakeholdersView { get { return stakeholdersView1;  }}
 
+        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         public TopicViewController()
         {
             InitializeComponent();
             tableDetails.Padding = new Padding(0, 0, SystemInformation.VerticalScrollBarWidth, 0);
+            Log.Debug("Construct TopicViewController");
         }
 
         public TopicViewController(ITopic topic)

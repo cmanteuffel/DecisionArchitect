@@ -201,7 +201,7 @@ Do you want to open the original version of the decision instead?</value>
     <value>Force already exists</value>
   </data>
   <data name="ErrorSelectDecisionViewPackage" xml:space="preserve">
-    <value>Please select a decicion view package.</value>
+    <value>Please select a decision view package.</value>
   </data>
   <data name="WarningCreateRelation" xml:space="preserve">
     <value>Warning</value>
